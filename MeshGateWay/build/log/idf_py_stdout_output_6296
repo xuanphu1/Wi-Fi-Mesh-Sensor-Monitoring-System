@@ -1,0 +1,162 @@
+[1/14] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/spiffsgen.py 0x20000 "D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi" "D:/Engineering Project/MeshGateWay/build/spiffs.bin" --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[2/14] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\bootloader\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 "D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin""
+Bootloader binary size 0x68b0 bytes. 0x750 bytes (7%) free.
+[3/14] No install step for 'bootloader'
+[4/14] Completed 'bootloader'
+[5/14] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_tasks.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_tasks.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[6/14] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_ap.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_ap.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[7/14] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_core.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_core.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[8/14] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_http.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_http.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[9/14] Linking C static library esp-idf\WifiManager\libWifiManager.a
+[10/14] Generating ld/sections.ld
+[11/14] Linking CXX executable MeshGateWay.elf
+[12/14] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin
+[13/14] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 partition --type app "D:/Engineering Project/MeshGateWay/build/partition_table/partition-table.bin" "D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin""
+MeshGateWay.bin binary size 0x1943c0 bytes. Smallest app partition is 0x1c0000 bytes. 0x2bc40 bytes (10%) free.
+[13/14] C:\Windows\system32\cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.2.5\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.2.5 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D "WORKING_DIRECTORY=D:/Engineering Project/MeshGateWay/build" -P C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 MeshGateWay.bin 0x8000 partition_table/partition-table.bin 0xe000 ota_data_initial.bin 0x390000 spiffs.bin
+esptool.py v4.8.1
+Serial port COM4
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 78:1c:3c:f4:d0:d8
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x001a4fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00390000 to 0x003affff...
+SHA digest in image updated
+Compressed 26800 bytes to 16420...
+Writing at 0x00001000... (50 %)
+Writing at 0x00007894... (100 %)
+Wrote 26800 bytes (16420 compressed) at 0x00001000 in 0.8 seconds (effective 269.5 kbit/s)...
+Hash of data verified.
+Compressed 1655744 bytes to 860959...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001dac9... (3 %)
+Writing at 0x0002b610... (5 %)
+Writing at 0x00068f14... (7 %)
+Writing at 0x00075674... (9 %)
+Writing at 0x00080c6b... (11 %)
+Writing at 0x00088ac0... (13 %)
+Writing at 0x00092301... (15 %)
+Writing at 0x0009a5d1... (16 %)
+Writing at 0x0009fef5... (18 %)
+Writing at 0x000a58c0... (20 %)
+Writing at 0x000ab480... (22 %)
+Writing at 0x000b14f3... (24 %)
+Writing at 0x000b784e... (26 %)
+Writing at 0x000bd894... (28 %)
+Writing at 0x000c330f... (30 %)
+Writing at 0x000c90fe... (32 %)
+Writing at 0x000cef83... (33 %)
+Writing at 0x000d5189... (35 %)
+Writing at 0x000dacca... (37 %)
+Writing at 0x000e0d6a... (39 %)
+Writing at 0x000e6877... (41 %)
+Writing at 0x000ed153... (43 %)
+Writing at 0x000f3847... (45 %)
+Writing at 0x000f9563... (47 %)
+Writing at 0x000fefae... (49 %)
+Writing at 0x00104fd1... (50 %)
+Writing at 0x0010ad7a... (52 %)
+Writing at 0x00110b7a... (54 %)
+Writing at 0x001174fc... (56 %)
+Writing at 0x0011d22b... (58 %)
+Writing at 0x00122d99... (60 %)
+Writing at 0x00129621... (62 %)
+Writing at 0x0012f23c... (64 %)
+Writing at 0x00134f35... (66 %)
+Writing at 0x0013a27f... (67 %)
+Writing at 0x0013f6b5... (69 %)
+Writing at 0x00144b52... (71 %)
+Writing at 0x00149ea6... (73 %)
+Writing at 0x0014f5b3... (75 %)
+Writing at 0x00154d68... (77 %)
+Writing at 0x0015a9c1... (79 %)
+Writing at 0x00160086... (81 %)
+Writing at 0x00165d71... (83 %)
+Writing at 0x0016b885... (84 %)
+Writing at 0x001711a2... (86 %)
+Writing at 0x00176a52... (88 %)
+Writing at 0x00180940... (90 %)
+Writing at 0x00189556... (92 %)
+Writing at 0x0018f670... (94 %)
+Writing at 0x00195751... (96 %)
+Writing at 0x0019bef4... (98 %)
+Writing at 0x001a120a... (100 %)
+Wrote 1655744 bytes (860959 compressed) at 0x00010000 in 23.0 seconds (effective 575.0 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 128...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (128 compressed) at 0x00008000 in 0.1 seconds (effective 463.7 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000e000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000e000 in 0.1 seconds (effective 1137.0 kbit/s)...
+Hash of data verified.
+Compressed 131072 bytes to 4846...
+Writing at 0x00390000... (100 %)
+Wrote 131072 bytes (4846 compressed) at 0x00390000 in 0.8 seconds (effective 1318.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

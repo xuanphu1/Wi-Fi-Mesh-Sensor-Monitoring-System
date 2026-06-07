@@ -1,0 +1,24 @@
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.5.0 on \\.\COM4 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- 0x40080400: _init at ??:?
+[0m
+[1;31m--- Error: ClearCommError failed (PermissionError(13, 'Access is denied.', None, 5))[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0;33m--- 0x40080400: _init at ??:?
+[0m
+[0;33m--- 0x4008d885: uxListRemove at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/list.c:209
+[0m
+[0;33m--- 0x400014fd: strlen in ROM
+0x4000150d: strlen in ROM
+[0m
+[0;33m--- 0x4008d882: uxListRemove at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/list.c:209
+0x4008f098: vTaskDelete at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/tasks.c:1335
+0x40109cce: stop_webserver at D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_http.c:477
+0x40109e7a: wifi_manager_task at D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_tasks.c:75
+0x4008c93d: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40080400: _init at ??:?
+[0m
+[0m

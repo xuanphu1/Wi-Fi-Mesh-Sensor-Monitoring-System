@@ -1,0 +1,153 @@
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.5.0 on \\.\COM4 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- 0x40080400: _init at ??:?
+[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40128A07: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40128A07']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40128E24: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40128E24']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40083915: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40083915']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400F7692: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400F7692']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400F76DB: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400F76DB']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400F77D9: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400F77D9']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400F5A31: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400F5A31']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400F52AA: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400F52AA']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400DF606: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400DF606']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x400DF232: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x400DF232']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x401C84B9: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x401C84B9']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x401C7F4E: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x401C7F4E']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x4011BAAF: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x4011BAAF']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x4011BB65: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x4011BB65']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x4011BE42: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x4011BE42']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x4008C951: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x4008C951']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+C:\Espressif\tools\xtensa-esp-elf\esp-13.2.0_20230928\xtensa-esp-elf\bin\xtensa-esp-elf-addr2line.exe: D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf: file format not recognized
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40128A07: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40128A07']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+C:\Espressif\tools\xtensa-esp-elf\esp-13.2.0_20230928\xtensa-esp-elf\bin\xtensa-esp-elf-addr2line.exe: D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf: file format not recognized
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40128E24: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40128E24']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+C:\Espressif\tools\xtensa-esp-elf\esp-13.2.0_20230928\xtensa-esp-elf\bin\xtensa-esp-elf-addr2line.exe: D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf: file format not recognized
+[1;31mxtensa-esp32-elf-addr2line -pfiaC -e D:\Engineering Project\MeshGateWay\build\MeshGateWay.elf 0x40083915: Command '['xtensa-esp32-elf-addr2line', '-pfiaC', '-e', 'D:\\Engineering Project\\MeshGateWay\\build\\MeshGateWay.elf', '0x40083915']' returned non-zero exit status 1.[0m
+[1;31mELF file is missing or has changed, the build folder was probably modified.[0m
+[0;33m--- 0x400f7692: search_suitable_block at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:572
+0x400f76db: block_locate_free at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:768
+0x400f77d9: lv_tlsf_malloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:1098
+0x400f5a31: lv_mem_alloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_mem.c:126
+0x400f52aa: lv_async_timer_cb at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_async.c:104
+0x400df606: screen_manager_set_ws_status at D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:145
+0x400df232: websocket_event_handler at D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:295
+0x401c84b9: esp_event_post_to at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:893
+0x401c7f4e: esp_event_loop_run at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:571
+0x4011baaf: esp_websocket_client_dispatch_event at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:211
+0x4011bb65: esp_websocket_client_error at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:269
+0x4011be42: esp_websocket_client_task at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:1024
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40128a07: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:431
+0x40128e24: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:499 (discriminator 3)
+0x40083915: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa/xtensa_vectors.S:1240
+0x400f7692: search_suitable_block at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:572
+0x400f76db: block_locate_free at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:768
+0x400f77d9: lv_tlsf_malloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:1098
+0x400f5a31: lv_mem_alloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_mem.c:126
+0x400f52aa: lv_async_timer_cb at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_async.c:104
+0x400df606: screen_manager_set_ws_status at D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:145
+0x400df232: websocket_event_handler at D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:295
+0x401c84b9: esp_event_post_to at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:893
+0x401c7f4e: esp_event_loop_run at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:571
+0x4011baaf: esp_websocket_client_dispatch_event at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:211
+0x4011bb65: esp_websocket_client_error at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:269
+0x4011be42: esp_websocket_client_task at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:1024
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40128a07: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:431
+0x40128e24: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:499 (discriminator 3)
+0x40083915: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa/xtensa_vectors.S:1240
+0x400f7692: search_suitable_block at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:572
+0x400f76db: block_locate_free at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:768
+0x400f77d9: lv_tlsf_malloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:1098
+0x400f5a31: lv_mem_alloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_mem.c:126
+0x400f52aa: lv_async_timer_cb at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_async.c:104
+0x400df606: screen_manager_set_ws_status at D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:145
+0x400df232: websocket_event_handler at D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:295
+0x401c84b9: esp_event_post_to at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:893
+0x401c7f4e: esp_event_loop_run at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:571
+0x4011baaf: esp_websocket_client_dispatch_event at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:211
+0x4011bb65: esp_websocket_client_error at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:269
+0x4011be42: esp_websocket_client_task at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:1024
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40128a07: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:431
+0x40128e24: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:499 (discriminator 3)
+0x40083915: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa/xtensa_vectors.S:1240
+0x400f7692: search_suitable_block at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:572
+0x400f76db: block_locate_free at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:768
+0x400f77d9: lv_tlsf_malloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:1098
+0x400f5a31: lv_mem_alloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_mem.c:126
+0x400f52aa: lv_async_timer_cb at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_async.c:104
+0x400df606: screen_manager_set_ws_status at D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:145
+0x400df232: websocket_event_handler at D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:295
+0x401c84b9: esp_event_post_to at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:893
+0x401c7f4e: esp_event_loop_run at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:571
+0x4011baaf: esp_websocket_client_dispatch_event at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:211
+0x4011bb65: esp_websocket_client_error at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:269
+0x4011be42: esp_websocket_client_task at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:1024
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40128a07: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:431
+0x40128e24: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:499 (discriminator 3)
+0x40083915: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa/xtensa_vectors.S:1240
+0x400d6e80: uart_ll_get_txfifo_len at C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal/esp32/include/hal/uart_ll.h:408
+ (inlined by) uart_tx_char at C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/vfs_uart.c:185
+0x400d76b3: uart_write at C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/vfs_uart.c:238
+0x400d6407: console_write at C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/vfs_console.c:73 (discriminator 1)
+0x400d5b26: esp_vfs_write at C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/vfs.c:482 (discriminator 3)
+0x4000bd83: _write_r in ROM
+0x4000117d: __swrite in ROM
+0x400592fe: __sflush_r in ROM
+0x4005937a: _fflush_r in ROM
+0x401aae19: __sfvwrite_r at /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c:235
+0x401b8e0b: get_arg at /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfiprintf.c:2234
+0x401b87ce: _vfprintf_r at /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c:1766 (discriminator 1)
+0x401ab379: _sscanf_r at /builds/idf/crosstool-NG/.build/HOST-x86_64-w64-mingw32/xtensa-esp-elf/src/newlib/newlib/libc/stdio/sscanf.c:468
+0x401ca32d: esp_log_level_set at C:/Espressif/frameworks/esp-idf-v5.2.5/components/log/log.c:149
+0x40093929: esp_log_write at C:/Espressif/frameworks/esp-idf-v5.2.5/components/log/log.c:222
+0x400de6f3: uart_node_enqueue_rx at D:/Engineering Project/MeshGateWay/components/core/UartToNode/UartToNode.c:204 (discriminator 1)
+0x400de765: uart_to_node_feed_rx at D:/Engineering Project/MeshGateWay/components/core/UartToNode/UartToNode.c:309
+0x400de8aa: uart_to_node_task at D:/Engineering Project/MeshGateWay/components/core/UartToNode/UartToNode.c:396
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40128a07: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:431
+0x40128e24: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/task_wdt/task_wdt.c:499 (discriminator 3)
+0x40083915: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa/xtensa_vectors.S:1240
+0x400f7692: search_suitable_block at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:572
+0x400f76db: block_locate_free at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:768
+0x400f77d9: lv_tlsf_malloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_tlsf.c:1098
+0x400f5a31: lv_mem_alloc at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_mem.c:126
+0x400f52aa: lv_async_timer_cb at D:/Engineering Project/MeshGateWay/components/drivers/lvgl/src/misc/lv_async.c:104
+0x400df606: screen_manager_set_ws_status at D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:145
+0x400df232: websocket_event_handler at D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:295
+0x401c84b9: esp_event_post_to at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:893
+0x401c7f4e: esp_event_loop_run at C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/esp_event.c:571
+0x4011baaf: esp_websocket_client_dispatch_event at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:211
+0x4011bb65: esp_websocket_client_error at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:269
+0x4011be42: esp_websocket_client_task at D:/Engineering Project/MeshGateWay/components/drivers/webSocket/esp_websocket_client.c:1024
+0x4008c951: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0m

@@ -1,0 +1,1941 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82e64h (536164) map[0m
+[0;32mI (308) esp_image: segment 1: paddr=00092e8c vaddr=3ffb0000 size=04570h ( 17776) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=00097404 vaddr=40080000 size=08c14h ( 35860) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbaa8h (1030824) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bad0 vaddr=40088c14 size=12780h ( 75648) load[0m
+[0;32mI (726) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (727) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (727) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (761) cpu_start: App version:      1[0m
+[0;32mI (766) cpu_start: Compile time:     May 28 2026 16:28:13[0m
+[0;32mI (772) cpu_start: ELF file SHA256:  35df21916...[0m
+[0;32mI (777) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (782) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (787) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (792) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (797) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (804) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (810) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (816) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (823) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (829) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (837) spi_flash: detected chip: generic[0m
+[0;32mI (840) spi_flash: flash io: dio[0m
+[0;33mW (844) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (854) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (864) main_task: Started on CPU0[0m
+[0;32mI (874) main_task: Calling app_main()[0m
+[0;32mI (894) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (894) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (894) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (894) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (904) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (914) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (924) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (924) disp_spi: Adding SPI device[0m
+[0;32mI (924) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1134) ILI9341: Initialization.[0m
+[0;32mI (1334) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1334) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1334) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1654) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1664) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1674) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1704) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1704) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:22:24
+[0;33mW (1724) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1754) wifi:wifi driver task: 3ffde8b8, prio:23, stack:6656, core=0[0m
+[0;32mI (1754) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1754) wifi:wifi certification version: v7.0[0m
+[0;32mI (1754) wifi:config NVS flash: enabled[0m
+[0;32mI (1754) wifi:config nano formating: disabled[0m
+[0;32mI (1764) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1764) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1774) wifi:Init management short buffer num: 32[0m
+[0;32mI (1774) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1784) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1784) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1784) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1794) wifi_init: rx ba win: 6[0m
+[0;32mI (1794) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1804) wifi_init: udp mbox: 6[0m
+[0;32mI (1804) wifi_init: tcp mbox: 6[0m
+[0;32mI (1804) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1814) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1814) wifi_init: tcp mss: 1440[0m
+[0;32mI (1824) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1824) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1834) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1834) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1844) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1934) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1954) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1954) wifi:enable tsf[0m
+[0;32mI (1964) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4374) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4374) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4384) wifi:flush txq[0m
+[0;32mI (4384) wifi:stop sw txq[0m
+[0;32mI (4384) wifi:lmac stop hw txq[0m
+[0;32mI (4394) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4394) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4394) wifi:enable tsf[0m
+[0;32mI (4404) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6814) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6814) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6824) wifi:flush txq[0m
+[0;32mI (6824) wifi:stop sw txq[0m
+[0;32mI (6824) wifi:lmac stop hw txq[0m
+[0;32mI (6824) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6834) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6834) wifi:enable tsf[0m
+[0;32mI (6834) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9254) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9254) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9254) wifi:flush txq[0m
+[0;32mI (9254) wifi:stop sw txq[0m
+[0;32mI (9264) wifi:lmac stop hw txq[0m
+[0;32mI (9264) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9274) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9274) wifi:enable tsf[0m
+[0;32mI (9274) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11694) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11694) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11694) wifi:flush txq[0m
+[0;32mI (11694) wifi:stop sw txq[0m
+[0;32mI (11694) wifi:lmac stop hw txq[0m
+[0;32mI (11704) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11704) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (11704) wifi:enable tsf[0m
+[0;32mI (11714) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14124) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14134) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14134) wifi:flush txq[0m
+[0;32mI (14134) wifi:stop sw txq[0m
+[0;32mI (14134) wifi:lmac stop hw txq[0m
+[0;32mI (14144) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14144) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (14144) wifi:enable tsf[0m
+[0;32mI (14154) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;32mI (678) esp_image: segment 4: paddr=0019bad0 vaddr=40088c14 size=12780h ( 75648) load[0m
+[0;32mI (721) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (733) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      1[0m
+[0;32mI (755) cpu_start: Compile time:     May 28 2026 16:28:13[0m
+[0;32mI (762) cpu_start: ELF file SHA256:  35df21916...[0m
+[0;32mI (767) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (772) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (777) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (782) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (787) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (794) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (800) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (806) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (812) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (819) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (826) spi_flash: detected chip: generic[0m
+[0;32mI (830) spi_flash: flash io: dio[0m
+[0;33mW (834) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (844) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (853) main_task: Started on CPU0[0m
+[0;32mI (863) main_task: Calling app_main()[0m
+[0;32mI (883) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (883) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (883) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (883) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (893) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (903) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (903) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (913) disp_spi: Adding SPI device[0m
+[0;32mI (913) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1123) ILI9341: Initialization.[0m
+[0;32mI (1323) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1323) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1323) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1643) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1653) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1663) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1693) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1693) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:22:45
+[0;33mW (1713) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1743) wifi:wifi driver task: 3ffde8b8, prio:23, stack:6656, core=0[0m
+[0;32mI (1743) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1743) wifi:wifi certification version: v7.0[0m
+[0;32mI (1743) wifi:config NVS flash: enabled[0m
+[0;32mI (1743) wifi:config nano formating: disabled[0m
+[0;32mI (1753) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1753) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1763) wifi:Init management short buffer num: 32[0m
+[0;32mI (1763) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1773) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1773) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1773) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1783) wifi_init: rx ba win: 6[0m
+[0;32mI (1783) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1793) wifi_init: udp mbox: 6[0m
+[0;32mI (1793) wifi_init: tcp mbox: 6[0m
+[0;32mI (1793) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp mss: 1440[0m
+[0;32mI (1813) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1813) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1823) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1823) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1833) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1923) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1923) wifi:enable tsf[0m
+[0;32mI (1933) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4343) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4343) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4353) wifi:flush txq[0m
+[0;32mI (4353) wifi:stop sw txq[0m
+[0;32mI (4353) wifi:lmac stop hw txq[0m
+[0;32mI (4363) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4363) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4363) wifi:enable tsf[0m
+[0;32mI (4373) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6783) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6783) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6793) wifi:flush txq[0m
+[0;32mI (6793) wifi:stop sw txq[0m
+[0;32mI (6793) wifi:lmac stop hw txq[0m
+[0;32mI (6793) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6803) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6803) wifi:enable tsf[0m
+[0;32mI (6803) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9223) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9223) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9223) wifi:flush txq[0m
+[0;32mI (9223) wifi:stop sw txq[0m
+[0;32mI (9233) wifi:lmac stop hw txq[0m
+[0;32mI (9233) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9243) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9243) wifi:enable tsf[0m
+[0;32mI (9243) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11663) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11663) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11663) wifi:flush txq[0m
+[0;32mI (11663) wifi:stop sw txq[0m
+[0;32mI (11663) wifi:lmac stop hw txq[0m
+[0;32mI (11673) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11673) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (11683) wifi:enable tsf[0m
+[0;32mI (11683) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14103) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14103) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14103) wifi:flush txq[0m
+[0;32mI (14103) wifi:stop sw txq[0m
+[0;32mI (14103) wifi:lmac stop hw txq[0m
+[0;32mI (14113) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14113) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (14113) wifi:enable tsf[0m
+[0;32mI (14123) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16533) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16533) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16543) wifi:flush txq[0m
+[0;32mI (16543) wifi:stop sw txq[0m
+[0;32mI (16543) wifi:lmac stop hw txq[0m
+[0;32mI (16553) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16553) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (16553) wifi:enable tsf[0m
+[0;32mI (16563) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (18973) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (18973) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (18983) wifi:flush txq[0m
+[0;32mI (18983) wifi:stop sw txq[0m
+[0;32mI (18983) wifi:lmac stop hw txq[0m
+[0;32mI (18983) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (18993) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (18993) wifi:enable tsf[0m
+[0;32mI (19003) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21413) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21413) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21423) wifi:flush txq[0m
+[0;32mI (21423) wifi:stop sw txq[0m
+[0;32mI (21423) wifi:lmac stop hw txq[0m
+[0;32mI (21423) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21433) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (21433) wifi:enable tsf[0m
+[0;32mI (21433) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23853) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23853) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23863) wifi:flush txq[0m
+[0;32mI (23863) wifi:stop sw txq[0m
+[0;32mI (23863) wifi:lmac stop hw txq[0m
+[0;32mI (23863) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23873) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (23873) wifi:enable tsf[0m
+[0;32mI (23873) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26293) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26293) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26293) wifi:flush txq[0m
+[0;32mI (26293) wifi:stop sw txq[0m
+[0;32mI (26303) wifi:lmac stop hw txq[0m
+[0;32mI (26303) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26303) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (26313) wifi:enable tsf[0m
+[0;32mI (26313) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28733) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28733) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28733) wifi:flush txq[0m
+[0;32mI (28733) wifi:stop sw txq[0m
+[0;32mI (28733) wifi:lmac stop hw txq[0m
+[0;32mI (28743) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28743) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (28743) wifi:enable tsf[0m
+[0;32mI (28753) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31163) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31163) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31173) wifi:flush txq[0m
+[0;32mI (31173) wifi:stop sw txq[0m
+[0;32mI (31173) wifi:lmac stop hw txq[0m
+[0;32mI (31183) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31183) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (31183) wifi:enable tsf[0m
+[0;32mI (31193) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33603) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33603) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33613) wifi:flush txq[0m
+[0;32mI (33613) wifi:stop sw txq[0m
+[0;32mI (33613) wifi:lmac stop hw txq[0m
+[0;32mI (33613) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33623) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (33623) wifi:enable tsf[0m
+[0;32mI (33623) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36043) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36043) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36053) wifi:flush txq[0m
+[0;32mI (36053) wifi:stop sw txq[0m
+[0;32mI (36053) wifi:lmac stop hw txq[0m
+[0;32mI (36053) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36063) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (36063) wifi:enable tsf[0m
+[0;32mI (36063) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38483) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38483) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (38483) wifi:flush txq[0m
+[0;32mI (38483) wifi:stop sw txq[0m
+[0;32mI (38493) wifi:lmac stop hw txq[0m
+[0;32mI (38493) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (38503) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (38503) wifi:enable tsf[0m
+[0;32mI (38503) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (39183) wifi:new:<4,0>, old:<1,0>, ap:<255,255>, sta:<4,0>, prof:1[0m
+[0;32mI (39183) wifi:state: init -> auth (b0)[0m
+[0;32mI (39183) wifi:state: auth -> assoc (0)[0m
+[0;32mI (39193) wifi:state: assoc -> run (10)[0m
+[0;33mW (39283) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (39293) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (39293) wifi:[ADDBA]rx delba, code:39, delete tid:6[0m
+[0;32mI (39303) wifi:connected with Unknown, aid = 2, channel 4, BW20, bssid = 04:20:84:39:c0:e7[0m
+[0;32mI (39303) wifi:security: WPA2-PSK, phy: bgn, rssi: -83[0m
+[0;32mI (39303) wifi:pm start, type: 1[0m
+
+[0;32mI (39303) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (39323) WiFiManager: WiFi STA link established[0m
+[0;32mI (39333) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (41393) wifi:<ba-add>idx:0 (ifx:0, 04:20:84:39:c0:e7), tid:6, ssn:3, winSize:64[0m
+[0;32mI (43323) esp_netif_handlers: sta ip: 192.168.1.7, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (43323) WiFiManager: Got IP: 192.168.1.7[0m
+[0;32mI (43323) WiFiManager: Connected startup WiFi: SSID=Unknown[0m
+[0;32mI (43333) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (43333) WiFiManager: Startup WiFi connected, keeping configuration AP active[0m
+[0;32mI (43343) WiFiManager: mDNS started: http://meshgateway.local[0m
+[0;32mI (43353) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (43353) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (43363) wifi:mode : sta (94:51:dc:30:36:9c) + softAP (94:51:dc:30:36:9d)[0m
+[0;32mI (43373) wifi:Total power save buffer number: 16[0m
+[0;32mI (43373) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (43383) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (43383) wifi:Total power save buffer number: 16[0m
+[0;32mI (43383) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (43393) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (43393) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (43413) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (43423) WiFiManager: Web server started on port 80[0m
+[0;32mI (43433) uart: queue free spaces: 24[0m
+[0;33mW (43433) uart_to_node: UART error event=1[0m
+[0;32mI (43443) uart_to_node: Send: Start Root[0m
+[0;32mI (43963) uart_to_node: Send: Start Root[0m
+[0;32mI (44433) WebSocket Handler: Starting WebSocket with URL: ws://172.20.10.2:8080/ws[0m
+[0;32mI (44433) websocket_client: Started[0m
+[0;32mI (44433) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (44483) uart_to_node: Send: Start Root[0m
+[0;32mI (45003) uart_to_node: Send: Start Root[0m
+[0;32mI (45523) uart_to_node: Send: Start Root[0m
+[0;32mI (46043) uart_to_node: Send: Start Root[0m
+[0;32mI (46563) uart_to_node: Send: Start Root[0m
+[0;32mI (47083) uart_to_node: Send: Start Root[0m
+[0;32mI (47603) uart_to_node: Send: Start Root[0m
+[0;32mI (48123) uart_to_node: Send: Start Root[0m
+[0;32mI (48643) uart_to_node: Send: Start Root[0m
+[0;32mI (49163) uart_to_node: Send: Start Root[0m
+[0;31mE (49453) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (49453) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (49453) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (49453) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (49473) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (49483) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (49483) WebSocket Handler: Disconnected from server[0m
+[0;32mI (49683) uart_to_node: Send: Start Root[0m
+[0;32mI (50203) uart_to_node: Send: Start Root[0m
+[0;32mI (50723) uart_to_node: Send: Start Root[0m
+[0;32mI (51243) uart_to_node: Send: Start Root[0m
+[0;32mI (51763) uart_to_node: Send: Start Root[0m
+[0;32mI (52283) uart_to_node: Send: Start Root[0m
+[0;32mI (52803) uart_to_node: Send: Start Root[0m
+[0;32mI (53323) uart_to_node: Send: Start Root[0m
+[0;32mI (53843) uart_to_node: Send: Start Root[0m
+[0;32mI (54363) uart_to_node: Send: Start Root[0m
+[0;32mI (54883) uart_to_node: Send: Start Root[0m
+[0;32mI (55403) uart_to_node: Send: Start Root[0m
+[0;32mI (55923) uart_to_node: Send: Start Root[0m
+[0;32mI (56443) uart_to_node: Send: Start Root[0m
+[0;32mI (56963) uart_to_node: Send: Start Root[0m
+[0;32mI (57483) uart_to_node: Send: Start Root[0m
+[0;32mI (58003) uart_to_node: Send: Start Root[0m
+[0;32mI (58523) uart_to_node: Send: Start Root[0m
+[0;32mI (59043) uart_to_node: Send: Start Root[0m
+[0;32mI (59563) uart_to_node: Send: Start Root[0m
+[0;32mI (60083) uart_to_node: Send: Start Root[0m
+[0;32mI (60603) uart_to_node: Send: Start Root[0m
+[0;32mI (61123) uart_to_node: Send: Start Root[0m
+[0;32mI (61643) uart_to_node: Send: Start Root[0m
+[0;32mI (62163) uart_to_node: Send: Start Root[0m
+[0;32mI (62683) uart_to_node: Send: Start Root[0m
+[0;32mI (63203) uart_to_node: Send: Start Root[0m
+[0;32mI (63723) uart_to_node: Send: Start Root[0m
+[0;32mI (64243) uart_to_node: Send: Start Root[0m
+[0;32mI (64763) uart_to_node: Send: Start Root[0m
+[0;32mI (65283) uart_to_node: Send: Start Root[0m
+[0;32mI (65803) uart_to_node: Send: Start Root[0m
+[0;32mI (66323) uart_to_node: Send: Start Root[0m
+[0;32mI (66843) uart_to_node: Send: Start Root[0m
+[0;32mI (67363) uart_to_node: Send: Start Root[0m
+[0;32mI (67883) uart_to_node: Send: Start Root[0m
+[0;32mI (68403) uart_to_node: Send: Start Root[0m
+[0;32mI (68923) uart_to_node: Send: Start Root[0m
+[0;32mI (69443) uart_to_node: Send: Start Root[0m
+[0;31mE (69503) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (69503) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (69503) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (69503) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (69523) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (69533) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (69533) WebSocket Handler: Disconnected from server[0m
+[0;32mI (69963) uart_to_node: Send: Start Root[0m
+[0;32mI (70483) uart_to_node: Send: Start Root[0m
+[0;32mI (71003) uart_to_node: Send: Start Root[0m
+[0;32mI (71523) uart_to_node: Send: Start Root[0m
+[0;32mI (72043) uart_to_node: Send: Start Root[0m
+[0;32mI (72563) uart_to_node: Send: Start Root[0m
+[0;32mI (73083) uart_to_node: Send: Start Root[0m
+[0;32mI (73603) uart_to_node: Send: Start Root[0m
+[0;32mI (73663) wifi:<ba-add>idx:1 (ifx:0, 04:20:84:39:c0:e7), tid:0, ssn:0, winSize:64[0m
+[0;32mI (74123) uart_to_node: Send: Start Root[0m
+[0;32mI (74643) uart_to_node: Send: Start Root[0m
+[0;32mI (75163) uart_to_node: Send: Start Root[0m
+[0;32mI (75683) uart_to_node: Send: Start Root[0m
+[0;32mI (76203) uart_to_node: Send: Start Root[0m
+[0;32mI (76723) uart_to_node: Send: Start Root[0m
+[0;32mI (77243) uart_to_node: Send: Start Root[0m
+[0;32mI (77763) uart_to_node: Send: Start Root[0m
+[0;32mI (78283) uart_to_node: Send: Start Root[0m
+[0;32mI (78803) uart_to_node: Send: Start Root[0m
+[0;32mI (79323) uart_to_node: Send: Start Root[0m
+[0;32mI (79843) uart_to_node: Send: Start Root[0m
+[0;32mI (80363) uart_to_node: Send: Start Root[0m
+[0;32mI (80883) uart_to_node: Send: Start Root[0m
+[0;32mI (81403) uart_to_node: Send: Start Root[0m
+[0;32mI (81923) uart_to_node: Send: Start Root[0m
+[0;32mI (82443) uart_to_node: Send: Start Root[0m
+[0;32mI (82963) uart_to_node: Send: Start Root[0m
+[0;32mI (83483) uart_to_node: Send: Start Root[0m
+[0;32mI (84003) uart_to_node: Send: Start Root[0m
+[0;32mI (84523) uart_to_node: Send: Start Root[0m
+[0;32mI (85043) uart_to_node: Send: Start Root[0m
+[0;32mI (85563) uart_to_node: Send: Start Root[0m
+[0;32mI (86083) uart_to_node: Send: Start Root[0m
+[0;32mI (86603) uart_to_node: Send: Start Root[0m
+[0;32mI (87123) uart_to_node: Send: Start Root[0m
+[0;32mI (87643) uart_to_node: Send: Start Root[0m
+[0;32mI (88163) uart_to_node: Send: Start Root[0m
+[0;32mI (88683) uart_to_node: Send: Start Root[0m
+[0;32mI (89203) uart_to_node: Send: Start Root[0m
+[0;31mE (89553) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (89553) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (89553) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (89553) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (89573) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (89583) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (89583) WebSocket Handler: Disconnected from server[0m
+[0;32mI (89723) uart_to_node: Send: Start Root[0m
+[0;32mI (90243) uart_to_node: Send: Start Root[0m
+[0;32mI (90763) uart_to_node: Send: Start Root[0m
+[0;32mI (91283) uart_to_node: Send: Start Root[0m
+[0;32mI (91803) uart_to_node: Send: Start Root[0m
+[0;32mI (92323) uart_to_node: Send: Start Root[0m
+[0;32mI (92843) uart_to_node: Send: Start Root[0m
+[0;32mI (93363) uart_to_node: Send: Start Root[0m
+[0;32mI (93883) uart_to_node: Send: Start Root[0m
+[0;32mI (94403) uart_to_node: Send: Start Root[0m
+[0;32mI (94923) uart_to_node: Send: Start Root[0m
+[0;32mI (95443) uart_to_node: Send: Start Root[0m
+[0;32mI (95963) uart_to_node: Send: Start Root[0m
+[0;32mI (96483) uart_to_node: Send: Start Root[0m
+[0;32mI (97003) uart_to_node: Send: Start Root[0m
+[0;32mI (97523) uart_to_node: Send: Start Root[0m
+[0;32mI (98043) uart_to_node: Send: Start Root[0m
+[0;32mI (98563) uart_to_node: Send: Start Root[0m
+[0;32mI (99083) uart_to_node: Send: Start Root[0m
+[0;32mI (99603) uart_to_node: Send: Start Root[0m
+[0;32mI (100123) uart_to_node: Send: Start Root[0m
+[0;32mI (100643) uart_to_node: Send: Start Root[0m
+[0;32mI (101163) uart_to_node: Send: Start Root[0m
+[0;33mW (101323) uart_to_node: UART error event=1[0m
+[0;33mW (101333) uart_to_node: UART error event=1[0m
+[0;33mW (101353) uart_to_node: UART error event=1[0m
+[0;33mW (101473) uart_to_node: UART error event=1[0m
+[0;33mW (101493) uart_to_node: UART error event=1[0m
+[0;33mW (101513) uart_to_node: UART error event=1[0m
+[0;33mW (101533) uart_to_node: UART error event=1[0m
+[0;33mW (101593) uart_to_node: UART error event=1[0m
+[0;33mW (101643) uart_to_node: UART error event=1[0m
+[0;33mW (101643) uart_to_node: UART error event=1[0m
+[0;33mW (101643) uart_to_node: UART error event=1[0m
+[0;32mI (101663) uart_to_node: Send: Start Root[0m
+[0;33mW (101663) uart_to_node: UART error event=1[0m
+[0;33mW (101663) uart_to_node: UART error event=1[0m
+[0;33mW (101673) uart_to_node: UART error event=1[0m
+[0;33mW (101673) uart_to_node: UART error event=1[0m
+[0;33mW (101683) uart_to_node: UART error event=1[0m
+[0;33mW (101683) uart_to_node: UART error event=1[0m
+[0;32mI (101693) uart_to_node: RX line: ............@p. ......<.......@.M.....jU.........@...,...................@.......[0m
+[0;33mW (101703) uart_to_node: UART error event=1[0m
+[0;33mW (101703) uart_to_node: UART error event=1[0m
+[0;33mW (101723) uart_to_node: UART error event=1[0m
+[0;33mW (101723) uart_to_node: UART error event=1[0m
+[0;33mW (101723) uart_to_node: UART error event=1[0m
+[0;33mW (101733) uart_to_node: UART error event=1[0m
+[0;33mW (101733) uart_to_node: UART error event=1[0m
+[0;33mW (101743) uart_to_node: UART error event=1[0m
+[0;33mW (101743) uart_to_node: UART error event=1[0m
+[0;33mW (101753) uart_to_node: UART error event=1[0m
+[0;33mW (101753) uart_to_node: UART error event=1[0m
+[0;33mW (101763) uart_to_node: UART error event=1[0m
+[0;33mW (101763) uart_to_node: UART error event=1[0m
+[0;32mI (101773) uart_to_node: RX line: .1.[.}............@.................,,.p. ......................................WG............................... ..1.[po.	................................A.m[0m
+[0;33mW (101783) uart_to_node: UART error event=1[0m
+[0;33mW (101793) uart_to_node: UART error event=1[0m
+[0;33mW (101793) uart_to_node: UART error event=1[0m
+[0;33mW (101803) uart_to_node: UART error event=1[0m
+[0;33mW (101803) uart_to_node: UART error event=1[0m
+[0;33mW (101813) uart_to_node: UART error event=1[0m
+[0;33mW (101813) uart_to_node: UART error event=1[0m
+[0;33mW (101823) uart_to_node: UART error event=1[0m
+[0;33mW (101823) uart_to_node: UART error event=1[0m
+[0;33mW (101833) uart_to_node: UART error event=1[0m
+[0;33mW (101843) uart_to_node: UART error event=1[0m
+[0;33mW (101843) uart_to_node: UART error event=1[0m
+[0;33mW (101843) uart_to_node: UART error event=1[0m
+[0;33mW (101853) uart_to_node: UART error event=1[0m
+[0;33mW (101853) uart_to_node: UART error event=1[0m
+[0;33mW (101863) uart_to_node: UART error event=1[0m
+[0;33mW (101863) uart_to_node: UART error event=1[0m
+[0;33mW (101903) uart_to_node: UART error event=1[0m
+[0;33mW (101903) uart_to_node: UART error event=1[0m
+[0;33mW (101903) uart_to_node: UART error event=1[0m
+[0;33mW (101913) uart_to_node: UART error event=1[0m
+[0;33mW (101913) uart_to_node: UART error event=1[0m
+[0;33mW (101923) uart_to_node: UART error event=1[0m
+[0;33mW (101923) uart_to_node: UART error event=1[0m
+[0;33mW (101933) uart_to_node: UART error event=1[0m
+[0;33mW (101933) uart_to_node: UART error event=1[0m
+[0;33mW (101943) uart_to_node: UART error event=1[0m
+[0;33mW (101943) uart_to_node: UART error event=1[0m
+[0;33mW (101953) uart_to_node: UART error event=1[0m
+[0;33mW (101953) uart_to_node: UART error event=1[0m
+[0;33mW (101963) uart_to_node: UART error event=1[0m
+[0;33mW (101963) uart_to_node: UART error event=1[0m
+[0;33mW (101973) uart_to_node: UART error event=1[0m
+[0;33mW (101973) uart_to_node: UART error event=1[0m
+[0;33mW (101973) uart_to_node: UART error event=1[0m
+[0;33mW (101983) uart_to_node: UART error event=1[0m
+[0;33mW (101983) uart_to_node: UART error event=1[0m
+[0;33mW (101993) uart_to_node: UART error event=1[0m
+[0;33mW (101993) uart_to_node: UART error event=1[0m
+[0;33mW (102003) uart_to_node: UART error event=1[0m
+[0;33mW (102003) uart_to_node: RX line (truncated): ..1...........P.......@..................	.../..*...................................... ..@..............................D.... UART ........................................P erro...Y..................................12( uart....................................0.P.}....@....@........ .....   ...........................................p..even._._ ...................................0..1.[0mC.........................................Hh.....U@...............................@ ..S ;33mW....R.......................[0m
+[0;33mW (102053) uart_to_node: UART error event=1[0m
+[0;33mW (102063) uart_to_node: UART error event=1[0m
+[0;33mW (102063) uart_to_node: UART error event=1[0m
+[0;33mW (102073) uart_to_node: UART error event=1[0m
+[0;33mW (102073) uart_to_node: UART error event=1[0m
+[0;33mW (102083) uart_to_node: UART error event=1[0m
+[0;33mW (102123) uart_to_node: UART error event=1[0m
+[0;33mW (102123) uart_to_node: UART error event=1[0m
+[0;33mW (102123) uart_to_node: UART error event=1[0m
+[0;33mW (102133) uart_to_node: UART error event=1[0m
+[0;33mW (102133) uart_to_node: UART error event=1[0m
+[0;33mW (102143) uart_to_node: UART error event=1[0m
+[0;33mW (102143) uart_to_node: UART error event=1[0m
+[0;33mW (102153) uart_to_node: UART error event=1[0m
+[0;33mW (102153) uart_to_node: UART error event=1[0m
+[0;33mW (102153) uart_to_node: UART error event=1[0m
+[0;32mI (102163) uart_to_node: Send: Start Root[0m
+[0;33mW (102163) uart_to_node: UART error event=1[0m
+[0;32mI (102173) uart_to_node: RX line: ........ ....B......YG....................................bbrrrr....	...............................................E.................................IK*...j............................  ..@A`t_to..+.........................u......................@...................................	.......1.[..n(................................@[0m
+[0;32mI (102203) uart_to_node: RX line: .0m[0m
+[0;33mW (102213) uart[0;32mI (678) esp_image: segment 4: paddr=0019bad0 vaddr=40088c14 size=12780h ( 75648) load[0m
+[0;32mI (721) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (733) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      1[0m
+[0;32mI (755) cpu_start: Compile time:     May 28 2026 16:28:13[0m
+[0;32mI (762) cpu_start: ELF file SHA256:  35df21916...[0m
+[0;32mI (767) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (772) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (777) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (782) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (787) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (794) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (800) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (806) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (812) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (819) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (826) spi_flash: detected chip: generic[0m
+[0;32mI (830) spi_flash: flash io: dio[0m
+[0;33mW (834) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (844) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (853) main_task: Started on CPU0[0m
+[0;32mI (863) main_task: Calling app_main()[0m
+[0;32mI (883) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (883) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (883) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (883) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (893) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (903) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (903) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (913) disp_spi: Adding SPI device[0m
+[0;32mI (913) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1123) ILI9341: Initialization.[0m
+[0;32mI (1323) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1323) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1323) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1643) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1653) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1663) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1693) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1693) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:24:36
+[0;33mW (1713) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1743) wifi:wifi driver task: 3ffde8b8, prio:23, stack:6656, core=0[0m
+[0;32mI (1743) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1743) wifi:wifi certification version: v7.0[0m
+[0;32mI (1743) wifi:config NVS flash: enabled[0m
+[0;32mI (1743) wifi:config nano formating: disabled[0m
+[0;32mI (1753) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1753) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1763) wifi:Init management short buffer num: 32[0m
+[0;32mI (1763) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1773) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1773) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1773) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1783) wifi_init: rx ba win: 6[0m
+[0;32mI (1783) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1793) wifi_init: udp mbox: 6[0m
+[0;32mI (1793) wifi_init: tcp mbox: 6[0m
+[0;32mI (1793) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp mss: 1440[0m
+[0;32mI (1813) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1813) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1823) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1823) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1833) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1923) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1923) wifi:enable tsf[0m
+[0;32mI (1933) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4343) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4353) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4353) wifi:flush txq[0m
+[0;32mI (4353) wifi:stop sw txq[0m
+[0;32mI (4353) wifi:lmac stop hw txq[0m
+[0;32mI (4363) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4363) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4363) wifi:enable tsf[0m
+[0;32mI (4373) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6783) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6783) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6793) wifi:flush txq[0m
+[0;32mI (6793) wifi:stop sw txq[0m
+[0;32mI (6793) wifi:lmac stop hw txq[0m
+[0;32mI (6793) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6803) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6803) wifi:enable tsf[0m
+[0;32mI (6803) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9223) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9223) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9223) wifi:flush txq[0m
+[0;32mI (9233) wifi:stop sw txq[0m
+[0;32mI (9233) wifi:lmac stop hw txq[0m
+[0;32mI (9233) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9243) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9243) wifi:enable tsf[0m
+[0;32mI (9243) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11663) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11663) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11663) wifi:flush txq[0m
+[0;32mI (11663) wifi:stop sw txq[0m
+[0;32mI (11663) wifi:lmac stop hw txq[0m
+[0;32mI (11673) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11673) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (11683) wifi:enable tsf[0m
+[0;32mI (11683) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14103) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14103) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14103) wifi:flush txq[0m
+[0;32mI (14103) wifi:stop sw txq[0m
+[0;32mI (14103) wifi:lmac stop hw txq[0m
+[0;32mI (14113) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14113) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (14113) wifi:enable tsf[0m
+[0;32mI (14123) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16533) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16533) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16543) wifi:flush txq[0m
+[0;32mI (16543) wifi:stop sw txq[0m
+[0;32mI (16543) wifi:lmac stop hw txq[0m
+[0;32mI (16553) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16553) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (16553) wifi:enable tsf[0m
+[0;32mI (16563) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (18973) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (18973) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (18983) wifi:flush txq[0m
+[0;32mI (18983) wifi:stop sw txq[0m
+[0;32mI (18983) wifi:lmac stop hw txq[0m
+[0;32mI (18983) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (18993) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (18993) wifi:enable tsf[0m
+[0;32mI (19003) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21413) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21413) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21423) wifi:flush txq[0m
+[0;32mI (21423) wifi:stop sw txq[0m
+[0;32mI (21423) wifi:lmac stop hw txq[0m
+[0;32mI (21423) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21433) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (21433) wifi:enable tsf[0m
+[0;32mI (21433) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23853) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23853) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23853) wifi:flush txq[0m
+[0;32mI (23863) wifi:stop sw txq[0m
+[0;32mI (23863) wifi:lmac stop hw txq[0m
+[0;32mI (23863) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23873) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (23873) wifi:enable tsf[0m
+[0;32mI (23873) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26293) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26293) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26293) wifi:flush txq[0m
+[0;32mI (26293) wifi:stop sw txq[0m
+[0;32mI (26293) wifi:lmac stop hw txq[0m
+[0;32mI (26303) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26303) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (26313) wifi:enable tsf[0m
+[0;32mI (26313) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28723) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28733) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28733) wifi:flush txq[0m
+[0;32mI (28733) wifi:stop sw txq[0m
+[0;32mI (28733) wifi:lmac stop hw txq[0m
+[0;32mI (28743) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28743) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (28743) wifi:enable tsf[0m
+[0;32mI (28753) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31163) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31163) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31173) wifi:flush txq[0m
+[0;32mI (31173) wifi:stop sw txq[0m
+[0;32mI (31173) wifi:lmac stop hw txq[0m
+[0;32mI (31173) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31183) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (31183) wifi:enable tsf[0m
+[0;32mI (31193) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33603) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33603) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33613) wifi:flush txq[0m
+[0;32mI (33613) wifi:stop sw txq[0m
+[0;32mI (33613) wifi:lmac stop hw txq[0m
+[0;32mI (33613) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33623) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (33623) wifi:enable tsf[0m
+[0;32mI (33623) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36043) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36043) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36043) wifi:flush txq[0m
+[0;32mI (36043) wifi:stop sw txq[0m
+[0;32mI (36053) wifi:lmac stop hw txq[0m
+[0;32mI (36053) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36063) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (36063) wifi:enable tsf[0m
+[0;32mI (36063) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38483) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38483) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (38483) wifi:flush txq[0m
+[0;32mI (38483) wifi:stop sw txq[0m
+[0;32mI (38483) wifi:lmac stop hw txq[0m
+[0;32mI (38493) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (38493) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (38503) wifi:enable tsf[0m
+[0;32mI (38503) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (39123) wifi:new:<4,0>, old:<1,0>, ap:<255,255>, sta:<4,0>, prof:1[0m
+[0;32mI (39133) wifi:state: init -> auth (b0)[0m
+[0;32mI (39133) wifi:state: auth -> assoc (0)[0m
+[0;32mI (39143) wifi:state: assoc -> run (10)[0m
+[0;32mI (39243) wifi:connected with Unknown, aid = 2, channel 4, BW20, bssid = 04:20:84:39:c0:e7[0m
+[0;32mI (39243) wifi:security: WPA2-PSK, phy: bgn, rssi: -76[0m
+[0;32mI (39253) wifi:pm start, type: 1[0m
+
+[0;32mI (39253) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (39263) WiFiManager: WiFi STA link established[0m
+[0;32mI (39333) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (41553) wifi:<ba-add>idx:0 (ifx:0, 04:20:84:39:c0:e7), tid:6, ssn:3, winSize:64[0m
+[0;32mI (42263) esp_netif_handlers: sta ip: 192.168.1.7, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (42263) WiFiManager: Got IP: 192.168.1.7[0m
+[0;32mI (42263) WiFiManager: Connected startup WiFi: SSID=Unknown[0m
+[0;32mI (42263) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (42273) WiFiManager: Startup WiFi connected, keeping configuration AP active[0m
+[0;32mI (42283) WiFiManager: mDNS started: http://meshgateway.local[0m
+[0;32mI (42293) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (42293) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (42303) wifi:mode : sta (94:51:dc:30:36:9c) + softAP (94:51:dc:30:36:9d)[0m
+[0;32mI (42313) wifi:Total power save buffer number: 16[0m
+[0;32mI (42313) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (42323) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (42323) wifi:Total power save buffer number: 16[0m
+[0;32mI (42323) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (42333) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (42343) WiFiManager: Web server started on port 80[0m
+[0;32mI (42353) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (42353) uart: queue free spaces: 24[0m
+[0;32mI (42363) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;33mW (42373) uart_to_node: UART error event=1[0m
+[0;32mI (42373) uart_to_node: Send: Start Root[0m
+[0;32mI (42903) uart_to_node: Send: Start Root[0m
+[0;32mI (43343) WebSocket Handler: Starting WebSocket with URL: ws://172.20.10.2:8080/ws[0m
+[0;32mI (43343) websocket_client: Started[0m
+[0;32mI (43343) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (43423) uart_to_node: Send: Start Root[0m
+[0;32mI (43943) uart_to_node: Send: Start Root[0m
+[0;32mI (44463) uart_to_node: Send: Start Root[0m
+[0;32mI (44983) uart_to_node: Send: Start Root[0m
+[0;32mI (45503) uart_to_node: Send: Start Root[0m
+[0;32mI (46023) uart_to_node: Send: Start Root[0m
+[0;32mI (46543) uart_to_node: Send: Start Root[0m
+[0;32mI (47063) uart_to_node: Send: Start Root[0m
+[0;32mI (47583) uart_to_node: Send: Start Root[0m
+[0;32mI (48103) uart_to_node: Send: Start Root[0m
+[0;31mE (48363) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (48363) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (48363) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (48363) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (48383) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (48393) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (48393) WebSocket Handler: Disconnected from server[0m
+[0;32mI (48623) uart_to_node: Send: Start Root[0m
+[0;32mI (49143) uart_to_node: Send: Start Root[0m
+[0;32mI (49663) uart_to_node: Send: Start Root[0m
+[0;32mI (50183) uart_to_node: Send: Start Root[0m
+[0;32mI (50703) uart_to_node: Send: Start Root[0m
+[0;32mI (51223) uart_to_node: Send: Start Root[0m
+[0;32mI (51743) uart_to_node: Send: Start Root[0m
+[0;32mI (52263) uart_to_node: Send: Start Root[0m
+[0;32mI (52783) uart_to_node: Send: Start Root[0m
+[0;32mI (53303) uart_to_node: Send: Start Root[0m
+[0;32mI (53823) uart_to_node: Send: Start Root[0m
+[0;32mI (54343) uart_to_node: Send: Start Root[0m
+[0;32mI (54863) uart_to_node: Send: Start Root[0m
+[0;32mI (55383) uart_to_node: Send: Start Root[0m
+[0;32mI (55903) uart_to_node: Send: Start Root[0m
+[0;32mI (56423) uart_to_node: Send: Start Root[0m
+[0;32mI (56943) uart_to_node: Send: Start Root[0m
+[0;32mI (57463) uart_to_node: Send: Start Root[0m
+[0;32mI (57983) uart_to_node: Send: Start Root[0m
+[0;32mI (58503) uart_to_node: Send: Start Root[0m
+[0;32mI (59023) uart_to_node: Send: Start Root[0m
+[0;32mI (59543) uart_to_node: Send: Start Root[0m
+[0;32mI (60063) uart_to_node: Send: Start Root[0m
+[0;32mI (60583) uart_to_node: Send: Start Root[0m
+[0;32mI (61103) uart_to_node: Send: Start Root[0m
+[0;32mI (61623) uart_to_node: Send: Start Root[0m
+[0;32mI (62143) uart_to_node: Send: Start Root[0m
+[0;32mI (62663) uart_to_node: Send: Start Root[0m
+[0;32mI (63183) uart_to_node: Send: Start Root[0m
+[0;32mI (63703) uart_to_node: Send: Start Root[0m
+[0;32mI (64223) uart_to_node: Send: Start Root[0m
+[0;32mI (64743) uart_to_node: Send: Start Root[0m
+[0;32mI (65263) uart_to_node: Send: Start Root[0m
+[0;32mI (65783) uart_to_node: Send: Start Root[0m
+[0;32mI (66303) uart_to_node: Send: Start Root[0m
+[0;32mI (66823) uart_to_node: Send: Start Root[0m
+[0;32mI (67343) uart_to_node: Send: Start Root[0m
+[0;32mI (67863) uart_to_node: Send: Start Root[0m
+[0;32mI (68383) uart_to_node: Send: Start Root[0m
+[0;31mE (68413) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (68413) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (68413) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (68413) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (68433) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (68443) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (68443) WebSocket Handler: Disconnected from server[0m
+[0;33mW (68673) uart_to_node: UART error event=1[0m
+[0;33mW (68673) uart_to_node: UART error event=1[0m
+[0;33mW (68673) uart_to_node: UART error event=1[0m
+[0;33mW (68683) uart_to_node: UART error event=1[0m
+[0;33mW (68693) uart_to_node: UART error event=1[0m
+[0;33mW (68693) uart_to_node: UART error event=1[0m
+[0;33mW (68713) uart_to_node: UART error event=1[0m
+[0;33mW (68713) uart_to_node: UART error event=1[0m
+[0;33mW (68733) uart_to_node: UART error event=1[0m
+[0;33mW (68733) uart_to_node: UART error event=1[0m
+[0;33mW (68753) uart_to_node: UART error event=1[0m
+[0;33mW (68753) uart_to_node: UART error event=1[0m
+[0;33mW (68773) uart_to_node: UART error event=1[0m
+[0;33mW (68773) uart_to_node: UART error event=1[0m
+[0;33mW (68793) uart_to_node: UART error event=1[0m
+[0;33mW (68793) uart_to_node: UART error event=1[0m
+[0;33mW (68793) uart_to_node: UART error event=1[0m
+[0;33mW (68813) uart_to_node: UART error event=1[0m
+[0;33mW (68833) uart_to_node: UART error event=1[0m
+[0;33mW (68853) uart_to_node: UART error event=1[0m
+[0;33mW (68853) uart_to_node: UART error event=1[0m
+[0;33mW (68853) uart_to_node: UART error event=1[0m
+[0;33mW (68863) uart_to_node: UART error event=1[0m
+[0;33mW (68873) uart_to_node: UART error event=1[0m
+[0;33mW (68893) uart_to_node: UART error event=1[0m
+[0;32mI (68893) uart_to_node: Send: Start Root[0m
+[0;33mW (68893) uart_to_node: UART error event=1[0m
+[0;33mW (68893) uart_to_node: UART error event=1[0m
+[0;33mW (68913) uart_to_node: UART error event=1[0m
+[0;33mW (68913) uart_to_node: UART error event=1[0m
+[0;33mW (68933) uart_to_node: UART error event=1[0m
+[0;33mW (68933) uart_to_node: UART error event=1[0m
+[0;33mW (68953) uart_to_node: UART error event=1[0m
+[0;33mW (68953) uart_to_node: UART error event=1[0m
+[0;33mW (68953) uart_to_node: UART error event=1[0m
+[0;33mW (68963) uart_to_node: UART error event=1[0m
+[0;33mW (68963) uart_to_node: UART error event=1[0m
+[0;33mW (68973) uart_to_node: UART error event=1[0m
+[0;33mW (68973) uart_to_node: UART error event=1[0m
+[0;33mW (68993) uart_to_node: UART error event=1[0m
+[0;33mW (68993) uart_to_node: UART error event=1[0m
+[0;33mW (69013) uart_to_node: UART error event=1[0m
+[0;33mW (69033) uart_to_node: UART error event=1[0m
+[0;33mW (69033) uart_to_node: UART error event=1[0m
+[0;33mW (69053) uart_to_node: UART error event=1[0m
+[0;33mW (69053) uart_to_node: UART error event=1[0m
+[0;33mW (69073) uart_to_node: UART error event=1[0m
+[0;33mW (69073) uart_to_node: UART error event=1[0m
+[0;32mI (69093) uart_to_node: RX line: ..   ...@T............@.@............................jPP....UPPP@...P................U.......5........S.UPP.....@....................=...P......DPP....@.j.P....T.................-.PPP@..$...[0m
+[0;33mW (69103) uart_to_node: UART error event=1[0m
+[0;33mW (69103) uart_to_node: UART error event=1[0m
+[0;33mW (69113) uart_to_node: UART error event=1[0m
+[0;33mW (69113) uart_to_node: UART error event=1[0m
+[0;33mW (69123) uart_to_node: UART error event=1[0m
+[0;33mW (69123) uart_to_node: UART error event=1[0m
+[0;33mW (69133) uart_to_node: UART error event=1[0m
+[0;33mW (69153) uart_to_node: UART error event=1[0m
+[0;33mW (69253) uart_to_node: UART error event=1[0m
+[0;33mW (69253) uart_to_node: UART error event=1[0m
+[0;33mW (69253) uart_to_node: UART error event=1[0m
+[0;33mW (69253) uart_to_node: UART error event=1[0m
+[0;33mW (69263) uart_to_node: UART error event=1[0m
+[0;32mI (69293) uart_to_node: RX line: ......P.UP........UP.............................U..PPP@...X............@..@..P.U@.........U.........5Q4[0m
+[0;33mW (69293) uart_to_node: UART error event=1[0m
+[0;33mW (69303) uart_to_node: UART error event=1[0m
+[0;33mW (69313) uart_to_node: UART error event=1[0m
+[0;33mW (69313) uart_to_node: UART error event=1[0m
+[0;33mW (69313) uart_to_node: UART error event=1[0m
+[0;33mW (69323) uart_to_node: UART error event=1[0m
+[0;33mW (69323) uart_to_node: UART error event=1[0m
+[0;32mI (69333) uart_to_node: RX line: ......._U9......@.5Q4[0m
+[0;33mW (69333) uart_to_node: UART error event=1[0m
+[0;33mW (69343) uart_to_node: UART error event=1[0m
+[0;33mW (69343) uart_to_node: UART error event=1[0m
+[0;33mW (69353) uart_to_node: UART error event=1[0m
+[0;33mW (69353) uart_to_node: UART error event=1[0m
+[0;33mW (69373) uart_to_node: UART error event=1[0m
+[0;33mW (69373) uart_to_node: UART error event=1[0m
+[0;32mI (69393) uart_to_node: Send: Start Root[0m
+[0;33mW (69393) uart_to_node: UART error event=1[0m
+[0;33mW (69433) uart_to_node: UART error event=1[0m
+[0;33mW (69433) uart_to_node: UART error event=1[0m
+[0;33mW (69453) uart_to_node: UART error event=1[0m
+[0;33mW (69453) uart_to_node: UART error event=1[0m
+[0;33mW (69473) uart_to_node: UART error event=1[0m
+[0;33mW (69493) uart_to_node: UART error event=1[0m
+[0;33mW (69513) uart_to_node: UART error event=1[0m
+[0;33mW (69513) uart_to_node: UART error event=1[0m
+[0;33mW (69513) uart_to_node: UART error event=1[0m
+[0;33mW (69513) uart_to_node: UART error event=1[0m
+[0;33mW (69523) uart_to_node: UART error event=1[0m
+[0;33mW (69523) uart_to_node: UART error event=1[0m
+[0;33mW (69533) uart_to_node: UART error event=1[0m
+[0;33mW (69533) uart_to_node: UART error event=1[0m
+[0;33mW (69553) uart_to_node: UART error event=1[0m
+[0;33mW (69573) uart_to_node: UART error event=1[0m
+[0;33mW (69593) uart_to_node: UART error event=1[0m
+[0;33mW (69593) uart_to_node: UART error event=1[0m
+[0;33mW (69593) uart_to_node: UART error event=1[0m
+[0;33mW (69593) uart_to_node: UART error event=1[0m
+[0;33mW (69603) uart_to_node: UART error event=1[0m
+[0;33mW (69603) uart_to_node: UART error event=1[0m
+[0;33mW (69613) uart_to_node: UART error event=1[0m
+[0;33mW (69633) uart_to_node: UART error event=1[0m
+[0;33mW (69633) uart_to_node: UART error event=1[0m
+[0;33mW (69633) uart_to_node: UART error event=1[0m
+[0;33mW (69633) uart_to_node: UART error event=1[0m
+[0;33mW (69643) uart_to_node: UART error event=1[0m
+[0;33mW (69643) uart_to_node: UART error event=1[0m
+[0;33mW (69653) uart_to_node: UART error event=1[0m
+[0;33mW (69653) uart_to_node: UART error event=1[0m
+[0;33mW (69673) uart_to_node: UART error event=1[0m
+[0;33mW (69673) uart_to_node: UART error event=1[0m
+[0;33mW (69693) uart_to_node: UART error event=1[0m
+[0;33mW (69693) uart_to_node: UART error event=1[0m
+[0;33mW (69693) uart_to_node: UART error event=1[0m
+[0;33mW (69693) uart_to_node: UART error event=1[0m
+[0;33mW (69703) uart_to_node: UART error event=1[0m
+[0;33mW (69703) uart_to_node: UART error event=1[0m
+[0;33mW (69713) uart_to_node: UART error event=1[0m
+[0;33mW (69713) uart_to_node: UART error event=1[0m
+[0;33mW (69733) uart_to_node: UART error event=1[0m
+[0;33mW (69733) uart_to_node: UART error event=1[0m
+[0;33mW (69753) uart_to_node: UART error event=1[0m
+[0;33mW (69753) uart_to_node: UART error event=1[0m
+[0;33mW (69773) uart_to_node: UART error event=1[0m
+[0;33mW (69793) uart_to_node: UART error event=1[0m
+[0;33mW (69793) uart_to_node: UART error event=1[0m
+[0;33mW (69793) uart_to_node: UART error event=1[0m
+[0;33mW (69793) uart_to_node: UART error event=1[0m
+[0;33mW (69803) uart_to_node: UART error event=1[0m
+[0;33mW (69803) uart_to_node: UART error event=1[0m
+[0;33mW (69833) uart_to_node: UART error event=1[0m
+[0;33mW (69833) uart_to_node: UART error event=1[0m
+[0;33mW (69853) uart_to_node: UART error event=1[0m
+[0;33mW (69873) uart_to_node: UART error event=1[0m
+[0;33mW (69873) uart_to_node: UART error event=1[0m
+[0;33mW (69873) uart_to_node: UART error event=1[0m
+[0;33mW (69873) uart_to_node: UART error event=1[0m
+[0;33mW (69883) uart_to_node: UART error event=1[0m
+[0;33mW (69883) uart_to_node: UART error event=1[0m
+[0;32mI (69893) uart_to_node: Send: Start Root[0m
+[0;33mW (69893) uart_to_node: UART error event=1[0m
+[0;32mI (69903) uart_to_node: RX line: .....P........................ET.PPP@.P..........U.........P......................._T........@.UU@.......P...H....  .............................X.....................?5...................................zT(PPPP@....U.......@...-.....................................X........@.U...@.........5..(....................................UT.........P[0m
+[0;32mI (69933) uart_to_node: RX line: ..D.[0m
+[0;33mW (69933) uart_to_node: UART error event=1[0m
+[0;33mW (70053) uart_to_node: UART error event=1[0m
+[0;33mW (70053) uart_to_node: UART error event=1[0m
+[0;33mW (70053) uart_to_node: UART error event=1[0m
+[0;33mW (70053) uart_to_node: UART error event=1[0m
+[0;33mW (70053) uart_to_node: UART error event=1[0m
+[0;33mW (70113) uart_to_node: UART error event=1[0m
+[0;33mW (70163) uart_to_node: UART error event=1[0m
+[0;33mW (70163) uart_to_node: UART error event=1[0m
+[0;33mW (70213) uart_to_node: UART error event=1[0m
+[0;33mW (70213) uart_to_node: UART error event=1[0m
+[0;33mW (70263) uart_to_node: UART error event=1[0m
+[0;33mW (70263) uart_to_node: UART error event=1[0m
+[0;33mW (70263) uart_to_node: UART error event=1[0m
+[0;33mW (70263) uart_to_node: UART error event=1[0m
+[0;33mW (70313) uart_to_node: UART error event=1[0m
+[0;33mW (70363) uart_to_node: UART error event=1[0m
+[0;32mI (70413) uart_to_node: Send: Start Root[0m
+[0;33mW (70413) uart_to_node: UART error event=1[0m
+[0;32mI (70933) uart_to_node: Send: Start Root[0m
+[0;32mI (71453) uart_to_node: Send: Start Root[0m
+[0;32mI (71973) uart_to_node: Send: Start Root[0m
+[0;32mI (72493) uart_to_node: Send: Start Root[0m
+[0;32mI (72823) wifi:<ba-add>idx:1 (ifx:0, 04:20:84:39:c0:e7), tid:0, ssn:0, winSize:64[0m
+[0;32mI (73013) uart_to_node: Send: Start Root[0m
+[0;32mI (73533) uart_to_node: Send: Start Root[0m
+[0;32mI (74053) uart_to_node: Send: Start Root[0m
+[0;32mI (74573) uart_to_node: Send: Start Root[0m
+[0;32mI (75093) uart_to_node: Send: Start Root[0m
+[0;32mI (75613) uart_to_node: Send: Start Root[0m
+[0;32mI (76133) uart_to_node: Send: Start Root[0m
+[0;32mI (76653) uart_to_node: Send: Start Root[0m
+[0;32mI (77173) uart_to_node: Send: Start Root[0m
+[0;32mI (77693) uart_to_node: Send: Start Root[0m
+[0;32mI (78213) uart_to_node: Send: Start Root[0m
+[0;32mI (78733) uart_to_node: Send: Start Root[0m
+[0;32mI (79253) uart_to_node: Send: Start Root[0m
+[0;32mI (79773) uart_to_node: Send: Start Root[0m
+[0;32mI (80293) uart_to_node: Send: Start Root[0m
+[0;32mI (80813) uart_to_node: Send: Start Root[0m
+[0;32mI (81333) uart_to_node: Send: Start Root[0m
+[0;32mI (81853) uart_to_node: Send: Start Root[0m
+[0;32mI (82373) uart_to_node: Send: Start Root[0m
+[0;32mI (82893) uart_to_node: Send: Start Root[0m
+[0;32mI (83413) uart_to_node: Send: Start Root[0m
+[0;32mI (83933) uart_to_node: Send: Start Root[0m
+[0;32mI (84453) uart_to_node: Send: Start Root[0m
+[0;32mI (84973) uart_to_node: Send: Start Root[0m
+[0;33mW (84983) uart_to_node: UART error event=1[0m
+[0;32mI (85503) uart_to_node: Send: Start Root[0m
+[0;32mI (86023) uart_to_node: Send: Start Root[0m
+[0;32mI (86543) uart_to_node: Send: Start Root[0m
+[0;32mI (87063) uart_to_node: Send: Start Root[0m
+[0;32mI (87583) uart_to_node: Send: Start Root[0m
+[0;32mI (88103) uart_to_node: Send: Start Root[0m
+[0;31mE (88463) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (88463) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (88463) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (88463) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (88483) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (88493) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (88493) WebSocket Handler: Disconnected from server[0m
+[0;32mI (88623) uart_to_node: Send: Start Root[0m
+[0;32mI (89143) uart_to_node: Send: Start Root[0m
+[0;32mI (89663) uart_to_node: Send: Start Root[0m
+[0;32mI (90183) uart_to_node: Send: Start Root[0m
+[0;32mI (90703) uart_to_node: Send: Start Root[0m
+[0;32mI (91223) uart_to_node: Send: Start Root[0m
+[0;33mW (91413) uart_to_node: UART error event=1[0m
+[0;33mW (91433) uart_to_node: UART error event=1[0m
+[0;33mW (91453) uart_to_node: UART error event=1[0m
+[0;33mW (91473) uart_to_node: UART error event=1[0m
+[0;33mW (91493) uart_to_node: UART error event=1[0m
+[0;33mW (91563) uart_to_node: UART error event=1[0m
+[0;33mW (91583) uart_to_node: UART error event=1[0m
+[0;33mW (91623) uart_to_node: UART error event=1[0m
+[0;33mW (91623) uart_to_node: UART error event=1[0m
+[0;33mW (91643) uart_to_node: UART error event=1[0m
+[0;33mW (91643) uart_to_node: UART error event=1[0m
+[0;33mW (91643) uart_to_node: UART error event=1[0m
+[0;33mW (91643) uart_to_node: UART error event=1[0m
+[0;33mW (91653) uart_to_node: UART error event=1[0m
+[0;33mW (91653) uart_to_node: UART error event=1[0m
+[0;33mW (91683) uart_to_node: UART error event=1[0m
+[0;32mI (91723) uart_to_node: Send: Start Root[0m
+[0;32mI (92243) uart_to_node: Send: Start Root[0m
+[0;32mI (92763) uart_to_node: Send: Start Root[0m
+[0;32mI (93283) uart_to_node: Send: Start Root[0m
+[0;32mI (93803) uart_to_node: Send: Start Root[0m
+[0;32mI (94323) uart_to_node: Send: Start Root[0m
+[0;32mI (94843) uart_to_node: Send: Start Root[0m
+[0;32mI (95363) uart_to_node: Send: Start Root[0m
+[0;32mI (95883) uart_to_node: Send: Start Root[0m
+[0;33mW (95933) uart_to_node: UART error event=1[0m
+[0;33mW (95933) uart_to_node: UART error event=1[0m
+[0;33mW (95933) uart_to_node: UART error event=1[0m
+[0;32mI (95933) uart_to_node: RX line: ......@..Q........T..................................................@......@...................x...........P.......4U.UUUUUUUU]_U.... .................[0m
+[0;32mI (95953) uart_to_node: RX line: @4.P4.4[0m
+[0;33mW (95953) uart_to_node: UART error event=1[0m
+[0;33mW (95963) uart_to_node: UART error event=1[0m
+[0;33mW (95963) uart_to_node: UART error event=1[0m
+[0;33mW (95973) uart_to_node: UART error event=1[0m
+[0;33mW (95973) uart_to_node: UART error event=1[0m
+[0;33mW (95983) uart_to_node: UART error event=1[0m
+[0;33mW (95983) uart_to_node: UART error event=1[0m
+[0;33mW (95993) uart_to_node: UART error event=1[0m
+[0;33mW (96103) uart_to_node: UART error event=1[0m
+[0;33mW (96103) uart_to_node: UART error event=1[0m
+[0;33mW (96103) uart_to_node: UART error event=1[0m
+[0;33mW (96113) uart_to_node: UART error event=1[0m
+[0;33mW (96113) uart_to_node: UART error event=1[0m
+[0;33mW (96163) uart_to_node: UART error event=1[0m
+[0;33mW (96163) uart_to_node: UART error event=1[0m
+[0;33mW (96163) uart_to_node: UART error event=1[0m
+[0;33mW (96183) uart_to_node: UART error event=1[0m
+[0;33mW (96183) uart_to_node: UART error event=1[0m
+[0;33mW (96183) uart_to_node: UART error event=1[0m
+[0;33mW (96193) uart_to_node: UART error event=1[0m
+[0;33mW (96193) uart_to_node: UART error event=1[0m
+[0;33mW (96203) uart_to_node: UART error event=1[0m
+[0;33mW (96203) uart_to_node: UART error event=1[0m
+[0;33mW (96213) uart_to_node: UART error event=1[0m
+[0;33mW (96213) uart_to_node: UART error event=1[0m
+[0;33mW (96213) uart_to_node: UART error event=1[0m
+[0;33mW (96223) uart_to_node: UART error event=1[0m
+[0;33mW (96223) uart_to_node: RX line (truncated): ....................................PP....(.......@................%..@..................  ...P...   ..................     ....................................................................U.............uuUUU................................................................................TPP......................U...U]U....................   ........P.........P................................................................................................UUUUUUUUUU}.......................................[0m
+[0;32mI (96273) uart_to_node: RX line: ................UUUUU....U............P.TTT...TTTTTTTT..TT...............U]WU.......UU................................................@4.}]WWUUUUU......................@........[0m
+[0;33mW (96293) uart_to_node: UART error event=1[0m
+[0;33mW (96303) uart_to_node: UART error event=1[0m
+[0;33mW (96303) uart_to_node: UART error event=1[0m
+[0;33mW (96313) uart_to_node: UART error event=1[0m
+[0;33mW (96323) uart_to_node: UART error event=1[0m
+[0;33mW (96323) uart_to_node: UART error event=1[0m
+[0;33mW (96323) uart_to_node: UART error event=1[0m
+[0;33mW (96333) uart_to_node: UART error event=1[0m
+[0;33mW (96363) uart_to_node: UART error event=1[0m
+[0;33mW (96363) uart_to_node: UART error event=1[0m
+[0;32mI (96403) uart_to_node: Send: Start Root[0m
+[0;33mW (96403) uart_to_node: UART error event=1[0m
+[0;33mW (96443) uart_to_node: RX line (truncated): PP........p........................................................@.....@.......@...............................................%..................................................TT..TTT.TTTTTTTTTTTTTTTTTTP....................................................................................................................................P@..............................................%......jP..P4........................UUU.UU._.............P.P.p.....P.................}]UUU...UU.............}..............[0m
+[0;33mW (96483) uart_to_node: UART error event=1[0m
+[0;33mW (96483) uart_to_node: UART error event=1[0m
+[0;33mW (96493) uart_to_node: UART error event=1[0m
+[0;32mI (97083) uart_to_node: RX line: ..T..TT...TT........P.x..........UUUUUUUU.......U}.........................TP.....@...$...........UUUUW...........................@........P....@...	........@........@....................@...........@........ ..@......@..........A...U..@...... .. V...UU...UU.......................U......Q..    ..P............Q4.5[0m
+[0;32mI (97113) uart_to_node: Send: Start Root[0m
+[0;33mW (97113) uart_to_node: UART error event=1[0m
+[0;33mW (97113) uart_to_node: UART error event=1[0m
+[0;33mW (97123) uart_to_node: UART error event=1[0m
+[0;33mW (97123) uart_to_node: UART error event=1[0m
+[0;33mW (97133) uart_to_node: UART error event=1[0m
+[0;33mW (97133) uart_to_node: UART error event=1[0m
+[0;33mW (97143) uart_to_node: UART error event=1[0m
+[0;33mW (97143) uart_to_node: UART error event=1[0m
+[0;33mW (97153) uart_to_node: UART error event=1[0m
+[0;33mW (97153) uart_to_node: UART error event=1[0m
+[0;33mW (97163) uart_to_node: UART error event=1[0m
+[0;33mW (97163) uart_to_node: UART error event=1[0m
+[0;33mW (97173) uart_to_node: UART error event=1[0m
+[0;33mW (97183) uart_to_node: UART error event=1[0m
+[0;33mW (97183) uart_to_node: UART error event=1[0m
+[0;33mW (97193) uart_to_node: UART error event=1[0m
+[0;33mW (97243) uart_to_node: UART error event=1[0m
+[0;33mW (97243) uart_to_node: UART error event=1[0m
+[0;33mW (97293) uart_to_node: UART error event=1[0m
+[0;33mW (97343) uart_to_node: UART error event=1[0m
+[0;33mW (97343) uart_to_node: UART error event=1[0m
+[0;33mW (97343) uart_to_node: UART error event=1[0m
+[0;33mW (97343) uart_to_node: UART error event=1[0m
+[0;33mW (97343) uart_to_node: UART error event=1[0m
+[0;33mW (97353) uart_to_node: UART error event=1[0m
+[0;33mW (97353) uart_to_node: UART error event=1[0m
+[0;33mW (97363) uart_to_node: UART error event=1[0m
+[0;33mW (97363) uart_to_node: UART error event=1[0m
+[0;33mW (97373) uart_to_node: UART error event=1[0m
+[0;33mW (97373) uart_to_node: UART error event=1[0m
+[0;33mW (97383) uart_to_node: UART error event=1[0m
+[0;33mW (97383) uart_to_node: UART error event=1[0m
+[0;33mW (97393) uart_to_node: UART error event=1[0m
+[0;33mW (97393) uart_to_node: UART error event=1[0m
+[0;33mW (97403) uart_to_node: UART error event=1[0m
+[0;32mI (97643) uart_to_node: Send: Start Root[0m
+[0;32mI (98163) uart_to_node: Send: Start Root[0m
+[0;32mI (98683) uart_to_node: Send: Start Root[0m
+[0;32mI (99203) uart_to_node: Send: Start Root[0m
+[0;32mI (99723) uart_to_node: Send: Start Root[0m
+[0;32mI (100243) uart_to_node: Send: Start Root[0m
+[0;32mI (100763) uart_to_node: Send: Start Root[0m
+[0;32mI (101283) uart_to_node: Send: Start Root[0m
+[0;32mI (101803) uart_to_node: Send: Start Root[0m
+[0;32mI (102323) uart_to_node: Send: Start Root[0m
+[0;33mW (102793) uart_to_node: UART error event=1[0m
+[0;33mW (102793) uart_to_node: UART error event=1[0m
+[0;33mW (102793) uart_to_node: UART error event=1[0m
+[0;33mW (102793) uart_to_node: UART error event=1[0m
+[0;33mW (102803) uart_to_node: UART error event=1[0m
+[0;33mW (102803) uart_to_node: UART error event=1[0m
+[0;33mW (102813) uart_to_node: UART error event=1[0m
+[0;33mW (102813) uart_to_node: UART error event=1[0m
+[0;32mI (102823) uart_to_node: Send: Start Root[0m
+[0;33mW (102823) uart_to_node: UART error event=1[0m
+[0;33mW (102823) uart_to_node: UART error event=1[0m
+[0;33mW (102833) uart_to_node: UART error event=1[0m
+[0;33mW (102833) uart_to_node: UART error event=1[0m
+[0;33mW (102843) uart_to_node: UART error event=1[0m
+[0;33mW (102843) uart_to_node: UART error event=1[0m
+[0;33mW (102853) uart_to_node: UART error event=1[0m
+[0;33mW (102913) uart_to_node: UART error event=1[0m
+[0;33mW (102933) uart_to_node: UART error event=1[0m
+[0;33mW (102953) uart_to_node: UART error event=1[0m
+[0;33mW (102963) uart_to_node: UART error event=1[0m
+[0;33mW (102973) uart_to_node: UART error event=1[0m
+[0;33mW (103003) uart_to_node: UART error event=1[0m
+[0;33mW (103003) uart_to_node: UART error event=1[0m
+[0;33mW (103013) uart_to_node: UART error event=1[0m
+[0;33mW (103043) uart_to_node: UART error event=1[0m
+[0;33mW (103053) uart_to_node: UART error event=1[0m
+[0;33mW (103053) uart_to_node: UART error event=1[0m
+[0;33mW (103053) uart_to_node: UART error event=1[0m
+[0;33mW (103063) uart_to_node: UART error event=1[0m
+[0;33mW (103063) uart_to_node: UART error event=1[0m
+[0;33mW (103073) uart_to_node: UART error event=1[0m
+[0;33mW (103073) uart_to_node: UART error event=1[0m
+[0;33mW (103083) uart_to_node: UART error event=1[0m
+[0;33mW (103083) uart_to_node: UART error event=1[0m
+[0;33mW (103093) uart_to_node: UART error event=1[0m
+[0;33mW (103093) uart_to_node: UART error event=1[0m
+[0;33mW (103103) uart_to_node: UART error event=1[0m
+[0;33mW (103103) uart_to_node: UART error event=1[0m
+[0;33mW (103113) uart_to_node: UART error event=1[0m
+[0;33mW (103113) uart_to_node: UART error event=1[0m
+[0;33mW (103123) uart_to_node: UART error event=1[0m
+[0;33mW (103123) uart_to_node: UART error event=1[0m
+[0;33mW (103133) uart_to_node: UART error event=1[0m
+[0;33mW (103133) uart_to_node: UART error event=1[0m
+[0;33mW (103143) uart_to_node: UART error event=1[0m
+[0;33mW (103143) uart_to_node: UART error event=1[0m
+[0;33mW (103153) uart_to_node: UART error event=1[0m
+[0;32mI (103163) uart_to_node: RX line: ............P.*....P..@...^t...(.....@@P..P@......@...................................................................................... .................................................%.T.....................*...............................5...............................)...........@P....@.............................................%.................................................................................................[0m
+[0;33mW (103193) uart_to_node: UART error event=1[0m
+[0;33mW (103203) uart_to_node: UART error event=1[0m
+[0;33mW (103223) uart_to_node: UART error event=1[0m
+[0;33mW (103243) uart_to_node: UART error event=1[0m
+[0;33mW (103263) uart_to_node: UART error event=1[0m
+[0;33mW (103263) uart_to_node: UART error event=1[0m
+[0;33mW (103263) uart_to_node: UART error event=1[0m
+[0;33mW (103263) uart_to_node: UART error event=1[0m
+[0;33mW (103273) uart_to_node: UART error event=1[0m
+[0;33mW (103273) uart_to_node: UART error event=1[0m
+[0;33mW (103283) uart_to_node: UART error event=1[0m
+[0;33mW (103283) uart_to_node: UART error event=1[0m
+[0;32mI (103323) uart_to_node: Send: Start Root[0m
+[0;33mW (103323) uart_to_node: UART error event=1[0m
+[0;33mW (103323) uart_to_node: UART error event=1[0m
+[0;33mW (103323) uart_to_node: UART error event=1[0m
+[0;33mW (103333) uart_to_node: UART error event=1[0m
+[0;33mW (103333) uart_to_node: UART error event=1[0m
+[0;33mW (103343) uart_to_node: UART error event=1[0m
+[0;33mW (103343) uart_to_node: UART error event=1[0m
+[0;33mW (103353) uart_to_node: UART error event=1[0m
+[0;33mW (103423) uart_to_node: UART error event=1[0m
+[0;33mW (103463) uart_to_node: RX line (truncated): .......................P.........%.....@...............P.P................................................................................................................-...P@@@P@..P..@..............P@.................................P...........................P.......................................	....................................................................@PP@......@P....PP@...@PT@....(.....P.....@@.............. ..`......................................................PPP..P.........P.......[0m
+[0;33mW (103503) uart_to_node: UART error event=1[0m
+[0;33mW (103503) uart_to_node: UART error event=1[0m
+[0;33mW (103513) uart_to_node: UART error event=1[0m
+[0;33mW (103513) uart_to_node: UART error event=1[0m
+[0;33mW (103523) uart_to_node: UART error event=1[0m
+[0;33mW (103543) uart_to_node: UART error event=1[0m
+[0;33mW (103543) uart_to_node: UART error event=1[0m
+[0;33mW (103543) uart_to_node: UART error event=1[0m
+[0;33mW (103543) uart_to_node: UART error event=1[0m
+[0;33mW (103553) uart_to_node: UART error event=1[0m
+[0;33mW (103553) uart_to_node: UART error event=1[0m
+[0;33mW (103563) uart_to_node: UART error event=1[0m
+[0;33mW (103583) uart_to_node: UART error event=1[0m
+[0;33mW (103583) uart_to_node: UART error event=1[0m
+[0;33mW (103583) uart_to_node: UART error event=1[0m
+[0;33mW (103583) uart_to_node: UART error event=1[0m
+[0;33mW (103593) uart_to_node: UART error event=1[0m
+[0;33mW (103593) uart_to_node: UART error event=1[0m
+[0;33mW (103603) uart_to_node: UART error event=1[0m
+[0;33mW (103603) uart_to_node: UART error event=1[0m
+[0;33mW (103613) uart_to_node: UART error event=1[0m
+[0;33mW (103623) uart_to_node: UART error event=1[0m
+[0;33mW (103643) uart_to_node: UART error event=1[0m
+[0;33mW (103643) uart_to_node: UART error event=1[0m
+[0;33mW (103663) uart_to_node: UART error event=1[0m
+[0;33mW (103783) uart_to_node: UART error event=1[0m
+[0;32mI (103833) uart_to_node: Send: Start Root[0m
+[0;33mW (103883) uart_to_node: UART error event=1[0m
+[0;33mW (103883) uart_to_node: UART error event=1[0m
+[0;33mW (103933) uart_to_node: UART error event=1[0m
+[0;33mW (103933) uart_to_node: UART error event=1[0m
+[0;33mW (103983) uart_to_node: UART error event=1[0m
+[0;33mW (103983) uart_to_node: UART error event=1[0m
+[0;33mW (104033) uart_to_node: UART error event=1[0m
+[0;33mW (104033) uart_to_node: UART error event=1[0m
+[0;33mW (104033) uart_to_node: UART error event=1[0m
+[0;33mW (104033) uart_to_node: UART error event=1[0m
+[0;33mW (104033) uart_to_node: UART error event=1[0m
+[0;33mW (104043) uart_to_node: UART error event=1[0m
+[0;33mW (104043) uart_to_node: UART error event=1[0m
+[0;33mW (104053) uart_to_node: UART error event=1[0m
+[0;33mW (104053) uart_to_node: UART error event=1[0m
+[0;33mW (104063) uart_to_node: UART error event=1[0m
+[0;33mW (104063) uart_to_node: UART error event=1[0m
+[0;32mI (104363) uart_to_node: Send: Start Root[0m
+[0;32mI (104883) uart_to_node: Send: Start Root[0m
+[0;32mI (105403) uart_to_node: Send: Start Root[0m
+[0;32mI (105923) uart_to_node: Send: Start Root[0m
+[0;32mI (106443) uart_to_node: Send: Start Root[0m
+[0;33mW (106873) uart_to_node: UART error event=1[0m
+[0;33mW (106873) uart_to_node: UART error event=1[0m
+[0;33mW (106883) uart_to_node: UART error event=1[0m
+[0;33mW (106883) uart_to_node: UART error event=1[0m
+[0;33mW (106883) uart_to_node: UART error event=1[0m
+[0;33mW (106893) uart_to_node: UART error event=1[0m
+[0;33mW (106893) uart_to_node: UART error event=1[0m
+[0;33mW (106903) uart_to_node: UART error event=1[0m
+[0;33mW (106903) uart_to_node: UART error event=1[0m
+[0;33mW (106913) uart_to_node: UART error event=1[0m
+[0;33mW (106913) uart_to_node: UART error event=1[0m
+[0;33mW (106923) uart_to_node: UART error event=1[0m
+[0;33mW (106923) uart_to_node: UART error event=1[0m
+[0;33mW (106933) uart_to_node: UART error event=1[0m
+[0;33mW (106933) uart_to_node: UART error event=1[0m
+[0;32mI (106943) uart_to_node: Send: Start Root[0m
+[0;33mW (106943) uart_to_node: UART error event=1[0m
+[0;33mW (106953) uart_to_node: UART error event=1[0m
+[0;33mW (106953) uart_to_node: UART error event=1[0m
+[0;33mW (106963) uart_to_node: UART error event=1[0m
+[0;33mW (106963) uart_to_node: UART error event=1[0m
+[0;33mW (106973) uart_to_node: UART error event=1[0m
+[0;33mW (106973) uart_to_node: UART error event=1[0m
+[0;33mW (106983) uart_to_node: UART error event=1[0m
+[0;33mW (106983) uart_to_node: UART error event=1[0m
+[0;33mW (106993) uart_to_node: UART error event=1[0m
+[0;33mW (106993) uart_to_node: UART error event=1[0m
+[0;33mW (106993) uart_to_node: UART error event=1[0m
+[0;33mW (107003) uart_to_node: UART error event=1[0m
+[0;33mW (107003) uart_to_node: UART error event=1[0m
+[0;33mW (107013) uart_to_node: UART error event=1[0m
+[0;33mW (107013) uart_to_node: RX line (truncated): ..@PP........... .........P...............@...............@@@.........P......P.......-......................................................................................................U..................................................................-................................-......................................................................@..@.......@........@P..P...... .............................................................................................................P..........[0m
+[0;33mW (107063) uart_to_node: UART error event=1[0m
+[0;33mW (107073) uart_to_node: UART error event=1[0m
+[0;33mW (107073) uart_to_node: UART error event=1[0m
+[0;33mW (107083) uart_to_node: UART error event=1[0m
+[0;33mW (107083) uart_to_node: UART error event=1[0m
+[0;33mW (107093) uart_to_node: UART error event=1[0m
+[0;33mW (107093) uart_to_node: UART error event=1[0m
+[0;33mW (107153) uart_to_node: UART error event=1[0m
+[0;33mW (107153) uart_to_node: UART error event=1[0m
+[0;33mW (107153) uart_to_node: UART error event=1[0m
+[0;33mW (107153) uart_to_node: UART error event=1[0m
+[0;33mW (107153) uart_to_node: UART error event=1[0m
+[0;33mW (107163) uart_to_node: UART error event=1[0m
+[0;33mW (107163) uart_to_node: UART error event=1[0m
+[0;33mW (107173) uart_to_node: UART error event=1[0m
+[0;33mW (107173) uart_to_node: UART error event=1[0m
+[0;33mW (107193) uart_to_node: UART error event=1[0m
+[0;33mW (107193) uart_to_node: UART error event=1[0m
+[0;33mW (107193) uart_to_node: UART error event=1[0m
+[0;33mW (107203) uart_to_node: UART error event=1[0m
+[0;33mW (107203) uart_to_node: UART error event=1[0m
+[0;33mW (107213) uart_to_node: UART error event=1[0m
+[0;33mW (107213) uart_to_node: UART error event=1[0m
+[0;33mW (107223) uart_to_node: UART error event=1[0m
+[0;33mW (107223) uart_to_node: UART error event=1[0m
+[0;33mW (107233) uart_to_node: UART error event=1[0m
+[0;33mW (107233) uart_to_node: RX line (truncated): ..............................................................@................................PP...............................%....%..............................................PPP@............................P......@.......................@........................................................................................................................................................................................j........................@.....P.....P.......................P...@..P......@.......[0m
+[0;33mW (107283) uart_to_node: UART error event=1[0m
+[0;33mW (107293) uart_to_node: UART error event=1[0m
+[0;33mW (107433) uart_to_node: UART error event=1[0m
+[0;33mW (107433) uart_to_node: UART error event=1[0m
+[0;33mW (107433) uart_to_node: UART error event=1[0m
+[0;32mI (107483) uart_to_node: Send: Start Root[0m
+[0;33mW (107483) uart_to_node: UART error event=1[0m
+[0;33mW (107483) uart_to_node: UART error event=1[0m
+[0;33mW (107483) uart_to_node: UART error event=1[0m
+[0;33mW (107483) uart_to_node: UART error event=1[0m
+[0;33mW (107493) uart_to_node: UART error event=1[0m
+[0;33mW (107493) uart_to_node: UART error event=1[0m
+[0;33mW (107503) uart_to_node: UART error event=1[0m
+[0;33mW (107503) uart_to_node: UART error event=1[0m
+[0;33mW (107513) uart_to_node: UART error event=1[0m
+[0;33mW (107513) uart_to_node: UART error event=1[0m
+[0;33mW (107523) uart_to_node: UART error event=1[0m
+[0;33mW (107523) uart_to_node: UART error event=1[0m
+[0;33mW (107533) uart_to_node: UART error event=1[0m
+[0;33mW (107583) uart_to_node: UART error event=1[0m
+[0;33mW (107633) uart_to_node: UART error event=1[0m
+[0;33mW (107733) uart_to_node: UART error event=1[0m
+[0;32mI (108013) uart_to_node: Send: Start Root[0m
+[0;33mW (108133) uart_to_node: UART error event=1[0m
+[0;33mW (108133) uart_to_node: UART error event=1[0m
+[0;33mW (108133) uart_to_node: UART error event=1[0m
+[0;33mW (108133) uart_to_node: UART error event=1[0m
+[0;33mW (108143) uart_to_node: UART error event=1[0m
+[0;33mW (108143) uart_to_node: UART error event=1[0m
+[0;33mW (108153) uart_to_node: UART error event=1[0m
+[0;33mW (108153) uart_to_node: UART error event=1[0m
+[0;33mW (108163) uart_to_node: UART error event=1[0m
+[0;33mW (108163) uart_to_node: UART error event=1[0m
+[0;33mW (108173) uart_to_node: UART error event=1[0m
+[0;33mW (108173) uart_to_node: UART error event=1[0m
+[0;33mW (108183) uart_to_node: UART error event=1[0m
+[0;33mW (108183) uart_to_node: UART error event=1[0m
+[0;33mW (108333) uart_to_node: UART error event=1[0m
+[0;31mE (108513) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (108513) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (108513) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (108513) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (108533) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (108543) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (108543) WebSocket Handler: Disconnected from server[0m
+[0;32mI (108573) uart_to_node: Send: Start Root[0m
+[0;33mW (108573) uart_to_node: UART error event=1[0m
+[0;33mW (108573) uart_to_node: UART error event=1[0m
+[0;33mW (108573) uart_to_node: UART error event=1[0m
+[0;33mW (108623) uart_to_node: UART error event=1[0m
+[0;33mW (108623) uart_to_node: UART error event=1[0m
+[0;33mW (108623) uart_to_node: UART error event=1[0m
+[0;33mW (108623) uart_to_node: UART error event=1[0m
+[0;33mW (108623) uart_to_node: UART error event=1[0m
+[0;33mW (108633) uart_to_node: UART error event=1[0m
+[0;33mW (108633) uart_to_node: UART error event=1[0m
+[0;33mW (108743) uart_to_node: UART error event=1[0m
+[0;33mW (108743) uart_to_node: UART error event=1[0m
+[0;33mW (108793) uart_to_node: UART error event=1[0m
+[0;33mW (108793) uart_to_node: UART error event=1[0m
+[0;33mW (108843) uart_to_node: UART error event=1[0m
+[0;33mW (108843) uart_to_node: UART error event=1[0m
+[0;33mW (108843) uart_to_node: UART error event=1[0m
+[0;33mW (108843) uart_to_node: UART error event=1[0m
+[0;33mW (108843) uart_to_node: UART error event=1[0m
+[0;32mI (109093) uart_to_node: Send: Start Root[0m
+[0;32mI (109613) uart_to_node: Send: Start Root[0m
+[0;32mI (110133) uart_to_node: Send: Start Root[0m
+[0;32mI (110653) uart_to_node: Send: Start Root[0m
+[0;32mI (111173) uart_to_node: Send: Start Root[0m
+[0;32mI (111693) uart_to_node: Send: Start Root[0m
+[0;32mI (112213) uart_to_node: Send: Start Root[0m
+[0;32mI (112733) uart_to_node: Send: Start Root[0m
+[0;32mI (113253) uart_to_node: Send: Start Root[0m
+[0;32mI (113773) uart_to_node: Send: Start Root[0m
+[0;32mI (114293) uart_to_node: Send: Start Root[0m
+[0;32mI (114813) uart_to_node: Send: Start Root[0m
+[0;32mI (115333) uart_to_node: Send: Start Root[0m
+[0;32mI (115853) uart_to_node: Send: Start Root[0m
+[0;32mI (116373) uart_to_node: Send: Start Root[0m
+[0;32mI (116893) uart_to_node: Send: Start Root[0m
+[0;32mI (117413) uart_to_node: Send: Start Root[0m
+[0;32mI (117933) uart_to_node: Send: Start Root[0m
+[0;32mI (118453) uart_to_node: Send: Start Root[0m
+[0;32mI (118973) uart_to_node: Send: Start Root[0m
+[0;32mI (119493) uart_to_node: Send: Start Root[0m
+[0;32mI (120013) uart_to_node: Send: Start Root[0m
+[0;32mI (120533) uart_to_node: Send: Start Root[0m
+[0;32mI (121053) uart_to_node: Send: Start Root[0m
+[0;32mI (121573) uart_to_node: Send: Start Root[0m
+[0;32mI (122093) uart_to_node: Send: Start Root[0m
+[0;32mI (122613) uart_to_node: Send: Start Root[0m
+[0;32mI (123133) uart_to_node: Send: Start Root[0m
+[0;32mI (123653) uart_to_node: Send: Start Root[0m
+[0;32mI (124173) uart_to_node: Send: Start Root[0m
+[0;32mI (124693) uart_to_node: Send: Start Root[0m
+[0;32mI (125213) uart_to_node: Send: Start Root[0m
+[0;32mI (125733) uart_to_node: Send: Start Root[0m
+[0;32mI (126253) uart_to_node: Send: Start Root[0m
+[0;32mI (126773) uart_to_node: Send: Start Root[0m
+[0;32mI (127293) uart_to_node: Send: Start Root[0m
+[0;32mI (127813) uart_to_node: Send: Start Root[0m
+[0;32mI (128333) uart_to_node: Send: Start Root[0m
+[0;31mE (128563) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (128563) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (128563) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (128563) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (128583) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (128593) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (128593) WebSocket Handler: Disconnected from server[0m
+[0;32mI (128853) uart_to_node: Send: Start Root[0m
+[0;32mI (129373) uart_to_node: Send: Start Root[0m
+[0;32mI (129893) uart_to_node: Send: Start Root[0m
+[0;32mI (130413) uart_to_node: Send: Start Root[0m
+[0;32mI (130933) uart_to_node: Send: Start Root[0m
+[0;32mI (131453) uart_to_node: Send: Start Root[0m
+[0;32mI (131973) uart_to_node: Send: Start Root[0m
+[0;32mI (132493) uart_to_node: Send: Start Root[0m
+[0;32mI (133013) uart_to_node: Send: Start Root[0m
+[0;32mI (133533) uart_to_node: Send: Start Root[0m
+[0;32mI (134053) uart_to_node: Send: Start Root[0m
+[0;32mI (134573) uart_to_node: Send: Start Root[0m
+[0;32mI (135093) uart_to_node: Send: Start Root[0m
+[0;32mI (135613) uart_to_node: Send: Start Root[0m
+[0;32mI (136133) uart_to_node: Send: Start Root[0m
+[0;32mI (136653) uart_to_node: Send: Start Root[0m
+[0;32mI (137173) uart_to_node: Send: Start Root[0m
+[0;32mI (137693) uart_to_node: Send: Start Root[0m
+[0;32mI (138213) uart_to_node: Send: Start Root[0m
+[0;32mI (138733) uart_to_node: Send: Start Root[0m
+[0;32mI (139253) uart_to_node: Send: Start Root[0m
+[0;32mI (139773) uart_to_node: Send: Start Root[0m
+[0;32mI (140293) uart_to_node: Send: Start Root[0m
+[0;32mI (140813) uart_to_node: Send: Start Root[0m
+[0;32mI (141333) uart_to_node: Send: Start Root[0m
+[0;32mI (141853) uart_to_node: Send: Start Root[0m
+[0;32mI (142373) uart_to_node: Send: Start Root[0m
+[0;32mI (142893) uart_to_node: Send: Start Root[0m
+[0;32mI (143413) uart_to_node: Send: Start Root[0m
+[0;32mI (143933) uart_to_node: Send: Start Root[0m
+[0;32mI (144453) uart_to_node: Send: Start Root[0m
+[0;32mI (144973) uart_to_node: Send: Start Root[0m
+[0;32mI (145493) uart_to_node: Send: Start Root[0m
+[0;32mI (146013) uart_to_node: Send: Start Root[0m
+[0;32mI (146533) uart_to_node: Send: Start Root[0m
+[0;32mI (147053) uart_to_node: Send: Start Root[0m
+[0;32mI (147573) uart_to_node: Send: Start Root[0m
+[0;32mI (148093) uart_to_node: Send: Start Root[0m
+[0;31mE (148613) esp-tls: [sock=52] select() timeout[0m
+[0;32mI (148613) uart_to_node: Send: Start Root[0m
+[0;31mE (148613) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (148613) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (148623) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (148643) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (148643) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (148653) WebSocket Handler: Disconnected from server[0m
+[0;32mI (149133) uart_to_node: Send: Start Root[0m
+[0;32mI (149653) uart_to_node: Send: Start Root[0m
+[0;32mI (150173) uart_to_node: Send: Start Root[0m
+[0;32mI (150693) uart_to_node: Send: Start Root[0m
+[0;32mI (151213) uart_to_node: Send: Start Root[0m
+[0;32mI (151733) uart_to_node: Send: Start Root[0m
+[0;32mI (152253) uart_to_node: Send: Start Root[0m
+[0;32mI (152773) uart_to_node: Send: Start Root[0m
+[0;32mI (153293) uart_to_node: Send: Start Root[0m
+[0;32mI (153813) uart_to_node: Send: Start Root[0m
+[0;32mI (154333) uart_to_node: Send: Start Root[0m
+[0;32mI (154853) uart_to_node: Send: Start Root[0m
+[0;32mI (155373) uart_to_node: Send: Start Root[0m
+[0;32mI (155893) uart_to_node: Send: Start Root[0m
+[0;32mI (156413) uart_to_node: Send: Start Root[0m
+[0;32mI (156933) uart_to_node: Send: Start Root[0m
+[0;32mI (157453) uart_to_node: Send: Start Root[0m
+[0;32mI (157973) uart_to_node: Send: Start Root[0m
+[0;32mI (158493) uart_to_node: Send: Start Root[0m
+[0;32mI (159013) uart_to_node: Send: Start Root[0m
+[0;32mI (159533) uart_to_node: Send: Start Root[0m
+[0;32mI (160053) uart_to_node: Send: Start Root[0m
+[0;32mI (160573) uart_to_node: Send: Start Root[0m
+[0;32mI (161093) uart_to_node: Send: Start Root[0m
+[0;32mI (161613) uart_to_node: Send: Start Root[0m
+[0;32mI (162133) uart_to_node: Send: Start Root[0m
+[0;32mI (162653) uart_to_node: Send: Start Root[0m
+[0;32mI (163173) uart_to_node: Send: Start Root[0m
+[0;32mI (163693) uart_to_node: Send: Start Root[0m
+[0;32mI (164213) uart_to_node: Send: Start Root[0m
+[0;32mI (164733) uart_to_node: Send: Start Root[0m
+[0;32mI (165253) uart_to_node: Send: Start Root[0m
+[0;32mI (165773) uart_to_node: Send: Start Root[0m
+[0;32mI (166293) uart_to_node: Send: Start Root[0m
+[0;32mI (166813) uart_to_node: Send: Start Root[0m
+[0;32mI (167333) uart_to_node: Send: Start Root[0m
+[0;32mI (167853) uart_to_node: Send: Start Root[0m
+[0;32mI (168373) uart_to_node: Send: Start Root[0m
+[0;31mE (168663) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (168663) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (168663) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (168663) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (168683) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (168693) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (168693) WebSocket Handler: Disconnected from server[0m
+[0;32mI (168893) uart_to_node: Send: Start Root[0m
+[0;32mI (169413) uart_to_node: Send: Start Root[0m
+[0;32mI (169933) uart_to_node: Send: Start Root[0m
+[0;32mI (170453) uart_to_node: Send: Start Root[0m
+[0;32mI (170973) uart_to_node: Send: Start Root[0m
+[0;32mI (171493) uart_to_node: Send: Start Root[0m
+[0;32mI (172013) uart_to_node: Send: Start Root[0m
+[0;32mI (172533) uart_to_node: Send: Start Root[0m
+[0;32mI (173053) uart_to_node: Send: Start Root[0m
+[0;32mI (173573) uart_to_node: Send: Start Root[0m
+[0;32mI (174093) uart_to_node: Send: Start Root[0m
+[0;32mI (174613) uart_to_node: Send: Start Root[0m
+[0;32mI (175133) uart_to_node: Send: Start Root[0m
+[0;32mI (175653) uart_to_node: Send: Start Root[0m
+[0;32mI (176173) uart_to_node: Send: Start Root[0m
+[0;32mI (176693) uart_to_node: Send: Start Root[0m
+[0;32mI (177213) uart_to_node: Send: Start Root[0m
+[0;32mI (177733) uart_to_node: Send: Start Root[0m
+[0;32mI (178253) uart_to_node: Send: Start Root[0m
+[0;32mI (178773) uart_to_node: Send: Start Root[0m
+[0;32mI (179293) uart_to_node: Send: Start Root[0m
+[0;32mI (179813) uart_to_node: Send: Start Root[0m
+[0;32mI (180333) uart_to_node: Send: Start Root[0m
+[0;32mI (180853) uart_to_node: Send: Start Root[0m
+[0;32mI (181373) uart_to_node: Send: Start Root[0m
+[0;32mI (181893) uart_to_node: Send: Start Root[0m
+[0;32mI (182413) uart_to_node: Send: Start Root[0m
+[0;32mI (182933) uart_to_node: Send: Start Root[0m
+[0;32mI (183453) uart_to_node: Send: Start Root[0m
+[0;32mI (183973) uart_to_node: Send: Start Root[0m
+[0;32mI (184493) uart_to_node: Send: Start Root[0m
+[0;32mI (185013) uart_to_node: Send: Start Root[0m
+[0;32mI (185533) uart_to_node: Send: Start Root[0m
+[0;32mI (186053) uart_to_node: Send: Start Root[0m
+[0;32mI (186573) uart_to_node: Send: Start Root[0m
+[0;32mI (187093) uart_to_node: Send: Start Root[0m
+[0;32mI (187613) uart_to_node: Send: Start Root[0m
+[0;32mI (188133) uart_to_node: Send: Start Root[0m
+[0;32mI (188653) uart_to_node: Send: Start Root[0m
+[0;31mE (188713) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (188713) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (188713) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (188713) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (188733) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (188743) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (188743) WebSocket Handler: Disconnected from server[0m
+[0;32mI (189173) uart_to_node: Send: Start Root[0m
+[0;32mI (189693) uart_to_node: Send: Start Root[0m
+[0;32mI (190213) uart_to_node: Send: Start Root[0m
+[0;32mI (190733) uart_to_node: Send: Start Root[0m
+[0;32mI (191253) uart_to_node: Send: Start Root[0m
+[0;32mI (191773) uart_to_node: Send: Start Root[0m
+[0;32mI (192293) uart_to_node: Send: Start Root[0m
+[0;32mI (192813) uart_to_node: Send: Start Root[0m
+[0;32mI (193333) uart_to_node: Send: Start Root[0m
+[0;32mI (193853) uart_to_node: Send: Start Root[0m
+[0;32mI (194373) uart_to_node: Send: Start Root[0m
+[0;32mI (194893) uart_to_node: Send: Start Root[0m
+[0;32mI (195413) uart_to_node: Send: Start Root[0m
+[0;32mI (195933) uart_to_node: Send: Start Root[0m
+[0;32mI (196453) uart_to_node: Send: Start Root[0m
+[0;32mI (196973) uart_to_node: Send: Start Root[0m
+[0;32mI (197493) uart_to_node: Send: Start Root[0m
+[0;32mI (198013) uart_to_node: Send: Start Root[0m
+[0;32mI (198533) uart_to_node: Send: Start Root[0m
+[0;32mI (199053) uart_to_node: Send: Start Root[0m
+[0;32mI (199573) uart_to_node: Send: Start Root[0m
+[0;32mI (200093) uart_to_node: Send: Start Root[0m
+[0;32mI (200613) uart_to_node: Send: Start Root[0m
+[0;32mI (201133) uart_to_node: Send: Start Root[0m
+[0;32mI (201653) uart_to_node: Send: Start Root[0m
+[0;32mI (202173) uart_to_node: Send: Start Root[0m
+[0;32mI (202693) uart_to_node: Send: Start Root[0m
+[0;32mI (203213) uart_to_node: Send: Start Root[0m
+[0;32mI (203733) uart_to_node: Send: Start Root[0m
+[0;32mI (204253) uart_to_node: Send: Start Root[0m
+[0;32mI (204773) uart_to_node: Send: Start Root[0m
+[0;32mI (205293) uart_to_node: Send: Start Root[0m
+[0;32mI (205813) uart_to_node: Send: Start Root[0m
+[0;32mI (206333) uart_to_node: Send: Start Root[0m
+[0;32mI (206853) uart_to_node: Send: Start Root[0m
+[0;32mI (207373) uart_to_node: Send: Start Root[0m
+[0;32mI (207893) uart_to_node: Send: Start Root[0m
+[0;32mI (208413) uart_to_node: Send: Start Root[0m
+[0;31mE (208763) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (208763) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (208763) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (208763) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (208783) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (208793) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (208793) WebSocket Handler: Disconnected from server[0m
+[0;32mI (208933) uart_to_node: Send: Start Root[0m
+[0;32mI (209453) uart_to_node: Send: Start Root[0m
+[0;32mI (209973) uart_to_node: Send: Start Root[0m
+[0;32mI (210493) uart_to_node: Send: Start Root[0m
+[0;32mI (211013) uart_to_node: Send: Start Root[0m
+[0;32mI (211533) uart_to_node: Send: Start Root[0m
+[0;32mI (212053) uart_to_node: Send: Start Root[0m
+[0;32mI (212573) uart_to_node: Send: Start Root[0m
+[0;32mI (213093) uart_to_node: Send: Start Root[0m
+[0;32mI (213613) uart_to_node: Send: Start Root[0m
+[0;32mI (214133) uart_to_node: Send: Start Root[0m
+[0;32mI (214653) uart_to_node: Send: Start Root[0m
+[0;32mI (215173) uart_to_node: Send: Start Root[0m
+[0;32mI (215693) uart_to_node: Send: Start Root[0m
+[0;32mI (216213) uart_to_node: Send: Start Root[0m
+[0;32mI (216733) uart_to_node: Send: Start Root[0m
+[0;32mI (217253) uart_to_node: Send: Start Root[0m
+[0;32mI (217773) uart_to_node: Send: Start Root[0m
+[0;32mI (218293) uart_to_node: Send: Start Root[0m
+[0;32mI (218813) uart_to_node: Send: Start Root[0m
+[0;32mI (219333) uart_to_node: Send: Start Root[0m
+[0;32mI (219853) uart_to_node: Send: Start Root[0m
+[0;32mI (220373) uart_to_node: Send: Start Root[0m
+[0;32mI (220893) uart_to_node: Send: Start Root[0m
+[0;32mI (221413) uart_to_node: Send: Start Root[0m
+[0;32mI (221933) uart_to_node: Send: Start Root[0m
+[0;32mI (222453) uart_to_node: Send: Start Root[0m
+[0;32mI (222973) uart_to_node: Send: Start Root[0m
+[0;32mI (223493) uart_to_node: Send: Start Root[0m
+[0;32mI (224013) uart_to_node: Send: Start Root[0m
+[0;32mI (224533) uart_to_node: Send: Start Root[0m
+[0;32mI (225053) uart_to_node: Send: Start Root[0m
+[0;32mI (225573) uart_to_node: Send: Start Root[0m
+[0;32mI (226093) uart_to_node: Send: Start Root[0m
+[0;32mI (226613) uart_to_node: Send: Start Root[0m
+[0;32mI (227133) uart_to_node: Send: Start Root[0m
+[0;32mI (227653) uart_to_node: Send: Start Root[0m
+[0;32mI (228173) uart_to_node: Send: Start Root[0m
+[0;32mI (228693) uart_to_node: Send: Start Root[0m
+[0;31mE (228813) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (228813) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (228813) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (228813) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (228833) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (228843) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (228843) WebSocket Handler: Disconnected from server[0m
+[0;32mI (229213) uart_to_node: Send: Start Root[0m
+[0;32mI (229733) uart_to_node: Send: Start Root[0m
+[0;32mI (230253) uart_to_node: Send: Start Root[0m
+[0;32mI (230773) uart_to_node: Send: Start Root[0m
+[0;32mI (231293) uart_to_node: Send: Start Root[0m
+[0;32mI (231813) uart_to_node: Send: Start Root[0m
+[0;32mI (232333) uart_to_node: Send: Start Root[0m
+[0;32mI (232853) uart_to_node: Send: Start Root[0m
+[0;32mI (233373) uart_to_node: Send: Start Root[0m
+[0;32mI (233893) uart_to_node: Send: Start Root[0m
+[0;32mI (234413) uart_to_node: Send: Start Root[0m
+[0;32mI (234933) uart_to_node: Send: Start Root[0m
+[0;32mI (235453) uart_to_node: Send: Start Root[0m
+[0;32mI (235973) uart_to_node: Send: Start Root[0m
+[0;32mI (236493) uart_to_node: Send: Start Root[0m
+[0;32mI (237013) uart_to_node: Send: Start Root[0m
+[0;32mI (237533) uart_to_node: Send: Start Root[0m
+[0;32mI (238053) uart_to_node: Send: Start Root[0m
+[0;32mI (238573) uart_to_node: Send: Start Root[0m
+[0;32mI (239093) uart_to_node: Send: Start Root[0m
+[0;32mI (239613) uart_to_node: Send: Start Root[0m
+[0;32mI (240133) uart_to_node: Send: Start Root[0m
+[0;32mI (240653) uart_to_node: Send: Start Root[0m
+[0;32mI (241173) uart_to_node: Send: Start Root[0m
+[0;32mI (241693) uart_to_node: Send: Start Root[0m
+[0;32mI (242213) uart_to_node: Send: Start Root[0m
+[0;32mI (242733) uart_to_node: Send: Start Root[0m
+[0;32mI (243253) uart_to_node: Send: Start Root[0m
+[0;32mI (243773) uart_to_node: Send: Start Root[0m
+[0;32mI (244293) uart_to_node: Send: Start Root[0m
+[0;32mI (244813) uart_to_node: Send: Start Root[0m
+[0;32mI (245333) uart_to_node: Send: Start Root[0m
+[0;32mI (245853) uart_to_node: Send: Start Root[0m
+[0;32mI (246373) uart_to_node: Send: Start Root[0m
+[0;32mI (246893) uart_to_node: Send: Start Root[0m
+[0;32mI (247413) uart_to_node: Send: Start Root[0m
+[0;32mI (247933) uart_to_node: Send: Start Root[0m
+[0;32mI (248453) uart_to_node: Send: Start Root[0m
+[0;31mE (248863) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (248863) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (248863) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (248863) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (248883) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (248893) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (248893) WebSocket Handler: Disconnected from server[0m
+[0;32mI (248973) uart_to_node: Send: Start Root[0m
+[0;32mI (249493) uart_to_node: Send: Start Root[0m
+[0;32mI (250013) uart_to_node: Send: Start Root[0m
+[0;32mI (250533) uart_to_node: Send: Start Root[0m
+[0;32mI (251053) uart_to_node: Send: Start Root[0m
+[0;32mI (251573) uart_to_node: Send: Start Root[0m
+[0;32mI (252093) uart_to_node: Send: Start Root[0m
+[0;32mI (252613) uart_to_node: Send: Start Root[0m
+[0;32mI (253133) uart_to_node: Send: Start Root[0m
+[0;32mI (253653) uart_to_node: Send: Start Root[0m
+[0;32mI (254173) uart_to_node: Send: Start Root[0m
+[0;32mI (254693) uart_to_node: Send: Start Root[0m
+[0;32mI (255213) uart_to_node: Send: Start Root[0m
+[0;32mI (255733) uart_to_node: Send: Start Root[0m
+[0;32mI (256253) uart_to_node: Send: Start Root[0m
+[0;32mI (256773) uart_to_node: Send: Start Root[0m
+[0;32mI (257293) uart_to_node: Send: Start Root[0m
+[0;32mI (257813) uart_to_node: Send: Start Root[0m
+[0;32mI (258333) uart_to_node: Send: Start Root[0m
+[0;32mI (258853) uart_to_node: Send: Start Root[0m
+[0;32mI (259373) uart_to_node: Send: Start Root[0m
+[0;32mI (259893) uart_to_node: Send: Start Root[0m
+[0;32mI (260413) uart_to_node: Send: Start Root[0m
+[0;32mI (260933) uart_to_node: Send: Start Root[0m
+[0;32mI (261453) uart_to_node: Send: Start Root[0m
+[0;32mI (261973) uart_to_node: Send: Start Root[0m
+[0;32mI (262493) uart_to_node: Send: Start Root[0m
+[0;32mI (263013) uart_to_node: Send: Start Root[0m
+[0;32mI (263533) uart_to_node: Send: Start Root[0m
+[0;32mI (264053) uart_to_node: Send: Start Root[0m
+[0;32mI (264573) uart_to_node: Send: Start Root[0m
+[0;32mI (265093) uart_to_node: Send: Start Root[0m
+[0;32mI (265613) uart_to_node: Send: Start Root[0m
+[0;32mI (266133) uart_to_node: Send: Start Root[0m
+[0;32mI (266653) uart_to_node: Send: Start Root[0m
+[0;32mI (267173) uart_to_node: Send: Start Root[0m
+[0;32mI (267693) uart_to_node: Send: Start Root[0m
+[0;32mI (268213) uart_to_node: Send: Start Root[0m
+[0;32mI (268733) uart_to_node: Send: Start Root[0m
+[0;31mE (268913) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (268913) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (268913) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (268913) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (268933) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (268943) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (268943) WebSocket Handler: Disconnected from server[0m
+[0;32mI (269253) uart_to_node: Send: Start Root[0m
+[0;32mI (269773) uart_to_node: Send: Start Root[0m
+[0;32mI (270293) uart_to_node: Send: Start Root[0m
+[0;32mI (270813) uart_to_node: Send: Start Root[0m
+[0;32mI (271333) uart_to_node: Send: Start Root[0m
+[0;32mI (271853) uart_to_node: Send: Start Root[0m
+[0;32mI (272373) uart_to_node: Send: Start Root[0m
+[0;32mI (272893) uart_to_node: Send: Start Root[0m
+[0;32mI (273413) uart_to_node: Send: Start Root[0m
+[0;32mI (273933) uart_to_node: Send: Start Root[0m

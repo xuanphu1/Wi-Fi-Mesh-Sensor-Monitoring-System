@@ -1,0 +1,299 @@
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+78]]}[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81c54h (531540) map[0m
+[0;32mI (302) esp_image: segment 1: paddr=00091c7c vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (309) esp_image: segment 2: paddr=000961c4 vaddr=40080000 size=09e54h ( 40532) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f2d54h (994644) map[0m
+[0;32mI (666) esp_image: segment 4: paddr=00192d7c vaddr=40089e54 size=114d4h ( 70868) load[0m
+[0;32mI (707) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (708) boot: Disabling RNG early entropy source...[0m
+[0;32mI (719) cpu_start: Multicore app[0m
+[0;32mI (729) cpu_start: Pro cpu start user code[0m
+[0;32mI (729) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (729) cpu_start: Application information:[0m
+[0;32mI (732) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (737) cpu_start: App version:      1[0m
+[0;32mI (742) cpu_start: Compile time:     Apr 20 2026 11:23:31[0m
+[0;32mI (748) cpu_start: ELF file SHA256:  342192ddb...[0m
+[0;32mI (753) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (758) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (763) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (768) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (773) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (780) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (786) heap_init: At 3FFCBA10 len 000145F0 (81 KiB): DRAM[0m
+[0;32mI (792) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (798) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (805) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (813) spi_flash: detected chip: generic[0m
+[0;32mI (816) spi_flash: flash io: dio[0m
+[0;33mW (820) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (830) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (839) main_task: Started on CPU0[0m
+[0;32mI (849) main_task: Calling app_main()[0m
+[0;32mI (869) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (869) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (869) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (869) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (879) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (889) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (889) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (899) disp_spi: Adding SPI device[0m
+[0;32mI (899) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1109) ILI9341: Initialization.[0m
+[0;32mI (1309) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1309) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1309) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1629) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1639) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1649) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1689) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-10 23:56:40
+[0;32mI (1749) wifi:wifi driver task: 3ffe3650, prio:23, stack:6656, core=0[0m
+[0;32mI (1749) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1759) wifi:wifi certification version: v7.0[0m
+[0;32mI (1759) wifi:config NVS flash: enabled[0m
+[0;32mI (1759) wifi:config nano formating: disabled[0m
+[0;32mI (1759) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1769) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1769) wifi:Init management short buffer num: 32[0m
+[0;32mI (1769) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1779) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1779) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1789) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1789) wifi_init: rx ba win: 6[0m
+[0;32mI (1799) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1799) wifi_init: udp mbox: 6[0m
+[0;32mI (1799) wifi_init: tcp mbox: 6[0m
+[0;32mI (1809) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1809) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1809) wifi_init: tcp mss: 1440[0m
+[0;32mI (1819) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1819) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1829) WiFiManager: WiFi disconnected, starting AP mode[0m
+[0;32mI (1839) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (1839) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (1849) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1939) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1939) WiFiManager: Attempting to connect to default WiFi: Unknown[0m
+[0;32mI (2009) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (2009) wifi:enable tsf[0m
+[0;32mI (2019) wifi:Total power save buffer number: 16[0m
+[0;32mI (2019) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (2019) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (2029) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (2029) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (2029) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (2049) WiFiManager: Web server started on port 80[0m
+[0;32mI (2059) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (2059) wifi:Set ps type: 1, coexist: 0[0m
+

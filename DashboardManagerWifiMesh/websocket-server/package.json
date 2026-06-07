@@ -1,0 +1,16 @@
+{
+  "name": "dashboard-ws-server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "WebSocket server cho dashboard / gateway mesh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.5.0",
+    "ws": "^8.18.0"
+  }
+}

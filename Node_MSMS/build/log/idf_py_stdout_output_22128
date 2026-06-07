@@ -1,0 +1,332 @@
+��ESP-ROM:esp32c6-20220919
+Build:Sep 19 2022
+rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x40875720,len:0x18ec
+load:0x4086c410,len:0xe60
+load:0x4086e610,len:0x2f2c
+entry 0x4086c41a
+[0;32mI (23) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Apr 18 2026 08:30:16[0m
+[0;32mI (24) boot: chip revision: v0.0[0m
+[0;32mI (27) boot: efuse block revision: v0.2[0m
+[0;32mI (31) boot.esp32c6: SPI Speed      : 80MHz[0m
+[0;32mI (36) boot.esp32c6: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32c6: SPI Flash Size : 2MB[0m
+[0;32mI (46) boot: Enabling RNG early entropy source...[0m
+[0;32mI (51) boot: Partition Table:[0m
+[0;32mI (55) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (62) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (69) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (77) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (84) boot: End of partition table[0m
+[0;32mI (89) esp_image: segment 0: paddr=00010020 vaddr=420b8020 size=240a4h (147620) map[0m
+[0;32mI (125) esp_image: segment 1: paddr=000340cc vaddr=40800000 size=03f4ch ( 16204) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=00038020 vaddr=42000020 size=b1bc8h (728008) map[0m
+[0;32mI (270) esp_image: segment 3: paddr=000e9bf0 vaddr=40803f4c size=158c0h ( 88256) load[0m
+[0;32mI (289) esp_image: segment 4: paddr=000ff4b8 vaddr=40819810 size=03ac8h ( 15048) load[0m
+[0;32mI (299) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (299) boot: Disabling RNG early entropy source...[0m
+[0;32mI (311) cpu_start: Unicore app[0m
+[0;33mW (319) clk: esp_perip_clk_init() has not been implemented yet[0m
+[0;32mI (326) cpu_start: Pro cpu start user code[0m
+[0;32mI (326) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (326) cpu_start: Application information:[0m
+[0;32mI (329) cpu_start: Project name:     no_router[0m
+[0;32mI (334) cpu_start: App version:      1[0m
+[0;32mI (339) cpu_start: Compile time:     Apr 18 2026 08:30:37[0m
+[0;32mI (345) cpu_start: ELF file SHA256:  ac4a22358...[0m
+[0;32mI (350) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (355) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (360) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (365) cpu_start: Chip rev:         v0.0[0m
+[0;32mI (370) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (377) heap_init: At 40822B20 len 00059AF0 (358 KiB): RAM[0m
+[0;32mI (383) heap_init: At 4087C610 len 00002F54 (11 KiB): RAM[0m
+[0;32mI (389) heap_init: At 5000006C len 00003F7C (15 KiB): RTCRAM[0m
+[0;32mI (396) spi_flash: detected chip: generic[0m
+[0;32mI (400) spi_flash: flash io: dio[0m
+[0;33mW (404) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (417) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (428) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (435) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (442) coexist: coex firmware version: 994b23e[0m
+[0;32mI (447) coexist: coexist rom version 5b8dcfa[0m
+[0;32mI (452) main_task: Started on CPU0[0m
+[0;32mI (455) main_task: Calling app_main()[0m
+[0;32mI (472) bridge_common: esp-iot-bridge version: 1.0.1[0m
+[0;32mI (473) pp: pp rom version: 5b8dcfa[0m
+[0;32mI (473) net80211: net80211 rom version: 5b8dcfa[0m
+[0;32mI (478) wifi:wifi driver task: 4082ccf4, prio:23, stack:6656, core=0[0m
+[0;32mI (489) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (489) wifi:wifi certification version: v7.0[0m
+[0;32mI (490) wifi:config NVS flash: enabled[0m
+[0;32mI (494) wifi:config nano formating: disabled[0m
+[0;32mI (498) wifi:mac_version:HAL_MAC_ESP32AX_761,ut_version:N[0m
+[0;32mI (503) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (553) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (553) wifi:Init management short buffer num: 32[0m
+[0;32mI (554) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (555) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (559) wifi:Init static rx buffer size: 1700[0m
+[0;32mI (563) wifi:Init static rx buffer num: 10[0m
+[0;32mI (567) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (571) wifi_init: rx ba win: 6[0m
+[0;32mI (574) wifi_init: tcpip mbox: 32[0m
+[0;32mI (578) wifi_init: udp mbox: 6[0m
+[0;32mI (582) wifi_init: tcp mbox: 6[0m
+[0;32mI (586) wifi_init: tcp tx win: 5760[0m
+[0;32mI (590) wifi_init: tcp rx win: 5760[0m
+[0;32mI (594) wifi_init: tcp mss: 1440[0m
+[0;32mI (598) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (603) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (608) phy_init: phy_version 320,348a293,Sep  3 2024,16:33:12[0m
+[0;33mW (677) wifi:ACK_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (678) wifi:CTS_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (683) wifi:(agc)0x600a7128:0xd203da06, min.avgNF:0xce->0xd2(dB), RCalCount:0x3d, min.RRssi:0xa06(-95.62)[0m
+[0;33mW (692) wifi:(TB)WDEV_PWR_TB_MCS0:19[0m
+[0;33mW (695) wifi:(TB)WDEV_PWR_TB_MCS1:19[0m
+[0;33mW (699) wifi:(TB)WDEV_PWR_TB_MCS2:19[0m
+[0;33mW (702) wifi:(TB)WDEV_PWR_TB_MCS3:19[0m
+[0;33mW (705) wifi:(TB)WDEV_PWR_TB_MCS4:19[0m
+[0;33mW (709) wifi:(TB)WDEV_PWR_TB_MCS5:19[0m
+[0;33mW (712) wifi:(TB)WDEV_PWR_TB_MCS6:18[0m
+[0;33mW (715) wifi:(TB)WDEV_PWR_TB_MCS7:18[0m
+[0;33mW (718) wifi:(TB)WDEV_PWR_TB_MCS8:17[0m
+[0;33mW (722) wifi:(TB)WDEV_PWR_TB_MCS9:15[0m
+[0;33mW (725) wifi:(TB)WDEV_PWR_TB_MCS10:15[0m
+[0;33mW (728) wifi:(TB)WDEV_PWR_TB_MCS11:15[0m
+[0;32mI (732) wifi:11ax coex: WDEVAX_PTI0(0x55777555), WDEVAX_PTI1(0x00003377).[0m
+
+[0;32mI (739) wifi:mode : null[0m
+[0;32mI (742) wifi:mode : softAP (54:32:04:0c:42:fd)[0m
+[0;32mI (745) wifi:Total power save buffer number: 16[0m
+[0;32mI (749) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (754) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (759) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+Add netif ap with (commit id)
+[0;32mI (769) bridge_common: netif list add success[0m
+[0;32mI (775) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (779) bridge_common: Set ip info:192.168.5.1[0m
+[0;32mI (784) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (793) wifi:Disabled PMF config for SoftAP[0m
+[0;32mI (796) wifi:Total power save buffer number: 16[0m
+[0;32mI (801) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (809) bridge_common: [WIFI_AP_DEF ]Name Server1: 114.114.114.114[0m
+[0;32mI (816) bridge_common: DHCPS Restart, deauth all station[0m
+Add netif sta with (commit id)
+[0;32mI (824) bridge_common: netif list add success[0m
+[0;32mI (830) wifi:mode : sta (54:32:04:0c:42:fc) + softAP (54:32:04:0c:42:fd)[0m
+[0;32mI (836) wifi:enable tsf[0m
+[0;33mW (838) wifi:11ax mode can not work under phy bw 40M, the sta phymode changed to 11N[0m
+[0;32mI (846) bridge_wifi: Found ssid Unknown[0m
+[0;32mI (850) bridge_wifi: Found password 12345789[0m
+[0;31mE (855) NVS: Failed to read IP info from NVS[0m
+[0;32mI (860) wifi:Disabled PMF config for STA[0m
+[0;32mI (864) bridge_wifi: [esp_bridge_wifi_set_config] sta ssid:  password: [0m
+[0;32mI (871) bridge_wifi: [esp_bridge_wifi_set_config] softap ssid: ESP_Bridge_0c42fd password: 12345678[0m
+[0;32mI (1241) wifi:Total power save buffer number: 16[0m
+[0;32mI (1243) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (1244) bridge_wifi: SoftAP config changed, deauth all station[0m
+[0;32mI (1250) Mesh-Lite: esp-mesh-lite component version: 1.0.2[0m
+[0;32mI (1257) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (1260) [vendor_ie]: Mesh-Lite commit id: 308dc1f
+ [0m
+[0;32mI (1267) [vendor_ie]: Mesh ID: 77 [0m
+[0;33mW (1270) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1275) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1279) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (1285) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;32mI (1291) [ESP_Mesh_Lite_Comm]: Bind Socket 54, port 6364 [0m
+[0;32mI (1296) [ESP_Mesh_Lite_Comm]: Bind Socket 55, port 6363 [0m
+[0;32mI (1302) [ESP_Mesh_Lite_Comm]: Bind Socket 56, port 6366 [0m
+[0;32mI (1308) [ESP_Mesh_Lite_Comm]: Bind Socket 57, port 6365 [0m
+[0;32mI (1315) [mesh-lite-espnow]: Start espnow task [0m
+[0;32mI (1319) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;33mW (1325) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1330) no_router_child: Get ssid from nvs failed, set ssid: ESP_Bridge_0c42fd[0m
+[0;33mW (1338) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1342) no_router_child: Get psw from nvs failed, set psw: [HIDDEN][0m
+[0;33mW (1349) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1353) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1358) no_router_child: Child node[0m
+[0;32mI (1362) Mesh-Lite: Mesh-Lite connecting[0m
+[0;32mI (1367) [vendor_ie]: esp_mesh_lite_wifi_scan_start return ESP_OK [0m
+[0;32mI (1374) no_router_child: DS3231 ready on I2C port 0 (SDA=13, SCL=12)[0m
+[0;32mI (1431) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;33mW (1432) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (1437) main_task: Returned from app_main()[0m
+[0;33mW (4097) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (4195) [vendor_ie]: Mesh-Lite Scan done [0m
+[0;33mW (4196) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4196) [vendor_ie]: now parent node   : bssid:20:1b:5b:30:6d:0a, rssi:0, level:-1 [0m
+[0;32mI (4202) [vendor_ie]: update parent node: bssid:40:4c:ca:5e:ad:c5, rssi:-31, level:2 [0m
+[0;32mI (4211) [vendor_ie]: Find ESP_Bridge_5eadc5 [0m
+[0;32mI (4216) [vendor_ie]: bssid: 40:4c:ca:5e:ad:c5, level: 3 [0m
+[0;33mW (4222) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;33mW (4231) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4235) [vendor_ie]: wifi_cfg ESP_Bridge_5eadc5, ap_info.ssid , router_config   [0m
+[0;32mI (4243) [vendor_ie]: wifi_cfg mac 40:4c:ca:5e:ad:c5, ap_info mac ff:ff:ff:ff:14:00 [0m
+[0;33mW (4252) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (4256) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (4261) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_5eadc5; bssid:40:4c:ca:5e:ad:c5; crc:3662107366 [0m
+[0;33mW (5185) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (5186) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (5186) [ESP_Mesh_Lite_Comm]: Retry to connect to the AP [0m
+[0;32mI (7019) wifi:new:<11,2>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (7019) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (7021) wifi:state: init -> auth (b0)[0m
+[0;33mW (7025) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (7030) wifi:state: auth -> assoc (0)[0m
+[0;32mI (7077) wifi:state: assoc -> run (10)[0m
+[0;32mI (7077) wifi:(trc)phytype:CBW20-SGI, snr:66, maxRate:144, highestRateIdx:0[0m
+[0;32mI (7077) wifi:(trc)rate(S-MCS7, schedIdx:0), ampdu(rate:S-MCS7, schedIdx(0, stop:8)), snr:66, ampduState:wait operational[0m
+[0;32mI (7087) wifi:ifidx:0, rssi:-31, nf:-97, phytype(0x3, CBW20-SGI), phymode(0x3, 11bgn), max_rate:1440, he:0[0m
+[0;32mI (7096) wifi:max ampdu length exponent:0(8191 bytes), mmss:0(no restriction)[0m
+[0;32mI (7113) wifi:connected with ESP_Bridge_5eadc5, aid = 1, channel 11, BW20, bssid = 40:4c:ca:5e:ad:c5[0m
+[0;32mI (7114) wifi:security: WPA2-PSK, phy:11bgn, rssi:-31, cipher(pairwise:0x3, group:0x3), pmf:1, [0m
+[0;32mI (7120) wifi:pm start, type: 1, twt_start:0[0m
+
+[0;32mI (7124) wifi:pm start, type:1, aid:0x1, trans-BSSID:40:4c:ca:5e:ad:c5, BSSID[5]:0xc5, mbssid(max-indicator:0, index:0), he:0[0m
+[0;32mI (7135) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (7143) wifi:set rx beacon pti, rx_bcn_pti: 10, bcn_timeout: 25000, mt_pti: 10, mt_time: 10000[0m
+[0;32mI (7152) wifi:[ADDBA]TX addba request, tid:0, dialogtoken:1, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (7163) wifi:[ADDBA]TX addba request, tid:7, dialogtoken:2, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x20)[0m
+[0;32mI (7174) wifi:[ADDBA]TX addba request, tid:5, dialogtoken:3, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (7185) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (7191) wifi:[ADDBA]RX addba response, status:0, tid:0/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (7199) wifi:[ADDBA]RX addba response, status:0, tid:7/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (7208) wifi:[ADDBA]RX addba response, status:0, tid:5/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (8153) Mesh-Lite: netif network segment conflict check[0m
+[0;32mI (8153) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (8153) bridge_common: IP Address:192.168.4.1[0m
+[0;32mI (8157) bridge_common: GW Address:192.168.4.1[0m
+[0;32mI (8162) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (8168) bridge_common: ip reallocate new:192.168.4.1[0m
+[0;32mI (8173) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (8218) esp_netif_handlers: sta ip: 192.168.4.2, mask: 255.255.255.0, gw: 192.168.4.1[0m
+[0;32mI (8218) bridge_wifi: Connected with IP Address:192.168.4.2[0m
+[0;32mI (8222) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (8226) bridge_common: IP Address:192.168.6.1[0m
+[0;32mI (8232) bridge_common: GW Address:192.168.6.1[0m
+[0;32mI (8237) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (8242) bridge_common: ip reallocate new:192.168.6.1[0m
+[0;32mI (8248) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (8256) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_5eadc5; bssid:40:4c:ca:5e:ad:c5; crc:3662107366 [0m
+[0;33mW (8270) wifi:<ba-add>idx:0, ifx:0, tid:0, TAHI:0x100c5ad, TALO:0x5eca4c40, (ssn:0, win:64, cur_ssn:0), CONF:0xc0000005[0m
+[0;32mI (9762) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:20","ver":"1.0.0","err":["0xE6B7","0x0000","0x8AFE","0x4BC0","0x0000","0x0000","0x0000","0x0000","0x0000","0x0000"],"p":[[1,0,18.563,47.576,1006.530],[3,13,26.576,72.075]]}[0m
+[0;32mI (9778) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (11437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274628[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (14969) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:25","ver":"1.0.0","err":["0x2CCE","0x0000","0x0000","0x0000","0x0000","0xF61A","0x19A8","0x0000","0x0000","0x0000"],"p":[[1,0,28.887,75.344,993.480],[3,13,24.410,41.157]]}[0m
+[0;32mI (14985) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (20176) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:30","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0xAC7F","0xF9B2","0x0000","0x0000","0x0774","0x0000","0x0000"],"p":[[1,0,21.097,83.210,996.845],[3,13,25.458,46.989]]}[0m
+[0;32mI (20192) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (21437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (25382) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:36","ver":"1.0.0","err":["0x0000","0x7128","0x391F","0x0000","0x0000","0x0000","0x0000","0x0000","0x07D8","0x0000"],"p":[[1,0,31.850,48.146,1005.954],[3,13,21.556,61.058]]}[0m
+[0;32mI (25398) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (30589) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:41","ver":"1.0.0","err":["0xCD4B","0x0000","0x9323","0x0000","0x0000","0x0000","0x55AC","0x0000","0x0000","0x0000"],"p":[[1,0,20.538,68.978,1019.539],[3,13,22.173,83.911]]}[0m
+[0;32mI (30605) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (31437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (35795) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:46","ver":"1.0.0","err":["0x5D95","0x0000","0x0000","0x0000","0x0000","0x0000","0x0000","0x975D","0x0000","0x0550"],"p":[[1,0,18.651,77.429,1024.623],[3,13,24.601,48.888]]}[0m
+[0;32mI (35811) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (41001) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:51","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0xA5EA","0x0000","0x1875","0x0000","0x0000","0x3599","0x0000"],"p":[[1,0,19.711,70.604,1028.220],[3,13,31.161,59.770]]}[0m
+[0;32mI (41017) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (41437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (46207) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:39:56","ver":"1.0.0","err":["0x0000","0x0000","0xCB0A","0x0000","0x4785","0x0000","0xF1DB","0x0000","0x0000","0x0000"],"p":[[1,0,21.166,36.845,1022.931],[3,13,21.523,59.338]]}[0m
+[0;32mI (46223) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (51414) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:02","ver":"1.0.0","err":["0x0000","0x0000","0x2923","0x0000","0x0000","0x0000","0xE4B6","0x0000","0x0000","0x91DD"],"p":[[1,0,28.865,76.809,1014.666],[3,13,25.616,64.608]]}[0m
+[0;32mI (51430) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (51437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274572[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (56620) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:07","ver":"1.0.0","err":["0x7D8D","0x0000","0x0000","0x0000","0x3BCB","0x0000","0xF66C","0x0000","0x0000","0x0000"],"p":[[1,0,23.392,54.902,994.556],[3,13,31.077,71.296]]}[0m
+[0;32mI (56636) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (61437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (61827) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:12","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0x0000","0x0000","0xE999","0x0000","0xCF83","0x0000","0xE39D"],"p":[[1,0,18.372,64.078,1006.342],[3,13,31.800,79.932]]}[0m
+[0;32mI (61843) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (67033) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:17","ver":"1.0.0","err":["0x0000","0x3BAE","0x0000","0x0000","0x0000","0x0000","0x0000","0x0000","0x58F8","0x2D16"],"p":[[1,0,19.466,74.674,1014.278],[3,13,20.550,45.644]]}[0m
+[0;32mI (67049) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (71437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (72240) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:22","ver":"1.0.0","err":["0x0000","0x3A5E","0x0000","0xDD47","0x0000","0x0000","0x0000","0x0000","0x03C4","0x0000"],"p":[[1,0,31.580,73.884,1013.790],[3,13,20.741,40.639]]}[0m
+[0;32mI (72256) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (77447) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:28","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0x0000","0xBCE2","0x0000","0x5C87","0x0000","0x6F64","0x0000"],"p":[[1,0,31.077,37.830,996.441],[3,13,24.875,42.723]]}[0m
+[0;32mI (77463) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (81437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (82654) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:33","ver":"1.0.0","err":["0xF06B","0x0000","0x0000","0x0000","0xE8C7","0x0000","0x0000","0x0000","0x303E","0x0000"],"p":[[1,0,30.587,63.008,1017.831],[3,13,32.465,57.169]]}[0m
+[0;32mI (82670) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (87861) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:38","ver":"1.0.0","err":["0x0000","0x0000","0x2BB3","0x0000","0x0000","0x775B","0x0000","0xC46F","0x0000","0x0000"],"p":[[1,0,21.629,60.988,991.748],[3,13,31.956,77.066]]}[0m
+[0;32mI (87877) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (91437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (93068) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:43","ver":"1.0.0","err":["0xA985","0x0000","0x0000","0x0000","0x0000","0x0000","0x0000","0x0000","0xE689","0xAF00"],"p":[[1,0,31.784,44.206,1029.848],[3,13,32.279,61.148]]}[0m
+[0;32mI (93084) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (98274) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:48","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0x9D37","0x0000","0x0000","0x4358","0x0000","0xDC41","0x0000"],"p":[[1,0,30.433,73.514,1007.966],[3,13,24.391,72.804]]}[0m
+[0;32mI (98290) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (101437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (103480) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:54","ver":"1.0.0","err":["0x0000","0x0000","0x3198","0x0000","0x0000","0x8DA4","0x0000","0x7FBB","0x0000","0x0000"],"p":[[1,0,22.221,70.514,1019.887],[3,13,21.150,56.067]]}[0m
+[0;32mI (103496) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (108687) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:40:59","ver":"1.0.0","err":["0x0000","0x4258","0x0000","0x0000","0x25D4","0x0000","0x0000","0x6646","0x0000","0x0000"],"p":[[1,0,27.578,83.370,1021.003],[3,13,24.396,83.177]]}[0m
+[0;32mI (108703) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (111437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274868[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (113893) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:41:04","ver":"1.0.0","err":["0x2139","0x0000","0x0000","0x0000","0x0000","0x890F","0xD0BC","0x0000","0x0000","0x0000"],"p":[[1,0,25.253,54.712,1016.107],[3,13,21.406,68.663]]}[0m
+[0;32mI (113909) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (119100) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:41:09","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0x0000","0xDC0C","0x0000","0x641A","0x0000","0x0000","0x3F60"],"p":[[1,0,26.112,75.529,1026.996],[3,13,30.194,68.852]]}[0m
+[0;32mI (119116) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (121437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274496[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (124306) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:41:14","ver":"1.0.0","err":["0x0000","0x0000","0x0000","0xB895","0x0000","0x0000","0x0000","0x3258","0xC143","0x0000"],"p":[[1,0,24.576,41.756,1011.498],[3,13,30.364,43.569]]}[0m
+[0;32mI (124322) no_router_child: Message sent successfully (225 bytes)[0m
+[0;32mI (129513) no_router_child: Sending JSON 224 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:41:20","ver":"1.0.0","err":["0xC39F","0x0000","0x0000","0x0000","0x4A32","0x2CDA","0x0000","0x0000","0x0000","0x0000"],"p":[[1,0,29.105,80.315,998.753],[3,13,32.736,46.134]]}[0m
+[0;32mI (129529) no_router_child: Message sent successfully (224 bytes)[0m
+[0;32mI (131437) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -31, free heap: 274672[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (134720) no_router_child: Sending JSON 225 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T07:41:25","ver":"1.0.0","err":["0x0000","0x090E","0x0000","0xA028","0x0000","0x0000","0x0000","0x0000","0x0000","0x6B46"],"p":[[1,0,24.466,55.347,1014.658],[3,13,29.543,68.119]]}[0m
+[0;32mI (134736) no_router_child: Message sent successfully (225 bytes)[0m

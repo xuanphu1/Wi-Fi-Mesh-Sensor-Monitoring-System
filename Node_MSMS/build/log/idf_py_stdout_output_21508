@@ -1,0 +1,1190 @@
+ESP-ROM:esp32c6-20220919
+Build:Sep 19 2022
+rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x40875720,len:0x18ec
+load:0x4086c410,len:0xe60
+load:0x4086e610,len:0x2f2c
+entry 0x4086c41a
+[0;32mI (23) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Apr 18 2026 08:30:16[0m
+[0;32mI (24) boot: chip revision: v0.1[0m
+[0;32mI (27) boot: efuse block revision: v0.2[0m
+[0;32mI (31) boot.esp32c6: SPI Speed      : 80MHz[0m
+[0;32mI (36) boot.esp32c6: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32c6: SPI Flash Size : 2MB[0m
+[0;32mI (46) boot: Enabling RNG early entropy source...[0m
+[0;32mI (51) boot: Partition Table:[0m
+[0;32mI (55) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (62) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (69) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (77) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (84) boot: End of partition table[0m
+[0;32mI (89) esp_image: segment 0: paddr=00010020 vaddr=420b8020 size=240ach (147628) map[0m
+[0;32mI (125) esp_image: segment 1: paddr=000340d4 vaddr=40800000 size=03f44h ( 16196) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=00038020 vaddr=42000020 size=b1b14h (727828) map[0m
+[0;32mI (270) esp_image: segment 3: paddr=000e9b3c vaddr=40803f44 size=158c8h ( 88264) load[0m
+[0;32mI (294) esp_image: segment 4: paddr=000ff40c vaddr=40819810 size=03ac8h ( 15048) load[0m
+[0;32mI (304) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (304) boot: Disabling RNG early entropy source...[0m
+[0;32mI (316) cpu_start: Unicore app[0m
+[0;33mW (325) clk: esp_perip_clk_init() has not been implemented yet[0m
+[0;32mI (331) cpu_start: Pro cpu start user code[0m
+[0;32mI (331) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (331) cpu_start: Application information:[0m
+[0;32mI (334) cpu_start: Project name:     no_router[0m
+[0;32mI (339) cpu_start: App version:      1[0m
+[0;32mI (344) cpu_start: Compile time:     Apr 18 2026 08:30:37[0m
+[0;32mI (350) cpu_start: ELF file SHA256:  e40ebcac8...[0m
+[0;32mI (355) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (361) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (365) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (370) cpu_start: Chip rev:         v0.1[0m
+[0;32mI (375) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (382) heap_init: At 40822B20 len 00059AF0 (358 KiB): RAM[0m
+[0;32mI (388) heap_init: At 4087C610 len 00002F54 (11 KiB): RAM[0m
+[0;32mI (394) heap_init: At 5000006C len 00003F7C (15 KiB): RTCRAM[0m
+[0;32mI (401) spi_flash: detected chip: generic[0m
+[0;32mI (405) spi_flash: flash io: dio[0m
+[0;33mW (409) spi_flash: Detected size(16384k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (422) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (433) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (440) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (447) coexist: coex firmware version: 994b23e[0m
+[0;32mI (452) coexist: coexist rom version 5b8dcfa[0m
+[0;32mI (458) main_task: Started on CPU0[0m
+[0;32mI (461) main_task: Calling app_main()[0m
+[0;32mI (477) bridge_common: esp-iot-bridge version: 1.0.1[0m
+[0;32mI (477) pp: pp rom version: 5b8dcfa[0m
+[0;32mI (478) net80211: net80211 rom version: 5b8dcfa[0m
+[0;32mI (482) wifi:wifi driver task: 4082cbac, prio:23, stack:6656, core=0[0m
+[0;32mI (494) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (494) wifi:wifi certification version: v7.0[0m
+[0;32mI (495) wifi:config NVS flash: enabled[0m
+[0;32mI (499) wifi:config nano formating: disabled[0m
+[0;32mI (503) wifi:mac_version:HAL_MAC_ESP32AX_761,ut_version:N[0m
+[0;32mI (508) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (513) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (517) wifi:Init management short buffer num: 32[0m
+[0;32mI (521) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (525) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (529) wifi:Init static rx buffer size: 1700[0m
+[0;32mI (533) wifi:Init static rx buffer num: 10[0m
+[0;32mI (537) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (541) wifi_init: rx ba win: 6[0m
+[0;32mI (545) wifi_init: tcpip mbox: 32[0m
+[0;32mI (549) wifi_init: udp mbox: 6[0m
+[0;32mI (552) wifi_init: tcp mbox: 6[0m
+[0;32mI (556) wifi_init: tcp tx win: 5760[0m
+[0;32mI (560) wifi_init: tcp rx win: 5760[0m
+[0;32mI (610) wifi_init: tcp mss: 1440[0m
+[0;32mI (611) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (611) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (613) phy_init: phy_version 320,348a293,Sep  3 2024,16:33:12[0m
+[0;33mW (619) phy_init: failed to load RF calibration data (0xffffffff), falling back to full calibration[0m
+[0;32mI (714) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(2)[0m
+[0;33mW (728) wifi:ACK_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (729) wifi:CTS_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (734) wifi:(agc)0x600a7128:0xd217fa16, min.avgNF:0xce->0xd2(dB), RCalCount:0x17f, min.RRssi:0xa16(-94.62)[0m
+[0;33mW (743) wifi:(TB)WDEV_PWR_TB_MCS0:19[0m
+[0;33mW (746) wifi:(TB)WDEV_PWR_TB_MCS1:19[0m
+[0;33mW (750) wifi:(TB)WDEV_PWR_TB_MCS2:19[0m
+[0;33mW (753) wifi:(TB)WDEV_PWR_TB_MCS3:19[0m
+[0;33mW (756) wifi:(TB)WDEV_PWR_TB_MCS4:19[0m
+[0;33mW (760) wifi:(TB)WDEV_PWR_TB_MCS5:19[0m
+[0;33mW (763) wifi:(TB)WDEV_PWR_TB_MCS6:18[0m
+[0;33mW (766) wifi:(TB)WDEV_PWR_TB_MCS7:18[0m
+[0;33mW (769) wifi:(TB)WDEV_PWR_TB_MCS8:17[0m
+[0;33mW (773) wifi:(TB)WDEV_PWR_TB_MCS9:15[0m
+[0;33mW (776) wifi:(TB)WDEV_PWR_TB_MCS10:15[0m
+[0;33mW (779) wifi:(TB)WDEV_PWR_TB_MCS11:15[0m
+[0;32mI (783) wifi:11ax coex: WDEVAX_PTI0(0x55777555), WDEVAX_PTI1(0x00003377).[0m
+
+[0;32mI (790) wifi:mode : null[0m
+[0;32mI (793) wifi:mode : softAP (40:4c:ca:5e:ad:c5)[0m
+[0;32mI (796) wifi:Total power save buffer number: 16[0m
+[0;32mI (800) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (805) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (810) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+Add netif ap with (commit id)
+[0;32mI (820) bridge_common: netif list add success[0m
+[0;31mE (825) NVS: Failed to open NVS namespace[0m
+[0;32mI (830) bridge_common: IP Address:192.168.5.1[0m
+[0;32mI (835) bridge_common: GW Address:192.168.5.1[0m
+[0;32mI (840) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (845) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (850) bridge_common: Set ip info:192.168.5.1[0m
+[0;32mI (855) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (916) wifi:Disabled PMF config for SoftAP[0m
+[0;32mI (917) bridge_common: DHCPS Restart, deauth all station[0m
+[0;32mI (917) wifi:Total power save buffer number: 16[0m
+[0;32mI (920) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (928) bridge_common: [WIFI_AP_DEF ]Name Server1: 114.114.114.114[0m
+Add netif sta with (commit id)
+[0;32mI (938) bridge_common: netif list add success[0m
+[0;32mI (943) wifi:mode : sta (40:4c:ca:5e:ad:c4) + softAP (40:4c:ca:5e:ad:c5)[0m
+[0;32mI (949) wifi:enable tsf[0m
+[0;33mW (952) wifi:11ax mode can not work under phy bw 40M, the sta phymode changed to 11N[0m
+[0;32mI (960) bridge_wifi: Found ssid Unknown[0m
+[0;32mI (963) bridge_wifi: Found password 12345789[0m
+[0;31mE (969) NVS: Failed to read IP info from NVS[0m
+[0;32mI (974) wifi:Disabled PMF config for STA[0m
+[0;32mI (977) bridge_wifi: [esp_bridge_wifi_set_config] sta ssid:  password: [0m
+[0;32mI (985) bridge_wifi: [esp_bridge_wifi_set_config] softap ssid: ESP_Bridge_5eadc5 password: 12345678[0m
+[0;32mI (1352) wifi:Total power save buffer number: 16[0m
+[0;32mI (1354) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (1403) bridge_wifi: SoftAP config changed, deauth all station[0m
+[0;32mI (1403) Mesh-Lite: esp-mesh-lite component version: 1.0.2[0m
+[0;32mI (1405) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (1409) [vendor_ie]: Mesh-Lite commit id: 308dc1f
+ [0m
+[0;31mE (1415) [vendor_ie]: Error Get! [0m
+[0;33mW (1418) [vendor_ie]: Mesh ID is not saved in flash [0m
+[0;32mI (1425) [vendor_ie]: Mesh ID: 77 [0m
+[0;33mW (1428) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1433) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1437) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (1443) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;32mI (1449) [ESP_Mesh_Lite_Comm]: Bind Socket 54, port 6364 [0m
+[0;32mI (1454) [ESP_Mesh_Lite_Comm]: Bind Socket 55, port 6363 [0m
+[0;32mI (1460) [ESP_Mesh_Lite_Comm]: Bind Socket 56, port 6366 [0m
+[0;32mI (1516) [ESP_Mesh_Lite_Comm]: Bind Socket 57, port 6365 [0m
+[0;32mI (1517) [mesh-lite-espnow]: Start espnow task [0m
+[0;32mI (1517) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;33mW (1523) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1527) no_router_child: Get ssid from nvs failed, set ssid: ESP_Bridge_5eadc5[0m
+[0;33mW (1535) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1539) no_router_child: Get psw from nvs failed, set psw: [HIDDEN][0m
+[0;33mW (1546) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1551) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1555) no_router_child: Child node[0m
+[0;32mI (1559) Mesh-Lite: Mesh-Lite connecting[0m
+[0;32mI (1565) [vendor_ie]: esp_mesh_lite_wifi_scan_start return ESP_OK [0m
+[0;32mI (1571) no_router_child: DS3231 ready on I2C port 0 (SDA=13, SCL=12)[0m
+[0;32mI (1628) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1629) main_task: Returned from app_main()[0m
+[0;33mW (1630) no_router_child: Mesh is not joined yet (layer=0), skip UDP telemetry[0m
+[0;32mI (4392) [vendor_ie]: Mesh-Lite Scan done [0m
+[0;33mW (4392) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4392) [vendor_ie]: now parent node   : bssid:20:1b:5b:30:6d:0a, rssi:0, level:-1 [0m
+[0;32mI (4399) [vendor_ie]: update parent node: bssid:54:32:04:0c:42:fd, rssi:-42, level:2 [0m
+[0;32mI (4407) [vendor_ie]: Find ESP_Bridge_0c42fd [0m
+[0;32mI (4412) [vendor_ie]: bssid: 54:32:04:0c:42:fd, level: 3 [0m
+[0;33mW (4418) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;33mW (4427) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4432) [vendor_ie]: wifi_cfg ESP_Bridge_0c42fd, ap_info.ssid , router_config   [0m
+[0;32mI (4440) [vendor_ie]: wifi_cfg mac 54:32:04:0c:42:fd, ap_info mac ff:ff:ff:ff:13:00 [0m
+[0;33mW (4449) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (4453) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (4458) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_0c42fd; bssid:54:32:04:0c:42:fd; crc:496936148 [0m
+[0;32mI (5530) wifi:new:<11,2>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (5530) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (5532) wifi:state: init -> auth (b0)[0m
+[0;32mI (5537) wifi:state: auth -> init (0)[0m
+[0;32mI (5539) wifi:new:<11,0>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;31mE (5547) [ESP_Mesh_Lite_Comm]: Disconnect reason : 3 [0m
+[0;32mI (5552) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (5557) [ESP_Mesh_Lite_Comm]: Retry to connect to the AP [0m
+[0;32mI (6643) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":1,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:02","ver":"1.0.0","err":["0x6C","0x6C","0xF5"],"p":[[1,0,24.862,65.478,1010.338],[3,13,22.988,51.458]]}[0m
+[0;32mI (6653) no_router_child: Message sent successfully (160 bytes)[0m
+[0;32mI (6943) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":2,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:03","ver":"1.0.0","err":["0xDE","0x4F","0x49"],"p":[[1,0,19.005,37.820,1003.105],[3,13,32.292,48.807]]}[0m
+[0;32mI (6954) no_router_child: Message sent successfully (160 bytes)[0m
+[0;32mI (7243) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":3,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:03","ver":"1.0.0","err":["0xEA","0x5B","0x24"],"p":[[1,0,19.264,80.305,1002.657],[3,13,21.019,83.020]]}[0m
+[0;32mI (7254) no_router_child: Message sent successfully (160 bytes)[0m
+[0;32mI (7543) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":4,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:03","ver":"1.0.0","err":["0xBF","0x0B","0xA5"],"p":[[1,0,31.654,53.577,1016.583],[3,13,31.291,62.349]]}[0m
+[0;31mE (7554) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (7662) no_router_child: Sending JSON 159 B to 192.168.5.1:12345 | {"v":1,"seq":5,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:03","ver":"1.0.0","err":["0x63","0x94","0x80"],"p":[[1,0,22.244,40.781,996.773],[3,13,23.519,77.763]]}[0m
+[0;31mE (7673) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (7781) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":6,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:03","ver":"1.0.0","err":["0x2A","0x60","0x04"],"p":[[1,0,30.310,36.995,1028.208],[3,13,22.327,84.883]]}[0m
+[0;31mE (7792) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (7900) no_router_child: Sending JSON 159 B to 192.168.5.1:12345 | {"v":1,"seq":7,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x7F","0xE1","0xA8"],"p":[[1,0,19.340,36.175,992.188],[3,13,25.304,55.761]]}[0m
+[0;31mE (7911) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8019) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":8,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0xA6","0x70","0x62"],"p":[[1,0,18.760,83.080,1001.797],[3,13,29.483,44.766]]}[0m
+[0;31mE (8030) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8138) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":9,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0xF1","0x39","0xBD"],"p":[[1,0,21.167,46.661,1019.851],[3,13,26.148,58.591]]}[0m
+[0;31mE (8149) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8257) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":10,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x68","0x58","0xFC"],"p":[[1,0,23.752,35.955,1018.623],[3,13,32.234,52.795]]}[0m
+[0;31mE (8268) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8376) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":11,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x3E","0x8C","0xBD"],"p":[[1,0,26.773,79.699,1001.633],[3,13,24.010,43.375]]}[0m
+[0;31mE (8380) [ESP_Mesh_Lite_Comm]: Disconnect reason : 205 [0m
+[0;31mE (8393) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8502) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":12,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x8C","0x48","0x8D"],"p":[[1,0,24.753,39.845,995.881],[3,13,26.707,77.079]]}[0m
+[0;31mE (8512) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8621) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":13,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x01","0x6A","0x82"],"p":[[1,0,28.571,61.763,1024.495],[3,13,28.352,42.853]]}[0m
+[0;31mE (8632) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8740) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":14,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x32","0xDF","0xEE"],"p":[[1,0,24.847,65.558,997.189],[3,13,24.361,77.579]]}[0m
+[0;31mE (8751) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8859) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":15,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:04","ver":"1.0.0","err":["0x7F","0x66","0x06"],"p":[[1,0,30.597,62.133,1026.024],[3,13,31.526,44.514]]}[0m
+[0;31mE (8870) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (8978) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":16,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x2E","0x59","0xEB"],"p":[[1,0,25.081,35.975,1004.753],[3,13,23.540,69.253]]}[0m
+[0;31mE (8989) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9097) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":17,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x2C","0x5D","0x18"],"p":[[1,0,20.177,81.305,1028.708],[3,13,26.243,69.320]]}[0m
+[0;31mE (9108) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9216) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":18,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x71","0x88","0x8C"],"p":[[1,0,20.516,35.920,1007.786],[3,13,31.715,81.071]]}[0m
+[0;31mE (9227) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9335) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":19,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x08","0x07","0x1B"],"p":[[1,0,27.564,69.633,998.737],[3,13,26.581,73.690]]}[0m
+[0;31mE (9346) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9454) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":20,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x0F","0x33","0x40"],"p":[[1,0,31.489,59.062,1009.426],[3,13,31.387,42.304]]}[0m
+[0;31mE (9465) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9573) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":21,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0xC1","0x1C","0xA2"],"p":[[1,0,26.426,56.112,1007.366],[3,13,26.196,64.068]]}[0m
+[0;31mE (9584) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9692) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":22,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0x8F","0xCB","0xF3"],"p":[[1,0,26.265,42.551,1024.443],[3,13,21.719,72.385]]}[0m
+[0;31mE (9703) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9811) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":23,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:05","ver":"1.0.0","err":["0xE4","0xE1","0xBB"],"p":[[1,0,23.161,73.414,993.696],[3,13,24.382,62.444]]}[0m
+[0;31mE (9822) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (9930) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":24,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0x01","0x17","0x95"],"p":[[1,0,28.683,76.224,1007.154],[3,13,20.627,74.248]]}[0m
+[0;31mE (9941) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (10049) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":25,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0x6A","0xEC","0x45"],"p":[[1,0,23.027,43.656,1023.255],[3,13,27.170,61.427]]}[0m
+[0;31mE (10060) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (10168) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":26,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0xD4","0xA3","0xF0"],"p":[[1,0,31.819,40.546,1008.174],[3,13,25.732,77.628]]}[0m
+[0;31mE (10179) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (10287) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":27,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0xC0","0x1B","0x6A"],"p":[[1,0,20.172,69.513,995.201],[3,13,24.891,70.194]]}[0m
+[0;31mE (10298) no_router_child: Error occurred during sending: errno 12[0m
+[0;33mW (10342) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (10343) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (10343) [ESP_Mesh_Lite_Comm]: Retry to connect to the AP [0m
+[0;32mI (10348) wifi:new:<11,2>, old:<11,0>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (10353) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (10360) wifi:state: init -> auth (b0)[0m
+[0;32mI (10366) wifi:state: auth -> assoc (0)[0m
+[0;32mI (10407) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":28,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0xF7","0xB1","0x98"],"p":[[1,0,27.584,68.423,1000.469],[3,13,24.013,71.620]]}[0m
+[0;32mI (10409) wifi:state: assoc -> run (10)[0m
+[0;32mI (10420) wifi:(trc)phytype:CBW20-SGI, snr:56, maxRate:144, highestRateIdx:0[0m
+[0;32mI (10427) wifi:(trc)rate(S-MCS7, schedIdx:0), ampdu(rate:S-MCS7, schedIdx(0, stop:8)), snr:56, ampduState:wait operational[0m
+[0;32mI (10438) wifi:ifidx:0, rssi:-41, nf:-97, phytype(0x3, CBW20-SGI), phymode(0x3, 11bgn), max_rate:1440, he:0[0m
+[0;32mI (10447) wifi:max ampdu length exponent:0(8191 bytes), mmss:0(no restriction)[0m
+[0;31mE (10458) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (10466) wifi:connected with ESP_Bridge_0c42fd, aid = 1, channel 11, BW20, bssid = 54:32:04:0c:42:fd[0m
+[0;32mI (10470) wifi:security: WPA2-PSK, phy:11bgn, rssi:-41, cipher(pairwise:0x3, group:0x3), pmf:1, [0m
+[0;32mI (10479) wifi:pm start, type: 1, twt_start:0[0m
+
+[0;32mI (10483) wifi:pm start, type:1, aid:0x1, trans-BSSID:54:32:04:0c:42:fd, BSSID[5]:0xfd, mbssid(max-indicator:0, index:0), he:0[0m
+[0;32mI (10494) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (10502) wifi:set rx beacon pti, rx_bcn_pti: 10, bcn_timeout: 25000, mt_pti: 10, mt_time: 10000[0m
+[0;32mI (10511) wifi:[ADDBA]TX addba request, tid:0, dialogtoken:1, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (10522) wifi:[ADDBA]TX addba request, tid:7, dialogtoken:2, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x20)[0m
+[0;32mI (10533) wifi:[ADDBA]TX addba request, tid:5, dialogtoken:3, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (10549) wifi:[ADDBA]RX addba response, status:0, tid:0/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (10564) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":29,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:06","ver":"1.0.0","err":["0x23","0x18","0x6F"],"p":[[1,0,26.444,44.161,1027.956],[3,13,27.726,46.296]]}[0m
+[0;32mI (10566) wifi:[ADDBA]RX addba response, status:0, tid:7/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (10583) wifi:[ADDBA]RX addba response, status:0, tid:5/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (10592) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (10599) Mesh-Lite: netif network segment conflict check[0m
+[0;32mI (10604) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (10608) bridge_common: IP Address:192.168.4.1[0m
+[0;32mI (10613) bridge_common: GW Address:192.168.4.1[0m
+[0;32mI (10618) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (10625) bridge_common: ip reallocate new:192.168.4.1[0m
+[0;32mI (10630) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (10639) no_router_child: Message sent successfully (161 bytes)[0m
+[0;32mI (10928) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":30,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:07","ver":"1.0.0","err":["0x35","0x5D","0x1B"],"p":[[1,0,22.086,45.726,1015.399],[3,13,22.534,76.805]]}[0m
+[0;32mI (10939) no_router_child: Message sent successfully (161 bytes)[0m
+[0;32mI (11228) no_router_child: Sending JSON 161 B to 192.168.5.1:12345 | {"v":1,"seq":31,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:07","ver":"1.0.0","err":["0x90","0x18","0x96"],"p":[[1,0,28.008,78.634,1013.782],[3,13,24.769,48.749]]}[0m
+[0;32mI (11239) no_router_child: Message sent successfully (161 bytes)[0m
+[0;32mI (11528) no_router_child: Sending JSON 160 B to 192.168.5.1:12345 | {"v":1,"seq":32,"n":3,"i":"0.0.0.0","t":"2026-05-27T18:12:07","ver":"1.0.0","err":["0xB2","0xC8","0xA1"],"p":[[1,0,27.350,82.150,990.012],[3,13,28.488,44.878]]}[0m
+[0;31mE (11539) no_router_child: Error occurred during sending: errno 12[0m
+[0;32mI (11545) esp_netif_handlers: sta ip: 192.168.4.2, mask: 255.255.255.0, gw: 192.168.4.1[0m
+[0;32mI (11554) bridge_wifi: Connected with IP Address:192.168.4.2[0m
+[0;32mI (11560) bridge_common: [WIFI_AP_DEF ]Name Server1: 192.168.5.1[0m
+[0;32mI (11567) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (11571) bridge_common: IP Address:192.168.6.1[0m
+[0;32mI (11577) bridge_common: GW Address:192.168.6.1[0m
+[0;32mI (11582) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (11588) bridge_common: ip reallocate new:192.168.6.1[0m
+[0;32mI (11593) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (11602) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_0c42fd; bssid:54:32:04:0c:42:fd; crc:496936148 [0m
+[0;33mW (11616) wifi:<ba-add>idx:0, ifx:0, tid:0, TAHI:0x100fd42, TALO:0xc043254, (ssn:0, win:64, cur_ssn:0), CONF:0xc0000005[0m
+[0;32mI (11629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 273960[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (11728) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":33,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:07","ver":"1.0.0","err":["0x8B","0xE4","0xF0"],"p":[[1,0,20.828,35.010,999.573],[3,13,30.558,71.175]]}[0m
+[0;32mI (11739) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (12028) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":34,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:08","ver":"1.0.0","err":["0x24","0xDF","0x0F"],"p":[[1,0,21.044,46.321,1028.648],[3,13,31.560,62.579]]}[0m
+[0;32mI (12039) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (12329) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":35,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:08","ver":"1.0.0","err":["0x5A","0xDF","0x91"],"p":[[1,0,29.893,44.626,1026.168],[3,13,21.885,68.677]]}[0m
+[0;32mI (12340) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (12630) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":36,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:08","ver":"1.0.0","err":["0xA7","0x61","0x2B"],"p":[[1,0,20.090,47.961,998.117],[3,13,29.756,69.964]]}[0m
+[0;32mI (12641) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (12932) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":37,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:09","ver":"1.0.0","err":["0x73","0xEE","0x21"],"p":[[1,0,22.255,74.549,1017.767],[3,13,32.045,48.371]]}[0m
+[0;32mI (12944) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (13234) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":38,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:09","ver":"1.0.0","err":["0x92","0xA0","0xC8"],"p":[[1,0,19.634,76.639,1005.850],[3,13,21.990,54.257]]}[0m
+[0;32mI (13245) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (13535) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":39,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:09","ver":"1.0.0","err":["0xEF","0xDD","0x73"],"p":[[1,0,24.172,38.095,1018.151],[3,13,26.571,63.861]]}[0m
+[0;32mI (13547) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (13837) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":40,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:09","ver":"1.0.0","err":["0x4F","0xEE","0x70"],"p":[[1,0,20.179,43.871,999.261],[3,13,26.641,80.248]]}[0m
+[0;32mI (13849) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (14138) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":41,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:10","ver":"1.0.0","err":["0x54","0xB1","0x91"],"p":[[1,0,19.980,40.601,1011.326],[3,13,20.113,51.827]]}[0m
+[0;32mI (14149) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (14439) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":42,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:10","ver":"1.0.0","err":["0x60","0x32","0x64"],"p":[[1,0,21.016,52.062,991.436],[3,13,23.316,73.024]]}[0m
+[0;32mI (14450) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (14740) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":43,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:10","ver":"1.0.0","err":["0xAA","0x09","0xF0"],"p":[[1,0,18.367,38.395,994.824],[3,13,25.941,74.446]]}[0m
+[0;32mI (14751) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (15042) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":44,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:11","ver":"1.0.0","err":["0xA3","0xEE","0xC3"],"p":[[1,0,18.974,55.157,1017.143],[3,13,27.898,62.826]]}[0m
+[0;32mI (15054) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (15343) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":45,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:11","ver":"1.0.0","err":["0xBE","0x50","0xE5"],"p":[[1,0,26.429,75.499,1024.755],[3,13,28.153,53.542]]}[0m
+[0;32mI (15354) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (15644) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":46,"n":3,"i":"192.168.4.2","t":"2026-05-27T18:12:11","ver":"1.0.0","err":["0xC1","0xD7","0x55"],"p":[[1,0,26.801,47.231,991.320],[3,13,28.167,65.779]]}[0m
+[0;32mI (15656) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (15946) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":47,"n":3,"i":"192.168.4.2","t":"2165-25-45T45:85:00","ver":"1.0.0","err":["0xD9","0x1B","0x34"],"p":[[1,0,27.371,71.299,1013.834],[3,13,20.769,82.939]]}[0m
+[0;32mI (15957) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (16247) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":48,"n":3,"i":"192.168.4.2","t":"2026-25-45T45:85:85","ver":"1.0.0","err":["0xDE","0xD6","0x38"],"p":[[1,0,22.777,70.169,1005.106],[3,13,33.114,76.229]]}[0m
+[0;32mI (16258) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (16548) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":49,"n":3,"i":"192.168.4.2","t":"2026-25-45T45:85:85","ver":"1.0.0","err":["0x48","0xAE","0x0E"],"p":[[1,0,22.634,69.633,1017.459],[3,13,24.872,46.125]]}[0m
+[0;32mI (16560) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (16849) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":50,"n":3,"i":"192.168.4.2","t":"2026-25-45T45:85:85","ver":"1.0.0","err":["0xF3","0xF3","0x05"],"p":[[1,0,31.912,50.907,1011.930],[3,13,29.172,82.012]]}[0m
+[0;32mI (16860) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (17151) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":51,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:78","ver":"1.0.0","err":["0x59","0x14","0x84"],"p":[[1,0,20.762,64.983,1017.727],[3,13,23.491,76.602]]}[0m
+[0;32mI (17163) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (17452) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":52,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:78","ver":"1.0.0","err":["0x0F","0x21","0xD2"],"p":[[1,0,30.562,60.748,1020.135],[3,13,30.206,82.957]]}[0m
+[0;32mI (17463) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (17753) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":53,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:78","ver":"1.0.0","err":["0x49","0x9B","0x67"],"p":[[1,0,18.781,78.604,1021.039],[3,13,22.466,55.869]]}[0m
+[0;32mI (17764) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (18054) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":54,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:79","ver":"1.0.0","err":["0x99","0xBB","0x6B"],"p":[[1,0,24.190,37.835,1024.672],[3,13,26.002,40.801]]}[0m
+[0;32mI (18065) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (18356) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":55,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:79","ver":"1.0.0","err":["0xB8","0xFC","0xE0"],"p":[[1,0,31.861,55.197,1021.487],[3,13,28.056,78.245]]}[0m
+[0;32mI (18368) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (18657) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":56,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:78:79","ver":"1.0.0","err":["0x20","0x8A","0x5E"],"p":[[1,0,23.858,57.317,1022.847],[3,13,22.466,46.737]]}[0m
+[0;32mI (18668) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (18958) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":57,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:40","ver":"1.0.0","err":["0x27","0x31","0x4F"],"p":[[1,0,19.032,59.832,1016.883],[3,13,24.641,46.053]]}[0m
+[0;32mI (18969) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (19259) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":58,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:40","ver":"1.0.0","err":["0x69","0x8D","0x18"],"p":[[1,0,29.138,43.886,996.469],[3,13,33.551,84.721]]}[0m
+[0;32mI (19270) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (19559) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":59,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:40","ver":"1.0.0","err":["0x79","0xC0","0xF7"],"p":[[1,0,29.039,73.414,990.956],[3,13,20.480,65.189]]}[0m
+[0;32mI (19571) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (19860) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":60,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:40","ver":"1.0.0","err":["0xF1","0xBE","0xF6"],"p":[[1,0,26.205,73.819,1023.691],[3,13,20.293,46.337]]}[0m
+[0;32mI (19871) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (20161) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":61,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:41","ver":"1.0.0","err":["0xE7","0x0D","0xDD"],"p":[[1,0,27.178,83.415,993.332],[3,13,22.172,47.745]]}[0m
+[0;32mI (20172) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (20461) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":62,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:41","ver":"1.0.0","err":["0x72","0x64","0xEC"],"p":[[1,0,28.117,47.491,1023.715],[3,13,24.858,45.221]]}[0m
+[0;32mI (20473) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (20762) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":63,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:41","ver":"1.0.0","err":["0xF0","0x7D","0x6A"],"p":[[1,0,30.359,74.674,1024.559],[3,13,28.164,63.011]]}[0m
+[0;32mI (20774) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (21063) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":64,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:42","ver":"1.0.0","err":["0x45","0x14","0x1A"],"p":[[1,0,20.076,82.870,992.880],[3,13,29.158,57.718]]}[0m
+[0;32mI (21074) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (21364) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":65,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:42","ver":"1.0.0","err":["0x95","0xF9","0xBF"],"p":[[1,0,29.009,48.511,1002.081],[3,13,26.718,53.915]]}[0m
+[0;32mI (21376) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (21629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274876[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (21665) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":66,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:42","ver":"1.0.0","err":["0xD2","0xA5","0xF9"],"p":[[1,0,22.340,73.819,992.960],[3,13,23.843,63.038]]}[0m
+[0;32mI (21676) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (21967) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":67,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:43","ver":"1.0.0","err":["0xE1","0x38","0xEA"],"p":[[1,0,26.716,39.400,1014.022],[3,13,32.142,61.008]]}[0m
+[0;32mI (21979) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (22268) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":68,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:43","ver":"1.0.0","err":["0x8A","0x38","0x2F"],"p":[[1,0,27.986,63.238,995.145],[3,13,32.771,64.415]]}[0m
+[0;32mI (22279) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (22569) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":69,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:43","ver":"1.0.0","err":["0x09","0xB1","0x5D"],"p":[[1,0,24.312,73.019,1004.493],[3,13,20.431,48.357]]}[0m
+[0;32mI (22581) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (22870) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":70,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:43","ver":"1.0.0","err":["0xB5","0xB7","0xD3"],"p":[[1,0,24.526,58.482,1008.646],[3,13,21.859,49.343]]}[0m
+[0;32mI (22881) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (23171) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":71,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:44","ver":"1.0.0","err":["0x56","0x4B","0x1B"],"p":[[1,0,31.349,83.810,1002.017],[3,13,21.578,68.614]]}[0m
+[0;32mI (23182) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (23473) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":72,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:44","ver":"1.0.0","err":["0x4A","0x01","0xAC"],"p":[[1,0,24.333,73.774,1003.137],[3,13,29.760,67.093]]}[0m
+[0;32mI (23485) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (23774) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":73,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:44","ver":"1.0.0","err":["0x10","0x0D","0x7D"],"p":[[1,0,22.014,53.962,1019.635],[3,13,23.054,43.987]]}[0m
+[0;32mI (23785) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (24075) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":74,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:45","ver":"1.0.0","err":["0xDB","0x57","0x2E"],"p":[[1,0,27.672,37.740,1001.457],[3,13,26.330,43.645]]}[0m
+[0;32mI (24087) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (24376) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":75,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:45","ver":"1.0.0","err":["0xB8","0xE6","0xF6"],"p":[[1,0,29.757,75.879,1029.744],[3,13,27.499,67.327]]}[0m
+[0;32mI (24389) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (24677) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":76,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:45","ver":"1.0.0","err":["0x17","0xC0","0xBF"],"p":[[1,0,20.845,35.110,1006.154],[3,13,31.603,67.984]]}[0m
+[0;32mI (24689) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (24978) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":77,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:46","ver":"1.0.0","err":["0xE7","0xAD","0xE1"],"p":[[1,0,29.897,51.897,1009.838],[3,13,24.615,41.485]]}[0m
+[0;32mI (24989) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (25279) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":78,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:46","ver":"1.0.0","err":["0xC0","0x2D","0x05"],"p":[[1,0,24.736,37.670,990.608],[3,13,22.625,62.889]]}[0m
+[0;32mI (25290) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (25580) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":79,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:46","ver":"1.0.0","err":["0xB6","0xF9","0xFB"],"p":[[1,0,25.048,49.611,1021.999],[3,13,23.184,67.574]]}[0m
+[0;32mI (25592) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (25881) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":80,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:46","ver":"1.0.0","err":["0x32","0xCD","0xF5"],"p":[[1,0,28.544,75.374,1006.638],[3,13,24.024,44.478]]}[0m
+[0;32mI (25892) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (26182) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":81,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:47","ver":"1.0.0","err":["0xB1","0xEB","0xAF"],"p":[[1,0,28.323,69.358,998.985],[3,13,26.362,43.114]]}[0m
+[0;32mI (26193) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (26482) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":82,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:47","ver":"1.0.0","err":["0x5B","0xC4","0x89"],"p":[[1,0,24.119,76.204,1005.406],[3,13,32.202,57.088]]}[0m
+[0;32mI (26494) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (26784) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":83,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:47","ver":"1.0.0","err":["0x67","0xDA","0x97"],"p":[[1,0,22.091,57.187,991.960],[3,13,28.416,72.057]]}[0m
+[0;32mI (26796) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (27085) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":84,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:48","ver":"1.0.0","err":["0x98","0x01","0x66"],"p":[[1,0,27.230,57.472,992.168],[3,13,32.489,50.855]]}[0m
+[0;32mI (27096) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (27385) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":85,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:48","ver":"1.0.0","err":["0x0E","0xF6","0xF5"],"p":[[1,0,29.077,58.917,1026.872],[3,13,26.704,77.970]]}[0m
+[0;32mI (27396) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (27686) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":86,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:48","ver":"1.0.0","err":["0x28","0x4E","0x93"],"p":[[1,0,24.901,76.964,1023.179],[3,13,29.497,71.845]]}[0m
+[0;32mI (27697) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (27988) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":87,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:49","ver":"1.0.0","err":["0xAE","0x73","0xB0"],"p":[[1,0,18.143,61.408,1019.291],[3,13,20.210,53.425]]}[0m
+[0;32mI (28000) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (28289) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":88,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:49","ver":"1.0.0","err":["0xBA","0xC5","0x11"],"p":[[1,0,25.237,83.220,992.860],[3,13,20.804,77.300]]}[0m
+[0;32mI (28300) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (28589) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":89,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:49","ver":"1.0.0","err":["0xC7","0xD6","0x79"],"p":[[1,0,25.895,82.930,1027.768],[3,13,29.475,64.320]]}[0m
+[0;32mI (28600) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (28890) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":90,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:49","ver":"1.0.0","err":["0x94","0x98","0xB1"],"p":[[1,0,19.666,39.190,1014.954],[3,13,26.912,61.683]]}[0m
+[0;32mI (28902) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (29191) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":91,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:50","ver":"1.0.0","err":["0x62","0x08","0xA6"],"p":[[1,0,30.706,41.606,990.336],[3,13,20.056,64.806]]}[0m
+[0;32mI (29202) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (29491) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":92,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:50","ver":"1.0.0","err":["0xFA","0xF6","0x02"],"p":[[1,0,24.295,70.419,993.008],[3,13,31.165,72.151]]}[0m
+[0;32mI (29502) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (29791) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":93,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:50","ver":"1.0.0","err":["0xF5","0x09","0x8B"],"p":[[1,0,19.327,71.319,1005.302],[3,13,24.612,57.277]]}[0m
+[0;32mI (29802) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (30092) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":94,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:51","ver":"1.0.0","err":["0x5F","0x5D","0x80"],"p":[[1,0,22.787,77.719,1024.327],[3,13,28.199,68.524]]}[0m
+[0;32mI (30104) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (30393) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":95,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:51","ver":"1.0.0","err":["0x49","0xAF","0x34"],"p":[[1,0,27.503,71.599,999.025],[3,13,26.071,83.114]]}[0m
+[0;32mI (30404) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (30694) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":96,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:51","ver":"1.0.0","err":["0xC6","0xDE","0x34"],"p":[[1,0,27.020,75.539,998.909],[3,13,23.386,49.244]]}[0m
+[0;32mI (30705) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (30994) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":97,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:52","ver":"1.0.0","err":["0xF8","0x23","0xA2"],"p":[[1,0,20.902,43.676,1011.282],[3,13,20.871,65.941]]}[0m
+[0;32mI (31005) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (31296) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":98,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:52","ver":"1.0.0","err":["0x67","0xEE","0x26"],"p":[[1,0,31.797,57.307,1025.824],[3,13,26.263,75.630]]}[0m
+[0;32mI (31308) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (31597) no_router_child: Sending JSON 164 B to 192.168.5.1:12345 | {"v":1,"seq":99,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:52","ver":"1.0.0","err":["0xC6","0x20","0xF5"],"p":[[1,0,25.552,46.676,994.104],[3,13,33.590,53.047]]}[0m
+[0;32mI (31608) no_router_child: Message sent successfully (164 bytes)[0m
+[0;32mI (31629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (31897) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":100,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:52","ver":"1.0.0","err":["0x0D","0x1D","0x60"],"p":[[1,0,20.092,79.784,1025.036],[3,13,24.718,46.017]]}[0m
+[0;32mI (31909) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (32198) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":101,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:53","ver":"1.0.0","err":["0xDA","0x78","0x03"],"p":[[1,0,23.372,78.174,992.664],[3,13,32.946,45.923]]}[0m
+[0;32mI (32209) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (32500) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":102,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:53","ver":"1.0.0","err":["0x99","0xDD","0xC7"],"p":[[1,0,21.636,66.758,1000.805],[3,13,23.769,45.270]]}[0m
+[0;32mI (32512) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (32801) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":103,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:53","ver":"1.0.0","err":["0xAE","0xA2","0x79"],"p":[[1,0,29.715,39.055,998.309],[3,13,21.431,65.617]]}[0m
+[0;32mI (32812) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (33102) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":104,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:54","ver":"1.0.0","err":["0x36","0x94","0x43"],"p":[[1,0,18.136,61.568,1023.167],[3,13,29.202,77.997]]}[0m
+[0;32mI (33114) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (33403) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":105,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:54","ver":"1.0.0","err":["0x0F","0x16","0x32"],"p":[[1,0,19.192,68.793,1017.887],[3,13,28.126,43.726]]}[0m
+[0;32mI (33415) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (33704) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":106,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:54","ver":"1.0.0","err":["0xC2","0xA9","0x94"],"p":[[1,0,27.605,49.556,1009.934],[3,13,29.783,49.104]]}[0m
+[0;32mI (33716) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (34005) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":107,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:55","ver":"1.0.0","err":["0x54","0x65","0x64"],"p":[[1,0,26.807,45.276,1028.636],[3,13,29.704,42.403]]}[0m
+[0;32mI (34017) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (34306) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":108,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:55","ver":"1.0.0","err":["0xE6","0x5D","0x8B"],"p":[[1,0,26.950,80.935,1009.450],[3,13,23.374,78.951]]}[0m
+[0;32mI (34318) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (34607) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":109,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:55","ver":"1.0.0","err":["0x98","0x17","0x14"],"p":[[1,0,27.143,76.554,1021.523],[3,13,21.872,67.754]]}[0m
+[0;32mI (34619) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (34908) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":110,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:55","ver":"1.0.0","err":["0x1C","0x54","0x43"],"p":[[1,0,23.906,47.591,991.576],[3,13,29.986,67.012]]}[0m
+[0;32mI (34919) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (35209) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":111,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:56","ver":"1.0.0","err":["0x74","0x33","0x8D"],"p":[[1,0,23.994,63.783,1005.570],[3,13,30.411,57.511]]}[0m
+[0;32mI (35221) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (35510) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":112,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:56","ver":"1.0.0","err":["0xCB","0xD6","0x5E"],"p":[[1,0,26.643,67.923,1019.179],[3,13,33.954,69.028]]}[0m
+[0;32mI (35522) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (35812) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":113,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:56","ver":"1.0.0","err":["0x0D","0x0F","0xCE"],"p":[[1,0,28.780,65.898,996.533],[3,13,29.577,61.809]]}[0m
+[0;32mI (35824) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (36113) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":114,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:57","ver":"1.0.0","err":["0x6F","0x47","0x17"],"p":[[1,0,22.704,70.069,1017.175],[3,13,26.891,62.993]]}[0m
+[0;32mI (36125) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (36414) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":115,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:57","ver":"1.0.0","err":["0xCA","0x67","0x3F"],"p":[[1,0,23.395,81.350,994.300],[3,13,25.176,56.314]]}[0m
+[0;32mI (36425) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (36715) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":116,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:57","ver":"1.0.0","err":["0x74","0x68","0x01"],"p":[[1,0,24.732,36.545,1011.030],[3,13,23.615,73.317]]}[0m
+[0;32mI (36727) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (37017) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":117,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:58","ver":"1.0.0","err":["0xC9","0xD8","0x8C"],"p":[[1,0,29.775,68.693,1015.959],[3,13,25.512,40.230]]}[0m
+[0;32mI (37029) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (37318) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":118,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:58","ver":"1.0.0","err":["0xA8","0xBA","0x9C"],"p":[[1,0,19.269,59.412,1021.815],[3,13,21.791,77.741]]}[0m
+[0;32mI (37330) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (37619) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":119,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:58","ver":"1.0.0","err":["0x53","0x33","0x5A"],"p":[[1,0,30.523,84.320,1006.098],[3,13,30.932,59.883]]}[0m
+[0;32mI (37631) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (37920) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":120,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:58","ver":"1.0.0","err":["0x6C","0xC8","0xFA"],"p":[[1,0,18.862,51.797,1000.305],[3,13,30.595,48.038]]}[0m
+[0;32mI (37932) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (38221) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":121,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:59","ver":"1.0.0","err":["0x03","0xD2","0x71"],"p":[[1,0,31.779,83.310,1028.600],[3,13,27.678,55.230]]}[0m
+[0;32mI (38233) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (38522) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":122,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:59","ver":"1.0.0","err":["0xDA","0x56","0x2E"],"p":[[1,0,20.744,56.922,1019.575],[3,13,31.007,82.759]]}[0m
+[0;32mI (38534) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (38823) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":123,"n":3,"i":"192.168.4.2","t":"2026-25-45T38:79:59","ver":"1.0.0","err":["0x52","0x39","0x25"],"p":[[1,0,18.930,37.025,1004.273],[3,13,23.267,50.392]]}[0m
+[0;32mI (38835) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (39124) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":124,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:00","ver":"1.0.0","err":["0xD2","0x26","0xD4"],"p":[[1,0,21.111,75.389,1015.711],[3,13,22.890,49.581]]}[0m
+[0;32mI (39136) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (39425) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":125,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:00","ver":"1.0.0","err":["0x2B","0x3E","0xAA"],"p":[[1,0,28.866,71.724,1027.756],[3,13,31.624,51.098]]}[0m
+[0;32mI (39437) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (39726) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":126,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:00","ver":"1.0.0","err":["0x07","0xA4","0x01"],"p":[[1,0,31.768,51.942,1004.081],[3,13,20.742,75.455]]}[0m
+[0;32mI (39738) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (40027) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":127,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:01","ver":"1.0.0","err":["0x63","0x95","0xDA"],"p":[[1,0,25.169,61.833,1023.043],[3,13,26.222,50.423]]}[0m
+[0;32mI (40039) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (40329) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":128,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:01","ver":"1.0.0","err":["0x16","0x30","0x67"],"p":[[1,0,25.730,63.573,1029.112],[3,13,20.829,80.806]]}[0m
+[0;32mI (40341) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (40630) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":129,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:01","ver":"1.0.0","err":["0xF6","0x08","0x75"],"p":[[1,0,27.903,51.527,1004.417],[3,13,21.913,43.326]]}[0m
+[0;32mI (40642) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (40931) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":130,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:01","ver":"1.0.0","err":["0xD4","0xC4","0x3E"],"p":[[1,0,26.257,72.844,1013.786],[3,13,33.436,83.447]]}[0m
+[0;32mI (40943) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (41232) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":131,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:02","ver":"1.0.0","err":["0xCA","0x63","0x9B"],"p":[[1,0,21.528,56.822,997.833],[3,13,33.041,56.413]]}[0m
+[0;32mI (41243) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (41534) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":132,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:02","ver":"1.0.0","err":["0xE8","0xF9","0xF7"],"p":[[1,0,19.242,69.218,997.441],[3,13,30.683,56.593]]}[0m
+[0;32mI (41546) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (41629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (41835) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":133,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:02","ver":"1.0.0","err":["0x8A","0xE3","0x64"],"p":[[1,0,20.627,46.516,1012.138],[3,13,30.430,50.914]]}[0m
+[0;32mI (41847) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (42136) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":134,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:03","ver":"1.0.0","err":["0xFF","0x48","0xB0"],"p":[[1,0,23.050,51.517,1027.784],[3,13,20.920,75.189]]}[0m
+[0;32mI (42147) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (42437) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":135,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:03","ver":"1.0.0","err":["0xC0","0xDC","0x0B"],"p":[[1,0,29.845,54.017,992.200],[3,13,29.311,70.117]]}[0m
+[0;32mI (42449) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (42738) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":136,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:03","ver":"1.0.0","err":["0x52","0x29","0x52"],"p":[[1,0,19.291,47.231,1023.411],[3,13,24.160,56.989]]}[0m
+[0;32mI (42750) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (43039) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":137,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:04","ver":"1.0.0","err":["0xA8","0x89","0xCF"],"p":[[1,0,25.845,72.889,1016.331],[3,13,26.679,68.312]]}[0m
+[0;32mI (43051) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (43340) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":138,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:04","ver":"1.0.0","err":["0x8F","0x73","0x06"],"p":[[1,0,27.745,63.233,1022.759],[3,13,20.018,40.716]]}[0m
+[0;32mI (43352) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (43642) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":139,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:04","ver":"1.0.0","err":["0xA6","0x76","0x94"],"p":[[1,0,21.183,63.143,993.948],[3,13,29.979,56.413]]}[0m
+[0;32mI (43654) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (43943) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":140,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:04","ver":"1.0.0","err":["0xD2","0x9A","0x51"],"p":[[1,0,19.432,80.840,1025.612],[3,13,31.702,73.236]]}[0m
+[0;32mI (43955) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (44244) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":141,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:05","ver":"1.0.0","err":["0x4C","0x49","0x53"],"p":[[1,0,23.267,70.444,1024.715],[3,13,26.266,79.563]]}[0m
+[0;32mI (44255) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (44545) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":142,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:05","ver":"1.0.0","err":["0x53","0x3F","0x31"],"p":[[1,0,20.209,44.761,999.137],[3,13,32.800,56.710]]}[0m
+[0;32mI (44556) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (44847) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":143,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:05","ver":"1.0.0","err":["0x07","0x99","0xBA"],"p":[[1,0,31.670,40.631,1007.054],[3,13,23.871,63.375]]}[0m
+[0;32mI (44859) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (45148) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":144,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:06","ver":"1.0.0","err":["0x4B","0x6E","0xA5"],"p":[[1,0,22.874,37.365,990.328],[3,13,28.913,65.612]]}[0m
+[0;32mI (45159) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (45449) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":145,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:06","ver":"1.0.0","err":["0x4B","0xAD","0x1E"],"p":[[1,0,28.697,50.577,1029.588],[3,13,26.667,82.138]]}[0m
+[0;32mI (45461) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (45750) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":146,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:06","ver":"1.0.0","err":["0x94","0x78","0xD2"],"p":[[1,0,29.928,56.082,1026.320],[3,13,33.576,69.937]]}[0m
+[0;32mI (45762) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (46052) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":147,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:07","ver":"1.0.0","err":["0xED","0xC7","0x71"],"p":[[1,0,25.895,42.211,998.669],[3,13,32.925,72.183]]}[0m
+[0;32mI (46064) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (46353) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":148,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:07","ver":"1.0.0","err":["0x17","0x95","0xAB"],"p":[[1,0,20.083,64.703,1013.898],[3,13,30.813,72.417]]}[0m
+[0;32mI (46365) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (46654) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":149,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:07","ver":"1.0.0","err":["0xB7","0x32","0x09"],"p":[[1,0,22.111,57.572,1000.297],[3,13,22.452,43.866]]}[0m
+[0;32mI (46666) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (46955) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":150,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:08","ver":"1.0.0","err":["0xBE","0x5A","0x0A"],"p":[[1,0,22.752,72.449,1001.921],[3,13,24.812,77.214]]}[0m
+[0;32mI (46967) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (47256) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":151,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:08","ver":"1.0.0","err":["0xDD","0x10","0xE9"],"p":[[1,0,26.383,50.782,1018.643],[3,13,29.144,42.660]]}[0m
+[0;32mI (47268) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (47557) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":152,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:08","ver":"1.0.0","err":["0x39","0xC0","0xD5"],"p":[[1,0,28.046,57.257,1015.343],[3,13,32.692,52.993]]}[0m
+[0;32mI (47569) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (47858) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":153,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:08","ver":"1.0.0","err":["0xC9","0xBF","0xA7"],"p":[[1,0,18.914,82.780,1002.993],[3,13,24.318,84.464]]}[0m
+[0;32mI (47870) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (48160) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":154,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:09","ver":"1.0.0","err":["0x0E","0xA4","0xCE"],"p":[[1,0,22.438,38.440,998.249],[3,13,25.127,66.917]]}[0m
+[0;32mI (48172) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (48461) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":155,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:09","ver":"1.0.0","err":["0x36","0xD8","0x39"],"p":[[1,0,19.532,71.754,1022.755],[3,13,22.249,74.892]]}[0m
+[0;32mI (48473) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (48762) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":156,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:09","ver":"1.0.0","err":["0x5C","0x7C","0xF3"],"p":[[1,0,28.696,39.745,1002.253],[3,13,33.504,56.143]]}[0m
+[0;32mI (48774) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (49063) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":157,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:10","ver":"1.0.0","err":["0x8A","0x59","0xE4"],"p":[[1,0,26.342,70.824,1010.042],[3,13,23.467,40.023]]}[0m
+[0;32mI (49075) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (49365) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":158,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:10","ver":"1.0.0","err":["0x25","0x64","0xE3"],"p":[[1,0,20.380,37.400,1001.917],[3,13,21.908,65.639]]}[0m
+[0;32mI (49377) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (49666) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":159,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:10","ver":"1.0.0","err":["0x05","0x77","0x68"],"p":[[1,0,25.582,57.312,991.212],[3,13,27.961,58.303]]}[0m
+[0;32mI (49677) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (49967) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":160,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:11","ver":"1.0.0","err":["0xFD","0xA6","0x01"],"p":[[1,0,18.643,39.215,992.372],[3,13,30.512,51.202]]}[0m
+[0;32mI (49978) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (50268) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":161,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:11","ver":"1.0.0","err":["0x39","0x90","0xE6"],"p":[[1,0,27.709,68.048,990.248],[3,13,21.950,47.781]]}[0m
+[0;32mI (50279) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (50570) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":162,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:11","ver":"1.0.0","err":["0x71","0xDC","0xDE"],"p":[[1,0,19.105,57.252,1022.311],[3,13,24.875,49.811]]}[0m
+[0;32mI (50582) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (50871) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":163,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:11","ver":"1.0.0","err":["0xBD","0x8A","0xA2"],"p":[[1,0,18.983,72.629,1015.078],[3,13,30.273,67.925]]}[0m
+[0;32mI (50883) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (51172) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":164,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:12","ver":"1.0.0","err":["0x1F","0x3D","0x55"],"p":[[1,0,20.356,76.874,1023.335],[3,13,28.587,74.293]]}[0m
+[0;32mI (51184) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (51473) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":165,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:12","ver":"1.0.0","err":["0xCC","0x69","0x75"],"p":[[1,0,20.746,74.794,1006.126],[3,13,24.150,82.232]]}[0m
+[0;32mI (51485) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (51629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (51774) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":166,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:12","ver":"1.0.0","err":["0x9F","0x3C","0x2A"],"p":[[1,0,29.795,58.877,1026.816],[3,13,27.340,76.670]]}[0m
+[0;32mI (51786) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (52075) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":167,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:13","ver":"1.0.0","err":["0xFB","0xE2","0xCF"],"p":[[1,0,27.069,72.434,995.525],[3,13,33.437,82.192]]}[0m
+[0;32mI (52086) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (52376) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":168,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:13","ver":"1.0.0","err":["0x9F","0x75","0x11"],"p":[[1,0,19.522,46.496,1004.909],[3,13,24.856,64.910]]}[0m
+[0;32mI (52388) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (52678) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":169,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:13","ver":"1.0.0","err":["0x78","0x06","0x72"],"p":[[1,0,31.742,62.483,999.409],[3,13,30.717,67.633]]}[0m
+[0;32mI (52690) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (52979) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":170,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:14","ver":"1.0.0","err":["0x49","0xF6","0x05"],"p":[[1,0,27.387,70.554,1029.316],[3,13,21.921,76.364]]}[0m
+[0;32mI (52991) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (53280) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":171,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:14","ver":"1.0.0","err":["0x23","0x49","0x11"],"p":[[1,0,27.385,58.632,1007.190],[3,13,27.177,55.005]]}[0m
+[0;32mI (53292) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (53581) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":172,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:14","ver":"1.0.0","err":["0xA6","0x01","0xBF"],"p":[[1,0,24.534,66.128,1026.052],[3,13,24.258,74.577]]}[0m
+[0;32mI (53593) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (53883) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":173,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:14","ver":"1.0.0","err":["0x7F","0x03","0x36"],"p":[[1,0,22.545,77.604,1013.430],[3,13,22.543,62.727]]}[0m
+[0;32mI (53895) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (54184) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":174,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:15","ver":"1.0.0","err":["0xD6","0x74","0xC6"],"p":[[1,0,26.357,82.360,1007.690],[3,13,29.392,73.186]]}[0m
+[0;32mI (54196) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (54485) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":175,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:15","ver":"1.0.0","err":["0x7F","0x4F","0x6A"],"p":[[1,0,25.022,51.987,996.165],[3,13,27.081,59.752]]}[0m
+[0;32mI (54497) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (54786) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":176,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:15","ver":"1.0.0","err":["0x01","0x54","0x80"],"p":[[1,0,20.363,58.802,1024.435],[3,13,28.812,41.404]]}[0m
+[0;32mI (54798) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (55087) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":177,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:16","ver":"1.0.0","err":["0x20","0x80","0x94"],"p":[[1,0,27.987,39.455,993.524],[3,13,31.977,57.349]]}[0m
+[0;32mI (55099) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (55388) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":178,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:16","ver":"1.0.0","err":["0xC2","0x5F","0x77"],"p":[[1,0,28.161,37.385,1010.426],[3,13,22.412,65.419]]}[0m
+[0;32mI (55400) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (55689) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":179,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:16","ver":"1.0.0","err":["0xCE","0x50","0x0B"],"p":[[1,0,30.006,57.087,994.692],[3,13,23.118,67.862]]}[0m
+[0;32mI (55700) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (55990) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":180,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:17","ver":"1.0.0","err":["0x15","0xB0","0x53"],"p":[[1,0,25.431,77.199,1003.201],[3,13,21.613,57.921]]}[0m
+[0;32mI (56002) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (56291) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":181,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:17","ver":"1.0.0","err":["0xFB","0x0C","0xA9"],"p":[[1,0,30.983,64.778,991.068],[3,13,28.282,63.753]]}[0m
+[0;32mI (56302) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (56592) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":182,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:17","ver":"1.0.0","err":["0xDB","0xE6","0xD1"],"p":[[1,0,26.948,47.436,1025.280],[3,13,31.273,67.025]]}[0m
+[0;32mI (56604) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (56893) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":183,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:17","ver":"1.0.0","err":["0xEC","0x5C","0x61"],"p":[[1,0,28.039,80.090,1014.414],[3,13,23.808,55.711]]}[0m
+[0;32mI (56905) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (57195) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":184,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:18","ver":"1.0.0","err":["0x48","0x75","0xA9"],"p":[[1,0,27.632,43.846,996.269],[3,13,32.472,44.833]]}[0m
+[0;32mI (57207) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (57496) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":185,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:18","ver":"1.0.0","err":["0x09","0x67","0x39"],"p":[[1,0,24.702,50.702,1011.054],[3,13,26.743,42.516]]}[0m
+[0;32mI (57508) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (57797) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":186,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:18","ver":"1.0.0","err":["0xBD","0x28","0x16"],"p":[[1,0,26.216,72.879,1007.298],[3,13,23.646,51.935]]}[0m
+[0;32mI (57809) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (58098) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":187,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:19","ver":"1.0.0","err":["0xC4","0x2B","0xCB"],"p":[[1,0,26.926,35.465,1008.646],[3,13,32.824,64.568]]}[0m
+[0;32mI (58110) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (58400) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":188,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:19","ver":"1.0.0","err":["0xCE","0x8C","0x0B"],"p":[[1,0,19.423,80.425,1016.551],[3,13,24.209,68.164]]}[0m
+[0;32mI (58412) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (58701) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":189,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:19","ver":"1.0.0","err":["0xE1","0x65","0xFF"],"p":[[1,0,18.493,77.879,997.521],[3,13,32.425,46.269]]}[0m
+[0;32mI (58712) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (59002) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":190,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:20","ver":"1.0.0","err":["0x07","0x2A","0x44"],"p":[[1,0,20.268,72.384,1004.445],[3,13,26.854,50.666]]}[0m
+[0;32mI (59014) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (59303) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":191,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:20","ver":"1.0.0","err":["0x21","0xA1","0xC2"],"p":[[1,0,24.015,57.872,991.952],[3,13,26.669,45.018]]}[0m
+[0;32mI (59315) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (59604) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":192,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:20","ver":"1.0.0","err":["0xBC","0x83","0x0B"],"p":[[1,0,26.818,63.213,1002.041],[3,13,27.510,78.200]]}[0m
+[0;32mI (59616) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (59905) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":193,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:20","ver":"1.0.0","err":["0x5A","0x61","0xB9"],"p":[[1,0,30.027,35.105,993.884],[3,13,33.824,55.509]]}[0m
+[0;32mI (59916) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (60206) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":194,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:21","ver":"1.0.0","err":["0x6A","0x17","0x25"],"p":[[1,0,23.154,81.290,1022.479],[3,13,20.897,62.048]]}[0m
+[0;32mI (60218) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (60507) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":195,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:21","ver":"1.0.0","err":["0x57","0x34","0xB6"],"p":[[1,0,21.593,74.474,997.929],[3,13,32.584,51.544]]}[0m
+[0;32mI (60519) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (60808) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":196,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:21","ver":"1.0.0","err":["0x3B","0xE8","0x01"],"p":[[1,0,22.104,67.158,994.176],[3,13,28.482,56.463]]}[0m
+[0;32mI (60819) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (61109) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":197,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:22","ver":"1.0.0","err":["0x59","0xDE","0xE2"],"p":[[1,0,18.202,51.612,994.504],[3,13,25.955,46.166]]}[0m
+[0;32mI (61120) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (61410) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":198,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:22","ver":"1.0.0","err":["0x21","0x7A","0x86"],"p":[[1,0,31.285,37.015,1002.553],[3,13,28.675,45.932]]}[0m
+[0;32mI (61422) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (61629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274992[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (61712) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":199,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:22","ver":"1.0.0","err":["0x57","0x76","0x8F"],"p":[[1,0,22.482,82.885,994.088],[3,13,28.287,78.816]]}[0m
+[0;32mI (61724) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (62014) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":200,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:23","ver":"1.0.0","err":["0xB4","0x4B","0xAE"],"p":[[1,0,23.567,47.291,1026.732],[3,13,32.570,80.185]]}[0m
+[0;32mI (62026) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (62315) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":201,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:23","ver":"1.0.0","err":["0x47","0x20","0x5D"],"p":[[1,0,29.807,36.010,1027.044],[3,13,25.696,48.389]]}[0m
+[0;32mI (62327) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (62616) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":202,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:23","ver":"1.0.0","err":["0xBF","0x1A","0xE1"],"p":[[1,0,31.024,80.140,993.188],[3,13,26.100,53.258]]}[0m
+[0;32mI (62628) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (62918) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":203,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:23","ver":"1.0.0","err":["0xE7","0xFE","0x52"],"p":[[1,0,26.304,79.779,992.828],[3,13,32.086,69.419]]}[0m
+[0;32mI (62930) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (63219) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":204,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:24","ver":"1.0.0","err":["0x12","0x4B","0x01"],"p":[[1,0,23.332,45.076,994.504],[3,13,20.260,41.989]]}[0m
+[0;32mI (63230) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (63520) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":205,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:24","ver":"1.0.0","err":["0x99","0x77","0xAB"],"p":[[1,0,19.204,83.695,1014.182],[3,13,21.725,55.878]]}[0m
+[0;32mI (63532) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (63822) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":206,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:24","ver":"1.0.0","err":["0xC8","0xBD","0xD6"],"p":[[1,0,30.008,73.914,1023.143],[3,13,28.605,46.769]]}[0m
+[0;32mI (63833) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (64122) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":207,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:25","ver":"1.0.0","err":["0xCA","0x0A","0x4B"],"p":[[1,0,26.259,57.007,1000.565],[3,13,22.083,82.547]]}[0m
+[0;32mI (64134) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (64423) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":208,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:25","ver":"1.0.0","err":["0xBC","0x4C","0xDF"],"p":[[1,0,28.109,60.618,1011.878],[3,13,33.061,77.286]]}[0m
+[0;32mI (64435) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (64724) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":209,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:25","ver":"1.0.0","err":["0x9F","0x36","0x7B"],"p":[[1,0,27.737,73.134,998.313],[3,13,21.392,59.419]]}[0m
+[0;32mI (64735) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (65025) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":210,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:26","ver":"1.0.0","err":["0x7D","0x59","0x0B"],"p":[[1,0,24.861,84.675,990.996],[3,13,28.688,53.258]]}[0m
+[0;32mI (65037) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (65326) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":211,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:26","ver":"1.0.0","err":["0xCE","0xFE","0x2A"],"p":[[1,0,25.908,64.823,994.364],[3,13,21.690,83.767]]}[0m
+[0;32mI (65337) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (65627) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":212,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:26","ver":"1.0.0","err":["0x63","0x99","0xC5"],"p":[[1,0,21.565,45.711,1010.262],[3,13,33.951,81.841]]}[0m
+[0;32mI (65639) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (65928) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":213,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:26","ver":"1.0.0","err":["0xBF","0x2E","0x05"],"p":[[1,0,29.119,76.264,1022.103],[3,13,32.454,43.056]]}[0m
+[0;32mI (65940) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (66230) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":214,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:27","ver":"1.0.0","err":["0x42","0xF2","0x10"],"p":[[1,0,30.008,36.975,1006.666],[3,13,32.145,62.304]]}[0m
+[0;32mI (66242) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (66531) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":215,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:27","ver":"1.0.0","err":["0x68","0xED","0xF0"],"p":[[1,0,19.367,62.548,1009.698],[3,13,28.213,51.427]]}[0m
+[0;32mI (66543) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (66832) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":216,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:27","ver":"1.0.0","err":["0x38","0x6B","0x58"],"p":[[1,0,25.743,59.592,1015.303],[3,13,31.036,47.435]]}[0m
+[0;32mI (66844) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (67133) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":217,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:28","ver":"1.0.0","err":["0x8A","0x0C","0x5F"],"p":[[1,0,24.716,76.889,1026.996],[3,13,20.714,41.098]]}[0m
+[0;32mI (67145) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (67435) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":218,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:28","ver":"1.0.0","err":["0x8D","0x09","0x14"],"p":[[1,0,26.236,81.835,1018.123],[3,13,30.606,84.923]]}[0m
+[0;32mI (67447) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (67736) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":219,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:28","ver":"1.0.0","err":["0xF0","0x76","0xA3"],"p":[[1,0,30.804,56.697,991.760],[3,13,31.414,72.043]]}[0m
+[0;32mI (67747) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (68037) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":220,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:29","ver":"1.0.0","err":["0xFF","0xEF","0x1E"],"p":[[1,0,18.014,66.243,1007.414],[3,13,33.150,42.097]]}[0m
+[0;32mI (68049) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (68338) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":221,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:29","ver":"1.0.0","err":["0x26","0xBE","0x33"],"p":[[1,0,27.038,44.956,1004.826],[3,13,27.676,67.088]]}[0m
+[0;32mI (68350) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (68640) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":222,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:29","ver":"1.0.0","err":["0xCF","0xC2","0x95"],"p":[[1,0,25.727,78.289,1018.775],[3,13,20.620,68.317]]}[0m
+[0;32mI (68652) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (68941) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":223,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:29","ver":"1.0.0","err":["0xA0","0xA9","0x15"],"p":[[1,0,25.814,48.616,1025.147],[3,13,23.807,75.891]]}[0m
+[0;32mI (68953) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (69242) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":224,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:30","ver":"1.0.0","err":["0x35","0x50","0x14"],"p":[[1,0,30.117,35.385,990.424],[3,13,28.889,60.833]]}[0m
+[0;32mI (69253) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (69544) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":225,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:30","ver":"1.0.0","err":["0x15","0x39","0x48"],"p":[[1,0,27.926,35.515,1001.913],[3,13,27.103,69.491]]}[0m
+[0;32mI (69556) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (69845) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":226,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:30","ver":"1.0.0","err":["0x94","0x7B","0x2F"],"p":[[1,0,26.973,63.918,1020.595],[3,13,20.518,61.913]]}[0m
+[0;32mI (69857) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (70146) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":227,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:31","ver":"1.0.0","err":["0xE1","0xF8","0xBB"],"p":[[1,0,29.238,70.259,1028.868],[3,13,26.126,49.280]]}[0m
+[0;32mI (70158) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (70447) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":228,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:31","ver":"1.0.0","err":["0x89","0xB5","0x67"],"p":[[1,0,24.072,63.213,1009.810],[3,13,20.465,80.176]]}[0m
+[0;32mI (70459) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (70748) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":229,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:31","ver":"1.0.0","err":["0x7F","0xC0","0x7D"],"p":[[1,0,19.739,78.349,995.957],[3,13,28.229,47.754]]}[0m
+[0;32mI (70760) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (71049) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":230,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:32","ver":"1.0.0","err":["0xBD","0xAF","0x7A"],"p":[[1,0,31.055,84.330,1013.826],[3,13,31.273,51.683]]}[0m
+[0;32mI (71061) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (71350) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":231,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:32","ver":"1.0.0","err":["0x64","0x62","0x8E"],"p":[[1,0,19.785,59.077,1021.339],[3,13,20.692,72.187]]}[0m
+[0;32mI (71362) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (71629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274992[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (71651) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":232,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:32","ver":"1.0.0","err":["0xD4","0xBD","0xBD"],"p":[[1,0,28.227,61.273,1000.361],[3,13,31.428,53.591]]}[0m
+[0;32mI (71667) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (71957) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":233,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:33","ver":"1.0.0","err":["0xA7","0x90","0x68"],"p":[[1,0,31.822,51.892,1001.901],[3,13,27.856,51.638]]}[0m
+[0;32mI (71969) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (72258) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":234,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:33","ver":"1.0.0","err":["0x2A","0x6B","0x53"],"p":[[1,0,18.805,72.969,1024.659],[3,13,33.174,73.843]]}[0m
+[0;32mI (72270) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (72559) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":235,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:33","ver":"1.0.0","err":["0xF7","0x15","0xFD"],"p":[[1,0,24.351,39.120,1016.275],[3,13,26.124,40.756]]}[0m
+[0;32mI (72571) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (72860) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":236,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:33","ver":"1.0.0","err":["0xC4","0x05","0x6A"],"p":[[1,0,26.419,45.136,993.284],[3,13,25.665,83.560]]}[0m
+[0;32mI (72871) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (73162) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":237,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:34","ver":"1.0.0","err":["0x73","0x74","0x05"],"p":[[1,0,31.206,81.910,999.665],[3,13,31.480,54.190]]}[0m
+[0;32mI (73174) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (73463) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":238,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:34","ver":"1.0.0","err":["0xF7","0xBF","0xE5"],"p":[[1,0,24.781,63.708,994.928],[3,13,29.266,46.485]]}[0m
+[0;32mI (73474) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (73764) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":239,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:34","ver":"1.0.0","err":["0xD7","0x30","0x77"],"p":[[1,0,30.493,54.332,1029.460],[3,13,21.939,49.104]]}[0m
+[0;32mI (73776) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (74065) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":240,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:35","ver":"1.0.0","err":["0xAA","0x03","0x6D"],"p":[[1,0,28.253,39.055,1019.043],[3,13,30.490,55.095]]}[0m
+[0;32mI (74077) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (74366) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":241,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:35","ver":"1.0.0","err":["0x29","0xD4","0x02"],"p":[[1,0,20.263,59.772,997.313],[3,13,29.996,41.391]]}[0m
+[0;32mI (74378) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (74667) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":242,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:35","ver":"1.0.0","err":["0xBD","0x3C","0x76"],"p":[[1,0,23.612,69.278,1018.811],[3,13,31.582,70.351]]}[0m
+[0;32mI (74679) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (74968) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":243,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:36","ver":"1.0.0","err":["0x0A","0xC5","0x39"],"p":[[1,0,24.676,63.453,1029.528],[3,13,21.096,57.948]]}[0m
+[0;32mI (74980) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (75269) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":244,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:36","ver":"1.0.0","err":["0x6E","0xE0","0xC7"],"p":[[1,0,31.329,57.307,1016.691],[3,13,21.722,45.036]]}[0m
+[0;32mI (75281) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (75570) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":245,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:36","ver":"1.0.0","err":["0x99","0x5A","0xEC"],"p":[[1,0,19.799,77.004,995.521],[3,13,28.160,68.123]]}[0m
+[0;32mI (75582) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (75871) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":246,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:36","ver":"1.0.0","err":["0xD6","0xFA","0xE8"],"p":[[1,0,20.144,57.417,1011.798],[3,13,28.356,59.433]]}[0m
+[0;32mI (75883) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (76172) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":247,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:37","ver":"1.0.0","err":["0x67","0x1A","0x28"],"p":[[1,0,25.296,46.541,1028.464],[3,13,31.414,40.896]]}[0m
+[0;32mI (76184) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (76474) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":248,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:37","ver":"1.0.0","err":["0x41","0x64","0xA1"],"p":[[1,0,26.618,64.323,1016.919],[3,13,30.106,43.956]]}[0m
+[0;32mI (76486) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (76775) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":249,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:37","ver":"1.0.0","err":["0xA1","0x10","0x33"],"p":[[1,0,26.497,39.325,990.588],[3,13,20.881,62.255]]}[0m
+[0;32mI (76786) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (77076) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":250,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:38","ver":"1.0.0","err":["0x38","0xBF","0x80"],"p":[[1,0,30.612,56.742,1023.723],[3,13,20.748,68.798]]}[0m
+[0;32mI (77088) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (77377) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":251,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:38","ver":"1.0.0","err":["0x2A","0xF6","0x83"],"p":[[1,0,29.791,39.725,1022.731],[3,13,23.209,50.356]]}[0m
+[0;32mI (77389) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (77679) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":252,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:38","ver":"1.0.0","err":["0xAC","0x8B","0x0C"],"p":[[1,0,31.678,40.151,1027.520],[3,13,31.964,72.561]]}[0m
+[0;32mI (77691) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (77980) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":253,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:39","ver":"1.0.0","err":["0x23","0xB9","0xD9"],"p":[[1,0,28.726,74.064,1012.442],[3,13,26.505,47.295]]}[0m
+[0;32mI (77992) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (78281) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":254,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:39","ver":"1.0.0","err":["0x0F","0x20","0x4C"],"p":[[1,0,25.288,36.150,1015.327],[3,13,25.833,61.247]]}[0m
+[0;32mI (78293) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (78582) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":255,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:39","ver":"1.0.0","err":["0x0E","0x84","0xC4"],"p":[[1,0,19.735,48.856,1000.985],[3,13,27.755,69.230]]}[0m
+[0;32mI (78594) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (78883) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":256,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:39","ver":"1.0.0","err":["0x72","0xFC","0x5C"],"p":[[1,0,22.536,66.673,1003.741],[3,13,24.962,77.223]]}[0m
+[0;32mI (78895) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (79184) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":257,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:40","ver":"1.0.0","err":["0x16","0xF9","0x55"],"p":[[1,0,22.556,83.325,1012.094],[3,13,33.374,64.865]]}[0m
+[0;32mI (79196) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (79485) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":258,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:40","ver":"1.0.0","err":["0x29","0x4E","0x1A"],"p":[[1,0,25.153,40.401,998.553],[3,13,31.228,43.636]]}[0m
+[0;32mI (79497) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (79787) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":259,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:40","ver":"1.0.0","err":["0xE5","0x3A","0xD6"],"p":[[1,0,30.891,44.316,1000.817],[3,13,20.578,58.825]]}[0m
+[0;32mI (79799) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (80088) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":260,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:41","ver":"1.0.0","err":["0x22","0x78","0xA3"],"p":[[1,0,20.135,76.494,1029.780],[3,13,28.094,49.860]]}[0m
+[0;32mI (80100) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (80389) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":261,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:41","ver":"1.0.0","err":["0x87","0x21","0xE9"],"p":[[1,0,30.339,47.011,1000.257],[3,13,23.170,40.995]]}[0m
+[0;32mI (80401) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (80690) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":262,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:41","ver":"1.0.0","err":["0x7C","0x6A","0x52"],"p":[[1,0,27.059,37.260,994.516],[3,13,23.243,58.303]]}[0m
+[0;32mI (80701) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (80992) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":263,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:42","ver":"1.0.0","err":["0x96","0x42","0x77"],"p":[[1,0,18.433,51.872,1019.243],[3,13,26.695,45.666]]}[0m
+[0;32mI (81004) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (81293) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":264,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:42","ver":"1.0.0","err":["0x8C","0x77","0xB4"],"p":[[1,0,27.353,69.698,1002.461],[3,13,31.511,51.521]]}[0m
+[0;32mI (81305) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (81594) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":265,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:42","ver":"1.0.0","err":["0xBA","0x71","0x66"],"p":[[1,0,28.382,38.470,1028.600],[3,13,28.427,56.206]]}[0m
+[0;32mI (81606) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (81629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (81895) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":266,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:42","ver":"1.0.0","err":["0x4A","0x5D","0xB3"],"p":[[1,0,20.548,70.644,1017.595],[3,13,20.218,63.996]]}[0m
+[0;32mI (81907) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (82197) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":267,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:43","ver":"1.0.0","err":["0x12","0xF6","0x68"],"p":[[1,0,30.100,74.164,1005.830],[3,13,24.347,57.961]]}[0m
+[0;32mI (82209) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (82498) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":268,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:43","ver":"1.0.0","err":["0xB8","0xEC","0x68"],"p":[[1,0,26.551,79.299,1022.535],[3,13,27.638,70.950]]}[0m
+[0;32mI (82510) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (82799) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":269,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:43","ver":"1.0.0","err":["0xED","0xD5","0x0B"],"p":[[1,0,31.294,47.331,1013.786],[3,13,25.673,44.037]]}[0m
+[0;32mI (82811) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (83100) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":270,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:44","ver":"1.0.0","err":["0x3D","0x63","0xC4"],"p":[[1,0,28.365,65.008,1004.257],[3,13,31.942,53.222]]}[0m
+[0;32mI (83112) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (83401) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":271,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:44","ver":"1.0.0","err":["0xE3","0x7C","0xBC"],"p":[[1,0,28.467,73.874,1014.798],[3,13,32.380,61.125]]}[0m
+[0;32mI (83413) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (83702) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":272,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:44","ver":"1.0.0","err":["0xE2","0x19","0x4C"],"p":[[1,0,25.786,46.441,1016.923],[3,13,26.042,66.499]]}[0m
+[0;32mI (83714) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (84003) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":273,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:45","ver":"1.0.0","err":["0xAC","0x3B","0x62"],"p":[[1,0,21.457,55.657,1006.526],[3,13,28.826,71.562]]}[0m
+[0;32mI (84015) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (84305) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":274,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:45","ver":"1.0.0","err":["0xA9","0x6F","0x3A"],"p":[[1,0,23.074,62.518,998.429],[3,13,22.323,63.645]]}[0m
+[0;32mI (84317) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (84606) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":275,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:45","ver":"1.0.0","err":["0x27","0x11","0x4D"],"p":[[1,0,24.019,37.870,996.573],[3,13,28.206,77.597]]}[0m
+[0;32mI (84618) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (84907) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":276,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:45","ver":"1.0.0","err":["0x52","0x20","0x84"],"p":[[1,0,19.418,47.311,1001.277],[3,13,23.682,56.395]]}[0m
+[0;32mI (84919) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (85208) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":277,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:46","ver":"1.0.0","err":["0xF9","0xE6","0xAB"],"p":[[1,0,26.539,83.405,1027.772],[3,13,21.278,43.992]]}[0m
+[0;32mI (85220) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (85510) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":278,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:46","ver":"1.0.0","err":["0xF5","0xBA","0xAB"],"p":[[1,0,23.466,63.048,1011.138],[3,13,33.745,80.212]]}[0m
+[0;32mI (85522) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (85811) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":279,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:46","ver":"1.0.0","err":["0xAE","0xD8","0x75"],"p":[[1,0,27.116,43.236,1010.938],[3,13,20.851,82.498]]}[0m
+[0;32mI (85823) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (86112) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":280,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:47","ver":"1.0.0","err":["0x43","0x4D","0xD2"],"p":[[1,0,24.298,72.309,1009.394],[3,13,30.980,50.563]]}[0m
+[0;32mI (86124) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (86413) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":281,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:47","ver":"1.0.0","err":["0x28","0xD0","0x0D"],"p":[[1,0,29.449,60.648,1002.797],[3,13,22.551,45.869]]}[0m
+[0;32mI (86425) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (86715) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":282,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:47","ver":"1.0.0","err":["0x10","0x2B","0x3D"],"p":[[1,0,26.657,77.414,1007.382],[3,13,22.319,59.671]]}[0m
+[0;32mI (86727) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (87016) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":283,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:48","ver":"1.0.0","err":["0x9A","0x57","0xFD"],"p":[[1,0,23.218,70.839,1015.995],[3,13,24.784,74.550]]}[0m
+[0;32mI (87028) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (87317) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":284,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:48","ver":"1.0.0","err":["0x89","0xE8","0x1D"],"p":[[1,0,22.108,71.874,1029.284],[3,13,32.068,46.998]]}[0m
+[0;32mI (87329) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (87618) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":285,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:48","ver":"1.0.0","err":["0xF9","0xCB","0xBF"],"p":[[1,0,31.481,50.687,1026.212],[3,13,33.628,70.153]]}[0m
+[0;32mI (87630) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (87919) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":286,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:48","ver":"1.0.0","err":["0xC0","0x82","0x25"],"p":[[1,0,19.487,47.696,1016.271],[3,13,26.904,58.897]]}[0m
+[0;32mI (87931) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (88220) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":287,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:49","ver":"1.0.0","err":["0xEB","0xCF","0x18"],"p":[[1,0,27.294,57.897,999.109],[3,13,24.436,61.341]]}[0m
+[0;32mI (88231) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (88521) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":288,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:49","ver":"1.0.0","err":["0x98","0xE0","0x22"],"p":[[1,0,21.311,57.447,997.845],[3,13,24.895,84.424]]}[0m
+[0;32mI (88533) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (88823) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":289,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:49","ver":"1.0.0","err":["0x3E","0xE4","0xE2"],"p":[[1,0,21.047,62.468,1010.978],[3,13,29.774,56.454]]}[0m
+[0;32mI (88835) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (89124) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":290,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:50","ver":"1.0.0","err":["0x0A","0x8A","0x20"],"p":[[1,0,29.455,62.598,991.204],[3,13,30.249,83.164]]}[0m
+[0;32mI (89135) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (89425) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":291,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:50","ver":"1.0.0","err":["0xC8","0x64","0xD1"],"p":[[1,0,21.223,39.320,1003.005],[3,13,24.979,82.030]]}[0m
+[0;32mI (89437) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (89726) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":292,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:50","ver":"1.0.0","err":["0xD0","0xDE","0x9F"],"p":[[1,0,26.705,64.548,1003.477],[3,13,23.173,56.400]]}[0m
+[0;32mI (89738) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (90028) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":293,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:51","ver":"1.0.0","err":["0x17","0xBE","0xEC"],"p":[[1,0,18.164,46.561,992.240],[3,13,20.931,69.604]]}[0m
+[0;32mI (90040) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (90329) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":294,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:51","ver":"1.0.0","err":["0xCE","0x1F","0x10"],"p":[[1,0,18.451,84.550,1002.793],[3,13,31.803,46.562]]}[0m
+[0;32mI (90341) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (90630) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":295,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:51","ver":"1.0.0","err":["0x6D","0x31","0xC0"],"p":[[1,0,24.847,83.890,1004.761],[3,13,20.602,72.912]]}[0m
+[0;32mI (90642) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (90931) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":296,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:51","ver":"1.0.0","err":["0x0D","0x44","0x5F"],"p":[[1,0,19.502,36.990,994.600],[3,13,33.156,65.180]]}[0m
+[0;32mI (90942) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (91233) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":297,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:52","ver":"1.0.0","err":["0x05","0x90","0x74"],"p":[[1,0,19.329,46.651,1022.303],[3,13,29.136,44.680]]}[0m
+[0;32mI (91245) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (91534) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":298,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:52","ver":"1.0.0","err":["0xCC","0x79","0xA6"],"p":[[1,0,24.205,63.018,991.768],[3,13,33.073,81.161]]}[0m
+[0;32mI (91545) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (91629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (91835) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":299,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:52","ver":"1.0.0","err":["0x53","0x57","0x05"],"p":[[1,0,18.221,66.243,1010.646],[3,13,25.615,61.656]]}[0m
+[0;32mI (91847) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (92136) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":300,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:53","ver":"1.0.0","err":["0x43","0xA9","0x45"],"p":[[1,0,27.438,56.002,1008.438],[3,13,31.502,74.118]]}[0m
+[0;32mI (92148) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (92437) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":301,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:53","ver":"1.0.0","err":["0xCA","0x3F","0x97"],"p":[[1,0,31.038,54.897,998.745],[3,13,21.742,84.896]]}[0m
+[0;32mI (92449) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (92738) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":302,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:53","ver":"1.0.0","err":["0x50","0x87","0xD2"],"p":[[1,0,18.398,78.079,1013.362],[3,13,30.327,80.194]]}[0m
+[0;32mI (92750) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (93039) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":303,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:54","ver":"1.0.0","err":["0x3A","0xD1","0x09"],"p":[[1,0,26.642,83.960,1028.756],[3,13,30.108,41.445]]}[0m
+[0;32mI (93051) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (93341) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":304,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:54","ver":"1.0.0","err":["0x7F","0x17","0x2A"],"p":[[1,0,31.497,76.704,1008.010],[3,13,23.139,53.965]]}[0m
+[0;32mI (93353) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (93642) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":305,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:54","ver":"1.0.0","err":["0x9D","0xDA","0xDD"],"p":[[1,0,21.272,69.648,1025.192],[3,13,26.103,73.776]]}[0m
+[0;32mI (93654) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (93943) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":306,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:54","ver":"1.0.0","err":["0xB4","0x1B","0x76"],"p":[[1,0,31.266,73.499,1023.747],[3,13,30.627,73.200]]}[0m
+[0;32mI (93955) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (94244) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":307,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:55","ver":"1.0.0","err":["0x7F","0xF8","0x5F"],"p":[[1,0,21.813,48.916,1011.874],[3,13,20.524,54.082]]}[0m
+[0;32mI (94256) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (94546) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":308,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:55","ver":"1.0.0","err":["0x94","0xF2","0x91"],"p":[[1,0,26.436,56.942,1025.359],[3,13,24.522,44.820]]}[0m
+[0;32mI (94558) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (94847) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":309,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:55","ver":"1.0.0","err":["0xFA","0x01","0xF6"],"p":[[1,0,25.251,80.400,1021.603],[3,13,20.325,62.840]]}[0m
+[0;32mI (94859) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (95148) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":310,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:56","ver":"1.0.0","err":["0x53","0xDF","0x2C"],"p":[[1,0,27.307,75.884,1028.828],[3,13,25.232,75.509]]}[0m
+[0;32mI (95160) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (95450) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":311,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:56","ver":"1.0.0","err":["0x25","0x73","0x0B"],"p":[[1,0,21.862,83.895,1010.254],[3,13,31.368,62.390]]}[0m
+[0;32mI (95462) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (95751) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":312,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:56","ver":"1.0.0","err":["0x74","0x35","0x8B"],"p":[[1,0,23.692,36.755,1021.063],[3,13,24.653,53.902]]}[0m
+[0;32mI (95763) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (96052) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":313,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:57","ver":"1.0.0","err":["0x53","0x4E","0xB6"],"p":[[1,0,26.014,52.382,1018.111],[3,13,24.725,51.629]]}[0m
+[0;32mI (96064) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (96353) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":314,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:57","ver":"1.0.0","err":["0xA1","0x65","0x1B"],"p":[[1,0,29.586,36.520,1019.795],[3,13,28.198,49.667]]}[0m
+[0;32mI (96365) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (96654) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":315,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:57","ver":"1.0.0","err":["0x98","0x20","0xE1"],"p":[[1,0,23.599,64.183,990.096],[3,13,25.139,65.342]]}[0m
+[0;32mI (96666) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (96955) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":316,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:58","ver":"1.0.0","err":["0xA3","0x1C","0xCB"],"p":[[1,0,19.550,75.114,1022.123],[3,13,33.317,57.007]]}[0m
+[0;32mI (96967) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (97256) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":317,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:58","ver":"1.0.0","err":["0x7A","0x83","0x2D"],"p":[[1,0,25.405,45.361,992.840],[3,13,33.852,54.847]]}[0m
+[0;32mI (97267) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (97557) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":318,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:58","ver":"1.0.0","err":["0x17","0x16","0xD2"],"p":[[1,0,31.098,48.571,1021.479],[3,13,30.761,66.094]]}[0m
+[0;32mI (97569) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (97859) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":319,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:58","ver":"1.0.0","err":["0x3F","0xC4","0xFC"],"p":[[1,0,26.234,49.676,1009.582],[3,13,21.059,68.263]]}[0m
+[0;32mI (97871) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (98160) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":320,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:59","ver":"1.0.0","err":["0xF4","0xCF","0xCE"],"p":[[1,0,23.587,58.897,1025.940],[3,13,24.658,81.845]]}[0m
+[0;32mI (98172) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (98461) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":321,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:59","ver":"1.0.0","err":["0x0C","0x90","0xE4"],"p":[[1,0,30.404,71.399,1018.855],[3,13,26.858,51.778]]}[0m
+[0;32mI (98473) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (98762) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":322,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:40:59","ver":"1.0.0","err":["0xBA","0x39","0xC0"],"p":[[1,0,19.710,76.889,1003.749],[3,13,28.164,56.985]]}[0m
+[0;32mI (98774) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (99064) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":323,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:00","ver":"1.0.0","err":["0x39","0x11","0xB0"],"p":[[1,0,26.170,78.419,1008.114],[3,13,32.962,46.629]]}[0m
+[0;32mI (99076) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (99365) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":324,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:00","ver":"1.0.0","err":["0xBE","0xDB","0x60"],"p":[[1,0,31.208,42.351,1004.125],[3,13,25.377,80.738]]}[0m
+[0;32mI (99377) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (99666) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":325,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:00","ver":"1.0.0","err":["0x75","0xE8","0x33"],"p":[[1,0,26.068,44.256,1018.463],[3,13,22.004,44.437]]}[0m
+[0;32mI (99678) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (99968) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":326,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:01","ver":"1.0.0","err":["0xE1","0x47","0x9C"],"p":[[1,0,28.206,35.645,1002.957],[3,13,26.824,50.977]]}[0m
+[0;32mI (99979) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (100268) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":327,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:01","ver":"1.0.0","err":["0xCC","0xF2","0xCB"],"p":[[1,0,30.825,60.213,995.033],[3,13,20.631,60.572]]}[0m
+[0;32mI (100280) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (100569) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":328,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:01","ver":"1.0.0","err":["0xD1","0xF5","0xCB"],"p":[[1,0,20.485,57.722,1026.720],[3,13,22.667,60.824]]}[0m
+[0;32mI (100581) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (100870) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":329,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:01","ver":"1.0.0","err":["0x8C","0x32","0x31"],"p":[[1,0,27.885,81.400,1011.550],[3,13,33.035,62.403]]}[0m
+[0;32mI (100882) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (101171) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":330,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:02","ver":"1.0.0","err":["0x55","0xDD","0x16"],"p":[[1,0,28.466,76.364,990.848],[3,13,28.065,63.533]]}[0m
+[0;32mI (101183) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (101472) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":331,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:02","ver":"1.0.0","err":["0xCA","0xE9","0x01"],"p":[[1,0,30.768,46.196,1004.745],[3,13,21.147,51.706]]}[0m
+[0;32mI (101484) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (101629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274704[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (101773) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":332,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:02","ver":"1.0.0","err":["0x15","0x0F","0x03"],"p":[[1,0,20.103,79.419,992.056],[3,13,33.698,52.151]]}[0m
+[0;32mI (101785) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (102074) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":333,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:03","ver":"1.0.0","err":["0x25","0x8D","0x31"],"p":[[1,0,27.508,84.215,1000.885],[3,13,21.997,77.529]]}[0m
+[0;32mI (102086) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (102376) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":334,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:03","ver":"1.0.0","err":["0x0D","0x22","0x32"],"p":[[1,0,24.845,76.249,996.269],[3,13,29.107,62.322]]}[0m
+[0;32mI (102388) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (102677) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":335,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:03","ver":"1.0.0","err":["0x52","0xE3","0x66"],"p":[[1,0,22.920,60.268,995.697],[3,13,31.653,44.307]]}[0m
+[0;32mI (102689) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (102978) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":336,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:04","ver":"1.0.0","err":["0x68","0x29","0xFB"],"p":[[1,0,24.408,48.981,1025.844],[3,13,28.535,49.856]]}[0m
+[0;32mI (102990) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (103279) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":337,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:04","ver":"1.0.0","err":["0xD5","0x91","0x04"],"p":[[1,0,23.718,57.667,1003.321],[3,13,29.402,58.245]]}[0m
+[0;32mI (103291) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (103581) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":338,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:04","ver":"1.0.0","err":["0xDD","0x44","0x05"],"p":[[1,0,27.545,56.772,1016.423],[3,13,31.431,76.697]]}[0m
+[0;32mI (103593) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (103882) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":339,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:04","ver":"1.0.0","err":["0x1D","0xFA","0x2E"],"p":[[1,0,19.949,64.273,1005.662],[3,13,20.148,47.678]]}[0m
+[0;32mI (103894) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (104183) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":340,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:05","ver":"1.0.0","err":["0x6C","0xD3","0xCE"],"p":[[1,0,24.912,53.017,1005.133],[3,13,20.512,70.576]]}[0m
+[0;32mI (104195) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (104484) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":341,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:05","ver":"1.0.0","err":["0xDC","0x19","0xC3"],"p":[[1,0,29.869,63.963,995.044],[3,13,32.589,84.653]]}[0m
+[0;32mI (104496) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (104785) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":342,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:05","ver":"1.0.0","err":["0x3B","0x9D","0xC0"],"p":[[1,0,22.419,71.954,1019.591],[3,13,31.586,62.277]]}[0m
+[0;32mI (104797) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (105086) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":343,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:06","ver":"1.0.0","err":["0xA1","0x39","0x60"],"p":[[1,0,19.228,63.248,1012.386],[3,13,26.743,71.638]]}[0m
+[0;32mI (105098) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (105387) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":344,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:06","ver":"1.0.0","err":["0xA7","0xE4","0xCB"],"p":[[1,0,19.024,63.263,1011.986],[3,13,28.579,53.789]]}[0m
+[0;32mI (105399) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (105689) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":345,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:06","ver":"1.0.0","err":["0xDE","0x7F","0xC4"],"p":[[1,0,28.033,44.386,1015.135],[3,13,21.829,65.959]]}[0m
+[0;32mI (105701) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (105990) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":346,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:07","ver":"1.0.0","err":["0x3D","0x95","0xEB"],"p":[[1,0,28.011,50.757,1019.295],[3,13,26.792,52.336]]}[0m
+[0;32mI (106002) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (106291) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":347,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:07","ver":"1.0.0","err":["0x48","0x18","0x5A"],"p":[[1,0,21.590,84.115,999.605],[3,13,33.602,45.702]]}[0m
+[0;32mI (106303) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (106592) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":348,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:07","ver":"1.0.0","err":["0xC6","0x42","0x33"],"p":[[1,0,19.096,36.345,997.525],[3,13,27.222,60.698]]}[0m
+[0;32mI (106604) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (106894) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":349,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:07","ver":"1.0.0","err":["0x49","0xF5","0x37"],"p":[[1,0,18.206,55.217,1004.101],[3,13,23.778,52.583]]}[0m
+[0;32mI (106906) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (107195) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":350,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:08","ver":"1.0.0","err":["0xF7","0xF9","0x60"],"p":[[1,0,31.363,58.982,1021.755],[3,13,20.403,46.215]]}[0m
+[0;32mI (107207) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (107496) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":351,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:08","ver":"1.0.0","err":["0xEF","0xB8","0x18"],"p":[[1,0,30.740,53.482,995.253],[3,13,24.482,41.494]]}[0m
+[0;32mI (107508) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (107797) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":352,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:08","ver":"1.0.0","err":["0x6B","0x2D","0xAB"],"p":[[1,0,28.081,46.351,1016.739],[3,13,27.334,53.069]]}[0m
+[0;32mI (107809) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (108099) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":353,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:09","ver":"1.0.0","err":["0x6B","0xBB","0x06"],"p":[[1,0,27.737,55.332,991.536],[3,13,23.946,58.434]]}[0m
+[0;32mI (108111) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (108400) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":354,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:09","ver":"1.0.0","err":["0x9D","0x07","0x6D"],"p":[[1,0,31.842,79.834,1005.102],[3,13,23.927,65.279]]}[0m
+[0;32mI (108412) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (108701) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":355,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:09","ver":"1.0.0","err":["0x0D","0xE4","0x50"],"p":[[1,0,19.956,72.834,1003.705],[3,13,33.007,82.376]]}[0m
+[0;32mI (108713) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (109002) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":356,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:10","ver":"1.0.0","err":["0x19","0x2E","0xC3"],"p":[[1,0,26.311,74.684,993.348],[3,13,21.285,51.890]]}[0m
+[0;32mI (109014) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (109304) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":357,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:10","ver":"1.0.0","err":["0xF0","0x45","0xBA"],"p":[[1,0,21.505,61.103,1006.870],[3,13,29.255,59.361]]}[0m
+[0;32mI (109316) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (109605) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":358,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:10","ver":"1.0.0","err":["0x85","0x13","0x96"],"p":[[1,0,23.179,61.768,1001.225],[3,13,31.337,40.113]]}[0m
+[0;32mI (109617) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (109906) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":359,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:10","ver":"1.0.0","err":["0x08","0x0F","0x91"],"p":[[1,0,20.956,49.596,1013.194],[3,13,32.948,66.823]]}[0m
+[0;32mI (109918) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (110207) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":360,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:11","ver":"1.0.0","err":["0x92","0xC7","0x9B"],"p":[[1,0,27.784,78.464,1004.865],[3,13,27.412,71.989]]}[0m
+[0;32mI (110219) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (110508) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":361,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:11","ver":"1.0.0","err":["0xC9","0x22","0x5B"],"p":[[1,0,26.775,75.034,1003.189],[3,13,30.264,83.812]]}[0m
+[0;32mI (110520) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (110809) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":362,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:11","ver":"1.0.0","err":["0x0A","0xAB","0xF6"],"p":[[1,0,27.363,62.993,997.133],[3,13,24.282,80.036]]}[0m
+[0;32mI (110821) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (111110) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":363,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:12","ver":"1.0.0","err":["0xFE","0x40","0xF7"],"p":[[1,0,27.913,82.680,998.721],[3,13,27.947,82.813]]}[0m
+[0;32mI (111122) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (111411) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":364,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:12","ver":"1.0.0","err":["0xB2","0x1F","0x09"],"p":[[1,0,27.024,84.620,1028.340],[3,13,33.237,69.527]]}[0m
+[0;32mI (111423) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (111629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274992[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (111712) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":365,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:12","ver":"1.0.0","err":["0x9C","0xA9","0x44"],"p":[[1,0,20.432,36.180,1008.822],[3,13,29.536,57.826]]}[0m
+[0;32mI (111724) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (112013) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":366,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:13","ver":"1.0.0","err":["0x04","0x24","0x5B"],"p":[[1,0,26.884,48.561,1029.528],[3,13,21.175,62.345]]}[0m
+[0;32mI (112025) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (112314) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":367,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:13","ver":"1.0.0","err":["0xAC","0x63","0x26"],"p":[[1,0,30.638,65.693,1019.871],[3,13,27.736,83.596]]}[0m
+[0;32mI (112326) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (112616) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":368,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:13","ver":"1.0.0","err":["0x70","0xD8","0xB0"],"p":[[1,0,26.517,72.349,1015.467],[3,13,20.139,64.343]]}[0m
+[0;32mI (112628) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (112917) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":369,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:13","ver":"1.0.0","err":["0xB3","0x19","0x89"],"p":[[1,0,22.766,84.615,1003.305],[3,13,33.511,69.019]]}[0m
+[0;32mI (112929) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (113218) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":370,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:14","ver":"1.0.0","err":["0xF7","0x4E","0x16"],"p":[[1,0,29.242,60.478,996.537],[3,13,29.662,75.806]]}[0m
+[0;32mI (113230) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (113519) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":371,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:14","ver":"1.0.0","err":["0x36","0x88","0x70"],"p":[[1,0,24.400,70.979,990.308],[3,13,26.491,73.654]]}[0m
+[0;32mI (113531) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (113821) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":372,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:14","ver":"1.0.0","err":["0x6D","0x24","0x77"],"p":[[1,0,27.136,45.311,1004.037],[3,13,33.286,42.732]]}[0m
+[0;32mI (113833) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (114122) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":373,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:15","ver":"1.0.0","err":["0xE1","0x40","0xAF"],"p":[[1,0,26.936,68.093,1006.938],[3,13,32.337,41.305]]}[0m
+[0;32mI (114134) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (114423) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":374,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:15","ver":"1.0.0","err":["0xA1","0x7F","0xAD"],"p":[[1,0,30.653,41.521,1020.683],[3,13,33.565,41.229]]}[0m
+[0;32mI (114435) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (114724) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":375,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:15","ver":"1.0.0","err":["0x48","0x04","0xCD"],"p":[[1,0,25.681,60.163,1015.823],[3,13,24.458,46.328]]}[0m
+[0;32mI (114736) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (115025) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":376,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:16","ver":"1.0.0","err":["0x62","0x7D","0xDD"],"p":[[1,0,23.739,52.127,1004.105],[3,13,27.275,63.542]]}[0m
+[0;32mI (115037) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (115326) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":377,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:16","ver":"1.0.0","err":["0x27","0xF5","0x94"],"p":[[1,0,28.711,81.360,1022.875],[3,13,23.136,42.565]]}[0m
+[0;32mI (115338) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (115627) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":378,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:16","ver":"1.0.0","err":["0xEC","0xF9","0x33"],"p":[[1,0,25.415,69.768,994.048],[3,13,30.068,50.162]]}[0m
+[0;32mI (115639) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (115929) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":379,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:16","ver":"1.0.0","err":["0x65","0x64","0x70"],"p":[[1,0,23.435,56.867,1008.646],[3,13,24.356,81.247]]}[0m
+[0;32mI (115941) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (116230) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":380,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:17","ver":"1.0.0","err":["0x21","0x30","0xFC"],"p":[[1,0,31.377,75.314,1007.618],[3,13,32.363,63.978]]}[0m
+[0;32mI (116242) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (116531) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":381,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:17","ver":"1.0.0","err":["0x0F","0xD7","0x9F"],"p":[[1,0,30.624,75.969,1009.854],[3,13,33.289,43.078]]}[0m
+[0;32mI (116543) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (116832) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":382,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:17","ver":"1.0.0","err":["0x39","0xE5","0x44"],"p":[[1,0,25.519,71.594,1018.471],[3,13,23.255,57.205]]}[0m
+[0;32mI (116844) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (117134) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":383,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:18","ver":"1.0.0","err":["0xB1","0xC7","0x65"],"p":[[1,0,21.589,67.183,995.265],[3,13,21.747,64.032]]}[0m
+[0;32mI (117146) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (117435) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":384,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:18","ver":"1.0.0","err":["0xE6","0xFD","0x97"],"p":[[1,0,21.456,49.221,992.624],[3,13,33.504,67.210]]}[0m
+[0;32mI (117447) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (117736) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":385,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:18","ver":"1.0.0","err":["0x3C","0xB1","0xE2"],"p":[[1,0,21.255,63.238,994.964],[3,13,21.637,72.511]]}[0m
+[0;32mI (117748) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (118037) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":386,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:19","ver":"1.0.0","err":["0x31","0x59","0xFE"],"p":[[1,0,26.566,47.651,1024.103],[3,13,23.272,82.844]]}[0m
+[0;32mI (118049) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (118339) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":387,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:19","ver":"1.0.0","err":["0x5A","0xFF","0xD0"],"p":[[1,0,25.337,47.781,1010.294],[3,13,24.506,49.275]]}[0m
+[0;32mI (118351) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (118640) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":388,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:19","ver":"1.0.0","err":["0x76","0x6F","0x2C"],"p":[[1,0,23.708,69.643,1016.763],[3,13,23.295,84.397]]}[0m
+[0;32mI (118652) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (118941) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":389,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:19","ver":"1.0.0","err":["0x59","0x6F","0x6F"],"p":[[1,0,25.978,47.221,1001.777],[3,13,22.053,63.497]]}[0m
+[0;32mI (118953) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (119242) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":390,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:20","ver":"1.0.0","err":["0x83","0x28","0x67"],"p":[[1,0,29.856,41.096,1006.190],[3,13,26.238,49.257]]}[0m
+[0;32mI (119254) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (119543) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":391,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:20","ver":"1.0.0","err":["0x88","0x5B","0x5A"],"p":[[1,0,27.494,60.378,998.521],[3,13,23.563,83.551]]}[0m
+[0;32mI (119555) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (119844) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":392,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:20","ver":"1.0.0","err":["0x82","0x4A","0x0A"],"p":[[1,0,23.347,77.989,1022.023],[3,13,25.186,48.708]]}[0m
+[0;32mI (119856) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (120145) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":393,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:21","ver":"1.0.0","err":["0xCA","0x78","0xA5"],"p":[[1,0,26.646,78.994,1001.737],[3,13,21.850,43.294]]}[0m
+[0;32mI (120157) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (120447) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":394,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:21","ver":"1.0.0","err":["0xBA","0xDF","0x68"],"p":[[1,0,18.605,49.666,1008.282],[3,13,27.930,47.034]]}[0m
+[0;32mI (120459) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (120748) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":395,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:21","ver":"1.0.0","err":["0xAD","0xA8","0x43"],"p":[[1,0,22.080,79.564,1009.978],[3,13,20.066,57.201]]}[0m
+[0;32mI (120760) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (121049) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":396,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:22","ver":"1.0.0","err":["0xB5","0x50","0x37"],"p":[[1,0,23.458,69.198,993.648],[3,13,31.420,71.962]]}[0m
+[0;32mI (121061) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (121350) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":397,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:22","ver":"1.0.0","err":["0x04","0x20","0xA0"],"p":[[1,0,28.235,58.002,1017.651],[3,13,25.179,51.440]]}[0m
+[0;32mI (121362) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (121629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274624[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (121652) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":398,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:22","ver":"1.0.0","err":["0x07","0x7A","0x62"],"p":[[1,0,27.399,71.544,1023.995],[3,13,29.878,43.825]]}[0m
+[0;32mI (121667) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (121957) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":399,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:23","ver":"1.0.0","err":["0xC0","0xBA","0x55"],"p":[[1,0,30.542,55.277,992.280],[3,13,32.961,76.962]]}[0m
+[0;32mI (121969) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (122258) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":400,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:23","ver":"1.0.0","err":["0x1E","0xFC","0x80"],"p":[[1,0,20.337,69.488,1023.471],[3,13,28.898,48.443]]}[0m
+[0;32mI (122270) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (122559) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":401,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:23","ver":"1.0.0","err":["0xD5","0xEC","0x5E"],"p":[[1,0,28.533,61.883,1026.020],[3,13,29.440,45.846]]}[0m
+[0;32mI (122571) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (122861) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":402,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:23","ver":"1.0.0","err":["0x34","0x4A","0x3F"],"p":[[1,0,22.990,61.513,997.377],[3,13,29.206,69.064]]}[0m
+[0;32mI (122873) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (123162) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":403,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:24","ver":"1.0.0","err":["0xE7","0x0D","0x19"],"p":[[1,0,25.202,53.292,1014.178],[3,13,24.951,76.517]]}[0m
+[0;32mI (123174) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (123463) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":404,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:24","ver":"1.0.0","err":["0xE0","0x2D","0x9F"],"p":[[1,0,18.078,70.589,990.216],[3,13,27.111,84.811]]}[0m
+[0;32mI (123475) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (123764) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":405,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:24","ver":"1.0.0","err":["0xF8","0xFA","0x6E"],"p":[[1,0,22.014,59.597,1016.327],[3,13,24.532,62.997]]}[0m
+[0;32mI (123776) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (124065) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":406,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:25","ver":"1.0.0","err":["0x99","0x25","0xAD"],"p":[[1,0,19.124,62.293,1020.667],[3,13,25.134,71.850]]}[0m
+[0;32mI (124077) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (124366) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":407,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:25","ver":"1.0.0","err":["0xA2","0x29","0x34"],"p":[[1,0,30.184,66.068,1022.303],[3,13,27.803,45.864]]}[0m
+[0;32mI (124378) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (124667) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":408,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:25","ver":"1.0.0","err":["0x03","0x32","0x09"],"p":[[1,0,27.927,82.910,1014.646],[3,13,24.182,56.386]]}[0m
+[0;32mI (124679) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (124969) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":409,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:26","ver":"1.0.0","err":["0xBE","0x98","0x77"],"p":[[1,0,25.887,76.329,1013.174],[3,13,32.918,43.326]]}[0m
+[0;32mI (124981) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (125270) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":410,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:26","ver":"1.0.0","err":["0xC6","0x5F","0x2F"],"p":[[1,0,29.420,61.588,1002.617],[3,13,29.990,69.280]]}[0m
+[0;32mI (125282) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (125571) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":411,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:26","ver":"1.0.0","err":["0xCD","0x8D","0xDF"],"p":[[1,0,27.255,77.069,1012.722],[3,13,26.642,67.237]]}[0m
+[0;32mI (125583) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (125872) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":412,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:26","ver":"1.0.0","err":["0xB8","0x16","0x6E"],"p":[[1,0,22.007,61.538,999.929],[3,13,27.649,40.590]]}[0m
+[0;32mI (125884) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (126174) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":413,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:27","ver":"1.0.0","err":["0x8D","0x6D","0x8C"],"p":[[1,0,31.901,69.688,1024.927],[3,13,32.944,73.969]]}[0m
+[0;32mI (126186) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (126475) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":414,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:27","ver":"1.0.0","err":["0xB8","0x16","0xA8"],"p":[[1,0,23.797,40.746,1023.299],[3,13,24.983,80.590]]}[0m
+[0;32mI (126487) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (126776) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":415,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:27","ver":"1.0.0","err":["0x4D","0xF2","0x4F"],"p":[[1,0,31.111,81.490,1013.874],[3,13,21.082,83.213]]}[0m
+[0;32mI (126788) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (127077) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":416,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:28","ver":"1.0.0","err":["0x21","0xAA","0x56"],"p":[[1,0,31.068,70.039,1028.324],[3,13,32.552,43.357]]}[0m
+[0;32mI (127089) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (127378) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":417,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:28","ver":"1.0.0","err":["0x9D","0x98","0x6E"],"p":[[1,0,20.971,65.958,1010.094],[3,13,30.992,47.714]]}[0m
+[0;32mI (127390) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (127679) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":418,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:28","ver":"1.0.0","err":["0x80","0x99","0x5C"],"p":[[1,0,28.749,69.273,1009.410],[3,13,25.785,69.077]]}[0m
+[0;32mI (127691) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (127980) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":419,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:29","ver":"1.0.0","err":["0x13","0xA7","0x8D"],"p":[[1,0,28.024,39.895,992.892],[3,13,26.450,42.376]]}[0m
+[0;32mI (127992) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (128281) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":420,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:29","ver":"1.0.0","err":["0x0D","0x30","0xF1"],"p":[[1,0,21.367,83.565,1027.328],[3,13,24.185,61.058]]}[0m
+[0;32mI (128293) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (128583) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":421,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:29","ver":"1.0.0","err":["0x15","0xFC","0x9F"],"p":[[1,0,24.260,40.096,1006.050],[3,13,22.719,62.430]]}[0m
+[0;32mI (128595) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (128884) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":422,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:29","ver":"1.0.0","err":["0x73","0x8C","0x57"],"p":[[1,0,27.262,72.484,1027.684],[3,13,25.139,40.450]]}[0m
+[0;32mI (128896) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (129185) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":423,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:30","ver":"1.0.0","err":["0xBF","0x41","0xED"],"p":[[1,0,31.497,57.777,1004.761],[3,13,22.121,53.299]]}[0m
+[0;32mI (129197) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (129487) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":424,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:30","ver":"1.0.0","err":["0x05","0xCE","0x77"],"p":[[1,0,23.865,63.938,1013.370],[3,13,24.221,78.893]]}[0m
+[0;32mI (129499) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (129788) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":425,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:30","ver":"1.0.0","err":["0x31","0x9D","0x73"],"p":[[1,0,19.018,59.082,1000.569],[3,13,31.194,54.964]]}[0m
+[0;32mI (129800) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (130089) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":426,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:31","ver":"1.0.0","err":["0xA7","0x1A","0xCC"],"p":[[1,0,21.465,55.322,1016.747],[3,13,27.786,66.346]]}[0m
+[0;32mI (130101) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (130390) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":427,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:31","ver":"1.0.0","err":["0x1C","0x44","0x33"],"p":[[1,0,20.131,40.961,995.457],[3,13,25.256,41.422]]}[0m
+[0;32mI (130402) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (130692) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":428,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:31","ver":"1.0.0","err":["0x6A","0x30","0x7C"],"p":[[1,0,25.144,47.966,1004.473],[3,13,33.481,69.199]]}[0m
+[0;32mI (130704) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (130993) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":429,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:32","ver":"1.0.0","err":["0x55","0x58","0xAE"],"p":[[1,0,29.967,58.717,1013.658],[3,13,33.565,70.576]]}[0m
+[0;32mI (131005) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (131294) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":430,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:32","ver":"1.0.0","err":["0xA8","0x95","0xD6"],"p":[[1,0,26.479,36.385,1008.186],[3,13,22.263,74.397]]}[0m
+[0;32mI (131306) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (131596) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":431,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:32","ver":"1.0.0","err":["0x92","0xC6","0xB9"],"p":[[1,0,19.984,40.041,1006.146],[3,13,26.295,43.659]]}[0m
+[0;32mI (131608) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (131629) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -43, free heap: 274504[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.3
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (131897) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":432,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:32","ver":"1.0.0","err":["0x5D","0x2D","0x0E"],"p":[[1,0,28.073,38.860,1001.057],[3,13,31.910,76.044]]}[0m
+[0;32mI (131909) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (132198) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":433,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:33","ver":"1.0.0","err":["0xC7","0x76","0xA5"],"p":[[1,0,19.838,64.683,1003.613],[3,13,28.808,80.765]]}[0m
+[0;32mI (132210) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (132499) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":434,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:33","ver":"1.0.0","err":["0x76","0x99","0x7E"],"p":[[1,0,25.755,56.142,1019.703],[3,13,28.402,77.120]]}[0m
+[0;32mI (132511) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (132800) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":435,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:33","ver":"1.0.0","err":["0xF2","0xBD","0x6E"],"p":[[1,0,18.052,79.349,994.128],[3,13,26.765,79.226]]}[0m
+[0;32mI (132812) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (133101) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":436,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:34","ver":"1.0.0","err":["0xED","0xD1","0x8B"],"p":[[1,0,22.846,81.120,1021.127],[3,13,31.954,61.004]]}[0m
+[0;32mI (133113) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (133402) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":437,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:34","ver":"1.0.0","err":["0x39","0xDF","0x57"],"p":[[1,0,24.474,82.570,1008.574],[3,13,28.699,75.113]]}[0m
+[0;32mI (133414) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (133703) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":438,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:34","ver":"1.0.0","err":["0xAD","0xF8","0x4C"],"p":[[1,0,18.797,46.766,998.605],[3,13,24.287,71.521]]}[0m
+[0;32mI (133715) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (134005) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":439,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:35","ver":"1.0.0","err":["0x42","0xB9","0x3D"],"p":[[1,0,27.668,80.535,1007.110],[3,13,23.538,71.503]]}[0m
+[0;32mI (134017) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (134306) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":440,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:35","ver":"1.0.0","err":["0x15","0x7E","0xEA"],"p":[[1,0,29.110,47.381,1015.239],[3,13,32.855,68.542]]}[0m
+[0;32mI (134318) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (134607) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":441,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:35","ver":"1.0.0","err":["0xA7","0x78","0x20"],"p":[[1,0,31.318,76.374,1013.722],[3,13,24.534,60.023]]}[0m
+[0;32mI (134619) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (134908) no_router_child: Sending JSON 165 B to 192.168.5.1:12345 | {"v":1,"seq":442,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:35","ver":"1.0.0","err":["0x7F","0x8D","0x28"],"p":[[1,0,22.483,62.878,991.068],[3,13,29.074,44.919]]}[0m
+[0;32mI (134920) no_router_child: Message sent successfully (165 bytes)[0m
+[0;32mI (135210) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":443,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:36","ver":"1.0.0","err":["0xFF","0xB1","0xBF"],"p":[[1,0,20.019,50.602,1015.135],[3,13,22.214,69.347]]}[0m
+[0;32mI (135222) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (135511) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":444,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:36","ver":"1.0.0","err":["0xCB","0xC0","0x59"],"p":[[1,0,18.755,41.976,1012.630],[3,13,30.628,42.066]]}[0m
+[0;32mI (135523) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (135812) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":445,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:36","ver":"1.0.0","err":["0x4E","0x94","0xC3"],"p":[[1,0,18.372,64.643,1027.428],[3,13,25.848,52.129]]}[0m
+[0;32mI (135824) no_router_child: Message sent successfully (166 bytes)[0m
+[0;32mI (136113) no_router_child: Sending JSON 166 B to 192.168.5.1:12345 | {"v":1,"seq":446,"n":3,"i":"192.168.4.2","t":"2026-25-45T39:41:37","ver":"1.0.0","err":["0x99","0xE7","0x7E"],"p":[[1,0,23.647,54.537,1021.251],[3,13,23.747,75.216]]}[0m
+[0;32mI (136125) no_router_child: Message sent successfully (166 bytes)[0m

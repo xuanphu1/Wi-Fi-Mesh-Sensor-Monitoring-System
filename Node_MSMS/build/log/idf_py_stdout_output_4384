@@ -1,0 +1,253 @@
+P�ESP-ROM:esp32c6-20220919
+Build:Sep 19 2022
+rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x40875720,len:0x18ec
+load:0x4086c410,len:0xe60
+load:0x4086e610,len:0x2f2c
+entry 0x4086c41a
+[0;32mI (23) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Apr 18 2026 08:30:16[0m
+[0;32mI (24) boot: chip revision: v0.0[0m
+[0;32mI (27) boot: efuse block revision: v0.2[0m
+[0;32mI (31) boot.esp32c6: SPI Speed      : 80MHz[0m
+[0;32mI (36) boot.esp32c6: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32c6: SPI Flash Size : 2MB[0m
+[0;32mI (46) boot: Enabling RNG early entropy source...[0m
+[0;32mI (51) boot: Partition Table:[0m
+[0;32mI (55) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (62) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (69) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (77) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (84) boot: End of partition table[0m
+[0;32mI (89) esp_image: segment 0: paddr=00010020 vaddr=420b8020 size=2408ch (147596) map[0m
+[0;32mI (125) esp_image: segment 1: paddr=000340b4 vaddr=40800000 size=03f64h ( 16228) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=00038020 vaddr=42000020 size=b1a30h (727600) map[0m
+[0;32mI (270) esp_image: segment 3: paddr=000e9a58 vaddr=40803f64 size=158a8h ( 88232) load[0m
+[0;32mI (289) esp_image: segment 4: paddr=000ff308 vaddr=40819810 size=03ac8h ( 15048) load[0m
+[0;32mI (299) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (299) boot: Disabling RNG early entropy source...[0m
+[0;32mI (310) cpu_start: Unicore app[0m
+[0;33mW (319) clk: esp_perip_clk_init() has not been implemented yet[0m
+[0;32mI (326) cpu_start: Pro cpu start user code[0m
+[0;32mI (326) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (326) cpu_start: Application information:[0m
+[0;32mI (329) cpu_start: Project name:     no_router[0m
+[0;32mI (334) cpu_start: App version:      1[0m
+[0;32mI (339) cpu_start: Compile time:     Apr 18 2026 08:30:37[0m
+[0;32mI (345) cpu_start: ELF file SHA256:  9fb1f01c3...[0m
+[0;32mI (350) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (355) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (360) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (365) cpu_start: Chip rev:         v0.0[0m
+[0;32mI (370) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (377) heap_init: At 40822B20 len 00059AF0 (358 KiB): RAM[0m
+[0;32mI (383) heap_init: At 4087C610 len 00002F54 (11 KiB): RAM[0m
+[0;32mI (389) heap_init: At 5000006C len 00003F7C (15 KiB): RTCRAM[0m
+[0;32mI (396) spi_flash: detected chip: generic[0m
+[0;32mI (400) spi_flash: flash io: dio[0m
+[0;33mW (404) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (417) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (428) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (435) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (442) coexist: coex firmware version: 994b23e[0m
+[0;32mI (447) coexist: coexist rom version 5b8dcfa[0m
+[0;32mI (452) main_task: Started on CPU0[0m
+[0;32mI (455) main_task: Calling app_main()[0m
+[0;32mI (472) bridge_common: esp-iot-bridge version: 1.0.1[0m
+[0;32mI (473) pp: pp rom version: 5b8dcfa[0m
+[0;32mI (473) net80211: net80211 rom version: 5b8dcfa[0m
+[0;32mI (478) wifi:wifi driver task: 4082ccf4, prio:23, stack:6656, core=0[0m
+[0;32mI (489) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (489) wifi:wifi certification version: v7.0[0m
+[0;32mI (490) wifi:config NVS flash: enabled[0m
+[0;32mI (494) wifi:config nano formating: disabled[0m
+[0;32mI (498) wifi:mac_version:HAL_MAC_ESP32AX_761,ut_version:N[0m
+[0;32mI (503) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (508) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (512) wifi:Init management short buffer num: 32[0m
+[0;32mI (516) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (520) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (524) wifi:Init static rx buffer size: 1700[0m
+[0;32mI (529) wifi:Init static rx buffer num: 10[0m
+[0;32mI (532) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (537) wifi_init: rx ba win: 6[0m
+[0;32mI (540) wifi_init: tcpip mbox: 32[0m
+[0;32mI (544) wifi_init: udp mbox: 6[0m
+[0;32mI (548) wifi_init: tcp mbox: 6[0m
+[0;32mI (551) wifi_init: tcp tx win: 5760[0m
+[0;32mI (556) wifi_init: tcp rx win: 5760[0m
+[0;32mI (560) wifi_init: tcp mss: 1440[0m
+[0;32mI (564) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (568) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (573) phy_init: phy_version 320,348a293,Sep  3 2024,16:33:12[0m
+[0;32mI (644) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;33mW (668) wifi:ACK_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (669) wifi:CTS_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (674) wifi:(agc)0x600a7128:0xd20e19fe, min.avgNF:0xce->0xd2(dB), RCalCount:0xe1, min.RRssi:0x9fe(-96.12)[0m
+[0;33mW (683) wifi:(TB)WDEV_PWR_TB_MCS0:19[0m
+[0;33mW (686) wifi:(TB)WDEV_PWR_TB_MCS1:19[0m
+[0;33mW (690) wifi:(TB)WDEV_PWR_TB_MCS2:19[0m
+[0;33mW (693) wifi:(TB)WDEV_PWR_TB_MCS3:19[0m
+[0;33mW (696) wifi:(TB)WDEV_PWR_TB_MCS4:19[0m
+[0;33mW (700) wifi:(TB)WDEV_PWR_TB_MCS5:19[0m
+[0;33mW (703) wifi:(TB)WDEV_PWR_TB_MCS6:18[0m
+[0;33mW (706) wifi:(TB)WDEV_PWR_TB_MCS7:18[0m
+[0;33mW (709) wifi:(TB)WDEV_PWR_TB_MCS8:17[0m
+[0;33mW (713) wifi:(TB)WDEV_PWR_TB_MCS9:15[0m
+[0;33mW (716) wifi:(TB)WDEV_PWR_TB_MCS10:15[0m
+[0;33mW (719) wifi:(TB)WDEV_PWR_TB_MCS11:15[0m
+[0;32mI (723) wifi:11ax coex: WDEVAX_PTI0(0x55777555), WDEVAX_PTI1(0x00003377).[0m
+
+[0;32mI (730) wifi:mode : null[0m
+[0;32mI (733) wifi:mode : softAP (54:32:04:0c:42:fd)[0m
+[0;32mI (736) wifi:Total power save buffer number: 16[0m
+[0;32mI (740) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (745) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (750) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+Add netif ap with (commit id)
+[0;32mI (760) bridge_common: netif list add success[0m
+[0;32mI (766) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (770) bridge_common: Set ip info:192.168.5.1[0m
+[0;32mI (775) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (784) wifi:Disabled PMF config for SoftAP[0m
+[0;32mI (787) wifi:Total power save buffer number: 16[0m
+[0;32mI (792) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (800) bridge_common: [WIFI_AP_DEF ]Name Server1: 114.114.114.114[0m
+[0;32mI (807) bridge_common: DHCPS Restart, deauth all station[0m
+Add netif sta with (commit id)
+[0;32mI (815) bridge_common: netif list add success[0m
+[0;32mI (821) wifi:mode : sta (54:32:04:0c:42:fc) + softAP (54:32:04:0c:42:fd)[0m
+[0;32mI (827) wifi:enable tsf[0m
+[0;33mW (829) wifi:11ax mode can not work under phy bw 40M, the sta phymode changed to 11N[0m
+[0;32mI (837) bridge_wifi: Found ssid Unknown[0m
+[0;32mI (841) bridge_wifi: Found password 12345789[0m
+[0;31mE (846) NVS: Failed to read IP info from NVS[0m
+[0;32mI (851) wifi:Disabled PMF config for STA[0m
+[0;32mI (855) bridge_wifi: [esp_bridge_wifi_set_config] sta ssid:  password: [0m
+[0;32mI (862) bridge_wifi: [esp_bridge_wifi_set_config] softap ssid: ESP_Bridge_0c42fd password: 12345678[0m
+[0;32mI (1230) wifi:Total power save buffer number: 16[0m
+[0;32mI (1232) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (1233) bridge_wifi: SoftAP config changed, deauth all station[0m
+[0;32mI (1239) Mesh-Lite: esp-mesh-lite component version: 1.0.2[0m
+[0;32mI (1245) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (1249) [vendor_ie]: Mesh-Lite commit id: 308dc1f
+ [0m
+[0;32mI (1255) [vendor_ie]: Mesh ID: 77 [0m
+[0;33mW (1259) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1263) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1268) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (1273) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;32mI (1279) [ESP_Mesh_Lite_Comm]: Bind Socket 54, port 6364 [0m
+[0;32mI (1285) [ESP_Mesh_Lite_Comm]: Bind Socket 55, port 6363 [0m
+[0;32mI (1291) [ESP_Mesh_Lite_Comm]: Bind Socket 56, port 6366 [0m
+[0;32mI (1297) [ESP_Mesh_Lite_Comm]: Bind Socket 57, port 6365 [0m
+[0;32mI (1303) [mesh-lite-espnow]: Start espnow task [0m
+[0;32mI (1308) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;33mW (1314) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1318) no_router_child: Get ssid from nvs failed, set ssid: ESP_Bridge_0c42fd[0m
+[0;33mW (1326) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1330) no_router_child: Get psw from nvs failed, set psw: [HIDDEN][0m
+[0;33mW (1338) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1342) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1346) no_router_child: Child node[0m
+[0;32mI (1351) Mesh-Lite: Mesh-Lite connecting[0m
+[0;32mI (1356) [vendor_ie]: esp_mesh_lite_wifi_scan_start return ESP_OK [0m
+[0;32mI (1363) no_router_child: DS3231 ready on I2C port 0 (SDA=13, SCL=12)[0m
+[0;32mI (1420) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;33mW (1420) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (1425) main_task: Returned from app_main()[0m
+[0;33mW (4086) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (4184) [vendor_ie]: Mesh-Lite Scan done [0m
+[0;33mW (4185) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4185) [vendor_ie]: now parent node   : bssid:20:1b:5b:30:6d:0a, rssi:0, level:-1 [0m
+[0;32mI (4191) [vendor_ie]: update parent node: bssid:40:4c:ca:5e:ad:c5, rssi:-33, level:2 [0m
+[0;32mI (4200) [vendor_ie]: Find ESP_Bridge_5eadc5 [0m
+[0;32mI (4205) [vendor_ie]: bssid: 40:4c:ca:5e:ad:c5, level: 3 [0m
+[0;33mW (4211) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;33mW (4220) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4224) [vendor_ie]: wifi_cfg ESP_Bridge_5eadc5, ap_info.ssid , router_config   [0m
+[0;32mI (4232) [vendor_ie]: wifi_cfg mac 40:4c:ca:5e:ad:c5, ap_info mac ff:ff:ff:ff:14:00 [0m
+[0;33mW (4241) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (4245) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (4250) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_5eadc5; bssid:40:4c:ca:5e:ad:c5; crc:3662107366 [0m
+[0;32mI (5022) wifi:new:<11,2>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (5022) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (5024) wifi:state: init -> auth (b0)[0m
+[0;32mI (5031) wifi:state: auth -> assoc (0)[0m
+[0;32mI (5074) wifi:state: assoc -> run (10)[0m
+[0;32mI (5075) wifi:(trc)phytype:CBW20-SGI, snr:63, maxRate:144, highestRateIdx:0[0m
+[0;32mI (5075) wifi:(trc)rate(S-MCS7, schedIdx:0), ampdu(rate:S-MCS7, schedIdx(0, stop:8)), snr:63, ampduState:wait operational[0m
+[0;32mI (5084) wifi:ifidx:0, rssi:-34, nf:-97, phytype(0x3, CBW20-SGI), phymode(0x3, 11bgn), max_rate:1440, he:0[0m
+[0;32mI (5094) wifi:max ampdu length exponent:0(8191 bytes), mmss:0(no restriction)[0m
+[0;32mI (5113) wifi:connected with ESP_Bridge_5eadc5, aid = 1, channel 11, BW20, bssid = 40:4c:ca:5e:ad:c5[0m
+[0;32mI (5113) wifi:security: WPA2-PSK, phy:11bgn, rssi:-34, cipher(pairwise:0x3, group:0x3), pmf:1, [0m
+[0;32mI (5119) wifi:pm start, type: 1, twt_start:0[0m
+
+[0;32mI (5123) wifi:pm start, type:1, aid:0x1, trans-BSSID:40:4c:ca:5e:ad:c5, BSSID[5]:0xc5, mbssid(max-indicator:0, index:0), he:0[0m
+[0;32mI (5134) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (5142) wifi:set rx beacon pti, rx_bcn_pti: 10, bcn_timeout: 25000, mt_pti: 10, mt_time: 10000[0m
+[0;32mI (5151) wifi:[ADDBA]TX addba request, tid:0, dialogtoken:1, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (5162) wifi:[ADDBA]TX addba request, tid:7, dialogtoken:2, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x20)[0m
+[0;32mI (5173) wifi:[ADDBA]TX addba request, tid:5, dialogtoken:3, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (5184) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (5190) wifi:[ADDBA]RX addba response, status:0, tid:0/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (5198) wifi:[ADDBA]RX addba response, status:0, tid:7/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (5207) wifi:[ADDBA]RX addba response, status:0, tid:5/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (6174) Mesh-Lite: netif network segment conflict check[0m
+[0;32mI (6174) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (6175) bridge_common: IP Address:192.168.4.1[0m
+[0;32mI (6179) bridge_common: GW Address:192.168.4.1[0m
+[0;32mI (6184) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (6190) bridge_common: ip reallocate new:192.168.4.1[0m
+[0;32mI (6195) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (6217) esp_netif_handlers: sta ip: 192.168.4.2, mask: 255.255.255.0, gw: 192.168.4.1[0m
+[0;32mI (6217) bridge_wifi: Connected with IP Address:192.168.4.2[0m
+[0;32mI (6221) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (6225) bridge_common: IP Address:192.168.6.1[0m
+[0;32mI (6230) bridge_common: GW Address:192.168.6.1[0m
+[0;32mI (6236) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (6241) bridge_common: ip reallocate new:192.168.6.1[0m
+[0;32mI (6247) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (6255) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_5eadc5; bssid:40:4c:ca:5e:ad:c5; crc:3662107366 [0m
+[0;33mW (6269) wifi:<ba-add>idx:0, ifx:0, tid:0, TAHI:0x100c5ad, TALO:0x5eca4c40, (ssn:0, win:64, cur_ssn:0), CONF:0xc0000005[0m
+[0;32mI (7219) no_router_child: Sending JSON 139 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T06:36:27","ver":"1.0.0","err":"0x00","p":[[1,0,18.500,80.475,995.029],[3,13,24.746,54.640]]}[0m
+[0;32mI (7228) no_router_child: Message sent successfully (139 bytes)[0m
+[0;32mI (11425) no_router_child: System information, channel: 11, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 40:4c:ca:5e:ad:c5, parent rssi: -32, free heap: 274880[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (12418) no_router_child: Sending JSON 139 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T06:36:33","ver":"1.0.0","err":"0x00","p":[[1,0,22.963,36.545,998.105],[3,13,21.648,64.451]]}[0m
+[0;32mI (12427) no_router_child: Message sent successfully (139 bytes)[0m
+[0;32mI (17616) no_router_child: Sending JSON 140 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2001-08-09T06:36:38","ver":"1.0.0","err":"0x00","p":[[1,0,28.917,38.645,1017.019],[3,13,27.013,76.764]]}[0m
+[0;32mI (17625) no_router_child: Message sent successfully (140 bytes)[0m
+[0;32mI (19086) wifi:state: run -> init (0)[0m
+[0;32mI (19087) wifi:ifidx:0, rssi:-30, nf:-98, phytype(0x3, CBW20-SGI), phymode(0x3, 11bgn), max_rate:1440, he:0[0m
+[0;32mI (19088) wifi:max ampdu length exponent:0(8191 bytes), mmss:0(no restriction)[0m
+[0;32mI (19095) wifi:pm stop, total sleep time: 0 us / 13960698 us[0m
+
+[0;32mI (19101) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (19104) wifi:new:<11,0>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (19111) [vendor_ie]: esp_mesh_lite_wifi_scan_start return ESP_OK [0m
+[0;31mE (19119) [ESP_Mesh_Lite_Comm]: Disconnect reason : 8 [0m
+[0;33mW (21425) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (21425) no_router_child: System information, channel: 13, layer: 3, self mac: 54:32:04:0c:42:fc, parent bssid: 00:00:00:00:00:00, parent rssi: -120, free heap: 271884[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 40:4c:ca:5e:ad:c4, 192.168.5.3
+3: 3, 54:32:04:0c:42:fc, 192.168.4.2
+[0;32mI (21939) [vendor_ie]: Mesh-Lite Scan done [0m
+[0;33mW (21939) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (21940) [vendor_ie]: now parent node   : bssid:00:00:88:40:ac:a2, rssi:69, level:2 [0m
+[0;32mI (21946) [vendor_ie]: update parent node: bssid:a4:cb:8f:21:81:e9, rssi:-72, level:1 [0m
+[0;32mI (21955) [vendor_ie]: Find ESP_Bridge [0m
+[0;32mI (21959) [vendor_ie]: bssid: a4:cb:8f:21:81:e9, level: 2 [0m
+[0;33mW (21965) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;33mW (21974) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (21979) [vendor_ie]: wifi_cfg ESP_Bridge, ap_info.ssid �@ ��@�B, router_config   [0m
+[0;32mI (21988) [vendor_ie]: wifi_cfg mac a4:cb:8f:21:81:e9, ap_info mac 28:e3:0b:42:ac:a2 [0m
+[0;33mW (21996) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (22000) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (22006) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge; bssid:a4:cb:8f:21:81:e9; crc:3142734056 [0m

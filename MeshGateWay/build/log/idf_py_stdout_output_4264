@@ -1,0 +1,530 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (307) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (314) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (671) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (713) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (714) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (714) boot: Disabling RNG early entropy source...[0m
+[0;32mI (730) cpu_start: Multicore app[0m
+[0;32mI (740) cpu_start: Pro cpu start user code[0m
+[0;32mI (740) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (740) cpu_start: Application information:[0m
+[0;32mI (743) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (748) cpu_start: App version:      1[0m
+[0;32mI (752) cpu_start: Compile time:     May  6 2026 07:20:56[0m
+[0;32mI (759) cpu_start: ELF file SHA256:  bd601ae48...[0m
+[0;32mI (764) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (769) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (774) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (779) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (784) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (791) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (797) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (803) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (809) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (816) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (824) spi_flash: detected chip: generic[0m
+[0;32mI (827) spi_flash: flash io: dio[0m
+[0;33mW (831) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (841) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (850) main_task: Started on CPU0[0m
+[0;32mI (860) main_task: Calling app_main()[0m
+[0;32mI (880) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (880) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (880) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (880) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (890) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (900) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (900) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (910) disp_spi: Adding SPI device[0m
+[0;32mI (910) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1120) ILI9341: Initialization.[0m
+[0;32mI (1320) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1320) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1320) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1590) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1590) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1600) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1650) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-16 20:30:36
+[0;32mI (1710) wifi:wifi driver task: 3ffe35dc, prio:23, stack:6656, core=0[0m
+[0;32mI (1710) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1720) wifi:wifi certification version: v7.0[0m
+[0;32mI (1720) wifi:config NVS flash: enabled[0m
+[0;32mI (1720) wifi:config nano formating: disabled[0m
+[0;32mI (1720) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1730) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1730) wifi:Init management short buffer num: 32[0m
+[0;32mI (1730) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1740) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1740) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1750) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1750) wifi_init: rx ba win: 6[0m
+[0;32mI (1760) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1760) wifi_init: udp mbox: 6[0m
+[0;32mI (1760) wifi_init: tcp mbox: 6[0m
+[0;32mI (1770) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1770) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1770) wifi_init: tcp mss: 1440[0m
+[0;32mI (1780) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1780) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1790) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1800) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1800) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1910) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1910) wifi:enable tsf[0m
+[0;32mI (1920) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2300) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (2790) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1[0m
+[0;32mI (2800) wifi:state: init -> auth (b0)[0m
+[0;32mI (2810) wifi:state: auth -> assoc (0)[0m
+[0;32mI (2820) wifi:state: assoc -> run (10)[0m
+[0;32mI (2920) wifi:connected with MrKoi, aid = 2, channel 6, BW20, bssid = 06:36:82:46:2b:7a[0m
+[0;32mI (2920) wifi:security: WPA2-PSK, phy: bgn, rssi: -14[0m
+[0;32mI (2920) wifi:pm start, type: 1[0m
+
+[0;32mI (2920) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (2940) WiFiManager: WiFi STA link established[0m
+[0;32mI (2980) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (3940) esp_netif_handlers: sta ip: 172.20.10.5, mask: 255.255.255.240, gw: 172.20.10.1[0m
+[0;32mI (3940) WiFiManager: Got IP: 172.20.10.5[0m
+[0;32mI (3940) WiFiManager: Connected startup WiFi: SSID=MrKoi[0m
+[0;32mI (3950) uart: queue free spaces: 24[0m
+[0;32mI (3990) uart_to_node: Send: Start Root[0m
+[0;32mI (4510) uart_to_node: Send: Start Root[0m
+[0;32mI (4570) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (4570) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (4750) uart_to_node: RX line: .No node[0m
+[0;32mI (4970) WebSocket Handler: Starting WebSocket with URL: ws://172.20.10.2:8080/ws[0m
+[0;33mW (4970) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (4980) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4990) websocket_client: Started[0m
+[0;32mI (4990) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (5360) wifi:<ba-add>idx:0 (ifx:0, 06:36:82:46:2b:7a), tid:0, ssn:3, winSize:64[0m
+[0;32mI (5400) WebSocket Handler: Connected to server[0m
+[0;32mI (5550) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (5750) uart_to_node: RX line: No node[0m
+[0;32mI (6750) uart_to_node: RX line: No node[0m
+[0;32mI (7910) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x49","0xAF","0xB8"],"p":[[1,0,25.558,71.189,1004.525],[3,13,29.685,60.860]]}[0m
+[0;32mI (7920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":157,"payload":".{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x49\",\"0xAF\",\"0xB8\"],\"p\":[[1,0,25.558,71.189,1004.525],[3,13,29.685,60.860]]}"}[0m
+[0;32mI (8750) uart_to_node: RX line: No node[0m
+[0;32mI (9040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":7,"wifi_ssid":"MrKoi","wifi_rssi":-21,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (9750) uart_to_node: RX line: No node[0m
+[0;32mI (10910) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x9F","0xBF","0x30"],"p":[[1,0,21.306,76.164,1014.466],[3,13,21.823,48.965]]}[0m
+[0;32mI (10930) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x9F\",\"0xBF\",\"0x30\"],\"p\":[[1,0,21.306,76.164,1014.466],[3,13,21.823,48.965]]}"}[0m
+[0;32mI (11750) uart_to_node: RX line: No node[0m
+[0;32mI (12750) uart_to_node: RX line: No node[0m
+[0;32mI (13750) uart_to_node: RX line: No node[0m
+[0;32mI (14040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":12,"wifi_ssid":"MrKoi","wifi_rssi":-29,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (14750) uart_to_node: RX line: No node[0m
+[0;32mI (15750) uart_to_node: RX line: No node[0m
+[0;32mI (15940) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (16400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xFD","0xC9","0xEE"],"p":[[1,0,20.550,47.701,993.112],[3,13,27.942,43.452]]}[0m
+[0;32mI (16420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0xFD\",\"0xC9\",\"0xEE\"],\"p\":[[1,0,20.550,47.701,993.112],[3,13,27.942,43.452]]}"}[0m
+[0;32mI (17250) uart_to_node: RX line: No node[0m
+[0;32mI (18250) uart_to_node: RX line: No node[0m
+[0;32mI (19040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":17,"wifi_ssid":"MrKoi","wifi_rssi":-20,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (19250) uart_to_node: RX line: No node[0m
+[0;32mI (20250) uart_to_node: RX line: No node[0m
+[0;32mI (21400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x8A","0x94","0x8A"],"p":[[1,0,28.200,62.953,995.216],[3,13,28.689,48.740]]}[0m
+[0;32mI (21420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x8A\",\"0x94\",\"0x8A\"],\"p\":[[1,0,28.200,62.953,995.216],[3,13,28.689,48.740]]}"}[0m
+[0;32mI (22250) uart_to_node: RX line: No node[0m
+[0;32mI (23250) uart_to_node: RX line: No node[0m
+[0;32mI (24040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":22,"wifi_ssid":"MrKoi","wifi_rssi":-31,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (24250) uart_to_node: RX line: No node[0m
+[0;32mI (25250) uart_to_node: RX line: No node[0m
+[0;32mI (26230) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (26410) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xEC","0x69","0xE5"],"p":[[1,0,21.589,55.647,1004.669],[3,13,30.872,70.176]]}[0m
+[0;32mI (26420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0xEC\",\"0x69\",\"0xE5\"],\"p\":[[1,0,21.589,55.647,1004.669],[3,13,30.872,70.176]]}"}[0m
+[0;32mI (27250) uart_to_node: RX line: No node[0m
+[0;32mI (28250) uart_to_node: RX line: No node[0m
+[0;32mI (29040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":27,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (29250) uart_to_node: RX line: No node[0m
+[0;32mI (30250) uart_to_node: RX line: No node[0m
+[0;32mI (31250) uart_to_node: RX line: No node[0m
+[0;32mI (31910) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xD9","0x68","0xB3"],"p":[[1,0,27.392,66.778,1017.859],[3,13,30.845,80.018]]}[0m
+[0;32mI (31920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0xD9\",\"0x68\",\"0xB3\"],\"p\":[[1,0,27.392,66.778,1017.859],[3,13,30.845,80.018]]}"}[0m
+[0;32mI (32750) uart_to_node: RX line: No node[0m
+[0;32mI (33750) uart_to_node: RX line: No node[0m
+[0;32mI (34040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":32,"wifi_ssid":"MrKoi","wifi_rssi":-22,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (34750) uart_to_node: RX line: No node[0m
+[0;32mI (35750) uart_to_node: RX line: No node[0m
+[0;32mI (36400) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (36910) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x73","0xB8","0x1E"],"p":[[1,0,25.701,40.611,1013.826],[3,13,20.294,64.514]]}[0m
+[0;32mI (36920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x73\",\"0xB8\",\"0x1E\"],\"p\":[[1,0,25.701,40.611,1013.826],[3,13,20.294,64.514]]}"}[0m
+[0;32mI (37750) uart_to_node: RX line: No node[0m
+[0;32mI (38750) uart_to_node: RX line: No node[0m
+[0;32mI (39040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":37,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (39750) uart_to_node: RX line: No node[0m
+[0;32mI (40750) uart_to_node: RX line: No node[0m
+[0;32mI (41750) uart_to_node: RX line: No node[0m
+[0;32mI (42400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x31","0x70","0xE7"],"p":[[1,0,18.294,42.186,1013.426],[3,13,30.675,67.462]]}[0m
+[0;32mI (42430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x31\",\"0x70\",\"0xE7\"],\"p\":[[1,0,18.294,42.186,1013.426],[3,13,30.675,67.462]]}"}[0m
+[0;32mI (43250) uart_to_node: RX line: No node[0m
+[0;32mI (44040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.6,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.156,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":42,"wifi_ssid":"MrKoi","wifi_rssi":-20,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (44250) uart_to_node: RX line: No node[0m
+[0;32mI (45250) uart_to_node: RX line: No node[0m
+[0;32mI (46250) uart_to_node: RX line: No node[0m
+[0;32mI (46520) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (47400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x6B","0xF5","0x45"],"p":[[1,0,28.816,75.614,998.625],[3,13,29.069,53.888]]}[0m
+[0;32mI (47430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x6B\",\"0xF5\",\"0x45\"],\"p\":[[1,0,28.816,75.614,998.625],[3,13,29.069,53.888]]}"}[0m
+[0;32mI (48250) uart_to_node: RX line: No node[0m
+[0;32mI (49040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":47,"wifi_ssid":"MrKoi","wifi_rssi":-22,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (49250) uart_to_node: RX line: No node[0m
+[0;32mI (50250) uart_to_node: RX line: No node[0m
+[0;32mI (51250) uart_to_node: RX line: No node[0m
+[0;32mI (52400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x01","0x49","0xDA"],"p":[[1,0,29.691,58.122,1023.579],[3,13,26.249,71.143]]}[0m
+[0;32mI (52420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x01\",\"0x49\",\"0xDA\"],\"p\":[[1,0,29.691,58.122,1023.579],[3,13,26.249,71.143]]}"}[0m
+[0;32mI (53250) uart_to_node: RX line: No node[0m
+[0;32mI (54040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.7,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":52,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (54250) uart_to_node: RX line: No node[0m
+[0;32mI (55250) uart_to_node: RX line: No node[0m
+[0;32mI (56250) uart_to_node: RX line: No node[0m
+[0;32mI (56650) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (57250) uart_to_node: RX line: No node[0m
+[0;32mI (57910) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x0B","0xA4","0xDE"],"p":[[1,0,18.788,80.550,1024.828],[3,13,22.352,50.603]]}[0m
+[0;32mI (57920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x0B\",\"0xA4\",\"0xDE\"],\"p\":[[1,0,18.788,80.550,1024.828],[3,13,22.352,50.603]]}"}[0m
+[0;32mI (58750) uart_to_node: RX line: No node[0m
+[0;32mI (59040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.2,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":57,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (59750) uart_to_node: RX line: No node[0m
+[0;32mI (60750) uart_to_node: RX line: No node[0m
+[0;32mI (61750) uart_to_node: RX line: No node[0m
+[0;32mI (62900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xC4","0xE4","0xA6"],"p":[[1,0,19.631,71.874,1020.519],[3,13,33.010,74.968]]}[0m
+[0;32mI (62920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0xC4\",\"0xE4\",\"0xA6\"],\"p\":[[1,0,19.631,71.874,1020.519],[3,13,33.010,74.968]]}"}[0m
+[0;32mI (63750) uart_to_node: RX line: No node[0m
+[0;32mI (64040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.17,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":62,"wifi_ssid":"MrKoi","wifi_rssi":-25,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (64750) uart_to_node: RX line: No node[0m
+[0;32mI (65750) uart_to_node: RX line: No node[0m
+[0;32mI (66750) uart_to_node: RX line: No node[0m
+[0;32mI (66770) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (67750) uart_to_node: RX line: No node[0m
+[0;32mI (68400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x68","0xA2","0x32"],"p":[[1,0,26.926,64.733,1015.851],[3,13,32.058,72.457]]}[0m
+[0;32mI (68430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"1970-01-01T00:00:00\",\"ver\":\"1.0.0\",\"err\":[\"0x68\",\"0xA2\",\"0x32\"],\"p\":[[1,0,26.926,64.733,1015.851],[3,13,32.058,72.457]]}"}[0m
+[0;32mI (69040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":67,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (69250) uart_to_node: RX line: No node[0m
+[0;32mI (70250) uart_to_node: RX line: No node[0m
+[0;32mI (71250) uart_to_node: RX line: No node[0m
+[0;32mI (72250) uart_to_node: RX line: No node[0m
+[0;32mI (73400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:04","ver":"1.0.0","err":["0x72","0xA6","0x95"],"p":[[1,0,27.833,39.585,1026.228],[3,13,30.917,54.995]]}[0m
+[0;32mI (73430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:04\",\"ver\":\"1.0.0\",\"err\":[\"0x72\",\"0xA6\",\"0x95\"],\"p\":[[1,0,27.833,39.585,1026.228],[3,13,30.917,54.995]]}"}[0m
+[0;32mI (74050) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":72,"wifi_ssid":"MrKoi","wifi_rssi":-22,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (74250) uart_to_node: RX line: No node[0m
+[0;32mI (75250) uart_to_node: RX line: No node[0m
+[0;32mI (76250) uart_to_node: RX line: No node[0m
+[0;32mI (76890) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (77250) uart_to_node: RX line: No node[0m
+[0;32mI (78400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:10","ver":"1.0.0","err":["0x5D","0x57","0x2E"],"p":[[1,0,22.212,68.733,1010.070],[3,13,26.597,50.311]]}[0m
+[0;32mI (78420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:10\",\"ver\":\"1.0.0\",\"err\":[\"0x5D\",\"0x57\",\"0x2E\"],\"p\":[[1,0,22.212,68.733,1010.070],[3,13,26.597,50.311]]}"}[0m
+[0;32mI (79040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":77,"wifi_ssid":"MrKoi","wifi_rssi":-21,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (79250) uart_to_node: RX line: No node[0m
+[0;32mI (80250) uart_to_node: RX line: No node[0m
+[0;32mI (81250) uart_to_node: RX line: No node[0m
+[0;32mI (82250) uart_to_node: RX line: No node[0m
+[0;32mI (83250) uart_to_node: RX line: No node[0m
+[0;32mI (83900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:15","ver":"1.0.0","err":["0x10","0x53","0xD1"],"p":[[1,0,22.907,41.846,1007.130],[3,13,23.923,61.512]]}[0m
+[0;32mI (83920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:15\",\"ver\":\"1.0.0\",\"err\":[\"0x10\",\"0x53\",\"0xD1\"],\"p\":[[1,0,22.907,41.846,1007.130],[3,13,23.923,61.512]]}"}[0m
+[0;32mI (84040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":82,"wifi_ssid":"MrKoi","wifi_rssi":-26,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (84750) uart_to_node: RX line: No node[0m
+[0;32mI (85750) uart_to_node: RX line: No node[0m
+[0;32mI (86750) uart_to_node: RX line: No node[0m
+[0;32mI (87010) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (87750) uart_to_node: RX line: No node[0m
+[0;32mI (88900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:20","ver":"1.0.0","err":["0x3F","0x06","0x1F"],"p":[[1,0,25.887,56.687,994.124],[3,13,32.733,80.936]]}[0m
+[0;32mI (88920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:20\",\"ver\":\"1.0.0\",\"err\":[\"0x3F\",\"0x06\",\"0x1F\"],\"p\":[[1,0,25.887,56.687,994.124],[3,13,32.733,80.936]]}"}[0m
+[0;32mI (89040) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":87,"wifi_ssid":"MrKoi","wifi_rssi":-27,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (89750) uart_to_node: RX line: No node[0m
+[0;32mI (90750) uart_to_node: RX line: No node[0m
+[0;32mI (91750) uart_to_node: RX line: No node[0m
+[0;32mI (92750) uart_to_node: RX line: No node[0m
+[0;32mI (93750) uart_to_node: RX line: No node[0m
+[0;32mI (94070) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":92,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (94400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:25","ver":"1.0.0","err":["0x59","0x3C","0x80"],"p":[[1,0,24.177,74.064,1003.117],[3,13,33.026,56.368]]}[0m
+[0;32mI (94430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:25\",\"ver\":\"1.0.0\",\"err\":[\"0x59\",\"0x3C\",\"0x80\"],\"p\":[[1,0,24.177,74.064,1003.117],[3,13,33.026,56.368]]}"}[0m
+[0;32mI (95250) uart_to_node: RX line: No node[0m
+[0;32mI (96250) uart_to_node: RX line: No node[0m
+[0;32mI (97140) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (97250) uart_to_node: RX line: No node[0m
+[0;32mI (98250) uart_to_node: RX line: No node[0m
+[0;32mI (99140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":97,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (99400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:30","ver":"1.0.0","err":["0x3A","0xD5","0x28"],"p":[[1,0,20.660,42.181,997.253],[3,13,25.574,62.385]]}[0m
+[0;32mI (99420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:30\",\"ver\":\"1.0.0\",\"err\":[\"0x3A\",\"0xD5\",\"0x28\"],\"p\":[[1,0,20.660,42.181,997.253],[3,13,25.574,62.385]]}"}[0m
+[0;32mI (100250) uart_to_node: RX line: No node[0m
+[0;32mI (101250) uart_to_node: RX line: No node[0m
+[0;32mI (102250) uart_to_node: RX line: No node[0m
+[0;32mI (103250) uart_to_node: RX line: No node[0m
+[0;32mI (104140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":102,"wifi_ssid":"MrKoi","wifi_rssi":-31,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (104400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:36","ver":"1.0.0","err":["0xBD","0x75","0xE1"],"p":[[1,0,18.808,51.392,995.581],[3,13,25.860,76.850]]}[0m
+[0;32mI (104420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:36\",\"ver\":\"1.0.0\",\"err\":[\"0xBD\",\"0x75\",\"0xE1\"],\"p\":[[1,0,18.808,51.392,995.581],[3,13,25.860,76.850]]}"}[0m
+[0;32mI (105250) uart_to_node: RX line: No node[0m
+[0;32mI (106250) uart_to_node: RX line: No node[0m
+[0;32mI (107250) uart_to_node: RX line: No node[0m
+[0;32mI (107320) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (108250) uart_to_node: RX line: No node[0m
+[0;32mI (109140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.5,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":107,"wifi_ssid":"MrKoi","wifi_rssi":-19,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (109250) uart_to_node: RX line: No node[0m
+[0;32mI (109900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:41","ver":"1.0.0","err":["0xC9","0x93","0xB6"],"p":[[1,0,21.303,35.685,1007.222],[3,13,25.759,70.635]]}[0m
+[0;32mI (109920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:41\",\"ver\":\"1.0.0\",\"err\":[\"0xC9\",\"0x93\",\"0xB6\"],\"p\":[[1,0,21.303,35.685,1007.222],[3,13,25.759,70.635]]}"}[0m
+[0;32mI (110750) uart_to_node: RX line: No node[0m
+[0;32mI (111750) uart_to_node: RX line: No node[0m
+[0;32mI (112750) uart_to_node: RX line: No node[0m
+[0;32mI (113750) uart_to_node: RX line: No node[0m
+[0;32mI (114140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":112,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (114900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:46","ver":"1.0.0","err":["0x14","0xE8","0xB2"],"p":[[1,0,19.316,67.818,1014.390],[3,13,21.942,54.914]]}[0m
+[0;32mI (114920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:46\",\"ver\":\"1.0.0\",\"err\":[\"0x14\",\"0xE8\",\"0xB2\"],\"p\":[[1,0,19.316,67.818,1014.390],[3,13,21.942,54.914]]}"}[0m
+[0;32mI (115750) uart_to_node: RX line: No node[0m
+[0;32mI (116750) uart_to_node: RX line: No node[0m
+[0;32mI (117430) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (117750) uart_to_node: RX line: No node[0m
+[0;32mI (118750) uart_to_node: RX line: No node[0m
+[0;32mI (119140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":117,"wifi_ssid":"MrKoi","wifi_rssi":-29,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (119750) uart_to_node: RX line: No node[0m
+[0;32mI (120400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:51","ver":"1.0.0","err":["0x85","0x03","0xAF"],"p":[[1,0,25.281,38.080,1005.926],[3,13,20.687,81.427]]}[0m
+[0;32mI (120420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:51\",\"ver\":\"1.0.0\",\"err\":[\"0x85\",\"0x03\",\"0xAF\"],\"p\":[[1,0,25.281,38.080,1005.926],[3,13,20.687,81.427]]}"}[0m
+[0;32mI (121250) uart_to_node: RX line: No node[0m
+[0;32mI (122250) uart_to_node: RX line: No node[0m
+[0;32mI (123250) uart_to_node: RX line: No node[0m
+[0;32mI (124140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":122,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (124250) uart_to_node: RX line: No node[0m
+[0;32mI (125400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:00:56","ver":"1.0.0","err":["0x04","0x5B","0xCC"],"p":[[1,0,29.424,37.640,1029.684],[3,13,32.195,65.468]]}[0m
+[0;32mI (125420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:00:56\",\"ver\":\"1.0.0\",\"err\":[\"0x04\",\"0x5B\",\"0xCC\"],\"p\":[[1,0,29.424,37.640,1029.684],[3,13,32.195,65.468]]}"}[0m
+[0;32mI (126250) uart_to_node: RX line: No node[0m
+[0;32mI (127250) uart_to_node: RX line: No node[0m
+[0;32mI (127560) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (128250) uart_to_node: RX line: No node[0m
+[0;32mI (129140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.7,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":127,"wifi_ssid":"MrKoi","wifi_rssi":-28,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (129250) uart_to_node: RX line: No node[0m
+[0;32mI (130400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:02","ver":"1.0.0","err":["0x83","0xBF","0x19"],"p":[[1,0,26.707,50.552,992.808],[3,13,28.712,54.307]]}[0m
+[0;32mI (130420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:02\",\"ver\":\"1.0.0\",\"err\":[\"0x83\",\"0xBF\",\"0x19\"],\"p\":[[1,0,26.707,50.552,992.808],[3,13,28.712,54.307]]}"}[0m
+[0;32mI (131250) uart_to_node: RX line: No node[0m
+[0;32mI (132250) uart_to_node: RX line: No node[0m
+[0;32mI (133250) uart_to_node: RX line: No node[0m
+[0;32mI (134140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":132,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (134250) uart_to_node: RX line: No node[0m
+[0;32mI (135250) uart_to_node: RX line: No node[0m
+[0;32mI (135900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:07","ver":"1.0.0","err":["0xD7","0xA1","0xF9"],"p":[[1,0,23.200,69.348,1027.784],[3,13,23.969,47.201]]}[0m
+[0;32mI (135920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:07\",\"ver\":\"1.0.0\",\"err\":[\"0xD7\",\"0xA1\",\"0xF9\"],\"p\":[[1,0,23.200,69.348,1027.784],[3,13,23.969,47.201]]}"}[0m
+[0;32mI (136750) uart_to_node: RX line: No node[0m
+[0;32mI (137700) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (137750) uart_to_node: RX line: No node[0m
+[0;32mI (138750) uart_to_node: RX line: No node[0m
+[0;32mI (139140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.148,"battery_percent":94,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":137,"wifi_ssid":"MrKoi","wifi_rssi":-19,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (139750) uart_to_node: RX line: No node[0m
+[0;32mI (140900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:12","ver":"1.0.0","err":["0xC3","0x20","0x2D"],"p":[[1,0,18.766,71.224,1002.813],[3,13,22.837,66.692]]}[0m
+[0;32mI (140920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:12\",\"ver\":\"1.0.0\",\"err\":[\"0xC3\",\"0x20\",\"0x2D\"],\"p\":[[1,0,18.766,71.224,1002.813],[3,13,22.837,66.692]]}"}[0m
+[0;32mI (141750) uart_to_node: RX line: No node[0m
+[0;32mI (142750) uart_to_node: RX line: No node[0m
+[0;32mI (143750) uart_to_node: RX line: No node[0m
+[0;32mI (144140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":142,"wifi_ssid":"MrKoi","wifi_rssi":-29,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (144750) uart_to_node: RX line: No node[0m
+[0;32mI (145750) uart_to_node: RX line: No node[0m
+[0;32mI (146400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:17","ver":"1.0.0","err":["0x32","0x4C","0xB7"],"p":[[1,0,23.130,75.734,1022.915],[3,13,22.869,55.554]]}[0m
+[0;32mI (146420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:17\",\"ver\":\"1.0.0\",\"err\":[\"0x32\",\"0x4C\",\"0xB7\"],\"p\":[[1,0,23.130,75.734,1022.915],[3,13,22.869,55.554]]}"}[0m
+[0;32mI (147250) uart_to_node: RX line: No node[0m
+[0;32mI (147830) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (148250) uart_to_node: RX line: No node[0m
+[0;32mI (149140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":147,"wifi_ssid":"MrKoi","wifi_rssi":-22,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (149250) uart_to_node: RX line: No node[0m
+[0;32mI (150250) uart_to_node: RX line: No node[0m
+[0;32mI (151400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:22","ver":"1.0.0","err":["0x19","0x15","0xB1"],"p":[[1,0,20.470,55.827,1022.479],[3,13,21.523,65.401]]}[0m
+[0;32mI (151420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:22\",\"ver\":\"1.0.0\",\"err\":[\"0x19\",\"0x15\",\"0xB1\"],\"p\":[[1,0,20.470,55.827,1022.479],[3,13,21.523,65.401]]}"}[0m
+[0;32mI (152250) uart_to_node: RX line: No node[0m
+[0;32mI (153250) uart_to_node: RX line: No node[0m
+[0;32mI (154140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":152,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (154250) uart_to_node: RX line: No node[0m
+[0;32mI (155250) uart_to_node: RX line: No node[0m
+[0;32mI (156400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:28","ver":"1.0.0","err":["0x10","0xC0","0x39"],"p":[[1,0,18.101,69.438,1019.619],[3,13,31.936,66.490]]}[0m
+[0;32mI (156420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:28\",\"ver\":\"1.0.0\",\"err\":[\"0x10\",\"0xC0\",\"0x39\"],\"p\":[[1,0,18.101,69.438,1019.619],[3,13,31.936,66.490]]}"}[0m
+[0;32mI (157250) uart_to_node: RX line: No node[0m
+[0;32mI (157950) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (158250) uart_to_node: RX line: No node[0m
+[0;32mI (159140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.4,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":157,"wifi_ssid":"MrKoi","wifi_rssi":-29,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (159250) uart_to_node: RX line: No node[0m
+[0;32mI (160250) uart_to_node: RX line: No node[0m
+[0;32mI (161250) uart_to_node: RX line: No node[0m
+[0;32mI (161900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:33","ver":"1.0.0","err":["0x3F","0xF0","0x59"],"p":[[1,0,24.669,66.903,996.413],[3,13,25.441,46.881]]}[0m
+[0;32mI (161920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:33\",\"ver\":\"1.0.0\",\"err\":[\"0x3F\",\"0xF0\",\"0x59\"],\"p\":[[1,0,24.669,66.903,996.413],[3,13,25.441,46.881]]}"}[0m
+[0;32mI (162750) uart_to_node: RX line: No node[0m
+[0;32mI (163750) uart_to_node: RX line: No node[0m
+[0;32mI (164140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":162,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (164750) uart_to_node: RX line: No node[0m
+[0;32mI (165750) uart_to_node: RX line: No node[0m
+[0;32mI (166900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:38","ver":"1.0.0","err":["0x4B","0x3C","0x1C"],"p":[[1,0,27.720,50.852,999.601],[3,13,28.251,76.980]]}[0m
+[0;32mI (166920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:38\",\"ver\":\"1.0.0\",\"err\":[\"0x4B\",\"0x3C\",\"0x1C\"],\"p\":[[1,0,27.720,50.852,999.601],[3,13,28.251,76.980]]}"}[0m
+[0;32mI (167750) uart_to_node: RX line: No node[0m
+[0;32mI (168070) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (168750) uart_to_node: RX line: No node[0m
+[0;32mI (169140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.7,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":167,"wifi_ssid":"MrKoi","wifi_rssi":-25,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (169750) uart_to_node: RX line: No node[0m
+[0;32mI (170750) uart_to_node: RX line: No node[0m
+[0;32mI (171750) uart_to_node: RX line: No node[0m
+[0;32mI (172400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:43","ver":"1.0.0","err":["0x5D","0x43","0x5A"],"p":[[1,0,20.688,43.631,1006.850],[3,13,32.913,84.055]]}[0m
+[0;32mI (172420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:43\",\"ver\":\"1.0.0\",\"err\":[\"0x5D\",\"0x43\",\"0x5A\"],\"p\":[[1,0,20.688,43.631,1006.850],[3,13,32.913,84.055]]}"}[0m
+[0;32mI (173250) uart_to_node: RX line: No node[0m
+[0;32mI (174140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.4,"ram_used_kb":176,"ram_used_percent":76,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":172,"wifi_ssid":"MrKoi","wifi_rssi":-25,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (174250) uart_to_node: RX line: No node[0m
+[0;32mI (174600) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (174610) wifi:<ba-add>idx:0 (ifx:0, 06:36:82:46:2b:7a), tid:0, ssn:162, winSize:64[0m
+[0;32mI (175250) uart_to_node: RX line: No node[0m
+[0;32mI (176250) uart_to_node: RX line: No node[0m
+[0;32mI (177400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:48","ver":"1.0.0","err":["0xF5","0x7C","0x70"],"p":[[1,0,20.054,59.517,1025.952],[3,13,29.261,46.701]]}[0m
+[0;32mI (177420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:48\",\"ver\":\"1.0.0\",\"err\":[\"0xF5\",\"0x7C\",\"0x70\"],\"p\":[[1,0,20.054,59.517,1025.952],[3,13,29.261,46.701]]}"}[0m
+[0;32mI (178220) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (178250) uart_to_node: RX line: No node[0m
+[0;32mI (179140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":53.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":177,"wifi_ssid":"MrKoi","wifi_rssi":-22,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (179250) uart_to_node: RX line: No node[0m
+[0;32mI (180250) uart_to_node: RX line: No node[0m
+[0;32mI (181250) uart_to_node: RX line: No node[0m
+[0;32mI (182400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:54","ver":"1.0.0","err":["0x42","0x2E","0x70"],"p":[[1,0,31.632,63.808,1018.423],[3,13,20.396,67.934]]}[0m
+[0;32mI (182420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:54\",\"ver\":\"1.0.0\",\"err\":[\"0x42\",\"0x2E\",\"0x70\"],\"p\":[[1,0,31.632,63.808,1018.423],[3,13,20.396,67.934]]}"}[0m
+[0;32mI (183250) uart_to_node: RX line: No node[0m
+[0;32mI (184140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":182,"wifi_ssid":"MrKoi","wifi_rssi":-29,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (184250) uart_to_node: RX line: No node[0m
+[0;32mI (185250) uart_to_node: RX line: No node[0m
+[0;32mI (186250) uart_to_node: RX line: No node[0m
+[0;32mI (187250) uart_to_node: RX line: No node[0m
+[0;32mI (187900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:01:59","ver":"1.0.0","err":["0x8D","0x4F","0x82"],"p":[[1,0,28.115,61.318,996.293],[3,13,30.346,46.233]]}[0m
+[0;32mI (187920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:01:59\",\"ver\":\"1.0.0\",\"err\":[\"0x8D\",\"0x4F\",\"0x82\"],\"p\":[[1,0,28.115,61.318,996.293],[3,13,30.346,46.233]]}"}[0m
+[0;32mI (188340) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (188750) uart_to_node: RX line: No node[0m
+[0;32mI (189140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":53.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.156,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":187,"wifi_ssid":"MrKoi","wifi_rssi":-30,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (189750) uart_to_node: RX line: No node[0m
+[0;32mI (190740) uart_to_node: RX line: No node[0m
+[0;32mI (191740) uart_to_node: RX line: No node[0m
+[0;32mI (192900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:04","ver":"1.0.0","err":["0x52","0xC4","0x75"],"p":[[1,0,29.046,84.050,993.080],[3,13,31.897,48.798]]}[0m
+[0;32mI (192920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:04\",\"ver\":\"1.0.0\",\"err\":[\"0x52\",\"0xC4\",\"0x75\"],\"p\":[[1,0,29.046,84.050,993.080],[3,13,31.897,48.798]]}"}[0m
+[0;32mI (193740) uart_to_node: RX line: No node[0m
+[0;32mI (194140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.156,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":192,"wifi_ssid":"MrKoi","wifi_rssi":-25,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (194740) uart_to_node: RX line: No node[0m
+[0;32mI (195740) uart_to_node: RX line: No node[0m
+[0;32mI (196740) uart_to_node: RX line: No node[0m
+[0;32mI (197750) uart_to_node: RX line: No node[0m
+[0;32mI (198400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:09","ver":"1.0.0","err":["0xC4","0xFA","0x79"],"p":[[1,0,20.529,40.861,1014.718],[3,13,29.966,49.428]]}[0m
+[0;32mI (198420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:09\",\"ver\":\"1.0.0\",\"err\":[\"0xC4\",\"0xFA\",\"0x79\"],\"p\":[[1,0,20.529,40.861,1014.718],[3,13,29.966,49.428]]}"}[0m
+[0;32mI (198720) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (199140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":197,"wifi_ssid":"MrKoi","wifi_rssi":-31,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (199250) uart_to_node: RX line: No node[0m
+[0;32mI (200250) uart_to_node: RX line: No node[0m
+[0;32mI (201250) uart_to_node: RX line: No node[0m
+[0;32mI (202250) uart_to_node: RX line: No node[0m
+[0;32mI (203400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:14","ver":"1.0.0","err":["0x60","0xF5","0xB3"],"p":[[1,0,23.648,68.533,1006.698],[3,13,27.057,80.243]]}[0m
+[0;32mI (203420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:14\",\"ver\":\"1.0.0\",\"err\":[\"0x60\",\"0xF5\",\"0xB3\"],\"p\":[[1,0,23.648,68.533,1006.698],[3,13,27.057,80.243]]}"}[0m
+[0;32mI (204140) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.7,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":202,"wifi_ssid":"MrKoi","wifi_rssi":-26,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (204250) uart_to_node: RX line: No node[0m
+[0;32mI (205250) uart_to_node: RX line: No node[0m
+[0;32mI (206250) uart_to_node: RX line: No node[0m
+[0;32mI (207250) uart_to_node: RX line: No node[0m
+[0;32mI (208400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:20","ver":"1.0.0","err":["0x30","0x81","0x4E"],"p":[[1,0,29.828,63.953,1014.606],[3,13,32.024,70.009]]}[0m
+[0;32mI (208420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:20\",\"ver\":\"1.0.0\",\"err\":[\"0x30\",\"0x81\",\"0x4E\"],\"p\":[[1,0,29.828,63.953,1014.606],[3,13,32.024,70.009]]}"}[0m
+[0;32mI (209230) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":48.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.156,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":207,"wifi_ssid":"MrKoi","wifi_rssi":-20,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (209240) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (209250) uart_to_node: RX line: No node[0m
+[0;32mI (210240) uart_to_node: RX line: No node[0m
+[0;32mI (211240) uart_to_node: RX line: No node[0m
+[0;32mI (212240) uart_to_node: RX line: No node[0m
+[0;32mI (213240) uart_to_node: RX line: No node[0m
+[0;32mI (213900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:25","ver":"1.0.0","err":["0xD9","0x1E","0x76"],"p":[[1,0,19.687,70.659,1025.404],[3,13,27.557,77.610]]}[0m
+[0;32mI (213920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:25\",\"ver\":\"1.0.0\",\"err\":[\"0xD9\",\"0x1E\",\"0x76\"],\"p\":[[1,0,19.687,70.659,1025.404],[3,13,27.557,77.610]]}"}[0m
+[0;32mI (214240) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":212,"wifi_ssid":"MrKoi","wifi_rssi":-30,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (214740) uart_to_node: RX line: No node[0m
+[0;32mI (215740) uart_to_node: RX line: No node[0m
+[0;32mI (216740) uart_to_node: RX line: No node[0m
+[0;32mI (217740) uart_to_node: RX line: No node[0m
+[0;32mI (218900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:30","ver":"1.0.0","err":["0xFE","0x39","0x9A"],"p":[[1,0,26.587,49.301,995.601],[3,13,26.931,43.483]]}[0m
+[0;32mI (218920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:30\",\"ver\":\"1.0.0\",\"err\":[\"0xFE\",\"0x39\",\"0x9A\"],\"p\":[[1,0,26.587,49.301,995.601],[3,13,26.931,43.483]]}"}[0m
+[0;32mI (219240) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":217,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (219740) uart_to_node: RX line: No node[0m
+[0;32mI (219790) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (220740) uart_to_node: RX line: No node[0m
+[0;32mI (221740) uart_to_node: RX line: No node[0m
+[0;32mI (222740) uart_to_node: RX line: No node[0m
+[0;32mI (223740) uart_to_node: RX line: No node[0m
+[0;32mI (224270) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":222,"wifi_ssid":"MrKoi","wifi_rssi":-21,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (224400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:35","ver":"1.0.0","err":["0x50","0xC3","0x9D"],"p":[[1,0,26.630,77.754,1018.751],[3,13,33.142,42.255]]}[0m
+[0;32mI (224410) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:35\",\"ver\":\"1.0.0\",\"err\":[\"0x50\",\"0xC3\",\"0x9D\"],\"p\":[[1,0,26.630,77.754,1018.751],[3,13,33.142,42.255]]}"}[0m
+[0;32mI (225240) uart_to_node: RX line: No node[0m
+[0;32mI (226240) uart_to_node: RX line: No node[0m
+[0;32mI (227240) uart_to_node: RX line: No node[0m
+[0;32mI (228240) uart_to_node: RX line: No node[0m
+[0;32mI (229330) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.3,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":227,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (229400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:40","ver":"1.0.0","err":["0xB3","0xCD","0x39"],"p":[[1,0,21.531,58.007,1027.596],[3,13,29.532,65.081]]}[0m
+[0;32mI (229420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:40\",\"ver\":\"1.0.0\",\"err\":[\"0xB3\",\"0xCD\",\"0x39\"],\"p\":[[1,0,21.531,58.007,1027.596],[3,13,29.532,65.081]]}"}[0m
+[0;32mI (229900) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (230240) uart_to_node: RX line: No node[0m
+[0;32mI (231240) uart_to_node: RX line: No node[0m
+[0;32mI (232240) uart_to_node: RX line: No node[0m
+[0;32mI (233240) uart_to_node: RX line: No node[0m
+[0;32mI (234330) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.7,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":232,"wifi_ssid":"MrKoi","wifi_rssi":-23,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (234400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:46","ver":"1.0.0","err":["0xB2","0xF8","0x7A"],"p":[[1,0,18.965,76.464,1026.544],[3,13,31.702,47.660]]}[0m
+[0;32mI (234410) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:46\",\"ver\":\"1.0.0\",\"err\":[\"0xB2\",\"0xF8\",\"0x7A\"],\"p\":[[1,0,18.965,76.464,1026.544],[3,13,31.702,47.660]]}"}[0m
+[0;32mI (235240) uart_to_node: RX line: No node[0m
+[0;32mI (236240) uart_to_node: RX line: No node[0m
+[0;32mI (237240) uart_to_node: RX line: No node[0m
+[0;32mI (238240) uart_to_node: RX line: No node[0m
+[0;32mI (239240) uart_to_node: RX line: No node[0m
+[0;32mI (239330) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":237,"wifi_ssid":"MrKoi","wifi_rssi":-27,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (239900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:51","ver":"1.0.0","err":["0xCE","0x63","0x62"],"p":[[1,0,18.818,69.393,1010.582],[3,13,24.346,63.726]]}[0m
+[0;32mI (239920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:51\",\"ver\":\"1.0.0\",\"err\":[\"0xCE\",\"0x63\",\"0x62\"],\"p\":[[1,0,18.818,69.393,1010.582],[3,13,24.346,63.726]]}"}[0m
+[0;32mI (240090) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (240740) uart_to_node: RX line: No node[0m
+[0;32mI (241740) uart_to_node: RX line: No node[0m
+[0;32mI (242740) uart_to_node: RX line: No node[0m
+[0;32mI (243740) uart_to_node: RX line: No node[0m
+[0;32mI (244340) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":242,"wifi_ssid":"MrKoi","wifi_rssi":-24,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (244900) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:02:56","ver":"1.0.0","err":["0x44","0x6E","0x37"],"p":[[1,0,28.710,70.994,1012.602],[3,13,26.149,59.248]]}[0m
+[0;32mI (244920) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:02:56\",\"ver\":\"1.0.0\",\"err\":[\"0x44\",\"0x6E\",\"0x37\"],\"p\":[[1,0,28.710,70.994,1012.602],[3,13,26.149,59.248]]}"}[0m
+[0;32mI (245740) uart_to_node: RX line: No node[0m
+[0;32mI (246740) uart_to_node: RX line: No node[0m
+[0;32mI (247740) uart_to_node: RX line: No node[0m
+[0;32mI (248740) uart_to_node: RX line: No node[0m
+[0;32mI (249340) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":48.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":247,"wifi_ssid":"MrKoi","wifi_rssi":-19,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (249740) uart_to_node: RX line: No node[0m
+[0;32mI (250210) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (250400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:03:01","ver":"1.0.0","err":["0x0F","0x61","0x74"],"p":[[1,0,19.543,76.374,991.988],[3,13,33.376,56.859]]}[0m
+[0;32mI (250420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:03:01\",\"ver\":\"1.0.0\",\"err\":[\"0x0F\",\"0x61\",\"0x74\"],\"p\":[[1,0,19.543,76.374,991.988],[3,13,33.376,56.859]]}"}[0m
+[0;32mI (251240) uart_to_node: RX line: No node[0m
+[0;32mI (252240) uart_to_node: RX line: No node[0m
+[0;32mI (253240) uart_to_node: RX line: No node[0m
+[0;32mI (254240) uart_to_node: RX line: No node[0m
+[0;32mI (254340) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.1,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":252,"wifi_ssid":"MrKoi","wifi_rssi":-30,"sta_ip":"172.20.10.5","sta_gateway":"172.20.10.1"}[0m
+[0;32mI (255400) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2000-01-01T00:03:06","ver":"1.0.0","err":["0xBB","0xA1","0x15"],"p":[[1,0,28.953,52.367,1025.544],[3,13,28.679,70.549]]}[0m
+[0;32mI (255420) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2000-01-01T00:03:06\",\"ver\":\"1.0.0\",\"err\":[\"0xBB\",\"0xA1\",\"0x15\"],\"p\":[[1,0,28.953,52.367,1025.544],[3,13,28.679,70.549]]}"}[0m
+[0;32mI (256240) uart_to_node: RX line: No node[0m

@@ -1,0 +1,1884 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (302) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (309) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (666) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (708) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (708) boot: Disabling RNG early entropy source...[0m
+[0;32mI (720) cpu_start: Multicore app[0m
+[0;32mI (730) cpu_start: Pro cpu start user code[0m
+[0;32mI (730) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (730) cpu_start: Application information:[0m
+[0;32mI (733) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (738) cpu_start: App version:      1[0m
+[0;32mI (742) cpu_start: Compile time:     May 11 2026 08:18:58[0m
+[0;32mI (748) cpu_start: ELF file SHA256:  64e96c224...[0m
+[0;32mI (754) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (759) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (764) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (769) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (774) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (781) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (787) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (793) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (799) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (806) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (813) spi_flash: detected chip: generic[0m
+[0;32mI (817) spi_flash: flash io: dio[0m
+[0;33mW (821) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (831) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (840) main_task: Started on CPU0[0m
+[0;32mI (850) main_task: Calling app_main()[0m
+[0;32mI (870) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (870) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (870) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (880) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (880) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (890) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (900) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (900) disp_spi: Adding SPI device[0m
+[0;32mI (900) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1110) ILI9341: Initialization.[0m
+[0;32mI (1310) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1310) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1310) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1580) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1580) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1610) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1610) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[0;32mI (1610) gpio: GPIO[5]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1620) gpio: GPIO[18]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1630) gpio: GPIO[19]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-09 07:15:35
+[0;33mW (1650) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1680) wifi:wifi driver task: 3ffdd878, prio:23, stack:6656, core=0[0m
+[0;32mI (1680) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1680) wifi:wifi certification version: v7.0[0m
+[0;32mI (1680) wifi:config NVS flash: enabled[0m
+[0;32mI (1690) wifi:config nano formating: disabled[0m
+[0;32mI (1690) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1700) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1700) wifi:Init management short buffer num: 32[0m
+[0;32mI (1700) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1710) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1710) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1720) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1720) wifi_init: rx ba win: 6[0m
+[0;32mI (1720) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1730) wifi_init: udp mbox: 6[0m
+[0;32mI (1730) wifi_init: tcp mbox: 6[0m
+[0;32mI (1740) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1740) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1740) wifi_init: tcp mss: 1440[0m
+[0;32mI (1750) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1750) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1760) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1760) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1770) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1850) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1930) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1930) wifi:enable tsf[0m
+[0;32mI (1930) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4350) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4360) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4360) wifi:flush txq[0m
+[0;32mI (4360) wifi:stop sw txq[0m
+[0;32mI (4360) wifi:lmac stop hw txq[0m
+[0;32mI (4370) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4370) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4370) wifi:enable tsf[0m
+[0;32mI (4380) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6800) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6800) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6800) wifi:flush txq[0m
+[0;32mI (6810) wifi:stop sw txq[0m
+[0;32mI (6810) wifi:lmac stop hw txq[0m
+[0;32mI (6810) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6820) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6820) wifi:enable tsf[0m
+[0;32mI (6820) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9240) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9240) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9250) wifi:flush txq[0m
+[0;32mI (9250) wifi:stop sw txq[0m
+[0;32mI (9250) wifi:lmac stop hw txq[0m
+[0;32mI (9250) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9260) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9260) wifi:enable tsf[0m
+[0;32mI (9260) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11680) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11680) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11690) wifi:flush txq[0m
+[0;32mI (11690) wifi:stop sw txq[0m
+[0;32mI (11690) wifi:lmac stop hw txq[0m
+[0;32mI (11700) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11700) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11700) wifi:enable tsf[0m
+[0;32mI (11710) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14130) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14130) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14140) wifi:flush txq[0m
+[0;32mI (14140) wifi:stop sw txq[0m
+[0;32mI (14140) wifi:lmac stop hw txq[0m
+[0;32mI (14140) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14150) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14150) wifi:enable tsf[0m
+[0;32mI (14150) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16570) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16570) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16580) wifi:flush txq[0m
+[0;32mI (16580) wifi:stop sw txq[0m
+[0;32mI (16580) wifi:lmac stop hw txq[0m
+[0;32mI (16580) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16590) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16590) wifi:enable tsf[0m
+[0;32mI (16600) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19020) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19020) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19020) wifi:flush txq[0m
+[0;32mI (19020) wifi:stop sw txq[0m
+[0;32mI (19030) wifi:lmac stop hw txq[0m
+[0;32mI (19030) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19040) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19040) wifi:enable tsf[0m
+[0;32mI (19040) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21460) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21460) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21470) wifi:flush txq[0m
+[0;32mI (21470) wifi:stop sw txq[0m
+[0;32mI (21470) wifi:lmac stop hw txq[0m
+[0;32mI (21470) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21480) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21480) wifi:enable tsf[0m
+[0;32mI (21490) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23910) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23910) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23910) wifi:flush txq[0m
+[0;32mI (23910) wifi:stop sw txq[0m
+[0;32mI (23910) wifi:lmac stop hw txq[0m
+[0;32mI (23920) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23930) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23930) wifi:enable tsf[0m
+[0;32mI (23930) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26350) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26350) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26360) wifi:flush txq[0m
+[0;32mI (26360) wifi:stop sw txq[0m
+[0;32mI (26360) wifi:lmac stop hw txq[0m
+[0;32mI (26360) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26370) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26370) wifi:enable tsf[0m
+[0;32mI (26370) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28790) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28800) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28800) wifi:flush txq[0m
+[0;32mI (28800) wifi:stop sw txq[0m
+[0;32mI (28800) wifi:lmac stop hw txq[0m
+[0;32mI (28810) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28810) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (28820) wifi:enable tsf[0m
+[0;32mI (28820) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31240) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31240) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31250) wifi:flush txq[0m
+[0;32mI (31250) wifi:stop sw txq[0m
+[0;32mI (31250) wifi:lmac stop hw txq[0m
+[0;32mI (31250) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31260) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (31260) wifi:enable tsf[0m
+[0;32mI (31260) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33680) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33680) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33690) wifi:flush txq[0m
+[0;32mI (33690) wifi:stop sw txq[0m
+[0;32mI (33690) wifi:lmac stop hw txq[0m
+[0;32mI (33700) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33700) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (33700) wifi:enable tsf[0m
+[0;32mI (33710) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36130) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36130) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36130) wifi:flush txq[0m
+[0;32mI (36140) wifi:stop sw txq[0m
+[0;32mI (36140) wifi:lmac stop hw txq[0m
+[0;32mI (36140) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36150) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36150) wifi:enable tsf[0m
+[0;32mI (36150) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38570) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38570) WiFiManager: All startup WiFi credentials failed, starting AP mode[0m
+[0;32mI (38580) wifi:flush txq[0m
+[0;32mI (38580) wifi:stop sw txq[0m
+[0;32mI (38580) wifi:lmac stop hw txq[0m
+[0;32mI (39090) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (39090) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (39090) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (39100) wifi:enable tsf[0m
+[0;32mI (39100) wifi:Total power save buffer number: 16[0m
+[0;32mI (39100) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39110) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39110) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (39120) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (39130) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (39140) WiFiManager: Web server started on port 80[0m
+[0;32mI (39140) uart: queue free spaces: 24[0m
+[0;32mI (39180) uart_to_node: Send: Start Root[0m
+[0;32mI (39700) uart_to_node: Send: Start Root[0m
+[0;32mI (39760) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (39760) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (40050) uart_to_node: RX line: .No node[0m
+[0;32mI (41050) uart_to_node: RX line: No node[0m
+[0;33mW (41970) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (42050) uart_to_node: RX line: No node[0m
+[0;32mI (43050) uart_to_node: RX line: No node[0m
+[0;32mI (44050) uart_to_node: RX line: No node[0m
+[0;32mI (45050) uart_to_node: RX line: No node[0m
+[0;32mI (46050) uart_to_node: RX line: No node[0m
+[0;32mI (47050) uart_to_node: RX line: No node[0m
+[0;32mI (48050) uart_to_node: RX line: No node[0m
+[0;32mI (49050) uart_to_node: RX line: No node[0m
+[0;32mI (50050) uart_to_node: RX line: No node[0m
+[0;32mI (51050) uart_to_node: RX line: No node[0m
+[0;32mI (52050) uart_to_node: RX line: No node[0m
+[0;32mI (53050) uart_to_node: RX line: No node[0m
+[0;32mI (54050) uart_to_node: RX line: No node[0m
+[0;32mI (55050) uart_to_node: RX line: No node[0m
+[0;32mI (56050) uart_to_node: RX line: No node[0m
+[0;32mI (57050) uart_to_node: RX line: No node[0m
+[0;32mI (58050) uart_to_node: RX line: No node[0m
+[0;32mI (59050) uart_to_node: RX line: No node[0m
+[0;32mI (60050) uart_to_node: RX line: No node[0m
+[0;32mI (61050) uart_to_node: RX line: No node[0m
+[0;32mI (62050) uart_to_node: RX line: No node[0m
+[0;32mI (63050) uart_to_node: RX line: No node[0m
+[0;32mI (64050) uart_to_node: RX line: No node[0m
+[0;32mI (65050) uart_to_node: RX line: No node[0m
+[0;32mI (66050) uart_to_node: RX line: No node[0m
+[0;32mI (67050) uart_to_node: RX line: No node[0m
+[0;32mI (68050) uart_to_node: RX line: No node[0m
+[0;32mI (69050) uart_to_node: RX line: No node[0m
+[0;32mI (70050) uart_to_node: RX line: No node[0m
+[0;32mI (71050) uart_to_node: RX line: No node[0m
+[0;32mI (72050) uart_to_node: RX line: No node[0m
+[0;32mI (73050) uart_to_node: RX line: No node[0m
+[0;32mI (74050) uart_to_node: RX line: No node[0m
+[0;32mI (75050) uart_to_node: RX line: No node[0m
+[0;32mI (76050) uart_to_node: RX line: No node[0m
+[0;32mI (77050) uart_to_node: RX line: No node[0m
+[0;32mI (78050) uart_to_node: RX line: No node[0m
+[0;32mI (79050) uart_to_node: RX line: No node[0m
+[0;32mI (80050) uart_to_node: RX line: No node[0m
+[0;32mI (81050) uart_to_node: RX line: No node[0m
+[0;32mI (82050) uart_to_node: RX line: No node[0m
+[0;32mI (83050) uart_to_node: RX line: No node[0m
+[0;32mI (84050) uart_to_node: RX line: No node[0m
+[0;32mI (85050) uart_to_node: RX line: No node[0m
+[0;32mI (86050) uart_to_node: RX line: No node[0m
+[0;32mI (87050) uart_to_node: RX line: No node[0m
+[0;32mI (88050) uart_to_node: RX line: No node[0m
+[0;32mI (89050) uart_to_node: RX line: No node[0m
+[0;32mI (90050) uart_to_node: RX line: No node[0m
+[0;32mI (91050) uart_to_node: RX line: No node[0m
+[0;32mI (92050) uart_to_node: RX line: No node[0m
+[0;32mI (93050) uart_to_node: RX line: No node[0m
+[0;32mI (94050) uart_to_node: RX line: No node[0m
+[0;32mI (95050) uart_to_node: RX line: No node[0m
+[0;32mI (96050) uart_to_node: RX line: No node[0m
+[0;32mI (97050) uart_to_node: RX line: No node[0m
+[0;32mI (98050) uart_to_node: RX line: No node[0m
+[0;32mI (99050) uart_to_node: RX line: No node[0m
+[0;32mI (100050) uart_to_node: RX line: No node[0m
+[0;32mI (101050) uart_to_node: RX line: No node[0m
+[0;32mI (102050) uart_to_node: RX line: No node[0m
+[0;32mI (103050) uart_to_node: RX line: No node[0m
+[0;32mI (104050) uart_to_node: RX line: No node[0m
+[0;32mI (105050) uart_to_node: RX line: No node[0m
+[0;32mI (106050) uart_to_node: RX line: No node[0m
+[0;32mI (107050) uart_to_node: RX line: No node[0m
+[0;32mI (108050) uart_to_node: RX line: No node[0m
+[0;32mI (109050) uart_to_node: RX line: No node[0m
+[0;32mI (110050) uart_to_node: RX line: No node[0m
+[0;32mI (111050) uart_to_node: RX line: No node[0m
+[0;32mI (112050) uart_to_node: RX line: No node[0m
+[0;32mI (113050) uart_to_node: RX line: No node[0m
+[0;32mI (114050) uart_to_node: RX line: No node[0m
+[0;32mI (115050) uart_to_node: RX line: No node[0m
+[0;32mI (116050) uart_to_node: RX line: No node[0m
+[0;32mI (117050) uart_to_node: RX line: No node[0m
+[0;32mI (118050) uart_to_node: RX line: No node[0m
+[0;32mI (119050) uart_to_node: RX line: No node[0m
+[0;32mI (120050) uart_to_node: RX line: No node[0m
+[0;32mI (121050) uart_to_node: RX line: No node[0m
+[0;32mI (122050) uart_to_node: RX line: No node[0m
+[0;32mI (123050) uart_to_node: RX line: No node[0m
+[0;32mI (124050) uart_to_node: RX line: No node[0m
+[0;32mI (125050) uart_to_node: RX line: No node[0m
+[0;32mI (126050) uart_to_node: RX line: No node[0m
+[0;32mI (127050) uart_to_node: RX line: No node[0m
+[0;32mI (128050) uart_to_node: RX line: No node[0m
+[0;32mI (129050) uart_to_node: RX line: No node[0m
+[0;32mI (130050) uart_to_node: RX line: No node[0m
+[0;32mI (131050) uart_to_node: RX line: No node[0m
+[0;32mI (132050) uart_to_node: RX line: No node[0m
+[0;32mI (133050) uart_to_node: RX line: No node[0m
+[0;32mI (134050) uart_to_node: RX line: No node[0m
+[0;32mI (135050) uart_to_node: RX line: No node[0m
+[0;32mI (136050) uart_to_node: RX line: No node[0m
+[0;32mI (137050) uart_to_node: RX line: No node[0m
+[0;32mI (138050) uart_to_node: RX line: No node[0m
+[0;32mI (139050) uart_to_node: RX line: No node[0m
+[0;32mI (140050) uart_to_node: RX line: No node[0m
+[0;32mI (141050) uart_to_node: RX line: No node[0m
+[0;32mI (142050) uart_to_node: RX line: No node[0m
+[0;32mI (143050) uart_to_node: RX line: No node[0m
+[0;32mI (144050) uart_to_node: RX line: No node[0m
+[0;32mI (145050) uart_to_node: RX line: No node[0m
+[0;32mI (146050) uart_to_node: RX line: No node[0m
+[0;32mI (147050) uart_to_node: RX line: No node[0m
+[0;32mI (148050) uart_to_node: RX line: No node[0m
+[0;32mI (149050) uart_to_node: RX line: No node[0m
+[0;32mI (150040) uart_to_node: RX line: No node[0m
+[0;32mI (151040) uart_to_node: RX line: No node[0m
+[0;32mI (152040) uart_to_node: RX line: No node[0m
+[0;32mI (153040) uart_to_node: RX line: No node[0m
+[0;32mI (154040) uart_to_node: RX line: No node[0m
+[0;32mI (155040) uart_to_node: RX line: No node[0m
+[0;32mI (156040) uart_to_node: RX line: No node[0m
+[0;32mI (157040) uart_to_node: RX line: No node[0m
+[0;32mI (158040) uart_to_node: RX line: No node[0m
+[0;32mI (159040) uart_to_node: RX line: No node[0m
+[0;32mI (160040) uart_to_node: RX line: No node[0m
+[0;32mI (161040) uart_to_node: RX line: No node[0m
+[0;32mI (162040) uart_to_node: RX line: No node[0m
+[0;32mI (163040) uart_to_node: RX line: No node[0m
+[0;32mI (164040) uart_to_node: RX line: No node[0m
+[0;32mI (165040) uart_to_node: RX line: No node[0m
+[0;32mI (166040) uart_to_node: RX line: No node[0m
+[0;32mI (167040) uart_to_node: RX line: No node[0m
+[0;32mI (168040) uart_to_node: RX line: No node[0m
+[0;32mI (169040) uart_to_node: RX line: No node[0m
+[0;32mI (170040) uart_to_node: RX line: No node[0m
+[0;32mI (171040) uart_to_node: RX line: No node[0m
+[0;32mI (172040) uart_to_node: RX line: No node[0m
+[0;32mI (173040) uart_to_node: RX line: No node[0m
+[0;32mI (174040) uart_to_node: RX line: No node[0m
+[0;32mI (175040) uart_to_node: RX line: No node[0m
+[0;32mI (176040) uart_to_node: RX line: No node[0m
+[0;32mI (177050) uart_to_node: RX line: No node[0m
+[0;32mI (178040) uart_to_node: RX line: No node[0m
+[0;32mI (179040) uart_to_node: RX line: No node[0m
+[0;32mI (180040) uart_to_node: RX line: No node[0m
+[0;32mI (181040) uart_to_node: RX line: No node[0m
+[0;32mI (182040) uart_to_node: RX line: No node[0m
+[0;32mI (183040) uart_to_node: RX line: No node[0m
+[0;32mI (184040) uart_to_node: RX line: No node[0m
+[0;32mI (185040) uart_to_node: RX line: No node[0m
+[0;32mI (186040) uart_to_node: RX line: No node[0m
+[0;32mI (187040) uart_to_node: RX line: No node[0m
+[0;32mI (188040) uart_to_node: RX line: No node[0m
+[0;32mI (189040) uart_to_node: RX line: No node[0m
+[0;32mI (190040) uart_to_node: RX line: No node[0m
+[0;32mI (191040) uart_to_node: RX line: No node[0m
+[0;32mI (192040) uart_to_node: RX line: No node[0m
+[0;32mI (193040) uart_to_node: RX line: No node[0m
+[0;32mI (194040) uart_to_node: RX line: No node[0m
+[0;32mI (195040) uart_to_node: RX line: No node[0m
+[0;32mI (196040) uart_to_node: RX line: No node[0m
+[0;32mI (197040) uart_to_node: RX line: No node[0m
+[0;32mI (198040) uart_to_node: RX line: No node[0m
+[0;32mI (199040) uart_to_node: RX line: No node[0m
+[0;32mI (200040) uart_to_node: RX line: No node[0m
+[0;32mI (201040) uart_to_node: RX line: No node[0m
+[0;32mI (202040) uart_to_node: RX line: No node[0m
+[0;32mI (203040) uart_to_node: RX line: No node[0m
+[0;32mI (204040) uart_to_node: RX line: No node[0m
+[0;32mI (205040) uart_to_node: RX line: No node[0m
+[0;32mI (206040) uart_to_node: RX line: No node[0m
+[0;32mI (207040) uart_to_node: RX line: No node[0m
+[0;32mI (208040) uart_to_node: RX line: No node[0m
+[0;32mI (209040) uart_to_node: RX line: No node[0m
+[0;32mI (210040) uart_to_node: RX line: No node[0m
+[0;32mI (211040) uart_to_node: RX line: No node[0m
+[0;32mI (212040) uart_to_node: RX line: No node[0m
+[0;32mI (213040) uart_to_node: RX line: No node[0m
+[0;32mI (214040) uart_to_node: RX line: No node[0m
+[0;32mI (215040) uart_to_node: RX line: No node[0m
+[0;32mI (216040) uart_to_node: RX line: No node[0m
+[0;32mI (217040) uart_to_node: RX line: No node[0m
+[0;32mI (218040) uart_to_node: RX line: No node[0m
+[0;32mI (219040) uart_to_node: RX line: No node[0m
+[0;32mI (220040) uart_to_node: RX line: No node[0m
+[0;32mI (221040) uart_to_node: RX line: No node[0m
+[0;32mI (222040) uart_to_node: RX line: No node[0m
+[0;32mI (223040) uart_to_node: RX line: No node[0m
+[0;32mI (224040) uart_to_node: RX line: No node[0m
+[0;32mI (225040) uart_to_node: RX line: No node[0m
+[0;32mI (226040) uart_to_node: RX line: No node[0m
+[0;32mI (227040) uart_to_node: RX line: No node[0m
+[0;32mI (228040) uart_to_node: RX line: No node[0m
+[0;32mI (229040) uart_to_node: RX line: No node[0m
+[0;32mI (230040) uart_to_node: RX line: No node[0m
+[0;32mI (231040) uart_to_node: RX line: No node[0m
+[0;32mI (232040) uart_to_node: RX line: No node[0m
+[0;32mI (233040) uart_to_node: RX line: No node[0m
+[0;32mI (234040) uart_to_node: RX line: No node[0m
+[0;32mI (235040) uart_to_node: RX line: No node[0m
+[0;32mI (236040) uart_to_node: RX line: No node[0m
+[0;32mI (237040) uart_to_node: RX line: No node[0m
+[0;32mI (238040) uart_to_node: RX line: No node[0m
+[0;32mI (239040) uart_to_node: RX line: No node[0m
+[0;32mI (240040) uart_to_node: RX line: No node[0m
+[0;32mI (241040) uart_to_node: RX line: No node[0m
+[0;32mI (242040) uart_to_node: RX line: No node[0m
+[0;32mI (243040) uart_to_node: RX line: No node[0m
+[0;32mI (244040) uart_to_node: RX line: No node[0m
+[0;32mI (245040) uart_to_node: RX line: No node[0m
+[0;32mI (246040) uart_to_node: RX line: No node[0m
+[0;32mI (247040) uart_to_node: RX line: No node[0m
+[0;32mI (248040) uart_to_node: RX line: No node[0m
+[0;32mI (249040) uart_to_node: RX line: No node[0m
+[0;32mI (250040) uart_to_node: RX line: No node[0m
+[0;32mI (251040) uart_to_node: RX line: No node[0m
+[0;32mI (252040) uart_to_node: RX line: No node[0m
+[0;32mI (253040) uart_to_node: RX line: No node[0m
+[0;32mI (254040) uart_to_node: RX line: No node[0m
+[0;32mI (255040) uart_to_node: RX line: No node[0m
+[0;32mI (256040) uart_to_node: RX line: No node[0m
+[0;32mI (257040) uart_to_node: RX line: No node[0m
+[0;32mI (258040) uart_to_node: RX line: No node[0m
+[0;32mI (259040) uart_to_node: RX line: No node[0m
+[0;32mI (260040) uart_to_node: RX line: No node[0m
+[0;32mI (261040) uart_to_node: RX line: No node[0m
+[0;32mI (262040) uart_to_node: RX line: No node[0m
+[0;32mI (263040) uart_to_node: RX line: No node[0m
+[0;32mI (264040) uart_to_node: RX line: No node[0m
+[0;32mI (265040) uart_to_node: RX line: No node[0m
+[0;32mI (266040) uart_to_node: RX line: No node[0m
+[0;32mI (267040) uart_to_node: RX line: No node[0m
+[0;32mI (268040) uart_to_node: RX line: No node[0m
+[0;32mI (269040) uart_to_node: RX line: No node[0m
+[0;32mI (270040) uart_to_node: RX line: No node[0m
+[0;32mI (271040) uart_to_node: RX line: No node[0m
+[0;32mI (272040) uart_to_node: RX line: No node[0m
+[0;32mI (273040) uart_to_node: RX line: No node[0m
+[0;32mI (274040) uart_to_node: RX line: No node[0m
+[0;32mI (275040) uart_to_node: RX line: No node[0m
+[0;32mI (276040) uart_to_node: RX line: No node[0m
+[0;32mI (277040) uart_to_node: RX line: No node[0m
+[0;32mI (278040) uart_to_node: RX line: No node[0m
+[0;32mI (279040) uart_to_node: RX line: No node[0m
+[0;32mI (280040) uart_to_node: RX line: No node[0m
+[0;32mI (281040) uart_to_node: RX line: No node[0m
+[0;32mI (282040) uart_to_node: RX line: No node[0m
+[0;32mI (283040) uart_to_node: RX line: No node[0m
+[0;32mI (284040) uart_to_node: RX line: No node[0m
+[0;32mI (285040) uart_to_node: RX line: No node[0m
+[0;32mI (286040) uart_to_node: RX line: No node[0m
+[0;32mI (287040) uart_to_node: RX line: No node[0m
+[0;32mI (288040) uart_to_node: RX line: No node[0m
+[0;32mI (289040) uart_to_node: RX line: No node[0m
+[0;32mI (290040) uart_to_node: RX line: No node[0m
+[0;32mI (291040) uart_to_node: RX line: No node[0m
+[0;32mI (292040) uart_to_node: RX line: No node[0m
+[0;32mI (293040) uart_to_node: RX line: No node[0m
+[0;32mI (294040) uart_to_node: RX line: No node[0m
+[0;32mI (295040) uart_to_node: RX line: No node[0m
+[0;32mI (296040) uart_to_node: RX line: No node[0m
+[0;32mI (297040) uart_to_node: RX line: No node[0m
+[0;32mI (298040) uart_to_node: RX line: No node[0m
+[0;32mI (299040) uart_to_node: RX line: No node[0m
+[0;32mI (300040) uart_to_node: RX line: No node[0m
+[0;32mI (301040) uart_to_node: RX line: No node[0m
+[0;32mI (302040) uart_to_node: RX line: No node[0m
+[0;32mI (303040) uart_to_node: RX line: No node[0m
+[0;32mI (304040) uart_to_node: RX line: No node[0m
+[0;32mI (305040) uart_to_node: RX line: No node[0m
+[0;32mI (306040) uart_to_node: RX line: No node[0m
+[0;32mI (307040) uart_to_node: RX line: No node[0m
+[0;32mI (308040) uart_to_node: RX line: No node[0m
+[0;32mI (309040) uart_to_node: RX line: No node[0m
+[0;32mI (310040) uart_to_node: RX line: No node[0m
+[0;32mI (311040) uart_to_node: RX line: No node[0m
+[0;32mI (312040) uart_to_node: RX line: No node[0m
+[0;32mI (313040) uart_to_node: RX line: No node[0m
+[0;32mI (314040) uart_to_node: RX line: No node[0m
+[0;32mI (315040) uart_to_node: RX line: No node[0m
+[0;32mI (316040) uart_to_node: RX line: No node[0m
+[0;32mI (317040) uart_to_node: RX line: No node[0m
+[0;32mI (318040) uart_to_node: RX line: No node[0m
+[0;32mI (319040) uart_to_node: RX line: No node[0m
+[0;32mI (320040) uart_to_node: RX line: No node[0m
+[0;32mI (321040) uart_to_node: RX line: No node[0m
+[0;32mI (322040) uart_to_node: RX line: No node[0m
+[0;32mI (323040) uart_to_node: RX line: No node[0m
+[0;32mI (324040) uart_to_node: RX line: No node[0m
+[0;32mI (325040) uart_to_node: RX line: No node[0m
+[0;32mI (326040) uart_to_node: RX line: No node[0m
+[0;32mI (327040) uart_to_node: RX line: No node[0m
+[0;32mI (328040) uart_to_node: RX line: No node[0m
+[0;32mI (329040) uart_to_node: RX line: No node[0m
+[0;32mI (330040) uart_to_node: RX line: No node[0m
+[0;32mI (331040) uart_to_node: RX line: No node[0m
+[0;32mI (332040) uart_to_node: RX line: No node[0m
+[0;32mI (333040) uart_to_node: RX line: No node[0m
+[0;32mI (334040) uart_to_node: RX line: No node[0m
+[0;32mI (335040) uart_to_node: RX line: No node[0m
+[0;32mI (336040) uart_to_node: RX line: No node[0m
+[0;32mI (337040) uart_to_node: RX line: No node[0m
+[0;32mI (338040) uart_to_node: RX line: No node[0m
+[0;32mI (339040) uart_to_node: RX line: No node[0m
+[0;32mI (340040) uart_to_node: RX line: No node[0m
+[0;32mI (341040) uart_to_node: RX line: No node[0m
+[0;32mI (342040) uart_to_node: RX line: No node[0m
+[0;32mI (343040) uart_to_node: RX line: No node[0m
+[0;32mI (344040) uart_to_node: RX line: No node[0m
+[0;32mI (345040) uart_to_node: RX line: No node[0m
+[0;32mI (346040) uart_to_node: RX line: No node[0m
+[0;32mI (347040) uart_to_node: RX line: No node[0m
+[0;32mI (348040) uart_to_node: RX line: No node[0m
+[0;32mI (349040) uart_to_node: RX line: No node[0m
+[0;32mI (350040) uart_to_node: RX line: No node[0m
+[0;32mI (351040) uart_to_node: RX line: No node[0m
+[0;32mI (352040) uart_to_node: RX line: No node[0m
+[0;32mI (353040) uart_to_node: RX line: No node[0m
+[0;32mI (354040) uart_to_node: RX line: No node[0m
+[0;32mI (355040) uart_to_node: RX line: No node[0m
+[0;32mI (356040) uart_to_node: RX line: No node[0m
+[0;32mI (357040) uart_to_node: RX line: No node[0m
+[0;32mI (358040) uart_to_node: RX line: No node[0m
+[0;32mI (359040) uart_to_node: RX line: No node[0m
+[0;32mI (360040) uart_to_node: RX line: No node[0m
+[0;32mI (361040) uart_to_node: RX line: No node[0m
+[0;32mI (362040) uart_to_node: RX line: No node[0m
+[0;32mI (363040) uart_to_node: RX line: No node[0m
+[0;32mI (364040) uart_to_node: RX line: No node[0m
+[0;32mI (365040) uart_to_node: RX line: No node[0m
+[0;32mI (366040) uart_to_node: RX line: No node[0m
+[0;32mI (367040) uart_to_node: RX line: No node[0m
+[0;32mI (368040) uart_to_node: RX line: No node[0m
+[0;32mI (369040) uart_to_node: RX line: No node[0m
+[0;32mI (370040) uart_to_node: RX line: No node[0m
+[0;32mI (371040) uart_to_node: RX line: No node[0m
+[0;32mI (372040) uart_to_node: RX line: No node[0m
+[0;32mI (373040) uart_to_node: RX line: No node[0m
+[0;32mI (374040) uart_to_node: RX line: No node[0m
+[0;32mI (375040) uart_to_node: RX line: No node[0m
+[0;32mI (376040) uart_to_node: RX line: No node[0m
+[0;32mI (377040) uart_to_node: RX line: No node[0m
+[0;32mI (378040) uart_to_node: RX line: No node[0m
+[0;32mI (379040) uart_to_node: RX line: No node[0m
+[0;32mI (380040) uart_to_node: RX line: No node[0m
+[0;32mI (381040) uart_to_node: RX line: No node[0m
+[0;32mI (382040) uart_to_node: RX line: No node[0m
+[0;32mI (383040) uart_to_node: RX line: No node[0m
+[0;32mI (384040) uart_to_node: RX line: No node[0m
+[0;32mI (385040) uart_to_node: RX line: No node[0m
+[0;32mI (386040) uart_to_node: RX line: No node[0m
+[0;32mI (387040) uart_to_node: RX line: No node[0m
+[0;32mI (388040) uart_to_node: RX line: No node[0m
+[0;32mI (389040) uart_to_node: RX line: No node[0m
+[0;32mI (390040) uart_to_node: RX line: No node[0m
+[0;32mI (391040) uart_to_node: RX line: No node[0m
+[0;32mI (392040) uart_to_node: RX line: No node[0m
+[0;32mI (393040) uart_to_node: RX line: No node[0m
+[0;32mI (394040) uart_to_node: RX line: No node[0m
+[0;32mI (395040) uart_to_node: RX line: No node[0m
+[0;32mI (396040) uart_to_node: RX line: No node[0m
+[0;32mI (397040) uart_to_node: RX line: No node[0m
+[0;32mI (398040) uart_to_node: RX line: No node[0m
+[0;32mI (399040) uart_to_node: RX line: No node[0m
+[0;32mI (400040) uart_to_node: RX line: No node[0m
+[0;32mI (401040) uart_to_node: RX line: No node[0m
+[0;32mI (402040) uart_to_node: RX line: No node[0m
+[0;32mI (403040) uart_to_node: RX line: No node[0m
+[0;32mI (404040) uart_to_node: RX line: No node[0m
+[0;32mI (405040) uart_to_node: RX line: No node[0m
+[0;32mI (406040) uart_to_node: RX line: No node[0m
+[0;32mI (407040) uart_to_node: RX line: No node[0m
+[0;32mI (408040) uart_to_node: RX line: No node[0m
+[0;32mI (409040) uart_to_node: RX line: No node[0m
+[0;32mI (410040) uart_to_node: RX line: No node[0m
+[0;32mI (411040) uart_to_node: RX line: No node[0m
+[0;32mI (412040) uart_to_node: RX line: No node[0m
+[0;32mI (413040) uart_to_node: RX line: No node[0m
+[0;32mI (414040) uart_to_node: RX line: No node[0m
+[0;32mI (415040) uart_to_node: RX line: No node[0m
+[0;32mI (416040) uart_to_node: RX line: No node[0m
+[0;32mI (417040) uart_to_node: RX line: No node[0m
+[0;32mI (418040) uart_to_node: RX line: No node[0m
+[0;32mI (419040) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������RX line: No node[0m
+[0;32mI (421040) uart_to_node: RX line: No node[0m
+[0;32mI (422040) uart_to_node: RX line: No node[0m
+[0;32mI (423040) uart_to_node: RX line: No node[0m
+[0;32mI (424040) uart_to_node: RX line: No node[0m
+[0;32mI (425040) uart_to_node: RX line: No node[0m
+[0;32mI (426040) uart_to_node: RX line: No node[0m
+[0;32mI (427040) uart_to_node: RX line: No node[0m
+[0;32mI (428040) uart_to_node: RX line: No node[0m
+[0;32mI (429040) uart_to_node: RX line: No node[0m
+[0;32mI (430040) uart_to_node: RX line: No node[0m
+[0;32mI (431040) uart_to_node: RX line: No node[0m
+[0;32mI (432040) uart_to_node: RX line: No node[0m
+[0;32mI (433040) uart_to_node: RX line: No node[0m
+[0;32mI (434040) uart_to_node: RX line: No node[0m
+[0;32mI (435040) uart_to_node: RX line: No node[0m
+[0;32mI (436040) uart_to_node: RX line: No node[0m
+[0;32mI (437040) uart_to_node: RX line: No node[0m
+[0;32mI (438040) uart_to_node: RX line: No node[0m
+[0;32mI (439040) uart_to_node: RX line: No node[0m
+[0;32mI (440040) uart_to_node: RX line: No node[0m
+[0;32mI (441040) uart_to_node: RX line: No node[0m
+[0;32mI (442040) uart_to_node: RX line: No node[0m
+[0;32mI (443040) uart_to_node: RX line: No node[0m
+[0;32mI (444040) uart_to_node: RX line: No node[0m
+[0;32mI (445040) uart_to_node: RX line: No node[0m
+[0;32mI (446040) uart_to_node: RX line: No node[0m
+[0;32mI (447040) uart_to_node: RX line: No node[0m
+[0;32mI (448040) uart_to_node: RX line: No node[0m
+[0;32mI (449040) uart_to_node: RX line: No node[0m
+[0;32mI (450040) uart_to_node: RX line: No node[0m
+[0;32mI (451040) uart_to_node: RX line: No node[0m
+[0;32mI (452040) uart_to_node: RX line: No node[0m
+[0;32mI (453040) uart_to_node: RX line: No node[0m
+[0;32mI (454040) uart_to_node: RX line: No node[0m
+[0;32mI (455040) uart_to_node: RX line: No node[0m
+[0;32mI (456040) uart_to_node: RX line: No node[0m
+[0;32mI (457040) uart_to_node: RX line: No node[0m
+[0;32mI (458040) uart_to_node: RX line: No node[0m
+[0;32mI (459040) uart_to_node: RX line: No node[0m
+[0;32mI (460040) uart_to_node: RX line: No node[0m
+[0;32mI (461040) uart_to_node: RX line: No node[0m
+[0;32mI (462040) uart_to_node: RX line: No node[0m
+[0;32mI (463040) uart_to_node: RX line: No node[0m
+[0;32mI (464040) uart_to_node: RX line: No node[0m
+[0;32mI (465040) uart_to_node: RX line: No node[0m
+[0;32mI (466040) uart_to_node: RX line: No node[0m
+[0;32mI (467040) uart_to_node: RX line: No node[0m
+[0;32mI (468040) uart_to_node: RX line: No node[0m
+[0;32mI (469040) uart_to_node: RX line: No node[0m
+[0;32mI (470040) uart_to_node: RX line: No node[0m
+[0;32mI (471040) uart_to_node: RX line: No node[0m
+[0;32mI (472040) uart_to_node: RX line: No node[0m
+[0;32mI (473040) uart_to_node: RX line: No node[0m
+[0;32mI (474040) uart_to_node: RX line: No node[0m
+[0;32mI (475040) uart_to_node: RX line: No node[0m
+[0;32mI (476040) uart_to_node: RX line: No node[0m
+[0;32mI (477040) uart_to_node: RX line: No node[0m
+[0;32mI (478040) uart_to_node: RX line: No node[0m
+[0;32mI (479040) uart_to_node: RX line: No node[0m
+[0;32mI (480040) uart_to_node: RX line: No node[0m
+[0;32mI (481040) uart_to_node: RX line: No node[0m
+[0;32mI (482040) uart_to_node: RX line: No node[0m
+[0;32mI (483040) uart_to_node: RX line: No node[0m
+[0;32mI (484040) uart_to_node: RX line: No node[0m
+[0;32mI (485040) uart_to_node: RX line: No node[0m
+[0;32mI (486040) uart_to_node: RX line: No node[0m
+[0;32mI (487040) uart_to_node: RX line: No node[0m
+[0;32mI (488040) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������RX line: No node[0m
+[0;32mI (490040) uart_to_node: RX line: No node[0m
+[0;32mI (491040) uart_to_node: RX line: No node[0m
+[0;32mI (492040) uart_to_node: RX line: No node[0m
+[0;32mI (493040) uart_to_node: RX line: No node[0m
+[0;32mI (494040) uart_to_node: RX line: No node[0m
+[0;32mI (495040) uart_to_node: RX line: No node[0m
+[0;32mI (496040) uart_to_node: RX line: No node[0m
+[0;32mI (497040) uart_to_node: RX line: No node[0m
+[0;32mI (498040) uart_to_node: RX line: No node[0m
+[0;32mI (499040) uart_to_node: RX line: No node[0m
+[0;32mI (500040) uart_to_node: RX line: No node[0m
+[0;32mI (501040) uart_to_node: RX line: No node[0m
+[0;32mI (502040) uart_to_node: RX line: No node[0m
+[0;32mI (503040) uart_to_node: RX line: No node[0m
+[0;32mI (504040) uart_to_node: RX line: No node[0m
+[0;32mI (505040) uart_to_node: RX line: No node[0m
+[0;32mI (506040) uart_to_node: RX line: No node[0m
+[0;32mI (507040) uart_to_node: RX line: No node[0m
+[0;32mI (508040) uart_to_node: RX line: No node[0m
+[0;32mI (509040) uart_to_node: RX line: No node[0m
+[0;32mI (510040) uart_to_node: RX line: No node[0m
+[0;32mI (511040) uart_to_node: RX line: No node[0m
+[0;32mI (512040) uart_to_node: RX line: No node[0m
+[0;32mI (513040) uart_to_node: RX line: No node[0m
+[0;32mI (514040) uart_to_node: RX line: No node[0m
+[0;32mI (515040) uart_to_node: RX line: No node[0m
+[0;32mI (516040) uart_to_node: RX line: No node[0m
+[0;32mI (517040) uart_to_node: RX line: No node[0m
+[0;32mI (518040) uart_to_node: RX line: No node[0m
+[0;32mI (519040) uart_to_node: RX line: No node[0m
+[0;32mI (520040) uart_to_node: RX line: No node[0m
+[0;32mI (521040) uart_to_node: RX line: No node[0m
+[0;32mI (522040) uart_to_node: RX line: No node[0m
+[0;32mI (523040) uart_to_node: RX line: No node[0m
+[0;32mI (524040) uart_to_node: RX line: No node[0m
+[0;32mI (525040) uart_to_node: RX line: No node[0m
+[0;32mI (526040) uart_to_node: RX line: No node[0m
+[0;32mI (527040) uart_to_node: RX line: No node[0m
+[0;32mI (528040) uart_to_node: RX line: No node[0m
+[0;32mI (529040) uart_to_node: RX line: No node[0m
+[0;32mI (530040) uart_to_node: RX line: No node[0m
+[0;32mI (531040) uart_to_node: RX line: No node[0m
+[0;32mI (532040) uart_to_node: RX line: No node[0m
+[0;32mI (533040) uart_to_node: RX line: No node[0m
+[0;32mI (534040) uart_to_node: RX line: No node[0m
+[0;32mI (535040) uart_to_node: RX line: No node[0m
+[0;32mI (536040) uart_to_node: RX line: No node[0m
+[0;32mI (537040) uart_to_node: RX line: No node[0m
+[0;32mI (538040) uart_to_node: RX line: No node[0m
+[0;32mI (539040) uart_to_node: RX line: No node[0m
+[0;32mI (540040) uart_to_node: RX line: No node[0m
+[0;32mI (541040) uart_to_node: RX line: No node[0m
+[0;32mI (542040) uart_to_node: RX line: No node[0m
+[0;32mI (543040) uart_to_node: RX line: No node[0m
+[0;32mI (544040) uart_to_node: RX line: No node[0m
+[0;32mI (545040) uart_to_node: RX line: No node[0m
+[0;32mI (546040) uart_to_node: RX line: No node[0m
+[0;32mI (547040) uart_to_node: RX line: No node[0m
+[0;32mI (548040) uart_to_node: RX line: No node[0m
+[0;32mI (549040) uart_to_node: RX line: No node[0m
+[0;32mI (550040) uart_to_node: RX line: No node[0m
+[0;32mI (551040) uart_to_node: RX line: No node[0m
+[0;32mI (552040) uart_to_node: RX line: No node[0m
+[0;32mI (553040) uart_to_node: RX line: No node[0m
+[0;32mI (554040) uart_to_node: RX line: No node[0m
+[0;32mI (555040) uart_to_node: RX line: No node[0m
+[0;32mI (556040) uart_to_node: RX line: No node[0m
+[0;32mI (557040) uart_to_node: RX line: No node[0m
+[0;32mI (558040) uart_to_node: RX line: No node[0m
+[0;32mI (559040) uart_to_node: RX line: No node[0m
+[0;32mI (560040) uart_to_node: RX line: No node[0m
+[0;32mI (561040) uart_to_node: RX line: No node[0m
+[0;32mI (562040) uart_to_node: RX line: No node[0m
+[0;32mI (563040) uart_to_node: RX line: No node[0m
+[0;32mI (564040) uart_to_node: RX line: No node[0m
+[0;32mI (565040) uart_to_node: RX line: No node[0m
+[0;32mI (566040) uart_to_node: RX line: No node[0m
+[0;32mI (567040) uart_to_node: RX line: No node[0m
+[0;32mI (568040) uart_to_node: RX line: No node[0m
+[0;32mI (569040) uart_to_node: RX line: No node[0m
+[0;32mI (570040) uart_to_node: RX line: No node[0m
+[0;32mI (571040) uart_to_node: RX line: No node[0m
+[0;32mI (572040) uart_to_node: RX line: No node[0m
+[0;32mI (573040) uart_to_node: RX line: No node[0m
+[0;32mI (574040) uart_to_node: RX line: No node[0m
+[0;32mI (575040) uart_to_node: RX line: No node[0m
+[0;32mI (576040) uart_to_node: RX line: No node[0m
+[0;32mI (577040) uart_to_node: RX line: No node[0m
+[0;32mI (578040) uart_to_node: RX line: No node[0m
+[0;32mI (579040) uart_to_node: RX line: No node[0m
+[0;32mI (580040) uart_to_node: RX line: No node[0m
+[0;32mI (581040) uart_to_node: RX line: No node[0m
+[0;32mI (582040) uart_to_node: RX line: No node[0m
+[0;32mI (583040) uart_to_node: RX line: No node[0m
+[0;32mI (584040) uart_to_node: RX line: No node[0m
+[0;32mI (585040) uart_to_node: RX line: No node[0m
+[0;32mI (586040) uart_to_node: RX line: No node[0m
+[0;32mI (587040) uart_to_node: RX line: No node[0m
+[0;32mI (588030) uart_to_node: RX line: No node[0m
+[0;32mI (589030) uart_to_node: RX line: No node[0m
+[0;32mI (590030) uart_to_node: RX line: No node[0m
+[0;32mI (591030) uart_to_node: RX line: No node[0m
+[0;32mI (592030) uart_to_node: RX line: No node[0m
+[0;32mI (593030) uart_to_node: RX line: No node[0m
+[0;32mI (594030) uart_to_node: RX line: No node[0m
+[0;32mI (595030) uart_to_node: RX line: No node[0m
+[0;32mI (596030) uart_to_node: RX line: No node[0m
+[0;32mI (597030) uart_to_node: RX line: No node[0m
+[0;32mI (598030) uart_to_node: RX line: No node[0m
+[0;32mI (599030) uart_to_node: RX line: No node[0m
+[0;32mI (600030) uart_to_node: RX line: No node[0m
+[0;32mI (601030) uart_to_node: RX line: No node[0m
+[0;32mI (602030) uart_to_node: RX line: No node[0m
+[0;32mI (603030) uart_to_node: RX line: No node[0m
+[0;32mI (604040) uart_to_node: RX line: No node[0m
+[0;32mI (605040) uart_to_node: RX line: No node[0m
+[0;32mI (606040) uart_to_node: RX line: No node[0m
+[0;32mI (607040) uart_to_node: RX line: No node[0m
+[0;32mI (608040) uart_to_node: RX line: No node[0m
+[0;32mI (609030) uart_to_node: RX line: No node[0m
+[0;32mI (610030) uart_to_node: RX line: No node[0m
+[0;32mI (611030) uart_to_node: RX line: No node[0m
+[0;32mI (612030) uart_to_node: RX line: No node[0m
+[0;32mI (613030) uart_to_node: RX line: No node[0m
+[0;32mI (614030) uart_to_node: RX line: No node[0m
+[0;32mI (615030) uart_to_node: RX line: No node[0m
+[0;32mI (616030) uart_to_node: RX line: No node[0m
+[0;32mI (617030) uart_to_node: RX line: No node[0m
+[0;32mI (618030) uart_to_node: RX line: No node[0m
+[0;32mI (619030) uart_to_node: RX line: No node[0m
+[0;32mI (620030) uart_to_node: RX line: No node[0m
+[0;32mI (621030) uart_to_node: RX line: No node[0m
+[0;32mI (622030) uart_to_node: RX line: No node[0m
+[0;32mI (623030) uart_to_node: RX line: No node[0m
+[0;32mI (624030) uart_to_node: RX line: No node[0m
+[0;32mI (625030) uart_to_node: RX line: No node[0m
+[0;32mI (626030) uart_to_node: RX line: No node[0m
+[0;32mI (627030) uart_to_node: RX line: No node[0m
+[0;32mI (628030) uart_to_node: RX line: No node[0m
+[0;32mI (629030) uart_to_node: RX line: No node[0m
+[0;32mI (630030) uart_to_node: RX line: No node[0m
+[0;32mI (631030) uart_to_node: RX line: No node[0m
+[0;32mI (632030) uart_to_node: RX line: No node[0m
+[0;32mI (633030) uart_to_node: RX line: No node[0m
+[0;32mI (634030) uart_to_node: RX line: No node[0m
+[0;32mI (635030) uart_to_node: RX line: No node[0m
+[0;32mI (636030) uart_to_node: RX line: No node[0m
+[0;32mI (637030) uart_to_node: RX line: No node[0m
+[0;32mI (638030) uart_to_node: RX line: No node[0m
+[0;32mI (639030) uart_to_node: RX line: No node[0m
+[0;32mI (640030) uart_to_node: RX line: No node[0m
+[0;32mI (641030) uart_to_node: RX line: No node[0m
+[0;32mI (642030) uart_to_node: RX line: No node[0m
+[0;32mI (643030) uart_to_node: RX line: No node[0m
+[0;32mI (644030) uart_to_node: RX line: No node[0m
+[0;32mI (645030) uart_to_node: RX line: No node[0m
+[0;32mI (646030) uart_to_node: RX line: No node[0m
+[0;32mI (647030) uart_to_node: RX line: No node[0m
+[0;32mI (648030) uart_to_node: RX line: No node[0m
+[0;32mI (649030) uart_to_node: RX line: No node[0m
+[0;32mI (650030) uart_to_node: RX line: No node[0m
+[0;32mI (651030) uart_to_node: RX line: No node[0m
+[0;32mI (652030) uart_to_node: RX line: No node[0m
+[0;32mI (653030) uart_to_node: RX line: No node[0m
+[0;32mI (654030) uart_to_node: RX line: No node[0m
+[0;32mI (655030) uart_to_node: RX line: No node[0m
+[0;32mI (656030) uart_to_node: RX line: No node[0m
+[0;32mI (657030) uart_to_node: RX line: No node[0m
+[0;32mI (658030) uart_to_node: RX line: No node[0m
+[0;32mI (659030) uart_to_node: RX line: No node[0m
+[0;32mI (660030) uart_to_node: RX line: No node[0m
+[0;32mI (661030) uart_to_node: RX line: No node[0m
+[0;32mI (662030) uart_to_node: RX line: No node[0m
+[0;32mI (663030) uart_to_node: RX line: No node[0m
+[0;32mI (664030) uart_to_node: RX line: No node[0m
+[0;32mI (665030) uart_to_node: RX line: No node[0m
+[0;32mI (666030) uart_to_node: RX line: No node[0m
+[0;32mI (667030) uart_to_node: RX line: No node[0m
+[0;32mI (668030) uart_to_node: RX line: No node[0m
+[0;32mI (669030) uart_to_node: RX line: No node[0m
+[0;32mI (670030) uart_to_node: RX line: No node[0m
+[0;32mI (671030) uart_to_node: RX line: No node[0m
+[0;32mI (672030) uart_to_node: RX line: No node[0m
+[0;32mI (673030) uart_to_node: RX line: No node[0m
+[0;32mI (674030) uart_to_node: RX line: No node[0m
+[0;32mI (675030) uart_to_node: RX line: No node[0m
+[0;32mI (676030) uart_to_node: RX line: No node[0m
+[0;32mI (677030) uart_to_node: RX line: No node[0m
+[0;32mI (678030) uart_to_node: RX line: No node[0m
+[0;32mI (679030) uart_to_node: RX line: No node[0m
+[0;32mI (680030) uart_to_node: RX line: No node[0m
+[0;32mI (681030) uart_to_node: RX line: No node[0m
+[0;32mI (682030) uart_to_node: RX line: No node[0m
+[0;32mI (683030) uart_to_node: RX line: No node[0m
+[0;32mI (684030) uart_to_node: RX line: No node[0m
+[0;32mI (685030) uart_to_node: RX line: No node[0m
+[0;32mI (686030) uart_to_node: RX line: No node[0m
+[0;32mI (687030) uart_to_node: RX line: No node[0m
+[0;32mI (688030) uart_to_node: RX line: No node[0m
+[0;32mI (689030) uart_to_node: RX line: No node[0m
+[0;32mI (690030) uart_to_node: RX line: No node[0m
+[0;32mI (691030) uart_to_node: RX line: No node[0m
+[0;32mI (692030) uart_to_node: RX line: No node[0m
+[0;32mI (693030) uart_to_node: RX line: No node[0m
+[0;32mI (694030) uart_to_node: RX line: No node[0m
+[0;32mI (695030) uart_to_node: RX line: No node[0m
+[0;32mI (696030) uart_to_node: RX line: No node[0m
+[0;32mI (697030) uart_to_node: RX line: No node[0m
+[0;32mI (698030) uart_to_node: RX line: No node[0m
+[0;32mI (699030) uart_to_node: RX line: No node[0m
+[0;32mI (700030) uart_to_node: RX line: No node[0m
+[0;32mI (701030) uart_to_node: RX line: No node[0m
+[0;32mI (702030) uart_to_node: RX line: No node[0m
+[0;32mI (703030) uart_to_node: RX line: No node[0m
+[0;32mI (704030) uart_to_node: RX line: No node[0m
+[0;32mI (705030) uart_to_node: RX line: No node[0m
+[0;32mI (706030) uart_to_node: RX line: No node[0m
+[0;32mI (707030) uart_to_node: RX line: No node[0m
+[0;32mI (708030) uart_to_node: RX line: No node[0m
+[0;32mI (709030) uart_to_node: RX line: No node[0m
+[0;32mI (710030) uart_to_node: RX line: No node[0m
+[0;32mI (711030) uart_to_node: RX line: No node[0m
+[0;32mI (712030) uart_to_node: RX line: No node[0m
+[0;32mI (713030) uart_to_node: RX line: No node[0m
+[0;32mI (714030) uart_to_node: RX line: No node[0m
+[0;32mI (715030) uart_to_node: RX line: No node[0m
+[0;32mI (716030) uart_to_node: RX line: No node[0m
+[0;32mI (717030) uart_to_node: RX line: No node[0m
+[0;32mI (718030) uart_to_node: RX line: No node[0m
+[0;32mI (719030) uart_to_node: RX line: No node[0m
+[0;32mI (720030) uart_to_node: RX line: No node[0m
+[0;32mI (721030) uart_to_node: RX line: No node[0m
+[0;32mI (722030) uart_to_node: RX line: No node[0m
+[0;32mI (723030) uart_to_node: RX line: No node[0m
+[0;32mI (724030) uart_to_node: RX line: No node[0m
+[0;32mI (725030) uart_to_node: RX line: No node[0m
+[0;32mI (726030) uart_to_node: RX line: No node[0m
+[0;32mI (727030) uart_to_node: RX line: No node[0m
+[0;32mI (728030) uart_to_node: RX line: No node[0m
+[0;32mI (729030) uart_to_node: RX line: No node[0m
+[0;32mI (730030) uart_to_node: RX line: No node[0m
+[0;32mI (731030) uart_to_node: RX line: No node[0m
+[0;32mI (732030) uart_to_node: RX line: No node[0m
+[0;32mI (733030) uart_to_node: RX line: No node[0m
+[0;32mI (734030) uart_to_node: RX line: No node[0m
+[0;32mI (735030) uart_to_node: RX line: No node[0m
+[0;32mI (736030) uart_to_node: RX line: No node[0m
+[0;32mI (737030) uart_to_node: RX line: No node[0m
+[0;32mI (738030) uart_to_node: RX line: No node[0m
+[0;32mI (739030) uart_to_node: RX line: No node[0m
+[0;32mI (740030) uart_to_node: RX line: No node[0m
+[0;32mI (741030) uart_to_node: RX line: No node[0m
+[0;32mI (742030) uart_to_node: RX line: No node[0m
+[0;32mI (743030) uart_to_node: RX line: No node[0m
+[0;32mI (744030) uart_to_node: RX line: No node[0m
+[0;32mI (745030) uart_to_node: RX line: No node[0m
+[0;32mI (746030) uart_to_node: RX line: No node[0m
+[0;32mI (747030) uart_to_node: RX line: No node[0m
+[0;32mI (748030) uart_to_node: RX line: No node[0m
+[0;32mI (749030) uart_to_node: RX line: No node[0m
+[0;32mI (750030) uart_to_node: RX line: No node[0m
+[0;32mI (751030) uart_to_node: RX line: No node[0m
+[0;32mI (752030) uart_to_node: RX line: No node[0m
+[0;32mI (753030) uart_to_node: RX line: No node[0m
+[0;32mI (754030) uart_to_node: RX line: No node[0m
+[0;32mI (755030) uart_to_node: RX line: No node[0m
+[0;32mI (756030) uart_to_node: RX line: No node[0m
+[0;32mI (757030) uart_to_node: RX line: No node[0m
+[0;32mI (758030) uart_to_node: RX line: No node[0m
+[0;32mI (759030) uart_to_node: RX line: No node[0m
+[0;32mI (760030) uart_to_node: RX line: No node[0m
+[0;32mI (761030) uart_to_node: RX line: No node[0m
+[0;32mI (762030) uart_to_node: RX line: No node[0m
+[0;32mI (763030) uart_to_node: RX line: No node[0m
+[0;32mI (764030) uart_to_node: RX line: No node[0m
+[0;32mI (765030) uart_to_node: RX line: No node[0m
+[0;32mI (766030) uart_to_node: RX line: No node[0m
+[0;32mI (767030) uart_to_node: RX line: No node[0m
+[0;32mI (768030) uart_to_node: RX line: No node[0m
+[0;32mI (769030) uart_to_node: RX line: No node[0m
+[0;32mI (770030) uart_to_node: RX line: No node[0m
+[0;32mI (771030) uart_to_node: RX line: No node[0m
+[0;32mI (772030) uart_to_node: RX line: No node[0m
+[0;32mI (773030) uart_to_node: RX line: No node[0m
+[0;32mI (774030) uart_to_node: RX line: No node[0m
+[0;32mI (775030) uart_to_node: RX line: No node[0m
+[0;32mI (776030) uart_to_node: RX line: No node[0m
+[0;32mI (777030) uart_to_node: RX line: No node[0m
+[0;32mI (778030) uart_to_node: RX line: No node[0m
+[0;32mI (779030) uart_to_node: RX line: No node[0m
+[0;32mI (780030) uart_to_node: RX line: No node[0m
+[0;32mI (781030) uart_to_node: RX line: No node[0m
+[0;32mI (782030) uart_to_node: RX line: No node[0m
+[0;32mI (783030) uart_to_node: RX line: No node[0m
+[0;32mI (784030) uart_to_node: RX line: No node[0m
+[0;32mI (785030) uart_to_node: RX line: No node[0m
+[0;32mI (786030) uart_to_node: RX line: No node[0m
+[0;32mI (787030) uart_to_node: RX line: No node[0m
+[0;32mI (788030) uart_to_node: RX line: No node[0m
+[0;32mI (789030) uart_to_node: RX line: No node[0m
+[0;32mI (790030) uart_to_node: RX line: No node[0m
+[0;32mI (791030) uart_to_node: RX line: No node[0m
+[0;32mI (792030) uart_to_node: RX line: No node[0m
+[0;32mI (793030) uart_to_node: RX line: No node[0m
+[0;32mI (794030) uart_to_node: RX line: No node[0m
+[0;32mI (795030) uart_to_node: RX line: No node[0m
+[0;32mI (796030) uart_to_node: RX line: No node[0m
+[0;32mI (797030) uart_to_node: RX line: No node[0m
+[0;32mI (798030) uart_to_node: RX line: No node[0m
+[0;32mI (799030) uart_to_node: RX line: No node[0m
+[0;33mW (801070) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (801070) uart_to_node: Send: Start Root[0m
+[0;32mI (801590) uart_to_node: Send: Start Root[0m
+[0;32mI (802110) uart_to_node: Send: Start Root[0m
+[0;32mI (802630) uart_to_node: Send: Start Root[0m
+[0;32mI (803150) uart_to_node: Send: Start Root[0m
+[0;32mI (803670) uart_to_node: Send: Start Root[0m
+[0;32mI (804190) uart_to_node: Send: Start Root[0m
+[0;32mI (804710) uart_to_node: Send: Start Root[0m
+[0;32mI (805230) uart_to_node: Send: Start Root[0m
+[0;32mI (805750) uart_to_node: Send: Start Root[0m
+[0;32mI (806270) uart_to_node: Send: Start Root[0m
+[0;32mI (806790) uart_to_node: Send: Start Root[0m
+[0;32mI (807310) uart_to_node: Send: Start Root[0m
+[0;32mI (807830) uart_to_node: Send: Start Root[0m
+[0;32mI (808350) uart_to_node: Send: Start Root[0m
+[0;32mI (808870) uart_to_node: Send: Start Root[0m
+[0;32mI (809390) uart_to_node: Send: Start Root[0m
+[0;32mI (809910) uart_to_node: Send: Start Root[0m
+[0;32mI (810430) uart_to_node: Send: Start Root[0m
+[0;32mI (810950) uart_to_node: Send: Start Root[0m
+[0;32mI (811470) uart_to_node: Send: Start Root[0m
+[0;32mI (811990) uart_to_node: Send: Start Root[0m
+[0;32mI (812510) uart_to_node: Send: Start Root[0m
+[0;32mI (813030) uart_to_node: Send: Start Root[0m
+[0;32mI (813550) uart_to_node: Send: Start Root[0m
+[0;32mI (814070) uart_to_node: Send: Start Root[0m
+[0;32mI (814590) uart_to_node: Send: Start Root[0m
+[0;32mI (815110) uart_to_node: Send: Start Root[0m
+[0;32mI (815630) uart_to_node: Send: Start Root[0m
+[0;32mI (816150) uart_to_node: Send: Start Root[0m
+[0;32mI (816670) uart_to_node: Send: Start Root[0m
+[0;32mI (817190) uart_to_node: Send: Start Root[0m
+[0;32mI (817710) uart_to_node: Send: Start Root[0m
+[0;32mI (818230) uart_to_node: Send: Start Root[0m
+[0;32mI (818750) uart_to_node: Send: Start Root[0m
+[0;32mI (819270) uart_to_node: Send: Start Root[0m
+[0;32mI (819790) uart_to_node: Send: Start Root[0m
+[0;32mI (820310) uart_to_node: Send: Start Root[0m
+[0;32mI (820830) uart_to_node: Send: Start Root[0m
+[0;32mI (821350) uart_to_node: Send: Start Root[0m
+[0;32mI (821870) uart_to_node: Send: Start Root[0m
+[0;32mI (822390) uart_to_node: Send: Start Root[0m
+[0;32mI (822910) uart_to_node: Send: Start Root[0m
+[0;32mI (823430) uart_to_node: Send: Start Root[0m
+[0;32mI (823950) uart_to_node: Send: Start Root[0m
+[0;32mI (824470) uart_to_node: Send: Start Root[0m
+[0;32mI (824990) uart_to_node: Send: Start Root[0m
+[0;32mI (825510) uart_to_node: Send: Start Root[0m
+[0;32mI (826030) uart_to_node: Send: Start Root[0m
+[0;32mI (826550) uart_to_node: Send: Start Root[0m
+[0;32mI (827070) uart_to_node: Send: Start Root[0m
+[0;32mI (827590) uart_to_node: Send: Start Root[0m
+[0;32mI (828110) uart_to_node: Send: Start Root[0m
+[0;32mI (828630) uart_to_node: Send: Start Root[0m
+[0;32mI (829150) uart_to_node: Send: Start Root[0m
+[0;32mI (829670) uart_to_node: Send: Start Root[0m
+[0;32mI (830190) uart_to_node: Send: Start Root[0m
+[0;32mI (830710) uart_to_node: Send: Start Root[0m
+[0;32mI (831230) uart_to_node: Send: Start Root[0m
+[0;32mI (831750) uart_to_node: Send: Start Root[0m
+[0;32mI (832270) uart_to_node: Send: Start Root[0m
+[0;32mI (832790) uart_to_node: Send: Start Root[0m
+[0;32mI (833310) uart_to_node: Send: Start Root[0m
+[0;32mI (833830) uart_to_node: Send: Start Root[0m
+[0;32mI (834350) uart_to_node: Send: Start Root[0m
+[0;32mI (834870) uart_to_node: Send: Start Root[0m
+[0;32mI (835390) uart_to_node: Send: Start Root[0m
+[0;32mI (835910) uart_to_node: Send: Start Root[0m
+[0;32mI (836430) uart_to_node: Send: Start Root[0m
+[0;32mI (836950) uart_to_node: Send: Start Root[0m
+[0;32mI (837470) uart_to_node: Send: Start Root[0m
+[0;32mI (837990) uart_to_node: Send: Start Root[0m
+[0;32mI (838510) uart_to_node: Send: Start Root[0m
+[0;32mI (839030) uart_to_node: Send: Start Root[0m
+[0;32mI (839550) uart_to_node: Send: Start Root[0m
+[0;32mI (840070) uart_to_node: Send: Start Root[0m
+[0;32mI (840590) uart_to_node: Send: Start Root[0m
+[0;32mI (841110) uart_to_node: Send: Start Root[0m
+[0;32mI (841630) uart_to_node: Send: Start Root[0m
+[0;32mI (842150) uart_to_node: Send: Start Root[0m
+[0;32mI (842670) uart_to_node: Send: Start Root[0m
+[0;32mI (843190) uart_to_node: Send: Start Root[0m
+[0;32mI (843710) uart_to_node: Send: Start Root[0m
+[0;32mI (844230) uart_to_node: Send: Start Root[0m
+[0;32mI (844750) uart_to_node: Send: Start Root[0m
+[0;32mI (845270) uart_to_node: Send: Start Root[0m
+[0;32mI (845790) uart_to_node: Send: Start Root[0m
+[0;32mI (846310) uart_to_node: Send: Start Root[0m
+[0;32mI (846830) uart_to_node: Send: Start Root[0m
+[0;32mI (847350) uart_to_node: Send: Start Root[0m
+[0;32mI (847870) uart_to_node: Send: Start Root[0m
+[0;32mI (848390) uart_to_node: Send: Start Root[0m
+[0;32mI (848910) uart_to_node: Send: Start Root[0m
+[0;32mI (849430) uart_to_node: Send: Start Root[0m
+[0;32mI (849950) uart_to_node: Send: Start Root[0m
+[0;32mI (850470) uart_to_node: Send: Start Root[0m
+[0;32mI (850990) uart_to_node: Send: Start Root[0m
+[0;32mI (851510) uart_to_node: Send: Start Root[0m
+[0;32mI (852030) uart_to_node: Send: Start Root[0m
+[0;32mI (852550) uart_to_node: Send: Start Root[0m
+[0;32mI (853070) uart_to_node: Send: Start Root[0m
+[0;32mI (853590) uart_to_node: Send: Start Root[0m
+[0;32mI (854110) uart_to_node: Send: Start Root[0m
+[0;32mI (854630) uart_to_node: Send: Start Root[0m
+[0;32mI (855150) uart_to_node: Send: Start Root[0m
+[0;32mI (855670) uart_to_node: Send: Start Root[0m
+[0;32mI (856190) uart_to_node: Send: Start Root[0m
+[0;32mI (856710) uart_to_node: Send: Start Root[0m
+[0;32mI (857230) uart_to_node: Send: Start Root[0m
+[0;32mI (857750) uart_to_node: Send: Start Root[0m
+[0;32mI (858270) uart_to_node: Send: Start Root[0m
+[0;32mI (858790) uart_to_node: Send: Start Root[0m
+[0;32mI (859310) uart_to_node: Send: Start Root[0m
+[0;32mI (859830) uart_to_node: Send: Start Root[0m
+[0;32mI (860350) uart_to_node: Send: Start Root[0m
+[0;32mI (860870) uart_to_node: Send: Start Root[0m
+[0;32mI (861390) uart_to_node: Send: Start Root[0m
+[0;32mI (861910) uart_to_node: Send: Start Root[0m
+[0;32mI (862430) uart_to_node: Send: Start Root[0m
+[0;32mI (862950) uart_to_node: Send: Start Root[0m
+[0;32mI (863470) uart_to_node: Send: Start Root[0m
+[0;32mI (863990) uart_to_node: Send: Start Root[0m
+[0;32mI (864510) uart_to_node: Send: Start Root[0m
+[0;32mI (865030) uart_to_node: Send: Start Root[0m
+[0;32mI (865550) uart_to_node: Send: Start Root[0m
+[0;32mI (866070) uart_to_node: Send: Start Root[0m
+[0;32mI (866590) uart_to_node: Send: Start Root[0m
+[0;32mI (867110) uart_to_node: Send: Start Root[0m
+[0;32mI (867630) uart_to_node: Send: Start Root[0m
+[0;32mI (868150) uart_to_node: Send: Start Root[0m
+[0;32mI (868670) uart_to_node: Send: Start Root[0m
+[0;32mI (869190) uart_to_node: Send: Start Root[0m
+[0;32mI (869710) uart_to_node: Send: Start Root[0m
+[0;32mI (870230) uart_to_node: Send: Start Root[0m
+[0;32mI (870750) uart_to_node: Send: Start Root[0m
+[0;32mI (871270) uart_to_node: Send: Start Root[0m
+[0;32mI (871790) uart_to_node: Send: Start Root[0m
+[0;32mI (872310) uart_to_node: Send: Start Root[0m
+[0;32mI (872830) uart_to_node: Send: Start Root[0m
+[0;32mI (873350) uart_to_node: Send: Start Root[0m
+[0;32mI (873870) uart_to_node: Send: Start Root[0m
+[0;32mI (874390) uart_to_node: Send: Start Root[0m
+[0;32mI (874910) uart_to_node: Send: Start Root[0m
+[0;32mI (875430) uart_to_node: Send: Start Root[0m
+[0;32mI (875950) uart_to_node: Send: Start Root[0m
+[0;32mI (876470) uart_to_node: Send: Start Root[0m
+[0;32mI (876990) uart_to_node: Send: Start Root[0m
+[0;32mI (877510) uart_to_node: Send: Start Root[0m
+[0;32mI (878030) uart_to_node: Send: Start Root[0m
+[0;32mI (878550) uart_to_node: Send: Start Root[0m
+[0;32mI (879070) uart_to_node: Send: Start Root[0m
+[0;32mI (879590) uart_to_node: Send: Start Root[0m
+[0;32mI (880110) uart_to_node: Send: Start Root[0m
+[0;32mI (880630) uart_to_node: Send: Start Root[0m
+[0;32mI (881150) uart_to_node: Send: Start Root[0m
+[0;32mI (881670) uart_to_node: Send: Start Root[0m
+[0;32mI (882190) uart_to_node: Send: Start Root[0m
+[0;32mI (882710) uart_to_node: Send: Start Root[0m
+[0;32mI (883230) uart_to_node: Send: Start Root[0m
+[0;32mI (883750) uart_to_node: Send: Start Root[0m
+[0;32mI (884270) uart_to_node: Send: Start Root[0m
+[0;32mI (884790) uart_to_node: Send: Start Root[0m
+[0;32mI (885310) uart_to_node: Send: Start Root[0m
+[0;32mI (885830) uart_to_node: Send: Start Root[0m
+[0;32mI (886350) uart_to_node: Send: Start Root[0m
+[0;32mI (886870) uart_to_node: Send: Start Root[0m
+[0;32mI (887390) uart_to_node: Send: Start Root[0m
+[0;32mI (887910) uart_to_node: Send: Start Root[0m
+[0;32mI (888430) uart_to_node: Send: Start Root[0m
+[0;32mI (888950) uart_to_node: Send: Start Root[0m
+[0;32mI (889470) uart_to_node: Send: Start Root[0m
+[0;32mI (889990) uart_to_node: Send: Start Root[0m
+[0;32mI (890510) uart_to_node: Send: Start Root[0m
+[0;32mI (891030) uart_to_node: Send: Start Root[0m
+[0;32mI (891550) uart_to_node: Send: Start Root[0m
+[0;32mI (892070) uart_to_node: Send: Start Root[0m
+[0;32mI (892590) uart_to_node: Send: Start Root[0m
+[0;32mI (893110) uart_to_node: Send: Start Root[0m
+[0;32mI (893630) uart_to_node: Send: Start Root[0m
+[0;32mI (894150) uart_to_node: Send: Start Root[0m
+[0;32mI (894670) uart_to_node: Send: Start Root[0m
+[0;32mI (895190) uart_to_node: Send: Start Root[0m
+[0;32mI (895710) uart_to_node: Send: Start Root[0m
+[0;32mI (896230) uart_to_node: Send: Start Root[0m
+[0;32mI (896750) uart_to_node: Send: Start Root[0m
+[0;32mI (897270) uart_to_node: Send: Start Root[0m
+[0;32mI (897790) uart_to_node: Send: Start Root[0m
+[0;32mI (898310) uart_to_node: Send: Start Root[0m
+[0;32mI (898830) uart_to_node: Send: Start Root[0m
+[0;32mI (899350) uart_to_node: Send: Start Root[0m
+[0;32mI (899870) uart_to_node: Send: Start Root[0m
+[0;32mI (900390) uart_to_node: Send: Start Root[0m
+[0;32mI (900910) uart_to_node: Send: Start Root[0m
+[0;32mI (901430) uart_to_node: Send: Start Root[0m
+[0;32mI (901950) uart_to_node: Send: Start Root[0m
+[0;32mI (902470) uart_to_node: Send: Start Root[0m
+[0;32mI (902990) uart_to_node: Send: Start Root[0m
+[0;32mI (903510) uart_to_node: Send: Start Root[0m
+[0;32mI (904030) uart_to_node: Send: Start Root[0m
+[0;32mI (904550) uart_to_node: Send: Start Root[0m
+[0;32mI (905070) uart_to_node: Send: Start Root[0m
+[0;32mI (905590) uart_to_node: Send: Start Root[0m
+[0;32mI (906110) uart_to_node: Send: Start Root[0m
+[0;32mI (906630) uart_to_node: Send: Start Root[0m
+[0;32mI (907150) uart_to_node: Send: Start Root[0m
+[0;32mI (907670) uart_to_node: Send: Start Root[0m
+[0;32mI (908190) uart_to_node: Send: Start Root[0m
+[0;32mI (908710) uart_to_node: Send: Start Root[0m
+[0;32mI (909230) uart_to_node: Send: Start Root[0m
+[0;32mI (909750) uart_to_node: Send: Start Root[0m
+[0;32mI (910270) uart_to_node: Send: Start Root[0m
+[0;32mI (910790) uart_to_node: Send: Start Root[0m
+[0;32mI (911310) uart_to_node: Send: Start Root[0m
+[0;32mI (911830) uart_to_node: Send: Start Root[0m
+[0;32mI (912350) uart_to_node: Send: Start Root[0m
+[0;32mI (912870) uart_to_node: Send: Start Root[0m
+[0;32mI (913390) uart_to_node: Send: Start Root[0m
+[0;32mI (913910) uart_to_node: Send: Start Root[0m
+[0;32mI (914430) uart_to_node: Send: Start Root[0m
+[0;32mI (914950) uart_to_node: Send: Start Root[0m
+[0;32mI (915470) uart_to_node: Send: Start Root[0m
+[0;32mI (915990) uart_to_node: Send: Start Root[0m
+[0;32mI (916510) uart_to_node: Send: Start Root[0m
+[0;32mI (917030) uart_to_node: Send: Start Root[0m
+[0;32mI (917550) uart_to_node: Send: Start Root[0m
+[0;32mI (918070) uart_to_node: Send: Start Root[0m
+[0;32mI (918590) uart_to_node: Send: Start Root[0m
+[0;32mI (919110) uart_to_node: Send: Start Root[0m
+[0;32mI (919630) uart_to_node: Send: Start Root[0m
+[0;32mI (920150) uart_to_node: Send: Start Root[0m
+[0;32mI (920670) uart_to_node: Send: Start Root[0m
+[0;32mI (921190) uart_to_node: Send: Start Root[0m
+[0;32mI (921710) uart_to_node: Send: Start Root[0m
+[0;32mI (922230) uart_to_node: Send: Start Root[0m
+[0;32mI (922750) uart_to_node: Send: Start Root[0m
+[0;32mI (923270) uart_to_node: Send: Start Root[0m
+[0;32mI (923790) uart_to_node: Send: Start Root[0m
+[0;32mI (924310) uart_to_node: Send: Start Root[0m
+[0;32mI (924830) uart_to_node: Send: Start Root[0m
+[0;32mI (925350) uart_to_node: Send: Start Root[0m
+[0;32mI (925870) uart_to_node: Send: Start Root[0m
+[0;32mI (926390) uart_to_node: Send: Start Root[0m
+[0;32mI (926910) uart_to_node: Send: Start Root[0m
+[0;32mI (927430) uart_to_node: Send: Start Root[0m
+[0;32mI (927950) uart_to_node: Send: Start Root[0m
+[0;32mI (928470) uart_to_node: Send: Start Root[0m
+[0;32mI (928990) uart_to_node: Send: Start Root[0m
+[0;32mI (929510) uart_to_node: Send: Start Root[0m
+[0;32mI (930030) uart_to_node: Send: Start Root[0m
+[0;32mI (930550) uart_to_node: Send: Start Root[0m
+[0;32mI (931070) uart_to_node: Send: Start Root[0m
+[0;32mI (931590) uart_to_node: Send: Start Root[0m
+[0;32mI (932110) uart_to_node: Send: Start Root[0m
+[0;32mI (932630) uart_to_node: Send: Start Root[0m
+[0;32mI (933150) uart_to_node: Send: Start Root[0m
+[0;32mI (933670) uart_to_node: Send: Start Root[0m
+[0;32mI (934190) uart_to_node: Send: Start Root[0m
+[0;32mI (934710) uart_to_node: Send: Start Root[0m
+[0;32mI (935230) uart_to_node: Send: Start Root[0m
+[0;32mI (935750) uart_to_node: Send: Start Root[0m
+[0;32mI (936270) uart_to_node: Send: Start Root[0m
+[0;32mI (936790) uart_to_node: Send: Start Root[0m
+[0;32mI (937310) uart_to_node: Send: Start Root[0m
+[0;32mI (937830) uart_to_node: Send: Start Root[0m
+[0;32mI (938350) uart_to_node: Send: Start Root[0m
+[0;32mI (938870) uart_to_node: Send: Start Root[0m
+[0;32mI (939390) uart_to_node: Send: Start Root[0m
+[0;32mI (939910) uart_to_node: Send: Start Root[0m
+[0;32mI (940430) uart_to_node: Send: Start Root[0m
+[0;32mI (940950) uart_to_node: Send: Start Root[0m
+[0;32mI (941470) uart_to_node: Send: Start Root[0m
+[0;32mI (941990) uart_to_node: Send: Start Root[0m
+[0;32mI (942510) uart_to_node: Send: Start Root[0m
+[0;32mI (943030) uart_to_node: Send: Start Root[0m
+[0;32mI (943550) uart_to_node: Send: Start Root[0m
+[0;32mI (944070) uart_to_node: Send: Start Root[0m
+[0;32mI (944590) uart_to_node: Send: Start Root[0m
+[0;32mI (945110) uart_to_node: Send: Start Root[0m
+[0;32mI (945630) uart_to_node: Send: Start Root[0m
+[0;32mI (946150) uart_to_node: Send: Start Root[0m
+[0;32mI (946670) uart_to_node: Send: Start Root[0m
+[0;32mI (947190) uart_to_node: Send: Start Root[0m
+[0;32mI (947710) uart_to_node: Send: Start Root[0m
+[0;32mI (948230) uart_to_node: Send: Start Root[0m
+[0;32mI (948750) uart_to_node: Send: Start Root[0m
+[0;32mI (949270) uart_to_node: Send: Start Root[0m
+[0;32mI (949790) uart_to_node: Send: Start Root[0m
+[0;32mI (950310) uart_to_node: Send: Start Root[0m
+[0;32mI (950830) uart_to_node: Send: Start Root[0m
+[0;32mI (951350) uart_to_node: Send: Start Root[0m
+[0;32mI (951870) uart_to_node: Send: Start Root[0m
+[0;32mI (952390) uart_to_node: Send: Start Root[0m
+[0;32mI (952910) uart_to_node: Send: Start Root[0m
+[0;32mI (953430) uart_to_node: Send: Start Root[0m
+[0;32mI (953950) uart_to_node: Send: Start Root[0m
+[0;32mI (954470) uart_to_node: Send: Start Root[0m
+[0;32mI (954990) uart_to_node: Send: Start Root[0m
+[0;32mI (955510) uart_to_node: Send: Start Root[0m
+[0;32mI (956030) uart_to_node: Send: Start Root[0m
+[0;32mI (956550) uart_to_node: Send: Start Root[0m
+[0;32mI (957070) uart_to_node: Send: Start Root[0m
+[0;32mI (957590) uart_to_node: Send: Start Root[0m
+[0;32mI (958110) uart_to_node: Send: Start Root[0m
+[0;32mI (958630) uart_to_node: Send: Start Root[0m
+[0;32mI (959150) uart_to_node: Send: Start Root[0m
+[0;32mI (959670) uart_to_node: Send: Start Root[0m
+[0;32mI (960190) uart_to_node: Send: Start Root[0m
+[0;32mI (960710) uart_to_node: Send: Start Root[0m
+[0;32mI (960770) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (960770) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (961030) uart_to_node: RX line: .No node[0m
+[0;32mI (962030) uart_to_node: RX line: No node[0m
+[0;32mI (963030) uart_to_node: RX line: No node[0m
+[0;32mI (964030) uart_to_node: RX line: No node[0m
+[0;32mI (965030) uart_to_node: RX line: No node[0m
+[0;32mI (966030) uart_to_node: RX line: No node[0m
+[0;32mI (967030) uart_to_node: RX line: No node[0m
+[0;32mI (968030) uart_to_node: RX line: No node[0m
+[0;32mI (969030) uart_to_node: RX line: No node[0m
+[0;32mI (970030) uart_to_node: RX line: No node[0m
+[0;32mI (971030) uart_to_node: RX line: No node[0m
+[0;32mI (972030) uart_to_node: RX line: No node[0m
+[0;32mI (973030) uart_to_node: RX line: No node[0m
+[0;32mI (974030) uart_to_node: RX line: No node[0m
+[0;32mI (975030) uart_to_node: RX line: No node[0m
+[0;32mI (976030) uart_to_node: RX line: No node[0m
+[0;32mI (977030) uart_to_node: RX line: No node[0m
+[0;32mI (978030) uart_to_node: RX line: No node[0m
+[0;32mI (979030) uart_to_node: RX line: No node[0m
+[0;32mI (980030) uart_to_node: RX line: No node[0m
+[0;32mI (981030) uart_to_node: RX line: No node[0m
+[0;32mI (982030) uart_to_node: RX line: No node[0m
+[0;32mI (983030) uart_to_node: RX line: No node[0m
+[0;32mI (984030) uart_to_node: RX line: No node[0m
+[0;32mI (985030) uart_to_node: RX line: No node[0m
+[0;32mI (986030) uart_to_node: RX line: No node[0m
+[0;32mI (987030) uart_to_node: RX line: No node[0m
+[0;32mI (988030) uart_to_node: RX line: No node[0m
+[0;32mI (989030) uart_to_node: RX line: No node[0m
+[0;32mI (990030) uart_to_node: RX line: No node[0m
+[0;32mI (991030) uart_to_node: RX line: No node[0m
+[0;32mI (992030) uart_to_node: RX line: No node[0m
+[0;32mI (993030) uart_to_node: RX line: No node[0m
+[0;32mI (994030) uart_to_node: RX line: No node[0m
+[0;32mI (995030) uart_to_node: RX line: No node[0m
+[0;32mI (996030) uart_to_node: RX line: No node[0m
+[0;32mI (997030) uart_to_node: RX line: No node[0m
+[0;32mI (998030) uart_to_node: RX line: No node[0m
+[0;32mI (999030) uart_to_node: RX line: No node[0m
+[0;32mI (1000030) uart_to_node: RX line: No node[0m
+[0;32mI (1001030) uart_to_node: RX line: No node[0m
+[0;32mI (1002030) uart_to_node: RX line: No node[0m
+[0;32mI (1003030) uart_to_node: RX line: No node[0m
+[0;32mI (1004030) uart_to_node: RX line: No node[0m
+[0;32mI (1005030) uart_to_node: RX line: No node[0m
+[0;32mI (1006030) uart_to_node: RX line: No node[0m
+[0;32mI (1007030) uart_to_node: RX line: No node[0m
+[0;32mI (1008030) uart_to_node: RX line: No node[0m
+[0;32mI (1009030) uart_to_node: RX line: No node[0m
+[0;32mI (1010030) uart_to_node: RX line: No node[0m
+[0;32mI (1011030) uart_to_node: RX line: No node[0m
+[0;32mI (1012030) uart_to_node: RX line: No node[0m
+[0;32mI (1013030) uart_to_node: RX line: No node[0m
+[0;32mI (1014030) uart_to_node: RX line: No node[0m
+[0;32mI (1015030) uart_to_node: RX line: No node[0m
+[0;32mI (1016030) uart_to_node: RX line: No node[0m
+[0;32mI (1017030) uart_to_node: RX line: No node[0m
+[0;32mI (1018030) uart_to_node: RX line: No node[0m
+[0;32mI (1019030) uart_to_node: RX line: No node[0m
+[0;32mI (1020030) uart_to_node: RX line: No node[0m
+[0;32mI (1021030) uart_to_node: RX line: No node[0m
+[0;32mI (1022030) uart_to_node: RX line: No node[0m
+[0;32mI (1023030) uart_to_node: RX line: No node[0m
+[0;32mI (1024030) uart_to_node: RX line: No node[0m
+[0;32mI (1025030) uart_to_node: RX line: No node[0m
+[0;32mI (1026020) uart_to_node: RX line: No node[0m
+[0;32mI (1027020) uart_to_node: RX line: No node[0m
+[0;32mI (1028030) uart_to_node: RX line: No node[0m
+[0;32mI (1029030) uart_to_node: RX line: No node[0m
+[0;32mI (1030030) uart_to_node: RX line: No node[0m
+[0;32mI (1031030) uart_to_node: RX line: No node[0m
+[0;32mI (1032030) uart_to_node: RX line: No node[0m
+[0;32mI (1033030) uart_to_node: RX line: No node[0m
+[0;32mI (1034030) uart_to_node: RX line: No node[0m
+[0;32mI (1035030) uart_to_node: RX line: No node[0m
+[0;32mI (1036030) uart_to_node: RX line: No node[0m
+[0;32mI (1037030) uart_to_node: RX line: No node[0m
+[0;32mI (1038030) uart_to_node: RX line: No node[0m
+[0;32mI (1039030) uart_to_node: RX line: No node[0m
+[0;32mI (1040030) uart_to_node: RX line: No node[0m
+[0;32mI (1041030) uart_to_node: RX line: No node[0m
+[0;32mI (1042030) uart_to_node: RX line: No node[0m
+[0;32mI (1043030) uart_to_node: RX line: No node[0m
+[0;32mI (1044030) uart_to_node: RX line: No node[0m
+[0;32mI (1045030) uart_to_node: RX line: No node[0m
+[0;32mI (1046020) uart_to_node: RX line: No node[0m
+[0;32mI (1047020) uart_to_node: RX line: No node[0m
+[0;32mI (1048020) uart_to_node: RX line: No node[0m
+[0;32mI (1049020) uart_to_node: RX line: No node[0m
+[0;32mI (1050020) uart_to_node: RX line: No node[0m
+[0;32mI (1051020) uart_to_node: RX line: No node[0m
+[0;32mI (1052020) uart_to_node: RX line: No node[0m
+[0;32mI (1053020) uart_to_node: RX line: No node[0m
+[0;32mI (1054020) uart_to_node: RX line: No node[0m
+[0;32mI (1055020) uart_to_node: RX line: No node[0m
+[0;32mI (1056020) uart_to_node: RX line: No node[0m
+[0;32mI (1057020) uart_to_node: RX line: No node[0m
+[0;32mI (1058020) uart_to_node: RX line: No node[0m
+[0;32mI (1059020) uart_to_node: RX line: No node[0m
+[0;32mI (1060020) uart_to_node: RX line: No node[0m
+[0;32mI (1061020) uart_to_node: RX line: No node[0m
+[0;32mI (1062020) uart_to_node: RX line: No node[0m
+[0;32mI (1063020) uart_to_node: RX line: No node[0m
+[0;32mI (1064020) uart_to_node: RX line: No node[0m
+[0;32mI (1065020) uart_to_node: RX line: No node[0m
+[0;32mI (1066020) uart_to_node: RX line: No node[0m
+[0;32mI (1067020) uart_to_node: RX line: No node[0m
+[0;32mI (1068020) uart_to_node: RX line: No node[0m
+[0;32mI (1069020) uart_to_node: RX line: No node[0m
+[0;32mI (1070020) uart_to_node: RX line: No node[0m
+[0;32mI (1071020) uart_to_node: RX line: No node[0m
+[0;32mI (1072020) uart_to_node: RX line: No node[0m
+[0;32mI (1073020) uart_to_node: RX line: No node[0m
+[0;32mI (1074020) uart_to_node: RX line: No node[0m
+[0;32mI (1075020) uart_to_node: RX line: No node[0m
+[0;32mI (1076020) uart_to_node: RX line: No node[0m
+[0;32mI (1077020) uart_to_node: RX line: No node[0m
+[0;32mI (1078020) uart_to_node: RX line: No node[0m
+[0;32mI (1079020) uart_to_node: RX line: No node[0m
+[0;32mI (1080020) uart_to_node: RX line: No node[0m
+[0;32mI (1081020) uart_to_node: RX line: No node[0m
+[0;32mI (1082020) uart_to_node: RX line: No node[0m
+[0;32mI (1083020) uart_to_node: RX line: No node[0m
+[0;32mI (1084020) uart_to_node: RX line: No node[0m
+[0;32mI (1085020) uart_to_node: RX line: No node[0m
+[0;32mI (1086020) uart_to_node: RX line: No node[0m
+[0;32mI (1087020) uart_to_node: RX line: No node[0m
+[0;32mI (1088020) uart_to_node: RX line: No node[0m
+[0;32mI (1089020) uart_to_node: RX line: No node[0m
+[0;32mI (1090020) uart_to_node: RX line: No node[0m
+[0;32mI (1091020) uart_to_node: RX line: No node[0m
+[0;32mI (1092020) uart_to_node: RX line: No node[0m
+[0;32mI (1093020) uart_to_node: RX line: No node[0m
+[0;32mI (1094020) uart_to_node: RX line: No node[0m
+[0;32mI (1095020) uart_to_node: RX line: No node[0m
+[0;32mI (1096020) uart_to_node: RX line: No node[0m
+[0;32mI (1097020) uart_to_node: RX line: No node[0m
+[0;32mI (1098020) uart_to_node: RX line: No node[0m
+[0;32mI (1099020) uart_to_node: RX line: No node[0m
+[0;32mI (1100020) uart_to_node: RX line: No node[0m
+[0;32mI (1101020) uart_to_node: RX line: No node[0m
+[0;32mI (1102020) uart_to_node: RX line: No node[0m
+[0;32mI (1103020) uart_to_node: RX line: No node[0m
+[0;32mI (1104020) uart_to_node: RX line: No node[0m
+[0;32mI (1105020) uart_to_node: RX line: No node[0m
+[0;32mI (1106020) uart_to_node: RX line: No node[0m
+[0;32mI (1107020) uart_to_node: RX line: No node[0m
+[0;32mI (1108020) uart_to_node: RX line: No node[0m
+[0;32mI (1109020) uart_to_node: RX line: No node[0m
+[0;32mI (1110020) uart_to_node: RX line: No node[0m
+[0;32mI (1111020) uart_to_node: RX line: No node[0m
+[0;32mI (1112020) uart_to_node: RX line: No node[0m
+[0;32mI (1113020) uart_to_node: RX line: No node[0m
+[0;32mI (1114020) uart_to_node: RX line: No node[0m
+[0;32mI (1115020) uart_to_node: RX line: No node[0m
+[0;32mI (1116020) uart_to_node: RX line: No node[0m
+[0;32mI (1117020) uart_to_node: RX line: No node[0m
+[0;32mI (1118020) uart_to_node: RX line: No node[0m
+[0;32mI (1119020) uart_to_node: RX line: No node[0m
+[0;32mI (1120020) uart_to_node: RX line: No node[0m
+[0;32mI (1121020) uart_to_node: RX line: No node[0m
+[0;32mI (1122020) uart_to_node: RX line: No node[0m
+[0;32mI (1123020) uart_to_node: RX line: No node[0m
+[0;32mI (1124020) uart_to_node: RX line: No node[0m
+[0;32mI (1125020) uart_to_node: RX line: No node[0m
+[0;32mI (1126020) uart_to_node: RX line: No node[0m
+[0;32mI (1127020) uart_to_node: RX line: No node[0m
+[0;32mI (1128020) uart_to_node: RX line: No node[0m
+[0;32mI (1129020) uart_to_node: RX line: No node[0m
+[0;32mI (1130020) uart_to_node: RX line: No node[0m
+[0;32mI (1131020) uart_to_node: RX line: No node[0m
+[0;32mI (1132020) uart_to_node: RX line: No node[0m
+[0;32mI (1133020) uart_to_node: RX line: No node[0m
+[0;32mI (1134020) uart_to_node: RX line: No node[0m
+[0;32mI (1135020) uart_to_node: RX line: No node[0m
+[0;32mI (1136020) uart_to_node: RX line: No node[0m
+[0;32mI (1137020) uart_to_node: RX line: No node[0m
+[0;32mI (1138020) uart_to_node: RX line: No node[0m
+[0;32mI (1139020) uart_to_node: RX line: No node[0m
+[0;32mI (1140020) uart_to_node: RX line: No node[0m
+[0;32mI (1141020) uart_to_node: RX line: No node[0m
+[0;32mI (1142020) uart_to_node: RX line: No node[0m
+[0;32mI (1143020) uart_to_node: RX line: No node[0m
+[0;32mI (1144020) uart_to_node: RX line: No node[0m
+[0;32mI (1145020) uart_to_node: RX line: No node[0m
+[0;32mI (1146020) uart_to_node: RX line: No node[0m
+[0;32mI (1147020) uart_to_node: RX line: No node[0m
+[0;32mI (1148020) uart_to_node: RX line: No node[0m
+[0;32mI (1149020) uart_to_node: RX line: No node[0m
+[0;32mI (1150020) uart_to_node: RX line: No node[0m
+[0;32mI (1151020) uart_to_node: RX line: No node[0m
+[0;32mI (1152020) uart_to_node: RX line: No node[0m
+[0;32mI (1153020) uart_to_node: RX line: No node[0m
+[0;32mI (1154020) uart_to_node: RX line: No node[0m
+[0;32mI (1155020) uart_to_node: RX line: No node[0m
+[0;32mI (1156020) uart_to_node: RX line: No node[0m
+[0;32mI (1157020) uart_to_node: RX line: No node[0m
+[0;32mI (1158020) uart_to_node: RX line: No node[0m
+[0;32mI (1159020) uart_to_node: RX line: No node[0m
+[0;32mI (1160020) uart_to_node: RX line: No node[0m
+[0;32mI (1161020) uart_to_node: RX line: No node[0m
+[0;32mI (1162020) uart_to_node: RX line: No node[0m
+[0;32mI (1163020) uart_to_node: RX line: No node[0m
+[0;32mI (1164020) uart_to_node: RX line: No node[0m
+[0;32mI (1165020) uart_to_node: RX line: No node[0m
+[0;32mI (1166020) uart_to_node: RX line: No node[0m
+[0;32mI (1167020) uart_to_node: RX line: No node[0m
+[0;32mI (1168020) uart_to_node: RX line: No node[0m
+[0;32mI (1169020) uart_to_node: RX line: No node[0m
+[0;32mI (1170020) uart_to_node: RX line: No node[0m
+[0;32mI (1171020) uart_to_node: RX line: No node[0m
+[0;32mI (1172020) uart_to_node: RX line: No node[0m
+[0;32mI (1173020) uart_to_node: RX line: No node[0m
+[0;32mI (1174020) uart_to_node: RX line: No node[0m
+[0;32mI (1175020) uart_to_node: RX line: No node[0m
+[0;32mI (1176020) uart_to_node: RX line: No node[0m
+[0;32mI (1177020) uart_to_node: RX line: No node[0m
+[0;32mI (1178020) uart_to_node: RX line: No node[0m
+[0;32mI (1179020) uart_to_node: RX line: No node[0m
+[0;32mI (1180020) uart_to_node: RX line: No node[0m
+[0;32mI (1181020) uart_to_node: RX line: No node[0m
+[0;32mI (1182020) uart_to_node: RX line: No node[0m
+[0;32mI (1183020) uart_to_node: RX line: No node[0m
+[0;32mI (1184020) uart_to_node: RX line: No node[0m
+[0;32mI (1185020) uart_to_node: RX line: No node[0m
+[0;32mI (1186020) uart_to_node: RX line: No node[0m
+[0;32mI (1187020) uart_to_node: RX line: No node[0m
+[0;32mI (1188020) uart_to_node: RX line: No node[0m
+[0;32mI (1189020) uart_to_node: RX line: No node[0m
+[0;32mI (1190020) uart_to_node: RX line: No node[0m
+[0;32mI (1191020) uart_to_node: RX line: No node[0m
+[0;32mI (1192020) uart_to_node: RX line: No node[0m
+[0;32mI (1193020) uart_to_node: RX line: No node[0m
+[0;32mI (1194020) uart_to_node: RX line: No node[0m
+[0;32mI (1195020) uart_to_node: RX line: No node[0m
+[0;32mI (1196020) uart_to_node: RX line: No node[0m
+[0;32mI (1197020) uart_to_node: RX line: No node[0m
+[0;32mI (1198020) uart_to_node: RX line: No node[0m
+[0;32mI (1199020) uart_to_node: RX line: No node[0m
+[0;32mI (1200020) uart_to_node: RX line: No node[0m
+[0;32mI (1201020) uart_to_node: RX line: No node[0m
+[0;32mI (1202020) uart_to_node: RX line: No node[0m
+[0;32mI (1203020) uart_to_node: RX line: No node[0m
+[0;32mI (1204020) uart_to_node: RX line: No node[0m
+[0;32mI (1205020) uart_to_node: RX line: No node[0m
+[0;32mI (1206020) uart_to_node: RX line: No node[0m
+[0;32mI (1207020) uart_to_node: RX line: No node[0m
+[0;32mI (1208020) uart_to_node: RX line: No node[0m
+[0;32mI (1209020) uart_to_node: RX line: No node[0m
+[0;32mI (1210020) uart_to_node: RX line: No node[0m
+[0;32mI (1211020) uart_to_node: RX line: No node[0m
+[0;32mI (1212020) uart_to_node: RX line: No node[0m
+[0;32mI (1213020) uart_to_node: RX line: No node[0m
+[0;32mI (1214020) uart_to_node: RX line: No node[0m
+[0;32mI (1215020) uart_to_node: RX line: No node[0m
+[0;32mI (1216020) uart_to_node: RX line: No node[0m
+[0;32mI (1217020) uart_to_node: RX line: No node[0m
+[0;32mI (1218020) uart_to_node: RX line: No node[0m
+[0;32mI (1219020) uart_to_node: RX line: No node[0m
+[0;32mI (1220020) uart_to_node: RX line: No node[0m
+[0;32mI (1221020) uart_to_node: RX line: No node[0m
+[0;32mI (1222020) uart_to_node: RX line: No node[0m
+[0;32mI (1223020) uart_to_node: RX line: No node[0m
+[0;32mI (1224020) uart_to_node: RX line: No node[0m
+[0;32mI (1225020) uart_to_node: RX line: No node[0m
+[0;32mI (1226020) uart_to_node: RX line: No node[0m
+[0;32mI (1227020) uart_to_node: RX line: No node[0m
+[0;32mI (1228020) uart_to_node: RX line: No node[0m
+[0;32mI (1229020) uart_to_node: RX line: No node[0m
+[0;32mI (1230020) uart_to_node: RX line: No node[0m
+[0;32mI (1231020) uart_to_node: RX line: No node[0m
+[0;32mI (1232020) uart_to_node: RX line: No node[0m
+[0;32mI (1233020) uart_to_node: RX line: No node[0m
+[0;32mI (1234020) uart_to_node: RX line: No node[0m
+[0;32mI (1235020) uart_to_node: RX line: No node[0m
+[0;32mI (1236020) uart_to_node: RX line: No node[0m
+[0;32mI (1237020) uart_to_node: RX line: No node[0m
+[0;32mI (1238020) uart_to_node: RX line: No node[0m
+[0;32mI (1239020) uart_to_node: RX line: No node[0m
+���������������������������������������������������������������� RX line: No node[0m
+[0;32mI (1241020) uart_to_node: RX line: No node[0m
+[0;32mI (1242020) uart_to_node: RX line: No node[0m
+[0;32mI (1243020) uart_to_node: RX line: No node[0m
+[0;32mI (1244020) uart_to_node: RX line: No node[0m
+[0;32mI (1245020) uart_to_node: RX line: No node[0m
+[0;32mI (1246020) uart_to_node: RX line: No node[0m
+[0;32mI (1247020) uart_to_node: RX line: No node[0m
+[0;32mI (1248020) uart_to_node: RX line: No node[0m
+[0;32mI (1249020) uart_to_node: RX line: No node[0m
+[0;32mI (1250020) uart_to_node: RX line: No node[0m
+[0;32mI (1251020) uart_to_node: RX line: No node[0m
+[0;32mI (1252020) uart_to_node: RX line: No node[0m
+[0;32mI (1253020) uart_to_node: RX line: No node[0m
+[0;32mI (1254020) uart_to_node: RX line: No node[0m
+[0;32mI (1255020) uart_to_node: RX line: No node[0m
+[0;32mI (1256020) uart_to_node: RX line: No node[0m
+[0;32mI (1257020) uart_to_node: RX line: No node[0m
+[0;32mI (1258020) uart_to_node: RX line: No node[0m
+[0;32mI (1259020) uart_to_node: RX line: No node[0m
+[0;32mI (1260020) uart_to_node: RX line: No node[0m
+[0;32mI (1261020) uart_to_node: RX line: No node[0m
+[0;32mI (1262020) uart_to_node: RX line: No node[0m
+[0;32mI (1263020) uart_to_node: RX line: No node[0m
+[0;32mI (1264020) uart_to_node: RX line: No node[0m
+[0;32mI (1265020) uart_to_node: RX line: No node[0m
+[0;32mI (1266020) uart_to_node: RX line: No node[0m
+[0;32mI (1267020) uart_to_node: RX line: No node[0m
+[0;32mI (1268020) uart_to_node: RX line: No node[0m
+[0;32mI (1269020) uart_to_node: RX line: No node[0m
+[0;32mI (1270020) uart_to_node: RX line: No node[0m
+[0;32mI (1271020) uart_to_node: RX line: No node[0m
+[0;32mI (1272020) uart_to_node: RX line: No node[0m
+[0;32mI (1273020) uart_to_node: RX line: No node[0m
+[0;32mI (1274020) uart_to_node: RX line: No node[0m
+[0;32mI (1275020) uart_to_node: RX line: No node[0m
+[0;32mI (1276020) uart_to_node: RX line: No node[0m
+[0;32mI (1277020) uart_to_node: RX line: No node[0m
+[0;32mI (1278020) uart_to_node: RX line: No node[0m
+[0;32mI (1279020) uart_to_node: RX line: No node[0m
+[0;32mI (1280020) uart_to_node: RX line: No node[0m
+[0;32mI (1281020) uart_to_node: RX line: No node[0m
+[0;32mI (1282020) uart_to_node: RX line: No node[0m
+[0;32mI (1283020) uart_to_node: RX line: No node[0m
+[0;32mI (1284020) uart_to_node: RX line: No node[0m
+[0;32mI (1285020) uart_to_node: RX line: No node[0m
+[0;32mI (1286020) uart_to_node: RX line: No node[0m
+[0;32mI (1287020) uart_to_node: RX line: No node[0m
+[0;32mI (1288020) uart_to_node: RX line: No node[0m
+[0;32mI (1289020) uart_to_node: RX line: No node[0m
+[0;32mI (1290020) uart_to_node: RX line: No node[0m
+[0;32mI (1291020) uart_to_node: RX line: No node[0m
+[0;32mI (1292020) uart_to_node: RX line: No node[0m
+[0;32mI (1293020) uart_to_node: RX line: No node[0m
+[0;32mI (1294020) uart_to_node: RX line: No node[0m
+[0;32mI (1295020) uart_to_node: RX line: No node[0m
+[0;32mI (1296020) uart_to_node: RX line: No node[0m
+[0;32mI (1297020) uart_to_node: RX line: No node[0m
+[0;32mI (1298020) uart_to_node: RX line: No node[0m
+[0;32mI (1299020) uart_to_node: RX line: No node[0m
+[0;32mI (1300020) uart_to_node: RX line: No node[0m
+[0;32mI (1301020) uart_to_node: RX line: No node[0m
+[0;32mI (1302020) uart_to_node: RX line: No node[0m
+[0;32mI (1303020) uart_to_node: RX line: No node[0m
+[0;32mI (1304020) uart_to_node: RX line: No node[0m
+[0;32mI (1305020) uart_to_node: RX line: No node[0m
+[0;32mI (1306020) uart_to_node: RX line: No node[0m
+[0;32mI (1307020) uart_to_node: RX line: No node[0m
+[0;32mI (1308020) uart_to_node: RX line: No node[0m
+[0;32mI (1309020) uart_to_node: RX line: No node[0m
+[0;32mI (1310020) uart_to_node: RX line: No node[0m
+[0;32mI (1311020) uart_to_node: RX line: No node[0m
+[0;32mI (1312020) uart_to_node: RX line: No node[0m
+[0;32mI (1313020) uart_to_node: RX line: No node[0m
+[0;32mI (1314020) uart_to_node: RX line: No node[0m
+[0;32mI (1315020) uart_to_node: RX line: No node[0m
+[0;32mI (1316020) uart_to_node: RX line: No node[0m
+[0;32mI (1317020) uart_to_node: RX line: No node[0m
+[0;32mI (1318020) uart_to_node: RX line: No node[0m
+[0;32mI (1319020) uart_to_node: RX line: No node[0m
+[0;32mI (1320020) uart_to_node: RX line: No node[0m
+[0;32mI (1321020) uart_to_node: RX line: No node[0m
+[0;32mI (1322020) uart_to_node: RX line: No node[0m
+[0;32mI (1323020) uart_to_node: RX line: No node[0m
+[0;32mI (1324020) uart_to_node: RX line: No node[0m
+[0;32mI (1325020) uart_to_node: RX line: No node[0m
+[0;32mI (1326020) uart_to_node: RX line: No node[0m
+[0;32mI (1327020) uart_to_node: RX line: No node[0m
+[0;32mI (1328020) uart_to_node: RX line: No node[0m
+[0;32mI (1329020) uart_to_node: RX line: No node[0m
+[0;32mI (1330020) uart_to_node: RX line: No node[0m
+[0;32mI (1331020) uart_to_node: RX line: No node[0m
+[0;32mI (1332020) uart_to_node: RX line: No node[0m
+[0;32mI (1333020) uart_to_node: RX line: No node[0m
+[0;32mI (1334020) uart_to_node: RX line: No node[0m
+[0;32mI (1335020) uart_to_node: RX line: No node[0m
+[0;32mI (1336020) uart_to_node: RX line: No node[0m
+[0;32mI (1337020) uart_to_node: RX line: No node[0m
+[0;32mI (1338020) uart_to_node: RX line: No node[0m
+[0;32mI (1339020) uart_to_node: RX line: No node[0m
+[0;32mI (1340020) uart_to_node: RX line: No node[0m
+[0;32mI (1341020) uart_to_node: RX line: No node[0m
+[0;32mI (1342020) uart_to_node: RX line: No node[0m
+[0;32mI (1343020) uart_to_node: RX line: No node[0m
+[0;32mI (1344020) uart_to_node: RX line: No node[0m
+[0;32mI (1345020) uart_to_node: RX line: No node[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (302) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (309) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (666) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (708) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (708) boot: Disabling RNG early entropy source...[0m
+[0;32mI (720) cpu_start: Multicore app[0m
+[0;32mI (730) cpu_start: Pro cpu start user code[0m
+[0;32mI (730) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (730) cpu_start: Application information:[0m
+[0;32mI (733) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (738) cpu_start: App version:      1[0m
+[0;32mI (742) cpu_start: Compile time:     May 11 2026 08:18:58[0m
+[0;32mI (748) cpu_start: ELF file SHA256:  64e96c224...[0m
+[0;32mI (754) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (759) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (764) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (769) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (774) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (781) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (787) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (793) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (799) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (806) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (813) spi_flash: detected chip: generic[0m
+[0;32mI (817) spi_flash: flash io: dio[0m
+[0;33mW (821) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (831) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (840) main_task: Started on CPU0[0m
+[0;32mI (850) main_task: Calling app_main()[0m
+[0;32mI (870) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (870) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (870) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (880) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (880) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (890) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (900) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (900) disp_spi: Adding SPI device[0m
+[0;32mI (910) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1110) ILI9341: Initialization.[0m
+[0;32mI (1310) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1310) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1310) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1580) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1580) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1610) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1610) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[0;32mI (1610) gpio: GPIO[5]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1620) gpio: GPIO[18]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1630) gpio: GPIO[19]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-09 07:38:01
+[0;33mW (1650) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1680) wifi:wifi driver task: 3ffdd878, prio:23, stack:6656, core=0[0m
+[0;32mI (1680) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1680) wifi:wifi certification version: v7.0[0m
+[0;32mI (1680) wifi:config NVS flash: enabled[0m
+[0;32mI (1690) wifi:config nano formating: disabled[0m
+[0;32mI (1690) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1700) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1700) wifi:Init management short buffer num: 32[0m
+[0;32mI (1700) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1710) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1710) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1720) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1720) wifi_init: rx ba win: 6[0m
+[0;32mI (1720) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1730) wifi_init: udp mbox: 6[0m
+[0;32mI (1730) wifi_init: tcp mbox: 6[0m
+[0;32mI (1740) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1740) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1740) wifi_init: tcp mss: 1440[0m
+[0;32mI (1750) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1750) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1760) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1760) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1770) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1860) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1880) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1880) wifi:enable tsf[0m
+[0;32mI (1890) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4310) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4310) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4320) wifi:flush txq[0m
+[0;32mI (4320) wifi:stop sw txq[0m
+[0;32mI (4320) wifi:lmac stop hw txq[0m
+[0;32mI (4320) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4330) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4330) wifi:enable tsf[0m
+[0;32mI (4330) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6750) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6750) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6760) wifi:flush txq[0m
+[0;32mI (6760) wifi:stop sw txq[0m
+[0;32mI (6760) wifi:lmac stop hw txq[0m
+[0;32mI (6770) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6770) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6770) wifi:enable tsf[0m
+[0;32mI (6780) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9200) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9200) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9200) wifi:flush txq[0m
+[0;32mI (9200) wifi:stop sw txq[0m
+[0;32mI (9200) wifi:lmac stop hw txq[0m
+[0;32mI (9210) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9220) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9220) wifi:enable tsf[0m
+[0;32mI (9220) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11640) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11640) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11650) wifi:flush txq[0m
+[0;32mI (11650) wifi:stop sw txq[0m
+[0;32mI (11650) wifi:lmac stop hw txq[0m
+[0;32mI (11650) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11660) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11660) wifi:enable tsf[0m
+[0;32mI (11660) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m

@@ -1,0 +1,218 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (307) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (314) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (671) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (713) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (714) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (714) boot: Disabling RNG early entropy source...[0m
+[0;32mI (730) cpu_start: Multicore app[0m
+[0;32mI (740) cpu_start: Pro cpu start user code[0m
+[0;32mI (740) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (740) cpu_start: Application information:[0m
+[0;32mI (743) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (748) cpu_start: App version:      1[0m
+[0;32mI (753) cpu_start: Compile time:     May  6 2026 07:16:22[0m
+[0;32mI (759) cpu_start: ELF file SHA256:  76bee9b1d...[0m
+[0;32mI (764) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (769) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (774) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (779) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (784) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (791) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (797) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (803) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (809) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (816) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (824) spi_flash: detected chip: generic[0m
+[0;32mI (827) spi_flash: flash io: dio[0m
+[0;33mW (831) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (841) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (850) main_task: Started on CPU0[0m
+[0;32mI (860) main_task: Calling app_main()[0m
+[0;32mI (880) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (880) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (880) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (880) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (890) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (900) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (900) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (910) disp_spi: Adding SPI device[0m
+[0;32mI (910) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1120) ILI9341: Initialization.[0m
+[0;32mI (1320) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1320) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1320) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1590) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1590) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1600) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1650) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-16 20:26:28
+[0;32mI (1710) wifi:wifi driver task: 3ffe35dc, prio:23, stack:6656, core=0[0m
+[0;32mI (1710) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1720) wifi:wifi certification version: v7.0[0m
+[0;32mI (1720) wifi:config NVS flash: enabled[0m
+[0;32mI (1720) wifi:config nano formating: disabled[0m
+[0;32mI (1720) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1730) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1730) wifi:Init management short buffer num: 32[0m
+[0;32mI (1730) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1740) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1740) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1750) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1750) wifi_init: rx ba win: 6[0m
+[0;32mI (1760) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1760) wifi_init: udp mbox: 6[0m
+[0;32mI (1760) wifi_init: tcp mbox: 6[0m
+[0;32mI (1770) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1770) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1770) wifi_init: tcp mss: 1440[0m
+[0;32mI (1780) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1780) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1790) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1800) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1800) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1890) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1890) wifi:enable tsf[0m
+[0;32mI (1900) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2280) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (2780) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1[0m
+[0;32mI (2780) wifi:state: init -> auth (b0)[0m
+[0;32mI (2790) wifi:state: auth -> assoc (0)[0m
+[0;32mI (2800) wifi:state: assoc -> run (10)[0m
+[0;32mI (2850) wifi:connected with MrKoi, aid = 2, channel 6, BW20, bssid = 06:36:82:46:2b:7a[0m
+[0;32mI (2850) wifi:security: WPA2-PSK, phy: bgn, rssi: -7[0m
+[0;32mI (2860) wifi:pm start, type: 1[0m
+
+[0;32mI (2860) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (2870) WiFiManager: WiFi STA link established[0m
+[0;32mI (2880) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (3870) esp_netif_handlers: sta ip: 172.20.10.5, mask: 255.255.255.240, gw: 172.20.10.1[0m
+[0;32mI (3870) WiFiManager: Got IP: 172.20.10.5[0m
+[0;32mI (3870) WiFiManager: Connected startup WiFi: SSID=MrKoi[0m
+[0;32mI (3880) uart: queue free spaces: 24[0m
+[0;32mI (3920) uart_to_node: Send: Start Root[0m
+[0;32mI (4440) uart_to_node: Send: Start Root[0m
+[0;32mI (4500) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (4500) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (4870) uart_to_node: RX line: .No node[0m
+[0;32mI (4900) WebSocket Handler: Starting WebSocket with URL: ws://192.168.1.26:8080/ws[0m
+[0;33mW (4900) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (4910) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4920) websocket_client: Started[0m
+[0;32mI (4930) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (4960) wifi:<ba-add>idx:0 (ifx:0, 06:36:82:46:2b:7a), tid:0, ssn:2, winSize:64[0m
+[0;32mI (5870) uart_to_node: RX line: No node[0m
+[0;32mI (6870) uart_to_node: RX line: No node[0m
+[0;32mI (7870) uart_to_node: RX line: No node[0m
+[0;32mI (8530) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x52","0x8B","0xB9"],"p":[[1,0,18.231,54.702,1012.394],[3,13,20.302,51.067]]}[0m
+[0;32mI (9370) uart_to_node: RX line: No node[0m
+[0;32mI (10370) uart_to_node: RX line: No node[0m
+[0;32mI (11370) uart_to_node: RX line: No node[0m
+[0;32mI (12370) uart_to_node: RX line: No node[0m
+[0;32mI (13370) uart_to_node: RX line: No node[0m
+[0;32mI (14030) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x42","0xF3","0x7A"],"p":[[1,0,21.878,40.021,1020.483],[3,13,22.757,67.295]]}[0m
+[0;32mI (14870) uart_to_node: RX line: No node[0m
+[0;31mE (14950) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (14950) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (14950) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (14950) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (14970) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (14980) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (14980) WebSocket Handler: Disconnected from server[0m
+[0;32mI (15870) uart_to_node: RX line: No node[0m
+[0;32mI (16870) uart_to_node: RX line: No node[0m
+[0;32mI (17870) uart_to_node: RX line: No node[0m
+[0;32mI (19030) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x47","0x1E","0x5D"],"p":[[1,0,24.526,59.562,1015.691],[3,13,31.401,52.583]]}[0m
+[0;32mI (19870) uart_to_node: RX line: No node[0m
+[0;32mI (20870) uart_to_node: RX line: No node[0m
+[0;32mI (21870) uart_to_node: RX line: No node[0m
+[0;32mI (22870) uart_to_node: RX line: No node[0m
+[0;32mI (23870) uart_to_node: RX line: No node[0m
+[0;32mI (24530) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xAC","0x35","0xD6"],"p":[[1,0,31.691,44.526,1009.018],[3,13,22.876,78.380]]}[0m
+[0;32mI (25370) uart_to_node: RX line: No node[0m
+[0;32mI (26370) uart_to_node: RX line: No node[0m
+[0;32mI (27370) uart_to_node: RX line: No node[0m
+[0;32mI (28370) uart_to_node: RX line: No node[0m
+[0;32mI (29530) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xF6","0xA0","0xFC"],"p":[[1,0,30.834,79.459,1027.448],[3,13,31.583,66.544]]}[0m
+[0;32mI (30370) uart_to_node: RX line: No node[0m
+[0;32mI (31370) uart_to_node: RX line: No node[0m
+[0;32mI (32370) uart_to_node: RX line: No node[0m
+[0;32mI (33370) uart_to_node: RX line: No node[0m
+[0;32mI (34520) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xC3","0x51","0x88"],"p":[[1,0,28.582,35.935,1023.699],[3,13,28.815,51.202]]}[0m
+[0;31mE (35010) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (35010) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (35010) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (35020) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (35030) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (35040) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (35040) WebSocket Handler: Disconnected from server[0m
+[0;32mI (35370) uart_to_node: RX line: No node[0m
+[0;32mI (36370) uart_to_node: RX line: No node[0m
+[0;32mI (37370) uart_to_node: RX line: No node[0m
+[0;32mI (38370) uart_to_node: RX line: No node[0m
+[0;32mI (39370) uart_to_node: RX line: No node[0m
+[0;32mI (40030) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x62","0x3C","0xFE"],"p":[[1,0,20.653,44.316,1013.518],[3,13,29.913,40.216]]}[0m
+[0;32mI (40870) uart_to_node: RX line: No node[0m
+[0;32mI (41870) uart_to_node: RX line: No node[0m
+[0;32mI (42870) uart_to_node: RX line: No node[0m
+[0;32mI (43870) uart_to_node: RX line: No node[0m
+[0;32mI (45020) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xF4","0x98","0xB3"],"p":[[1,0,24.607,71.924,999.881],[3,13,22.446,55.882]]}[0m
+[0;32mI (45870) uart_to_node: RX line: No node[0m
+[0;32mI (46870) uart_to_node: RX line: No node[0m
+[0;32mI (47870) uart_to_node: RX line: No node[0m
+[0;32mI (48870) uart_to_node: RX line: No node[0m
+[0;32mI (49870) uart_to_node: RX line: No node[0m
+[0;32mI (50520) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x75","0xD0","0xCD"],"p":[[1,0,26.854,78.794,1001.213],[3,13,28.917,71.832]]}[0m
+[0;32mI (51370) uart_to_node: RX line: No node[0m
+[0;32mI (52370) uart_to_node: RX line: No node[0m
+[0;32mI (53370) uart_to_node: RX line: No node[0m
+[0;32mI (54370) uart_to_node: RX line: No node[0m
+[0;31mE (55070) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (55070) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (55070) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (55070) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (55090) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (55100) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (55100) WebSocket Handler: Disconnected from server[0m
+[0;32mI (55520) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x05","0x19","0x49"],"p":[[1,0,22.749,46.931,1012.314],[3,13,27.795,72.498]]}[0m
+[0;32mI (56370) uart_to_node: RX line: No node[0m
+[0;32mI (57370) uart_to_node: RX line: No node[0m

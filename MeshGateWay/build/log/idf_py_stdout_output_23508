@@ -1,0 +1,451 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81bb4h (531380) map[0m
+[0;32mI (302) esp_image: segment 1: paddr=00091bdc vaddr=3ffb0000 size=044d0h ( 17616) load[0m
+[0;32mI (309) esp_image: segment 2: paddr=000960b4 vaddr=40080000 size=09f64h ( 40804) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f2b58h (994136) map[0m
+[0;32mI (666) esp_image: segment 4: paddr=00192b80 vaddr=40089f64 size=113c4h ( 70596) load[0m
+[0;32mI (707) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (707) boot: Disabling RNG early entropy source...[0m
+[0;32mI (719) cpu_start: Multicore app[0m
+[0;32mI (728) cpu_start: Pro cpu start user code[0m
+[0;32mI (728) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (728) cpu_start: Application information:[0m
+[0;32mI (731) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (737) cpu_start: App version:      1[0m
+[0;32mI (741) cpu_start: Compile time:     Apr 20 2026 11:23:31[0m
+[0;32mI (747) cpu_start: ELF file SHA256:  a60e79297...[0m
+[0;32mI (752) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (758) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (763) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (767) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (772) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (780) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (785) heap_init: At 3FFCAF98 len 00015068 (84 KiB): DRAM[0m
+[0;32mI (792) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (798) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (804) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (812) spi_flash: detected chip: generic[0m
+[0;32mI (815) spi_flash: flash io: dio[0m
+[0;33mW (819) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (830) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (839) main_task: Started on CPU0[0m
+[0;32mI (849) main_task: Calling app_main()[0m
+[0;32mI (869) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (869) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (869) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (869) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (879) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (889) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (889) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (899) disp_spi: Adding SPI device[0m
+[0;32mI (899) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1109) ILI9341: Initialization.[0m
+[0;32mI (1309) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1309) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1309) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1609) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1619) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1619) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1669) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-07 20:00:48
+[0;32mI (1719) wifi:wifi driver task: 3ffe2b54, prio:23, stack:6656, core=0[0m
+[0;32mI (1719) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1729) wifi:wifi certification version: v7.0[0m
+[0;32mI (1729) wifi:config NVS flash: enabled[0m
+[0;32mI (1729) wifi:config nano formating: disabled[0m
+[0;32mI (1729) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1739) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1739) wifi:Init management short buffer num: 32[0m
+[0;32mI (1739) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1749) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1749) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1759) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1759) wifi_init: rx ba win: 6[0m
+[0;32mI (1769) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1769) wifi_init: udp mbox: 6[0m
+[0;32mI (1769) wifi_init: tcp mbox: 6[0m
+[0;32mI (1779) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1779) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1779) wifi_init: tcp mss: 1440[0m
+[0;32mI (1789) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1789) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1799) WiFiManager: WiFi disconnected, starting AP mode[0m
+[0;32mI (1809) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (1809) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (1819) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1909) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1909) WiFiManager: Attempting to connect to default WiFi: Unknown[0m
+[0;32mI (1929) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (1929) wifi:enable tsf[0m
+[0;32mI (1939) wifi:Total power save buffer number: 16[0m
+[0;32mI (1939) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1939) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1949) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (1949) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (1949) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (1969) WiFiManager: Web server started on port 80[0m
+[0;32mI (1979) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1989) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11989) WiFiManager: Failed to connect to default SSID:Unknown[0m
+[0;32mI (11989) wifi:flush txq[0m
+[0;32mI (11989) wifi:stop sw txq[0m
+[0;32mI (11989) wifi:lmac stop hw txq[0m
+[0;32mI (12489) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (12489) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (12489) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (12499) wifi:enable tsf[0m
+[0;32mI (12499) wifi:Total power save buffer number: 16[0m
+[0;32mI (12499) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12509) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12509) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (12519) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;33mW (12519) WiFiManager: Web server already running[0m
+[0;32mI (12519) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (12529) uart: queue free spaces: 24[0m
+[0;32mI (12579) uart_to_node: Send: Start Root[0m
+[0;32mI (13099) uart_to_node: Send: Start Root[0m
+[0;32mI (13159) uart_to_node: RX 28 bytes[0m
+[0;32mI (13159) uart_to_node: 53 77 69 74 63 68 69 6e 67 20 74 6f 20 72 6f 6f [0m
+[0;32mI (13159) uart_to_node: 74 20 6d 6f 64 65 2e 2e 2e 0d 0a 00 [0m
+[0;32mI (13169) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (13349) uart_to_node: RX 8 bytes[0m
+[0;32mI (13349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (14349) uart_to_node: RX 8 bytes[0m
+[0;32mI (14349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (15349) uart_to_node: RX 8 bytes[0m
+[0;32mI (15349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (15369) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (15369) WiFiManager: Connect to the AP failed[0m
+[0;32mI (16349) uart_to_node: RX 8 bytes[0m
+[0;32mI (16349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (17439) uart_to_node: RX 100 bytes[0m
+[0;32mI (17439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (17439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (17449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (17459) uart_to_node: 37 3a 31 34 3a 30 38 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (17459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (17469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 31 38 [0m
+[0;32mI (17479) uart_to_node: 2e 37 39 31 [0m
+[0;32mI (17489) uart_to_node: RX 41 bytes[0m
+[0;32mI (17489) uart_to_node: 2c 35 32 2e 39 39 37 2c 31 30 30 33 2e 30 31 37 [0m
+[0;32mI (17489) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 33 33 2e 39 34 38 2c 38 [0m
+[0;32mI (17499) uart_to_node: 32 2e 36 34 36 5d 5d 7d 0a [0m
+[0;32mI (18219) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (18219) WiFiManager: Connect to the AP failed[0m
+[0;32mI (18349) uart_to_node: RX 8 bytes[0m
+[0;32mI (18349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (19349) uart_to_node: RX 8 bytes[0m
+[0;32mI (19349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (20349) uart_to_node: RX 8 bytes[0m
+[0;32mI (20349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (21069) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (21079) WiFiManager: Connect to the AP failed[0m
+[0;32mI (21349) uart_to_node: RX 8 bytes[0m
+[0;32mI (21349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (22349) uart_to_node: RX 8 bytes[0m
+[0;32mI (22349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (22939) uart_to_node: RX 100 bytes[0m
+[0;32mI (22939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (22939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (22949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (22949) uart_to_node: 37 3a 31 34 3a 31 33 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (22959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (22969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 34 [0m
+[0;32mI (22979) uart_to_node: 2e 33 30 36 [0m
+[0;32mI (22989) uart_to_node: RX 40 bytes[0m
+[0;32mI (22989) uart_to_node: 2c 37 35 2e 33 37 34 2c 39 39 37 2e 33 36 35 5d [0m
+[0;32mI (22989) uart_to_node: 2c 5b 33 2c 31 33 2c 32 37 2e 36 38 31 2c 34 37 [0m
+[0;32mI (22999) uart_to_node: 2e 33 39 30 5d 5d 7d 0a [0m
+[0;32mI (23849) uart_to_node: RX 8 bytes[0m
+[0;32mI (23849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (23929) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (23929) WiFiManager: Connect to the AP failed[0m
+[0;32mI (24849) uart_to_node: RX 8 bytes[0m
+[0;32mI (24849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (25849) uart_to_node: RX 8 bytes[0m
+[0;32mI (25849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (26779) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (26779) WiFiManager: Connect to the AP failed[0m
+[0;32mI (26849) uart_to_node: RX 8 bytes[0m
+[0;32mI (26849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (27939) uart_to_node: RX 100 bytes[0m
+[0;32mI (27939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (27939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (27949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (27949) uart_to_node: 37 3a 31 34 3a 31 39 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (27959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (27969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 36 [0m
+[0;32mI (27979) uart_to_node: 2e 35 33 34 [0m
+[0;32mI (27989) uart_to_node: RX 41 bytes[0m
+[0;32mI (27989) uart_to_node: 2c 37 38 2e 31 37 34 2c 31 30 32 39 2e 35 35 32 [0m
+[0;32mI (27999) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 32 37 2e 37 37 31 2c 35 [0m
+[0;32mI (27999) uart_to_node: 32 2e 33 36 33 5d 5d 7d 0a [0m
+[0;32mI (28849) uart_to_node: RX 8 bytes[0m
+[0;32mI (28849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (29629) WiFiManager: Connect to the AP failed[0m
+[0;32mI (29849) uart_to_node: RX 8 bytes[0m
+[0;32mI (29849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (30849) uart_to_node: RX 8 bytes[0m
+[0;32mI (30849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (31849) uart_to_node: RX 8 bytes[0m
+[0;32mI (31849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (32849) uart_to_node: RX 8 bytes[0m
+[0;32mI (32849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (33439) uart_to_node: RX 100 bytes[0m
+[0;32mI (33439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (33439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (33449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (33449) uart_to_node: 37 3a 31 34 3a 32 34 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (33459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (33469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 31 39 [0m
+[0;32mI (33479) uart_to_node: 2e 33 33 36 [0m
+[0;32mI (33489) uart_to_node: RX 41 bytes[0m
+[0;32mI (33489) uart_to_node: 2c 37 34 2e 31 38 39 2c 31 30 32 39 2e 34 35 32 [0m
+[0;32mI (33489) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 33 30 2e 38 34 34 2c 36 [0m
+[0;32mI (33499) uart_to_node: 35 2e 34 32 33 5d 5d 7d 0a [0m
+[0;32mI (34349) uart_to_node: RX 8 bytes[0m
+[0;32mI (34349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (35349) uart_to_node: RX 8 bytes[0m
+[0;32mI (35349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (36349) uart_to_node: RX 8 bytes[0m
+[0;32mI (36349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (37349) uart_to_node: RX 8 bytes[0m
+[0;32mI (37349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (38439) uart_to_node: RX 100 bytes[0m
+[0;32mI (38439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (38439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (38449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (38449) uart_to_node: 37 3a 31 34 3a 32 39 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (38459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (38469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 36 [0m
+[0;32mI (38479) uart_to_node: 2e 35 35 33 [0m
+[0;32mI (38489) uart_to_node: RX 40 bytes[0m
+[0;32mI (38489) uart_to_node: 2c 35 31 2e 38 30 32 2c 39 39 35 2e 35 30 39 5d [0m
+[0;32mI (38489) uart_to_node: 2c 5b 33 2c 31 33 2c 32 35 2e 37 36 34 2c 38 33 [0m
+[0;32mI (38499) uart_to_node: 2e 35 32 38 5d 5d 7d 0a [0m
+[0;32mI (39349) uart_to_node: RX 8 bytes[0m
+[0;32mI (39349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (40349) uart_to_node: RX 8 bytes[0m
+[0;32mI (40349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (41349) uart_to_node: RX 8 bytes[0m
+[0;32mI (41349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (42349) uart_to_node: RX 8 bytes[0m
+[0;32mI (42349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (43439) uart_to_node: RX 100 bytes[0m
+[0;32mI (43439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (43439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (43449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (43449) uart_to_node: 37 3a 31 34 3a 33 34 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (43459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (43469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 30 [0m
+[0;32mI (43479) uart_to_node: 2e 36 35 37 [0m
+[0;32mI (43489) uart_to_node: RX 41 bytes[0m
+[0;32mI (43489) uart_to_node: 2c 36 35 2e 32 31 33 2c 31 30 31 34 2e 36 36 32 [0m
+[0;32mI (43489) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 32 32 2e 34 35 37 2c 36 [0m
+[0;32mI (43499) uart_to_node: 35 2e 37 36 35 5d 5d 7d 0a [0m
+[0;32mI (44349) uart_to_node: RX 8 bytes[0m
+[0;32mI (44349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (45349) uart_to_node: RX 8 bytes[0m
+[0;32mI (45349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (46349) uart_to_node: RX 8 bytes[0m
+[0;32mI (46349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (47349) uart_to_node: RX 8 bytes[0m
+[0;32mI (47349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (48349) uart_to_node: RX 8 bytes[0m
+[0;32mI (48349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (48939) uart_to_node: RX 100 bytes[0m
+[0;32mI (48939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (48939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (48949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (48949) uart_to_node: 37 3a 31 34 3a 33 39 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (48959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (48969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 33 [0m
+[0;32mI (48979) uart_to_node: 2e 30 37 38 [0m
+[0;32mI (48989) uart_to_node: RX 41 bytes[0m
+[0;32mI (48989) uart_to_node: 2c 36 35 2e 37 36 38 2c 31 30 30 36 2e 30 33 30 [0m
+[0;32mI (48989) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 33 33 2e 38 33 36 2c 35 [0m
+[0;32mI (48999) uart_to_node: 38 2e 39 33 33 5d 5d 7d 0a [0m
+[0;32mI (49849) uart_to_node: RX 8 bytes[0m
+[0;32mI (49849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (50849) uart_to_node: RX 8 bytes[0m
+[0;32mI (50849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (51849) uart_to_node: RX 8 bytes[0m
+[0;32mI (51849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (52849) uart_to_node: RX 8 bytes[0m
+[0;32mI (52849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (53939) uart_to_node: RX 100 bytes[0m
+[0;32mI (53939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (53939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (53949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (53949) uart_to_node: 37 3a 31 34 3a 34 35 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (53959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (53969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 31 39 [0m
+[0;32mI (53979) uart_to_node: 2e 32 31 38 [0m
+[0;32mI (53989) uart_to_node: RX 40 bytes[0m
+[0;32mI (53989) uart_to_node: 2c 37 39 2e 37 34 39 2c 39 39 38 2e 33 35 33 5d [0m
+[0;32mI (53989) uart_to_node: 2c 5b 33 2c 31 33 2c 32 39 2e 39 34 32 2c 38 31 [0m
+[0;32mI (53999) uart_to_node: 2e 31 31 36 5d 5d 7d 0a [0m
+[0;32mI (54849) uart_to_node: RX 8 bytes[0m
+[0;32mI (54849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (55849) uart_to_node: RX 8 bytes[0m
+[0;32mI (55849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (56849) uart_to_node: RX 8 bytes[0m
+[0;32mI (56849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (57849) uart_to_node: RX 8 bytes[0m
+[0;32mI (57849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (58849) uart_to_node: RX 8 bytes[0m
+[0;32mI (58849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (59439) uart_to_node: RX 100 bytes[0m
+[0;32mI (59439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (59439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (59449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (59449) uart_to_node: 37 3a 31 34 3a 35 30 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (59459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (59469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 37 [0m
+[0;32mI (59479) uart_to_node: 2e 35 36 33 [0m
+[0;32mI (59489) uart_to_node: RX 41 bytes[0m
+[0;32mI (59489) uart_to_node: 2c 36 31 2e 31 39 33 2c 31 30 30 32 2e 37 34 31 [0m
+[0;32mI (59489) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 32 33 2e 30 35 35 2c 34 [0m
+[0;32mI (59499) uart_to_node: 34 2e 31 34 39 5d 5d 7d 0a [0m
+[0;32mI (60349) uart_to_node: RX 8 bytes[0m
+[0;32mI (60349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (61349) uart_to_node: RX 8 bytes[0m
+[0;32mI (61349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (62349) uart_to_node: RX 8 bytes[0m
+[0;32mI (62349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (63349) uart_to_node: RX 8 bytes[0m
+[0;32mI (63349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (64439) uart_to_node: RX 100 bytes[0m
+[0;32mI (64439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (64439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (64449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (64449) uart_to_node: 37 3a 31 34 3a 35 35 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (64459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (64469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 33 30 [0m
+[0;32mI (64479) uart_to_node: 2e 31 38 35 [0m
+[0;32mI (64489) uart_to_node: RX 40 bytes[0m
+[0;32mI (64489) uart_to_node: 2c 35 38 2e 35 38 37 2c 39 39 38 2e 31 30 35 5d [0m
+[0;32mI (64489) uart_to_node: 2c 5b 33 2c 31 33 2c 33 30 2e 32 35 30 2c 37 38 [0m
+[0;32mI (64499) uart_to_node: 2e 39 33 33 5d 5d 7d 0a [0m
+[0;32mI (65349) uart_to_node: RX 8 bytes[0m
+[0;32mI (65349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (66349) uart_to_node: RX 8 bytes[0m
+[0;32mI (66349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (67349) uart_to_node: RX 8 bytes[0m
+[0;32mI (67349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (68349) uart_to_node: RX 8 bytes[0m
+[0;32mI (68349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (69439) uart_to_node: RX 100 bytes[0m
+[0;32mI (69439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (69439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (69449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (69449) uart_to_node: 37 3a 31 35 3a 30 30 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (69459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (69469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 37 [0m
+[0;32mI (69479) uart_to_node: 2e 33 31 34 [0m
+[0;32mI (69489) uart_to_node: RX 40 bytes[0m
+[0;32mI (69489) uart_to_node: 2c 36 30 2e 30 36 38 2c 39 39 38 2e 35 37 33 5d [0m
+[0;32mI (69489) uart_to_node: 2c 5b 33 2c 31 33 2c 33 30 2e 38 39 33 2c 37 35 [0m
+[0;32mI (69499) uart_to_node: 2e 32 33 39 5d 5d 7d 0a [0m
+[0;32mI (70349) uart_to_node: RX 8 bytes[0m
+[0;32mI (70349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (71349) uart_to_node: RX 8 bytes[0m
+[0;32mI (71349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (72349) uart_to_node: RX 8 bytes[0m
+[0;32mI (72349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (73349) uart_to_node: RX 8 bytes[0m
+[0;32mI (73349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (74349) uart_to_node: RX 8 bytes[0m
+[0;32mI (74349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (74939) uart_to_node: RX 100 bytes[0m
+[0;32mI (74939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (74939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (74949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (74949) uart_to_node: 37 3a 31 35 3a 30 35 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (74959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (74969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 33 [0m
+[0;32mI (74979) uart_to_node: 2e 32 37 33 [0m
+[0;32mI (74989) uart_to_node: RX 40 bytes[0m
+[0;32mI (74989) uart_to_node: 2c 35 34 2e 36 36 32 2c 39 39 36 2e 31 39 37 5d [0m
+[0;32mI (74989) uart_to_node: 2c 5b 33 2c 31 33 2c 32 38 2e 36 34 36 2c 34 38 [0m
+[0;32mI (74999) uart_to_node: 2e 32 38 31 5d 5d 7d 0a [0m
+[0;32mI (75849) uart_to_node: RX 8 bytes[0m
+[0;32mI (75849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (76849) uart_to_node: RX 8 bytes[0m
+[0;32mI (76849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (77849) uart_to_node: RX 8 bytes[0m
+[0;32mI (77849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (78849) uart_to_node: RX 8 bytes[0m
+[0;32mI (78849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (79939) uart_to_node: RX 100 bytes[0m
+[0;32mI (79939) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (79939) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (79949) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (79949) uart_to_node: 37 3a 31 35 3a 31 31 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (79959) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (79969) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 33 [0m
+[0;32mI (79979) uart_to_node: 2e 37 30 30 [0m
+[0;32mI (79989) uart_to_node: RX 41 bytes[0m
+[0;32mI (79989) uart_to_node: 2c 37 37 2e 39 35 39 2c 31 30 31 35 2e 32 31 35 [0m
+[0;32mI (79989) uart_to_node: 5d 2c 5b 33 2c 31 33 2c 33 31 2e 31 31 32 2c 36 [0m
+[0;32mI (79999) uart_to_node: 38 2e 31 32 33 5d 5d 7d 0a [0m
+[0;32mI (80849) uart_to_node: RX 8 bytes[0m
+[0;32mI (80849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (81849) uart_to_node: RX 8 bytes[0m
+[0;32mI (81849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (82849) uart_to_node: RX 8 bytes[0m
+[0;32mI (82849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (83849) uart_to_node: RX 8 bytes[0m
+[0;32mI (83849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (84849) uart_to_node: RX 8 bytes[0m
+[0;32mI (84849) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m
+[0;32mI (85439) uart_to_node: RX 100 bytes[0m
+[0;32mI (85439) uart_to_node: 7b 22 76 22 3a 31 2c 22 6e 22 3a 32 2c 22 69 22 [0m
+[0;32mI (85439) uart_to_node: 3a 22 31 39 32 2e 31 36 38 2e 35 2e 33 22 2c 22 [0m
+[0;32mI (85449) uart_to_node: 74 22 3a 22 32 30 30 31 2d 30 38 2d 30 39 54 30 [0m
+[0;32mI (85449) uart_to_node: 37 3a 31 35 3a 31 36 22 2c 22 76 65 72 22 3a 22 [0m
+[0;32mI (85459) uart_to_node: 31 2e 30 2e 30 22 2c 22 65 72 72 22 3a 22 30 78 [0m
+[0;32mI (85469) uart_to_node: 30 30 22 2c 22 70 22 3a 5b 5b 31 2c 30 2c 32 31 [0m
+[0;32mI (85479) uart_to_node: 2e 38 31 35 [0m
+[0;32mI (85489) uart_to_node: RX 40 bytes[0m
+[0;32mI (85489) uart_to_node: 2c 33 36 2e 37 36 35 2c 39 39 33 2e 36 34 34 5d [0m
+[0;32mI (85489) uart_to_node: 2c 5b 33 2c 31 33 2c 33 32 2e 38 35 36 2c 37 32 [0m
+[0;32mI (85499) uart_to_node: 2e 38 33 31 5d 5d 7d 0a [0m
+[0;32mI (86349) uart_to_node: RX 8 bytes[0m
+[0;32mI (86349) uart_to_node: 4e 6f 20 6e 6f 64 65 0a [0m

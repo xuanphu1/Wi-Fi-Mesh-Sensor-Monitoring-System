@@ -1,0 +1,2 @@
+source D:/Engineering Project/Node_MSMS/build/bootloader/gdbinit/symbols
+source D:/Engineering Project/Node_MSMS/build/bootloader/gdbinit/connect

@@ -1,0 +1,107 @@
+[1/6] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/spiffsgen.py 0x20000 "D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi" "D:/Engineering Project/MeshGateWay/build/spiffs.bin" --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[2/6] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 partition --type app "D:/Engineering Project/MeshGateWay/build/partition_table/partition-table.bin" "D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin""
+MeshGateWay.bin binary size 0x19df20 bytes. Smallest app partition is 0x1c0000 bytes. 0x220e0 bytes (8%) free.
+[3/6] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\bootloader\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 "D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin""
+Bootloader binary size 0x68b0 bytes. 0x750 bytes (7%) free.
+[4/6] No install step for 'bootloader'
+[5/6] Completed 'bootloader'
+[5/6] C:\Windows\system32\cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.2.5\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.2.5 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D "WORKING_DIRECTORY=D:/Engineering Project/MeshGateWay/build" -P C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 MeshGateWay.bin 0x8000 partition_table/partition-table.bin 0xe000 ota_data_initial.bin 0x390000 spiffs.bin
+esptool.py v4.8.1
+Serial port COM4
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 78:1c:3c:f4:d0:d8
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x001adfff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00390000 to 0x003affff...
+SHA digest in image updated
+Compressed 26800 bytes to 16420...
+Writing at 0x00001000... (50 %)
+Writing at 0x00007894... (100 %)
+Wrote 26800 bytes (16420 compressed) at 0x00001000 in 0.8 seconds (effective 276.0 kbit/s)...
+Hash of data verified.
+Compressed 1695520 bytes to 887292...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001daa9... (3 %)
+Writing at 0x0002b559... (5 %)
+Writing at 0x00068f94... (7 %)
+Writing at 0x00075776... (9 %)
+Writing at 0x00080fd4... (10 %)
+Writing at 0x000892c4... (12 %)
+Writing at 0x000924e4... (14 %)
+Writing at 0x0009afc3... (16 %)
+Writing at 0x000a0898... (18 %)
+Writing at 0x000a63c2... (20 %)
+Writing at 0x000abca9... (21 %)
+Writing at 0x000b1d4e... (23 %)
+Writing at 0x000b8060... (25 %)
+Writing at 0x000bdf5a... (27 %)
+Writing at 0x000c3c0a... (29 %)
+Writing at 0x000c99e7... (30 %)
+Writing at 0x000cf8e5... (32 %)
+Writing at 0x000d58c5... (34 %)
+Writing at 0x000db5f1... (36 %)
+Writing at 0x000e14d5... (38 %)
+Writing at 0x000e6e61... (40 %)
+Writing at 0x000ecbc0... (41 %)
+Writing at 0x000f36cb... (43 %)
+Writing at 0x000f9a02... (45 %)
+Writing at 0x000ff90a... (47 %)
+Writing at 0x00105416... (49 %)
+Writing at 0x0010b1ca... (50 %)
+Writing at 0x00111222... (52 %)
+Writing at 0x00116ea2... (54 %)
+Writing at 0x0011d74e... (56 %)
+Writing at 0x00123682... (58 %)
+Writing at 0x001290f8... (60 %)
+Writing at 0x0012f93f... (61 %)
+Writing at 0x001356eb... (63 %)
+Writing at 0x0013b2c9... (65 %)
+Writing at 0x001409d8... (67 %)
+Writing at 0x00145bf3... (69 %)
+Writing at 0x0014b248... (70 %)
+Writing at 0x00150583... (72 %)
+Writing at 0x00155c63... (74 %)
+Writing at 0x0015b218... (76 %)
+Writing at 0x00160925... (78 %)
+Writing at 0x001665ca... (80 %)
+Writing at 0x0016bf63... (81 %)
+Writing at 0x00171cea... (83 %)
+Writing at 0x00177661... (85 %)
+Writing at 0x0017cd59... (87 %)
+Writing at 0x001839e2... (89 %)
+Writing at 0x0018eeaa... (90 %)
+Writing at 0x00195d6d... (92 %)
+Writing at 0x0019bb33... (94 %)
+Writing at 0x001a19d1... (96 %)
+Writing at 0x001a7a23... (98 %)
+Writing at 0x001acdf4... (100 %)
+Wrote 1695520 bytes (887292 compressed) at 0x00010000 in 23.8 seconds (effective 569.4 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 128...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (128 compressed) at 0x00008000 in 0.1 seconds (effective 465.1 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000e000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000e000 in 0.1 seconds (effective 1063.4 kbit/s)...
+Hash of data verified.
+Compressed 131072 bytes to 4858...
+Writing at 0x00390000... (100 %)
+Wrote 131072 bytes (4858 compressed) at 0x00390000 in 0.8 seconds (effective 1311.5 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

@@ -1,0 +1,946 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82e64h (536164) map[0m
+[0;32mI (304) esp_image: segment 1: paddr=00092e8c vaddr=3ffb0000 size=04570h ( 17776) load[0m
+[0;32mI (310) esp_image: segment 2: paddr=00097404 vaddr=40080000 size=08c14h ( 35860) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fba24h (1030692) map[0m
+[0;32mI (678) esp_image: segment 4: paddr=0019ba4c vaddr=40088c14 size=12780h ( 75648) load[0m
+[0;32mI (721) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (733) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      1[0m
+[0;32mI (756) cpu_start: Compile time:     May 25 2026 21:55:49[0m
+[0;32mI (762) cpu_start: ELF file SHA256:  072b7fe01...[0m
+[0;32mI (767) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (772) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (777) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (782) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (787) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (794) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (800) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (806) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (812) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (819) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (827) spi_flash: detected chip: generic[0m
+[0;32mI (830) spi_flash: flash io: dio[0m
+[0;33mW (834) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (844) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (853) main_task: Started on CPU0[0m
+[0;32mI (863) main_task: Calling app_main()[0m
+[0;32mI (883) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (883) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (883) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (883) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (893) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (903) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (913) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (913) disp_spi: Adding SPI device[0m
+[0;32mI (913) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1123) ILI9341: Initialization.[0m
+[0;32mI (1323) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1323) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1323) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1623) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1633) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1643) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1683) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-06 19:21:55
+[0;32mI (1743) wifi:wifi driver task: 3ffe3960, prio:23, stack:6656, core=0[0m
+[0;32mI (1743) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1743) wifi:wifi certification version: v7.0[0m
+[0;32mI (1753) wifi:config NVS flash: enabled[0m
+[0;32mI (1753) wifi:config nano formating: disabled[0m
+[0;32mI (1753) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1763) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1763) wifi:Init management short buffer num: 32[0m
+[0;32mI (1763) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1773) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1773) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1783) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1783) wifi_init: rx ba win: 6[0m
+[0;32mI (1793) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1793) wifi_init: udp mbox: 6[0m
+[0;32mI (1793) wifi_init: tcp mbox: 6[0m
+[0;32mI (1803) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1803) wifi_init: tcp mss: 1440[0m
+[0;32mI (1813) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1813) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1823) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1833) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1833) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1923) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1923) wifi:enable tsf[0m
+[0;32mI (1933) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2313) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4353) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4353) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4353) wifi:flush txq[0m
+[0;32mI (4353) wifi:stop sw txq[0m
+[0;32mI (4363) wifi:lmac stop hw txq[0m
+[0;32mI (4363) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4373) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4373) wifi:enable tsf[0m
+[0;32mI (4373) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6793) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6793) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6803) wifi:flush txq[0m
+[0;32mI (6803) wifi:stop sw txq[0m
+[0;32mI (6803) wifi:lmac stop hw txq[0m
+[0;32mI (6803) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6813) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6813) wifi:enable tsf[0m
+[0;32mI (6823) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9243) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9243) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9243) wifi:flush txq[0m
+[0;32mI (9243) wifi:stop sw txq[0m
+[0;32mI (9243) wifi:lmac stop hw txq[0m
+[0;32mI (9253) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9253) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9263) wifi:enable tsf[0m
+[0;32mI (9263) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11683) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11683) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11693) wifi:flush txq[0m
+[0;32mI (11693) wifi:stop sw txq[0m
+[0;32mI (11693) wifi:lmac stop hw txq[0m
+[0;32mI (11693) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11703) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11703) wifi:enable tsf[0m
+[0;32mI (11703) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14123) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14123) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14133) wifi:flush txq[0m
+[0;32mI (14133) wifi:stop sw txq[0m
+[0;32mI (14133) wifi:lmac stop hw txq[0m
+[0;32mI (14143) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14143) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14143) wifi:enable tsf[0m
+[0;32mI (14153) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16573) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16573) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16583) wifi:flush txq[0m
+[0;32mI (16583) wifi:stop sw txq[0m
+[0;32mI (16583) wifi:lmac stop hw txq[0m
+[0;32mI (16583) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16593) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16593) wifi:enable tsf[0m
+[0;32mI (16593) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19013) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19023) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19023) wifi:flush txq[0m
+[0;32mI (19023) wifi:stop sw txq[0m
+[0;32mI (19023) wifi:lmac stop hw txq[0m
+[0;32mI (19033) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19033) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19033) wifi:enable tsf[0m
+[0;32mI (19043) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21463) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21463) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21473) wifi:flush txq[0m
+[0;32mI (21473) wifi:stop sw txq[0m
+[0;32mI (21473) wifi:lmac stop hw txq[0m
+[0;32mI (21473) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21483) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21483) wifi:enable tsf[0m
+[0;32mI (21483) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23903) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23903) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23913) wifi:flush txq[0m
+[0;32mI (23913) wifi:stop sw txq[0m
+[0;32mI (23913) wifi:lmac stop hw txq[0m
+[0;32mI (23923) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23923) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23923) wifi:enable tsf[0m
+[0;32mI (23933) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26353) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26353) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26353) wifi:flush txq[0m
+[0;32mI (26353) wifi:stop sw txq[0m
+[0;32mI (26363) wifi:lmac stop hw txq[0m
+[0;32mI (26363) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26373) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26373) wifi:enable tsf[0m
+[0;32mI (26373) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28793) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28793) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28803) wifi:flush txq[0m
+[0;32mI (28803) wifi:stop sw txq[0m
+[0;32mI (28803) wifi:lmac stop hw txq[0m
+[0;32mI (28803) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28813) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (28813) wifi:enable tsf[0m
+[0;32mI (28813) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31233) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31243) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31243) wifi:flush txq[0m
+[0;32mI (31243) wifi:stop sw txq[0m
+[0;32mI (31243) wifi:lmac stop hw txq[0m
+[0;32mI (31253) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31253) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (31253) wifi:enable tsf[0m
+[0;32mI (31263) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33683) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33683) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33683) wifi:flush txq[0m
+[0;32mI (33693) wifi:stop sw txq[0m
+[0;32mI (33693) wifi:lmac stop hw txq[0m
+[0;32mI (33693) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33703) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (33703) wifi:enable tsf[0m
+[0;32mI (33703) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36123) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36123) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36133) wifi:flush txq[0m
+[0;32mI (36133) wifi:stop sw txq[0m
+[0;32mI (36133) wifi:lmac stop hw txq[0m
+[0;32mI (36143) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36143) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36143) wifi:enable tsf[0m
+[0;32mI (36153) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38573) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38573) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (38573) wifi:flush txq[0m
+[0;32mI (38573) wifi:stop sw txq[0m
+[0;32mI (38583) wifi:lmac stop hw txq[0m
+[0;32mI (39083) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (39083) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (39083) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (39093) wifi:enable tsf[0m
+[0;32mI (39093) wifi:Total power save buffer number: 16[0m
+[0;32mI (39093) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39103) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39103) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (39113) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (39113) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (39133) WiFiManager: Web server started on port 80[0m
+[0;32mI (39133) uart: queue free spaces: 24[0m
+[0;32mI (39173) uart_to_node: Send: Start Root[0m
+[0;32mI (39693) uart_to_node: Send: Start Root[0m
+[0;32mI (39693) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (39693) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (39903) uart_to_node: RX line: .No node[0m
+[0;32mI (40903) uart_to_node: RX line: No node[0m
+[0;32mI (41333) uart_to_node: RX line: {"v":1,"packetloss":99.22,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:13","ver":"1.0.0","err":["0x75","0xE9","0x2A"],"p":[[1,0,20.132,79.974,1015.643],[3,13,28.083,75.257]]}[0m
+[0;32mI (41353) uart_to_node: RX line: {"v":1,"packetloss":99.22,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:13","ver":"1.0.0","err":["0x5F","0xC5","0x6A"],"p":[[1,0,24.516,76.179,998.297],[3,13,26.743,58.893]]}[0m
+[0;32mI (41373) uart_to_node: RX line: {"v":1,"packetloss":98.46,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:14","ver":"1.0.0","err":["0xBD","0xF5","0x3C"],"p":[[1,0,28.745,81.59,1029.092],[3,13,25.794,40.054]]}[0m
+[0;32mI (41393) uart_to_node: RX line: {"v":1,"packetloss":98.46,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:14","ver":"1.0.0","err":["0x75","0x65","0x89"],"p":[[1,0,24.123,60.588,1025.484],[3,13,20.431,62.183]]}[0m
+[0;32mI (41403) uart_to_node: RX line: {"v":1,"packetloss":97.71,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:14","ver":"1.0.0","err":["0x68","0xD7","0x5C"],"p":[[1,0,30.563,61.318,998.257],[3,13,22.995,56.211]]}[0m
+[0;32mI (41423) uart_to_node: RX line: {"v":1,"packetloss":97.71,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:14","ver":"1.0.0","err":["0xFB","0x1E","0x89"],"p":[[1,0,22.16,71.074,995.705],[3,13,32.863,42.061]]}[0m
+[0;32mI (41573) uart_to_node: RX line: {"v":1,"packetloss":97.04,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:15","ver":"1.0.0","err":["0xF2","0x27","0x1E"],"p":[[1,0,27.42,52.977,1006.942],[3,13,21.26,84.419]]}[0m
+[0;32mI (41583) uart_to_node: RX line: {"v":1,"packetloss":97.04,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:15","ver":"1.0.0","err":["0x9A","0x94","0x5E"],"p":[[1,0,28.92,67.913,998.873],[3,13,25.781,75.401]]}[0m
+[0;32mI (41863) uart_to_node: RX line: {"v":1,"packetloss":96.32,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:15","ver":"1.0.0","err":["0x98","0xAF","0xBA"],"p":[[1,0,22.352,45.586,1018.107],[3,13,22.24,64.608]]}[0m
+[0;32mI (41883) uart_to_node: RX line: {"v":1,"packetloss":96.32,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0xF2","0xFB","0xFC"],"p":[[1,0,19.313,43.131,1029.108],[3,13,29.71,72.43]]}[0m
+[0;33mW (41963) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (42163) uart_to_node: RX line: {"v":1,"packetloss":95.62,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0x8D","0xAF","0xA8"],"p":[[1,0,26.174,39.99,1006.918],[3,13,27.314,44.478]]}[0m
+[0;32mI (42183) uart_to_node: RX line: {"v":1,"packetloss":95.62,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0x13","0xE0","0xD0"],"p":[[1,0,25.191,51.482,994.38],[3,13,21.915,78.965]]}[0m
+[0;32mI (42463) uart_to_node: RX line: {"v":1,"packetloss":94.93,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0xDF","0xA5","0xB1"],"p":[[1,0,24.022,67.953,995.893],[3,13,23.653,53.821]]}[0m
+[0;32mI (42483) uart_to_node: RX line: {"v":1,"packetloss":94.93,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0xB9","0x60","0x7A"],"p":[[1,0,21.593,80.57,1002.009],[3,13,33.238,79.995]]}[0m
+[0;32mI (42763) uart_to_node: RX line: {"v":1,"packetloss":94.24,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0x4C","0x57","0x46"],"p":[[1,0,25.225,64.678,1022.835],[3,13,22.457,81.989]]}[0m
+[0;32mI (42783) uart_to_node: RX line: {"v":1,"packetloss":94.24,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:16","ver":"1.0.0","err":["0x79","0x02","0x3C"],"p":[[1,0,24.449,66.428,1007.678],[3,13,27.744,52.489]]}[0m
+[0;32mI (43073) uart_to_node: RX line: {"v":1,"packetloss":93.57,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x8D","0xFD","0xF0"],"p":[[1,0,22.487,60.253,1010.874],[3,13,23.874,81.854]]}[0m
+[0;32mI (43083) uart_to_node: RX line: {"v":1,"packetloss":93.57,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x55","0x88","0xDD"],"p":[[1,0,27.153,46.426,1010.182],[3,13,33.173,47.588]]}[0m
+[0;32mI (43363) uart_to_node: RX line: {"v":1,"packetloss":92.91,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x11","0x5F","0xDB"],"p":[[1,0,24.373,63.568,1007.054],[3,13,26.063,76.202]]}[0m
+[0;32mI (43393) uart_to_node: RX line: {"v":1,"packetloss":92.91,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x43","0xD5","0xE6"],"p":[[1,0,30.292,84.005,1011.11],[3,13,23.499,60.122]]}[0m
+[0;32mI (43673) uart_to_node: RX line: {"v":1,"packetloss":92.25,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x87","0xB4","0xB9"],"p":[[1,0,22.767,37.615,1021.155],[3,13,26.714,60.369]]}[0m
+[0;32mI (43693) uart_to_node: RX line: {"v":1,"packetloss":92.25,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:17","ver":"1.0.0","err":["0x36","0x98","0x3B"],"p":[[1,0,27.567,42.651,1008.558],[3,13,22.009,56.152]]}[0m
+[0;32mI (43973) uart_to_node: RX line: {"v":1,"packetloss":91.61,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0xE8","0x7D","0xB1"],"p":[[1,0,18.484,43.046,991.332],[3,13,29.56,59.086]]}[0m
+[0;32mI (43993) uart_to_node: RX line: {"v":1,"packetloss":91.61,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0xB4","0x72","0x6C"],"p":[[1,0,26.126,82.215,1013.006],[3,13,24.427,81.913]]}[0m
+[0;32mI (44273) uart_to_node: RX line: {"v":1,"packetloss":90.97,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0x37","0xEC","0x03"],"p":[[1,0,28.708,63.533,1024.516],[3,13,29.802,72.804]]}[0m
+[0;32mI (44293) uart_to_node: RX line: {"v":1,"packetloss":90.97,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0x0E","0x3D","0x5E"],"p":[[1,0,22.72,78.994,1003.861],[3,13,20.231,58.942]]}[0m
+[0;32mI (44573) uart_to_node: RX line: {"v":1,"packetloss":90.34,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0x7B","0x43","0x16"],"p":[[1,0,20.928,71.409,998.017],[3,13,30.462,64.316]]}[0m
+[0;32mI (44593) uart_to_node: RX line: {"v":1,"packetloss":90.34,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:18","ver":"1.0.0","err":["0xE9","0xB8","0x36"],"p":[[1,0,19.215,72.584,1020.019],[3,13,29.658,63.213]]}[0m
+[0;32mI (44873) uart_to_node: RX line: {"v":1,"packetloss":89.73,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0xC0","0x90","0xDF"],"p":[[1,0,23.396,68.343,1021.507],[3,13,29.097,65.288]]}[0m
+[0;32mI (44893) uart_to_node: RX line: {"v":1,"packetloss":89.73,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0xF5","0xC5","0xD8"],"p":[[1,0,18.29,36.195,1002.889],[3,13,33.009,70.329]]}[0m
+[0;32mI (45173) uart_to_node: RX line: {"v":1,"packetloss":89.12,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0x3D","0x6C","0xEF"],"p":[[1,0,21.675,58.127,1009.71],[3,13,26.357,49.703]]}[0m
+[0;32mI (45193) uart_to_node: RX line: {"v":1,"packetloss":89.12,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0xDC","0xC5","0xA3"],"p":[[1,0,27.895,68.563,999.217],[3,13,33.055,50.261]]}[0m
+[0;32mI (45483) uart_to_node: RX line: {"v":1,"packetloss":88.51,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0x8A","0x06","0x19"],"p":[[1,0,19.367,59.867,1010.85],[3,13,22.824,43.501]]}[0m
+[0;32mI (45543) uart_to_node: RX line: {"v":1,"packetloss":88.51,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0x0A","0xDF","0x9E"],"p":[[1,0,24.596,41.996,994.072],[3,13,23.724,60.347]]}[0m
+[0;32mI (45783) uart_to_node: RX line: {"v":1,"packetloss":87.92,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0x6F","0x5A","0x05"],"p":[[1,0,24.231,46.471,1007.57],[3,13,25.318,74.365]]}[0m
+[0;32mI (45803) uart_to_node: RX line: {"v":1,"packetloss":87.92,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:19","ver":"1.0.0","err":["0x34","0xA1","0x3C"],"p":[[1,0,26.653,74.604,1021.331],[3,13,26.306,54.604]]}[0m
+[0;32mI (46083) uart_to_node: RX line: {"v":1,"packetloss":87.33,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xEB","0x2D","0x0E"],"p":[[1,0,30.394,76.044,1003.657],[3,13,20.262,72.435]]}[0m
+[0;32mI (46103) uart_to_node: RX line: {"v":1,"packetloss":87.33,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xE5","0xC3","0x6D"],"p":[[1,0,29.69,59.357,1025.007],[3,13,25.402,40.252]]}[0m
+[0;32mI (46383) uart_to_node: RX line: {"v":1,"packetloss":86.75,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xCF","0xC9","0xB5"],"p":[[1,0,23.868,52.942,992.864],[3,13,28.416,75.99]]}[0m
+[0;32mI (46403) uart_to_node: RX line: {"v":1,"packetloss":86.75,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xDC","0x47","0x78"],"p":[[1,0,21.08,73.364,996.889],[3,13,32.584,61.841]]}[0m
+[0;32mI (46683) uart_to_node: RX line: {"v":1,"packetloss":86.18,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xBC","0xDF","0x44"],"p":[[1,0,29.8,61.008,1003.261],[3,13,20.68,65.022]]}[0m
+[0;32mI (46703) uart_to_node: RX line: {"v":1,"packetloss":86.18,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:20","ver":"1.0.0","err":["0xCA","0xE4","0x73"],"p":[[1,0,18.626,37.9,1005.218],[3,13,31.994,50.819]]}[0m
+[0;32mI (46983) uart_to_node: RX line: {"v":1,"packetloss":85.62,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0xB9","0xC3","0x22"],"p":[[1,0,21.615,62.138,998.937],[3,13,33.853,65.059]]}[0m
+[0;32mI (47003) uart_to_node: RX line: {"v":1,"packetloss":85.62,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0xA2","0x7B","0xFC"],"p":[[1,0,27.457,82.89,1020.155],[3,13,31.929,58.87]]}[0m
+[0;32mI (47283) uart_to_node: RX line: {"v":1,"packetloss":85.06,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0x84","0xA5","0xFB"],"p":[[1,0,29.329,45.506,1024.043],[3,13,27.39,76.49]]}[0m
+[0;32mI (47303) uart_to_node: RX line: {"v":1,"packetloss":85.06,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0x68","0x9F","0x4A"],"p":[[1,0,19.347,42.816,1026.824],[3,13,30.064,68.951]]}[0m
+[0;32mI (47583) uart_to_node: RX line: {"v":1,"packetloss":84.52,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0x01","0xBF","0xF4"],"p":[[1,0,19.61,64.903,1017.103],[3,13,29.084,74.491]]}[0m
+[0;32mI (47603) uart_to_node: RX line: {"v":1,"packetloss":84.52,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:21","ver":"1.0.0","err":["0xA4","0xCF","0x62"],"p":[[1,0,30.33,67.458,1012.238],[3,13,30.658,53.393]]}[0m
+[0;32mI (47883) uart_to_node: RX line: {"v":1,"packetloss":83.97,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0xC3","0xA1","0xE1"],"p":[[1,0,19.963,84.245,1002.321],[3,13,33.29,75.945]]}[0m
+[0;32mI (47923) uart_to_node: RX line: {"v":1,"packetloss":83.97,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0xAC","0x81","0x89"],"p":[[1,0,26.905,84.775,1006.85],[3,13,28.535,46.197]]}[0m
+[0;32mI (48203) uart_to_node: RX line: {"v":1,"packetloss":83.44,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0x03","0x29","0x95"],"p":[[1,0,20.54,67.098,1029.148],[3,13,25.721,80.338]]}[0m
+[0;32mI (48213) uart_to_node: RX line: {"v":1,"packetloss":83.44,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0xE0","0x79","0x34"],"p":[[1,0,30.934,75.859,1003.485],[3,13,21.756,69.478]]}[0m
+[0;32mI (48483) uart_to_node: RX line: {"v":1,"packetloss":82.91,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0xD0","0x53","0x9B"],"p":[[1,0,22.804,37.41,1000.105],[3,13,20.269,48.483]]}[0m
+[0;32mI (48513) uart_to_node: RX line: {"v":1,"packetloss":82.91,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0xA7","0xC6","0x37"],"p":[[1,0,18.076,43.786,1008.678],[3,13,23.393,73.497]]}[0m
+[0;32mI (48793) uart_to_node: RX line: {"v":1,"packetloss":82.39,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0x86","0x67","0xCE"],"p":[[1,0,25.579,54.712,1021.399],[3,13,21.281,43.339]]}[0m
+[0;32mI (48813) uart_to_node: RX line: {"v":1,"packetloss":82.39,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:22","ver":"1.0.0","err":["0x4E","0x67","0xA1"],"p":[[1,0,24.225,39.89,1021.799],[3,13,22.384,56.998]]}[0m
+[0;32mI (49093) uart_to_node: RX line: {"v":1,"packetloss":81.88,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0x14","0xBD","0xEB"],"p":[[1,0,26.545,82.195,995.449],[3,13,21.143,61.121]]}[0m
+[0;32mI (49113) uart_to_node: RX line: {"v":1,"packetloss":81.88,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0x75","0x9E","0x7D"],"p":[[1,0,27.742,62.393,1007.938],[3,13,31.695,46.476]]}[0m
+[0;32mI (49393) uart_to_node: RX line: {"v":1,"packetloss":81.37,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0x89","0x30","0x47"],"p":[[1,0,22.639,50.982,1021.399],[3,13,23.006,78.492]]}[0m
+[0;32mI (49413) uart_to_node: RX line: {"v":1,"packetloss":81.37,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0xE7","0x6D","0x14"],"p":[[1,0,26.447,41.121,1018.059],[3,13,25.743,76.998]]}[0m
+[0;32mI (49693) uart_to_node: RX line: {"v":1,"packetloss":80.86,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0xB9","0x9C","0xB8"],"p":[[1,0,28.308,52.492,999.649],[3,13,30.665,75.338]]}[0m
+[0;32mI (49713) uart_to_node: RX line: {"v":1,"packetloss":80.86,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:23","ver":"1.0.0","err":["0x10","0xFB","0x44"],"p":[[1,0,31.611,76.534,990.836],[3,13,21.145,68.128]]}[0m
+[0;32mI (49993) uart_to_node: RX line: {"v":1,"packetloss":80.37,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0x13","0xBB","0xAD"],"p":[[1,0,31.833,77.739,1014.55],[3,13,21.385,81.004]]}[0m
+[0;32mI (50023) uart_to_node: RX line: {"v":1,"packetloss":80.37,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0xBC","0xDB","0xFA"],"p":[[1,0,21.799,76.739,1016.467],[3,13,31.247,60.347]]}[0m
+[0;32mI (50333) uart_to_node: RX line: {"v":1,"packetloss":79.88,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0x44","0x5A","0x86"],"p":[[1,0,27.727,76.159,1028.816],[3,13,22.229,60.806]]}[0m
+[0;32mI (50393) uart_to_node: RX line: {"v":1,"packetloss":79.88,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0xF2","0x3D","0xE4"],"p":[[1,0,30.815,83.395,997.589],[3,13,22.061,69.725]]}[0m
+[0;32mI (50603) uart_to_node: RX line: {"v":1,"packetloss":79.39,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0xEA","0x82","0xC5"],"p":[[1,0,23.774,41.816,1000.049],[3,13,28.572,65.504]]}[0m
+[0;32mI (50623) uart_to_node: RX line: {"v":1,"packetloss":79.39,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:24","ver":"1.0.0","err":["0xCE","0x41","0x57"],"p":[[1,0,26.803,52.447,1018.791],[3,13,20.619,77.358]]}[0m
+[0;32mI (50903) uart_to_node: RX line: {"v":1,"packetloss":78.92,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0xD9","0xF1","0xB9"],"p":[[1,0,24.743,54.387,999.485],[3,13,25.637,46.566]]}[0m
+[0;32mI (50923) uart_to_node: RX line: {"v":1,"packetloss":78.92,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0xE7","0x87","0x0C"],"p":[[1,0,21.237,44.231,998.465],[3,13,29.538,69.163]]}[0m
+[0;32mI (51203) uart_to_node: RX line: {"v":1,"packetloss":78.44,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0xAE","0x89","0x5A"],"p":[[1,0,30.625,42.121,993.256],[3,13,22.082,43.29]]}[0m
+[0;32mI (51223) uart_to_node: RX line: {"v":1,"packetloss":78.44,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0x04","0x58","0xC5"],"p":[[1,0,20.727,81.175,997.533],[3,13,33.196,74.1]]}[0m
+[0;32mI (51503) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0x50","0x9D","0x72"],"p":[[1,0,26.796,80.88,1011.818],[3,13,31.764,40.108]]}[0m
+[0;32mI (51523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0x61","0x88","0xA5"],"p":[[1,0,28.994,66.378,1001.821],[3,13,32.737,41.098]]}[0m
+[0;32mI (51803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0xB3","0xF5","0xEA"],"p":[[1,0,24.105,60.368,1018.259],[3,13,23.827,80.918]]}[0m
+[0;32mI (51823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:25","ver":"1.0.0","err":["0xCD","0x0E","0xCF"],"p":[[1,0,22.044,57.262,1023.091],[3,13,23.187,50.945]]}[0m
+[0;32mI (52103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0x5E","0x16","0xA5"],"p":[[1,0,19.637,50.777,1002.469],[3,13,27.422,52.745]]}[0m
+[0;32mI (52123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0xA1","0xB2","0xBF"],"p":[[1,0,18.49,41.476,1021.571],[3,13,31.795,58.362]]}[0m
+[0;32mI (52403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0x27","0x69","0x98"],"p":[[1,0,24.933,48.471,1018.955],[3,13,22.942,51.665]]}[0m
+[0;32mI (52423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0x6F","0x98","0x3C"],"p":[[1,0,22.763,69.163,1006.586],[3,13,22.117,84.5]]}[0m
+[0;32mI (52703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0x62","0x68","0x48"],"p":[[1,0,28.474,72.024,1022.999],[3,13,29.892,48.438]]}[0m
+[0;32mI (52723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:26","ver":"1.0.0","err":["0xB3","0x30","0x9F"],"p":[[1,0,23.274,79.864,1012.318],[3,13,28.489,57.961]]}[0m
+[0;32mI (53003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0x94","0x55","0x64"],"p":[[1,0,18.461,41.111,1007.878],[3,13,32.845,63.492]]}[0m
+[0;32mI (53023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0xAC","0xEF","0x64"],"p":[[1,0,26.21,75.059,1016.495],[3,13,27.827,55.023]]}[0m
+[0;32mI (53303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0x27","0x78","0xB0"],"p":[[1,0,21.772,35.43,1023.271],[3,13,26.725,82.367]]}[0m
+[0;32mI (53333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0xB5","0xD0","0xC1"],"p":[[1,0,28.232,47.506,996.045],[3,13,25.312,70.203]]}[0m
+[0;32mI (53603) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0x27","0x54","0x6E"],"p":[[1,0,29.401,48.976,1019.391],[3,13,29.466,75.374]]}[0m
+[0;32mI (53633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:27","ver":"1.0.0","err":["0x59","0xC9","0x43"],"p":[[1,0,27.835,50.082,998.885],[3,13,21.532,83.758]]}[0m
+[0;32mI (53913) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0xB3","0xCC","0x28"],"p":[[1,0,30.208,84.6,998.593],[3,13,29.846,48.033]]}[0m
+[0;32mI (53933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x01","0x03","0x58"],"p":[[1,0,31.555,54.867,1016.059],[3,13,29.408,46.206]]}[0m
+[0;32mI (54213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x75","0xF1","0xEC"],"p":[[1,0,19.063,57.637,1022.667],[3,13,23.492,83.033]]}[0m
+[0;32mI (54233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x6B","0x7B","0x03"],"p":[[1,0,19.637,71.189,1018.107],[3,13,29.31,46.544]]}[0m
+[0;32mI (54513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x8B","0x9F","0x2B"],"p":[[1,0,24.995,40.256,1006.19],[3,13,31.627,61.368]]}[0m
+[0;32mI (54533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x56","0x86","0x0A"],"p":[[1,0,27.977,79.319,996.545],[3,13,24.394,76.445]]}[0m
+[0;32mI (54813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0x2C","0x0C","0xE7"],"p":[[1,0,27.903,50.722,991.12],[3,13,25.584,77.601]]}[0m
+[0;32mI (54833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:28","ver":"1.0.0","err":["0xF0","0x27","0x45"],"p":[[1,0,23.624,74.609,990.46],[3,13,23.712,54.955]]}[0m
+[0;32mI (55113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0x0A","0x2D","0x82"],"p":[[1,0,27.279,71.824,996.933],[3,13,31.617,70.149]]}[0m
+[0;32mI (55133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0xA0","0x15","0xCE"],"p":[[1,0,26.285,68.958,1009.582],[3,13,22.828,61.733]]}[0m
+[0;32mI (55413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0x99","0xB0","0x9F"],"p":[[1,0,30.569,77.189,1015.387],[3,13,23.18,84.091]]}[0m
+[0;32mI (55433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0x4F","0x04","0xCD"],"p":[[1,0,30.79,53.112,1021.447],[3,13,27.991,83.911]]}[0m
+[0;32mI (55713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0x89","0xF8","0x01"],"p":[[1,0,22.529,80.425,1005.518],[3,13,33.31,65.401]]}[0m
+[0;32mI (55733) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:29","ver":"1.0.0","err":["0xF1","0xB7","0x21"],"p":[[1,0,23.564,67.983,994.732],[3,13,31.856,69.433]]}[0m
+[0;32mI (56023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0x81","0x1B","0xC3"],"p":[[1,0,30.562,75.684,1008.258],[3,13,23.106,52.889]]}[0m
+[0;32mI (56043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0x05","0xEA","0x45"],"p":[[1,0,24.875,63.738,1028.144],[3,13,25.896,68.942]]}[0m
+[0;32mI (56323) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0x7D","0x12","0x05"],"p":[[1,0,27.052,47.176,991.072],[3,13,26.1,46.859]]}[0m
+[0;32mI (56343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0x9D","0x99","0xF2"],"p":[[1,0,30.381,49.126,1028.624],[3,13,24.179,79.923]]}[0m
+[0;32mI (56623) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0xED","0x78","0xBC"],"p":[[1,0,25.16,84.475,1024.975],[3,13,28.49,50.914]]}[0m
+[0;32mI (56643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:30","ver":"1.0.0","err":["0x47","0xCE","0xDC"],"p":[[1,0,25.663,63.388,1009.55],[3,13,30.112,78.344]]}[0m
+[0;32mI (56923) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0x9C","0x9A","0xC6"],"p":[[1,0,19.264,71.219,1001.225],[3,13,32.528,73.101]]}[0m
+[0;32mI (56943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0xDF","0x55","0xA3"],"p":[[1,0,19.455,70.759,1004.657],[3,13,27.326,43.051]]}[0m
+[0;32mI (57223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0x27","0x17","0x2B"],"p":[[1,0,22.57,40.796,1024.391],[3,13,21.424,71.08]]}[0m
+[0;32mI (57243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0x48","0x07","0xD7"],"p":[[1,0,29.282,80.805,1003.669],[3,13,22.123,84.005]]}[0m
+[0;32mI (57523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0xF4","0xFF","0xCE"],"p":[[1,0,29.904,66.113,1010.53],[3,13,28.496,55.297]]}[0m
+[0;32mI (57553) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0xC1","0xAB","0xE1"],"p":[[1,0,30.975,62.488,1012.61],[3,13,23.747,61.152]]}[0m
+[0;32mI (57833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0x0F","0x59","0xED"],"p":[[1,0,21.299,75.994,999.885],[3,13,23.206,60.662]]}[0m
+[0;32mI (57853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:31","ver":"1.0.0","err":["0x57","0xFD","0x6C"],"p":[[1,0,26.425,71.199,1012.11],[3,13,33.545,68.155]]}[0m
+[0;32mI (58123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0x8E","0xF8","0x9B"],"p":[[1,0,23.809,65.228,1009.582],[3,13,26.278,50.662]]}[0m
+[0;32mI (58153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0x61","0x36","0xA4"],"p":[[1,0,20.814,49.796,1027.484],[3,13,20.367,67.354]]}[0m
+[0;32mI (58433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0x98","0xAB","0x31"],"p":[[1,0,26.485,55.312,998.001],[3,13,25.701,81.404]]}[0m
+[0;32mI (58453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0xA4","0x11","0x86"],"p":[[1,0,28.582,52.312,1006.65],[3,13,25.368,55.752]]}[0m
+[0;32mI (58723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0x45","0x5F","0xC1"],"p":[[1,0,19.105,44.081,995.697],[3,13,21.082,51.494]]}[0m
+[0;32mI (58753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:32","ver":"1.0.0","err":["0x4C","0x1B","0xDC"],"p":[[1,0,31.593,55.447,1028.82],[3,13,33.468,58.501]]}[0m
+[0;32mI (59023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0xF1","0x3E","0xCA"],"p":[[1,0,22.786,74.214,994.148],[3,13,32.225,53.582]]}[0m
+[0;32mI (59053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0xF5","0xE4","0x0F"],"p":[[1,0,29.729,36.98,1014.274],[3,13,33.059,78.443]]}[0m
+[0;32mI (59333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0x0C","0x40","0xF8"],"p":[[1,0,29.364,37.905,1020.835],[3,13,26.728,53.524]]}[0m
+[0;32mI (59353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0xE6","0xB8","0x34"],"p":[[1,0,22.641,68.173,1022.103],[3,13,28.775,64.973]]}[0m
+[0;32mI (59633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0xA3","0xF2","0xC0"],"p":[[1,0,22.388,55.152,1012.706],[3,13,29.965,78.704]]}[0m
+[0;32mI (59653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:33","ver":"1.0.0","err":["0x5A","0x91","0x44"],"p":[[1,0,25.317,66.068,1022.143],[3,13,24.255,42.799]]}[0m
+[0;32mI (59933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0xC1","0x3F","0x23"],"p":[[1,0,31.387,80.38,990.7],[3,13,21.234,55.918]]}[0m
+[0;32mI (59953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x0B","0x58","0xEF"],"p":[[1,0,23,51.207,1001.865],[3,13,27.513,59.212]]}[0m
+[0;32mI (60233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0xE2","0xCF","0x6A"],"p":[[1,0,31.6,40.286,1016.395],[3,13,31.217,67.084]]}[0m
+[0;32mI (60253) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x7B","0xC6","0x48"],"p":[[1,0,29.988,43.721,1005.018],[3,13,21.245,78.888]]}[0m
+[0;32mI (60543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x9A","0x10","0x43"],"p":[[1,0,29.841,48.456,1029.316],[3,13,29.531,68.74]]}[0m
+[0;32mI (60563) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x91","0x2C","0xF2"],"p":[[1,0,30.92,40.331,1002.821],[3,13,28.633,70.896]]}[0m
+[0;32mI (60833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x79","0xB5","0x08"],"p":[[1,0,28.85,66.633,1002.353],[3,13,33.29,78.533]]}[0m
+[0;32mI (60863) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:34","ver":"1.0.0","err":["0x1E","0xC9","0xFD"],"p":[[1,0,29.039,55.377,1024.351],[3,13,32.036,43.641]]}[0m
+[0;32mI (61143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0xB9","0x65","0xB6"],"p":[[1,0,22.688,81.025,1000.353],[3,13,22.838,76.962]]}[0m
+[0;32mI (61163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0x9D","0x13","0x15"],"p":[[1,0,19.388,55.862,1009.822],[3,13,30.875,55.896]]}[0m
+[0;32mI (61443) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0xDC","0xB3","0xDD"],"p":[[1,0,30.268,41.006,1019.575],[3,13,23.52,59.032]]}[0m
+[0;32mI (61463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0x49","0x7A","0xE4"],"p":[[1,0,19.537,36.97,992.148],[3,13,27.52,43.654]]}[0m
+[0;32mI (61743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0xED","0xDD","0xC0"],"p":[[1,0,22.501,76.274,1007.89],[3,13,23.509,53.933]]}[0m
+[0;32mI (61763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:35","ver":"1.0.0","err":["0xE3","0x99","0x09"],"p":[[1,0,29.245,66.448,1012.974],[3,13,22.176,78.897]]}[0m
+[0;32mI (62043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0xF9","0x5D","0x41"],"p":[[1,0,30.95,39.865,1021.735],[3,13,30.434,78.227]]}[0m
+[0;32mI (62063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0x99","0xA6","0x87"],"p":[[1,0,27.417,46.301,999.353],[3,13,24.146,83.038]]}[0m
+[0;32mI (62343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0x8F","0xD7","0x1E"],"p":[[1,0,18.511,78.964,998.629],[3,13,25.305,54.883]]}[0m
+[0;32mI (62363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0x27","0xEB","0xA3"],"p":[[1,0,27.725,62.838,999.185],[3,13,33.986,48.677]]}[0m
+[0;32mI (62643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0x4C","0x93","0x60"],"p":[[1,0,29.166,73.309,998.521],[3,13,24.772,69.532]]}[0m
+[0;32mI (62673) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:36","ver":"1.0.0","err":["0x1E","0x1C","0x2D"],"p":[[1,0,22.149,80.08,1000.557],[3,13,24.048,84.487]]}[0m
+[0;32mI (62943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0x53","0x36","0x0B"],"p":[[1,0,22.996,48.836,992.04],[3,13,28.178,81.62]]}[0m
+[0;32mI (62963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0xD4","0x8E","0x5C"],"p":[[1,0,25.51,79.129,1002.913],[3,13,27.594,49.766]]}[0m
+[0;32mI (63243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0x7D","0x33","0x2F"],"p":[[1,0,25.265,84.115,1002.933],[3,13,29.805,44.19]]}[0m
+[0;32mI (63273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0x2C","0x4F","0x9F"],"p":[[1,0,30.968,81.165,1016.715],[3,13,24.283,44.1]]}[0m
+[0;32mI (63553) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0x4F","0x05","0x4A"],"p":[[1,0,26.797,75.549,1010.942],[3,13,26.303,70.144]]}[0m
+[0;32mI (63573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0x40","0xDF","0x70"],"p":[[1,0,28.222,51.577,991.808],[3,13,24.392,70.455]]}[0m
+[0;32mI (63853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:37","ver":"1.0.0","err":["0xB5","0xA6","0xF9"],"p":[[1,0,25.743,82.555,1002.393],[3,13,22.373,84.046]]}[0m
+[0;32mI (63873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x52","0x7C","0x09"],"p":[[1,0,31.371,67.033,1006.202],[3,13,26.526,55.428]]}[0m
+[0;32mI (64153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x4F","0x11","0x3F"],"p":[[1,0,24.915,54.672,994.18],[3,13,27.895,40.986]]}[0m
+[0;32mI (64173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0xFD","0x9A","0xF4"],"p":[[1,0,30.99,64.958,1002.937],[3,13,23.869,77.543]]}[0m
+[0;32mI (64453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x2A","0xFE","0x99"],"p":[[1,0,23.673,52.217,999.101],[3,13,22.132,45.941]]}[0m
+[0;32mI (64473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x40","0xBB","0x64"],"p":[[1,0,21.142,75.549,1003.781],[3,13,25.034,40.392]]}[0m
+[0;32mI (64753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x88","0x01","0x9C"],"p":[[1,0,28.472,83.735,1011.854],[3,13,30.42,82.331]]}[0m
+[0;32mI (64783) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:38","ver":"1.0.0","err":["0x42","0x41","0xE6"],"p":[[1,0,21.132,38.355,994.676],[3,13,32.198,84.361]]}[0m
+[0;32mI (65053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0x15","0xA1","0xFF"],"p":[[1,0,31.929,51.447,1028.832],[3,13,20.519,49.568]]}[0m
+[0;32mI (65073) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0x74","0x0F","0x9B"],"p":[[1,0,31.514,38.03,1011.422],[3,13,24.485,41.823]]}[0m
+[0;32mI (65353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0x39","0x87","0x27"],"p":[[1,0,28.197,58.292,998.809],[3,13,23.81,45.738]]}[0m
+[0;32mI (65383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0xD8","0xC5","0x3A"],"p":[[1,0,23.902,63.258,990.184],[3,13,22.083,83.182]]}[0m
+[0;32mI (65653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0xD2","0x6F","0xB8"],"p":[[1,0,28.602,46.006,1011.826],[3,13,33.8,41.319]]}[0m
+[0;32mI (65683) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:39","ver":"1.0.0","err":["0x5E","0x61","0x07"],"p":[[1,0,25.734,83.845,1022.763],[3,13,25.483,60.342]]}[0m
+[0;32mI (65953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0xF0","0x58","0x64"],"p":[[1,0,20.405,68.003,1029.572],[3,13,20.525,81.305]]}[0m
+[0;32mI (65983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0x6F","0x2F","0x34"],"p":[[1,0,28.959,65.893,1017.903],[3,13,31.058,82.07]]}[0m
+[0;32mI (66263) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0x22","0xD8","0x8C"],"p":[[1,0,23.328,67.503,993.708],[3,13,21.487,55.203]]}[0m
+[0;32mI (66283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0xDD","0x21","0x74"],"p":[[1,0,21.055,78.274,1017.703],[3,13,26.795,67.097]]}[0m
+[0;32mI (66563) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0x64","0x8D","0xE3"],"p":[[1,0,19.178,63.403,1020.523],[3,13,23.867,73.6]]}[0m
+[0;32mI (66583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0x5E","0x2D","0xF0"],"p":[[1,0,24.498,79.974,998.021],[3,13,26.205,57.511]]}[0m
+[0;32mI (66873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:40","ver":"1.0.0","err":["0x74","0x0F","0x6C"],"p":[[1,0,19.872,73.409,1005.478],[3,13,26.807,51.787]]}[0m
+[0;32mI (66883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0xDE","0xC6","0xC1"],"p":[[1,0,18.91,70.549,1003.533],[3,13,31.371,78.344]]}[0m
+[0;32mI (67163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0x6E","0xE1","0x99"],"p":[[1,0,26.593,64.503,1011.31],[3,13,32.846,45.698]]}[0m
+[0;32mI (67193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0x07","0x34","0xF5"],"p":[[1,0,25.652,51.502,1003.097],[3,13,31.376,59.982]]}[0m
+[0;32mI (67463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0xC6","0xD0","0x66"],"p":[[1,0,28.151,46.961,1025.284],[3,13,22.751,53.02]]}[0m
+[0;32mI (67493) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0x86","0x02","0x5F"],"p":[[1,0,21.813,75.949,1001.029],[3,13,33.041,78.407]]}[0m
+[0;32mI (67763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0x1C","0x94","0xFF"],"p":[[1,0,26.031,65.218,991.292],[3,13,23.979,69.82]]}[0m
+[0;32mI (67783) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:41","ver":"1.0.0","err":["0xEC","0x8C","0x7A"],"p":[[1,0,28.35,50.392,1004.769],[3,13,26.051,71.359]]}[0m
+[0;32mI (68063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0x63","0x78","0xBF"],"p":[[1,0,31.745,49.591,1015.135],[3,13,20.651,54.028]]}[0m
+[0;32mI (68093) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0x43","0x86","0x19"],"p":[[1,0,22.073,66.878,995.457],[3,13,27.727,68.758]]}[0m
+[0;32mI (68373) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0xC5","0x0A","0x04"],"p":[[1,0,21.918,80.09,1011.306],[3,13,28.345,78.312]]}[0m
+[0;32mI (68393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0x64","0xEC","0x8E"],"p":[[1,0,26.191,66.878,1020.987],[3,13,22.505,73.389]]}[0m
+[0;32mI (68663) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0x58","0x20","0x17"],"p":[[1,0,29.499,46.611,1025.736],[3,13,26.218,54.379]]}[0m
+[0;32mI (68693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:42","ver":"1.0.0","err":["0x03","0x59","0x12"],"p":[[1,0,26.924,65.613,1019.211],[3,13,32.561,69.194]]}[0m
+[0;32mI (68963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0xA3","0xA6","0xBB"],"p":[[1,0,18.914,42.786,1014.342],[3,13,26.688,83.735]]}[0m
+[0;32mI (68993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0x4F","0x18","0x01"],"p":[[1,0,25.538,66.268,996.725],[3,13,31.606,58.249]]}[0m
+[0;32mI (69273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0x92","0x52","0x2A"],"p":[[1,0,30.87,54.487,994.724],[3,13,21.88,54.347]]}[0m
+[0;32mI (69293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0x5D","0x50","0x22"],"p":[[1,0,30.038,47.181,999.073],[3,13,31.852,56.904]]}[0m
+[0;32mI (69573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0x31","0x38","0xD5"],"p":[[1,0,18.393,62.583,1017.615],[3,13,25.036,71.755]]}[0m
+[0;32mI (69593) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:43","ver":"1.0.0","err":["0x3C","0x05","0x2B"],"p":[[1,0,18.221,52.157,1027.244],[3,13,22.985,52.462]]}[0m
+[0;32mI (69873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0x83","0x6B","0xE1"],"p":[[1,0,21.607,44.051,997.201],[3,13,23.211,49.104]]}[0m
+[0;32mI (69893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0x52","0x11","0x7A"],"p":[[1,0,22.64,62.098,1020.727],[3,13,27.587,62.808]]}[0m
+[0;32mI (70173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0xE5","0xC1","0xCC"],"p":[[1,0,21.552,66.233,1008.962],[3,13,29.303,80.243]]}[0m
+[0;32mI (70193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0xA6","0xAD","0xC5"],"p":[[1,0,30.807,77.984,997.277],[3,13,25.199,68.182]]}[0m
+[0;32mI (70473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0xD2","0xBA","0x49"],"p":[[1,0,27.464,42.551,993.164],[3,13,23.916,49.581]]}[0m
+[0;32mI (70503) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0xEC","0xA5","0xFB"],"p":[[1,0,22.339,54.727,991.268],[3,13,27.454,54.838]]}[0m
+[0;32mI (70773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0x95","0xEF","0x7C"],"p":[[1,0,24.063,57.137,1007.162],[3,13,30.036,47.381]]}[0m
+[0;32mI (70803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:44","ver":"1.0.0","err":["0x11","0xE9","0xDB"],"p":[[1,0,20.354,84.83,1015.463],[3,13,21.448,42.534]]}[0m
+[0;32mI (71083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0xA7","0xC3","0xC0"],"p":[[1,0,23.566,79.609,1015.799],[3,13,27.783,80.275]]}[0m
+[0;32mI (71103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0x8D","0x5E","0xD9"],"p":[[1,0,26.045,63.778,1006.194],[3,13,31.375,46.661]]}[0m
+[0;32mI (71383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0xDA","0xB2","0xFB"],"p":[[1,0,23.406,75.159,1028.792],[3,13,20.224,70.495]]}[0m
+[0;32mI (71403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0xD6","0x2D","0x2B"],"p":[[1,0,19.444,49.611,1025.772],[3,13,32.114,52.808]]}[0m
+[0;32mI (71693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0x3A","0xAB","0x0D"],"p":[[1,0,20.82,79.194,1005.694],[3,13,29.17,54.122]]}[0m
+[0;32mI (71703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:45","ver":"1.0.0","err":["0xCF","0x16","0x1D"],"p":[[1,0,31.756,44.471,1005.39],[3,13,20.494,53.119]]}[0m
+[0;32mI (71983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0x44","0x84","0x83"],"p":[[1,0,23.27,40.381,1020.583],[3,13,23.983,54.401]]}[0m
+[0;32mI (72003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0xAE","0x7E","0xCF"],"p":[[1,0,27.913,53.007,1019.939],[3,13,24.307,44.95]]}[0m
+[0;32mI (72283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0x9C","0x93","0xFA"],"p":[[1,0,18.918,65.508,1013.918],[3,13,25.381,71.085]]}[0m
+[0;32mI (72303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0x50","0x86","0x64"],"p":[[1,0,18.974,69.468,1008.318],[3,13,23.085,83.011]]}[0m
+[0;32mI (72583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0xD9","0x7B","0x83"],"p":[[1,0,30.348,39.85,1019.091],[3,13,29.261,43.051]]}[0m
+[0;32mI (72613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:46","ver":"1.0.0","err":["0x37","0x44","0x11"],"p":[[1,0,24.303,48.666,1003.857],[3,13,20.463,60.851]]}[0m
+[0;32mI (72883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0xD2","0x30","0xA8"],"p":[[1,0,20.537,79.039,1013.434],[3,13,22.811,77.097]]}[0m
+[0;32mI (72903) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0xA1","0xA1","0x4B"],"p":[[1,0,24.432,36.335,1023.887],[3,13,33.454,68.551]]}[0m
+[0;32mI (73183) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0x62","0x24","0xF1"],"p":[[1,0,30.311,51.192,1027.344],[3,13,26.938,43.96]]}[0m
+[0;32mI (73203) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0x90","0x05","0x9D"],"p":[[1,0,19.799,45.461,994.196],[3,13,26.086,54.955]]}[0m
+[0;32mI (73483) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0xC9","0xB6","0x07"],"p":[[1,0,19.25,71.684,1027.616],[3,13,29.524,58.123]]}[0m
+[0;32mI (73513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0x76","0x22","0x20"],"p":[[1,0,27.15,79.714,1013.538],[3,13,24.343,79.676]]}[0m
+[0;32mI (73793) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0xBC","0xCA","0x2B"],"p":[[1,0,19.609,76.074,1027.44],[3,13,32.731,53.609]]}[0m
+[0;32mI (73813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:47","ver":"1.0.0","err":["0xDC","0x8B","0xD0"],"p":[[1,0,31.394,70.994,1028.708],[3,13,29.78,68.362]]}[0m
+[0;32mI (74083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0x9C","0x35","0xE2"],"p":[[1,0,23.679,66.838,1000.429],[3,13,20.703,61.535]]}[0m
+[0;32mI (74113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0x35","0x5C","0xFD"],"p":[[1,0,28.04,42.766,1010.198],[3,13,32.44,67.106]]}[0m
+[0;32mI (74393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0x3B","0x1B","0x9F"],"p":[[1,0,24.607,54.217,1028.596],[3,13,25.078,84.991]]}[0m
+[0;32mI (74413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0x41","0x20","0x20"],"p":[[1,0,29.831,46.696,1002.301],[3,13,27.102,78.416]]}[0m
+[0;32mI (74693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0xF6","0x20","0x5C"],"p":[[1,0,21.659,80.955,1000.141],[3,13,29.793,59.991]]}[0m
+[0;32mI (74713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:48","ver":"1.0.0","err":["0x26","0x35","0x05"],"p":[[1,0,29.518,80.99,996.449],[3,13,25.483,63.713]]}[0m
+[0;32mI (74993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0xCA","0x79","0x61"],"p":[[1,0,31.075,74.884,1018.703],[3,13,24.882,75.45]]}[0m
+[0;32mI (75023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0xDE","0xCB","0x8F"],"p":[[1,0,23.239,38.555,1014.85],[3,13,27.635,80.221]]}[0m
+[0;32mI (75293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0xB1","0xEB","0xC0"],"p":[[1,0,26.973,74.949,991.404],[3,13,25.027,74.68]]}[0m
+[0;32mI (75313) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0x6B","0xD2","0xF4"],"p":[[1,0,20.069,83.03,1008.586],[3,13,21.179,63.276]]}[0m
+[0;32mI (75593) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0x02","0xFB","0x6C"],"p":[[1,0,18.857,66.328,995.661],[3,13,24.427,58.011]]}[0m
+[0;32mI (75623) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:49","ver":"1.0.0","err":["0xCE","0xED","0x42"],"p":[[1,0,20.027,63.928,1020.435],[3,13,23.163,71.764]]}[0m
+[0;32mI (75893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0xB7","0xF8","0x4E"],"p":[[1,0,27.231,55.782,1023.391],[3,13,25.277,56.319]]}[0m
+[0;32mI (75923) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x76","0xE2","0xA0"],"p":[[1,0,20.013,73.969,1006.226],[3,13,22.869,79.608]]}[0m
+[0;32mI (76203) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x28","0x38","0xAE"],"p":[[1,0,25.867,41.006,1013.742],[3,13,25.018,50.239]]}[0m
+[0;32mI (76223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x20","0x83","0x40"],"p":[[1,0,21.82,43.556,1014.218],[3,13,31.061,56.098]]}[0m
+[0;32mI (76513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x11","0xF9","0x04"],"p":[[1,0,20.503,36.26,1023.975],[3,13,31.754,44.545]]}[0m
+[0;32mI (76543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x3B","0x28","0x21"],"p":[[1,0,28.858,35.88,1005.654],[3,13,24.681,84.032]]}[0m
+[0;32mI (76803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x11","0xEF","0x9B"],"p":[[1,0,19.32,56.257,997.361],[3,13,27.377,79.086]]}[0m
+[0;32mI (76823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:50","ver":"1.0.0","err":["0x45","0x34","0xB0"],"p":[[1,0,18.483,65.848,1014.522],[3,13,20.265,47.394]]}[0m
+[0;32mI (77103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0xE6","0xC5","0xCC"],"p":[[1,0,28.988,72.234,1019.347],[3,13,29.206,65.095]]}[0m
+[0;32mI (77133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0x75","0x0F","0xFB"],"p":[[1,0,28.241,70.784,993.216],[3,13,33.073,78.384]]}[0m
+[0;32mI (77403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0xE3","0xC6","0x10"],"p":[[1,0,28.374,71.684,1016.027],[3,13,30.11,74.46]]}[0m
+[0;32mI (77423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0x89","0x3A","0xD1"],"p":[[1,0,28.417,57.267,1025.892],[3,13,32.943,80.554]]}[0m
+[0;32mI (77703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0xD8","0x35","0x3D"],"p":[[1,0,31.656,56.412,1029.092],[3,13,32.352,55.27]]}[0m
+[0;32mI (77733) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:51","ver":"1.0.0","err":["0x85","0x50","0x12"],"p":[[1,0,31.045,50.427,1009.238],[3,13,21.34,52.345]]}[0m
+[0;32mI (78003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0xE9","0xFC","0xA6"],"p":[[1,0,21.807,57.542,1004.953],[3,13,30.798,47.156]]}[0m
+[0;32mI (78033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0xD7","0x67","0x32"],"p":[[1,0,21.194,81.045,999.141],[3,13,31.11,54.419]]}[0m
+[0;32mI (78303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0x72","0x17","0x46"],"p":[[1,0,27.216,47.546,1015.01],[3,13,21.932,44.352]]}[0m
+[0;32mI (78333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0xB5","0x7D","0x4F"],"p":[[1,0,22.055,48.836,1023.163],[3,13,25.43,64.082]]}[0m
+[0;32mI (78603) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0xB0","0xC0","0x8A"],"p":[[1,0,21.419,61.473,1017.115],[3,13,23.997,68.789]]}[0m
+[0;32mI (78633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:52","ver":"1.0.0","err":["0xF9","0x1D","0x80"],"p":[[1,0,21.829,67.458,1028.216],[3,13,29.784,79.352]]}[0m
+[0;32mI (78913) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0x5C","0x49","0x61"],"p":[[1,0,30.37,67.713,1002.369],[3,13,29.24,79.131]]}[0m
+[0;32mI (78933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0x49","0xEF","0x71"],"p":[[1,0,22.263,82.725,1020.227],[3,13,27.093,75.923]]}[0m
+[0;32mI (79213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0xF1","0x19","0x52"],"p":[[1,0,23.969,76.299,1018.747],[3,13,29.448,46.107]]}[0m
+[0;32mI (79233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0xF6","0x14","0x90"],"p":[[1,0,29.833,52.552,1005.642],[3,13,22.655,49.59]]}[0m
+[0;32mI (79513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0x43","0x99","0x5B"],"p":[[1,0,28.642,83.855,1021.839],[3,13,23.874,44.037]]}[0m
+[0;32mI (79533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0x7D","0xD0","0x3D"],"p":[[1,0,26.826,43.706,1016.943],[3,13,25.546,50.027]]}[0m
+[0;32mI (79813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0x83","0x44","0x73"],"p":[[1,0,19.634,43.801,1011.53],[3,13,32.493,65.275]]}[0m
+[0;32mI (79833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:53","ver":"1.0.0","err":["0xDD","0xA6","0xD2"],"p":[[1,0,23.106,42.941,1017.739],[3,13,31.792,80.203]]}[0m
+[0;32mI (80113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0x2F","0xB8","0x99"],"p":[[1,0,18.395,79.249,990.096],[3,13,32.01,56.454]]}[0m
+[0;32mI (80143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0x3F","0x07","0x10"],"p":[[1,0,31.789,57.097,990.068],[3,13,33.842,48.942]]}[0m
+[0;32mI (80413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0x6F","0x36","0x2C"],"p":[[1,0,19.197,39.325,1007.642],[3,13,23.639,84.289]]}[0m
+[0;32mI (80433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0xC5","0xAF","0x79"],"p":[[1,0,22.129,44.211,1007.61],[3,13,25.643,52.966]]}[0m
+[0;32mI (80713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0x30","0x8B","0x1F"],"p":[[1,0,29.73,69.493,1023.123],[3,13,26.197,62.624]]}[0m
+[0;32mI (80743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:54","ver":"1.0.0","err":["0x4C","0x65","0xAE"],"p":[[1,0,27.382,64.083,995.661],[3,13,22.797,46.215]]}[0m
+[0;32mI (81013) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0x06","0x34","0x15"],"p":[[1,0,25.026,38.795,1008.486],[3,13,31.179,67.565]]}[0m
+[0;32mI (81043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0x9B","0x66","0x58"],"p":[[1,0,26.387,52.007,991.22],[3,13,33.341,53.465]]}[0m
+[0;32mI (81323) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0x9E","0x76","0xC6"],"p":[[1,0,31.411,76.689,1024.351],[3,13,29.769,67.615]]}[0m
+[0;32mI (81343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0x80","0x70","0x60"],"p":[[1,0,28.382,84.485,996.829],[3,13,31.525,60.491]]}[0m
+[0;32mI (81623) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0x68","0x31","0xFB"],"p":[[1,0,21.506,74.989,995.237],[3,13,32.96,50.927]]}[0m
+[0;32mI (81643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:55","ver":"1.0.0","err":["0xB8","0xA7","0x97"],"p":[[1,0,31.894,39.55,1016.775],[3,13,32.765,41.544]]}[0m
+[0;32mI (81923) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0x53","0xC1","0x6A"],"p":[[1,0,18.259,84.13,1015.735],[3,13,27.529,41.976]]}[0m
+[0;32mI (81943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0x0B","0xD0","0x3D"],"p":[[1,0,21.125,69.433,996.737],[3,13,22.88,84.329]]}[0m
+[0;32mI (82223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0x76","0xFB","0xB3"],"p":[[1,0,21.713,68.118,998.729],[3,13,29.038,64.19]]}[0m
+[0;32mI (82253) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0xFD","0xDE","0x88"],"p":[[1,0,19.215,82.945,1009.43],[3,13,32.661,53.267]]}[0m
+[0;32mI (82523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0xC7","0xB1","0xF6"],"p":[[1,0,22.262,67.583,1029.968],[3,13,29.839,40.869]]}[0m
+[0;32mI (82543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0xC2","0x52","0x6B"],"p":[[1,0,27.581,73.494,1024.431],[3,13,29.296,66.08]]}[0m
+[0;32mI (82823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0xC6","0x8A","0xA7"],"p":[[1,0,23.969,66.323,1005.514],[3,13,23.948,51.832]]}[0m
+[0;32mI (82853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:56","ver":"1.0.0","err":["0xED","0x79","0x9D"],"p":[[1,0,20.832,76.844,1023.583],[3,13,20.469,50.126]]}[0m
+[0;32mI (83123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0x57","0x66","0x96"],"p":[[1,0,20.114,35.425,1002.705],[3,13,33.832,64.703]]}[0m
+[0;32mI (83153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0xA8","0x1D","0xA9"],"p":[[1,0,30.414,84.29,1023.955],[3,13,31.434,47.439]]}[0m
+[0;32mI (83423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0x2A","0xA8","0x63"],"p":[[1,0,22.829,71.024,1010.182],[3,13,32.237,52.313]]}[0m
+[0;32mI (83453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0x7C","0x79","0xAF"],"p":[[1,0,29.532,55.332,1009.994],[3,13,22.436,81.089]]}[0m
+[0;32mI (83723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0x8F","0x55","0xFE"],"p":[[1,0,21.167,53.367,1004.826],[3,13,22.743,43.848]]}[0m
+[0;32mI (83753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:57","ver":"1.0.0","err":["0x65","0x33","0xE1"],"p":[[1,0,25.316,42.951,1025.924],[3,13,21.971,40.297]]}[0m
+[0;32mI (84033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0xE4","0xFC","0xC2"],"p":[[1,0,31.488,69.183,1004.297],[3,13,22.946,69.838]]}[0m
+[0;32mI (84053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0x3D","0x82","0x82"],"p":[[1,0,25.568,61.068,994.052],[3,13,21.22,60.387]]}[0m
+[0;32mI (84333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0xBE","0x48","0xE2"],"p":[[1,0,20.481,58.587,997.385],[3,13,21.589,71.314]]}[0m
+[0;32mI (84353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0x55","0x4B","0x5E"],"p":[[1,0,29.414,42.591,1027.332],[3,13,33.261,71.463]]}[0m
+[0;32mI (84633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0xA4","0x86","0x48"],"p":[[1,0,19.728,49.996,991.396],[3,13,21.908,68.249]]}[0m
+[0;32mI (84653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:58","ver":"1.0.0","err":["0xC6","0x37","0x91"],"p":[[1,0,25.779,77.179,1007.354],[3,13,31.32,71.202]]}[0m
+[0;32mI (84943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0x14","0xFB","0x45"],"p":[[1,0,19.6,62.918,1002.825],[3,13,26.183,64.703]]}[0m
+[0;32mI (84963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0x61","0xA4","0x5A"],"p":[[1,0,21.36,53.392,998.429],[3,13,27.968,40.945]]}[0m
+[0;32mI (85233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0x6A","0x94","0xE4"],"p":[[1,0,31.619,72.569,1024.435],[3,13,22.859,68.834]]}[0m
+[0;32mI (85263) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0xE0","0xEC","0x25"],"p":[[1,0,19.176,54.572,1027.968],[3,13,29.45,69.235]]}[0m
+[0;32mI (85543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0xA8","0xA6","0x1D"],"p":[[1,0,27.657,75.089,1000.181],[3,13,24.214,73.263]]}[0m
+[0;32mI (85563) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0xD7","0xA7","0x9E"],"p":[[1,0,20.209,74.154,992.132],[3,13,26.443,78.74]]}[0m
+[0;32mI (85833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0x67","0xF2","0x3F"],"p":[[1,0,31.917,73.814,1001.041],[3,13,26.52,58.479]]}[0m
+[0;32mI (85863) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:05:59","ver":"1.0.0","err":["0x78","0x2F","0x55"],"p":[[1,0,27.053,64.398,1025.512],[3,13,25.237,40.41]]}[0m
+[0;32mI (86143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0x80","0x9D","0x60"],"p":[[1,0,27.531,66.848,1022.067],[3,13,22.856,46.553]]}[0m
+[0;32mI (86163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0x34","0x8E","0x83"],"p":[[1,0,21.507,78.114,1026.956],[3,13,30.637,53.312]]}[0m
+[0;32mI (86443) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0x3A","0x49","0xD3"],"p":[[1,0,24.121,74.169,1019.159],[3,13,28.804,58.069]]}[0m
+[0;32mI (86463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0x9F","0x8C","0x40"],"p":[[1,0,24.539,80.265,990.044],[3,13,27.923,45.459]]}[0m
+[0;32mI (86743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0xD1","0x7F","0xFF"],"p":[[1,0,25.335,65.048,1022.931],[3,13,27.527,40.639]]}[0m
+[0;32mI (86763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:00","ver":"1.0.0","err":["0xAB","0x89","0xE3"],"p":[[1,0,30.709,49.186,1009.518],[3,13,29.956,66.697]]}[0m
+[0;32mI (87043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0xFD","0x21","0xB5"],"p":[[1,0,18.71,65.818,1001.705],[3,13,32.213,80.027]]}[0m
+[0;32mI (87063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0x66","0x39","0xC8"],"p":[[1,0,24.639,78.574,1022.411],[3,13,24.441,45.405]]}[0m
+[0;32mI (87343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0x4B","0x1E","0x4B"],"p":[[1,0,20.041,81.085,1013.786],[3,13,25.197,81.836]]}[0m
+[0;32mI (87363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0xD7","0x28","0x09"],"p":[[1,0,25.96,82.585,1013.258],[3,13,27.947,82.889]]}[0m
+[0;32mI (87653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0x3B","0xC9","0x0E"],"p":[[1,0,23.196,65.998,1007.406],[3,13,20.524,82.853]]}[0m
+[0;32mI (87673) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:01","ver":"1.0.0","err":["0xA4","0x1E","0x64"],"p":[[1,0,20.618,69.008,1025.384],[3,13,23.68,56.022]]}[0m
+[0;32mI (87943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0xBE","0xF8","0xBE"],"p":[[1,0,30.94,43.461,1024.767],[3,13,33.08,40.117]]}[0m
+[0;32mI (88023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0x83","0x50","0x93"],"p":[[1,0,21.899,37.73,1011.282],[3,13,29.786,76.733]]}[0m
+[0;32mI (88243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0x86","0xD3","0xA5"],"p":[[1,0,24.478,44.581,1018.879],[3,13,28.539,77.525]]}[0m
+[0;32mI (88273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0xA9","0x84","0x61"],"p":[[1,0,26.276,44.031,996.945],[3,13,31.506,64.779]]}[0m
+[0;32mI (88553) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0xE1","0x01","0x4B"],"p":[[1,0,31.958,83.65,1010.386],[3,13,26.894,50.293]]}[0m
+[0;32mI (88573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0x6A","0x59","0xA3"],"p":[[1,0,18.069,70.419,993.776],[3,13,20.34,82.547]]}[0m
+[0;32mI (88853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:02","ver":"1.0.0","err":["0x9C","0x20","0x71"],"p":[[1,0,22.466,66.213,1022.559],[3,13,20.68,50.905]]}[0m
+[0;32mI (88873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0xB2","0x13","0x82"],"p":[[1,0,31.191,45.216,1005.454],[3,13,27.877,59.734]]}[0m
+[0;32mI (89153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0x90","0xB4","0xB6"],"p":[[1,0,28.855,50.597,1022.911],[3,13,20.484,59.941]]}[0m
+[0;32mI (89173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0x1E","0x97","0x10"],"p":[[1,0,19.834,74.654,1016.639],[3,13,27.153,42.673]]}[0m
+[0;32mI (89453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0x9A","0x37","0xF0"],"p":[[1,0,28.479,56.722,1010.026],[3,13,21.211,50.54]]}[0m
+[0;32mI (89473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0xDB","0xB4","0xA4"],"p":[[1,0,26.87,79.299,1015.751],[3,13,31.653,46.449]]}[0m
+[0;32mI (89753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0x52","0x6B","0x43"],"p":[[1,0,18.599,70.449,1019.863],[3,13,21.361,62.268]]}[0m
+[0;32mI (89773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:03","ver":"1.0.0","err":["0xE8","0xB1","0x81"],"p":[[1,0,19.948,82.24,992.228],[3,13,25.202,63.821]]}[0m
+[0;32mI (90053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0xB8","0xE4","0x59"],"p":[[1,0,31.695,80.265,995.665],[3,13,21.617,83.236]]}[0m
+[0;32mI (90083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0x5E","0x37","0xC2"],"p":[[1,0,22.196,36.885,991.94],[3,13,32.232,73.465]]}[0m
+[0;32mI (90353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0x26","0x90","0x45"],"p":[[1,0,23.896,58.637,1010.774],[3,13,20.711,82.201]]}[0m
+[0;32mI (90383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0x07","0x70","0x82"],"p":[[1,0,29.723,38.775,1026.832],[3,13,20.767,64.244]]}[0m
+[0;32mI (90663) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0x25","0xDA","0x8A"],"p":[[1,0,24.553,55.722,990.336],[3,13,21.771,83.789]]}[0m
+[0;32mI (90683) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:04","ver":"1.0.0","err":["0x19","0x48","0xB4"],"p":[[1,0,27.382,48.981,1027.448],[3,13,32.512,43.438]]}[0m
+[0;32mI (90963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0xF4","0x9D","0x49"],"p":[[1,0,22.746,37.66,1016.503],[3,13,27.282,48.677]]}[0m
+[0;32mI (90983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x78","0x62","0xD8"],"p":[[1,0,24.429,46.011,998.785],[3,13,33.072,75.707]]}[0m
+[0;32mI (91253) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x84","0x34","0xB3"],"p":[[1,0,31.66,79.199,1011.782],[3,13,29.14,71.526]]}[0m
+[0;32mI (91283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x08","0x02","0xAF"],"p":[[1,0,20.044,44.516,1010.994],[3,13,24.077,78.303]]}[0m
+[0;32mI (91563) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x22","0x98","0x51"],"p":[[1,0,30.467,52.482,997.609],[3,13,23.572,56.431]]}[0m
+[0;32mI (91583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x80","0x9C","0x05"],"p":[[1,0,28.773,56.832,990.116],[3,13,20.888,61.908]]}[0m
+[0;32mI (91863) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:05","ver":"1.0.0","err":["0x69","0x3F","0x6E"],"p":[[1,0,29.387,56.367,1011.062],[3,13,20.972,53.047]]}[0m
+[0;32mI (91883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0x17","0x45","0x62"],"p":[[1,0,27.324,58.937,1020.191],[3,13,29.776,62.705]]}[0m
+[0;32mI (92163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0xD5","0x44","0x31"],"p":[[1,0,25.218,54.707,1017.051],[3,13,20.657,76.859]]}[0m
+[0;32mI (92183) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0xDB","0xA4","0x4E"],"p":[[1,0,29.784,35.905,1002.429],[3,13,23.325,40.284]]}[0m
+[0;32mI (92463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0x3F","0xF1","0xD1"],"p":[[1,0,22.975,43.956,1011.61],[3,13,25.251,55.437]]}[0m
+[0;32mI (92483) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0x6D","0x9E","0xB5"],"p":[[1,0,18.111,72.284,991.616],[3,13,24.212,64.905]]}[0m
+[0;32mI (92763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0xDC","0x30","0x49"],"p":[[1,0,25.879,68.798,1008.378],[3,13,33.304,78.123]]}[0m
+[0;32mI (92783) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:06","ver":"1.0.0","err":["0xB4","0x5F","0x12"],"p":[[1,0,21.257,71.339,1000.597],[3,13,28.734,74.559]]}[0m
+[0;32mI (93063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0x91","0x73","0x88"],"p":[[1,0,18.281,51.317,1023.871],[3,13,31.956,67.516]]}[0m
+[0;32mI (93093) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0x0F","0xD4","0xC1"],"p":[[1,0,26.591,59.937,1005.266],[3,13,31.823,40.419]]}[0m
+[0;32mI (93373) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0x5E","0x5E","0x96"],"p":[[1,0,29.512,83.445,997.881],[3,13,23.359,48.011]]}[0m
+[0;32mI (93393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0xB3","0x02","0x06"],"p":[[1,0,23.736,51.992,1025.716],[3,13,30.711,68.794]]}[0m
+[0;32mI (93673) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0x70","0x17","0x4D"],"p":[[1,0,25.751,68.403,1003.193],[3,13,22.806,75.5]]}[0m
+[0;32mI (93693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:07","ver":"1.0.0","err":["0x45","0xD8","0xA4"],"p":[[1,0,20.337,75.959,1004.445],[3,13,23.768,45.801]]}[0m
+[0;32mI (93973) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0xFB","0x42","0xC2"],"p":[[1,0,26.016,83.775,1016.999],[3,13,22.919,75.464]]}[0m
+[0;32mI (93993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0x67","0xB5","0x2D"],"p":[[1,0,22.616,82.385,1027.592],[3,13,25.42,56.35]]}[0m
+[0;32mI (94273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0x21","0xC1","0xD5"],"p":[[1,0,27.667,40.401,1016.519],[3,13,25.627,76.377]]}[0m
+[0;32mI (94293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0x44","0xDE","0x4E"],"p":[[1,0,29.648,84.16,1004.017],[3,13,22.828,49.955]]}[0m
+[0;32mI (94573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0x9B","0xF1","0x07"],"p":[[1,0,29.632,58.197,1027.884],[3,13,22.524,60.428]]}[0m
+[0;32mI (94593) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:08","ver":"1.0.0","err":["0x31","0xE7","0x9D"],"p":[[1,0,22.126,83.345,1002.373],[3,13,31.259,49.293]]}[0m
+[0;32mI (94873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0xFD","0xE5","0x4D"],"p":[[1,0,26.251,78.544,1026.936],[3,13,22.093,55.675]]}[0m
+[0;32mI (94893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0xEA","0x08","0xD2"],"p":[[1,0,24.246,38.44,1025.468],[3,13,27.613,50.873]]}[0m
+[0;32mI (95173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x06","0x07","0x49"],"p":[[1,0,20.59,73.854,1024.875],[3,13,29.699,77.367]]}[0m
+[0;32mI (95193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x71","0x12","0x80"],"p":[[1,0,26.737,42.396,990.496],[3,13,27.538,48.119]]}[0m
+[0;32mI (95473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x03","0xA6","0xB5"],"p":[[1,0,24.212,49.846,1001.805],[3,13,27.166,45.248]]}[0m
+[0;32mI (95503) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x99","0xFE","0xA4"],"p":[[1,0,30.159,71.004,1014.846],[3,13,29.458,59.437]]}[0m
+[0;32mI (95773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x79","0x5F","0x01"],"p":[[1,0,28.532,53.732,1028.468],[3,13,32.36,79.397]]}[0m
+[0;32mI (95803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:09","ver":"1.0.0","err":["0x26","0xE6","0x81"],"p":[[1,0,25.131,73.864,1022.511],[3,13,23.572,50.117]]}[0m
+[0;32mI (96083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0x6B","0xE7","0x35"],"p":[[1,0,22.238,62.408,1006.074],[3,13,27.169,62.025]]}[0m
+[0;32mI (96103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0xB8","0x45","0xA6"],"p":[[1,0,25.036,74.724,1021.619],[3,13,23.635,45.396]]}[0m
+[0;32mI (96383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0xD6","0xC9","0xDE"],"p":[[1,0,20.746,73.114,1002.685],[3,13,22.771,76.557]]}[0m
+[0;32mI (96403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0x10","0x09","0x41"],"p":[[1,0,20.624,74.124,1019.635],[3,13,33.835,56.922]]}[0m
+[0;32mI (96683) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0x83","0xC2","0x2C"],"p":[[1,0,18.095,49.241,991.632],[3,13,21.239,82.862]]}[0m
+[0;32mI (96703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:10","ver":"1.0.0","err":["0x87","0x4D","0x5D"],"p":[[1,0,24.38,43.001,1009.21],[3,13,33.661,57.826]]}[0m
+[0;32mI (96983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0x0E","0x9F","0xA2"],"p":[[1,0,24.18,47.136,1013.21],[3,13,26.827,66.958]]}[0m
+[0;32mI (97003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0xCA","0xE3","0x64"],"p":[[1,0,18.872,36.675,1021.475],[3,13,26.772,83.047]]}[0m
+[0;32mI (97283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0xAD","0x05","0x8C"],"p":[[1,0,19.242,37.045,1012.906],[3,13,33.231,40.815]]}[0m
+[0;32mI (97303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0x2F","0x18","0xB6"],"p":[[1,0,27.906,70.059,998.181],[3,13,26.502,58.587]]}[0m
+[0;32mI (97583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0x7B","0x8E","0xAC"],"p":[[1,0,25.597,78.634,1016.111],[3,13,33.524,56.85]]}[0m
+[0;32mI (97603) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:11","ver":"1.0.0","err":["0xEC","0x45","0x57"],"p":[[1,0,22.438,44.631,1023.187],[3,13,31.753,67.615]]}[0m
+[0;32mI (97883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0x08","0x5E","0xB3"],"p":[[1,0,29.005,57.862,1011.75],[3,13,29.037,82.858]]}[0m
+[0;32mI (97903) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0x96","0x54","0xC1"],"p":[[1,0,26.208,79.654,1006.622],[3,13,22.727,57.592]]}[0m
+[0;32mI (98193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0xC4","0x20","0x78"],"p":[[1,0,21.684,73.104,1000.113],[3,13,28.877,70.824]]}[0m
+[0;32mI (98213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0xD0","0xF0","0xF3"],"p":[[1,0,19.816,57.817,1029.952],[3,13,31.518,62.48]]}[0m
+[0;32mI (98493) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0x69","0x56","0x3F"],"p":[[1,0,26.817,61.753,1002.965],[3,13,31.565,55.59]]}[0m
+[0;32mI (98513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0xE9","0xB0","0x22"],"p":[[1,0,23.092,72.354,1016.179],[3,13,27.568,62.12]]}[0m
+[0;32mI (98793) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0x79","0x62","0x61"],"p":[[1,0,24.546,72.969,998.701],[3,13,30.948,54.644]]}[0m
+[0;32mI (98813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:12","ver":"1.0.0","err":["0xC6","0xDA","0x75"],"p":[[1,0,23.431,75.004,996.273],[3,13,26.677,76.935]]}[0m
+[0;32mI (99093) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0xDD","0xB4","0x15"],"p":[[1,0,27.163,76.124,998.073],[3,13,30.449,43.969]]}[0m
+[0;32mI (99113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0x03","0xA0","0xF8"],"p":[[1,0,29.306,68.103,1019.915],[3,13,31.198,63.515]]}[0m
+[0;32mI (99393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0x87","0x56","0xD4"],"p":[[1,0,26.866,52.457,1014.714],[3,13,25.746,70.554]]}[0m
+[0;32mI (99413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0x9C","0xDB","0xCF"],"p":[[1,0,27.64,42.831,1008.498],[3,13,22.506,73.686]]}[0m
+[0;32mI (99693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0x27","0x98","0x62"],"p":[[1,0,18.377,55.587,1029.256],[3,13,26.305,69.464]]}[0m
+[0;32mI (99713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:13","ver":"1.0.0","err":["0xD3","0xBC","0x8D"],"p":[[1,0,20.684,69.288,991.248],[3,13,26.372,52.322]]}[0m
+[0;32mI (99993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0x0F","0xBA","0x9A"],"p":[[1,0,30.78,51.152,1020.303],[3,13,32.584,82.205]]}[0m
+[0;32mI (100013) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0x38","0x1A","0xA2"],"p":[[1,0,18.647,62.933,998.913],[3,13,32.209,41.098]]}[0m
+[0;32mI (100293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0x74","0x4E","0xC2"],"p":[[1,0,20.944,70.689,1003.117],[3,13,24.434,82.016]]}[0m
+[0;32mI (100313) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0xB7","0x37","0x87"],"p":[[1,0,19.817,72.924,1023.347],[3,13,32.918,59.95]]}[0m
+[0;32mI (100603) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0x1E","0x10","0xCD"],"p":[[1,0,21.005,48.076,1009.362],[3,13,22.526,48.227]]}[0m
+[0;32mI (100613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:14","ver":"1.0.0","err":["0x39","0xB6","0x8C"],"p":[[1,0,31.986,50.797,999.617],[3,13,30.571,47.363]]}[0m
+[0;32mI (100893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0x9E","0x56","0x1A"],"p":[[1,0,26.149,60.203,994.016],[3,13,29.24,70.554]]}[0m
+[0;32mI (100913) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0x80","0x10","0xD9"],"p":[[1,0,25.69,67.613,1028.996],[3,13,28.895,50.689]]}[0m
+[0;32mI (101203) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0xCF","0xB2","0xBB"],"p":[[1,0,28.887,80.285,1013.094],[3,13,31.95,74.082]]}[0m
+[0;32mI (101223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0x99","0x7B","0x22"],"p":[[1,0,18.248,71.294,1002.261],[3,13,29.312,63.821]]}[0m
+[0;32mI (101503) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0xAA","0x57","0xA3"],"p":[[1,0,24.275,50.402,1000.369],[3,13,27.526,63.789]]}[0m
+[0;32mI (101523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0xAE","0xB4","0x49"],"p":[[1,0,26.615,57.147,1005.482],[3,13,22.111,50.468]]}[0m
+[0;32mI (101803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0x8B","0xF2","0x93"],"p":[[1,0,31.887,67.593,1022.003],[3,13,22.431,54.887]]}[0m
+[0;32mI (101823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:15","ver":"1.0.0","err":["0xA5","0x84","0xBA"],"p":[[1,0,18.204,35.22,1013.238],[3,13,32.313,57.223]]}[0m
+[0;32mI (102103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x44","0x0A","0x3D"],"p":[[1,0,27.007,48.651,990.52],[3,13,24.031,72.943]]}[0m
+[0;32mI (102123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x72","0x90","0xB6"],"p":[[1,0,30.471,59.097,1009.766],[3,13,32.015,64.829]]}[0m
+[0;32mI (102403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x72","0x17","0xDF"],"p":[[1,0,19.143,50.627,997.281],[3,13,21.48,45.212]]}[0m
+[0;32mI (102423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x7D","0x38","0xAF"],"p":[[1,0,21.486,41.151,991.748],[3,13,30.705,55.432]]}[0m
+[0;32mI (102703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x30","0xC0","0x13"],"p":[[1,0,28.735,36.655,1023.495],[3,13,32.37,58.798]]}[0m
+[0;32mI (102733) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:16","ver":"1.0.0","err":["0x29","0x51","0x51"],"p":[[1,0,24.6,69.018,1003.837],[3,13,32.933,84.68]]}[0m
+[0;32mI (103003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0x5E","0xCB","0xD0"],"p":[[1,0,31.181,49.041,1002.841],[3,13,25.209,40.981]]}[0m
+[0;32mI (103023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0x9C","0x97","0xE3"],"p":[[1,0,24.001,69.213,992.324],[3,13,27.047,60.572]]}[0m
+[0;32mI (103313) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0x3B","0x8A","0x16"],"p":[[1,0,19.924,60.348,1007.046],[3,13,30.526,41.346]]}[0m
+[0;32mI (103333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0x8F","0xF4","0xFD"],"p":[[1,0,28.557,66.173,1028.708],[3,13,23.29,82.705]]}[0m
+[0;32mI (103613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0x18","0x68","0x99"],"p":[[1,0,31.588,63.943,1008.13],[3,13,24.268,67.754]]}[0m
+[0;32mI (103633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:17","ver":"1.0.0","err":["0xE2","0x92","0x61"],"p":[[1,0,21.995,38.635,1021.183],[3,13,22.37,41.197]]}[0m
+[0;32mI (103913) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0xD7","0x76","0x9F"],"p":[[1,0,30.337,76.869,991.148],[3,13,24.227,69.145]]}[0m
+[0;32mI (103933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0x88","0x49","0xAD"],"p":[[1,0,25.072,66.628,1016.475],[3,13,31.974,61.652]]}[0m
+[0;32mI (104213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0xA7","0xD2","0x41"],"p":[[1,0,19.536,75.189,999.573],[3,13,20.232,56.503]]}[0m
+[0;32mI (104233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0x8B","0x60","0xC5"],"p":[[1,0,24.322,83.24,1005.95],[3,13,20.647,79.284]]}[0m
+[0;32mI (104513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0x6D","0x86","0x77"],"p":[[1,0,27.279,49.671,1000.705],[3,13,32.523,56.206]]}[0m
+[0;32mI (104533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0xE2","0x6B","0xEE"],"p":[[1,0,26.031,71.864,1014.374],[3,13,32.366,55.27]]}[0m
+[0;32mI (104813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0x1D","0x61","0x8B"],"p":[[1,0,30.702,72.729,1022.951],[3,13,23.135,55.324]]}[0m
+[0;32mI (104833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:18","ver":"1.0.0","err":["0x9C","0x4D","0x72"],"p":[[1,0,22.081,61.763,1007.462],[3,13,30.267,58.447]]}[0m
+[0;32mI (105113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x0C","0x12","0xFA"],"p":[[1,0,20.001,55.867,1000.561],[3,13,32.002,67.498]]}[0m
+[0;32mI (105133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x01","0x6D","0xF1"],"p":[[1,0,26.741,68.973,994.544],[3,13,26.746,80.909]]}[0m
+[0;32mI (105413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x63","0xE1","0x69"],"p":[[1,0,31.693,71.924,1028.956],[3,13,21.031,45.635]]}[0m
+[0;32mI (105433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x92","0x27","0xEE"],"p":[[1,0,21.986,36.335,1017.707],[3,13,25.451,81.301]]}[0m
+[0;32mI (105713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x69","0xE9","0x85"],"p":[[1,0,21.43,65.198,993.2],[3,13,27.474,62.597]]}[0m
+[0;32mI (105743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:19","ver":"1.0.0","err":["0x81","0x89","0x3A"],"p":[[1,0,22.137,83.125,992.416],[3,13,24.594,61.697]]}[0m
+[0;32mI (106013) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0xA4","0xA8","0xC3"],"p":[[1,0,31.583,61.918,999.437],[3,13,25.388,45.635]]}[0m
+[0;32mI (106043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0x7C","0xA8","0x28"],"p":[[1,0,21.36,80.59,1009.454],[3,13,32.185,60.936]]}[0m
+[0;32mI (106323) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0x11","0x06","0xBC"],"p":[[1,0,19.813,67.958,1002.005],[3,13,25.167,69.73]]}[0m
+[0;32mI (106343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0x64","0x5B","0xC0"],"p":[[1,0,22.644,37.355,1005.202],[3,13,23.034,79.271]]}[0m
+[0;32mI (106623) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0x23","0x12","0x88"],"p":[[1,0,28.564,47.166,1005.286],[3,13,31.061,55.198]]}[0m
+[0;32mI (106643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:20","ver":"1.0.0","err":["0x6D","0xCD","0xF1"],"p":[[1,0,20.38,77.849,996.725],[3,13,29.2,64.572]]}[0m
+[0;32mI (106923) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x6D","0xE4","0xFC"],"p":[[1,0,31.133,84.5,1004.209],[3,13,25.535,64.028]]}[0m
+[0;32mI (106943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0xFC","0xCD","0x15"],"p":[[1,0,30.234,76.019,1021.135],[3,13,23.876,77.651]]}[0m
+[0;32mI (107223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x03","0x5A","0x65"],"p":[[1,0,30.409,47.396,1027.156],[3,13,31.842,76.589]]}[0m
+[0;32mI (107243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x50","0x68","0x45"],"p":[[1,0,23.204,42.431,994.937],[3,13,22.127,66.971]]}[0m
+[0;32mI (107523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x20","0xE7","0x85"],"p":[[1,0,27.291,45.376,992.688],[3,13,32.029,72.273]]}[0m
+[0;32mI (107543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x85","0x46","0x01"],"p":[[1,0,25.6,81.985,1004.689],[3,13,22.146,71.521]]}[0m
+[0;32mI (107823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x26","0x01","0x8E"],"p":[[1,0,20.04,84.23,992.668],[3,13,22.778,63.38]]}[0m
+[0;32mI (107843) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:21","ver":"1.0.0","err":["0x25","0xDF","0x8A"],"p":[[1,0,23.841,76.989,995.557],[3,13,26.939,46.499]]}[0m
+[0;32mI (108123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0x4C","0x19","0x38"],"p":[[1,0,26.945,54.102,991.224],[3,13,23.316,42.516]]}[0m
+[0;32mI (108143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0x94","0x6E","0xA8"],"p":[[1,0,25.03,49.381,1016.859],[3,13,32.461,71.458]]}[0m
+[0;32mI (108423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0x83","0x93","0xC5"],"p":[[1,0,19.445,61.058,1028.936],[3,13,28.219,55.477]]}[0m
+[0;32mI (108453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0x3A","0x19","0x35"],"p":[[1,0,20.825,41.886,1013.714],[3,13,22.419,80.522]]}[0m
+[0;32mI (108723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0x17","0x8F","0x8E"],"p":[[1,0,24.698,49.656,1005.466],[3,13,24.958,68.272]]}[0m
+[0;32mI (108753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:22","ver":"1.0.0","err":["0xAA","0xB8","0x31"],"p":[[1,0,29.925,41.976,1027.248],[3,13,22.761,65.936]]}[0m
+[0;32mI (109033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0xA7","0x4E","0xD1"],"p":[[1,0,21.843,37.61,1028.88],[3,13,28.338,72.709]]}[0m
+[0;32mI (109053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0xDF","0xD9","0x7F"],"p":[[1,0,20.758,45.381,1000.249],[3,13,20.286,80.185]]}[0m
+[0;32mI (109333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0xE7","0x80","0xF3"],"p":[[1,0,18.829,40.336,1009.39],[3,13,29.497,53.605]]}[0m
+[0;32mI (109363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0x2E","0xAB","0x13"],"p":[[1,0,24.252,60.538,1021.083],[3,13,32.496,57.385]]}[0m
+[0;32mI (109633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0xEE","0xEF","0x3E"],"p":[[1,0,21.514,72.699,1015.723],[3,13,32.038,48.596]]}[0m
+[0;32mI (109653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:23","ver":"1.0.0","err":["0xFB","0x8A","0x19"],"p":[[1,0,26.294,80.125,1028.676],[3,13,20.301,64.631]]}[0m
+[0;32mI (109933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0x8D","0xEB","0xB8"],"p":[[1,0,28.712,41.096,1015.463],[3,13,28.885,79.964]]}[0m
+[0;32mI (109953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0xDD","0xA6","0x5E"],"p":[[1,0,19.064,62.913,1016.075],[3,13,21.498,53.101]]}[0m
+[0;32mI (110233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0x9A","0x26","0xC7"],"p":[[1,0,18.466,36.945,1013.894],[3,13,31.908,65.734]]}[0m
+[0;32mI (110253) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0x78","0x85","0x74"],"p":[[1,0,26.261,35.495,1027.284],[3,13,26.086,68.114]]}[0m
+[0;32mI (110533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0xEF","0xE7","0x55"],"p":[[1,0,26.577,81.03,1004.469],[3,13,32.279,52.475]]}[0m
+[0;32mI (110553) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0x8D","0x07","0xC0"],"p":[[1,0,23.871,64.388,1014.266],[3,13,29.058,56.94]]}[0m
+[0;32mI (110833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0xBB","0x7C","0xE7"],"p":[[1,0,25.116,77.229,993.168],[3,13,22.166,68.893]]}[0m
+[0;32mI (110863) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:24","ver":"1.0.0","err":["0x42","0xF3","0x45"],"p":[[1,0,30.295,36.17,1008.35],[3,13,23.733,47.543]]}[0m
+[0;32mI (111133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0xD6","0x99","0x93"],"p":[[1,0,25.076,55.197,992.38],[3,13,24.171,65.635]]}[0m
+[0;32mI (111163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0xF4","0x9E","0xD8"],"p":[[1,0,20.652,72.269,1018.375],[3,13,22.502,43.177]]}[0m
+[0;32mI (111443) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0x4E","0xF1","0x96"],"p":[[1,0,29.592,48.416,995.521],[3,13,22.443,62.43]]}[0m
+[0;32mI (111463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0x11","0xB5","0x7C"],"p":[[1,0,29.347,47.136,1016.027],[3,13,24.976,51.278]]}[0m
+[0;32mI (111743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0x88","0x0D","0x7A"],"p":[[1,0,18.5,63.318,999.409],[3,13,31.453,83.218]]}[0m
+[0;32mI (111763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:25","ver":"1.0.0","err":["0xE0","0x97","0x9E"],"p":[[1,0,29.407,71.229,1012.494],[3,13,30.119,81.949]]}[0m
+[0;32mI (112043) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0xEB","0x63","0x3D"],"p":[[1,0,22.842,37.65,1021.175],[3,13,20.708,71.494]]}[0m
+[0;32mI (112073) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0x5B","0x9A","0xB9"],"p":[[1,0,27.311,79.104,1006.202],[3,13,32.201,50.878]]}[0m
+[0;32mI (112343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0xDD","0x60","0x02"],"p":[[1,0,24.886,79.774,992.384],[3,13,26.557,57.102]]}[0m
+[0;32mI (112363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0x64","0xB1","0x66"],"p":[[1,0,30.244,36.365,1016.531],[3,13,30.523,47.174]]}[0m
+[0;32mI (112643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0x9D","0x63","0xEB"],"p":[[1,0,30.201,66.223,1001.097],[3,13,20.329,75.437]]}[0m
+[0;32mI (112663) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:26","ver":"1.0.0","err":["0x22","0x96","0xCE"],"p":[[1,0,28.787,78.234,1002.825],[3,13,28.618,48.861]]}[0m
+[0;32mI (112943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0xBC","0x7E","0xCB"],"p":[[1,0,28.718,53.832,1022.599],[3,13,31.107,82.795]]}[0m
+[0;32mI (112963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0x40","0xF1","0xBD"],"p":[[1,0,27.935,68.128,1008.49],[3,13,29.044,80.081]]}[0m
+[0;32mI (113243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0xF6","0x2D","0x3E"],"p":[[1,0,30.16,77.789,1013.346],[3,13,30.568,82.7]]}[0m
+[0;32mI (113273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0x10","0x6C","0x66"],"p":[[1,0,22.853,40.146,1022.119],[3,13,26.411,58.776]]}[0m
+[0;32mI (113543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0x48","0x56","0x1C"],"p":[[1,0,21.979,78.964,1029.076],[3,13,32.57,77.52]]}[0m
+[0;32mI (113573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0xF3","0x7B","0x20"],"p":[[1,0,20.067,69.003,1009.178],[3,13,32.625,56.062]]}[0m
+[0;32mI (113853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:27","ver":"1.0.0","err":["0xFC","0x29","0xE6"],"p":[[1,0,29.233,58.497,992.388],[3,13,21.55,59.01]]}[0m
+[0;32mI (113873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0xB6","0x6E","0xD6"],"p":[[1,0,26.065,60.683,1026.056],[3,13,26.453,55.356]]}[0m
+[0;32mI (114153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0xF0","0xB3","0xE6"],"p":[[1,0,31.303,71.789,1009.794],[3,13,30.045,51.535]]}[0m
+[0;32mI (114173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0x16","0x39","0x63"],"p":[[1,0,28.533,63.243,1001.313],[3,13,21.463,53.519]]}[0m
+[0;32mI (114453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0x47","0xD6","0x88"],"p":[[1,0,30.4,51.367,1001.889],[3,13,28.462,77.552]]}[0m
+[0;32mI (114473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0x8D","0x82","0xCA"],"p":[[1,0,31.952,55.352,1007.17],[3,13,26.025,63.852]]}[0m
+[0;32mI (114753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0xDE","0x62","0x8C"],"p":[[1,0,27.175,75.829,1007.142],[3,13,30.848,47.417]]}[0m
+[0;32mI (114773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:28","ver":"1.0.0","err":["0x90","0x7D","0x4F"],"p":[[1,0,23.07,40.401,1007.33],[3,13,25.179,84.023]]}[0m
+[0;32mI (115053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0xC0","0x62","0xA6"],"p":[[1,0,20.32,36.445,992.672],[3,13,24.259,50.135]]}[0m
+[0;32mI (115073) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0x71","0x4A","0x70"],"p":[[1,0,24.537,42.401,993.276],[3,13,25.328,44.518]]}[0m
+[0;32mI (115353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0x14","0xC6","0x9A"],"p":[[1,0,30.187,84.44,1008.65],[3,13,24.34,60.761]]}[0m
+[0;32mI (115373) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0x8A","0xD5","0xE0"],"p":[[1,0,28.759,62.523,1005.125],[3,13,33.623,67.165]]}[0m
+[0;32mI (115653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0xA0","0x27","0x34"],"p":[[1,0,23.722,76.824,1022.607],[3,13,33.975,56.593]]}[0m
+[0;32mI (115673) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:29","ver":"1.0.0","err":["0xD4","0xF4","0x19"],"p":[[1,0,25.173,64.968,995.081],[3,13,31.764,50.414]]}[0m
+[0;32mI (115953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0x6C","0x98","0x97"],"p":[[1,0,18.326,43.581,1003.733],[3,13,20.63,62.925]]}[0m
+[0;32mI (115983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0x4C","0xC5","0xA7"],"p":[[1,0,23.382,81.45,993.112],[3,13,30.83,45.504]]}[0m
+[0;32mI (116263) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0xCF","0x8C","0xE6"],"p":[[1,0,27.413,54.237,1009.058],[3,13,30.42,51.841]]}[0m
+[0;32mI (116283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0x23","0xA6","0x12"],"p":[[1,0,19.749,41.561,996.301],[3,13,25.911,49.361]]}[0m
+[0;32mI (116563) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0x04","0x3D","0x81"],"p":[[1,0,30.831,64.443,996.753],[3,13,24.79,46.656]]}[0m
+[0;32mI (116583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0xC4","0xC3","0x5C"],"p":[[1,0,21.579,48.681,1006.426],[3,13,26.652,40.081]]}[0m
+[0;32mI (116863) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:30","ver":"1.0.0","err":["0xBD","0x65","0xD5"],"p":[[1,0,18.543,79.399,1008.874],[3,13,21.935,76.8]]}[0m
+[0;32mI (116883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0x3F","0xDB","0x56"],"p":[[1,0,20.389,35.315,996.761],[3,13,26.716,64.212]]}[0m
+[0;32mI (117163) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0xB5","0x7C","0x70"],"p":[[1,0,31.338,78.019,1002.133],[3,13,20.102,69.874]]}[0m
+[0;32mI (117183) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0x6E","0x09","0x9A"],"p":[[1,0,24.221,76.304,998.589],[3,13,27.232,43.326]]}[0m
+[0;32mI (117463) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0xD3","0x7B","0xF9"],"p":[[1,0,30.964,36.855,1023.207],[3,13,25.657,78.245]]}[0m
+[0;32mI (117483) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0x1D","0x38","0x5C"],"p":[[1,0,21.762,71.674,998.053],[3,13,27.491,59.635]]}[0m
+[0;32mI (117763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0x04","0xD8","0x20"],"p":[[1,0,21.983,64.423,1020.375],[3,13,33.703,76.94]]}[0m
+[0;32mI (117783) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:31","ver":"1.0.0","err":["0x76","0x43","0x40"],"p":[[1,0,20.834,67.733,1012.062],[3,13,32.891,59.568]]}[0m
+[0;32mI (118063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0x64","0x02","0xED"],"p":[[1,0,20.624,45.151,1022.143],[3,13,29.315,66.125]]}[0m
+[0;32mI (118083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0xCF","0x75","0xE1"],"p":[[1,0,29.796,64.983,995.861],[3,13,33.747,82.93]]}[0m
+[0;32mI (118373) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0x48","0xDC","0x87"],"p":[[1,0,21.5,41.646,1024.319],[3,13,27.452,52.196]]}[0m
+[0;32mI (118393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0x6F","0x33","0x11"],"p":[[1,0,29.331,65.348,1023.011],[3,13,27.754,57.318]]}[0m
+[0;32mI (118673) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0x1A","0x7F","0x93"],"p":[[1,0,21.673,61.083,1006.174],[3,13,29.511,49.757]]}[0m
+[0;32mI (118693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:32","ver":"1.0.0","err":["0xB6","0xA4","0xDC"],"p":[[1,0,31.124,69.953,1015.327],[3,13,27.375,60.041]]}[0m
+[0;32mI (118973) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0x84","0xDA","0x4B"],"p":[[1,0,29.494,80.505,1007.722],[3,13,31.502,80.833]]}[0m
+[0;32mI (118993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0xAA","0xFC","0xE5"],"p":[[1,0,29.413,77.399,1009.178],[3,13,27.033,42.511]]}[0m
+[0;32mI (119273) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0xC6","0x7E","0x65"],"p":[[1,0,23.591,56.947,1015.983],[3,13,30.257,50.59]]}[0m
+[0;32mI (119293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0x08","0x37","0xA2"],"p":[[1,0,20.172,35.735,1022.651],[3,13,26.484,76.472]]}[0m
+[0;32mI (119573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0x30","0xFA","0xEC"],"p":[[1,0,21.012,35.04,1010.35],[3,13,21.901,53.6]]}[0m
+[0;32mI (119593) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:33","ver":"1.0.0","err":["0xC8","0x86","0x0D"],"p":[[1,0,18.815,82.34,999.473],[3,13,31.947,68.434]]}[0m
+[0;32mI (119873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0x92","0xD6","0xA8"],"p":[[1,0,20.622,61.763,1019.627],[3,13,21.367,57.588]]}[0m
+[0;32mI (119893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0x6A","0xEC","0xC8"],"p":[[1,0,28.066,46.136,1015.743],[3,13,21.981,68.06]]}[0m
+[0;32mI (120173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0xE3","0xEE","0x1F"],"p":[[1,0,23.472,69.828,1021.423],[3,13,22.723,42.75]]}[0m
+[0;32mI (120193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0x72","0xCD","0x15"],"p":[[1,0,23.249,37.31,1009.958],[3,13,31.596,48.771]]}[0m
+[0;32mI (120473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0xBB","0x60","0x63"],"p":[[1,0,23.682,69.688,997.753],[3,13,28.735,55.144]]}[0m
+[0;32mI (120493) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0x9D","0xEA","0x3B"],"p":[[1,0,26.607,72.944,1005.814],[3,13,31.649,76.107]]}[0m
+[0;32mI (120773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0xBC","0x80","0x01"],"p":[[1,0,21.111,79.129,1022.135],[3,13,23.941,40.572]]}[0m
+[0;32mI (120793) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:34","ver":"1.0.0","err":["0xA4","0x64","0x2B"],"p":[[1,0,19.858,64.073,1021.279],[3,13,30.638,42.592]]}[0m
+[0;32mI (121073) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0x2A","0x03","0xBE"],"p":[[1,0,31.553,42.726,1002.717],[3,13,25.062,60.144]]}[0m
+[0;32mI (121093) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0x3B","0xEF","0xEE"],"p":[[1,0,21.681,43.576,999.273],[3,13,28.887,74.19]]}[0m
+[0;32mI (121383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0x71","0xAA","0x82"],"p":[[1,0,21.995,37.805,1017.651],[3,13,29.108,79.752]]}[0m
+[0;32mI (121403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0xBA","0xEF","0xF7"],"p":[[1,0,29.739,74.554,991.572],[3,13,28.364,41.103]]}[0m
+[0;32mI (121683) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0xC7","0x4C","0xB7"],"p":[[1,0,31.077,82.585,996.393],[3,13,28.178,41.094]]}[0m
+[0;32mI (121703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:35","ver":"1.0.0","err":["0xD6","0x0D","0xDB"],"p":[[1,0,23.732,71.314,1016.115],[3,13,32.188,71.791]]}[0m
+[0;32mI (121983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0x75","0xB6","0xC4"],"p":[[1,0,24.197,35.275,1026.964],[3,13,24.963,64.815]]}[0m
+[0;32mI (122003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0xBD","0x48","0x89"],"p":[[1,0,25.744,66.738,1028.008],[3,13,22.711,51.422]]}[0m
+[0;32mI (122283) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0x6E","0xB0","0x5E"],"p":[[1,0,29.365,79.409,1018.023],[3,13,30.62,54.514]]}[0m
+[0;32mI (122303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0x1D","0x50","0x50"],"p":[[1,0,27.601,44.671,1012.03],[3,13,27.634,59.424]]}[0m
+[0;32mI (122583) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0x23","0x1C","0x88"],"p":[[1,0,21.027,57.177,1026.792],[3,13,23.506,55.176]]}[0m
+[0;32mI (122603) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:36","ver":"1.0.0","err":["0x17","0x9E","0x44"],"p":[[1,0,21.43,38.905,1018.487],[3,13,27.401,68.587]]}[0m
+[0;32mI (122883) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x27","0x0B","0xFB"],"p":[[1,0,27.623,50.512,1017.419],[3,13,29.263,66.616]]}[0m
+[0;32mI (122903) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x3A","0x90","0x57"],"p":[[1,0,20.152,36.765,1025.004],[3,13,29.184,48.119]]}[0m
+[0;32mI (123203) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0xE1","0x10","0x46"],"p":[[1,0,22.892,48.581,1022.159],[3,13,28.873,41.211]]}[0m
+[0;32mI (123213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x8E","0xF8","0x5C"],"p":[[1,0,23.319,38.315,1029.128],[3,13,21.199,68.272]]}[0m
+[0;32mI (123483) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x52","0xAA","0xE4"],"p":[[1,0,26.462,57.237,991.476],[3,13,28.723,41.355]]}[0m
+[0;32mI (123503) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x9A","0x18","0x17"],"p":[[1,0,18.987,46.456,1028.268],[3,13,24.835,46.377]]}[0m
+[0;32mI (123793) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0xA4","0x22","0xF9"],"p":[[1,0,21.044,69.248,1024.499],[3,13,21.875,80.522]]}[0m
+[0;32mI (123813) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:37","ver":"1.0.0","err":["0x64","0xBF","0x78"],"p":[[1,0,27.21,61.078,1017.659],[3,13,24.891,82.529]]}[0m
+[0;32mI (124093) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0x4A","0x1D","0x26"],"p":[[1,0,31.922,83.765,1016.659],[3,13,29.892,80.216]]}[0m
+[0;32mI (124113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0x6B","0x25","0x56"],"p":[[1,0,29.798,47.816,996.433],[3,13,20.98,61.881]]}[0m
+[0;32mI (124393) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0xEC","0xA6","0x4A"],"p":[[1,0,19.176,68.913,1025.095],[3,13,30.362,73.15]]}[0m
+[0;32mI (124413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0x92","0x0E","0x1F"],"p":[[1,0,27.262,62.703,1000.649],[3,13,32.416,42.484]]}[0m
+[0;32mI (124693) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0x97","0xBC","0x61"],"p":[[1,0,27.056,45.676,1006.002],[3,13,20.287,76.454]]}[0m
+[0;32mI (124713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:38","ver":"1.0.0","err":["0x57","0x2A","0x5C"],"p":[[1,0,29.469,51.247,1025.76],[3,13,27.779,53.497]]}[0m
+[0;32mI (124993) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0xC6","0xC9","0x77"],"p":[[1,0,19.663,38.64,1008.63],[3,13,26.268,70.693]]}[0m
+[0;32mI (125013) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0x19","0x59","0x57"],"p":[[1,0,18.872,51.837,1027.9],[3,13,20.988,68.749]]}[0m
+[0;32mI (125293) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0x8B","0x0C","0x54"],"p":[[1,0,22.546,59.187,1003.601],[3,13,23.664,59.077]]}[0m
+[0;32mI (125313) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0x28","0xE4","0x14"],"p":[[1,0,28.008,49.251,1010.886],[3,13,21.599,73.758]]}[0m
+[0;32mI (125593) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0xFC","0xFE","0x80"],"p":[[1,0,20.473,78.224,1021.627],[3,13,23.838,71.067]]}[0m
+[0;32mI (125613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:39","ver":"1.0.0","err":["0x19","0x11","0xB7"],"p":[[1,0,31.408,65.658,1009.054],[3,13,25.162,78.555]]}[0m
+[0;32mI (125893) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0x3E","0x01","0xA6"],"p":[[1,0,25.685,64.958,994.78],[3,13,29.34,72.507]]}[0m
+[0;32mI (125913) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0x2B","0x78","0x40"],"p":[[1,0,21.764,57.352,1005.774],[3,13,20.529,48.672]]}[0m
+[0;32mI (126193) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0x2D","0x89","0xB1"],"p":[[1,0,20.691,62.103,1016.827],[3,13,22.44,77.313]]}[0m
+[0;32mI (126213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0xC9","0x69","0x22"],"p":[[1,0,21.953,83.385,1019.267],[3,13,26.415,46.49]]}[0m
+[0;32mI (126493) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0x1E","0x4E","0x6A"],"p":[[1,0,25.442,47.816,1002.601],[3,13,33.615,60.77]]}[0m
+[0;32mI (126513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0x63","0xAD","0x38"],"p":[[1,0,22.98,61.708,1002.657],[3,13,20.105,78.483]]}[0m
+[0;32mI (126803) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0xD9","0x9B","0xAF"],"p":[[1,0,19.327,55.402,1027.156],[3,13,26.802,66.458]]}[0m
+[0;32mI (126823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:40","ver":"1.0.0","err":["0xFA","0x30","0x1D"],"p":[[1,0,28.204,71.179,1010.322],[3,13,22.471,83.326]]}[0m
+[0;32mI (127103) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0xA8","0x6D","0x7B"],"p":[[1,0,26.461,78.504,1020.879],[3,13,29.57,47.975]]}[0m
+[0;32mI (127123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0xAD","0x5B","0xFE"],"p":[[1,0,23.217,53.902,1025.892],[3,13,29.083,59.991]]}[0m
+[0;32mI (127403) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0x76","0x88","0xEC"],"p":[[1,0,25.026,69.323,998.213],[3,13,26.732,51.85]]}[0m
+[0;32mI (127423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0x55","0xD3","0x67"],"p":[[1,0,31.923,57.442,1020.383],[3,13,33.469,47.003]]}[0m
+[0;32mI (127703) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0x66","0x2E","0xF6"],"p":[[1,0,22.146,79.364,1029.772],[3,13,23.344,80.86]]}[0m
+[0;32mI (127723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:41","ver":"1.0.0","err":["0x4E","0x8F","0x5B"],"p":[[1,0,18.203,60.378,1002.297],[3,13,31.973,52.183]]}[0m
+[0;32mI (128003) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0x54","0x1B","0x51"],"p":[[1,0,28.637,43.571,1020.447],[3,13,23.166,77.367]]}[0m
+[0;32mI (128023) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0xE0","0x83","0x07"],"p":[[1,0,25.251,55.632,1015.435],[3,13,20.031,83.344]]}[0m
+[0;32mI (128303) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0xA5","0x22","0x35"],"p":[[1,0,20.221,47.916,1009.21],[3,13,32.506,48.87]]}[0m
+[0;32mI (128323) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0xEA","0xE1","0xDD"],"p":[[1,0,25.369,71.639,1021.831],[3,13,30.64,63.33]]}[0m
+[0;32mI (128613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0x35","0x3A","0x25"],"p":[[1,0,21.419,52.237,1016.691],[3,13,28.944,72.223]]}[0m
+[0;32mI (128623) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:42","ver":"1.0.0","err":["0xA5","0xD3","0x39"],"p":[[1,0,29.863,66.988,1025.508],[3,13,32.972,51.625]]}[0m
+[0;32mI (128903) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x36","0x3D","0x9E"],"p":[[1,0,21.092,56.137,993.588],[3,13,26.049,66.872]]}[0m
+[0;32mI (128933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x92","0x67","0xB8"],"p":[[1,0,24.821,69.458,1016.387],[3,13,27.73,60.234]]}[0m
+[0;32mI (129213) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x3E","0xE8","0x1E"],"p":[[1,0,18.207,44.316,1025.031],[3,13,32.057,80.783]]}[0m
+[0;32mI (129233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0xED","0xF3","0x35"],"p":[[1,0,29.583,52.552,1004.87],[3,13,21.969,58.92]]}[0m
+[0;32mI (129513) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x81","0x8A","0x0F"],"p":[[1,0,23.846,75.714,993.344],[3,13,25.801,72.196]]}[0m
+[0;32mI (129533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0xB0","0x4B","0xBA"],"p":[[1,0,29.365,46.066,1025.544],[3,13,31.064,54.163]]}[0m
+[0;32mI (129823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x87","0xD9","0xBC"],"p":[[1,0,30.464,74.514,1001.437],[3,13,32.754,79.923]]}[0m
+[0;32mI (129843) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:43","ver":"1.0.0","err":["0x24","0x6A","0xEA"],"p":[[1,0,31.243,58.532,991.604],[3,13,33.969,52.399]]}[0m
+[0;32mI (130113) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0xB3","0x76","0x4D"],"p":[[1,0,24.508,37.895,1029.468],[3,13,20.322,81.949]]}[0m
+[0;32mI (130133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0x1B","0x48","0xAC"],"p":[[1,0,23.042,69.638,1000.077],[3,13,20.101,73.114]]}[0m
+[0;32mI (130413) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0x43","0xFF","0x0A"],"p":[[1,0,20.809,73.714,1013.102],[3,13,30.396,64.235]]}[0m
+[0;32mI (130433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0x22","0x7C","0x2D"],"p":[[1,0,19.893,46.581,1010.61],[3,13,29.546,79.113]]}[0m
+[0;32mI (130713) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0xB5","0xF5","0xE8"],"p":[[1,0,20.022,76.239,1002.345],[3,13,31.144,84.631]]}[0m
+[0;32mI (130733) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:44","ver":"1.0.0","err":["0x5F","0xA0","0x56"],"p":[[1,0,25.289,57.627,1014.891],[3,13,22.792,59.932]]}[0m
+[0;32mI (131013) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0x4B","0xA5","0xAA"],"p":[[1,0,24.24,39.78,1003.913],[3,13,28.206,66.139]]}[0m
+[0;32mI (131033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0xE5","0xE1","0x81"],"p":[[1,0,31.574,56.757,1021.875],[3,13,29.819,53.258]]}[0m
+[0;32mI (131313) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0x8F","0xD5","0x8D"],"p":[[1,0,22.839,72.779,1017.723],[3,13,26.389,57.813]]}[0m
+[0;32mI (131333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0x95","0xA8","0x18"],"p":[[1,0,18.636,80.28,1013.954],[3,13,22.162,75.369]]}[0m
+[0;32mI (131613) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0xC0","0xF6","0x51"],"p":[[1,0,25.102,58.422,1020.727],[3,13,22.851,70.05]]}[0m
+[0;32mI (131643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:45","ver":"1.0.0","err":["0x70","0x2B","0x0F"],"p":[[1,0,19.138,78.634,991.852],[3,13,30.546,71.998]]}[0m
+[0;32mI (131923) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0xF0","0x06","0x75"],"p":[[1,0,19.392,45.416,998.021],[3,13,21.784,61.535]]}[0m
+[0;32mI (131943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0xE5","0x60","0xDF"],"p":[[1,0,27.553,50.397,1020.527],[3,13,31.638,71.652]]}[0m
+[0;32mI (132223) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0x86","0xEF","0x62"],"p":[[1,0,26.32,46.111,1021.835],[3,13,25.403,51.067]]}[0m
+[0;32mI (132243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0x99","0x63","0xF8"],"p":[[1,0,28.967,52.487,1003.021],[3,13,25.876,84.019]]}[0m
+[0;32mI (132523) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0xC0","0x36","0x0B"],"p":[[1,0,18.504,63.798,1012.974],[3,13,31.324,76.26]]}[0m
+[0;32mI (132543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0x8D","0x4A","0xED"],"p":[[1,0,23.547,71.744,1014.394],[3,13,28.082,84.113]]}[0m
+[0;32mI (132823) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0xA9","0xA7","0xA2"],"p":[[1,0,22.357,82.33,1016.459],[3,13,31.602,42.651]]}[0m
+[0;32mI (132843) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:46","ver":"1.0.0","err":["0x4A","0x32","0x13"],"p":[[1,0,20.529,37.845,1007.314],[3,13,31.716,64.604]]}[0m
+[0;32mI (133123) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0x75","0x54","0x38"],"p":[[1,0,29.718,66.018,1000.925],[3,13,23.068,54.55]]}[0m
+[0;32mI (133143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0x02","0x70","0xE0"],"p":[[1,0,20.002,63.093,1002.857],[3,13,21.592,69.163]]}[0m
+[0;32mI (133423) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0xE4","0x02","0x23"],"p":[[1,0,26.602,78.979,993.18],[3,13,25.613,71.814]]}[0m
+[0;32mI (133443) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0x01","0xAC","0x0D"],"p":[[1,0,25.537,43.311,993.132],[3,13,22.939,62.466]]}[0m
+[0;32mI (133723) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0x29","0x75","0x82"],"p":[[1,0,21.905,45.071,1020.751],[3,13,25.517,62.178]]}[0m
+[0;32mI (133743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:47","ver":"1.0.0","err":["0xFA","0xCA","0x93"],"p":[[1,0,21.474,58.077,1013.51],[3,13,20.497,47.763]]}[0m
+[0;32mI (134033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0x83","0x79","0xB9"],"p":[[1,0,26.112,70.564,995.425],[3,13,22.036,65.342]]}[0m
+[0;32mI (134053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0x49","0x10","0x31"],"p":[[1,0,22.644,82.925,1002.809],[3,13,25.749,84.158]]}[0m
+[0;32mI (134333) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0xAB","0xA4","0xF5"],"p":[[1,0,26.465,61.463,1019.063],[3,13,21.68,58.159]]}[0m
+[0;32mI (134353) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0x77","0xDD","0xB4"],"p":[[1,0,30.52,70.484,1001.513],[3,13,29.605,62.354]]}[0m
+[0;32mI (134633) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0xA4","0x41","0x3E"],"p":[[1,0,20.604,51.272,1001.097],[3,13,27.208,56.958]]}[0m
+[0;32mI (134653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:48","ver":"1.0.0","err":["0xDF","0x1F","0xC5"],"p":[[1,0,31.306,68.853,1026.732],[3,13,22.552,64.748]]}[0m
+[0;32mI (134933) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x47","0x2F","0x91"],"p":[[1,0,28.732,73.384,1008.078],[3,13,22.212,55.482]]}[0m
+[0;32mI (134953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x6D","0xB7","0x75"],"p":[[1,0,19.658,62.488,994.164],[3,13,21.472,67.214]]}[0m
+[0;32mI (135233) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x0D","0x43","0xFB"],"p":[[1,0,30.488,57.237,995.381],[3,13,25.816,50.644]]}[0m
+[0;32mI (135253) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x31","0xA7","0x4D"],"p":[[1,0,18.475,53.617,998.025],[3,13,30.334,60.216]]}[0m
+[0;32mI (135533) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x76","0x08","0x01"],"p":[[1,0,29.52,44.861,1007.986],[3,13,21.113,49.775]]}[0m
+[0;32mI (135553) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0xCA","0xFD","0x9D"],"p":[[1,0,31.496,75.534,1015.499],[3,13,23.358,67.268]]}[0m
+[0;32mI (135833) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0x04","0xE7","0x20"],"p":[[1,0,21.997,83.825,1002.741],[3,13,25.161,71.611]]}[0m
+[0;32mI (135853) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:49","ver":"1.0.0","err":["0xAC","0x39","0xD1"],"p":[[1,0,18.118,60.643,995.937],[3,13,24.774,55.41]]}[0m
+[0;32mI (136133) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0x0B","0xEB","0xF2"],"p":[[1,0,30.89,46.906,1025.592],[3,13,23.783,52.138]]}[0m
+[0;32mI (136153) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0x87","0x0F","0x76"],"p":[[1,0,23.029,57.942,997.725],[3,13,22.797,69.437]]}[0m
+[0;32mI (136433) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0x15","0x50","0xF8"],"p":[[1,0,22.354,44.706,1013.982],[3,13,26.14,66.823]]}[0m
+[0;32mI (136453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0x1A","0x35","0x97"],"p":[[1,0,28.697,65.798,1002.785],[3,13,21.507,60.563]]}[0m
+[0;32mI (136743) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0xF8","0x7F","0x40"],"p":[[1,0,30.849,73.474,1023.423],[3,13,32.6,60.576]]}[0m
+[0;32mI (136763) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:50","ver":"1.0.0","err":["0x48","0x0A","0x70"],"p":[[1,0,19.346,50.837,993.688],[3,13,26.32,48.231]]}[0m
+[0;32mI (137033) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0xE9","0x39","0x72"],"p":[[1,0,22.772,49.011,1028.812],[3,13,25.024,82.786]]}[0m
+[0;32mI (137063) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0x88","0x23","0x84"],"p":[[1,0,24.539,36.385,1028.544],[3,13,31.294,69.302]]}[0m
+[0;32mI (137343) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0x6E","0x34","0xC8"],"p":[[1,0,23.489,44.201,1011.402],[3,13,27.989,66.278]]}[0m
+[0;32mI (137363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0x92","0x2C","0x9F"],"p":[[1,0,27.287,71.759,1017.779],[3,13,21.053,66.679]]}[0m
+[0;32mI (137643) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0x52","0x0F","0x45"],"p":[[1,0,29.628,78.369,1023.063],[3,13,28.734,64.851]]}[0m
+[0;32mI (137663) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:51","ver":"1.0.0","err":["0xA6","0x38","0xE7"],"p":[[1,0,20.348,77.039,1011.346],[3,13,24.695,75.837]]}[0m
+[0;32mI (137943) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0x2D","0xFD","0x6B"],"p":[[1,0,30.477,49.241,1012.854],[3,13,32.23,75.707]]}[0m
+[0;32mI (137963) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0xF1","0xCA","0xDA"],"p":[[1,0,25.901,43.411,1017.411],[3,13,27.513,64.572]]}[0m
+[0;32mI (138243) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0xA3","0x34","0x40"],"p":[[1,0,25.674,73.189,1018.007],[3,13,26.445,53.605]]}[0m
+[0;32mI (138263) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0xE8","0x58","0xD7"],"p":[[1,0,21.183,65.578,1000.837],[3,13,21.186,63.047]]}[0m
+[0;32mI (138543) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0x17","0xBA","0x95"],"p":[[1,0,18.08,69.653,996.193],[3,13,33.009,74.793]]}[0m
+[0;32mI (138573) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0x73","0x46","0xCE"],"p":[[1,0,23.848,47.161,1017.831],[3,13,32.076,49.482]]}[0m
+[0;32mI (138843) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:52","ver":"1.0.0","err":["0x09","0x2A","0xDA"],"p":[[1,0,23.795,51.257,1009.062],[3,13,24.081,60.608]]}[0m
+[0;32mI (138873) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0xAD","0xF7","0x15"],"p":[[1,0,27.849,84.645,992.444],[3,13,21.208,66.49]]}[0m
+[0;32mI (139143) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0x47","0xF0","0x20"],"p":[[1,0,29.592,52.837,1003.729],[3,13,31.042,76.004]]}[0m
+[0;32mI (139173) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0x3F","0xC9","0x5B"],"p":[[1,0,28.784,81.02,1025.196],[3,13,28.882,59.797]]}[0m
+[0;32mI (139453) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0x6F","0xFF","0xB9"],"p":[[1,0,20.142,65.353,1003.805],[3,13,30.644,53.128]]}[0m
+[0;32mI (139473) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0x79","0xE9","0x0C"],"p":[[1,0,25.454,60.128,1019.847],[3,13,32.624,75.603]]}[0m
+[0;32mI (139753) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0xFF","0x29","0x13"],"p":[[1,0,25.842,63.943,1004.773],[3,13,23.24,49.955]]}[0m
+[0;32mI (139773) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:53","ver":"1.0.0","err":["0x7C","0xF6","0xD2"],"p":[[1,0,25.015,79.389,1024.604],[3,13,25.347,72.975]]}[0m
+[0;32mI (140053) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0xE8","0xDB","0x87"],"p":[[1,0,23.809,49.881,1016.811],[3,13,30.039,43.866]]}[0m
+[0;32mI (140083) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0xE0","0xD8","0xB6"],"p":[[1,0,18.246,76.054,994.312],[3,13,29.202,46.598]]}[0m
+[0;32mI (140363) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0xF4","0x0B","0x69"],"p":[[1,0,24.576,83.155,1001.473],[3,13,20.622,59.739]]}[0m
+[0;32mI (140383) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0x4D","0x0E","0x85"],"p":[[1,0,24.597,70.299,1001.205],[3,13,31.589,79.095]]}[0m
+[0;32mI (140653) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0x57","0x5E","0x93"],"p":[[1,0,18.087,36.3,1008.746],[3,13,26.624,61.283]]}[0m
+[0;32mI (140683) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:54","ver":"1.0.0","err":["0x11","0x4A","0xFA"],"p":[[1,0,29.193,36.785,1027.996],[3,13,27.858,76.395]]}[0m
+[0;32mI (140953) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2000-01-45T20:06:55","ver":"1.0.0","err":["0xEB","0x28","0x82"],"p":[[1,0,21.213,62.873,1008.918],[3,13,33.353,66.841]]}[0m
+[0;32mI (140983) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2000-01-45T20:06:55","ver":"1.0.0","err":["0xC7","0x78","0xF3"],"p":[[1,0,25.939,62.398,1007.33],[3,13,30.581,61.535]]}[0m

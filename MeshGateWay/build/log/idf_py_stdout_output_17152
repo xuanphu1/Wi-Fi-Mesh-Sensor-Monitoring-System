@@ -1,0 +1,1001 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (302) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (309) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (666) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (708) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (708) boot: Disabling RNG early entropy source...[0m
+[0;32mI (720) cpu_start: Multicore app[0m
+[0;32mI (729) cpu_start: Pro cpu start user code[0m
+[0;32mI (730) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (730) cpu_start: Application information:[0m
+[0;32mI (733) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (738) cpu_start: App version:      1[0m
+[0;32mI (742) cpu_start: Compile time:     May  5 2026 23:16:54[0m
+[0;32mI (748) cpu_start: ELF file SHA256:  49971a7ca...[0m
+[0;32mI (754) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (759) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (764) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (769) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (774) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (781) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (787) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (793) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (799) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (806) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (813) spi_flash: detected chip: generic[0m
+[0;32mI (816) spi_flash: flash io: dio[0m
+[0;33mW (821) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (831) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (840) main_task: Started on CPU0[0m
+[0;32mI (850) main_task: Calling app_main()[0m
+[0;32mI (870) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (870) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (870) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (870) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (880) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (890) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (890) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (900) disp_spi: Adding SPI device[0m
+[0;32mI (900) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1110) ILI9341: Initialization.[0m
+[0;32mI (1310) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1310) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1310) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1580) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1580) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1590) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1640) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-16 12:59:18
+[0;32mI (1700) wifi:wifi driver task: 3ffe35dc, prio:23, stack:6656, core=0[0m
+[0;32mI (1700) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1710) wifi:wifi certification version: v7.0[0m
+[0;32mI (1710) wifi:config NVS flash: enabled[0m
+[0;32mI (1710) wifi:config nano formating: disabled[0m
+[0;32mI (1710) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1720) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1720) wifi:Init management short buffer num: 32[0m
+[0;32mI (1720) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1730) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1730) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1740) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1740) wifi_init: rx ba win: 6[0m
+[0;32mI (1750) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1750) wifi_init: udp mbox: 6[0m
+[0;32mI (1750) wifi_init: tcp mbox: 6[0m
+[0;32mI (1760) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1760) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1760) wifi_init: tcp mss: 1440[0m
+[0;32mI (1770) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1770) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1780) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (1790) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1790) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1880) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1880) wifi:enable tsf[0m
+[0;32mI (1890) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (2270) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4310) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4310) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (4310) wifi:flush txq[0m
+[0;32mI (4310) wifi:stop sw txq[0m
+[0;32mI (4310) wifi:lmac stop hw txq[0m
+[0;32mI (4320) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4320) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4320) wifi:enable tsf[0m
+[0;32mI (4330) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (6750) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6750) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (6760) wifi:flush txq[0m
+[0;32mI (6760) wifi:stop sw txq[0m
+[0;32mI (6760) wifi:lmac stop hw txq[0m
+[0;32mI (6760) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6770) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6770) wifi:enable tsf[0m
+[0;32mI (6770) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (9190) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9200) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (9200) wifi:flush txq[0m
+[0;32mI (9200) wifi:stop sw txq[0m
+[0;32mI (9200) wifi:lmac stop hw txq[0m
+[0;32mI (9210) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9210) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9210) wifi:enable tsf[0m
+[0;32mI (9220) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (11640) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11640) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (11650) wifi:flush txq[0m
+[0;32mI (11650) wifi:stop sw txq[0m
+[0;32mI (11650) wifi:lmac stop hw txq[0m
+[0;32mI (11650) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11660) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11660) wifi:enable tsf[0m
+[0;32mI (11660) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (14080) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14090) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14090) wifi:flush txq[0m
+[0;32mI (14090) wifi:stop sw txq[0m
+[0;32mI (14090) wifi:lmac stop hw txq[0m
+[0;32mI (14100) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14100) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14110) wifi:enable tsf[0m
+[0;32mI (14110) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16530) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16530) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16540) wifi:flush txq[0m
+[0;32mI (16540) wifi:stop sw txq[0m
+[0;32mI (16540) wifi:lmac stop hw txq[0m
+[0;32mI (16540) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16550) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16550) wifi:enable tsf[0m
+[0;32mI (16560) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (18980) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (18980) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (18980) wifi:flush txq[0m
+[0;32mI (18980) wifi:stop sw txq[0m
+[0;32mI (18980) wifi:lmac stop hw txq[0m
+[0;32mI (18990) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (18990) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19000) wifi:enable tsf[0m
+[0;32mI (19000) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21420) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21420) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21430) wifi:flush txq[0m
+[0;32mI (21430) wifi:stop sw txq[0m
+[0;32mI (21430) wifi:lmac stop hw txq[0m
+[0;32mI (21430) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21440) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21440) wifi:enable tsf[0m
+[0;32mI (21450) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23870) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23870) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23870) wifi:flush txq[0m
+[0;32mI (23870) wifi:stop sw txq[0m
+[0;32mI (23880) wifi:lmac stop hw txq[0m
+[0;32mI (23880) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23890) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23890) wifi:enable tsf[0m
+[0;32mI (23890) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26310) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26310) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26320) wifi:flush txq[0m
+[0;32mI (26320) wifi:stop sw txq[0m
+[0;32mI (26320) wifi:lmac stop hw txq[0m
+[0;32mI (26320) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26330) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26330) wifi:enable tsf[0m
+[0;32mI (26340) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (27890) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1[0m
+[0;32mI (27890) wifi:state: init -> auth (b0)[0m
+[0;32mI (27890) wifi:state: auth -> init (8a0)[0m
+[0;32mI (27890) wifi:new:<11,0>, old:<11,0>, ap:<255,255>, sta:<11,0>, prof:1[0m
+[0;33mW (27900) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (27900) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (27910) wifi:flush txq[0m
+[0;32mI (27910) wifi:stop sw txq[0m
+[0;32mI (27910) wifi:lmac stop hw txq[0m
+[0;32mI (27920) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (27920) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (27930) wifi:enable tsf[0m
+[0;32mI (27930) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (27950) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1[0m
+[0;32mI (27950) wifi:state: init -> auth (b0)[0m
+[0;32mI (27960) wifi:state: auth -> assoc (0)[0m
+[0;32mI (27970) wifi:state: assoc -> run (10)[0m
+[0;32mI (27990) wifi:connected with Smile, aid = 1, channel 11, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (27990) wifi:security: WPA2-PSK, phy: bgn, rssi: -69[0m
+[0;32mI (27990) wifi:pm start, type: 1[0m
+
+[0;32mI (28000) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (28010) WiFiManager: WiFi STA link established[0m
+[0;32mI (28140) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (28380) wifi:<ba-add>idx:0 (ifx:0, a8:25:eb:5e:98:e9), tid:0, ssn:1, winSize:64[0m
+[0;32mI (29010) esp_netif_handlers: sta ip: 192.168.1.119, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (29010) WiFiManager: Got IP: 192.168.1.119[0m
+[0;32mI (29010) WiFiManager: Connected startup WiFi: SSID=Smile[0m
+[0;32mI (29020) uart: queue free spaces: 24[0m
+[0;32mI (29060) uart_to_node: Send: Start Root[0m
+[0;32mI (29580) uart_to_node: Send: Start Root[0m
+[0;32mI (29640) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (29640) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (30040) WebSocket Handler: Starting WebSocket with URL: ws://192.168.1.26:8080/ws[0m
+[0;33mW (30040) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (30050) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (30060) websocket_client: Started[0m
+[0;32mI (30070) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (30070) uart_to_node: RX line: .No node[0m
+[0;32mI (31070) uart_to_node: RX line: No node[0m
+[0;32mI (31730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:51:49","ver":"1.0.0","err":["0xA0","0x31","0xAE"],"p":[[1,0,31.080,54.357,1001.065],[3,13,24.741,76.319]]}[0m
+[0;32mI (32230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:51:49","ver":"1.0.0","err":["0x74","0xDD","0x2D"],"p":[[1,0,28.045,40.271,993.932],[3,13,29.017,69.532]]}[0m
+[0;32mI (33070) uart_to_node: RX line: No node[0m
+[0;32mI (34070) uart_to_node: RX line: No node[0m
+[0;32mI (35070) uart_to_node: RX line: No node[0m
+[0;32mI (36230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:51:54","ver":"1.0.0","err":["0xAE","0x12","0x8E"],"p":[[1,0,18.379,64.843,1020.831],[3,13,30.264,57.241]]}[0m
+[0;32mI (36730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:51:54","ver":"1.0.0","err":["0x33","0x52","0x86"],"p":[[1,0,20.096,37.680,1010.102],[3,13,27.235,70.747]]}[0m
+[0;32mI (37570) uart_to_node: RX line: No node[0m
+[0;32mI (38570) uart_to_node: RX line: No node[0m
+[0;32mI (39570) uart_to_node: RX line: No node[0m
+[0;31mE (40090) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (40090) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (40090) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (40100) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (40110) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (40120) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (40120) WebSocket Handler: Disconnected from server[0m
+[0;32mI (40570) uart_to_node: RX line: No node[0m
+[0;32mI (41230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:51:59","ver":"1.0.0","err":["0x5E","0x9A","0x01"],"p":[[1,0,29.152,78.684,1017.995],[3,13,33.553,58.416]]}[0m
+[0;32mI (41730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:51:59","ver":"1.0.0","err":["0xE3","0x38","0x83"],"p":[[1,0,26.873,68.603,997.957],[3,13,26.357,72.574]]}[0m
+[0;32mI (42570) uart_to_node: RX line: No node[0m
+[0;32mI (43570) uart_to_node: RX line: No node[0m
+[0;32mI (44570) uart_to_node: RX line: No node[0m
+[0;32mI (45570) uart_to_node: RX line: No node[0m
+[0;32mI (46730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:04","ver":"1.0.0","err":["0xF3","0xF7","0x2A"],"p":[[1,0,31.107,83.475,1021.115],[3,13,30.563,83.830]]}[0m
+[0;32mI (47230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:05","ver":"1.0.0","err":["0xC3","0x81","0x9E"],"p":[[1,0,25.246,81.245,997.269],[3,13,29.501,46.467]]}[0m
+[0;32mI (48070) uart_to_node: RX line: No node[0m
+[0;32mI (49070) uart_to_node: RX line: No node[0m
+[0;32mI (50070) uart_to_node: RX line: No node[0m
+[0;32mI (51070) uart_to_node: RX line: No node[0m
+[0;32mI (51730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:10","ver":"1.0.0","err":["0x7E","0xFD","0xFE"],"p":[[1,0,23.318,63.783,1019.779],[3,13,21.792,61.035]]}[0m
+[0;32mI (52230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:10","ver":"1.0.0","err":["0x65","0xC4","0xB7"],"p":[[1,0,20.404,73.779,1029.300],[3,13,30.977,55.185]]}[0m
+[0;32mI (53070) uart_to_node: RX line: No node[0m
+[0;32mI (54070) uart_to_node: RX line: No node[0m
+[0;32mI (55070) uart_to_node: RX line: No node[0m
+[0;32mI (56070) uart_to_node: RX line: No node[0m
+[0;32mI (56730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:15","ver":"1.0.0","err":["0xB3","0xBD","0x04"],"p":[[1,0,23.827,59.822,1007.726],[3,13,31.901,71.332]]}[0m
+[0;32mI (57230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:15","ver":"1.0.0","err":["0xF5","0xBA","0x58"],"p":[[1,0,27.576,63.918,1026.452],[3,13,22.393,49.415]]}[0m
+[0;32mI (58070) uart_to_node: RX line: No node[0m
+[0;32mI (59070) uart_to_node: RX line: No node[0m
+[0;32mI (60070) uart_to_node: RX line: No node[0m
+[0;31mE (60150) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (60150) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (60150) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (60150) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (60170) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (60180) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (60180) WebSocket Handler: Disconnected from server[0m
+[0;32mI (61070) uart_to_node: RX line: No node[0m
+[0;32mI (62230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:20","ver":"1.0.0","err":["0x1E","0xE0","0xFA"],"p":[[1,0,26.385,42.581,1002.853],[3,13,29.602,76.841]]}[0m
+[0;32mI (62730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:20","ver":"1.0.0","err":["0x4F","0x7C","0xA2"],"p":[[1,0,25.683,42.051,1029.968],[3,13,27.078,45.117]]}[0m
+[0;32mI (63570) uart_to_node: RX line: No node[0m
+[0;32mI (64570) uart_to_node: RX line: No node[0m
+[0;32mI (65570) uart_to_node: RX line: No node[0m
+[0;32mI (66570) uart_to_node: RX line: No node[0m
+[0;32mI (67230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:25","ver":"1.0.0","err":["0x7D","0xA6","0xF2"],"p":[[1,0,30.148,47.086,1016.087],[3,13,28.164,56.737]]}[0m
+[0;32mI (67730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:25","ver":"1.0.0","err":["0x41","0xB8","0xCB"],"p":[[1,0,25.719,47.846,996.273],[3,13,27.225,68.326]]}[0m
+[0;32mI (68570) uart_to_node: RX line: No node[0m
+[0;32mI (69570) uart_to_node: RX line: No node[0m
+[0;32mI (70570) uart_to_node: RX line: No node[0m
+[0;32mI (71570) uart_to_node: RX line: No node[0m
+[0;32mI (72730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:30","ver":"1.0.0","err":["0x83","0x44","0xDF"],"p":[[1,0,28.675,64.553,999.049],[3,13,25.861,45.851]]}[0m
+[0;32mI (73230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:31","ver":"1.0.0","err":["0xDA","0x82","0xC3"],"p":[[1,0,26.916,49.236,1004.165],[3,13,24.244,54.950]]}[0m
+[0;32mI (74070) uart_to_node: RX line: No node[0m
+[0;32mI (75070) uart_to_node: RX line: No node[0m
+[0;32mI (76070) uart_to_node: RX line: No node[0m
+[0;32mI (77070) uart_to_node: RX line: No node[0m
+[0;32mI (77730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:36","ver":"1.0.0","err":["0x45","0xBA","0x0E"],"p":[[1,0,22.006,44.966,997.261],[3,13,27.411,43.987]]}[0m
+[0;32mI (78230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:36","ver":"1.0.0","err":["0xBF","0xF3","0x29"],"p":[[1,0,31.875,46.401,1013.430],[3,13,27.692,55.072]]}[0m
+[0;32mI (79070) uart_to_node: RX line: No node[0m
+[0;32mI (80070) uart_to_node: RX line: No node[0m
+[0;31mE (80210) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (80210) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (80210) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (80210) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (80230) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (80240) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (80240) WebSocket Handler: Disconnected from server[0m
+[0;32mI (81070) uart_to_node: RX line: No node[0m
+[0;32mI (82070) uart_to_node: RX line: No node[0m
+[0;32mI (82730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:41","ver":"1.0.0","err":["0x93","0xCB","0x37"],"p":[[1,0,25.880,68.718,997.201],[3,13,26.984,59.563]]}[0m
+[0;32mI (83230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:41","ver":"1.0.0","err":["0xED","0x97","0xB9"],"p":[[1,0,30.667,67.453,1017.703],[3,13,28.331,53.447]]}[0m
+[0;32mI (84070) uart_to_node: RX line: No node[0m
+[0;32mI (85070) uart_to_node: RX line: No node[0m
+[0;32mI (86070) uart_to_node: RX line: No node[0m
+[0;32mI (87070) uart_to_node: RX line: No node[0m
+[0;32mI (88230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:46","ver":"1.0.0","err":["0xB7","0x1E","0xCA"],"p":[[1,0,31.913,64.703,1021.271],[3,13,22.124,66.908]]}[0m
+[0;32mI (88730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:46","ver":"1.0.0","err":["0x42","0x11","0xF6"],"p":[[1,0,19.277,80.915,1001.661],[3,13,24.093,55.086]]}[0m
+[0;32mI (89570) uart_to_node: RX line: No node[0m
+[0;32mI (90570) uart_to_node: RX line: No node[0m
+[0;32mI (91570) uart_to_node: RX line: No node[0m
+[0;32mI (92570) uart_to_node: RX line: No node[0m
+[0;32mI (93230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:51","ver":"1.0.0","err":["0xEE","0x25","0xFA"],"p":[[1,0,22.710,57.932,1009.550],[3,13,23.199,41.359]]}[0m
+[0;32mI (93730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:52","ver":"1.0.0","err":["0xFE","0x45","0x7D"],"p":[[1,0,30.052,59.652,1018.223],[3,13,27.852,41.283]]}[0m
+[0;32mI (94570) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������0;32mI (95570) uart_to_node: RX line: No node[0m
+[0;32mI (96570) uart_to_node: RX line: No node[0m
+[0;32mI (97570) uart_to_node: RX line: No node[0m
+[0;32mI (98730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:52:56","ver":"1.0.0","err":["0x1F","0x0E","0x82"],"p":[[1,0,22.991,73.334,995.321],[3,13,26.466,73.803]]}[0m
+[0;32mI (99230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:52:57","ver":"1.0.0","err":["0x70","0x28","0x14"],"p":[[1,0,21.461,40.031,1006.482],[3,13,29.864,64.055]]}[0m
+[0;32mI (100070) uart_to_node: RX line: No node[0m
+[0;31mE (100270) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (100270) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (100270) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (100280) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (100290) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (100300) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (100300) WebSocket Handler: Disconnected from server[0m
+[0;32mI (101070) uart_to_node: RX line: No node[0m
+[0;32mI (102070) uart_to_node: RX line: No node[0m
+[0;32mI (103070) uart_to_node: RX line: No node[0m
+[0;32mI (103720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:02","ver":"1.0.0","err":["0xE0","0xEA","0xA0"],"p":[[1,0,25.131,59.187,994.028],[3,13,23.716,65.896]]}[0m
+[0;32mI (104230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:02","ver":"1.0.0","err":["0xF2","0x62","0xEA"],"p":[[1,0,21.971,49.821,999.025],[3,13,29.396,81.386]]}[0m
+[0;32mI (105070) uart_to_node: RX line: No node[0m
+[0;32mI (106070) uart_to_node: RX line: No node[0m
+[0;32mI (107070) uart_to_node: RX line: No node[0m
+[0;32mI (108070) uart_to_node: RX line: No node[0m
+[0;32mI (108730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:07","ver":"1.0.0","err":["0x8F","0x96","0xF5"],"p":[[1,0,21.591,39.425,1015.463],[3,13,28.453,47.565]]}[0m
+[0;32mI (109230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:07","ver":"1.0.0","err":["0x03","0x45","0x91"],"p":[[1,0,31.472,44.366,1011.802],[3,13,33.306,73.020]]}[0m
+[0;32mI (110070) uart_to_node: RX line: No node[0m
+[0;32mI (111070) uart_to_node: RX line: No node[0m
+[0;32mI (112070) uart_to_node: RX line: No node[0m
+[0;32mI (113070) uart_to_node: RX line: No node[0m
+[0;32mI (114230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:12","ver":"1.0.0","err":["0xC3","0x69","0x0A"],"p":[[1,0,25.699,49.631,999.233],[3,13,33.692,52.354]]}[0m
+[0;32mI (114730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:12","ver":"1.0.0","err":["0x88","0xAD","0xC2"],"p":[[1,0,28.862,51.272,1005.218],[3,13,32.680,49.338]]}[0m
+[0;32mI (115570) uart_to_node: RX line: No node[0m
+[0;32mI (116570) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������0;32mI (117570) uart_to_node: RX line: No node[0m
+[0;32mI (118570) uart_to_node: RX line: No node[0m
+[0;32mI (119230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:17","ver":"1.0.0","err":["0x2E","0x3B","0xBC"],"p":[[1,0,18.449,76.114,1003.845],[3,13,21.956,57.363]]}[0m
+[0;32mI (119730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:18","ver":"1.0.0","err":["0x8E","0xCC","0x2D"],"p":[[1,0,18.864,82.720,1023.859],[3,13,20.441,61.112]]}[0m
+[0;31mE (120330) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (120330) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (120330) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (120340) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (120350) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (120360) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (120360) WebSocket Handler: Disconnected from server[0m
+[0;32mI (120570) uart_to_node: RX line: No node[0m
+[0;32mI (121570) uart_to_node: RX line: No node[0m
+[0;32mI (122570) uart_to_node: RX line: No node[0m
+[0;32mI (123570) uart_to_node: RX line: No node[0m
+[0;32mI (124730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:22","ver":"1.0.0","err":["0x92","0x54","0x9F"],"p":[[1,0,25.271,76.379,1001.069],[3,13,22.621,53.303]]}[0m
+[0;32mI (125230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:23","ver":"1.0.0","err":["0xA3","0xD5","0xD5"],"p":[[1,0,20.449,54.102,1027.520],[3,13,25.591,50.045]]}[0m
+[0;32mI (126070) uart_to_node: RX line: No node[0m
+[0;32mI (127070) uart_to_node: RX line: No node[0m
+[0;32mI (128070) uart_to_node: RX line: No node[0m
+[0;32mI (129070) uart_to_node: RX line: No node[0m
+[0;32mI (129720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:28","ver":"1.0.0","err":["0xF2","0xE2","0xC0"],"p":[[1,0,18.804,41.266,997.921],[3,13,31.592,44.847]]}[0m
+[0;32mI (130220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:28","ver":"1.0.0","err":["0x61","0x9A","0x43"],"p":[[1,0,30.496,35.330,997.781],[3,13,29.830,69.653]]}[0m
+[0;32mI (131070) uart_to_node: RX line: No node[0m
+[0;32mI (132070) uart_to_node: RX line: No node[0m
+[0;32mI (133070) uart_to_node: RX line: No node[0m
+[0;32mI (134070) uart_to_node: RX line: No node[0m
+[0;32mI (134730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:33","ver":"1.0.0","err":["0xE6","0xD5","0x8C"],"p":[[1,0,21.794,48.676,1007.158],[3,13,29.065,56.652]]}[0m
+[0;32mI (135220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:33","ver":"1.0.0","err":["0x06","0x4B","0x2E"],"p":[[1,0,23.255,81.015,998.577],[3,13,32.878,41.674]]}[0m
+[0;32mI (136070) uart_to_node: RX line: No node[0m
+[0;32mI (137070) uart_to_node: RX line: No node[0m
+[0;32mI (138070) uart_to_node: RX line: No node[0m
+[0;32mI (139070) uart_to_node: RX line: No node[0m
+[0;32mI (140230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:38","ver":"1.0.0","err":["0x2B","0x06","0x36"],"p":[[1,0,21.663,35.030,1004.405],[3,13,21.095,81.440]]}[0m
+[0;31mE (140380) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (140380) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (140380) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (140380) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (140400) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (140410) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (140410) WebSocket Handler: Disconnected from server[0m
+[0;32mI (140730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:38","ver":"1.0.0","err":["0x2C","0x24","0xD9"],"p":[[1,0,30.349,48.521,1004.013],[3,13,27.348,59.973]]}[0m
+[0;32mI (141570) uart_to_node: RX line: No node[0m
+[0;32mI (142570) uart_to_node: RX line: No node[0m
+[0;32mI (143570) uart_to_node: RX line: No node[0m
+[0;32mI (144570) uart_to_node: RX line: No node[0m
+[0;32mI (145230) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:43","ver":"1.0.0","err":["0x24","0x41","0x72"],"p":[[1,0,28.655,58.597,1016.255],[3,13,22.999,83.825]]}[0m
+[0;32mI (145730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:44","ver":"1.0.0","err":["0xF6","0x4B","0xDA"],"p":[[1,0,20.316,49.996,1016.199],[3,13,25.468,49.307]]}[0m
+[0;32mI (146570) uart_to_node: RX line: No node[0m
+[0;32mI (147570) uart_to_node: RX line: No node[0m
+[0;32mI (148570) uart_to_node: RX line: No node[0m
+[0;32mI (149570) uart_to_node: RX line: No node[0m
+[0;32mI (150730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:48","ver":"1.0.0","err":["0xD8","0x42","0x5D"],"p":[[1,0,28.907,61.913,1014.806],[3,13,26.016,55.441]]}[0m
+[0;32mI (151230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:49","ver":"1.0.0","err":["0x06","0x8A","0xC8"],"p":[[1,0,23.461,84.225,1009.782],[3,13,33.325,44.208]]}[0m
+[0;32mI (152070) uart_to_node: RX line: No node[0m
+[0;32mI (153070) uart_to_node: RX line: No node[0m
+[0;32mI (154070) uart_to_node: RX line: No node[0m
+[0;32mI (155070) uart_to_node: RX line: No node[0m
+[0;32mI (155730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:54","ver":"1.0.0","err":["0xF9","0x6C","0x0A"],"p":[[1,0,24.509,65.463,1007.098],[3,13,30.633,44.122]]}[0m
+[0;32mI (156230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:54","ver":"1.0.0","err":["0xA6","0x61","0xC5"],"p":[[1,0,18.501,48.536,1005.494],[3,13,25.983,49.446]]}[0m
+[0;32mI (157070) uart_to_node: RX line: No node[0m
+[0;32mI (158070) uart_to_node: RX line: No node[0m
+[0;32mI (159070) uart_to_node: RX line: No node[0m
+[0;32mI (160070) uart_to_node: RX line: No node[0m
+[0;31mE (160430) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (160430) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (160430) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (160440) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (160450) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (160460) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (160460) WebSocket Handler: Disconnected from server[0m
+[0;32mI (160730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:53:59","ver":"1.0.0","err":["0x3B","0x6E","0xFA"],"p":[[1,0,26.040,76.739,1012.366],[3,13,28.415,65.455]]}[0m
+[0;32mI (161220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:53:59","ver":"1.0.0","err":["0xE4","0x06","0x71"],"p":[[1,0,18.714,65.883,997.397],[3,13,31.042,51.508]]}[0m
+[0;32mI (162070) uart_to_node: RX line: No node[0m
+[0;32mI (163070) uart_to_node: RX line: No node[0m
+[0;32mI (164070) uart_to_node: RX line: No node[0m
+[0;32mI (165070) uart_to_node: RX line: No node[0m
+[0;32mI (166220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:04","ver":"1.0.0","err":["0x2E","0x63","0x32"],"p":[[1,0,22.403,57.212,1026.092],[3,13,25.174,55.045]]}[0m
+[0;32mI (166720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:04","ver":"1.0.0","err":["0x7D","0xB8","0x30"],"p":[[1,0,18.872,57.782,999.045],[3,13,29.784,47.385]]}[0m
+[0;32mI (167570) uart_to_node: RX line: No node[0m
+[0;32mI (168570) uart_to_node: RX line: No node[0m
+[0;32mI (169570) uart_to_node: RX line: No node[0m
+[0;32mI (170570) uart_to_node: RX line: No node[0m
+[0;32mI (171220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:09","ver":"1.0.0","err":["0xB8","0x52","0xF2"],"p":[[1,0,30.267,46.986,1026.156],[3,13,27.183,45.153]]}[0m
+[0;32mI (171720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:10","ver":"1.0.0","err":["0x41","0x25","0x8A"],"p":[[1,0,28.129,60.963,992.796],[3,13,25.498,76.071]]}[0m
+[0;32mI (172570) uart_to_node: RX line: No node[0m
+[0;32mI (173570) uart_to_node: RX line: No node[0m
+[0;32mI (174570) uart_to_node: RX line: No node[0m
+[0;32mI (175570) uart_to_node: RX line: No node[0m
+[0;32mI (176730) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:14","ver":"1.0.0","err":["0xB0","0x01","0x73"],"p":[[1,0,20.848,71.514,1002.825],[3,13,26.060,80.869]]}[0m
+[0;32mI (177230) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:15","ver":"1.0.0","err":["0x9C","0xDC","0xDD"],"p":[[1,0,31.808,40.231,1007.946],[3,13,26.966,50.527]]}[0m
+[0;32mI (178070) uart_to_node: RX line: No node[0m
+[0;32mI (179070) uart_to_node: RX line: No node[0m
+[0;32mI (180070) uart_to_node: RX line: No node[0m
+[0;31mE (180490) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (180490) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (180490) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (180500) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (180510) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (180520) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (180520) WebSocket Handler: Disconnected from server[0m
+[0;32mI (181070) uart_to_node: RX line: No node[0m
+[0;32mI (181720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:20","ver":"1.0.0","err":["0xA0","0x12","0x69"],"p":[[1,0,28.369,49.161,990.444],[3,13,25.195,58.843]]}[0m
+[0;32mI (182220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:20","ver":"1.0.0","err":["0x2E","0xD2","0xB5"],"p":[[1,0,25.254,59.512,1006.262],[3,13,21.172,47.336]]}[0m
+[0;32mI (183070) uart_to_node: RX line: No node[0m
+[0;32mI (184070) uart_to_node: RX line: No node[0m
+[0;32mI (185070) uart_to_node: RX line: No node[0m
+[0;32mI (186070) uart_to_node: RX line: No node[0m
+[0;32mI (186720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:25","ver":"1.0.0","err":["0xFC","0xA9","0x59"],"p":[[1,0,27.147,43.986,1010.198],[3,13,23.141,76.436]]}[0m
+[0;32mI (187220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:25","ver":"1.0.0","err":["0x7D","0xE7","0x93"],"p":[[1,0,20.170,60.718,1019.675],[3,13,33.394,70.099]]}[0m
+[0;32mI (188070) uart_to_node: RX line: No node[0m
+[0;32mI (189070) uart_to_node: RX line: No node[0m
+[0;32mI (190070) uart_to_node: RX line: No node[0m
+[0;32mI (191070) uart_to_node: RX line: No node[0m
+[0;32mI (192220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:30","ver":"1.0.0","err":["0x3C","0xDA","0x31"],"p":[[1,0,24.595,66.558,1007.666],[3,13,29.898,54.572]]}[0m
+[0;32mI (192390) WebSocket Handler: Connected to server[0m
+[0;32mI (192520) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (192540) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (192720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:30","ver":"1.0.0","err":["0xAD","0xA0","0x9D"],"p":[[1,0,22.206,77.204,996.773],[3,13,31.967,78.609]]}[0m
+[0;32mI (192740) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:54:30\",\"ver\":\"1.0.0\",\"err\":[\"0xAD\",\"0xA0\",\"0x9D\"],\"p\":[[1,0,22.206,77.204,996.773],[3,13,31.967,78.609]]}"}[0m
+[0;32mI (193570) uart_to_node: RX line: No node[0m
+[0;32mI (194360) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.9,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.17,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":193,"wifi_ssid":"Smile","wifi_rssi":-57,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (194570) uart_to_node: RX line: No node[0m
+[0;32mI (195570) uart_to_node: RX line: No node[0m
+[0;32mI (196570) uart_to_node: RX line: No node[0m
+[0;32mI (197220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:35","ver":"1.0.0","err":["0x90","0xCB","0x94"],"p":[[1,0,26.580,49.091,997.445],[3,13,32.884,72.079]]}[0m
+[0;32mI (197240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.6.2\",\"t\":\"2026-05-05T23:54:35\",\"ver\":\"1.0.0\",\"err\":[\"0x90\",\"0xCB\",\"0x94\"],\"p\":[[1,0,26.580,49.091,997.445],[3,13,32.884,72.079]]}"}[0m
+[0;32mI (197730) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:36","ver":"1.0.0","err":["0x86","0xDD","0x4E"],"p":[[1,0,30.236,49.801,1023.119],[3,13,32.986,82.975]]}[0m
+[0;32mI (197740) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:54:36\",\"ver\":\"1.0.0\",\"err\":[\"0x86\",\"0xDD\",\"0x4E\"],\"p\":[[1,0,30.236,49.801,1023.119],[3,13,32.986,82.975]]}"}[0m
+[0;32mI (198570) uart_to_node: RX line: No node[0m
+[0;32mI (199360) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.176,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":198,"wifi_ssid":"Smile","wifi_rssi":-61,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (199570) uart_to_node: RX line: No node[0m
+[0;32mI (200570) uart_to_node: RX line: No node[0m
+[0;32mI (201570) uart_to_node: RX line: No node[0m
+[0;32mI (202710) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (202720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:40","ver":"1.0.0","err":["0xEC","0xF5","0xE2"],"p":[[1,0,24.282,41.591,1001.217],[3,13,27.565,60.662]]}[0m
+[0;32mI (202750) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.6.2\",\"t\":\"2026-05-05T23:54:40\",\"ver\":\"1.0.0\",\"err\":[\"0xEC\",\"0xF5\",\"0xE2\"],\"p\":[[1,0,24.282,41.591,1001.217],[3,13,27.565,60.662]]}"}[0m
+[0;32mI (203220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:41","ver":"1.0.0","err":["0xB8","0x63","0xBC"],"p":[[1,0,30.832,68.498,990.492],[3,13,30.313,77.223]]}[0m
+[0;32mI (203240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:54:41\",\"ver\":\"1.0.0\",\"err\":[\"0xB8\",\"0x63\",\"0xBC\"],\"p\":[[1,0,30.832,68.498,990.492],[3,13,30.313,77.223]]}"}[0m
+[0;32mI (204070) uart_to_node: RX line: No node[0m
+[0;32mI (204360) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.6,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.172,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":203,"wifi_ssid":"Smile","wifi_rssi":-60,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (205070) uart_to_node: RX line: No node[0m
+[0;32mI (206070) uart_to_node: RX line: No node[0m
+[0;32mI (207070) uart_to_node: RX line: No node[0m
+[0;32mI (207720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:54:46","ver":"1.0.0","err":["0xAE","0x4B","0xC4"],"p":[[1,0,26.888,77.729,991.028],[3,13,20.126,55.720]]}[0m
+[0;32mI (207740) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.6.2\",\"t\":\"2026-05-05T23:54:46\",\"ver\":\"1.0.0\",\"err\":[\"0xAE\",\"0x4B\",\"0xC4\"],\"p\":[[1,0,26.888,77.729,991.028],[3,13,20.126,55.720]]}"}[0m
+[0;32mI (208220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:54:46","ver":"1.0.0","err":["0xBB","0xFD","0x76"],"p":[[1,0,30.934,49.526,1026.912],[3,13,26.905,62.579]]}[0m
+[0;32mI (208240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:54:46\",\"ver\":\"1.0.0\",\"err\":[\"0xBB\",\"0xFD\",\"0x76\"],\"p\":[[1,0,30.934,49.526,1026.912],[3,13,26.905,62.579]]}"}[0m
+[0;32mI (209070) uart_to_node: RX line: No node[0m
+[0;32mI (209360) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51,"ram_used_kb":173,"ram_used_percent":75,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":208,"wifi_ssid":"Smile","wifi_rssi":-62,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (210070) uart_to_node: RX line: No node[0m
+[0;32mI (211070) uart_to_node: RX line: No node[0m
+[0;32mI (212070) uart_to_node: RX line: No node[0m
+[0;33mW (214110) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (214110) uart_to_node: Send: Start Root[0m
+[0;32mI (214400) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.2,"ram_used_kb":175,"ram_used_percent":76,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":213,"wifi_ssid":"Smile","wifi_rssi":-56,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (214630) uart_to_node: Send: Start Root[0m
+[0;32mI (215150) uart_to_node: Send: Start Root[0m
+[0;32mI (215670) uart_to_node: Send: Start Root[0m
+[0;32mI (216190) uart_to_node: Send: Start Root[0m
+[0;32mI (216690) uart_to_node: Send: Start Root[0m
+[0;32mI (216870) uart_to_node: RX line: DMesh not ready[0m
+[0;32mI (216870) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":15,"payload":"DMesh not ready"}[0m
+[0;32mI (217190) uart_to_node: Send: Start Root[0m
+[0;32mI (217250) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (217250) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (217260) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (217360) uart_to_node: RX line: .No node[0m
+[0;32mI (218360) uart_to_node: RX line: No node[0m
+[0;32mI (219360) uart_to_node: RX line: No node[0m
+[0;32mI (219460) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":176,"ram_used_percent":76,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":218,"wifi_ssid":"Smile","wifi_rssi":-62,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (220360) uart_to_node: RX line: No node[0m
+[0;32mI (221360) uart_to_node: RX line: No node[0m
+[0;32mI (222360) uart_to_node: RX line: No node[0m
+[0;33mW (224400) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (224400) uart_to_node: Send: Start Root[0m
+[0;32mI (224490) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":176,"ram_used_percent":76,"battery_voltage_v":4.174,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":223,"wifi_ssid":"Smile","wifi_rssi":-60,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (224920) uart_to_node: Send: Start Root[0m
+[0;32mI (225440) uart_to_node: Send: Start Root[0m
+[0;32mI (225960) uart_to_node: Send: Start Root[0m
+[0;32mI (226480) uart_to_node: Send: Start Root[0m
+[0;32mI (226990) uart_to_node: Send: Start Root[0m
+[0;32mI (227240) uart_to_node: RX line: .Mesh not ready[0m
+[0;32mI (227240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":16,"payload":"..Mesh not ready"}[0m
+[0;32mI (227520) uart_to_node: Send: Start Root[0m
+[0;32mI (227580) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (227580) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (227590) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (227730) uart_to_node: RX line: .No node[0m
+[0;32mI (228730) uart_to_node: RX line: No node[0m
+[0;32mI (229490) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":176,"ram_used_percent":76,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":228,"wifi_ssid":"Smile","wifi_rssi":-65,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (229730) uart_to_node: RX line: No node[0m
+[0;32mI (230730) uart_to_node: RX line: No node[0m
+[0;32mI (231730) uart_to_node: RX line: No node[0m
+[0;32mI (232730) uart_to_node: RX line: No node[0m
+[0;32mI (233730) uart_to_node: RX line: No node[0m
+[0;32mI (234520) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.6,"ram_used_kb":178,"ram_used_percent":77,"battery_voltage_v":4.172,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":233,"wifi_ssid":"Smile","wifi_rssi":-56,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (235770) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (235770) uart_to_node: Send: Start Root[0m
+[0;32mI (236290) uart_to_node: Send: Start Root[0m
+[0;32mI (236810) uart_to_node: Send: Start Root[0m
+[0;32mI (237330) uart_to_node: Send: Start Root[0m
+[0;32mI (237850) uart_to_node: Send: Start Root[0m
+[0;32mI (238370) uart_to_node: Send: Start Root[0m
+[0;32mI (238430) uart_to_node: RX line: .Mesh not ready[0m
+[0;32mI (238430) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":16,"payload":"..Mesh not ready"}[0m
+[0;32mI (238870) uart_to_node: Send: Start Root[0m
+[0;32mI (238930) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (238940) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":14,"payload":"Mesh not ready"}[0m
+[0;32mI (239370) uart_to_node: Send: Start Root[0m
+[0;32mI (239430) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (239430) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (239440) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (239540) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51,"ram_used_kb":178,"ram_used_percent":77,"battery_voltage_v":4.174,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":238,"wifi_ssid":"Smile","wifi_rssi":-63,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (239850) uart_to_node: RX line: .No node[0m
+[0;32mI (240850) uart_to_node: RX line: No node[0m
+[0;32mI (241850) uart_to_node: RX line: No node[0m
+[0;32mI (242850) uart_to_node: RX line: No node[0m
+[0;32mI (243850) uart_to_node: RX line: No node[0m
+[0;32mI (244570) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.1,"ram_used_kb":178,"ram_used_percent":77,"battery_voltage_v":4.176,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":243,"wifi_ssid":"Smile","wifi_rssi":-57,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (244850) uart_to_node: RX line: No node[0m
+[0;32mI (245930) uart_to_node: RX line: No node[0m
+[0;33mW (247970) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (247970) uart_to_node: Send: Start Root[0m
+[0;32mI (248490) uart_to_node: Send: Start Root[0m
+[0;32mI (249010) uart_to_node: Send: Start Root[0m
+[0;32mI (249530) uart_to_node: Send: Start Root[0m
+[0;32mI (249600) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":179,"ram_used_percent":78,"battery_voltage_v":4.17,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":248,"wifi_ssid":"Smile","wifi_rssi":-60,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (250050) uart_to_node: Send: Start Root[0m
+[0;32mI (250570) uart_to_node: Send: Start Root[0m
+[0;32mI (251100) uart_to_node: Send: Start Root[0m
+[0;32mI (251150) uart_to_node: RX line: .Mesh not ready[0m
+[0;32mI (251630) uart_to_node: Send: Start Root[0m
+[0;31mE (251640) transport_ws: Error transport_poll_write[0m
+[0;31mE (251640) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (251640) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (251650) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (251650) WebSocket Handler: Disconnected from server[0m
+[0;32mI (251680) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (252160) uart_to_node: Send: Start Root[0m
+[0;32mI (252220) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (252220) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (252500) uart_to_node: RX line: .No node[0m
+[0;32mI (253500) uart_to_node: RX line: No node[0m
+[0;32mI (254500) uart_to_node: RX line: No node[0m
+[0;32mI (255500) uart_to_node: RX line: No node[0m
+[0;32mI (256500) uart_to_node: RX line: No node[0m
+[0;32mI (257500) uart_to_node: RX line: No node[0m
+[0;32mI (258500) uart_to_node: RX line: No node[0m
+[0;32mI (259500) uart_to_node: RX line: No node[0m
+[0;32mI (260500) uart_to_node: RX line: No node[0m
+[0;32mI (261500) uart_to_node: RX line: No node[0m
+[0;32mI (262500) uart_to_node: RX line: No node[0m
+[0;32mI (263500) uart_to_node: RX line: No node[0m
+[0;32mI (264500) uart_to_node: RX line: No node[0m
+[0;32mI (265160) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:55:43","ver":"1.0.0","err":["0x3D","0xD9","0xF5"],"p":[[1,0,18.834,78.569,1012.218],[3,13,26.109,76.602]]}[0m
+[0;32mI (265660) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:55:43","ver":"1.0.0","err":["0xC0","0x7B","0x0B"],"p":[[1,0,19.558,39.920,1005.990],[3,13,22.991,40.621]]}[0m
+[0;32mI (266500) uart_to_node: RX line: No node[0m
+[0;32mI (267500) uart_to_node: RX line: No node[0m
+[0;32mI (268500) uart_to_node: RX line: No node[0m
+[0;32mI (269500) uart_to_node: RX line: No node[0m
+[0;32mI (270160) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:55:48","ver":"1.0.0","err":["0xEC","0x35","0x29"],"p":[[1,0,27.522,46.016,1028.000],[3,13,30.283,51.530]]}[0m
+[0;32mI (270660) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:55:48","ver":"1.0.0","err":["0x4C","0xF4","0xA3"],"p":[[1,0,30.951,53.362,1019.483],[3,13,30.043,53.335]]}[0m
+[0;32mI (271500) uart_to_node: RX line: No node[0m
+[0;31mE (271680) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (271680) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (271680) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (271690) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (271700) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (271710) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (271710) WebSocket Handler: Disconnected from server[0m
+[0;32mI (272500) uart_to_node: RX line: No node[0m
+[0;32mI (273500) uart_to_node: RX line: No node[0m
+[0;32mI (274500) uart_to_node: RX line: No node[0m
+[0;33mW (276540) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (276540) uart_to_node: Send: Start Root[0m
+[0;32mI (277060) uart_to_node: Send: Start Root[0m
+[0;32mI (277580) uart_to_node: Send: Start Root[0m
+[0;32mI (278100) uart_to_node: Send: Start Root[0m
+[0;32mI (278620) uart_to_node: Send: Start Root[0m
+[0;32mI (279120) uart_to_node: Send: Start Root[0m
+[0;32mI (279170) uart_to_node: RX line: DMesh not ready[0m
+[0;32mI (279650) uart_to_node: Send: Start Root[0m
+[0;32mI (279700) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (280180) uart_to_node: Send: Start Root[0m
+[0;32mI (280240) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (280240) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (280630) uart_to_node: RX line: .No node[0m
+[0;32mI (281630) uart_to_node: RX line: No node[0m
+[0;32mI (282630) uart_to_node: RX line: No node[0m
+[0;32mI (283630) uart_to_node: RX line: No node[0m
+[0;32mI (284630) uart_to_node: RX line: No node[0m
+[0;32mI (285630) uart_to_node: RX line: No node[0m
+[0;32mI (286630) uart_to_node: RX line: No node[0m
+[0;32mI (287630) uart_to_node: RX line: No node[0m
+[0;33mW (289640) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (289640) uart_to_node: Send: Start Root[0m
+[0;32mI (290160) uart_to_node: Send: Start Root[0m
+[0;32mI (290680) uart_to_node: Send: Start Root[0m
+[0;32mI (291200) uart_to_node: Send: Start Root[0m
+[0;32mI (291720) uart_to_node: Send: Start Root[0m
+[0;31mE (291740) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (291740) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (291740) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (291740) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (291760) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (291770) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (291770) WebSocket Handler: Disconnected from server[0m
+[0;32mI (292250) uart_to_node: Send: Start Root[0m
+[0;32mI (292570) uart_to_node: RX line: DMesh not ready[0m
+[0;32mI (292770) uart_to_node: Send: Start Root[0m
+[0;32mI (292830) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (292830) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (293060) uart_to_node: RX line: .No node[0m
+[0;32mI (294060) uart_to_node: RX line: No node[0m
+[0;32mI (295060) uart_to_node: RX line: No node[0m
+[0;32mI (296060) uart_to_node: RX line: No node[0m
+[0;32mI (297060) uart_to_node: RX line: No node[0m
+[0;32mI (298060) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������;32mI (299060) uart_to_node: RX line: No node[0m
+[0;32mI (300060) uart_to_node: RX line: No node[0m
+[0;32mI (301220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:19","ver":"1.0.0","err":["0xA7","0xF2","0xEF"],"p":[[1,0,20.484,81.585,1008.226],[3,13,24.564,79.865]]}[0m
+[0;32mI (301720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:20","ver":"1.0.0","err":["0xDD","0x53","0xA6"],"p":[[1,0,22.248,61.373,1014.294],[3,13,22.884,61.499]]}[0m
+[0;32mI (302560) uart_to_node: RX line: No node[0m
+[0;32mI (303560) uart_to_node: RX line: No node[0m
+[0;32mI (304560) uart_to_node: RX line: No node[0m
+[0;32mI (305560) uart_to_node: RX line: No node[0m
+[0;32mI (306720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:24","ver":"1.0.0","err":["0x1E","0xEE","0xB1"],"p":[[1,0,18.907,72.594,1025.476],[3,13,27.260,50.824]]}[0m
+[0;32mI (307220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:25","ver":"1.0.0","err":["0x44","0x23","0x18"],"p":[[1,0,20.285,73.854,1006.890],[3,13,21.372,64.208]]}[0m
+[0;32mI (308060) uart_to_node: RX line: No node[0m
+[0;32mI (309060) uart_to_node: RX line: No node[0m
+[0;32mI (310060) uart_to_node: RX line: No node[0m
+[0;32mI (311060) uart_to_node: RX line: No node[0m
+[0;32mI (311720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:30","ver":"1.0.0","err":["0x07","0xC1","0x04"],"p":[[1,0,25.405,67.483,1029.056],[3,13,30.904,43.524]]}[0m
+[0;31mE (311800) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (311800) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (311800) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (311800) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (311820) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (311830) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (311830) WebSocket Handler: Disconnected from server[0m
+[0;32mI (312220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:30","ver":"1.0.0","err":["0xFC","0x92","0x0D"],"p":[[1,0,29.537,58.942,1013.058],[3,13,25.132,42.633]]}[0m
+[0;32mI (313060) uart_to_node: RX line: No node[0m
+[0;32mI (314060) uart_to_node: RX line: No node[0m
+[0;32mI (315060) uart_to_node: RX line: No node[0m
+[0;32mI (316060) uart_to_node: RX line: No node[0m
+[0;32mI (316720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:35","ver":"1.0.0","err":["0xEF","0x2E","0xD6"],"p":[[1,0,20.589,82.420,1010.410],[3,13,27.575,73.447]]}[0m
+[0;32mI (317220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:35","ver":"1.0.0","err":["0xB0","0x6D","0x0A"],"p":[[1,0,24.929,36.945,1001.133],[3,13,25.358,63.042]]}[0m
+[0;32mI (318060) uart_to_node: RX line: No node[0m
+[0;32mI (319060) uart_to_node: RX line: No node[0m
+[0;32mI (320060) uart_to_node: RX line: No node[0m
+[0;32mI (321060) uart_to_node: RX line: No node[0m
+[0;32mI (322220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:40","ver":"1.0.0","err":["0xCA","0x2A","0x93"],"p":[[1,0,24.826,68.238,1028.156],[3,13,22.107,71.202]]}[0m
+[0;32mI (322720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:40","ver":"1.0.0","err":["0x75","0xAF","0xB4"],"p":[[1,0,20.677,66.568,1001.297],[3,13,22.229,72.718]]}[0m
+[0;32mI (323560) uart_to_node: RX line: No node[0m
+[0;32mI (324560) uart_to_node: RX line: No node[0m
+[0;32mI (325560) uart_to_node: RX line: No node[0m
+[0;32mI (326560) uart_to_node: RX line: No node[0m
+[0;32mI (327220) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:45","ver":"1.0.0","err":["0x7F","0xCC","0x9D"],"p":[[1,0,22.888,76.539,1029.928],[3,13,33.224,69.050]]}[0m
+[0;32mI (327720) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:46","ver":"1.0.0","err":["0x66","0x5A","0x2E"],"p":[[1,0,23.097,53.272,1029.088],[3,13,26.434,54.001]]}[0m
+[0;32mI (328560) uart_to_node: RX line: No node[0m
+[0;32mI (329560) uart_to_node: RX line: No node[0m
+[0;32mI (330560) uart_to_node: RX line: No node[0m
+[0;32mI (331560) uart_to_node: RX line: No node[0m
+[0;31mE (331860) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (331860) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (331860) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (331870) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (331880) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (331890) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (331890) WebSocket Handler: Disconnected from server[0m
+[0;32mI (332720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:50","ver":"1.0.0","err":["0x54","0xDB","0xDF"],"p":[[1,0,30.404,43.911,1002.797],[3,13,32.752,70.599]]}[0m
+[0;32mI (333220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:51","ver":"1.0.0","err":["0x42","0xB7","0x64"],"p":[[1,0,26.768,46.101,1024.179],[3,13,32.152,76.791]]}[0m
+[0;32mI (334060) uart_to_node: RX line: No node[0m
+[0;32mI (335060) uart_to_node: RX line: No node[0m
+[0;32mI (336060) uart_to_node: RX line: No node[0m
+[0;32mI (337060) uart_to_node: RX line: No node[0m
+[0;32mI (337720) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.6.2","t":"2026-05-05T23:56:56","ver":"1.0.0","err":["0x55","0x5B","0x2D"],"p":[[1,0,24.957,68.048,1018.547],[3,13,28.374,49.302]]}[0m
+[0;32mI (338220) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:56:56","ver":"1.0.0","err":["0xB0","0xAD","0x33"],"p":[[1,0,21.789,50.607,994.400],[3,13,21.169,45.162]]}[0m
+[0;32mI (339060) uart_to_node: RX line: No node[0m
+[0;32mI (340060) uart_to_node: RX line: No node[0m
+[0;32mI (341060) uart_to_node: RX line: No node[0m
+[0;32mI (342060) uart_to_node: RX line: No node[0m
+[0;33mW (344070) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (344070) uart_to_node: Send: Start Root[0m
+[0;32mI (344590) uart_to_node: Send: Start Root[0m
+[0;32mI (345110) uart_to_node: Send: Start Root[0m
+[0;32mI (345630) uart_to_node: Send: Start Root[0m
+[0;32mI (346150) uart_to_node: Send: Start Root[0m
+[0;32mI (346670) uart_to_node: Send: Start Root[0m
+[0;32mI (346770) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (347170) uart_to_node: Send: Start Root[0m
+[0;32mI (347220) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (347700) uart_to_node: Send: Start Root[0m
+[0;32mI (347760) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (347760) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (348190) uart_to_node: RX line: .No node[0m
+[0;32mI (349190) uart_to_node: RX line: No node[0m
+[0;32mI (350190) uart_to_node: RX line: No node[0m
+[0;31mE (351910) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (351910) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (351910) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (351910) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (351930) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (351940) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (351940) WebSocket Handler: Disconnected from server[0m
+[0;33mW (352230) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (352230) uart_to_node: Send: Start Root[0m
+[0;32mI (352750) uart_to_node: Send: Start Root[0m
+[0;32mI (353270) uart_to_node: Send: Start Root[0m
+[0;32mI (353790) uart_to_node: Send: Start Root[0m
+[0;32mI (354310) uart_to_node: Send: Start Root[0m
+[0;32mI (354830) uart_to_node: Send: Start Root[0m
+[0;32mI (354880) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (355360) uart_to_node: Send: Start Root[0m
+[0;32mI (355420) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (355420) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (355680) uart_to_node: RX line: .No node[0m
+[0;32mI (356680) uart_to_node: RX line: No node[0m
+[0;32mI (357680) uart_to_node: RX line: No node[0m
+[0;32mI (358680) uart_to_node: RX line: No node[0m
+[0;32mI (359680) uart_to_node: RX line: No node[0m
+[0;32mI (360680) uart_to_node: RX line: No node[0m
+[0;32mI (361680) uart_to_node: RX line: No node[0m
+[0;32mI (362680) uart_to_node: RX line: No node[0m
+[0;32mI (363680) uart_to_node: RX line: No node[0m
+[0;32mI (364680) uart_to_node: RX line: No node[0m
+[0;32mI (365680) uart_to_node: RX line: No node[0m
+[0;32mI (366680) uart_to_node: RX line: No node[0m
+[0;32mI (367680) uart_to_node: RX line: No node[0m
+[0;32mI (368340) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:26","ver":"1.0.0","err":["0x8E","0x12","0x02"],"p":[[1,0,25.281,74.784,1020.183],[3,13,30.225,53.038]]}[0m
+[0;32mI (369340) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:57:27","ver":"1.0.0","err":["0x6E","0x31","0x2A"],"p":[[1,0,30.687,69.773,1005.526],[3,13,21.626,79.622]]}[0m
+[0;32mI (370180) uart_to_node: RX line: No node[0m
+[0;32mI (371180) uart_to_node: RX line: No node[0m
+[0;31mE (371960) esp-tls: [sock=48] select() timeout[0m
+[0;31mE (371960) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (371960) transport_ws: Error connecting to host 192.168.1.26:8080[0m
+[0;31mE (371970) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=101, errno=119[0m
+[0;31mE (371980) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (371990) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (371990) WebSocket Handler: Disconnected from server[0m
+[0;32mI (372180) uart_to_node: RX line: No node[0m
+[0;32mI (373180) uart_to_node: RX line: No node[0m
+[0;32mI (373840) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:31","ver":"1.0.0","err":["0xB0","0x81","0xE3"],"p":[[1,0,20.564,82.030,1012.830],[3,13,28.496,40.774]]}[0m
+[0;32mI (374350) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:57:32","ver":"1.0.0","err":["0xF7","0x84","0x1D"],"p":[[1,0,23.321,42.366,1015.735],[3,13,22.386,75.612]]}[0m
+[0;32mI (375190) uart_to_node: RX line: No node[0m
+[0;32mI (376190) uart_to_node: RX line: No node[0m
+[0;32mI (377190) uart_to_node: RX line: No node[0m
+[0;32mI (378190) uart_to_node: RX line: No node[0m
+[0;32mI (378850) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:37","ver":"1.0.0","err":["0x86","0xDF","0x15"],"p":[[1,0,21.762,47.491,1026.600],[3,13,33.763,79.950]]}[0m
+[0;32mI (379850) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:57:38","ver":"1.0.0","err":["0x4B","0x8D","0x9C"],"p":[[1,0,19.528,71.544,1019.119],[3,13,29.766,56.670]]}[0m
+[0;32mI (380690) uart_to_node: RX line: No node[0m
+[0;32mI (381690) uart_to_node: RX line: No node[0m
+[0;32mI (382690) uart_to_node: RX line: No node[0m
+[0;32mI (383850) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:42","ver":"1.0.0","err":["0x56","0xCF","0x81"],"p":[[1,0,28.099,45.261,1001.997],[3,13,21.743,42.214]]}[0m
+[0;32mI (384360) WebSocket Handler: Connected to server[0m
+[0;32mI (384850) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:57:43","ver":"1.0.0","err":["0x4B","0x4C","0xBA"],"p":[[1,0,20.530,73.269,1018.075],[3,13,33.486,46.692]]}[0m
+[0;32mI (384860) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.4.2\",\"t\":\"2026-05-05T23:57:43\",\"ver\":\"1.0.0\",\"err\":[\"0x4B\",\"0x4C\",\"0xBA\"],\"p\":[[1,0,20.530,73.269,1018.075],[3,13,33.486,46.692]]}"}[0m
+[0;32mI (384950) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (384980) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":52.2,"ram_used_kb":181,"ram_used_percent":79,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":383,"wifi_ssid":"Smile","wifi_rssi":-70,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (385690) uart_to_node: RX line: No node[0m
+[0;32mI (386690) uart_to_node: RX line: No node[0m
+[0;32mI (387690) uart_to_node: RX line: No node[0m
+[0;32mI (388690) uart_to_node: RX line: No node[0m
+[0;32mI (389350) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:47","ver":"1.0.0","err":["0x38","0xD4","0x6C"],"p":[[1,0,20.905,69.343,1015.539],[3,13,20.529,57.070]]}[0m
+[0;32mI (389360) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:57:47\",\"ver\":\"1.0.0\",\"err\":[\"0x38\",\"0xD4\",\"0x6C\"],\"p\":[[1,0,20.905,69.343,1015.539],[3,13,20.529,57.070]]}"}[0m
+[0;32mI (389980) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.8,"ram_used_kb":183,"ram_used_percent":79,"battery_voltage_v":4.174,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":388,"wifi_ssid":"Smile","wifi_rssi":-67,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (390170) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (390350) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:57:48","ver":"1.0.0","err":["0xE8","0x14","0xE5"],"p":[[1,0,20.375,58.507,990.328],[3,13,20.721,66.013]]}[0m
+[0;32mI (390360) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.4.2\",\"t\":\"2026-05-05T23:57:48\",\"ver\":\"1.0.0\",\"err\":[\"0xE8\",\"0x14\",\"0xE5\"],\"p\":[[1,0,20.375,58.507,990.328],[3,13,20.721,66.013]]}"}[0m
+[0;32mI (391190) uart_to_node: RX line: No node[0m
+[0;32mI (392190) uart_to_node: RX line: No node[0m
+[0;32mI (393190) uart_to_node: RX line: No node[0m
+[0;32mI (394350) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:57:52","ver":"1.0.0","err":["0x92","0x5A","0x53"],"p":[[1,0,26.898,48.211,1008.434],[3,13,24.305,82.304]]}[0m
+[0;32mI (394370) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:57:52\",\"ver\":\"1.0.0\",\"err\":[\"0x92\",\"0x5A\",\"0x53\"],\"p\":[[1,0,26.898,48.211,1008.434],[3,13,24.305,82.304]]}"}[0m
+[0;32mI (394980) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.9,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.162,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":393,"wifi_ssid":"Smile","wifi_rssi":-69,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (396360) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (396360) uart_to_node: Send: Start Root[0m
+[0;32mI (396880) uart_to_node: Send: Start Root[0m
+[0;32mI (397400) uart_to_node: Send: Start Root[0m
+[0;32mI (397920) uart_to_node: Send: Start Root[0m
+[0;32mI (398440) uart_to_node: Send: Start Root[0m
+[0;32mI (398960) uart_to_node: Send: Start Root[0m
+[0;32mI (399010) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (399020) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":14,"payload":"Mesh not ready"}[0m
+[0;32mI (399490) uart_to_node: Send: Start Root[0m
+[0;32mI (399550) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (399550) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (399570) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (399850) uart_to_node: RX line: .No node[0m
+[0;32mI (400070) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50,"ram_used_kb":183,"ram_used_percent":79,"battery_voltage_v":4.166,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":398,"wifi_ssid":"Smile","wifi_rssi":-63,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (400430) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (400850) uart_to_node: RX line: No node[0m
+[0;32mI (401850) uart_to_node: RX line: No node[0m
+[0;33mW (403860) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (403860) uart_to_node: Send: Start Root[0m
+[0;32mI (404380) uart_to_node: Send: Start Root[0m
+[0;32mI (404900) uart_to_node: Send: Start Root[0m
+[0;32mI (405110) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.172,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":403,"wifi_ssid":"Smile","wifi_rssi":-65,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (405420) uart_to_node: Send: Start Root[0m
+[0;32mI (405940) uart_to_node: Send: Start Root[0m
+[0;32mI (406460) uart_to_node: Send: Start Root[0m
+[0;32mI (406980) uart_to_node: Send: Start Root[0m
+[0;32mI (407320) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (407340) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":15,"payload":".Mesh not ready"}[0m
+[0;32mI (407490) uart_to_node: Send: Start Root[0m
+[0;32mI (407550) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (407550) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (407560) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (407820) uart_to_node: RX line: .No node[0m
+[0;32mI (408820) uart_to_node: RX line: No node[0m
+[0;32mI (409820) uart_to_node: RX line: No node[0m
+[0;32mI (410170) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.5,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":408,"wifi_ssid":"Smile","wifi_rssi":-70,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (410550) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (410820) uart_to_node: RX line: No node[0m
+[0;32mI (411820) uart_to_node: RX line: No node[0m
+[0;33mW (413820) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (413820) uart_to_node: Send: Start Root[0m
+[0;32mI (414340) uart_to_node: Send: Start Root[0m
+[0;32mI (414860) uart_to_node: Send: Start Root[0m
+[0;32mI (415210) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.4,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.172,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":413,"wifi_ssid":"Smile","wifi_rssi":-62,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (415380) uart_to_node: Send: Start Root[0m
+[0;32mI (415900) uart_to_node: Send: Start Root[0m
+[0;32mI (416420) uart_to_node: Send: Start Root[0m
+[0;32mI (416940) uart_to_node: Send: Start Root[0m
+[0;32mI (416990) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (417010) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":15,"payload":".Mesh not ready"}[0m
+[0;32mI (417440) uart_to_node: Send: Start Root[0m
+[0;32mI (417490) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (417500) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":14,"payload":"Mesh not ready"}[0m
+[0;32mI (417970) uart_to_node: Send: Start Root[0m
+[0;32mI (418030) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (418030) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (418050) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (418400) uart_to_node: RX line: .No node[0m
+[0;32mI (419400) uart_to_node: RX line: No node[0m
+[0;32mI (420250) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.9,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":418,"wifi_ssid":"Smile","wifi_rssi":-65,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (420550) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2026-05-05T23:58:18","ver":"1.0.0","err":["0x24","0xF8","0x40"],"p":[[1,0,25.250,43.611,994.148],[3,13,27.076,43.290]]}[0m
+[0;32mI (420570) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":156,"payload":".{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2026-05-05T23:58:18\",\"ver\":\"1.0.0\",\"err\":[\"0x24\",\"0xF8\",\"0x40\"],\"p\":[[1,0,25.250,43.611,994.148],[3,13,27.076,43.290]]}"}[0m
+[0;32mI (420730) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (421550) uart_to_node: RX line: {"v":1,"n":3,"i":"192.168.4.2","t":"2026-05-05T23:58:19","ver":"1.0.0","err":["0x85","0x8F","0xB8"],"p":[[1,0,30.983,70.394,990.864],[3,13,33.084,44.208]]}[0m
+[0;32mI (421570) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":155,"payload":"{\"v\":1,\"n\":3,\"i\":\"192.168.4.2\",\"t\":\"2026-05-05T23:58:19\",\"ver\":\"1.0.0\",\"err\":[\"0x85\",\"0x8F\",\"0xB8\"],\"p\":[[1,0,30.983,70.394,990.864],[3,13,33.084,44.208]]}"}[0m
+[0;32mI (422400) uart_to_node: RX line: No node[0m
+[0;33mW (424440) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (424440) uart_to_node: Send: Start Root[0m
+[0;32mI (424960) uart_to_node: Send: Start Root[0m
+[0;32mI (425290) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.16,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":423,"wifi_ssid":"Smile","wifi_rssi":-64,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (425480) uart_to_node: Send: Start Root[0m
+[0;32mI (426000) uart_to_node: Send: Start Root[0m
+[0;32mI (426520) uart_to_node: Send: Start Root[0m
+[0;32mI (427040) uart_to_node: Send: Start Root[0m
+[0;32mI (427560) uart_to_node: Send: Start Root[0m
+[0;32mI (427880) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (427900) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":14,"payload":"Mesh not ready"}[0m
+[0;32mI (428080) uart_to_node: Send: Start Root[0m
+[0;32mI (428140) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (428140) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (428150) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (428380) uart_to_node: RX line: .No node[0m
+[0;32mI (429380) uart_to_node: RX line: No node[0m
+[0;32mI (430360) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.3,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.164,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":429,"wifi_ssid":"Smile","wifi_rssi":-66,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (430380) uart_to_node: RX line: No node[0m
+[0;32mI (430850) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (431380) uart_to_node: RX line: No node[0m
+[0;32mI (432380) uart_to_node: RX line: No node[0m
+[0;32mI (433380) uart_to_node: RX line: No node[0m
+[0;32mI (434380) uart_to_node: RX line: No node[0m
+[0;32mI (435380) uart_to_node: RX line: No node[0m
+[0;32mI (435400) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.168,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":434,"wifi_ssid":"Smile","wifi_rssi":-64,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (437420) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (437420) uart_to_node: Send: Start Root[0m
+[0;32mI (437940) uart_to_node: Send: Start Root[0m
+[0;32mI (438460) uart_to_node: Send: Start Root[0m
+[0;32mI (438980) uart_to_node: Send: Start Root[0m
+[0;32mI (439500) uart_to_node: Send: Start Root[0m
+[0;32mI (440020) uart_to_node: Send: Start Root[0m
+[0;32mI (440070) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (440080) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":15,"payload":".Mesh not ready"}[0m
+[0;32mI (440480) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":51.5,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.174,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":439,"wifi_ssid":"Smile","wifi_rssi":-67,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (440550) uart_to_node: Send: Start Root[0m
+[0;32mI (440610) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (440610) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (440620) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (440880) uart_to_node: RX line: .No node[0m
+[0;32mI (441160) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (441880) uart_to_node: RX line: No node[0m
+[0;32mI (442880) uart_to_node: RX line: No node[0m
+[0;32mI (443880) uart_to_node: RX line: No node[0m
+[0;32mI (444880) uart_to_node: RX line: No node[0m
+[0;32mI (445520) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.2,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.174,"battery_percent":97,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":444,"wifi_ssid":"Smile","wifi_rssi":-66,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (446920) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (446920) uart_to_node: Send: Start Root[0m
+[0;32mI (447440) uart_to_node: Send: Start Root[0m
+[0;32mI (447960) uart_to_node: Send: Start Root[0m
+[0;32mI (448480) uart_to_node: Send: Start Root[0m
+[0;32mI (449000) uart_to_node: Send: Start Root[0m
+[0;32mI (449520) uart_to_node: Send: Start Root[0m
+[0;32mI (450040) uart_to_node: Send: Start Root[0m
+[0;32mI (450110) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (450120) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":15,"payload":".Mesh not ready"}[0m
+[0;32mI (450520) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":50.5,"ram_used_kb":183,"ram_used_percent":79,"battery_voltage_v":4.158,"battery_percent":95,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":449,"wifi_ssid":"Smile","wifi_rssi":-65,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (450550) uart_to_node: Send: Start Root[0m
+[0;32mI (450600) uart_to_node: RX line: Mesh not ready[0m
+[0;32mI (450600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":14,"payload":"Mesh not ready"}[0m
+[0;32mI (451080) uart_to_node: Send: Start Root[0m
+[0;32mI (451140) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (451140) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (451150) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":25,"payload":"Switching to root mode..."}[0m
+[0;32mI (451290) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (451460) uart_to_node: RX line: .No node[0m
+����������������������������������������������������������������0;32mI (452460) uart_to_node: RX line: No node[0m
+[0;32mI (453460) uart_to_node: RX line: No node[0m
+[0;32mI (454460) uart_to_node: RX line: No node[0m
+[0;32mI (455560) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":49.8,"ram_used_kb":180,"ram_used_percent":78,"battery_voltage_v":4.17,"battery_percent":96,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":454,"wifi_ssid":"Smile","wifi_rssi":-71,"sta_ip":"192.168.1.119","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (456500) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (456500) uart_to_node: Send: Start Root[0m
+[0;32mI (457020) uart_to_node: Send: Start Root[0m
+[0;32mI (457540) uart_to_node: Send: Start Root[0m
+[0;32mI (4

@@ -1,0 +1,22 @@
+menu "DS3231 Configuration"
+
+    config DS3231_I2C_PORT
+        int "DS3231 I2C port"
+        range 0 1
+        default 0
+        help
+            Chon I2C port cho DS3231 (0 = I2C_NUM_0, 1 = I2C_NUM_1).
+
+    config DS3231_SDA_GPIO
+        int "DS3231 SDA GPIO"
+        default 21
+        help
+            Chan SDA noi DS3231.
+
+    config DS3231_SCL_GPIO
+        int "DS3231 SCL GPIO"
+        default 22
+        help
+            Chan SCL noi DS3231.
+
+endmenu

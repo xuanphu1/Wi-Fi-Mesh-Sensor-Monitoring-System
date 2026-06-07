@@ -1,0 +1,2 @@
+# Application Kconfig additions (optional).
+# WebSocket defaults: see component WebSocKetHandle/Kconfig.projbuild.

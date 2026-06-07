@@ -1,0 +1,882 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82ed4h (536276) map[0m
+[0;32mI (309) esp_image: segment 1: paddr=00092efc vaddr=3ffb0000 size=04570h ( 17776) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=00097474 vaddr=40080000 size=08ba4h ( 35748) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbb00h (1030912) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bb28 vaddr=40088ba4 size=127f0h ( 75760) load[0m
+[0;32mI (726) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (727) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (727) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (761) cpu_start: App version:      1[0m
+[0;32mI (766) cpu_start: Compile time:     May 28 2026 16:28:13[0m
+[0;32mI (772) cpu_start: ELF file SHA256:  a668a5065...[0m
+[0;32mI (777) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (783) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (787) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (792) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (797) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (804) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (810) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (816) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (823) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (829) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (837) spi_flash: detected chip: generic[0m
+[0;32mI (840) spi_flash: flash io: dio[0m
+[0;33mW (844) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (854) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (864) main_task: Started on CPU0[0m
+[0;32mI (874) main_task: Calling app_main()[0m
+[0;32mI (874) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (894) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (894) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (904) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (904) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (914) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (914) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (924) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (934) disp_spi: Adding SPI device[0m
+[0;32mI (934) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1144) ILI9341: Initialization.[0m
+[0;32mI (1344) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1344) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1344) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1674) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1674) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1684) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1714) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1714) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:30:13
+[0;33mW (1734) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1764) wifi:wifi driver task: 3ffde8b8, prio:23, stack:6656, core=0[0m
+[0;32mI (1764) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1764) wifi:wifi certification version: v7.0[0m
+[0;32mI (1764) wifi:config NVS flash: enabled[0m
+[0;32mI (1774) wifi:config nano formating: disabled[0m
+[0;32mI (1774) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1774) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1784) wifi:Init management short buffer num: 32[0m
+[0;32mI (1784) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1794) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1794) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1794) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1804) wifi_init: rx ba win: 6[0m
+[0;32mI (1804) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1814) wifi_init: udp mbox: 6[0m
+[0;32mI (1814) wifi_init: tcp mbox: 6[0m
+[0;32mI (1814) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1824) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1824) wifi_init: tcp mss: 1440[0m
+[0;32mI (1834) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1834) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1844) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1844) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1854) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1944) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1964) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1964) wifi:enable tsf[0m
+[0;32mI (1974) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4394) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4394) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4394) wifi:flush txq[0m
+[0;32mI (4394) wifi:stop sw txq[0m
+[0;32mI (4394) wifi:lmac stop hw txq[0m
+[0;32mI (4404) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4404) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4404) wifi:enable tsf[0m
+[0;32mI (4414) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6824) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6834) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6834) wifi:flush txq[0m
+[0;32mI (6834) wifi:stop sw txq[0m
+[0;32mI (6834) wifi:lmac stop hw txq[0m
+[0;32mI (6844) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6844) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6844) wifi:enable tsf[0m
+[0;32mI (6854) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9264) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9264) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9274) wifi:flush txq[0m
+[0;32mI (9274) wifi:stop sw txq[0m
+[0;32mI (9274) wifi:lmac stop hw txq[0m
+[0;32mI (9274) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9284) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9284) wifi:enable tsf[0m
+[0;32mI (9284) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11704) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11704) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11714) wifi:flush txq[0m
+[0;32mI (11714) wifi:stop sw txq[0m
+[0;32mI (11714) wifi:lmac stop hw txq[0m
+[0;32mI (11714) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11724) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (11724) wifi:enable tsf[0m
+[0;32mI (11724) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14144) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14144) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14154) wifi:flush txq[0m
+[0;32mI (14154) wifi:stop sw txq[0m
+[0;32mI (14154) wifi:lmac stop hw txq[0m
+[0;32mI (14154) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14164) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (14164) wifi:enable tsf[0m
+[0;32mI (14164) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16584) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16584) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16584) wifi:flush txq[0m
+[0;32mI (16584) wifi:stop sw txq[0m
+[0;32mI (16594) wifi:lmac stop hw txq[0m
+[0;32mI (16594) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16604) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (16604) wifi:enable tsf[0m
+[0;32mI (16604) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19024) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19024) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19024) wifi:flush txq[0m
+[0;32mI (19024) wifi:stop sw txq[0m
+[0;32mI (19034) wifi:lmac stop hw txq[0m
+[0;32mI (19034) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19034) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (19044) wifi:enable tsf[0m
+[0;32mI (19044) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21464) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21464) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21464) wifi:flush txq[0m
+[0;32mI (21464) wifi:stop sw txq[0m
+[0;32mI (21464) wifi:lmac stop hw txq[0m
+[0;32mI (21474) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21474) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (21474) wifi:enable tsf[0m
+[0;32mI (21484) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23894) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23894) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23904) wifi:flush txq[0m
+[0;32mI (23904) wifi:stop sw txq[0m
+[0;32mI (23904) wifi:lmac stop hw txq[0m
+[0;32mI (23914) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23914) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (23914) wifi:enable tsf[0m
+[0;32mI (23924) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26334) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26334) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26344) wifi:flush txq[0m
+[0;32mI (26344) wifi:stop sw txq[0m
+[0;32mI (26344) wifi:lmac stop hw txq[0m
+[0;32mI (26344) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26354) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (26354) wifi:enable tsf[0m
+[0;32mI (26364) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28774) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28774) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28784) wifi:flush txq[0m
+[0;32mI (28784) wifi:stop sw txq[0m
+[0;32mI (28784) wifi:lmac stop hw txq[0m
+[0;32mI (28784) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28794) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (28794) wifi:enable tsf[0m
+[0;32mI (28794) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31214) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31214) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31224) wifi:flush txq[0m
+[0;32mI (31224) wifi:stop sw txq[0m
+[0;32mI (31224) wifi:lmac stop hw txq[0m
+[0;32mI (31224) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31234) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (31234) wifi:enable tsf[0m
+[0;32mI (31234) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33654) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33654) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33654) wifi:flush txq[0m
+[0;32mI (33654) wifi:stop sw txq[0m
+[0;32mI (33664) wifi:lmac stop hw txq[0m
+[0;32mI (33664) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33664) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (33674) wifi:enable tsf[0m
+[0;32mI (33674) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36094) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36094) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36094) wifi:flush txq[0m
+[0;32mI (36094) wifi:stop sw txq[0m
+[0;32mI (36094) wifi:lmac stop hw txq[0m
+[0;32mI (36104) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36104) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (36104) wifi:enable tsf[0m
+[0;32mI (36114) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38524) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38534) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (38534) wifi:flush txq[0m
+[0;32mI (38534) wifi:stop sw txq[0m
+[0;32mI (38534) wifi:lmac stop hw txq[0m
+[0;32mI (38544) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (38544) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (38544) wifi:enable tsf[0m
+[0;32mI (38554) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (39184) wifi:new:<4,0>, old:<1,0>, ap:<255,255>, sta:<4,0>, prof:1[0m
+[0;32mI (39184) wifi:state: init -> auth (b0)[0m
+[0;32mI (39194) wifi:state: auth -> assoc (0)[0m
+[0;32mI (39194) wifi:state: assoc -> run (10)[0m
+[0;33mW (39284) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (39294) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (39294) wifi:[ADDBA]rx delba, code:39, delete tid:6[0m
+[0;32mI (39294) wifi:connected with Unknown, aid = 2, channel 4, BW20, bssid = 04:20:84:39:c0:e7[0m
+[0;32mI (39304) wifi:security: WPA2-PSK, phy: bgn, rssi: -73[0m
+[0;32mI (39304) wifi:pm start, type: 1[0m
+
+[0;32mI (39304) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (39324) WiFiManager: WiFi STA link established[0m
+[0;32mI (39334) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (41394) wifi:<ba-add>idx:0 (ifx:0, 04:20:84:39:c0:e7), tid:6, ssn:2, winSize:64[0m
+[0;32mI (43324) esp_netif_handlers: sta ip: 192.168.1.7, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (43324) WiFiManager: Got IP: 192.168.1.7[0m
+[0;32mI (43324) WiFiManager: Connected startup WiFi: SSID=Unknown[0m
+[0;32mI (43324) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (43334) WiFiManager: Startup WiFi connected, keeping configuration AP active[0m
+[0;32mI (43344) WiFiManager: mDNS started: http://meshgateway.local[0m
+[0;32mI (43354) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (43354) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (43364) wifi:mode : sta (94:51:dc:30:36:9c) + softAP (94:51:dc:30:36:9d)[0m
+[0;32mI (43374) wifi:Total power save buffer number: 16[0m
+[0;32mI (43374) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (43384) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (43384) wifi:Total power save buffer number: 16[0m
+[0;32mI (43394) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (43394) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (43394) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (43414) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (43424) WiFiManager: Web server started on port 80[0m
+[0;32mI (43434) uart: queue free spaces: 24[0m
+[0;33mW (43434) uart_to_node: UART error event=1[0m
+[0;32mI (43434) uart_to_node: Send: Start Root[0m
+[0;32mI (43964) uart_to_node: Send: Start Root[0m
+[0;32mI (44434) WebSocket Handler: Starting WebSocket with URL: ws://172.20.10.2:8080/ws[0m
+[0;32mI (44434) websocket_client: Started[0m
+[0;32mI (44434) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (44484) uart_to_node: Send: Start Root[0m
+[0;32mI (45004) uart_to_node: Send: Start Root[0m
+[0;32mI (45524) uart_to_node: Send: Start Root[0m
+[0;32mI (46044) uart_to_node: Send: Start Root[0m
+[0;32mI (46564) uart_to_node: Send: Start Root[0m
+[0;32mI (47084) uart_to_node: Send: Start Root[0m
+[0;32mI (47604) uart_to_node: Send: Start Root[0m
+[0;32mI (48124) uart_to_node: Send: Start Root[0m
+[0;32mI (48644) uart_to_node: Send: Start Root[0m
+[0;32mI (49164) uart_to_node: Send: Start Root[0m
+[0;31mE (49454) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (49454) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (49454) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (49454) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (49474) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (49484) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (49484) WebSocket Handler: Disconnected from server[0m
+[0;32mI (49684) uart_to_node: Send: Start Root[0m
+[0;32mI (50204) uart_to_node: Send: Start Root[0m
+[0;32mI (50724) uart_to_node: Send: Start Root[0m
+[0;32mI (51244) uart_to_node: Send: Start Root[0m
+[0;32mI (51764) uart_to_node: Send: Start Root[0m
+[0;32mI (52284) uart_to_node: Send: Start Root[0m
+[0;32mI (52804) uart_to_node: Send: Start Root[0m
+[0;32mI (53324) uart_to_node: Send: Start Root[0m
+[0;32mI (53844) uart_to_node: Send: Start Root[0m
+[0;32mI (54364) uart_to_node: Send: Start Root[0m
+[0;32mI (54884) uart_to_node: Send: Start Root[0m
+[0;32mI (55404) uart_to_node: Send: Start Root[0m
+[0;32mI (55924) uart_to_node: Send: Start Root[0m
+[0;32mI (56444) uart_to_node: Send: Start Root[0m
+[0;32mI (56964) uart_to_node: Send: Start Root[0m
+[0;32mI (57484) uart_to_node: Send: Start Root[0m
+[0;32mI (58004) uart_to_node: Send: Start Root[0m
+[0;32mI (58524) uart_to_node: Send: Start Root[0m
+[0;32mI (59044) uart_to_node: Send: Start Root[0m
+[0;32mI (59564) uart_to_node: Send: Start Root[0m
+[0;32mI (60084) uart_to_node: Send: Start Root[0m
+[0;32mI (60604) uart_to_node: Send: Start Root[0m
+[0;32mI (61124) uart_to_node: Send: Start Root[0m
+[0;32mI (61644) uart_to_node: Send: Start Root[0m
+[0;32mI (62164) uart_to_node: Send: Start Root[0m
+[0;32mI (62684) uart_to_node: Send: Start Root[0m
+[0;32mI (63204) uart_to_node: Send: Start Root[0m
+[0;32mI (63724) uart_to_node: Send: Start Root[0m
+[0;32mI (64244) uart_to_node: Send: Start Root[0m
+[0;32mI (64764) uart_to_node: Send: Start Root[0m
+[0;32mI (65284) uart_to_node: Send: Start Root[0m
+[0;32mI (65804) uart_to_node: Send: Start Root[0m
+[0;32mI (66324) uart_to_node: Send: Start Root[0m
+[0;32mI (66844) uart_to_node: Send: Start Root[0m
+[0;32mI (67364) uart_to_node: Send: Start Root[0m
+[0;32mI (67884) uart_to_node: Send: Start Root[0m
+[0;32mI (68404) uart_to_node: Send: Start Root[0m
+[0;32mI (68924) uart_to_node: Send: Start Root[0m
+[0;32mI (69444) uart_to_node: Send: Start Root[0m
+[0;31mE (69504) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (69504) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (69504) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (69504) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (69524) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (69534) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (69534) WebSocket Handler: Disconnected from server[0m
+[0;32mI (69964) uart_to_node: Send: Start Root[0m
+[0;32mI (70484) uart_to_node: Send: Start Root[0m
+[0;32mI (71004) uart_to_node: Send: Start Root[0m
+[0;32mI (71524) uart_to_node: Send: Start Root[0m
+[0;32mI (72044) uart_to_node: Send: Start Root[0m
+[0;32mI (72564) uart_to_node: Send: Start Root[0m
+[0;32mI (73084) uart_to_node: Send: Start Root[0m
+[0;32mI (73604) uart_to_node: Send: Start Root[0m
+[0;32mI (74074) wifi:<ba-add>idx:1 (ifx:0, 04:20:84:39:c0:e7), tid:0, ssn:0, winSize:64[0m
+[0;32mI (74124) uart_to_node: Send: Start Root[0m
+[0;32mI (74644) uart_to_node: Send: Start Root[0m
+[0;32mI (75164) uart_to_node: Send: Start Root[0m
+[0;32mI (75684) uart_to_node: Send: Start Root[0m
+[0;32mI (76204) uart_to_node: Send: Start Root[0m
+[0;32mI (76724) uart_to_node: Send: Start Root[0m
+[0;32mI (77244) uart_to_node: Send: Start Root[0m
+[0;32mI (77764) uart_to_node: Send: Start Root[0m
+[0;32mI (78284) uart_to_node: Send: Start Root[0m
+[0;32mI (78804) uart_to_node: Send: Start Root[0m
+[0;32mI (79324) uart_to_node: Send: Start Root[0m
+[0;32mI (79844) uart_to_node: Send: Start Root[0m
+[0;32mI (80364) uart_to_node: Send: Start Root[0m
+[0;32mI (80884) uart_to_node: Send: Start Root[0m
+[0;32mI (81404) uart_to_node: Send: Start Root[0m
+[0;32mI (81924) uart_to_node: Send: Start Root[0m
+[0;32mI (82444) uart_to_node: Send: Start Root[0m
+[0;32mI (82964) uart_to_node: Send: Start Root[0m
+[0;32mI (83484) uart_to_node: Send: Start Root[0m
+[0;32mI (84004) uart_to_node: Send: Start Root[0m
+[0;32mI (84524) uart_to_node: Send: Start Root[0m
+[0;32mI (85044) uart_to_node: Send: Start Root[0m
+[0;32mI (85564) uart_to_node: Send: Start Root[0m
+[0;32mI (86084) uart_to_node: Send: Start Root[0m
+[0;32mI (86604) uart_to_node: Send: Start Root[0m
+[0;32mI (87124) uart_to_node: Send: Start Root[0m
+[0;32mI (87644) uart_to_node: Send: Start Root[0m
+[0;32mI (88164) uart_to_node: Send: Start Root[0m
+[0;32mI (88684) uart_to_node: Send: Start Root[0m
+[0;32mI (89204) uart_to_node: Send: Start Root[0m
+[0;31mE (89554) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (89554) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (89554) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (89554) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (89574) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (89584) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (89584) WebSocket Handler: Disconnected from server[0m
+[0;32mI (89724) uart_to_node: Send: Start Root[0m
+[0;32mI (90244) uart_to_node: Send: Start Root[0m
+[0;32mI (90764) uart_to_node: Send: Start Root[0m
+[0;32mI (91284) uart_to_node: Send: Start Root[0m
+[0;32mI (91804) uart_to_node: Send: Start Root[0m
+[0;32mI (92324) uart_to_node: Send: Start Root[0m
+[0;32mI (92844) uart_to_node: Send: Start Root[0m
+[0;32mI (93364) uart_to_node: Send: Start Root[0m
+[0;32mI (93884) uart_to_node: Send: Start Root[0m
+[0;32mI (94404) uart_to_node: Send: Start Root[0m
+[0;32mI (94924) uart_to_node: Send: Start Root[0m
+[0;32mI (95444) uart_to_node: Send: Start Root[0m
+[0;32mI (95964) uart_to_node: Send: Start Root[0m
+[0;32mI (96484) uart_to_node: Send: Start Root[0m
+[0;32mI (97004) uart_to_node: Send: Start Root[0m
+[0;32mI (97524) uart_to_node: Send: Start Root[0m
+[0;32mI (98044) uart_to_node: Send: Start Root[0m
+[0;32mI (98564) uart_to_node: Send: Start Root[0m
+[0;32mI (99084) uart_to_node: Send: Start Root[0m
+[0;32mI (99604) uart_to_node: Send: Start Root[0m
+[0;32mI (100124) uart_to_node: Send: Start Root[0m
+[0;32mI (100644) uart_to_node: Send: Start Root[0m
+[0;32mI (101164) uart_to_node: Send: Start Root[0m
+[0;32mI (101684) uart_to_node: Send: Start Root[0m
+[0;32mI (102204) uart_to_node: Send: Start Root[0m
+[0;32mI (102724) uart_to_node: Send: Start Root[0m
+[0;32mI (103244) uart_to_node: Send: Start Root[0m
+[0;32mI (103764) uart_to_node: Send: Start Root[0m
+[0;32mI (104284) uart_to_node: Send: Start Root[0m
+[0;32mI (104804) uart_to_node: Send: Start Root[0m
+[0;32mI (105324) uart_to_node: Send: Start Root[0m
+[0;32mI (105844) uart_to_node: Send: Start Root[0m
+[0;32mI (106364) uart_to_node: Send: Start Root[0m
+[0;32mI (106884) uart_to_node: Send: Start Root[0m
+[0;32mI (107404) uart_to_node: Send: Start Root[0m
+[0;32mI (107924) uart_to_node: Send: Start Root[0m
+[0;32mI (108444) uart_to_node: Send: Start Root[0m
+[0;32mI (108964) uart_to_node: Send: Start Root[0m
+[0;32mI (109484) uart_to_node: Send: Start Root[0m
+[0;31mE (109604) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (109604) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (109604) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (109604) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (109624) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (109634) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (109634) WebSocket Handler: Disconnected from server[0m
+[0;32mI (110004) uart_to_node: Send: Start Root[0m
+[0;32mI (110524) uart_to_node: Send: Start Root[0m
+[0;32mI (111044) uart_to_node: Send: Start Root[0m
+[0;32mI (111564) uart_to_node: Send: Start Root[0m
+[0;32mI (112084) uart_to_node: Send: Start Root[0m
+[0;32mI (112604) uart_to_node: Send: Start Root[0m
+[0;32mI (113124) uart_to_node: Send: Start Root[0m
+[0;32mI (113644) uart_to_node: Send: Start Root[0m
+[0;32mI (114164) uart_to_node: Send: Start Root[0m
+[0;32mI (114684) uart_to_node: Send: Start Root[0m
+[0;32mI (115204) uart_to_node: Send: Start Root[0m
+[0;32mI (115724) uart_to_node: Send: Start Root[0m
+[0;32mI (116244) uart_to_node: Send: Start Root[0m
+[0;32mI (116764) uart_to_node: Send: Start Root[0m
+[0;32mI (117284) uart_to_node: Send: Start Root[0m
+[0;32mI (117804) uart_to_node: Send: Start Root[0m
+[0;32mI (118324) uart_to_node: Send: Start Root[0m
+[0;32mI (118844) uart_to_node: Send: Start Root[0m
+[0;32mI (119364) uart_to_node: Send: Start Root[0m
+[0;32mI (119884) uart_to_node: Send: Start Root[0m
+[0;32mI (120404) uart_to_node: Send: Start Root[0m
+[0;32mI (120924) uart_to_node: Send: Start Root[0m
+[0;32mI (121444) uart_to_node: Send: Start Root[0m
+[0;32mI (121964) uart_to_node: Send: Start Root[0m
+[0;32mI (122484) uart_to_node: Send: Start Root[0m
+[0;32mI (123004) uart_to_node: Send: Start Root[0m
+[0;32mI (123524) uart_to_node: Send: Start Root[0m
+[0;32mI (124044) uart_to_node: Send: Start Root[0m
+[0;32mI (124564) uart_to_node: Send: Start Root[0m
+[0;32mI (125084) uart_to_node: Send: Start Root[0m
+[0;32mI (125604) uart_to_node: Send: Start Root[0m
+[0;32mI (126124) uart_to_node: Send: Start Root[0m
+[0;32mI (126644) uart_to_node: Send: Start Root[0m
+[0;32mI (127164) uart_to_node: Send: Start Root[0m
+[0;32mI (127684) uart_to_node: Send: Start Root[0m
+[0;32mI (128204) uart_to_node: Send: Start Root[0m
+[0;32mI (128724) uart_to_node: Send: Start Root[0m
+[0;32mI (129244) uart_to_node: Send: Start Root[0m
+[0;31mE (129654) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (129654) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (129654) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (129654) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (129674) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (129684) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (129684) WebSocket Handler: Disconnected from server[0m
+[0;32mI (129764) uart_to_node: Send: Start Root[0m
+[0;32mI (130284) uart_to_node: Send: Start Root[0m
+[0;32mI (130804) uart_to_node: Send: Start Root[0m
+[0;32mI (131324) uart_to_node: Send: Start Root[0m
+[0;32mI (131844) uart_to_node: Send: Start Root[0m
+[0;32mI (132364) uart_to_node: Send: Start Root[0m
+[0;32mI (132884) uart_to_node: Send: Start Root[0m
+[0;32mI (133404) uart_to_node: Send: Start Root[0m
+[0;32mI (133924) uart_to_node: Send: Start Root[0m
+[0;32mI (134444) uart_to_node: Send: Start Root[0m
+[0;32mI (134964) uart_to_node: Send: Start Root[0m
+[0;32mI (135484) uart_to_node: Send: Start Root[0m
+[0;32mI (136004) uart_to_node: Send: Start Root[0m
+[0;32mI (136524) uart_to_node: Send: Start Root[0m
+[0;32mI (137044) uart_to_node: Send: Start Root[0m
+[0;32mI (137564) uart_to_node: Send: Start Root[0m
+[0;32mI (138084) uart_to_node: Send: Start Root[0m
+[0;32mI (138604) uart_to_node: Send: Start Root[0m
+[0;32mI (139124) uart_to_node: Send: Start Root[0m
+[0;32mI (139644) uart_to_node: Send: Start Root[0m
+[0;32mI (140164) uart_to_node: Send: Start Root[0m
+[0;32mI (140684) uart_to_node: Send: Start Root[0m
+[0;32mI (141204) uart_to_node: Send: Start Root[0m
+[0;32mI (141724) uart_to_node: Send: Start Root[0m
+[0;32mI (142244) uart_to_node: Send: Start Root[0m
+[0;32mI (142764) uart_to_node: Send: Start Root[0m
+[0;32mI (143284) uart_to_node: Send: Start Root[0m
+[0;32mI (143804) uart_to_node: Send: Start Root[0m
+[0;32mI (144324) uart_to_node: Send: Start Root[0m
+[0;32mI (144844) uart_to_node: Send: Start Root[0m
+[0;32mI (145364) uart_to_node: Send: Start Root[0m
+[0;32mI (145884) uart_to_node: Send: Start Root[0m
+[0;32mI (146404) uart_to_node: Send: Start Root[0m
+[0;32mI (146924) uart_to_node: Send: Start Root[0m
+[0;32mI (147444) uart_to_node: Send: Start Root[0m
+[0;32mI (147964) uart_to_node: Send: Start Root[0m
+[0;32mI (148484) uart_to_node: Send: Start Root[0m
+[0;32mI (149004) uart_to_node: Send: Start Root[0m
+[0;32mI (149524) uart_to_node: Send: Start Root[0m
+[0;31mE (149704) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (149704) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (149704) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (149704) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (149724) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (149734) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (149734) WebSocket Handler: Disconnected from server[0m
+[0;32mI (150044) uart_to_node: Send: Start Root[0m
+[0;32mI (150564) uart_to_node: Send: Start Root[0m
+[0;32mI (151084) uart_to_node: Send: Start Root[0m
+[0;32mI (151604) uart_to_node: Send: Start Root[0m
+[0;32mI (152124) uart_to_node: Send: Start Root[0m
+[0;32mI (152644) uart_to_node: Send: Start Root[0m
+[0;32mI (153164) uart_to_node: Send: Start Root[0m
+[0;32mI (153684) uart_to_node: Send: Start Root[0m
+[0;32mI (154204) uart_to_node: Send: Start Root[0m
+[0;32mI (154724) uart_to_node: Send: Start Root[0m
+[0;32mI (155244) uart_to_node: Send: Start Root[0m
+[0;32mI (155764) uart_to_node: Send: Start Root[0m
+[0;32mI (156284) uart_to_node: Send: Start Root[0m
+[0;32mI (156804) uart_to_node: Send: Start Root[0m
+[0;32mI (157324) uart_to_node: Send: Start Root[0m
+[0;32mI (157844) uart_to_node: Send: Start Root[0m
+[0;32mI (158364) uart_to_node: Send: Start Root[0m
+[0;32mI (158884) uart_to_node: Send: Start Root[0m
+[0;32mI (159404) uart_to_node: Send: Start Root[0m
+[0;32mI (159924) uart_to_node: Send: Start Root[0m
+[0;32mI (160444) uart_to_node: Send: Start Root[0m
+[0;32mI (160964) uart_to_node: Send: Start Root[0m
+[0;32mI (161484) uart_to_node: Send: Start Root[0m
+[0;32mI (162004) uart_to_node: Send: Start Root[0m
+[0;32mI (162524) uart_to_node: Send: Start Root[0m
+[0;32mI (163044) uart_to_node: Send: Start Root[0m
+[0;32mI (163564) uart_to_node: Send: Start Root[0m
+[0;32mI (164084) uart_to_node: Send: Start Root[0m
+[0;32mI (164604) uart_to_node: Send: Start Root[0m
+[0;32mI (165124) uart_to_node: Send: Start Root[0m
+[0;32mI (165644) uart_to_node: Send: Start Root[0m
+[0;32mI (166164) uart_to_node: Send: Start Root[0m
+[0;32mI (166684) uart_to_node: Send: Start Root[0m
+[0;32mI (167204) uart_to_node: Send: Start Root[0m
+[0;32mI (167724) uart_to_node: Send: Start Root[0m
+[0;32mI (168244) uart_to_node: Send: Start Root[0m
+[0;32mI (168764) uart_to_node: Send: Start Root[0m
+[0;32mI (169284) uart_to_node: Send: Start Root[0m
+[0;31mE (169764) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (169764) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (169764) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (169764) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (169784) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (169794) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (169794) WebSocket Handler: Disconnected from server[0m
+[0;32mI (169804) uart_to_node: Send: Start Root[0m
+[0;32mI (170324) uart_to_node: Send: Start Root[0m
+[0;32mI (170844) uart_to_node: Send: Start Root[0m
+[0;32mI (171364) uart_to_node: Send: Start Root[0m
+[0;32mI (171884) uart_to_node: Send: Start Root[0m
+[0;32mI (172404) uart_to_node: Send: Start Root[0m
+[0;32mI (172924) uart_to_node: Send: Start Root[0m
+[0;32mI (173444) uart_to_node: Send: Start Root[0m
+[0;32mI (173964) uart_to_node: Send: Start Root[0m
+[0;32mI (174484) uart_to_node: Send: Start Root[0m
+[0;32mI (175004) uart_to_node: Send: Start Root[0m
+[0;32mI (175524) uart_to_node: Send: Start Root[0m
+[0;32mI (176044) uart_to_node: Send: Start Root[0m
+[0;32mI (176564) uart_to_node: Send: Start Root[0m
+[0;32mI (177084) uart_to_node: Send: Start Root[0m
+[0;32mI (177604) uart_to_node: Send: Start Root[0m
+[0;32mI (178124) uart_to_node: Send: Start Root[0m
+[0;32mI (178644) uart_to_node: Send: Start Root[0m
+[0;32mI (179164) uart_to_node: Send: Start Root[0m
+[0;32mI (179684) uart_to_node: Send: Start Root[0m
+[0;32mI (180204) uart_to_node: Send: Start Root[0m
+[0;32mI (180724) uart_to_node: Send: Start Root[0m
+[0;32mI (181244) uart_to_node: Send: Start Root[0m
+[0;32mI (181764) uart_to_node: Send: Start Root[0m
+[0;32mI (182284) uart_to_node: Send: Start Root[0m
+[0;32mI (182804) uart_to_node: Send: Start Root[0m
+[0;32mI (183324) uart_to_node: Send: Start Root[0m
+[0;32mI (183844) uart_to_node: Send: Start Root[0m
+[0;32mI (184364) uart_to_node: Send: Start Root[0m
+[0;32mI (184884) uart_to_node: Send: Start Root[0m
+[0;32mI (185404) uart_to_node: Send: Start Root[0m
+[0;32mI (185924) uart_to_node: Send: Start Root[0m
+[0;32mI (186444) uart_to_node: Send: Start Root[0m
+[0;32mI (186964) uart_to_node: Send: Start Root[0m
+[0;32mI (187484) uart_to_node: Send: Start Root[0m
+[0;32mI (188004) uart_to_node: Send: Start Root[0m
+[0;32mI (188524) uart_to_node: Send: Start Root[0m
+[0;32mI (189044) uart_to_node: Send: Start Root[0m
+[0;32mI (189564) uart_to_node: Send: Start Root[0m
+[0;31mE (189814) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (189814) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (189814) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (189814) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (189834) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (189844) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (189844) WebSocket Handler: Disconnected from server[0m
+[0;32mI (190084) uart_to_node: Send: Start Root[0m
+[0;32mI (190604) uart_to_node: Send: Start Root[0m
+[0;32mI (191124) uart_to_node: Send: Start Root[0m
+[0;32mI (191644) uart_to_node: Send: Start Root[0m
+[0;32mI (192164) uart_to_node: Send: Start Root[0m
+[0;32mI (192684) uart_to_node: Send: Start Root[0m
+[0;32mI (193204) uart_to_node: Send: Start Root[0m
+[0;32mI (193724) uart_to_node: Send: Start Root[0m
+[0;32mI (194244) uart_to_node: Send: Start Root[0m
+[0;32mI (194764) uart_to_node: Send: Start Root[0m
+[0;32mI (195284) uart_to_node: Send: Start Root[0m
+[0;32mI (195804) uart_to_node: Send: Start Root[0m
+����b���00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (812) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (819) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (827) spi_flash: detected chip: generic[0m
+[0;32mI (830) spi_flash: flash io: dio[0m
+[0;33mW (834) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (844) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (853) main_task: Started on CPU0[0m
+[0;32mI (863) main_task: Calling app_main()[0m
+[0;32mI (863) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (883) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (883) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (883) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (893) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (893) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (903) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (913) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (923) disp_spi: Adding SPI device[0m
+[0;32mI (923) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1133) ILI9341: Initialization.[0m
+[0;32mI (1333) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1333) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1333) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1663) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1663) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1673) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1703) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1703) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:33:28
+[0;33mW (1723) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1753) wifi:wifi driver task: 3ffde93c, prio:23, stack:6656, core=0[0m
+[0;32mI (1753) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1753) wifi:wifi certification version: v7.0[0m
+[0;32mI (1753) wifi:config NVS flash: enabled[0m
+[0;32mI (1763) wifi:config nano formating: disabled[0m
+[0;32mI (1763) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1763) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1773) wifi:Init management short buffer num: 32[0m
+[0;32mI (1773) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1783) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1783) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1783) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1793) wifi_init: rx ba win: 6[0m
+[0;32mI (1793) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1803) wifi_init: udp mbox: 6[0m
+[0;32mI (1803) wifi_init: tcp mbox: 6[0m
+[0;32mI (1803) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1813) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1813) wifi_init: tcp mss: 1440[0m
+[0;32mI (1823) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1823) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1833) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1833) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1843) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1933) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1953) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1953) wifi:enable tsf[0m
+[0;32mI (1963) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4383) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4383) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4383) wifi:flush txq[0m
+[0;32mI (4383) wifi:stop sw txq[0m
+[0;32mI (4383) wifi:lmac stop hw txq[0m
+[0;32mI (4393) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4393) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4393) wifi:enable tsf[0m
+[0;32mI (4403) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6813) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6813) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6823) wifi:flush txq[0m
+[0;32mI (6823) wifi:stop sw txq[0m
+[0;32mI (6823) wifi:lmac stop hw txq[0m
+[0;32mI (6833) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6833) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6833) wifi:enable tsf[0m
+[0;32mI (6843) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9253) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9253) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9263) wifi:flush txq[0m
+[0;32mI (9263) wifi:stop sw txq[0m
+[0;32mI (9263) wifi:lmac stop hw txq[0m
+[0;32mI (9263) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9273) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9273) wifi:enable tsf[0m
+[0;32mI (9273) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11693) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11693) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11703) wifi:flush txq[0m
+[0;32mI (11703) wifi:stop sw txq[0m
+[0;32mI (11703) wifi:lmac stop hw txq[0m
+[0;32mI (11703) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11713) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (11713) wifi:enable tsf[0m
+[0;32mI (11713) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14133) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14133) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14143) wifi:flush txq[0m
+[0;32mI (14143) wifi:stop sw txq[0m
+[0;32mI (14143) wifi:lmac stop hw txq[0m
+[0;32mI (14143) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14153) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (14153) wifi:enable tsf[0m
+[0;32mI (14153) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16573) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16573) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16573) wifi:flush txq[0m
+[0;32mI (16573) wifi:stop sw txq[0m
+[0;32mI (16583) wifi:lmac stop hw txq[0m
+I (16583[0;32mI (678) esp_image: segment 4: paddr=0019bb28 vaddr=40088ba4 size=127f0h ( 75760) load[0m
+[0;32mI (722) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (733) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      1[0m
+[0;32mI (755) cpu_start: Compile time:     May 28 2026 16:28:13[0m
+[0;32mI (762) cpu_start: ELF file SHA256:  a668a5065...[0m
+[0;32mI (767) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (772) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (777) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (782) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (787) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (794) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (800) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (806) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (812) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (819) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (827) spi_flash: detected chip: generic[0m
+[0;32mI (830) spi_flash: flash io: dio[0m
+[0;33mW (834) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (844) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (853) main_task: Started on CPU0[0m
+[0;32mI (863) main_task: Calling app_main()[0m
+[0;32mI (863) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (883) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (883) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (883) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (893) lvgl_helpers: Configuring SPI host SPI2_HOST[0m
+[0;32mI (893) lvgl_helpers: MISO pin: -1, MOSI pin: 26, SCLK pin: 25, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (903) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (913) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (913) disp_spi: Adding SPI device[0m
+[0;32mI (923) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 12[0m
+[0;32mI (1133) ILI9341: Initialization.[0m
+[0;32mI (1333) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1333) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1333) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=23, MISO=18 MOSI=5 CLK=19)
+[0;32mI (1663) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1663) spi: spi_bus_initialize(800): SPI bus already initialized.[0m
+[SD ] spi bus already initialized, reuse it.
+[0;32mI (1673) gpio: GPIO[23]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1703) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[0;32mI (1703) gpio: GPIO[23]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x107
+[SD ] initSDCard() failed: ESP_ERR_TIMEOUT (0x107)
+[RTC ] init OK: 2000-01-01 00:33:45
+[0;33mW (1723) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1753) wifi:wifi driver task: 3ffde8b8, prio:23, stack:6656, core=0[0m
+[0;32mI (1753) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1753) wifi:wifi certification version: v7.0[0m
+[0;32mI (1753) wifi:config NVS flash: enabled[0m
+[0;32mI (1763) wifi:config nano formating: disabled[0m
+[0;32mI (1763) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1763) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1773) wifi:Init management short buffer num: 32[0m
+[0;32mI (1773) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1783) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1783) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1783) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1793) wifi_init: rx ba win: 6[0m
+[0;32mI (1793) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1803) wifi_init: udp mbox: 6[0m
+[0;32mI (1803) wifi_init: tcp mbox: 6[0m
+[0;32mI (1803) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1813) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1813) wifi_init: tcp mss: 1440[0m
+[0;32mI (1823) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1823) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1833) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1833) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1843) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1933) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (1933) wifi:enable tsf[0m
+[0;32mI (1943) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4353) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4353) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4363) wifi:flush txq[0m
+[0;32mI (4363) wifi:stop sw txq[0m
+[0;32mI (4363) wifi:lmac stop hw txq[0m
+[0;32mI (4363) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4373) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (4373) wifi:enable tsf[0m
+[0;32mI (4383) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6793) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6793) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6803) wifi:flush txq[0m
+[0;32mI (6803) wifi:stop sw txq[0m
+[0;32mI (6803) wifi:lmac stop hw txq[0m
+[0;32mI (6803) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6813) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (6813) wifi:enable tsf[0m
+[0;32mI (6813) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9233) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9233) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9243) wifi:flush txq[0m
+[0;32mI (9243) wifi:stop sw txq[0m
+[0;32mI (9243) wifi:lmac stop hw txq[0m
+[0;32mI (9243) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9253) wifi:mode : sta (94:51:dc:30:36:9c)[0m
+[0;32mI (9253) wifi:enable tsf[0m
+[0;32mI (9253) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m

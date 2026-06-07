@@ -1,0 +1,10 @@
+menu "WebSocKetHandle (WebSocket client)"
+
+    config WS_URL
+        string "Default WebSocket URI (when not in NVS)"
+        default "ws://192.168.1.4:8080/ws"
+        help
+            Full URI ws://host:port/path — include port if not 80/443 (e.g. Node ws trên 8080).
+            Used when NVS key websocket/ws_url is absent.
+
+endmenu

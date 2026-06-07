@@ -1,0 +1,29 @@
+[1/10] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/spiffsgen.py 0x20000 "D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi" "D:/Engineering Project/MeshGateWay/build/spiffs.bin" --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[2/10] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\bootloader\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 "D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin""
+Bootloader binary size 0x68b0 bytes. 0x750 bytes (7%) free.
+[3/10] No install step for 'bootloader'
+[4/10] Completed 'bootloader'
+[5/10] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_http.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_http.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[6/10] Linking C static library esp-idf\WifiManager\libWifiManager.a
+[7/10] Generating ld/sections.ld
+[8/10] Linking CXX executable MeshGateWay.elf
+[9/10] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin
+[10/10] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 partition --type app "D:/Engineering Project/MeshGateWay/build/partition_table/partition-table.bin" "D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin""
+MeshGateWay.bin binary size 0x19e1b0 bytes. Smallest app partition is 0x1c0000 bytes. 0x21e50 bytes (8%) free.

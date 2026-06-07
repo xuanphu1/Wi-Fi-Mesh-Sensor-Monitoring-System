@@ -1,0 +1,1180 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=820bch (532668) map[0m
+[0;32mI (307) esp_image: segment 1: paddr=000920e4 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (314) esp_image: segment 2: paddr=0009662c vaddr=40080000 size=099ech ( 39404) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f3754h (997204) map[0m
+[0;32mI (672) esp_image: segment 4: paddr=0019377c vaddr=400899ec size=1193ch ( 71996) load[0m
+[0;32mI (714) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (715) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (715) boot: Disabling RNG early entropy source...[0m
+[0;32mI (731) cpu_start: Multicore app[0m
+[0;32mI (740) cpu_start: Pro cpu start user code[0m
+[0;32mI (740) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (740) cpu_start: Application information:[0m
+[0;32mI (743) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (748) cpu_start: App version:      1[0m
+[0;32mI (753) cpu_start: Compile time:     May 20 2026 17:43:45[0m
+[0;32mI (759) cpu_start: ELF file SHA256:  c4fb92544...[0m
+[0;32mI (764) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (770) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (774) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (779) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (784) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (791) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (797) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (803) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (810) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (816) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (824) spi_flash: detected chip: generic[0m
+[0;32mI (827) spi_flash: flash io: dio[0m
+[0;33mW (831) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (842) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (851) main_task: Started on CPU0[0m
+[0;32mI (861) main_task: Calling app_main()[0m
+[0;32mI (881) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (881) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (881) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (881) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (891) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (901) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (911) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (911) disp_spi: Adding SPI device[0m
+[0;32mI (911) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1121) ILI9341: Initialization.[0m
+[0;32mI (1321) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1321) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1321) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1641) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1651) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1661) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1701) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 08:50:56
+[0;32mI (1761) wifi:wifi driver task: 3ffe368c, prio:23, stack:6656, core=0[0m
+[0;32mI (1771) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1771) wifi:wifi certification version: v7.0[0m
+[0;32mI (1771) wifi:config NVS flash: enabled[0m
+[0;32mI (1771) wifi:config nano formating: disabled[0m
+[0;32mI (1771) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1781) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1781) wifi:Init management short buffer num: 32[0m
+[0;32mI (1781) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1791) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1791) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1801) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1801) wifi_init: rx ba win: 6[0m
+[0;32mI (1811) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1811) wifi_init: udp mbox: 6[0m
+[0;32mI (1811) wifi_init: tcp mbox: 6[0m
+[0;32mI (1821) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1821) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1831) wifi_init: tcp mss: 1440[0m
+[0;32mI (1831) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1831) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1841) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1851) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1851) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1941) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (2011) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (2011) wifi:enable tsf[0m
+[0;32mI (2021) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2411) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4441) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4441) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4441) wifi:flush txq[0m
+[0;32mI (4451) wifi:stop sw txq[0m
+[0;32mI (4451) wifi:lmac stop hw txq[0m
+[0;32mI (4451) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4461) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4461) wifi:enable tsf[0m
+[0;32mI (4461) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6881) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6881) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6891) wifi:flush txq[0m
+[0;32mI (6891) wifi:stop sw txq[0m
+[0;32mI (6891) wifi:lmac stop hw txq[0m
+[0;32mI (6891) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6901) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6901) wifi:enable tsf[0m
+[0;32mI (6901) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9321) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9321) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9331) wifi:flush txq[0m
+[0;32mI (9331) wifi:stop sw txq[0m
+[0;32mI (9331) wifi:lmac stop hw txq[0m
+[0;32mI (9331) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9341) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9341) wifi:enable tsf[0m
+[0;32mI (9351) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11771) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11771) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11771) wifi:flush txq[0m
+[0;32mI (11771) wifi:stop sw txq[0m
+[0;32mI (11771) wifi:lmac stop hw txq[0m
+[0;32mI (11781) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11791) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11791) wifi:enable tsf[0m
+[0;32mI (11791) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14211) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14211) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14221) wifi:flush txq[0m
+[0;32mI (14221) wifi:stop sw txq[0m
+[0;32mI (14221) wifi:lmac stop hw txq[0m
+[0;32mI (14221) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14231) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14231) wifi:enable tsf[0m
+[0;32mI (14241) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16661) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16661) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16661) wifi:flush txq[0m
+[0;32mI (16671) wifi:stop sw txq[0m
+[0;32mI (16671) wifi:lmac stop hw txq[0m
+[0;32mI (16671) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16681) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16681) wifi:enable tsf[0m
+[0;32mI (16681) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19101) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19101) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19111) wifi:flush txq[0m
+[0;32mI (19111) wifi:stop sw txq[0m
+[0;32mI (19111) wifi:lmac stop hw txq[0m
+[0;32mI (19121) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19121) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19121) wifi:enable tsf[0m
+[0;32mI (19131) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21551) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21551) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21561) wifi:flush txq[0m
+[0;32mI (21561) wifi:stop sw txq[0m
+[0;32mI (21561) wifi:lmac stop hw txq[0m
+[0;32mI (21561) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21571) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21571) wifi:enable tsf[0m
+[0;32mI (21571) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23991) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23991) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (24001) wifi:flush txq[0m
+[0;32mI (24001) wifi:stop sw txq[0m
+[0;32mI (24001) wifi:lmac stop hw txq[0m
+[0;32mI (24011) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (24011) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (24011) wifi:enable tsf[0m
+[0;32mI (24021) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26441) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26441) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26451) wifi:flush txq[0m
+[0;32mI (26451) wifi:stop sw txq[0m
+[0;32mI (26451) wifi:lmac stop hw txq[0m
+[0;32mI (26451) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26461) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26461) wifi:enable tsf[0m
+[0;32mI (26461) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26731) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26731) wifi:state: init -> auth (b0)[0m
+[0;32mI (26731) wifi:state: auth -> init (8a0)[0m
+[0;32mI (26731) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (26741) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26751) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (26761) wifi:flush txq[0m
+[0;32mI (26761) wifi:stop sw txq[0m
+[0;32mI (26761) wifi:lmac stop hw txq[0m
+[0;32mI (26761) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26771) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26771) wifi:enable tsf[0m
+[0;32mI (26771) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26811) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26811) wifi:state: init -> auth (b0)[0m
+[0;32mI (26821) wifi:state: auth -> assoc (0)[0m
+[0;32mI (26831) wifi:state: assoc -> run (10)[0m
+[0;32mI (26851) wifi:connected with Smile, aid = 6, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (26851) wifi:security: WPA2-PSK, phy: bgn, rssi: -56[0m
+[0;32mI (26851) wifi:pm start, type: 1[0m
+
+[0;32mI (26851) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (26871) WiFiManager: WiFi STA link established[0m
+[0;32mI (26901) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (27131) wifi:<ba-add>idx:0 (ifx:0, a8:25:eb:5e:98:e9), tid:0, ssn:1, winSize:64[0m
+[0;32mI (27871) esp_netif_handlers: sta ip: 192.168.1.119, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (27871) WiFiManager: Got IP: 192.168.1.119[0m
+[0;32mI (27871) WiFiManager: Connected startup WiFi: SSID=Smile[0m
+[0;32mI (27881) WiFiManager: Startup WiFi connected, keeping configuration AP active[0m
+[0;32mI (27891) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (27891) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (27901) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (27911) wifi:Total power save buffer number: 16[0m
+[0;32mI (27911) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (27921) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (27921) wifi:Total power save buffer number: 16[0m
+[0;32mI (27921) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (27931) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (27941) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (27951) WiFiManager: Web server started on port 80[0m
+[0;32mI (27961) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (27961) uart: queue free spaces: 24[0m
+[0;32mI (28011) uart_to_node: Send: Start Root[0m
+[0;32mI (28531) uart_to_node: Send: Start Root[0m
+[0;32mI (28591) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (28591) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (28771) uart_to_node: RX line: .No node[0m
+[0;32mI (28991) WebSocket Handler: Starting WebSocket with URL: ws://172.20.10.2:8080/ws[0m
+[0;33mW (28991) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (29001) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (29011) websocket_client: Started[0m
+[0;32mI (29011) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (29771) uart_to_node: RX line: No node[0m
+[0;32mI (30771) uart_to_node: RX line: No node[0m
+[0;32mI (31771) uart_to_node: RX line: No node[0m
+[0;32mI (32771) uart_to_node: RX line: No node[0m
+[0;32mI (33771) uart_to_node: RX line: No node[0m
+[0;32mI (34771) uart_to_node: RX line: No node[0m
+[0;32mI (35771) uart_to_node: RX line: No node[0m
+[0;32mI (36771) uart_to_node: RX line: No node[0m
+[0;32mI (37771) uart_to_node: RX line: No node[0m
+[0;32mI (38271) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:04","ver":"1.0.0","err":["0x3F","0x19","0xE6"],"p":[[1,0,20.589,61.853,1018.699],[3,13,24.62,54.095]]}[0m
+[0;31mE (39031) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (39031) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (39031) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (39031) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (39051) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (39061) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (39061) WebSocket Handler: Disconnected from server[0m
+[0;32mI (39101) uart_to_node: RX line: No node[0m
+[0;32mI (40101) uart_to_node: RX line: No node[0m
+[0;32mI (41101) uart_to_node: RX line: No node[0m
+[0;33mW (43141) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (43141) uart_to_node: Send: Start Root[0m
+[0;32mI (43661) uart_to_node: Send: Start Root[0m
+[0;32mI (44181) uart_to_node: Send: Start Root[0m
+[0;32mI (44701) uart_to_node: Send: Start Root[0m
+[0;32mI (45221) uart_to_node: Send: Start Root[0m
+[0;32mI (45741) uart_to_node: Send: Start Root[0m
+[0;32mI (46261) uart_to_node: Send: Start Root[0m
+[0;32mI (46781) uart_to_node: Send: Start Root[0m
+[0;32mI (47301) uart_to_node: Send: Start Root[0m
+[0;32mI (47821) uart_to_node: Send: Start Root[0m
+[0;32mI (48341) uart_to_node: Send: Start Root[0m
+[0;32mI (48861) uart_to_node: Send: Start Root[0m
+[0;32mI (49381) uart_to_node: Send: Start Root[0m
+[0;32mI (49901) uart_to_node: Send: Start Root[0m
+[0;32mI (50421) uart_to_node: Send: Start Root[0m
+[0;32mI (50941) uart_to_node: Send: Start Root[0m
+[0;32mI (51461) uart_to_node: Send: Start Root[0m
+[0;32mI (51981) uart_to_node: Send: Start Root[0m
+[0;32mI (52041) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (52041) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (52141) uart_to_node: RX line: .No node[0m
+[0;32mI (53141) uart_to_node: RX line: No node[0m
+[0;32mI (54321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:20","ver":"1.0.0","err":["0xF7","0x5B","0x6A"],"p":[[1,0,25.972,66.748,1010.662],[3,13,32.159,51.661]]}[0m
+[0;32mI (54531) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:20","ver":"1.0.0","err":["0x5A","0x49","0xE4"],"p":[[1,0,26.196,69.698,1019.359],[3,13,24.874,83.861]]}[0m
+[0;32mI (54671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:20","ver":"1.0.0","err":["0x18","0x4A","0x46"],"p":[[1,0,18.484,42.981,1021.775],[3,13,29.202,41.976]]}[0m
+[0;32mI (54891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:21","ver":"1.0.0","err":["0x7D","0x52","0xF6"],"p":[[1,0,27.032,56.637,990.176],[3,13,26.659,80.63]]}[0m
+[0;32mI (55201) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:21","ver":"1.0.0","err":["0xC1","0x66","0x18"],"p":[[1,0,20.558,55.662,1005.514],[3,13,29.185,40.239]]}[0m
+[0;32mI (55501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:21","ver":"1.0.0","err":["0xF7","0x29","0x7B"],"p":[[1,0,28.739,74.629,1029.124],[3,13,23.765,41.575]]}[0m
+[0;32mI (56321) uart_to_node: RX line: No node[0m
+[0;32mI (57321) uart_to_node: RX line: No node[0m
+[0;32mI (58321) uart_to_node: RX line: No node[0m
+[0;31mE (59081) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (59081) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (59081) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (59081) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (59101) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (59111) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (59111) WebSocket Handler: Disconnected from server[0m
+[0;32mI (59321) uart_to_node: RX line: No node[0m
+[0;32mI (60321) uart_to_node: RX line: No node[0m
+[0;32mI (61321) uart_to_node: RX line: No node[0m
+[0;32mI (62321) uart_to_node: RX line: No node[0m
+[0;32mI (63321) uart_to_node: RX line: No node[0m
+[0;32mI (64321) uart_to_node: RX line: No node[0m
+[0;32mI (65321) uart_to_node: RX line: No node[0m
+[0;32mI (66321) uart_to_node: RX line: No node[0m
+[0;32mI (67321) uart_to_node: RX line: No node[0m
+[0;32mI (68321) uart_to_node: RX line: No node[0m
+[0;32mI (69321) uart_to_node: RX line: No node[0m
+[0;32mI (70321) uart_to_node: RX line: No node[0m
+[0;32mI (71321) uart_to_node: RX line: No node[0m
+[0;32mI (72321) uart_to_node: RX line: No node[0m
+[0;32mI (73321) uart_to_node: RX line: No node[0m
+[0;32mI (74321) uart_to_node: RX line: No node[0m
+[0;32mI (75321) uart_to_node: RX line: No node[0m
+[0;32mI (76321) uart_to_node: RX line: No node[0m
+[0;32mI (77021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:43","ver":"1.0.0","err":["0x0E","0xCF","0xBA"],"p":[[1,0,25.197,39.395,998.561],[3,13,24.311,42.745]]}[0m
+[0;32mI (77331) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:43","ver":"1.0.0","err":["0x8F","0x37","0x12"],"p":[[1,0,23.578,47.461,1015.867],[3,13,30.822,76.13]]}[0m
+[0;32mI (77611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:43","ver":"1.0.0","err":["0xCE","0x06","0xFA"],"p":[[1,0,25.533,79.304,1017.831],[3,13,22.503,64.563]]}[0m
+[0;32mI (77921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:44","ver":"1.0.0","err":["0x50","0xEA","0xEF"],"p":[[1,0,23.316,44.366,999.677],[3,13,20.655,63.222]]}[0m
+[0;32mI (78221) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:44","ver":"1.0.0","err":["0x7B","0xFE","0x35"],"p":[[1,0,23.063,47.426,1006.858],[3,13,21.145,80.356]]}[0m
+[0;32mI (78521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:44","ver":"1.0.0","err":["0x3B","0xEC","0x59"],"p":[[1,0,29.821,40.311,1020.007],[3,13,31.469,66.458]]}[0m
+[0;32mI (78811) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:45","ver":"1.0.0","err":["0xD9","0x2F","0xBE"],"p":[[1,0,21.232,79.634,1015.267],[3,13,20.991,74.752]]}[0m
+[0;32mI (79111) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:45","ver":"1.0.0","err":["0x99","0x94","0x66"],"p":[[1,0,30.184,43.781,1010.198],[3,13,22.55,69.028]]}[0m
+[0;31mE (79131) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (79131) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (79141) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (79141) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (79161) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (79171) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (79171) WebSocket Handler: Disconnected from server[0m
+[0;32mI (79421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:45","ver":"1.0.0","err":["0x7C","0x03","0xEC"],"p":[[1,0,25.25,49.756,1014.842],[3,13,25.626,77.511]]}[0m
+[0;32mI (79711) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:45","ver":"1.0.0","err":["0x0E","0x85","0xCF"],"p":[[1,0,21.701,84.63,1006.87],[3,13,27.69,63.326]]}[0m
+[0;32mI (80021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:46","ver":"1.0.0","err":["0xBA","0xAB","0xE7"],"p":[[1,0,19.621,35.745,1027.096],[3,13,30.966,79.464]]}[0m
+[0;32mI (80321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:46","ver":"1.0.0","err":["0x02","0xA5","0xD5"],"p":[[1,0,25.585,65.998,1004.585],[3,13,31.656,73.479]]}[0m
+[0;32mI (80621) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:46","ver":"1.0.0","err":["0xB0","0x66","0x6C"],"p":[[1,0,25.692,59.122,1017.227],[3,13,23.451,55.936]]}[0m
+[0;32mI (80921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:47","ver":"1.0.0","err":["0x40","0x75","0x41"],"p":[[1,0,20.698,49.806,1025.512],[3,13,24.766,76.094]]}[0m
+[0;32mI (81221) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:47","ver":"1.0.0","err":["0xEA","0x7F","0xD6"],"p":[[1,0,18.407,38.485,1013.618],[3,13,22.02,56.562]]}[0m
+[0;32mI (82041) uart_to_node: RX line: No node[0m
+[0;32mI (83041) uart_to_node: RX line: No node[0m
+[0;32mI (84041) uart_to_node: RX line: No node[0m
+[0;32mI (85041) uart_to_node: RX line: No node[0m
+[0;32mI (86041) uart_to_node: RX line: No node[0m
+[0;32mI (87041) uart_to_node: RX line: No node[0m
+[0;32mI (87371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:44:53","ver":"1.0.0","err":["0x14","0x02","0xBD"],"p":[[1,0,28.291,59.447,1023.331],[3,13,24.993,77.264]]}[0m
+[0;32mI (88191) uart_to_node: RX line: No node[0m
+[0;32mI (89191) uart_to_node: RX line: No node[0m
+[0;32mI (90191) uart_to_node: RX line: No node[0m
+[0;32mI (91191) uart_to_node: RX line: No node[0m
+[0;32mI (92191) uart_to_node: RX line: No node[0m
+[0;32mI (93191) uart_to_node: RX line: No node[0m
+[0;32mI (94191) uart_to_node: RX line: No node[0m
+[0;32mI (95191) uart_to_node: RX line: No node[0m
+[0;32mI (96191) uart_to_node: RX line: No node[0m
+[0;32mI (97191) uart_to_node: RX line: No node[0m
+[0;32mI (98191) uart_to_node: RX line: No node[0m
+[0;31mE (99191) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (99191) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (99191) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;32mI (99191) uart_to_node: RX line: No node[0m
+[0;31mE (99201) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (99221) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (99221) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (99231) WebSocket Handler: Disconnected from server[0m
+[0;32mI (100191) uart_to_node: RX line: No node[0m
+[0;32mI (101191) uart_to_node: RX line: No node[0m
+[0;32mI (102191) uart_to_node: RX line: No node[0m
+[0;32mI (103191) uart_to_node: RX line: No node[0m
+[0;32mI (104191) uart_to_node: RX line: No node[0m
+[0;32mI (105191) uart_to_node: RX line: No node[0m
+[0;32mI (106191) uart_to_node: RX line: No node[0m
+[0;32mI (107191) uart_to_node: RX line: No node[0m
+[0;32mI (108191) uart_to_node: RX line: No node[0m
+[0;32mI (109191) uart_to_node: RX line: No node[0m
+[0;32mI (110191) uart_to_node: RX line: No node[0m
+[0;32mI (111191) uart_to_node: RX line: No node[0m
+[0;32mI (112191) uart_to_node: RX line: No node[0m
+[0;32mI (113191) uart_to_node: RX line: No node[0m
+[0;32mI (114191) uart_to_node: RX line: No node[0m
+[0;32mI (115191) uart_to_node: RX line: No node[0m
+[0;32mI (115881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:22","ver":"1.0.0","err":["0x9F","0x56","0xB2"],"p":[[1,0,29.523,79.779,995.937],[3,13,24.506,72.03]]}[0m
+[0;32mI (116201) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:22","ver":"1.0.0","err":["0xD4","0x90","0x91"],"p":[[1,0,22.76,55.037,991.4],[3,13,23.463,45.675]]}[0m
+[0;32mI (116501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:22","ver":"1.0.0","err":["0x8C","0xEF","0x4F"],"p":[[1,0,22.674,42.806,1006.878],[3,13,33.098,72.381]]}[0m
+[0;32mI (116781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:23","ver":"1.0.0","err":["0x77","0x1E","0x6A"],"p":[[1,0,29.466,62.893,1014.927],[3,13,33.215,60.558]]}[0m
+[0;32mI (117091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:23","ver":"1.0.0","err":["0xFB","0x2B","0x7F"],"p":[[1,0,24.652,59.062,1025.668],[3,13,27.072,63.159]]}[0m
+[0;32mI (117381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:23","ver":"1.0.0","err":["0xF0","0xD8","0x76"],"p":[[1,0,31.035,36.97,1028.336],[3,13,25.605,63.006]]}[0m
+[0;32mI (117681) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:23","ver":"1.0.0","err":["0x68","0x75","0x1E"],"p":[[1,0,27.784,41.461,1014.33],[3,13,23.241,78.195]]}[0m
+[0;32mI (117981) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:24","ver":"1.0.0","err":["0xFA","0xD6","0xE1"],"p":[[1,0,20.548,76.704,993.928],[3,13,25.82,57.214]]}[0m
+[0;32mI (118281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:24","ver":"1.0.0","err":["0x65","0x21","0xEE"],"p":[[1,0,28.981,76.129,1027.98],[3,13,28.453,78.87]]}[0m
+[0;32mI (118591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:24","ver":"1.0.0","err":["0xEE","0xC5","0xBE"],"p":[[1,0,23.662,84.185,990.16],[3,13,22.981,72.327]]}[0m
+[0;32mI (118881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:25","ver":"1.0.0","err":["0x85","0xC4","0xAF"],"p":[[1,0,30.908,51.752,991.944],[3,13,29.809,44.982]]}[0m
+[0;32mI (119181) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:25","ver":"1.0.0","err":["0xB8","0x62","0x74"],"p":[[1,0,23,74.164,1002.293],[3,13,32.285,62.66]]}[0m
+[0;31mE (119251) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (119251) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (119251) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (119251) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (119271) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (119281) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (119281) WebSocket Handler: Disconnected from server[0m
+[0;32mI (119491) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:25","ver":"1.0.0","err":["0x87","0x55","0x44"],"p":[[1,0,18.158,67.048,1015.034],[3,13,29.65,41.197]]}[0m
+[0;32mI (119791) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:26","ver":"1.0.0","err":["0x60","0xF3","0x06"],"p":[[1,0,19.003,64.278,1019.163],[3,13,32.502,54.527]]}[0m
+[0;32mI (120101) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:26","ver":"1.0.0","err":["0x54","0x01","0xFC"],"p":[[1,0,19.642,67.918,1025.111],[3,13,30.777,64.667]]}[0m
+[0;32mI (120391) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:26","ver":"1.0.0","err":["0xC0","0x01","0x51"],"p":[[1,0,22.59,47.551,996.637],[3,13,21.522,77.921]]}[0m
+[0;32mI (120701) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:26","ver":"1.0.0","err":["0xDE","0x1D","0x10"],"p":[[1,0,20.593,60.518,1000.249],[3,13,32.495,54.433]]}[0m
+[0;32mI (120991) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:27","ver":"1.0.0","err":["0x5E","0x61","0xA4"],"p":[[1,0,25.361,76.469,1009.654],[3,13,24.045,69.289]]}[0m
+[0;32mI (121291) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:27","ver":"1.0.0","err":["0xB5","0xAE","0x72"],"p":[[1,0,20.433,57.612,1005.034],[3,13,27.317,67.768]]}[0m
+[0;32mI (121591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:27","ver":"1.0.0","err":["0x2F","0xC2","0x5F"],"p":[[1,0,25.831,44.396,1027.7],[3,13,29.444,40.878]]}[0m
+[0;32mI (121891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:28","ver":"1.0.0","err":["0x41","0x1F","0x62"],"p":[[1,0,25.747,65.513,1000.213],[3,13,25.62,51.089]]}[0m
+[0;32mI (122191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:28","ver":"1.0.0","err":["0x9F","0xC4","0xBE"],"p":[[1,0,31.891,38.79,1024.295],[3,13,26.226,49.077]]}[0m
+[0;32mI (122491) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:28","ver":"1.0.0","err":["0xF2","0x69","0x7A"],"p":[[1,0,18.655,73.959,1010.05],[3,13,24.143,72.979]]}[0m
+[0;32mI (122791) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:29","ver":"1.0.0","err":["0xE4","0x7E","0x2D"],"p":[[1,0,31.552,77.839,1007.518],[3,13,23.444,77.381]]}[0m
+[0;32mI (123101) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:29","ver":"1.0.0","err":["0x88","0xB0","0x24"],"p":[[1,0,24.627,65.493,1025.095],[3,13,31.987,80.81]]}[0m
+[0;32mI (123401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:29","ver":"1.0.0","err":["0xFC","0x50","0x0E"],"p":[[1,0,26.909,64.968,1008.826],[3,13,24.671,46.436]]}[0m
+[0;32mI (123701) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:29","ver":"1.0.0","err":["0xEB","0x2F","0xDC"],"p":[[1,0,27.469,72.584,1018.931],[3,13,23.815,47.003]]}[0m
+[0;32mI (124001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:30","ver":"1.0.0","err":["0xA8","0xF3","0x7D"],"p":[[1,0,23.578,68.173,999.421],[3,13,32.023,82.282]]}[0m
+[0;32mI (124831) uart_to_node: RX line: No node[0m
+[0;32mI (125831) uart_to_node: RX line: No node[0m
+[0;32mI (126831) uart_to_node: RX line: No node[0m
+[0;32mI (127831) uart_to_node: RX line: No node[0m
+[0;32mI (128831) uart_to_node: RX line: No node[0m
+[0;32mI (129831) uart_to_node: RX line: No node[0m
+[0;32mI (130831) uart_to_node: RX line: No node[0m
+[0;32mI (131831) uart_to_node: RX line: No node[0m
+[0;32mI (132831) uart_to_node: RX line: No node[0m
+[0;32mI (133331) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:39","ver":"1.0.0","err":["0x53","0x05","0x13"],"p":[[1,0,25.215,52.097,1027.792],[3,13,20.875,48.254]]}[0m
+[0;32mI (133641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:39","ver":"1.0.0","err":["0x6F","0x25","0xB4"],"p":[[1,0,21.61,76.529,1013.626],[3,13,23.236,73.263]]}[0m
+[0;32mI (133941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:40","ver":"1.0.0","err":["0x2E","0x42","0x14"],"p":[[1,0,27.014,68.498,1026.248],[3,13,33.556,48.456]]}[0m
+[0;32mI (134241) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:40","ver":"1.0.0","err":["0x9A","0xB8","0x4C"],"p":[[1,0,22.129,83.935,1029.488],[3,13,29.259,50.05]]}[0m
+[0;32mI (134531) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:40","ver":"1.0.0","err":["0x01","0x46","0x1B"],"p":[[1,0,25.59,54.512,996.509],[3,13,24.185,51.13]]}[0m
+[0;32mI (134841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:41","ver":"1.0.0","err":["0xD9","0x1D","0x9E"],"p":[[1,0,29.009,48.806,998.513],[3,13,22.993,74.145]]}[0m
+[0;32mI (135151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:41","ver":"1.0.0","err":["0x5F","0x45","0xAB"],"p":[[1,0,27.175,62.508,1015.699],[3,13,33.462,63.443]]}[0m
+[0;32mI (135441) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:41","ver":"1.0.0","err":["0x99","0x5F","0xBE"],"p":[[1,0,21.282,51.487,1005.382],[3,13,25.048,44.635]]}[0m
+[0;32mI (135741) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:42","ver":"1.0.0","err":["0x6D","0x2B","0x39"],"p":[[1,0,27.214,41.791,1003.009],[3,13,29.595,65.27]]}[0m
+[0;32mI (136041) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:42","ver":"1.0.0","err":["0x8D","0xB7","0xF1"],"p":[[1,0,23.834,83.2,1013.986],[3,13,23.314,55.522]]}[0m
+[0;32mI (136341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:42","ver":"1.0.0","err":["0x46","0xF0","0x86"],"p":[[1,0,29.942,70.249,1007.586],[3,13,24.849,72.394]]}[0m
+[0;32mI (136641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:42","ver":"1.0.0","err":["0xE3","0x2E","0xB1"],"p":[[1,0,18.066,64.413,1029.176],[3,13,20.713,40.851]]}[0m
+[0;32mI (137001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x79","0x0C","0xA8"],"p":[[1,0,26.856,36.085,1010.51],[3,13,22.811,84.838]]}[0m
+[0;32mI (137301) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:43","ver":"1.0.0","err":["0x09","0xD6","0x5D"],"p":[[1,0,19.701,39.385,1001.649],[3,13,27.387,82.169]]}[0m
+[0;32mI (137601) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:43","ver":"1.0.0","err":["0x2B","0x8D","0xBF"],"p":[[1,0,22.984,82.45,1019.415],[3,13,31.8,43.042]]}[0m
+[0;32mI (137911) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:44","ver":"1.0.0","err":["0xB2","0x7A","0x2F"],"p":[[1,0,21.418,59.347,1000.705],[3,13,33.11,58.78]]}[0m
+[0;32mI (138201) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:44","ver":"1.0.0","err":["0x19","0x0A","0x0C"],"p":[[1,0,23.956,43.441,1023.987],[3,13,32.827,77.039]]}[0m
+[0;32mI (138501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:44","ver":"1.0.0","err":["0x14","0xEB","0xD2"],"p":[[1,0,24.736,62.788,995.289],[3,13,26.596,51.107]]}[0m
+[0;31mE (139301) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (139301) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (139301) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (139311) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (139321) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (139331) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (139331) WebSocket Handler: Disconnected from server[0m
+[0;32mI (139331) uart_to_node: RX line: No node[0m
+[0;32mI (140331) uart_to_node: RX line: No node[0m
+[0;32mI (141331) uart_to_node: RX line: No node[0m
+[0;32mI (142331) uart_to_node: RX line: No node[0m
+[0;32mI (143331) uart_to_node: RX line: No node[0m
+[0;32mI (144331) uart_to_node: RX line: No node[0m
+[0;32mI (145331) uart_to_node: RX line: No node[0m
+[0;32mI (146331) uart_to_node: RX line: No node[0m
+[0;32mI (147331) uart_to_node: RX line: No node[0m
+[0;32mI (148331) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������32mI (149331) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������2mI (150331) uart_to_node: RX line: No node[0m
+[0;32mI (151331) uart_to_node: RX line: No node[0m
+[0;32mI (152331) uart_to_node: RX line: No node[0m
+[0;32mI (153331) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:45:59","ver":"1.0.0","err":["0x02","0x85","0xBF"],"p":[[1,0,22.459,44.706,995.26],[3,13,26.568,48.578]]}[0m
+[0;32mI (154151) uart_to_node: RX line: No node[0m
+[0;32mI (155151) uart_to_node: RX line: No node[0m
+[0;32mI (156151) uart_to_node: RX line: No node[0m
+[0;32mI (157151) uart_to_node: RX line: No node[0m
+[0;32mI (158151) uart_to_node: RX line: No node[0m
+[0;32mI (159151) uart_to_node: RX line: No node[0m
+[0;31mE (159351) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (159351) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (159351) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (159351) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (159371) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (159381) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (159381) WebSocket Handler: Disconnected from server[0m
+[0;32mI (160151) uart_to_node: RX line: No node[0m
+[0;32mI (161151) uart_to_node: RX line: No node[0m
+[0;32mI (162151) uart_to_node: RX line: No node[0m
+[0;32mI (163151) uart_to_node: RX line: No node[0m
+[0;32mI (164151) uart_to_node: RX line: No node[0m
+[0;32mI (165151) uart_to_node: RX line: No node[0m
+[0;32mI (166151) uart_to_node: RX line: No node[0m
+[0;32mI (167151) uart_to_node: RX line: No node[0m
+[0;32mI (168151) uart_to_node: RX line: No node[0m
+[0;32mI (169151) uart_to_node: RX line: No node[0m
+[0;32mI (170151) uart_to_node: RX line: No node[0m
+[0;32mI (171151) uart_to_node: RX line: No node[0m
+[0;32mI (172161) uart_to_node: RX line: No node[0m
+[0;32mI (173161) uart_to_node: RX line: No node[0m
+[0;32mI (174161) uart_to_node: RX line: No node[0m
+[0;32mI (175161) uart_to_node: RX line: No node[0m
+[0;32mI (175521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:21","ver":"1.0.0","err":["0x7F","0xE8","0xA8"],"p":[[1,0,21.061,71.324,1010.082],[3,13,21.686,75.239]]}[0m
+[0;32mI (176341) uart_to_node: RX line: No node[0m
+[0;32mI (177341) uart_to_node: RX line: No node[0m
+[0;32mI (178341) uart_to_node: RX line: No node[0m
+[0;32mI (179341) uart_to_node: RX line: No node[0m
+[0;31mE (179401) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (179401) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (179401) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (179401) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (179421) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (179431) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (179431) WebSocket Handler: Disconnected from server[0m
+[0;32mI (180341) uart_to_node: RX line: No node[0m
+[0;32mI (181341) uart_to_node: RX line: No node[0m
+[0;32mI (182341) uart_to_node: RX line: No node[0m
+[0;32mI (183341) uart_to_node: RX line: No node[0m
+[0;32mI (184341) uart_to_node: RX line: No node[0m
+[0;32mI (185341) uart_to_node: RX line: No node[0m
+[0;32mI (186341) uart_to_node: RX line: No node[0m
+[0;32mI (187341) uart_to_node: RX line: No node[0m
+[0;32mI (188341) uart_to_node: RX line: No node[0m
+[0;32mI (189341) uart_to_node: RX line: No node[0m
+[0;32mI (190341) uart_to_node: RX line: No node[0m
+[0;32mI (191341) uart_to_node: RX line: No node[0m
+[0;32mI (192341) uart_to_node: RX line: No node[0m
+[0;32mI (193341) uart_to_node: RX line: No node[0m
+[0;32mI (194341) uart_to_node: RX line: No node[0m
+[0;32mI (195341) uart_to_node: RX line: No node[0m
+[0;32mI (196311) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:42","ver":"1.0.0","err":["0xEC","0x92","0x7B"],"p":[[1,0,31.397,80.185,1008.11],[3,13,20.995,79.163]]}[0m
+[0;32mI (196601) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:42","ver":"1.0.0","err":["0x5D","0x4B","0xE5"],"p":[[1,0,28.722,65.333,1018.367],[3,13,22.328,59.527]]}[0m
+[0;32mI (196911) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:43","ver":"1.0.0","err":["0x60","0x73","0x85"],"p":[[1,0,25.127,49.191,1007.854],[3,13,28.073,72.39]]}[0m
+[0;32mI (197211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:43","ver":"1.0.0","err":["0x19","0x2A","0x60"],"p":[[1,0,28.277,76.954,1020.299],[3,13,21.077,43.951]]}[0m
+[0;32mI (198031) uart_to_node: RX line: No node[0m
+[0;32mI (199031) uart_to_node: RX line: No node[0m
+[0;31mE (199461) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (199461) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (199461) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (199461) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (199481) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (199491) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (199491) WebSocket Handler: Disconnected from server[0m
+[0;32mI (200031) uart_to_node: RX line: No node[0m
+[0;32mI (201031) uart_to_node: RX line: No node[0m
+[0;32mI (202031) uart_to_node: RX line: No node[0m
+[0;32mI (203031) uart_to_node: RX line: No node[0m
+[0;32mI (203821) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:50","ver":"1.0.0","err":["0x6B","0x5A","0xF2"],"p":[[1,0,23.183,72.299,992.7],[3,13,27.653,74.059]]}[0m
+[0;32mI (204131) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:50","ver":"1.0.0","err":["0xF6","0x39","0x6F"],"p":[[1,0,18.349,63.118,1020.163],[3,13,20.517,45.986]]}[0m
+[0;32mI (204421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:50","ver":"1.0.0","err":["0x84","0x64","0x28"],"p":[[1,0,19.5,46.671,992.22],[3,13,27.006,68.263]]}[0m
+[0;32mI (204731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:50","ver":"1.0.0","err":["0xAC","0x8D","0xD8"],"p":[[1,0,29.616,52.192,1000.753],[3,13,22.575,81.269]]}[0m
+[0;32mI (205021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:51","ver":"1.0.0","err":["0x4A","0x81","0xBD"],"p":[[1,0,29.053,48.896,1011.838],[3,13,33.586,76.575]]}[0m
+[0;32mI (205331) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:51","ver":"1.0.0","err":["0x7E","0xC3","0xE9"],"p":[[1,0,21.933,82.68,1019.083],[3,13,29.158,58.789]]}[0m
+[0;32mI (205621) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:51","ver":"1.0.0","err":["0xBB","0xD7","0x90"],"p":[[1,0,22.746,40.406,1010.926],[3,13,28.511,70.194]]}[0m
+[0;32mI (205921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:52","ver":"1.0.0","err":["0x3F","0x13","0xB0"],"p":[[1,0,29.366,67.563,1002.369],[3,13,29.475,52.426]]}[0m
+[0;32mI (206221) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:52","ver":"1.0.0","err":["0x20","0x63","0xB1"],"p":[[1,0,18.321,50.812,994.356],[3,13,33.506,68.974]]}[0m
+[0;32mI (206531) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:52","ver":"1.0.0","err":["0x39","0x53","0x33"],"p":[[1,0,22.142,67.808,1020.863],[3,13,31.784,49.554]]}[0m
+[0;32mI (206831) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:53","ver":"1.0.0","err":["0xCF","0xD4","0x55"],"p":[[1,0,30.062,72.994,1025.304],[3,13,21.472,62.489]]}[0m
+[0;32mI (207141) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:53","ver":"1.0.0","err":["0xB0","0xF1","0x78"],"p":[[1,0,18.214,45.431,1018.719],[3,13,29.021,48.776]]}[0m
+[0;32mI (207431) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:53","ver":"1.0.0","err":["0xF3","0x29","0x79"],"p":[[1,0,28.784,45.746,996.621],[3,13,33.629,58.015]]}[0m
+[0;32mI (207731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:53","ver":"1.0.0","err":["0xC6","0x42","0xC5"],"p":[[1,0,19.732,65.943,1015.583],[3,13,23.796,47.241]]}[0m
+[0;32mI (208031) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:54","ver":"1.0.0","err":["0x2B","0x98","0xA0"],"p":[[1,0,29.977,38.51,1013.646],[3,13,29.916,53.411]]}[0m
+[0;32mI (208341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:54","ver":"1.0.0","err":["0x2E","0x3E","0xDD"],"p":[[1,0,23.816,48.176,1017.723],[3,13,29.283,51.391]]}[0m
+[0;32mI (208631) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:54","ver":"1.0.0","err":["0x86","0x61","0x0B"],"p":[[1,0,26.093,64.543,1004.966],[3,13,21.399,62.664]]}[0m
+[0;32mI (208931) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:55","ver":"1.0.0","err":["0x7F","0x9D","0xDE"],"p":[[1,0,28.934,63.543,1014.662],[3,13,32.419,49.248]]}[0m
+[0;32mI (209231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:55","ver":"1.0.0","err":["0xDB","0x17","0x61"],"p":[[1,0,31.437,74.144,994.668],[3,13,25.743,77.642]]}[0m
+[0;32mI (209531) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:55","ver":"1.0.0","err":["0x99","0xBB","0x83"],"p":[[1,0,28.918,42.351,1017.595],[3,13,32.82,81.139]]}[0m
+[0;32mI (209841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:56","ver":"1.0.0","err":["0xB6","0x01","0x60"],"p":[[1,0,22.822,38.065,1018.463],[3,13,28.92,75.761]]}[0m
+[0;32mI (210131) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:56","ver":"1.0.0","err":["0x98","0xC7","0x63"],"p":[[1,0,19.74,71.894,1014.29],[3,13,24.028,48.137]]}[0m
+[0;32mI (210431) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:56","ver":"1.0.0","err":["0xD5","0x40","0x75"],"p":[[1,0,27.763,53.267,1019.147],[3,13,25.066,48.267]]}[0m
+[0;32mI (210731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:57","ver":"1.0.0","err":["0x9F","0x07","0xFD"],"p":[[1,0,26.793,58.957,1029.208],[3,13,31.24,81.436]]}[0m
+[0;32mI (211031) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:57","ver":"1.0.0","err":["0xF3","0xB4","0xCA"],"p":[[1,0,30.296,52.012,1017.035],[3,13,30.6,81.647]]}[0m
+[0;32mI (211341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:57","ver":"1.0.0","err":["0xB9","0xA4","0x63"],"p":[[1,0,18.141,79.244,1015.315],[3,13,21.449,50.527]]}[0m
+[0;32mI (211641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:57","ver":"1.0.0","err":["0x21","0x98","0x07"],"p":[[1,0,20.683,44.381,1014.506],[3,13,30.7,61.589]]}[0m
+[0;32mI (211941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:58","ver":"1.0.0","err":["0xA0","0x0B","0xD8"],"p":[[1,0,19.84,84.075,1028.952],[3,13,23.632,71.53]]}[0m
+[0;32mI (212241) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:58","ver":"1.0.0","err":["0x44","0xD9","0x3C"],"p":[[1,0,21.855,61.653,1024.755],[3,13,20.906,83.155]]}[0m
+[0;32mI (212551) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:58","ver":"1.0.0","err":["0x3C","0x2C","0xBC"],"p":[[1,0,23.325,37.81,1028.852],[3,13,31.123,51.755]]}[0m
+[0;32mI (212841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:59","ver":"1.0.0","err":["0xF4","0x3E","0xC4"],"p":[[1,0,26.492,42.876,1019.007],[3,13,30.047,81.701]]}[0m
+[0;32mI (213141) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:59","ver":"1.0.0","err":["0x66","0x3A","0x9F"],"p":[[1,0,21.561,36.695,1021.415],[3,13,24.137,58.375]]}[0m
+[0;32mI (213451) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:46:59","ver":"1.0.0","err":["0xD5","0x28","0x0F"],"p":[[1,0,30.276,37.015,1025.144],[3,13,28.132,45.432]]}[0m
+[0;32mI (213741) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:00","ver":"1.0.0","err":["0x90","0x06","0x8F"],"p":[[1,0,30.934,78.744,993.36],[3,13,22.421,68.164]]}[0m
+[0;32mI (214041) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:00","ver":"1.0.0","err":["0x3F","0xBE","0x22"],"p":[[1,0,24.492,66.583,1007.118],[3,13,22.97,83.695]]}[0m
+[0;32mI (214351) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:00","ver":"1.0.0","err":["0x6C","0x65","0x05"],"p":[[1,0,19.257,42.026,997.205],[3,13,20.241,59.757]]}[0m
+[0;32mI (215171) uart_to_node: RX line: No node[0m
+[0;32mI (216171) uart_to_node: RX line: No node[0m
+[0;32mI (217171) uart_to_node: RX line: No node[0m
+[0;32mI (218171) uart_to_node: RX line: No node[0m
+[0;32mI (219171) uart_to_node: RX line: No node[0m
+[0;31mE (219511) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (219511) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (219511) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (219521) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (219531) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (219541) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (219541) WebSocket Handler: Disconnected from server[0m
+[0;32mI (220171) uart_to_node: RX line: No node[0m
+[0;32mI (221171) uart_to_node: RX line: No node[0m
+[0;32mI (222171) uart_to_node: RX line: No node[0m
+[0;32mI (223171) uart_to_node: RX line: No node[0m
+[0;32mI (224171) uart_to_node: RX line: No node[0m
+[0;32mI (225171) uart_to_node: RX line: No node[0m
+[0;32mI (226081) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:12","ver":"1.0.0","err":["0x82","0x49","0x53"],"p":[[1,0,27.486,77.704,1000.689],[3,13,27.692,72.849]]}[0m
+[0;32mI (226371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:12","ver":"1.0.0","err":["0xBD","0x3A","0xC4"],"p":[[1,0,22.951,48.226,990.04],[3,13,20.735,62.561]]}[0m
+[0;32mI (226671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:12","ver":"1.0.0","err":["0x60","0x42","0xB2"],"p":[[1,0,20.123,44.876,1011.638],[3,13,28.698,78.065]]}[0m
+[0;32mI (226961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:13","ver":"1.0.0","err":["0x6A","0x53","0x16"],"p":[[1,0,21.978,62.798,996.805],[3,13,29.378,77.907]]}[0m
+[0;32mI (227271) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:13","ver":"1.0.0","err":["0x89","0xE0","0x99"],"p":[[1,0,21.719,68.898,1022.539],[3,13,27.449,69.163]]}[0m
+[0;32mI (227571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:13","ver":"1.0.0","err":["0xD9","0x65","0xF6"],"p":[[1,0,28.068,58.902,996.853],[3,13,25.189,76.382]]}[0m
+[0;32mI (227871) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:14","ver":"1.0.0","err":["0x16","0x71","0xF2"],"p":[[1,0,28.9,62.883,999.901],[3,13,32.493,79.266]]}[0m
+[0;32mI (228171) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:14","ver":"1.0.0","err":["0xCD","0xFE","0x14"],"p":[[1,0,20.232,41.116,996.989],[3,13,24.261,57.286]]}[0m
+[0;32mI (228471) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:14","ver":"1.0.0","err":["0x27","0xCD","0xA0"],"p":[[1,0,29.698,55.937,1010.446],[3,13,23.824,40.275]]}[0m
+[0;32mI (228771) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:15","ver":"1.0.0","err":["0x99","0x4B","0xC5"],"p":[[1,0,27.717,62.178,1007.258],[3,13,30.192,84.847]]}[0m
+[0;32mI (229071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:15","ver":"1.0.0","err":["0xE9","0x67","0xF2"],"p":[[1,0,20.205,73.804,1005.866],[3,13,30.623,72.57]]}[0m
+[0;32mI (229381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:15","ver":"1.0.0","err":["0x15","0x3B","0x8B"],"p":[[1,0,22.802,79.584,1028.096],[3,13,31.273,78.663]]}[0m
+[0;32mI (229671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:15","ver":"1.0.0","err":["0x06","0x2D","0x80"],"p":[[1,0,30.519,40.496,1024.315],[3,13,20.006,61.193]]}[0m
+[0;32mI (229971) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:16","ver":"1.0.0","err":["0xE4","0x51","0xD8"],"p":[[1,0,20.558,66.778,1016.723],[3,13,33.814,80.599]]}[0m
+[0;32mI (230281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:16","ver":"1.0.0","err":["0xC6","0x38","0xAC"],"p":[[1,0,30.103,39.85,1009.746],[3,13,21.049,70.896]]}[0m
+[0;32mI (230571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:16","ver":"1.0.0","err":["0xB7","0xB1","0x3E"],"p":[[1,0,29.644,62.938,994.32],[3,13,21.992,67.165]]}[0m
+[0;32mI (230891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:17","ver":"1.0.0","err":["0x7C","0x85","0x33"],"p":[[1,0,19.591,72.439,1029.376],[3,13,27.971,41.35]]}[0m
+[0;32mI (231181) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:17","ver":"1.0.0","err":["0x49","0x65","0x56"],"p":[[1,0,27.009,51.287,1000.673],[3,13,28.072,81.877]]}[0m
+[0;32mI (231481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:17","ver":"1.0.0","err":["0x5E","0xDE","0x47"],"p":[[1,0,20.551,38.365,1026.764],[3,13,21.78,40.639]]}[0m
+[0;32mI (231801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:18","ver":"1.0.0","err":["0x86","0xDE","0xF7"],"p":[[1,0,29.187,81.955,996.741],[3,13,28.163,78.47]]}[0m
+[0;32mI (232081) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:18","ver":"1.0.0","err":["0xB3","0x95","0xA8"],"p":[[1,0,27.629,69.343,1014.446],[3,13,28.362,65.297]]}[0m
+[0;32mI (232381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:18","ver":"1.0.0","err":["0x35","0xA3","0xFE"],"p":[[1,0,25.408,48.176,1001.469],[3,13,22.632,78.011]]}[0m
+[0;32mI (233201) uart_to_node: RX line: No node[0m
+[0;32mI (234201) uart_to_node: RX line: No node[0m
+[0;32mI (235201) uart_to_node: RX line: No node[0m
+[0;32mI (236201) uart_to_node: RX line: No node[0m
+[0;32mI (237201) uart_to_node: RX line: No node[0m
+[0;32mI (238201) uart_to_node: RX line: No node[0m
+[0;32mI (239201) uart_to_node: RX line: No node[0m
+[0;31mE (239571) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (239571) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (239571) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (239571) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (239591) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (239601) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (239601) WebSocket Handler: Disconnected from server[0m
+[0;32mI (240201) uart_to_node: RX line: No node[0m
+[0;32mI (241201) uart_to_node: RX line: No node[0m
+[0;32mI (242201) uart_to_node: RX line: No node[0m
+[0;32mI (243201) uart_to_node: RX line: No node[0m
+[0;32mI (244201) uart_to_node: RX line: No node[0m
+[0;32mI (245201) uart_to_node: RX line: No node[0m
+[0;32mI (246201) uart_to_node: RX line: No node[0m
+[0;32mI (246621) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:32","ver":"1.0.0","err":["0x17","0x48","0x66"],"p":[[1,0,19.922,75.069,1000.425],[3,13,23.472,72.043]]}[0m
+[0;32mI (247441) uart_to_node: RX line: No node[0m
+[0;32mI (248441) uart_to_node: RX line: No node[0m
+[0;32mI (249441) uart_to_node: RX line: No node[0m
+����������������������������������������������������������������[0;32mI (250441) uart_to_node: RX line: No node[0m
+[0;32mI (251371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:37","ver":"1.0.0","err":["0x82","0x0F","0xBE"],"p":[[1,0,21.621,69.508,1006.894],[3,13,21.414,60.27]]}[0m
+[0;32mI (251651) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:37","ver":"1.0.0","err":["0x9C","0x67","0x1A"],"p":[[1,0,25.333,45.256,1018.375],[3,13,25.182,50.158]]}[0m
+[0;32mI (251961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0x14","0xBA","0x5B"],"p":[[1,0,25.295,40.456,1009.81],[3,13,21.061,64.842]]}[0m
+[0;32mI (252171) uart_to_node: RX line: {"v":1,"packetloss":50.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0x16","0x50","0x1F"],"p":[[1,0,28.589,73.389,1015.267],[3,13,21.222,46.571]]}[0m
+[0;32mI (252381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0xC0","0x65","0x33"],"p":[[1,0,25.51,54.917,1001.717],[3,13,23.447,41.508]]}[0m
+[0;32mI (252481) uart_to_node: RX line: {"v":1,"packetloss":40.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0x7A","0xEB","0xD0"],"p":[[1,0,22.947,60.858,1019.971],[3,13,25.202,78.866]]}[0m
+[0;32mI (252691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0xE2","0x30","0x8E"],"p":[[1,0,29.308,57.532,1023.279],[3,13,28.892,52.156]]}[0m
+[0;32mI (252901) uart_to_node: RX line: {"v":1,"packetloss":33.33,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:38","ver":"1.0.0","err":["0x71","0xE3","0xE1"],"p":[[1,0,23.356,73.249,1007.946],[3,13,20.413,41.89]]}[0m
+[0;32mI (253111) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:39","ver":"1.0.0","err":["0xBF","0x33","0x82"],"p":[[1,0,22.343,64.913,1008.918],[3,13,25.664,48.447]]}[0m
+[0;32mI (253211) uart_to_node: RX line: {"v":1,"packetloss":28.57,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:39","ver":"1.0.0","err":["0xB1","0x79","0x34"],"p":[[1,0,18.204,38.55,1000.533],[3,13,25.888,79.37]]}[0m
+[0;32mI (253421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xFF","0x82","0xF7"],"p":[[1,0,18.053,61.903,991.344],[3,13,29.122,46.562]]}[0m
+[0;32mI (253631) uart_to_node: RX line: {"v":1,"packetloss":25.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:39","ver":"1.0.0","err":["0xF5","0x79","0x18"],"p":[[1,0,20.362,81.66,1028.736],[3,13,30.088,65.545]]}[0m
+[0;32mI (253841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:39","ver":"1.0.0","err":["0x10","0x3D","0x3F"],"p":[[1,0,25.384,84.52,1020.195],[3,13,29.657,77.129]]}[0m
+[0;32mI (253941) uart_to_node: RX line: {"v":1,"packetloss":22.22,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:39","ver":"1.0.0","err":["0xDC","0x7B","0x6C"],"p":[[1,0,21.885,43.816,1016.995],[3,13,25.848,60.144]]}[0m
+[0;32mI (254151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0xDE","0x0D","0x94"],"p":[[1,0,28.008,57.287,1013.898],[3,13,29.576,41.656]]}[0m
+[0;32mI (254361) uart_to_node: RX line: {"v":1,"packetloss":20.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0xD3","0x4F","0xFA"],"p":[[1,0,21.022,67.043,1026.144],[3,13,26.635,56.107]]}[0m
+[0;32mI (254571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0x03","0xDC","0x21"],"p":[[1,0,18.412,83.905,999.409],[3,13,27.768,48.056]]}[0m
+[0;32mI (254671) uart_to_node: RX line: {"v":1,"packetloss":18.18,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0x28","0x1D","0x6A"],"p":[[1,0,28.571,63.843,1000.109],[3,13,30.418,60.225]]}[0m
+[0;32mI (254881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0xB7","0x5E","0xDA"],"p":[[1,0,23.221,52.342,1013.67],[3,13,23.226,71.544]]}[0m
+[0;32mI (255091) uart_to_node: RX line: {"v":1,"packetloss":16.67,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0x0E","0x3A","0xC8"],"p":[[1,0,19.624,42.976,1014.238],[3,13,29.298,77.084]]}[0m
+[0;32mI (255291) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:40","ver":"1.0.0","err":["0x4B","0x03","0x33"],"p":[[1,0,29.236,71.654,1016.007],[3,13,21.645,41.539]]}[0m
+[0;32mI (255401) uart_to_node: RX line: {"v":1,"packetloss":15.38,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0x50","0x99","0xE9"],"p":[[1,0,28.228,80.105,1024.959],[3,13,33.957,57.916]]}[0m
+[0;32mI (255611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0x26","0x19","0xCB"],"p":[[1,0,24.261,78.459,1013.93],[3,13,33.187,71.13]]}[0m
+[0;32mI (255821) uart_to_node: RX line: {"v":1,"packetloss":14.29,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0xA8","0x0E","0xDA"],"p":[[1,0,21.818,69.858,996.973],[3,13,32.664,68.74]]}[0m
+[0;32mI (256021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0x74","0x4A","0x80"],"p":[[1,0,31.761,72.794,1017.559],[3,13,25.328,77.093]]}[0m
+����������������������������������������������������������������0;32mI (256131) uart_to_node: RX line: {"v":1,"packetloss":13.33,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0x30","0x9C","0x71"],"p":[[1,0,29.684,37.195,1013.478],[3,13,28.8,81.283]]}[0m
+[0;32mI (256341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0xC8","0xCE","0x98"],"p":[[1,0,19.495,79.774,1011.014],[3,13,20.755,54.068]]}[0m
+[0;32mI (256541) uart_to_node: RX line: {"v":1,"packetloss":12.50,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:41","ver":"1.0.0","err":["0x13","0xB2","0x21"],"p":[[1,0,21.058,57.627,994.232],[3,13,26.575,50.581]]}[0m
+[0;32mI (256751) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0x1E","0x9D","0x86"],"p":[[1,0,25.258,81.99,1024.351],[3,13,32.717,83.6]]}[0m
+[0;32mI (256861) uart_to_node: RX line: {"v":1,"packetloss":11.76,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0xC0","0x08","0x66"],"p":[[1,0,27.006,67.368,1009.622],[3,13,24.143,72.187]]}[0m
+[0;32mI (257071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0x14","0xA5","0xDC"],"p":[[1,0,25.284,63.943,1026.564],[3,13,23.929,75.279]]}[0m
+[0;32mI (257271) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0x54","0x46","0xF1"],"p":[[1,0,24.679,72.999,1016.771],[3,13,22.478,64.716]]}[0m
+[0;32mI (257481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0x86","0xE8","0x4E"],"p":[[1,0,21.703,81.535,1027.216],[3,13,29.235,62.142]]}[0m
+[0;32mI (257591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:42","ver":"1.0.0","err":["0x97","0x6F","0xBD"],"p":[[1,0,30.551,37.84,1002.657],[3,13,27.811,82.318]]}[0m
+[0;32mI (257791) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0xFF","0x72","0xC0"],"p":[[1,0,24.968,54.127,993.224],[3,13,24.746,51.71]]}[0m
+[0;32mI (258001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0x09","0xC9","0xDC"],"p":[[1,0,28.976,43.036,1011.23],[3,13,28.978,81.089]]}[0m
+[0;32mI (258211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0x59","0xEB","0x6E"],"p":[[1,0,28.038,64.078,1020.563],[3,13,27.412,64.194]]}[0m
+[0;32mI (258311) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0x24","0xA7","0x95"],"p":[[1,0,26.359,73.179,1014.883],[3,13,28.751,72.489]]}[0m
+[0;32mI (258521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0x79","0xD0","0x4B"],"p":[[1,0,18.923,54.402,1013.366],[3,13,22.358,84.914]]}[0m
+[0;32mI (258731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0x14","0xE8","0x82"],"p":[[1,0,26.033,80.385,990.868],[3,13,29.885,74.077]]}[0m
+[0;32mI (258941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:43","ver":"1.0.0","err":["0xC3","0xB8","0x2B"],"p":[[1,0,26.303,45.796,1014.422],[3,13,26.499,53.681]]}[0m
+[0;32mI (259041) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0x89","0xCC","0x20"],"p":[[1,0,22.493,43.481,1018.011],[3,13,29.034,71.436]]}[0m
+[0;32mI (259251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0x30","0x76","0x42"],"p":[[1,0,26.231,76.804,1027.684],[3,13,26.83,67.57]]}[0m
+[0;32mI (259461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0xB6","0x90","0xCD"],"p":[[1,0,24.928,70.119,1025.312],[3,13,33.094,50.837]]}[0m
+[0;31mE (259631) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (259631) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (259631) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (259631) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (259651) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (259661) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (259661) WebSocket Handler: Disconnected from server[0m
+[0;32mI (259671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0x0D","0x46","0xA3"],"p":[[1,0,31.488,54.247,1009.574],[3,13,22.958,76.719]]}[0m
+[0;32mI (259771) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0x89","0x3B","0x1A"],"p":[[1,0,29.918,65.483,1013.754],[3,13,30.381,54.59]]}[0m
+[0;32mI (259981) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0x4C","0x96","0x13"],"p":[[1,0,24.092,75.484,1009.49],[3,13,28.906,84.635]]}[0m
+[0;32mI (260191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:44","ver":"1.0.0","err":["0xF6","0xB5","0xE8"],"p":[[1,0,28.732,72.819,1008.462],[3,13,26.04,56.76]]}[0m
+[0;32mI (260401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0xF1","0xDF","0xDD"],"p":[[1,0,29.456,50.587,993.608],[3,13,20.399,42.628]]}[0m
+[0;32mI (260501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0x31","0x9A","0x2F"],"p":[[1,0,30.388,45.936,1000.109],[3,13,25.658,48.249]]}[0m
+[0;32mI (260711) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0xD1","0xBA","0x20"],"p":[[1,0,30.708,80.265,994.728],[3,13,30.085,52.097]]}[0m
+[0;32mI (260921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0x29","0x03","0x0D"],"p":[[1,0,29.515,41.836,1002.741],[3,13,24.051,62.39]]}[0m
+[0;32mI (261021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0x5B","0x68","0xAA"],"p":[[1,0,23.806,84.03,1010.11],[3,13,33,58.101]]}[0m
+[0;32mI (261231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:45","ver":"1.0.0","err":["0xF8","0x64","0x8B"],"p":[[1,0,25.114,47.126,994.072],[3,13,29.237,56.121]]}[0m
+[0;32mI (261441) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0x15","0x95","0x39"],"p":[[1,0,23.458,71.229,998.901],[3,13,32.857,71.305]]}[0m
+[0;32mI (261651) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0x59","0xF7","0xB1"],"p":[[1,0,21.183,42.616,996.881],[3,13,29.546,82.759]]}[0m
+[0;32mI (261751) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0x14","0xF0","0xDB"],"p":[[1,0,24.224,83.79,1025.172],[3,13,26.708,47.25]]}[0m
+[0;32mI (261961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0x3C","0xAC","0x86"],"p":[[1,0,30.187,47.496,1023.683],[3,13,21.774,46.184]]}[0m
+[0;32mI (262171) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0xF1","0x60","0xC0"],"p":[[1,0,24.674,63.938,1029.068],[3,13,31.112,70.756]]}[0m
+[0;32mI (262381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:46","ver":"1.0.0","err":["0x4E","0x66","0x2C"],"p":[[1,0,26.84,82.045,1006.066],[3,13,21.998,80.158]]}[0m
+[0;32mI (262481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:47","ver":"1.0.0","err":["0xB4","0x28","0x97"],"p":[[1,0,27.66,43.986,1013.922],[3,13,29.29,41.211]]}[0m
+[0;32mI (262691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:47","ver":"1.0.0","err":["0xF9","0xCB","0x30"],"p":[[1,0,31.695,38.49,1000.437],[3,13,31.53,50.77]]}[0m
+[0;32mI (262901) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:47","ver":"1.0.0","err":["0xE2","0x85","0xC3"],"p":[[1,0,28.351,35.45,1025.58],[3,13,23.86,70.221]]}[0m
+[0;32mI (263021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:47","ver":"1.0.0","err":["0xE8","0x84","0x6A"],"p":[[1,0,24.806,45.181,1007.298],[3,13,21.753,83.083]]}[0m
+[0;32mI (263791) uart_to_node: RX line: No node[0m
+[0;32mI (264791) uart_to_node: RX line: No node[0m
+[0;32mI (265791) uart_to_node: RX line: No node[0m
+[0;32mI (266361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:52","ver":"1.0.0","err":["0x9D","0x35","0xA1"],"p":[[1,0,20.608,78.204,1005.046],[3,13,32.776,52.93]]}[0m
+[0;32mI (266661) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:52","ver":"1.0.0","err":["0x7D","0x9E","0xBE"],"p":[[1,0,29.368,78.064,1006.134],[3,13,25.776,75.329]]}[0m
+[0;32mI (266951) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:53","ver":"1.0.0","err":["0x1C","0xB8","0xEB"],"p":[[1,0,23.725,67.023,1014.154],[3,13,33.511,74.514]]}[0m
+[0;32mI (267251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:53","ver":"1.0.0","err":["0x59","0xED","0x76"],"p":[[1,0,29.317,75.269,1029.736],[3,13,20.983,51.85]]}[0m
+[0;32mI (267561) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:53","ver":"1.0.0","err":["0xDF","0x9E","0x86"],"p":[[1,0,24.177,43.471,994.316],[3,13,27.886,64.154]]}[0m
+[0;32mI (267871) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:54","ver":"1.0.0","err":["0xEE","0x4D","0x1A"],"p":[[1,0,22.087,55.927,1010.874],[3,13,20.125,49.473]]}[0m
+[0;32mI (268161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:54","ver":"1.0.0","err":["0xB0","0x37","0xC4"],"p":[[1,0,25.249,44.381,1002.853],[3,13,26.088,76.179]]}[0m
+[0;32mI (268481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:54","ver":"1.0.0","err":["0x60","0x36","0xAC"],"p":[[1,0,28.598,49.531,1022.123],[3,13,27.858,48.29]]}[0m
+[0;32mI (268761) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:55","ver":"1.0.0","err":["0xC0","0x96","0x12"],"p":[[1,0,26.093,77.874,1010.01],[3,13,29.065,59.959]]}[0m
+[0;32mI (269061) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:55","ver":"1.0.0","err":["0x67","0x02","0x0C"],"p":[[1,0,29.868,40.081,1015.455],[3,13,26.81,59.343]]}[0m
+[0;32mI (269361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:55","ver":"1.0.0","err":["0x06","0x5B","0xDF"],"p":[[1,0,27.857,80.365,1024.763],[3,13,29.041,80.909]]}[0m
+[0;32mI (269661) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:55","ver":"1.0.0","err":["0x59","0x65","0xF1"],"p":[[1,0,18.336,76.534,1009.046],[3,13,25.246,55.432]]}[0m
+[0;32mI (269961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:56","ver":"1.0.0","err":["0x99","0xED","0x13"],"p":[[1,0,29.753,61.788,999.957],[3,13,28.293,41.773]]}[0m
+[0;32mI (270261) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:56","ver":"1.0.0","err":["0x16","0x66","0x09"],"p":[[1,0,28.838,62.078,1011.238],[3,13,30.834,57.205]]}[0m
+[0;32mI (270561) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:56","ver":"1.0.0","err":["0xF4","0xF6","0x0C"],"p":[[1,0,19.792,47.456,1017.075],[3,13,25.889,63.443]]}[0m
+[0;32mI (270861) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:57","ver":"1.0.0","err":["0x26","0x04","0x85"],"p":[[1,0,28.596,44.411,999.005],[3,13,32.121,80.293]]}[0m
+[0;32mI (271161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:57","ver":"1.0.0","err":["0x97","0x01","0xC7"],"p":[[1,0,19.582,58.517,1021.459],[3,13,31.532,74.365]]}[0m
+[0;32mI (271461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:57","ver":"1.0.0","err":["0x93","0x02","0xC3"],"p":[[1,0,22.349,60.103,990.792],[3,13,25.225,82.12]]}[0m
+[0;32mI (271761) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:58","ver":"1.0.0","err":["0x27","0x44","0x20"],"p":[[1,0,30.831,74.074,1002.081],[3,13,29.826,42.871]]}[0m
+[0;32mI (272071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:58","ver":"1.0.0","err":["0x86","0xA0","0xEC"],"p":[[1,0,29.273,45.006,1019.803],[3,13,27.072,78.258]]}[0m
+[0;32mI (272371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:58","ver":"1.0.0","err":["0xE3","0x53","0xA8"],"p":[[1,0,24.382,62.603,1000.249],[3,13,22.428,80.54]]}[0m
+[0;32mI (272661) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:58","ver":"1.0.0","err":["0x4C","0x5E","0x15"],"p":[[1,0,28.225,55.977,996.289],[3,13,23.827,79.95]]}[0m
+[0;32mI (272971) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:59","ver":"1.0.0","err":["0x55","0x26","0xB6"],"p":[[1,0,22.128,41.751,1005.97],[3,13,29.466,59.46]]}[0m
+[0;32mI (273281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:59","ver":"1.0.0","err":["0x2F","0x25","0x05"],"p":[[1,0,31.765,43.006,993.824],[3,13,23.65,83.983]]}[0m
+[0;32mI (273491) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:47:59","ver":"1.0.0","err":["0xB9","0xC4","0x88"],"p":[[1,0,19.217,84.455,1020.047],[3,13,21.467,41.049]]}[0m
+[0;32mI (273701) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:47:59","ver":"1.0.0","err":["0x2F","0x6D","0xFE"],"p":[[1,0,31.378,74.594,1002.453],[3,13,32.59,78.591]]}[0m
+[0;32mI (273911) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0x8E","0x0F","0xB6"],"p":[[1,0,23.041,74.844,1020.843],[3,13,25.615,51.967]]}[0m
+[0;32mI (274011) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0xCD","0x31","0x17"],"p":[[1,0,26.023,44.556,1016.619],[3,13,31.275,78.938]]}[0m
+[0;32mI (274221) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0xD1","0xEC","0xE0"],"p":[[1,0,26.282,67.478,1028.72],[3,13,23.443,47.858]]}[0m
+[0;32mI (274431) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0x3F","0x4B","0x31"],"p":[[1,0,18.906,44.591,996.409],[3,13,23.542,78.879]]}[0m
+[0;32mI (274641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0xFC","0xC2","0x64"],"p":[[1,0,22.997,70.144,991.728],[3,13,21.033,42.498]]}[0m
+[0;32mI (274741) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0xDF","0xAB","0xA5"],"p":[[1,0,20.888,75.239,1026.412],[3,13,27.761,51.665]]}[0m
+[0;32mI (274951) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:00","ver":"1.0.0","err":["0x38","0x32","0xEE"],"p":[[1,0,29.462,45.091,1026.236],[3,13,22.032,84.991]]}[0m
+[0;32mI (275161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0x41","0x31","0x8F"],"p":[[1,0,20.529,63.923,997.133],[3,13,21.192,44.824]]}[0m
+[0;32mI (275361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0xC3","0x3B","0xF9"],"p":[[1,0,30.15,45.976,1009.37],[3,13,30.351,73.825]]}[0m
+[0;32mI (275471) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0x01","0x37","0x6C"],"p":[[1,0,21.597,55.277,1000.641],[3,13,26.361,70.896]]}[0m
+[0;32mI (275681) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0x91","0x52","0x43"],"p":[[1,0,19.483,66.763,1011.598],[3,13,22.428,54.644]]}[0m
+[0;32mI (275891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0xBC","0x4C","0xE0"],"p":[[1,0,25.988,41.986,1002.637],[3,13,28.779,79.559]]}[0m
+[0;32mI (276091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0xD2","0x7D","0x21"],"p":[[1,0,29.887,58.102,1028.96],[3,13,30.053,73.02]]}[0m
+[0;32mI (276201) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:01","ver":"1.0.0","err":["0x34","0x91","0x98"],"p":[[1,0,27.366,77.684,1021.179],[3,13,21.27,60.518]]}[0m
+[0;32mI (276411) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0xD7","0x88","0x49"],"p":[[1,0,18.54,82.44,999.349],[3,13,20.132,44.892]]}[0m
+[0;32mI (276611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0xEA","0x47","0xCA"],"p":[[1,0,22.153,40.491,994.328],[3,13,23.097,55.644]]}[0m
+[0;32mI (276821) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0x6E","0xD4","0x86"],"p":[[1,0,22.704,63.393,1014.606],[3,13,25.661,51.931]]}[0m
+[0;32mI (276931) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0x63","0xAB","0xC7"],"p":[[1,0,29.716,57.212,995.117],[3,13,31.005,49.536]]}[0m
+[0;32mI (277141) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0x81","0x3A","0xA3"],"p":[[1,0,29.239,76.079,990.896],[3,13,28.597,52.228]]}[0m
+[0;32mI (277341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:02","ver":"1.0.0","err":["0x6A","0x4F","0x6C"],"p":[[1,0,21.786,50.797,1015.751],[3,13,30.213,73.843]]}[0m
+[0;32mI (277551) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xAC","0xB5","0x72"],"p":[[1,0,29.077,67.733,1028.276],[3,13,27.123,48.348]]}[0m
+[0;32mI (277661) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xCB","0x0B","0x88"],"p":[[1,0,29.221,57.627,1006.998],[3,13,27.011,61.526]]}[0m
+[0;32mI (277861) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xE4","0x9E","0xD7"],"p":[[1,0,22.727,79.764,995.309],[3,13,29.368,45.968]]}[0m
+[0;32mI (278071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0x4C","0xF2","0x90"],"p":[[1,0,21.138,63.953,991.052],[3,13,31.933,72.381]]}[0m
+[0;32mI (278281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xBB","0x65","0x20"],"p":[[1,0,20.649,59.912,1029.796],[3,13,21.607,46.481]]}[0m
+[0;32mI (278391) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xCF","0x4D","0xAC"],"p":[[1,0,27.941,68.313,1008.89],[3,13,25.511,66.436]]}[0m
+[0;32mI (278591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:03","ver":"1.0.0","err":["0xE4","0x92","0x4B"],"p":[[1,0,30.741,55.357,1029.816],[3,13,26.116,40.171]]}[0m
+[0;32mI (278801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0xC6","0x3F","0x26"],"p":[[1,0,22.424,64.808,1008.814],[3,13,20.932,76.719]]}[0m
+[0;32mI (279011) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0x66","0xFB","0x3D"],"p":[[1,0,31.593,67.898,993.988],[3,13,24.573,45.608]]}[0m
+[0;32mI (279111) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0xC3","0xCA","0x5F"],"p":[[1,0,26.607,67.843,1008.07],[3,13,33.847,63.006]]}[0m
+[0;32mI (279321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0x9E","0x69","0x19"],"p":[[1,0,22.441,83.67,996.181],[3,13,30.193,55.117]]}[0m
+[0;32mI (279531) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0xE0","0x34","0xC2"],"p":[[1,0,27.398,66.808,1020.339],[3,13,20.146,68.717]]}[0m
+[0;32mI (279641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0x4D","0xC4","0x46"],"p":[[1,0,24.87,59.307,995.637],[3,13,31.858,71.283]]}[0m
+[0;31mE (279691) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (279691) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (279691) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (279691) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (279711) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (279721) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (279721) WebSocket Handler: Disconnected from server[0m
+[0;32mI (279841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:04","ver":"1.0.0","err":["0x65","0x04","0x19"],"p":[[1,0,27.697,50.322,996.565],[3,13,23.612,72.435]]}[0m
+[0;32mI (280051) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x48","0xA7","0xE0"],"p":[[1,0,24.218,62.563,1016.651],[3,13,31.863,68.204]]}[0m
+[0;32mI (280261) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x38","0xAC","0x4B"],"p":[[1,0,22.499,54.432,1019.951],[3,13,22.807,55.293]]}[0m
+[0;32mI (280361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x6D","0x23","0x46"],"p":[[1,0,27.241,80.695,1024.555],[3,13,25.713,54.275]]}[0m
+[0;32mI (280571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x1E","0xCD","0x06"],"p":[[1,0,19.697,77.429,993.656],[3,13,28.009,81.485]]}[0m
+[0;32mI (280781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x97","0xAB","0x56"],"p":[[1,0,30.741,37.21,1011.154],[3,13,26.621,55.018]]}[0m
+[0;32mI (280991) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:05","ver":"1.0.0","err":["0x7C","0x22","0x62"],"p":[[1,0,30.477,57.107,1011.826],[3,13,20.199,82.021]]}[0m
+[0;32mI (281091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:06","ver":"1.0.0","err":["0xC6","0xFE","0x17"],"p":[[1,0,22.969,56.062,1010.454],[3,13,31.198,53.24]]}[0m
+[0;32mI (281301) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:06","ver":"1.0.0","err":["0x67","0x1C","0x78"],"p":[[1,0,21.367,35.195,1008.258],[3,13,23.391,66.094]]}[0m
+[0;32mI (281511) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:06","ver":"1.0.0","err":["0xA3","0x3B","0x6F"],"p":[[1,0,20.195,78.244,1028.236],[3,13,31.078,50.873]]}[0m
+[0;32mI (281721) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:06","ver":"1.0.0","err":["0x2C","0x9D","0xF3"],"p":[[1,0,20.401,38.86,1008.106],[3,13,25.33,49.491]]}[0m
+[0;32mI (281831) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:06","ver":"1.0.0","err":["0x10","0xAD","0x22"],"p":[[1,0,19.021,71.189,1007.75],[3,13,29.319,77.799]]}[0m
+[0;32mI (282581) uart_to_node: RX line: No node[0m
+[0;32mI (283581) uart_to_node: RX line: No node[0m
+[0;32mI (284581) uart_to_node: RX line: No node[0m
+[0;32mI (285581) uart_to_node: RX line: No node[0m
+[0;32mI (286581) uart_to_node: RX line: No node[0m
+[0;32mI (287581) uart_to_node: RX line: No node[0m
+[0;32mI (288581) uart_to_node: RX line: No node[0m
+[0;32mI (289581) uart_to_node: RX line: No node[0m
+[0;32mI (290581) uart_to_node: RX line: No node[0m
+[0;32mI (291581) uart_to_node: RX line: No node[0m
+[0;32mI (292581) uart_to_node: RX line: No node[0m
+[0;32mI (293581) uart_to_node: RX line: No node[0m
+[0;32mI (294281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:20","ver":"1.0.0","err":["0x62","0x7A","0xEA"],"p":[[1,0,27.268,53.167,1026.944],[3,13,23.027,50.225]]}[0m
+[0;32mI (294581) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:20","ver":"1.0.0","err":["0xF6","0x7A","0xE4"],"p":[[1,0,25.258,84.46,999.941],[3,13,29.857,59.775]]}[0m
+[0;32mI (294881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:21","ver":"1.0.0","err":["0x65","0xBA","0x39"],"p":[[1,0,23.067,68.773,1027.3],[3,13,28.581,64.73]]}[0m
+[0;32mI (295191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:21","ver":"1.0.0","err":["0x7D","0x0C","0xCD"],"p":[[1,0,23.148,37.06,1016.695],[3,13,26.196,74.667]]}[0m
+[0;32mI (295481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:21","ver":"1.0.0","err":["0x6C","0xE6","0xD1"],"p":[[1,0,31.943,49.821,1011.926],[3,13,24.888,60.297]]}[0m
+[0;32mI (295781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:22","ver":"1.0.0","err":["0x9B","0x74","0x40"],"p":[[1,0,19.593,78.264,1018.611],[3,13,24.8,78.641]]}[0m
+[0;32mI (296081) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:22","ver":"1.0.0","err":["0x12","0xE2","0x70"],"p":[[1,0,23.51,65.043,993.756],[3,13,31.737,78.789]]}[0m
+[0;32mI (296391) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:22","ver":"1.0.0","err":["0x72","0xA6","0x0E"],"p":[[1,0,22.539,51.467,1015.887],[3,13,29.346,47.219]]}[0m
+[0;32mI (296691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:22","ver":"1.0.0","err":["0x52","0x16","0xCE"],"p":[[1,0,18.176,56.002,1015.283],[3,13,21.756,72.34]]}[0m
+[0;32mI (297051) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:23","ver":"1.0.0","err":["0x38","0x70","0xA4"],"p":[[1,0,26.385,75.644,1012.762],[3,13,32.632,69.811]]}[0m
+[0;32mI (297291) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:23","ver":"1.0.0","err":["0x3D","0x34","0x1B"],"p":[[1,0,25.761,74.244,1025.444],[3,13,29.196,53.141]]}[0m
+[0;32mI (297581) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:23","ver":"1.0.0","err":["0x88","0x9B","0xDD"],"p":[[1,0,25.813,50.577,1026.212],[3,13,22.226,51.211]]}[0m
+[0;32mI (297881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:24","ver":"1.0.0","err":["0x0D","0x22","0x3B"],"p":[[1,0,26.642,54.377,1012.518],[3,13,31.035,45.342]]}[0m
+[0;32mI (298711) uart_to_node: RX line: No node[0m
+[0;32mI (299711) uart_to_node: RX line: No node[0m
+[0;31mE (299751) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (299751) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (299751) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (299751) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (299771) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (299781) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (299781) WebSocket Handler: Disconnected from server[0m
+[0;32mI (300711) uart_to_node: RX line: No node[0m
+[0;32mI (301711) uart_to_node: RX line: No node[0m
+[0;32mI (302711) uart_to_node: RX line: No node[0m
+[0;32mI (303711) uart_to_node: RX line: No node[0m
+[0;32mI (304711) uart_to_node: RX line: No node[0m
+[0;32mI (305711) uart_to_node: RX line: No node[0m
+[0;32mI (306721) uart_to_node: RX line: No node[0m
+[0;32mI (307721) uart_to_node: RX line: No node[0m
+[0;32mI (308631) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:34","ver":"1.0.0","err":["0xA8","0x70","0x69"],"p":[[1,0,31.658,66.208,1020.219],[3,13,32.698,67.282]]}[0m
+[0;32mI (308921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:35","ver":"1.0.0","err":["0x0E","0x11","0xA4"],"p":[[1,0,21.209,49.146,1009.694],[3,13,31.228,52.489]]}[0m
+[0;32mI (309231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:35","ver":"1.0.0","err":["0x91","0x8B","0xD9"],"p":[[1,0,28.701,37.455,1026.42],[3,13,30.834,62.718]]}[0m
+[0;32mI (309521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:35","ver":"1.0.0","err":["0xAE","0x9F","0x28"],"p":[[1,0,23.426,49.386,1013.546],[3,13,25.189,82.934]]}[0m
+[0;32mI (309871) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:36","ver":"1.0.0","err":["0xBB","0x26","0x2B"],"p":[[1,0,24.337,80.005,997.017],[3,13,26.144,74.5]]}[0m
+[0;32mI (310121) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:36","ver":"1.0.0","err":["0x08","0xC8","0x53"],"p":[[1,0,25.827,47.971,1009.666],[3,13,23.782,44.82]]}[0m
+[0;32mI (310421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:36","ver":"1.0.0","err":["0xE2","0x22","0x75"],"p":[[1,0,31.178,80.91,1009.034],[3,13,20.339,68.506]]}[0m
+[0;32mI (311251) uart_to_node: RX line: No node[0m
+[0;32mI (312251) uart_to_node: RX line: No node[0m
+[0;32mI (313251) uart_to_node: RX line: No node[0m
+[0;32mI (313671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:39","ver":"1.0.0","err":["0x65","0x3C","0x63"],"p":[[1,0,25.089,41.331,993.076],[3,13,30.036,80.558]]}[0m
+[0;32mI (313951) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:40","ver":"1.0.0","err":["0xF1","0x7F","0x32"],"p":[[1,0,21.853,80.305,1006.238],[3,13,33.44,41.436]]}[0m
+[0;32mI (314251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:40","ver":"1.0.0","err":["0xE3","0x9B","0xF7"],"p":[[1,0,20.992,72.189,1010.002],[3,13,20.902,42.385]]}[0m
+[0;32mI (314541) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:40","ver":"1.0.0","err":["0xD2","0xF6","0x25"],"p":[[1,0,23.645,76.979,1022.971],[3,13,30.698,48.24]]}[0m
+[0;32mI (314851) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:41","ver":"1.0.0","err":["0x35","0x94","0xFF"],"p":[[1,0,19.708,43.106,1002.809],[3,13,25.146,44.743]]}[0m
+[0;32mI (315161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:41","ver":"1.0.0","err":["0x44","0x2E","0xA8"],"p":[[1,0,29.527,67.543,1029.896],[3,13,29.926,46.139]]}[0m
+[0;32mI (315461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:41","ver":"1.0.0","err":["0x57","0x0A","0xE4"],"p":[[1,0,28.322,76.419,1026.004],[3,13,29.315,81.472]]}[0m
+[0;32mI (315741) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:42","ver":"1.0.0","err":["0xA3","0x85","0x1E"],"p":[[1,0,18.081,79.289,1004.897],[3,13,25.489,63.186]]}[0m
+[0;32mI (316071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:42","ver":"1.0.0","err":["0x5B","0x29","0xAD"],"p":[[1,0,24.387,46.026,1028.556],[3,13,31.831,46.629]]}[0m
+[0;32mI (316351) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:42","ver":"1.0.0","err":["0x65","0xBB","0x0B"],"p":[[1,0,28.112,76.854,1014.702],[3,13,27.222,43.033]]}[0m
+[0;32mI (316641) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:42","ver":"1.0.0","err":["0x3D","0x1F","0xFB"],"p":[[1,0,27.717,50.267,1020.399],[3,13,20.428,82.691]]}[0m
+[0;32mI (316951) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:48:43","ver":"1.0.0","err":["0x11","0x46","0x85"],"p":[[1,0,30.12,49.856,1012.098],[3,13,20.587,55.891]]}[0m
+[0;32mI (317441) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:43","ver":"1.0.0","err":["0x01","0xCB","0x0E"],"p":[[1,0,19.669,64.003,1017.287],[3,13,32.274,42.201]]}[0m
+[0;32mI (318271) uart_to_node: RX line: No node[0m
+[0;32mI (319271) uart_to_node: RX line: No node[0m
+[0;31mE (319801) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (319801) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (319801) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (319811) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (319821) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (319831) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (319831) WebSocket Handler: Disconnected from server[0m
+[0;32mI (320271) uart_to_node: RX line: No node[0m
+[0;32mI (321271) uart_to_node: RX line: No node[0m
+[0;32mI (322271) uart_to_node: RX line: No node[0m
+[0;32mI (323271) uart_to_node: RX line: No node[0m
+[0;32mI (324271) uart_to_node: RX line: No node[0m
+[0;32mI (325271) uart_to_node: RX line: No node[0m
+[0;32mI (326271) uart_to_node: RX line: No node[0m
+[0;32mI (327271) uart_to_node: RX line: No node[0m
+[0;32mI (328271) uart_to_node: RX line: No node[0m
+[0;32mI (329271) uart_to_node: RX line: No node[0m
+[0;32mI (329511) uart_to_node: RX line: {"v":1,"packetloss":66.67,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:55","ver":"1.0.0","err":["0x57","0x04","0xDF"],"p":[[1,0,27.07,69.083,1003.409],[3,13,29.284,70.153]]}[0m
+[0;32mI (329791) uart_to_node: RX line: {"v":1,"packetloss":50.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:56","ver":"1.0.0","err":["0x0E","0x24","0x2A"],"p":[[1,0,31.724,39.525,1015.507],[3,13,23.793,76.868]]}[0m
+[0;32mI (330091) uart_to_node: RX line: {"v":1,"packetloss":40.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:56","ver":"1.0.0","err":["0xF9","0x04","0xFB"],"p":[[1,0,28.347,56.797,1015.547],[3,13,23.857,62.588]]}[0m
+[0;32mI (330391) uart_to_node: RX line: {"v":1,"packetloss":33.33,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:56","ver":"1.0.0","err":["0x09","0x93","0x6D"],"p":[[1,0,18.482,56.262,996.757],[3,13,29.531,68.146]]}[0m
+[0;32mI (330691) uart_to_node: RX line: {"v":1,"packetloss":28.57,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:56","ver":"1.0.0","err":["0xB3","0x52","0xDD"],"p":[[1,0,22.767,66.653,1006.594],[3,13,24.955,70.441]]}[0m
+[0;32mI (330991) uart_to_node: RX line: {"v":1,"packetloss":25.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:57","ver":"1.0.0","err":["0xF7","0x56","0xCA"],"p":[[1,0,22.161,56.877,1010.126],[3,13,33.556,45.243]]}[0m
+[0;32mI (331301) uart_to_node: RX line: {"v":1,"packetloss":22.22,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:57","ver":"1.0.0","err":["0x86","0x92","0xED"],"p":[[1,0,27.464,55.827,993.612],[3,13,22.361,76.116]]}[0m
+[0;32mI (331591) uart_to_node: RX line: {"v":1,"packetloss":20.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:57","ver":"1.0.0","err":["0xE2","0x0E","0x32"],"p":[[1,0,30.236,70.954,1017.927],[3,13,25.179,57.835]]}[0m
+[0;32mI (331891) uart_to_node: RX line: {"v":1,"packetloss":18.18,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:58","ver":"1.0.0","err":["0x0B","0xCF","0xFC"],"p":[[1,0,29.95,81.075,995.957],[3,13,27.74,64.716]]}[0m
+[0;32mI (332191) uart_to_node: RX line: {"v":1,"packetloss":16.67,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:58","ver":"1.0.0","err":["0x21","0x58","0x3C"],"p":[[1,0,30.156,49.601,1018.559],[3,13,27.012,82.583]]}[0m
+[0;32mI (332491) uart_to_node: RX line: {"v":1,"packetloss":15.38,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:58","ver":"1.0.0","err":["0xBF","0x11","0x6E"],"p":[[1,0,23.986,35.435,1013.934],[3,13,26.431,69.37]]}[0m
+[0;32mI (332791) uart_to_node: RX line: {"v":1,"packetloss":14.29,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:59","ver":"1.0.0","err":["0x9D","0x96","0x9E"],"p":[[1,0,18.253,41.421,1003.981],[3,13,20.956,81.854]]}[0m
+[0;32mI (333101) uart_to_node: RX line: {"v":1,"packetloss":13.33,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:59","ver":"1.0.0","err":["0xAE","0x61","0x72"],"p":[[1,0,22.529,58.402,1002.677],[3,13,29.935,75.351]]}[0m
+[0;32mI (333401) uart_to_node: RX line: {"v":1,"packetloss":12.50,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:59","ver":"1.0.0","err":["0xB9","0x46","0x3C"],"p":[[1,0,31.801,47.681,998.841],[3,13,29.256,44.694]]}[0m
+[0;32mI (333691) uart_to_node: RX line: {"v":1,"packetloss":11.76,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:48:59","ver":"1.0.0","err":["0xD5","0xB8","0x77"],"p":[[1,0,25.898,63.078,1018.491],[3,13,20.822,73.555]]}[0m
+[0;32mI (334021) uart_to_node: RX line: {"v":1,"packetloss":11.11,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:00","ver":"1.0.0","err":["0x7D","0x66","0x09"],"p":[[1,0,19.124,40.341,1015.531],[3,13,26.312,80.842]]}[0m
+[0;32mI (334301) uart_to_node: RX line: {"v":1,"packetloss":10.53,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:00","ver":"1.0.0","err":["0xB8","0x67","0x18"],"p":[[1,0,29.687,46.721,1014.498],[3,13,26.753,44.523]]}[0m
+[0;32mI (334601) uart_to_node: RX line: {"v":1,"packetloss":10.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:00","ver":"1.0.0","err":["0x23","0xED","0x27"],"p":[[1,0,28.799,48.516,1009.678],[3,13,26.12,46.967]]}[0m
+[0;32mI (335421) uart_to_node: RX line: No node[0m
+[0;32mI (336421) uart_to_node: RX line: No node[0m
+[0;32mI (337421) uart_to_node: RX line: No node[0m
+[0;32mI (338421) uart_to_node: RX line: No node[0m
+[0;32mI (339421) uart_to_node: RX line: No node[0m
+[0;31mE (339851) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (339851) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (339851) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (339861) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (339871) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (339881) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (339881) WebSocket Handler: Disconnected from server[0m
+[0;32mI (340421) uart_to_node: RX line: No node[0m
+[0;32mI (341421) uart_to_node: RX line: No node[0m
+[0;32mI (342421) uart_to_node: RX line: No node[0m
+[0;32mI (343421) uart_to_node: RX line: No node[0m
+[0;32mI (344411) uart_to_node: RX line: No node[0m
+[0;32mI (345421) uart_to_node: RX line: No node[0m
+[0;32mI (346421) uart_to_node: RX line: No node[0m
+[0;32mI (347411) uart_to_node: RX line: No node[0m
+[0;32mI (348411) uart_to_node: RX line: No node[0m
+[0;32mI (349421) uart_to_node: RX line: No node[0m
+[0;32mI (350421) uart_to_node: RX line: No node[0m
+[0;32mI (351421) uart_to_node: RX line: No node[0m
+[0;32mI (352421) uart_to_node: RX line: No node[0m
+[0;32mI (353421) uart_to_node: RX line: No node[0m
+[0;32mI (354101) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:20","ver":"1.0.0","err":["0x77","0x5C","0x26"],"p":[[1,0,26.588,45.511,1002.881],[3,13,25.833,40.405]]}[0m
+[0;32mI (354401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:20","ver":"1.0.0","err":["0x76","0xC4","0x2B"],"p":[[1,0,20.785,52.427,1016.167],[3,13,24.713,84.883]]}[0m
+[0;32mI (354691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:20","ver":"1.0.0","err":["0x0B","0xAB","0x5D"],"p":[[1,0,26.944,45.836,1027.864],[3,13,24.657,83.353]]}[0m
+[0;32mI (355011) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:21","ver":"1.0.0","err":["0x8C","0x8E","0xED"],"p":[[1,0,24.576,57.212,1019.723],[3,13,29.385,59.262]]}[0m
+[0;32mI (355301) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:21","ver":"1.0.0","err":["0xA8","0x1B","0xA8"],"p":[[1,0,22.643,73.784,1013.898],[3,13,21.592,49.46]]}[0m
+[0;32mI (355621) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:21","ver":"1.0.0","err":["0x81","0x4D","0x36"],"p":[[1,0,28.655,81.64,1004.277],[3,13,31.837,51.584]]}[0m
+[0;32mI (355891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:22","ver":"1.0.0","err":["0x9B","0x4E","0x1A"],"p":[[1,0,23.064,65.703,1005.254],[3,13,24.088,67.259]]}[0m
+[0;32mI (356191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:22","ver":"1.0.0","err":["0x05","0xC4","0xAB"],"p":[[1,0,22.611,81.39,1018.327],[3,13,22.783,50.657]]}[0m
+[0;32mI (356551) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x3C","0xDC","0xC4"],"p":[[1,0,25.187,67.923,1016.551],[3,13,23.279,49.887]]}[0m
+[0;32mI (356851) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:23","ver":"1.0.0","err":["0xA0","0x9B","0x69"],"p":[[1,0,25.412,67.168,990.896],[3,13,23.827,78.875]]}[0m
+[0;32mI (357151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:23","ver":"1.0.0","err":["0xF7","0x3B","0xCF"],"p":[[1,0,21.146,63.973,1018.039],[3,13,31.295,43.803]]}[0m
+[0;32mI (357461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:23","ver":"1.0.0","err":["0x49","0x16","0xB9"],"p":[[1,0,29.837,77.319,1010.654],[3,13,26.137,83.231]]}[0m
+[0;32mI (357751) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:24","ver":"1.0.0","err":["0x74","0xAC","0xDB"],"p":[[1,0,19.512,50.202,1010.482],[3,13,24.552,52.97]]}[0m
+[0;32mI (358061) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:24","ver":"1.0.0","err":["0xC2","0x5B","0xA2"],"p":[[1,0,29.497,71.644,1026.22],[3,13,32.743,81.832]]}[0m
+[0;32mI (358371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:24","ver":"1.0.0","err":["0x6D","0x58","0x4F"],"p":[[1,0,27.585,63.033,1023.795],[3,13,20.014,49.482]]}[0m
+[0;32mI (358651) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:24","ver":"1.0.0","err":["0x42","0xF8","0x61"],"p":[[1,0,19.288,69.133,1018.727],[3,13,33.811,42.61]]}[0m
+[0;32mI (358971) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:25","ver":"1.0.0","err":["0x92","0x49","0xD4"],"p":[[1,0,27.451,58.997,1008.726],[3,13,31.355,65.833]]}[0m
+[0;32mI (359251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:25","ver":"1.0.0","err":["0x8A","0x89","0x6A"],"p":[[1,0,21.387,72.234,1015.711],[3,13,24.532,49.577]]}[0m
+[0;32mI (359561) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:25","ver":"1.0.0","err":["0x27","0x22","0xC5"],"p":[[1,0,27.674,63.923,1019.927],[3,13,31.805,44.563]]}[0m
+[0;32mI (359861) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:26","ver":"1.0.0","err":["0xC9","0xE3","0xD0"],"p":[[1,0,18.717,39.295,1024.604],[3,13,20.428,40.878]]}[0m
+[0;31mE (359911) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (359911) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (359911) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (359921) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (359931) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (359941) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (359941) WebSocket Handler: Disconnected from server[0m
+[0;32mI (360161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:26","ver":"1.0.0","err":["0xDD","0x31","0x04"],"p":[[1,0,26.679,42.806,1015.783],[3,13,20.661,68.537]]}[0m
+[0;32mI (360461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:26","ver":"1.0.0","err":["0xB4","0x4A","0x58"],"p":[[1,0,19.711,48.646,1004.001],[3,13,26.477,44.199]]}[0m
+[0;32mI (360761) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:27","ver":"1.0.0","err":["0xF2","0x06","0x36"],"p":[[1,0,27.367,44.546,1029.368],[3,13,25.589,82.705]]}[0m
+[0;32mI (361061) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:27","ver":"1.0.0","err":["0x9B","0x7E","0x95"],"p":[[1,0,31.126,35.285,1012.23],[3,13,33.86,74.046]]}[0m
+[0;32mI (361361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:27","ver":"1.0.0","err":["0x02","0xB1","0x6A"],"p":[[1,0,25.366,59.832,1028.292],[3,13,24.438,46.832]]}[0m
+[0;32mI (361661) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:27","ver":"1.0.0","err":["0x2C","0x6A","0x39"],"p":[[1,0,28.28,48.136,1006.47],[3,13,22.45,40.684]]}[0m
+[0;32mI (361961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:28","ver":"1.0.0","err":["0xAB","0x3A","0x3E"],"p":[[1,0,20.048,38.215,1007.122],[3,13,31.872,63.132]]}[0m
+[0;32mI (362261) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:28","ver":"1.0.0","err":["0x12","0x8E","0x6F"],"p":[[1,0,23.718,53.417,1017.611],[3,13,33.674,66.373]]}[0m
+[0;32mI (362571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:28","ver":"1.0.0","err":["0x0A","0xA5","0x51"],"p":[[1,0,19.516,66.283,1021.147],[3,13,28.191,52.268]]}[0m
+[0;32mI (362871) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:29","ver":"1.0.0","err":["0x52","0x7C","0x3F"],"p":[[1,0,30.85,71.014,1013.962],[3,13,26.576,79.433]]}[0m
+[0;32mI (363161) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:29","ver":"1.0.0","err":["0x9D","0x3B","0xC8"],"p":[[1,0,30.891,52.347,996.697],[3,13,21.7,51.728]]}[0m
+[0;32mI (363471) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:29","ver":"1.0.0","err":["0xA2","0xE0","0x75"],"p":[[1,0,20.694,59.607,1000.889],[3,13,22.733,64.365]]}[0m
+[0;32mI (363771) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:30","ver":"1.0.0","err":["0x6C","0x92","0x29"],"p":[[1,0,30.535,49.576,995.489],[3,13,28.202,43.726]]}[0m
+[0;32mI (364071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:30","ver":"1.0.0","err":["0xC5","0x82","0xBE"],"p":[[1,0,19.675,36.665,993.124],[3,13,31.7,43.092]]}[0m
+[0;32mI (364371) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:30","ver":"1.0.0","err":["0x09","0x67","0x1C"],"p":[[1,0,20.741,82.305,1020.091],[3,13,21.749,70.311]]}[0m
+[0;32mI (364671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:30","ver":"1.0.0","err":["0x9F","0x7E","0x2F"],"p":[[1,0,27.996,53.172,1002.549],[3,13,25.756,63.335]]}[0m
+[0;32mI (364971) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:31","ver":"1.0.0","err":["0x68","0x3A","0xA3"],"p":[[1,0,19.376,57.867,1017.979],[3,13,28.763,54.685]]}[0m
+[0;32mI (365281) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:31","ver":"1.0.0","err":["0xA8","0x46","0x04"],"p":[[1,0,22.851,77.374,1029.292],[3,13,27.342,82.259]]}[0m
+[0;32mI (365571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:31","ver":"1.0.0","err":["0xC8","0x92","0xF8"],"p":[[1,0,22.119,60.658,995.049],[3,13,22.232,46.287]]}[0m
+[0;32mI (365871) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:32","ver":"1.0.0","err":["0x70","0x3B","0xE7"],"p":[[1,0,31.773,72.714,1004.581],[3,13,30.556,76.472]]}[0m
+[0;32mI (366181) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:32","ver":"1.0.0","err":["0x68","0xBE","0x2B"],"p":[[1,0,28.645,46.701,1028.092],[3,13,29.576,51.287]]}[0m
+[0;32mI (366481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:32","ver":"1.0.0","err":["0xA5","0xCB","0xFB"],"p":[[1,0,29.065,50.907,1017.887],[3,13,28.224,52.615]]}[0m
+[0;32mI (366781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:33","ver":"1.0.0","err":["0x87","0x14","0x2E"],"p":[[1,0,26.511,43.431,1029.94],[3,13,27.055,64.752]]}[0m
+[0;32mI (367101) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:33","ver":"1.0.0","err":["0x26","0x23","0xBE"],"p":[[1,0,30.71,60.158,998.577],[3,13,22.239,70.333]]}[0m
+[0;32mI (367911) uart_to_node: RX line: No node[0m
+[0;32mI (368911) uart_to_node: RX line: No node[0m
+[0;32mI (369911) uart_to_node: RX line: No node[0m
+[0;32mI (370911) uart_to_node: RX line: No node[0m
+[0;32mI (371911) uart_to_node: RX line: No node[0m
+[0;32mI (372941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:39","ver":"1.0.0","err":["0xA3","0x0E","0x78"],"p":[[1,0,29.68,74.899,1007.446],[3,13,30.756,56.8]]}[0m
+[0;32mI (373761) uart_to_node: RX line: No node[0m
+[0;32mI (374761) uart_to_node: RX line: No node[0m
+[0;32mI (375761) uart_to_node: RX line: No node[0m
+[0;32mI (376761) uart_to_node: RX line: No node[0m
+[0;32mI (377761) uart_to_node: RX line: No node[0m
+[0;32mI (378761) uart_to_node: RX line: No node[0m
+[0;32mI (379611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:45","ver":"1.0.0","err":["0x9D","0xA7","0x3E"],"p":[[1,0,29.364,83.785,1017.891],[3,13,21.658,51.301]]}[0m
+[0;32mI (379911) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:46","ver":"1.0.0","err":["0xB3","0x01","0x28"],"p":[[1,0,30.428,81.94,996.401],[3,13,28.43,60.765]]}[0m
+[0;31mE (379961) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (379961) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (379961) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (379961) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (379981) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (379991) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (379991) WebSocket Handler: Disconnected from server[0m
+[0;32mI (380211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:46","ver":"1.0.0","err":["0x87","0x0B","0x8F"],"p":[[1,0,20.627,69.873,1021.675],[3,13,27.439,56.877]]}[0m
+[0;32mI (380511) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:46","ver":"1.0.0","err":["0x28","0xAE","0x5B"],"p":[[1,0,24.686,44.151,996.481],[3,13,30.358,66.251]]}[0m
+[0;32mI (380811) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:47","ver":"1.0.0","err":["0x89","0x9B","0x56"],"p":[[1,0,26.59,59.317,1024.744],[3,13,33.615,74.707]]}[0m
+[0;32mI (381121) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:47","ver":"1.0.0","err":["0x9D","0x82","0xA9"],"p":[[1,0,21.339,56.362,1021.379],[3,13,33.88,66.436]]}[0m
+[0;32mI (381431) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:47","ver":"1.0.0","err":["0xC8","0xC6","0xE5"],"p":[[1,0,20.319,42.566,1009.23],[3,13,29.006,60.234]]}[0m
+[0;32mI (381731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:47","ver":"1.0.0","err":["0xDC","0x0C","0x96"],"p":[[1,0,24.708,61.238,1020.947],[3,13,25.802,70.405]]}[0m
+[0;32mI (381941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0x7D","0xD4","0xC2"],"p":[[1,0,30.258,64.648,1000.377],[3,13,25.237,82.543]]}[0m
+[0;32mI (382151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0xBF","0x3D","0xBF"],"p":[[1,0,22.508,59.532,992.292],[3,13,25.388,67.192]]}[0m
+[0;32mI (382251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0xF7","0x42","0xD0"],"p":[[1,0,26.408,84.585,998.909],[3,13,23.143,48.375]]}[0m
+[0;32mI (382461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0xA3","0xE1","0x31"],"p":[[1,0,23.375,63.803,1010.73],[3,13,32.19,55.198]]}[0m
+[0;32mI (382671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0xC4","0x92","0xFC"],"p":[[1,0,23.151,82.765,1018.779],[3,13,31.683,69.077]]}[0m
+[0;32mI (382881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0x3E","0xFA","0x4F"],"p":[[1,0,19.817,80.405,1001.353],[3,13,27.461,77.876]]}[0m
+[0;32mI (382981) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:48","ver":"1.0.0","err":["0xAB","0x87","0x13"],"p":[[1,0,19.323,79.449,1027.04],[3,13,20.624,71.053]]}[0m
+[0;32mI (383191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0xB4","0xAB","0x56"],"p":[[1,0,26.154,55.177,992.88],[3,13,33.104,71.535]]}[0m
+[0;32mI (383401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0x04","0x20","0xC9"],"p":[[1,0,25.737,56.427,1023.715],[3,13,27.418,59.338]]}[0m
+[0;32mI (383611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0xF2","0x51","0x8D"],"p":[[1,0,25.62,73.989,1016.439],[3,13,32.043,67.943]]}[0m
+[0;32mI (383711) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0x6A","0x12","0x11"],"p":[[1,0,21.024,49.061,991.868],[3,13,30.921,75.149]]}[0m
+[0;32mI (383921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0x92","0xA3","0x86"],"p":[[1,0,21.272,76.164,1005.746],[3,13,23.751,51.643]]}[0m
+[0;32mI (384131) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:49","ver":"1.0.0","err":["0x0D","0x4D","0xA7"],"p":[[1,0,30.603,67.713,1012.642],[3,13,24.774,75.536]]}[0m
+[0;32mI (384341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0xA2","0x7A","0xF1"],"p":[[1,0,20.572,72.729,1013.386],[3,13,24.668,62.07]]}[0m
+[0;32mI (384441) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0xBC","0x35","0xA6"],"p":[[1,0,21.054,71.304,990.456],[3,13,31.553,65.63]]}[0m
+[0;32mI (384651) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0x05","0x80","0x7D"],"p":[[1,0,31,60.163,994.268],[3,13,20.756,67.705]]}[0m
+[0;32mI (384861) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0xE9","0xEE","0x54"],"p":[[1,0,18.312,49.011,991.136],[3,13,30.88,84.604]]}[0m
+[0;32mI (385071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0xAE","0xCD","0x75"],"p":[[1,0,29.726,48.496,1015.075],[3,13,30.53,49.095]]}[0m
+[0;32mI (385171) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0xE9","0xE8","0xD3"],"p":[[1,0,19.452,35.09,993.108],[3,13,33.097,61.868]]}[0m
+[0;32mI (385381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:50","ver":"1.0.0","err":["0x17","0x5B","0x33"],"p":[[1,0,23.295,78.659,1027.448],[3,13,33.174,79.572]]}[0m
+[0;32mI (385591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0xEE","0x57","0x69"],"p":[[1,0,31.782,76.464,1010.786],[3,13,21.787,43.776]]}[0m
+[0;32mI (385801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0x63","0x64","0xD3"],"p":[[1,0,30.229,48.506,1008.53],[3,13,32.369,47.696]]}[0m
+[0;32mI (385901) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0xEE","0xC6","0x75"],"p":[[1,0,26.065,36.585,999.045],[3,13,20.014,75.126]]}[0m
+[0;32mI (386111) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0x5B","0xB0","0xC8"],"p":[[1,0,19.56,83.355,994.98],[3,13,29.108,77.277]]}[0m
+[0;32mI (386321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0x86","0x27","0x05"],"p":[[1,0,31.986,38.665,1014.182],[3,13,30.053,61.251]]}[0m
+[0;32mI (386421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0xC4","0x7E","0xDC"],"p":[[1,0,22.685,63.753,1007.194],[3,13,28.713,76.143]]}[0m
+[0;32mI (386631) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:51","ver":"1.0.0","err":["0x0B","0x11","0xB6"],"p":[[1,0,21.293,61.163,1015.347],[3,13,32.087,75.666]]}[0m
+[0;32mI (386841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x5C","0xB9","0xB7"],"p":[[1,0,24.491,40.786,1002.041],[3,13,21.21,81.098]]}[0m
+[0;32mI (387051) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x9A","0x64","0x08"],"p":[[1,0,26.733,69.063,1019.375],[3,13,29.216,62.592]]}[0m
+[0;32mI (387151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x8D","0xEB","0x1E"],"p":[[1,0,19.563,83.44,1011.566],[3,13,23.757,43.96]]}[0m
+[0;32mI (387361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x01","0xF7","0x53"],"p":[[1,0,28.666,84.115,1015.163],[3,13,20.364,65.486]]}[0m
+[0;32mI (387571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x2C","0xF0","0xE5"],"p":[[1,0,27.868,73.274,1014.258],[3,13,33.189,83.074]]}[0m
+[0;32mI (387781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:52","ver":"1.0.0","err":["0x11","0x9B","0x11"],"p":[[1,0,25.622,47.371,993.62],[3,13,32.811,40.932]]}[0m
+[0;32mI (387881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x38","0xD6","0x53"],"p":[[1,0,26.205,38.43,1004.297],[3,13,31.424,54.356]]}[0m
+[0;32mI (388091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x92","0xF1","0xD6"],"p":[[1,0,21.527,50.727,1025.276],[3,13,26.015,63.722]]}[0m
+[0;32mI (388301) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x8C","0x07","0xA6"],"p":[[1,0,26.999,62.653,1002.941],[3,13,27.73,40.288]]}[0m
+[0;32mI (388501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x39","0xCF","0x5B"],"p":[[1,0,30.916,57.867,990.792],[3,13,33.345,70.059]]}[0m
+[0;32mI (388611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x5F","0xD2","0x8B"],"p":[[1,0,30.213,70.579,994.588],[3,13,24.626,51.733]]}[0m
+[0;32mI (388821) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:53","ver":"1.0.0","err":["0x23","0x88","0x8D"],"p":[[1,0,29.697,62.323,1017.171],[3,13,21.305,58.497]]}[0m
+[0;32mI (389021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0x8C","0xCA","0xC9"],"p":[[1,0,29.414,57.507,1005.782],[3,13,31.149,73.794]]}[0m
+[0;32mI (389231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0x83","0x33","0x0D"],"p":[[1,0,31.297,56.872,1023.067],[3,13,24.612,48.983]]}[0m
+[0;32mI (389341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0x0F","0x54","0x78"],"p":[[1,0,21.801,63.508,1029.36],[3,13,32.694,51.301]]}[0m
+[0;32mI (389551) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0x46","0x63","0x8F"],"p":[[1,0,19.438,47.911,999.925],[3,13,26.527,64.392]]}[0m
+[0;32mI (389751) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0xCC","0x18","0x41"],"p":[[1,0,22.457,80.51,995.145],[3,13,28.856,74.608]]}[0m
+[0;32mI (389961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0xF4","0x9E","0x01"],"p":[[1,0,21.18,77.859,998.545],[3,13,28.957,58.686]]}[0m
+[0;32mI (390071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0xD3","0x92","0xC2"],"p":[[1,0,26.728,57.037,1004.629],[3,13,32.695,72.813]]}[0m
+[0;32mI (390271) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:54","ver":"1.0.0","err":["0x98","0x4A","0x99"],"p":[[1,0,21.671,67.653,1018.571],[3,13,32.135,40.567]]}[0m
+[0;32mI (390481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0x3A","0x75","0x13"],"p":[[1,0,21.17,81.715,995.401],[3,13,25.396,71.053]]}[0m
+[0;32mI (390691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0x54","0xD6","0xA3"],"p":[[1,0,22.576,51.092,1000.901],[3,13,28.09,72.673]]}[0m
+[0;32mI (390801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0xA5","0x3B","0x40"],"p":[[1,0,20.683,40.911,994.332],[3,13,25.258,49.244]]}[0m
+[0;32mI (391001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0xE8","0x0D","0x20"],"p":[[1,0,19.091,45.851,1005.95],[3,13,29.552,74.095]]}[0m
+[0;32mI (391211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0x2F","0xE2","0xB3"],"p":[[1,0,20.785,54.607,1006.054],[3,13,30.698,58.024]]}[0m
+[0;32mI (391421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:55","ver":"1.0.0","err":["0xCD","0xDE","0xCF"],"p":[[1,0,25.96,79.384,992.716],[3,13,27.253,45.401]]}[0m
+[0;32mI (391521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0x29","0x20","0xA4"],"p":[[1,0,20.799,39.53,1011.226],[3,13,33.868,64.622]]}[0m
+[0;32mI (391731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0x52","0xC7","0xFD"],"p":[[1,0,30.559,41.361,1027.012],[3,13,29.902,65.387]]}[0m
+[0;32mI (391941) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0x15","0x97","0x1F"],"p":[[1,0,29.068,73.249,991.696],[3,13,22.923,68.551]]}[0m
+[0;32mI (392051) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0xE3","0x29","0x46"],"p":[[1,0,22.101,49.956,1003.529],[3,13,33.86,73.254]]}[0m
+[0;32mI (392251) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0xB1","0xF5","0x9A"],"p":[[1,0,31.503,51.847,1000.869],[3,13,22.456,47.624]]}[0m
+[0;32mI (392461) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:56","ver":"1.0.0","err":["0x50","0x6A","0xC4"],"p":[[1,0,22.916,42.396,1018.219],[3,13,30.462,53.506]]}[0m
+[0;32mI (392671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0xA2","0xBF","0x6E"],"p":[[1,0,18.456,71.589,1020.547],[3,13,22.551,59.496]]}[0m
+[0;32mI (392781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0xCA","0x5B","0xA7"],"p":[[1,0,26.089,46.391,1018.895],[3,13,32.526,52.583]]}[0m
+[0;32mI (392981) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0x27","0xDE","0x2E"],"p":[[1,0,29.019,83.475,1016.535],[3,13,32.67,47.52]]}[0m
+[0;32mI (393191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0x4B","0x9F","0xB8"],"p":[[1,0,25.722,58.597,1005.866],[3,13,26.938,54.739]]}[0m
+[0;32mI (393401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0x58","0x47","0xB9"],"p":[[1,0,18.829,80.535,1010.342],[3,13,24.898,52.867]]}[0m
+[0;32mI (393501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0x66","0xA2","0xB1"],"p":[[1,0,27.203,65.133,994.448],[3,13,21.83,67.417]]}[0m
+[0;32mI (393711) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0xB5","0x72","0x5A"],"p":[[1,0,18.941,58.567,995.137],[3,13,21.308,64.028]]}[0m
+[0;32mI (393921) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:57","ver":"1.0.0","err":["0x39","0xDF","0xA0"],"p":[[1,0,21.279,58.192,992.428],[3,13,23.912,53.96]]}[0m
+[0;32mI (394131) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0xEF","0x74","0xE7"],"p":[[1,0,23.479,51.057,994.945],[3,13,20.126,62.817]]}[0m
+[0;32mI (394231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0xBB","0xB2","0x3D"],"p":[[1,0,24.456,61.503,1023.015],[3,13,33.083,68.632]]}[0m
+[0;32mI (394441) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0xBC","0xAD","0x7B"],"p":[[1,0,22.963,78.579,1001.989],[3,13,20.323,63.474]]}[0m
+[0;32mI (394651) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0x90","0xE2","0x4A"],"p":[[1,0,20.604,77.019,1008.686],[3,13,21.297,43.411]]}[0m
+[0;32mI (394861) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0x64","0xB8","0xCA"],"p":[[1,0,22.917,68.063,1008.182],[3,13,30.183,46.571]]}[0m
+[0;32mI (394961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:58","ver":"1.0.0","err":["0x4F","0xA2","0xCA"],"p":[[1,0,23.35,67.248,1024.091],[3,13,33.878,73.56]]}[0m
+[0;32mI (395171) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x28","0xEB","0x93"],"p":[[1,0,28.679,76.559,1026.048],[3,13,28.035,79.428]]}[0m
+[0;32mI (395381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x76","0xF7","0xCC"],"p":[[1,0,24.228,42.916,1011.318],[3,13,22.257,50.923]]}[0m
+[0;32mI (395591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x90","0xE6","0xD0"],"p":[[1,0,26.864,49.396,1013.514],[3,13,23.488,77.466]]}[0m
+[0;32mI (395691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x12","0x21","0x10"],"p":[[1,0,21.38,44.811,1019.419],[3,13,20.402,45.585]]}[0m
+[0;32mI (395901) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x6E","0x55","0xA0"],"p":[[1,0,18.16,76.594,996.553],[3,13,26.025,72.583]]}[0m
+[0;32mI (396111) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:49:59","ver":"1.0.0","err":["0x47","0x1A","0x32"],"p":[[1,0,22.451,72.129,1025.228],[3,13,21.719,57.718]]}[0m
+[0;32mI (396321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0x97","0x57","0x6E"],"p":[[1,0,20.397,52.932,1009.166],[3,13,24.107,73.501]]}[0m
+[0;32mI (396421) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0xD2","0x9F","0xFE"],"p":[[1,0,21.036,79.459,1005.142],[3,13,32.414,44.703]]}[0m
+[0;32mI (396631) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0x62","0xE9","0x2B"],"p":[[1,0,25.887,55.572,1026.448],[3,13,20.041,46.809]]}[0m
+[0;32mI (396841) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0x5A","0xCD","0xEF"],"p":[[1,0,27.122,52.012,1021.927],[3,13,27.19,53.659]]}[0m
+[0;32mI (397051) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0x64","0x81","0xC7"],"p":[[1,0,26.154,76.564,991.224],[3,13,27.096,84.743]]}[0m
+[0;32mI (397151) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0x6C","0xAC","0xAA"],"p":[[1,0,25.585,48.676,1016.127],[3,13,29.361,79.266]]}[0m
+[0;32mI (397361) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:00","ver":"1.0.0","err":["0xD3","0xF0","0x19"],"p":[[1,0,18.147,47.586,1002.933],[3,13,22.666,64.347]]}[0m
+[0;32mI (397571) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0x69","0xE1","0x7F"],"p":[[1,0,24.497,61.818,1001.169],[3,13,28.362,71.139]]}[0m
+[0;32mI (397771) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0x85","0x66","0x42"],"p":[[1,0,25.986,66.673,1026.232],[3,13,28.448,43.636]]}[0m
+[0;32mI (397881) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0x06","0x87","0xD1"],"p":[[1,0,23.192,67.828,1003.557],[3,13,27.023,60.432]]}[0m
+[0;32mI (398091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0x2B","0x3F","0xA9"],"p":[[1,0,26.254,48.631,993.512],[3,13,29.522,58.231]]}[0m
+[0;32mI (398301) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0x43","0x18","0x18"],"p":[[1,0,25.824,79.664,1013.63],[3,13,31.228,76.917]]}[0m
+[0;32mI (398501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0xED","0xE0","0x83"],"p":[[1,0,27.123,66.668,1020.363],[3,13,20.962,61.706]]}[0m
+[0;32mI (398611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:01","ver":"1.0.0","err":["0xF9","0x1B","0x53"],"p":[[1,0,25.797,58.057,1016.067],[3,13,27.541,55.68]]}[0m
+[0;32mI (398821) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0xC8","0xE0","0x1F"],"p":[[1,0,25.643,79.394,1022.051],[3,13,23.174,75.311]]}[0m
+[0;32mI (399021) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0x70","0x85","0x70"],"p":[[1,0,20.748,69.128,1011.954],[3,13,21.964,75.72]]}[0m
+[0;32mI (399231) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0x67","0xAA","0x5C"],"p":[[1,0,22.063,56.057,1001.477],[3,13,30.679,63.042]]}[0m
+[0;32mI (399341) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0x34","0xAE","0x45"],"p":[[1,0,22.689,74.529,991.972],[3,13,29.721,84.77]]}[0m
+[0;32mI (399551) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0xE9","0x1D","0x25"],"p":[[1,0,27.972,66.863,1013.114],[3,13,22.806,52.354]]}[0m
+[0;32mI (399751) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:02","ver":"1.0.0","err":["0xE5","0x12","0xF4"],"p":[[1,0,27.541,62.613,993.824],[3,13,31.231,84.779]]}[0m
+[0;32mI (399961) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0x5D","0x8E","0x04"],"p":[[1,0,30.694,61.958,1018.887],[3,13,28.927,77.993]]}[0m
+[0;31mE (400021) esp-tls: [sock=52] select() timeout[0m
+[0;31mE (400021) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (400021) transport_ws: Error connecting to host 172.20.10.2:8080[0m
+[0;31mE (400021) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;31mE (400041) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (400051) websocket_client: Reconnect after 10000 ms[0m
+[0;33mW (400051) WebSocket Handler: Disconnected from server[0m
+[0;32mI (400071) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0xB2","0xDD","0x71"],"p":[[1,0,28.659,56.492,1006.918],[3,13,25.438,82.732]]}[0m
+[0;32mI (400271) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0x06","0x03","0x13"],"p":[[1,0,21.355,75.524,1012.39],[3,13,24.636,73.96]]}[0m
+[0;32mI (400481) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0x65","0x63","0x67"],"p":[[1,0,23.472,75.594,1016.747],[3,13,29.769,46.044]]}[0m
+[0;32mI (400591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0x2A","0x50","0x48"],"p":[[1,0,21.034,50.917,992.684],[3,13,27.82,57.754]]}[0m
+[0;32mI (400801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0xF7","0x75","0x6A"],"p":[[1,0,25.198,66.578,1013.71],[3,13,22.333,75.495]]}[0m
+[0;32mI (401001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:03","ver":"1.0.0","err":["0x44","0x3C","0x8E"],"p":[[1,0,23.193,53.092,996.809],[3,13,26.26,84.406]]}[0m
+[0;32mI (401211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.3","t":"2165-25-45T39:50:04","ver":"1.0.0","err":["0x40","0x2A","0x78"],"p":[[1,0,27.671,66.018,995.573],[3,13,33.224,45.194]]}[0m
+[0;32mI (401321) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:04","ver":"1.0.0","err":["0x7D","0x45","0x44"],"p":[[1,0,24.49,36.495,1002.337],[3,13,31.11,52.075]]}[0m
+[0;32mI (401521) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:04","ver":"1.0.0","err":["0x3A","0x53","0x0F"],"p":[[1,0,19.778,38.93,992.1],[3,13,28.09,57.408]]}[0m
+[0;32mI (401671) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T39:50:04","ver":"1.0.0","err":["0x8A","0xA7","0x2E"],"p":[[1,0,20.414,61.638,1025.868],[3,13,21.526,55.32]]}[0m
+[0;32mI (402411) uart_to_node: RX line: No node[0m
+[0;32mI (403411) uart_to_node: RX line: No node[0m
+[0;32mI (404411) uart_to_node: RX line: No node[0m
+[0;32mI (405411) uart_to_node: RX line: No node[0m
+[0;32mI (406411) uart_to_node: RX line: No node[0m
+[0;32mI (407411) uart_to_node: RX line: No node[0m
+[0;32mI (408411) uart_to_node: RX line: No node[0m
+[0;32mI (409411) uart_to_node: RX line: No node[0m
+[0;32mI (410411) uart_to_node: RX line: No node[0m
+[0;32mI (411411) uart_to_node: RX line: No node[0m
+[0;32mI (412181) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:40","ver":"1.0.0","err":["0x54","0xB2","0xB6"],"p":[[1,0,19.277,50.512,1014.45],[3,13,27.907,84.892]]}[0m
+[0;32mI (412491) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:41","ver":"1.0.0","err":["0x69","0xCA","0xE6"],"p":[[1,0,19.522,66.348,1026.096],[3,13,27.552,78.672]]}[0m
+[0;32mI (412781) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:41","ver":"1.0.0","err":["0x25","0x5F","0x44"],"p":[[1,0,27.258,48.336,1003.049],[3,13,27.407,57.129]]}[0m
+[0;32mI (413081) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:41","ver":"1.0.0","err":["0x64","0x60","0xFA"],"p":[[1,0,22.224,80.485,1029.256],[3,13,22.823,73.978]]}[0m
+[0;32mI (413381) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:41","ver":"1.0.0","err":["0x60","0xC8","0x0A"],"p":[[1,0,29.879,68.143,1011.19],[3,13,22.144,61.404]]}[0m
+[0;32mI (413731) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0xE3","0x8E","0x35"],"p":[[1,0,30.465,49.161,1004.661],[3,13,27.739,55.032]]}[0m
+[0;32mI (414091) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"1970-01-01T00:00:00","ver":"1.0.0","err":["0x05","0xB7","0x9C"],"p":[[1,0,23.323,52.852,1020.291],[3,13,33.752,77.417]]}[0m
+[0;32mI (414391) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:42","ver":"1.0.0","err":["0x62","0xC0","0x34"],"p":[[1,0,28.235,79.534,1021.291],[3,13,21.571,45.689]]}[0m
+[0;32mI (414691) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:43","ver":"1.0.0","err":["0xF4","0x2A","0x62"],"p":[[1,0,19.627,81.605,993.172],[3,13,25.591,62.66]]}[0m
+[0;32mI (414991) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:43","ver":"1.0.0","err":["0xC9","0xF0","0x27"],"p":[[1,0,19.182,41.221,1001.293],[3,13,27.719,64.568]]}[0m
+[0;32mI (415291) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:43","ver":"1.0.0","err":["0x8E","0x37","0x50"],"p":[[1,0,19.049,77.634,1005.102],[3,13,30.357,62.912]]}[0m
+[0;32mI (415591) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:44","ver":"1.0.0","err":["0xE5","0xD7","0x67"],"p":[[1,0,31.486,55.842,1013.39],[3,13,21.623,71.769]]}[0m
+[0;32mI (415891) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:44","ver":"1.0.0","err":["0xF7","0xB6","0xCF"],"p":[[1,0,24.963,46.026,997.601],[3,13,25.325,58.348]]}[0m
+[0;32mI (416191) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:44","ver":"1.0.0","err":["0x66","0x3A","0x0B"],"p":[[1,0,21.432,74.324,1008.774],[3,13,32.657,44.172]]}[0m
+[0;32mI (416501) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:45","ver":"1.0.0","err":["0x77","0xA1","0x5C"],"p":[[1,0,18.959,71.424,1012.214],[3,13,23.08,60.284]]}[0m
+[0;32mI (416801) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:45","ver":"1.0.0","err":["0x59","0xBB","0xC3"],"p":[[1,0,19.257,55.887,990.668],[3,13,26.786,43.47]]}[0m
+[0;32mI (417101) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:45","ver":"1.0.0","err":["0xA4","0xE6","0xE1"],"p":[[1,0,26.979,55.207,1011.23],[3,13,25.769,61.805]]}[0m
+[0;32mI (417401) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:45","ver":"1.0.0","err":["0xE5","0xCB","0xD8"],"p":[[1,0,26.516,49.436,994.476],[3,13,29.595,59.424]]}[0m
+[0;32mI (417701) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:46","ver":"1.0.0","err":["0xD8","0x25","0x35"],"p":[[1,0,21.096,52.807,1022.259],[3,13,20.739,46.616]]}[0m
+[0;32mI (418001) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:46","ver":"1.0.0","err":["0x08","0xE0","0x45"],"p":[[1,0,28.337,79.739,992.372],[3,13,28.458,74.266]]}[0m
+[0;32mI (418311) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:46","ver":"1.0.0","err":["0x88","0x91","0xAA"],"p":[[1,0,31.062,63.403,1005.774],[3,13,33.754,72.241]]}[0m
+[0;32mI (418611) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:47","ver":"1.0.0","err":["0xC6","0xFA","0x9E"],"p":[[1,0,23.592,63.298,1026.452],[3,13,33.936,61.976]]}[0m
+[0;32mI (418911) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:47","ver":"1.0.0","err":["0xC6","0x58","0xE5"],"p":[[1,0,23.319,75.109,1004.974],[3,13,25.22,80.054]]}[0m
+[0;32mI (419211) uart_to_node: RX line: {"v":1,"packetloss":0.00,"n":2,"i":"192.168.5.2","t":"2165-25-45T38:79:47","ver":"1.0.0","err":["0xC1","0xFE","0x55"],"p":[[1,0,21.915,56.302,1004.521],[3,13,24.672,42.174]]}[0m

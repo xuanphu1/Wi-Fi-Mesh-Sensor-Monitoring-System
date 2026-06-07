@@ -1,0 +1,125 @@
+[1/11] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/spiffsgen.py 0x20000 "D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi" "D:/Engineering Project/MeshGateWay/build/spiffs.bin" --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[2/11] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\bootloader\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 "D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin""
+Bootloader binary size 0x68b0 bytes. 0x750 bytes (7%) free.
+[3/11] No install step for 'bootloader'
+[4/11] Completed 'bootloader'
+[5/11] Building C object esp-idf/WebSocKetHandle/CMakeFiles/__idf_WebSocKetHandle.dir/WSHandle.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:5:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[6/11] Linking C static library esp-idf\WebSocKetHandle\libWebSocKetHandle.a
+[7/11] Generating ld/sections.ld
+[8/11] Linking CXX executable MeshGateWay.elf
+[9/11] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin
+[10/11] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 partition --type app "D:/Engineering Project/MeshGateWay/build/partition_table/partition-table.bin" "D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin""
+MeshGateWay.bin binary size 0x193fb0 bytes. Smallest app partition is 0x1c0000 bytes. 0x2c050 bytes (10%) free.
+[10/11] C:\Windows\system32\cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.2.5\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.2.5 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D "WORKING_DIRECTORY=D:/Engineering Project/MeshGateWay/build" -P C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 MeshGateWay.bin 0x8000 partition_table/partition-table.bin 0xe000 ota_data_initial.bin 0x390000 spiffs.bin
+esptool.py v4.8.1
+Serial port COM4
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 78:1c:3c:f4:d0:d8
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x001a3fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00390000 to 0x003affff...
+SHA digest in image updated
+Compressed 26800 bytes to 16420...
+Writing at 0x00001000... (50 %)
+Writing at 0x00007894... (100 %)
+Wrote 26800 bytes (16420 compressed) at 0x00001000 in 0.8 seconds (effective 269.0 kbit/s)...
+Hash of data verified.
+Compressed 1654704 bytes to 860448...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001dae9... (3 %)
+Writing at 0x0002b5b0... (5 %)
+Writing at 0x00069006... (7 %)
+Writing at 0x00075730... (9 %)
+Writing at 0x00080bee... (11 %)
+Writing at 0x00088a31... (13 %)
+Writing at 0x00092471... (15 %)
+Writing at 0x0009a4ac... (16 %)
+Writing at 0x0009fdfd... (18 %)
+Writing at 0x000a57d1... (20 %)
+Writing at 0x000ab385... (22 %)
+Writing at 0x000b13f4... (24 %)
+Writing at 0x000b773e... (26 %)
+Writing at 0x000bd753... (28 %)
+Writing at 0x000c3227... (30 %)
+Writing at 0x000c9005... (32 %)
+Writing at 0x000ceea8... (33 %)
+Writing at 0x000d5081... (35 %)
+Writing at 0x000dac8a... (37 %)
+Writing at 0x000e0c51... (39 %)
+Writing at 0x000e685b... (41 %)
+Writing at 0x000ed06a... (43 %)
+Writing at 0x000f3766... (45 %)
+Writing at 0x000f942c... (47 %)
+Writing at 0x000fee6d... (49 %)
+Writing at 0x00104e80... (50 %)
+Writing at 0x0010ac65... (52 %)
+Writing at 0x00110acb... (54 %)
+Writing at 0x0011740c... (56 %)
+Writing at 0x0011d18f... (58 %)
+Writing at 0x00122c9b... (60 %)
+Writing at 0x00129530... (62 %)
+Writing at 0x0012f148... (64 %)
+Writing at 0x00134dfb... (66 %)
+Writing at 0x0013a160... (67 %)
+Writing at 0x0013f562... (69 %)
+Writing at 0x00144a34... (71 %)
+Writing at 0x00149d9f... (73 %)
+Writing at 0x0014f469... (75 %)
+Writing at 0x00154c49... (77 %)
+Writing at 0x0015a87e... (79 %)
+Writing at 0x0015ff41... (81 %)
+Writing at 0x00165c54... (83 %)
+Writing at 0x0016b766... (84 %)
+Writing at 0x00171047... (86 %)
+Writing at 0x001769d9... (88 %)
+Writing at 0x001808d9... (90 %)
+Writing at 0x00189463... (92 %)
+Writing at 0x0018f577... (94 %)
+Writing at 0x00195633... (96 %)
+Writing at 0x0019bcae... (98 %)
+Writing at 0x001a107a... (100 %)
+Wrote 1654704 bytes (860448 compressed) at 0x00010000 in 23.0 seconds (effective 576.2 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 128...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (128 compressed) at 0x00008000 in 0.1 seconds (effective 469.5 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000e000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000e000 in 0.1 seconds (effective 1070.5 kbit/s)...
+Hash of data verified.
+Compressed 131072 bytes to 4846...
+Writing at 0x00390000... (100 %)
+Wrote 131072 bytes (4846 compressed) at 0x00390000 in 0.8 seconds (effective 1328.9 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

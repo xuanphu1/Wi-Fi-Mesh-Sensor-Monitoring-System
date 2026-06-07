@@ -1,0 +1,669 @@
+[0;32mI (13) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (13) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (14) boot: Multicore bootloader[0m
+[0;32mI (17) boot: chip revision: v3.1[0m
+[0;32mI (21) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (26) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (30) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (35) boot: Enabling RNG early entropy source...[0m
+[0;32mI (40) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (51) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (58) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (66) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (73) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (81) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (88) boot: End of partition table[0m
+[0;32mI (93) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81bb4h (531380) map[0m
+[0;32mI (283) esp_image: segment 1: paddr=00091bdc vaddr=3ffb0000 size=044d0h ( 17616) load[0m
+[0;32mI (290) esp_image: segment 2: paddr=000960b4 vaddr=40080000 size=09f64h ( 40804) load[0m
+[0;32mI (306) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f2b58h (994136) map[0m
+[0;32mI (647) esp_image: segment 4: paddr=00192b80 vaddr=40089f64 size=113c4h ( 70596) load[0m
+[0;32mI (688) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (688) boot: Disabling RNG early entropy source...[0m
+[0;32mI (700) cpu_start: Multicore app[0m
+[0;32mI (709) cpu_start: Pro cpu start user code[0m
+[0;32mI (709) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (710) cpu_start: Application information:[0m
+[0;32mI (712) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (718) cpu_start: App version:      1[0m
+[0;32mI (722) cpu_start: Compile time:     Apr 20 2026 11:23:31[0m
+[0;32mI (728) cpu_start: ELF file SHA256:  a60e79297...[0m
+[0;32mI (734) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (739) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (744) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (749) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (754) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (761) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (767) heap_init: At 3FFCAF98 len 00015068 (84 KiB): DRAM[0m
+[0;32mI (773) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (779) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (786) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (793) spi_flash: detected chip: generic[0m
+[0;32mI (796) spi_flash: flash io: dio[0m
+[0;33mW (801) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (811) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (820) main_task: Started on CPU0[0m
+[0;32mI (830) main_task: Calling app_main()[0m
+[0;32mI (850) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (850) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (850) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (850) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (860) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (870) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (870) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (880) disp_spi: Adding SPI device[0m
+[0;32mI (880) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1090) ILI9341: Initialization.[0m
+[0;32mI (1290) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1290) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1290) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1590) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1600) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1600) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1650) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 05:02:52
+[0;32mI (1700) wifi:wifi driver task: 3ffe2b34, prio:23, stack:6656, core=0[0m
+[0;32mI (1700) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1710) wifi:wifi certification version: v7.0[0m
+[0;32mI (1710) wifi:config NVS flash: enabled[0m
+[0;32mI (1710) wifi:config nano formating: disabled[0m
+[0;32mI (1710) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1720) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1720) wifi:Init management short buffer num: 32[0m
+[0;32mI (1720) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1730) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1730) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1740) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1740) wifi_init: rx ba win: 6[0m
+[0;32mI (1750) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1750) wifi_init: udp mbox: 6[0m
+[0;32mI (1750) wifi_init: tcp mbox: 6[0m
+[0;32mI (1760) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1760) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1760) wifi_init: tcp mss: 1440[0m
+[0;32mI (1770) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1770) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1780) WiFiManager: WiFi disconnected, starting AP mode[0m
+[0;32mI (1780) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (1790) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (1800) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1890) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1890) WiFiManager: Attempting to connect to default WiFi: Unknown[0m
+[0;32mI (1910) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (1910) wifi:enable tsf[0m
+[0;32mI (1920) wifi:Total power save buffer number: 16[0m
+[0;32mI (1920) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1920) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1930) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (1930) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (1930) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (1950) WiFiManager: Web server started on port 80[0m
+[0;32mI (1960) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1970) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11970) WiFiManager: Failed to connect to default SSID:Unknown[0m
+[0;32mI (11970) wifi:flush txq[0m
+[0;32mI (11970) wifi:stop sw txq[0m
+[0;32mI (11970) wifi:lmac stop hw txq[0m
+[0;32mI (12470) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (12470) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (12470) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (12480) wifi:enable tsf[0m
+[0;32mI (12480) wifi:Total power save buffer number: 16[0m
+[0;32mI (12480) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12490) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12490) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (12500) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;33mW (12500) WiFiManager: Web server already running[0m
+[0;32mI (12500) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (12510) uart: queue free spaces: 24[0m
+[0;32mI (12560) uart_to_node: Send: Start Root[0m
+[0;32mI (12580) uart_to_node: RX 12 bytes[0m
+[0;32mI (12580) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (13060) uart_to_node: Send: Start Root[0m
+[0;32mI (13060) wifi:ap channel adjust o:1,1 n:3,1[0m
+[0;32mI (13060) wifi:new:<3,0>, old:<1,1>, ap:<3,1>, sta:<3,0>, prof:1[0m
+[0;32mI (13070) wifi:state: init -> auth (b0)[0m
+[0;32mI (13080) wifi:state: auth -> assoc (0)[0m
+[0;32mI (13080) wifi:state: assoc -> run (10)[0m
+[0;32mI (13080) uart_to_node: RX 12 bytes[0m
+[0;32mI (13090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (13190) wifi:connected with Unknown, aid = 4, channel 3, BW20, bssid = 28:77:77:6c:4b:c6[0m
+[0;32mI (13190) wifi:security: WPA2-PSK, phy: bgn, rssi: -46[0m
+[0;32mI (13190) wifi:pm start, type: 1[0m
+
+[0;32mI (13190) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (13280) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (13570) uart_to_node: Send: Start Root[0m
+[0;32mI (13590) uart_to_node: RX 12 bytes[0m
+[0;32mI (13590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (14070) uart_to_node: Send: Start Root[0m
+[0;32mI (14090) uart_to_node: RX 12 bytes[0m
+[0;32mI (14090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (14570) uart_to_node: Send: Start Root[0m
+[0;32mI (14590) uart_to_node: RX 12 bytes[0m
+[0;32mI (14590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (15070) uart_to_node: Send: Start Root[0m
+[0;32mI (15090) uart_to_node: RX 12 bytes[0m
+[0;32mI (15090) uart_to_node: 53 74 61 72 f4 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (15570) uart_to_node: Send: Start Root[0m
+[0;32mI (15590) uart_to_node: RX 12 bytes[0m
+[0;32mI (15590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (15640) wifi:<ba-add>idx:0 (ifx:0, 28:77:77:6c:4b:c6), tid:0, ssn:0, winSize:64[0m
+[0;32mI (16070) uart_to_node: Send: Start Root[0m
+[0;32mI (16090) uart_to_node: RX 12 bytes[0m
+[0;32mI (16090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (16570) uart_to_node: Send: Start Root[0m
+[0;32mI (16590) uart_to_node: RX 12 bytes[0m
+[0;32mI (16590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (16710) esp_netif_handlers: sta ip: 192.168.1.6, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (16710) WiFiManager: Got IP: 192.168.1.6[0m
+[0;32mI (16950) WiFiManager: WiFi connected while in AP mode, switching to STA mode[0m
+[0;32mI (17050) WiFiManager: Web server stopped[0m
+[0;32mI (17050) WiFiManager: DNS server task stopped[0m
+[0;32mI (17050) wifi:state: run -> init (0)[0m
+[0;32mI (17050) wifi:pm stop, total sleep time: 2507926 us / 3856175 us[0m
+
+[0;32mI (17050) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (17060) wifi:new:<3,0>, old:<3,0>, ap:<3,1>, sta:<3,0>, prof:1[0m
+[0;32mI (17070) uart_to_node: Send: Start Root[0m
+[0;32mI (17070) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (17070) WiFiManager: Connect to the AP failed[0m
+[0;32mI (17090) uart_to_node: RX 12 bytes[0m
+[0;32mI (17090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (17110) wifi:flush txq[0m
+[0;32mI (17110) wifi:stop sw txq[0m
+[0;32mI (17110) wifi:lmac stop hw txq[0m
+[0;32mI (17110) WiFiManager: WiFi already initialized[0m
+[0;32mI (17110) WiFiManager: Attempting to connect to default WiFi: Unknown[0m
+[0;32mI (17120) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (17120) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (17120) wifi:enable tsf[0m
+[0;32mI (17140) wifi:new:<3,0>, old:<1,0>, ap:<255,255>, sta:<3,0>, prof:1[0m
+[0;32mI (17150) wifi:state: init -> auth (b0)[0m
+[0;32mI (17150) wifi:state: auth -> assoc (0)[0m
+[0;32mI (17160) wifi:state: assoc -> run (10)[0m
+[0;32mI (17260) wifi:connected with Unknown, aid = 4, channel 3, BW20, bssid = 28:77:77:6c:4b:c6[0m
+[0;32mI (17260) wifi:security: WPA2-PSK, phy: bgn, rssi: -52[0m
+[0;32mI (17260) wifi:pm start, type: 1[0m
+
+[0;32mI (17270) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (17570) uart_to_node: Send: Start Root[0m
+[0;32mI (17590) uart_to_node: RX 12 bytes[0m
+[0;32mI (17590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (18070) uart_to_node: Send: Start Root[0m
+[0;32mI (18090) uart_to_node: RX 12 bytes[0m
+[0;32mI (18090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (18570) uart_to_node: Send: Start Root[0m
+[0;32mI (18590) uart_to_node: RX 12 bytes[0m
+[0;32mI (18590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (19070) uart_to_node: Send: Start Root[0m
+[0;32mI (19090) uart_to_node: RX 12 bytes[0m
+[0;32mI (19090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (19370) wifi:<ba-add>idx:0 (ifx:0, 28:77:77:6c:4b:c6), tid:0, ssn:1, winSize:64[0m
+[0;32mI (19570) uart_to_node: Send: Start Root[0m
+[0;32mI (19590) uart_to_node: RX 12 bytes[0m
+[0;32mI (19590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (20070) uart_to_node: Send: Start Root[0m
+[0;32mI (20090) uart_to_node: RX 12 bytes[0m
+[0;32mI (20090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (20570) uart_to_node: Send: Start Root[0m
+[0;32mI (20590) uart_to_node: RX 12 bytes[0m
+[0;32mI (20590) uart_to_node: 53 74 69 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (20770) esp_netif_handlers: sta ip: 192.168.1.6, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (20770) WiFiManager: Got IP: 192.168.1.6[0m
+[0;32mI (20770) WiFiManager: Connected to SSID:Unknown[0m
+[0;32mI (21070) uart_to_node: Send: Start Root[0m
+[0;32mI (21090) uart_to_node: RX 12 bytes[0m
+[0;32mI (21090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (21570) uart_to_node: Send: Start Root[0m
+[0;32mI (21590) WebSocket Handler: Starting WebSocket with URL: ws://192.168.1.4:8080/ws[0m
+[0;33mW (21590) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (21600) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (21590) uart_to_node: RX 12 bytes[0m
+[0;32mI (21610) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (21610) websocket_client: Started[0m
+[0;32mI (21630) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (21680) wifi:<ba-add>idx:1 (ifx:0, 28:77:77:6c:4b:c6), tid:6, ssn:3, winSize:64[0m
+[0;32mI (21710) WebSocket Handler: Connected to server[0m
+[0;32mI (21720) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (22070) uart_to_node: Send: Start Root[0m
+[0;32mI (22090) uart_to_node: RX 12 bytes[0m
+[0;32mI (22090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (22100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (22570) uart_to_node: Send: Start Root[0m
+[0;32mI (22590) uart_to_node: RX 12 bytes[0m
+[0;32mI (22590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (22600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (23070) uart_to_node: Send: Start Root[0m
+[0;32mI (23090) uart_to_node: RX 12 bytes[0m
+[0;32mI (23090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (23100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (23570) uart_to_node: Send: Start Root[0m
+[0;32mI (23590) uart_to_node: RX 12 bytes[0m
+[0;32mI (23590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (23600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (24070) uart_to_node: Send: Start Root[0m
+[0;32mI (24090) uart_to_node: RX 12 bytes[0m
+[0;32mI (24090) uart_to_node: 53 74 61 72 74 20 52 6f ef 74 0d 0a [0m
+[0;32mI (24100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526fef740d0a"}[0m
+[0;32mI (24570) uart_to_node: Send: Start Root[0m
+[0;32mI (24590) uart_to_node: RX 12 bytes[0m
+[0;32mI (24590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (24600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (25070) uart_to_node: Send: Start Root[0m
+[0;32mI (25090) uart_to_node: RX 12 bytes[0m
+[0;32mI (25090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (25100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (25570) uart_to_node: Send: Start Root[0m
+[0;32mI (25590) uart_to_node: RX 12 bytes[0m
+[0;32mI (25590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (25600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (26070) uart_to_node: Send: Start Root[0m
+[0;32mI (26090) uart_to_node: RX 12 bytes[0m
+[0;32mI (26090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (26100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (26570) uart_to_node: Send: Start Root[0m
+[0;32mI (26590) uart_to_node: RX 12 bytes[0m
+[0;32mI (26590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (26600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (27070) uart_to_node: Send: Start Root[0m
+[0;32mI (27090) uart_to_node: RX 12 bytes[0m
+[0;32mI (27090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (27100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (27570) uart_to_node: Send: Start Root[0m
+[0;32mI (27590) uart_to_node: RX 12 bytes[0m
+[0;32mI (27590) uart_to_node: 53 74 69 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (27600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537469727420526f6f740d0a"}[0m
+[0;32mI (28070) uart_to_node: Send: Start Root[0m
+[0;32mI (28090) uart_to_node: RX 12 bytes[0m
+[0;32mI (28090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (28100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (28570) uart_to_node: Send: Start Root[0m
+[0;32mI (28590) uart_to_node: RX 12 bytes[0m
+[0;32mI (28590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (28600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (29070) uart_to_node: Send: Start Root[0m
+[0;32mI (29090) uart_to_node: RX 12 bytes[0m
+[0;32mI (29090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (29100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (29570) uart_to_node: Send: Start Root[0m
+[0;32mI (29590) uart_to_node: RX 12 bytes[0m
+[0;32mI (29590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (29600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (30070) uart_to_node: Send: Start Root[0m
+[0;32mI (30090) uart_to_node: RX 12 bytes[0m
+[0;32mI (30090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (30100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (30570) uart_to_node: Send: Start Root[0m
+[0;32mI (30590) uart_to_node: RX 12 bytes[0m
+[0;32mI (30590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (30600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (31070) uart_to_node: Send: Start Root[0m
+[0;32mI (31090) uart_to_node: RX 12 bytes[0m
+[0;32mI (31090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (31110) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (31570) uart_to_node: Send: Start Root[0m
+[0;32mI (31590) uart_to_node: RX 12 bytes[0m
+[0;32mI (31590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (31600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (31850) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (32070) uart_to_node: Send: Start Root[0m
+[0;32mI (32090) uart_to_node: RX 12 bytes[0m
+[0;32mI (32090) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (32100) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (32570) uart_to_node: Send: Start Root[0m
+[0;32mI (32590) uart_to_node: RX 12 bytes[0m
+[0;32mI (32590) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (32600) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (33070) uart_to_node: Send: Start Root[0m
+[0;32mI (33590) uart_to_node: Send: Start Root[0m
+[0;32mI (34110) uart_to_node: Send: Start Root[0m
+[0;32mI (34630) uart_to_node: Send: Start Root[0m
+[0;32mI (35150) uart_to_node: Send: Start Root[0m
+[0;32mI (35670) uart_to_node: Send: Start Root[0m
+[0;32mI (36190) uart_to_node: Send: Start Root[0m
+[0;32mI (36710) uart_to_node: Send: Start Root[0m
+[0;32mI (37230) uart_to_node: Send: Start Root[0m
+[0;32mI (37750) uart_to_node: Send: Start Root[0m
+[0;32mI (38270) uart_to_node: Send: Start Root[0m
+[0;32mI (38790) uart_to_node: Send: Start Root[0m
+[0;32mI (39310) uart_to_node: Send: Start Root[0m
+[0;32mI (39830) uart_to_node: Send: Start Root[0m
+[0;32mI (40350) uart_to_node: Send: Start Root[0m
+[0;32mI (40870) uart_to_node: Send: Start Root[0m
+[0;32mI (41390) uart_to_node: Send: Start Root[0m
+[0;32mI (41910) uart_to_node: Send: Start Root[0m
+[0;32mI (42060) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (42430) uart_to_node: Send: Start Root[0m
+[0;32mI (42950) uart_to_node: Send: Start Root[0m
+[0;32mI (43470) uart_to_node: Send: Start Root[0m
+[0;32mI (43990) uart_to_node: Send: Start Root[0m
+[0;32mI (44510) uart_to_node: Send: Start Root[0m
+[0;32mI (45030) uart_to_node: Send: Start Root[0m
+[0;32mI (45550) uart_to_node: Send: Start Root[0m
+[0;32mI (46070) uart_to_node: Send: Start Root[0m
+[0;32mI (46590) uart_to_node: Send: Start Root[0m
+[0;32mI (47110) uart_to_node: Send: Start Root[0m
+[0;32mI (47630) uart_to_node: Send: Start Root[0m
+[0;32mI (48150) uart_to_node: Send: Start Root[0m
+[0;32mI (48670) uart_to_node: Send: Start Root[0m
+[0;32mI (49190) uart_to_node: Send: Start Root[0m
+[0;32mI (49710) uart_to_node: Send: Start Root[0m
+[0;32mI (50230) uart_to_node: Send: Start Root[0m
+[0;32mI (50750) uart_to_node: Send: Start Root[0m
+[0;32mI (51270) uart_to_node: Send: Start Root[0m
+[0;32mI (51790) uart_to_node: Send: Start Root[0m
+[0;32mI (52310) uart_to_node: Send: Start Root[0m
+[0;32mI (52310) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (52830) uart_to_node: Send: Start Root[0m
+[0;32mI (53350) uart_to_node: Send: Start Root[0m
+[0;32mI (53870) uart_to_node: Send: Start Root[0m
+[0;32mI (54390) uart_to_node: Send: Start Root[0m
+[0;32mI (54910) uart_to_node: Send: Start Root[0m
+[0;32mI (55430) uart_to_node: Send: Start Root[0m
+[0;32mI (55950) uart_to_node: Send: Start Root[0m
+[0;32mI (56470) uart_to_node: Send: Start Root[0m
+[0;32mI (56990) uart_to_node: Send: Start Root[0m
+[0;32mI (57510) uart_to_node: Send: Start Root[0m
+[0;32mI (58030) uart_to_node: Send: Start Root[0m
+[0;32mI (58550) uart_to_node: Send: Start Root[0m
+[0;32mI (59070) uart_to_node: Send: Start Root[0m
+[0;32mI (59590) uart_to_node: Send: Start Root[0m
+[0;32mI (60110) uart_to_node: Send: Start Root[0m
+[0;32mI (60630) uart_to_node: Send: Start Root[0m
+[0;32mI (61150) uart_to_node: Send: Start Root[0m
+[0;32mI (61670) uart_to_node: Send: Start Root[0m
+[0;32mI (62190) uart_to_node: Send: Start Root[0m
+[0;32mI (62460) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (62710) uart_to_node: Send: Start Root[0m
+[0;32mI (63230) uart_to_node: Send: Start Root[0m
+[0;32mI (63750) uart_to_node: Send: Start Root[0m
+[0;32mI (64270) uart_to_node: Send: Start Root[0m
+[0;32mI (64790) uart_to_node: Send: Start Root[0m
+[0;32mI (65310) uart_to_node: Send: Start Root[0m
+[0;32mI (65830) uart_to_node: Send: Start Root[0m
+[0;32mI (66350) uart_to_node: Send: Start Root[0m
+[0;32mI (66870) uart_to_node: Send: Start Root[0m
+[0;32mI (67390) uart_to_node: Send: Start Root[0m
+[0;32mI (67910) uart_to_node: Send: Start Root[0m
+[0;32mI (68430) uart_to_node: Send: Start Root[0m
+[0;32mI (68950) uart_to_node: Send: Start Root[0m
+[0;32mI (69470) uart_to_node: Send: Start Root[0m
+[0;32mI (69990) uart_to_node: Send: Start Root[0m
+[0;32mI (70510) uart_to_node: Send: Start Root[0m
+[0;32mI (71030) uart_to_node: Send: Start Root[0m
+[0;32mI (71550) uart_to_node: Send: Start Root[0m
+[0;32mI (72070) uart_to_node: Send: Start Root[0m
+[0;32mI (72580) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (72590) uart_to_node: Send: Start Root[0m
+[0;32mI (73110) uart_to_node: Send: Start Root[0m
+[0;32mI (73630) uart_to_node: Send: Start Root[0m
+[0;32mI (74150) uart_to_node: Send: Start Root[0m
+[0;32mI (74670) uart_to_node: Send: Start Root[0m
+[0;32mI (75190) uart_to_node: Send: Start Root[0m
+[0;32mI (75710) uart_to_node: Send: Start Root[0m
+[0;32mI (76230) uart_to_node: Send: Start Root[0m
+[0;32mI (76750) uart_to_node: Send: Start Root[0m
+[0;32mI (77270) uart_to_node: Send: Start Root[0m
+[0;32mI (77790) uart_to_node: Send: Start Root[0m
+[0;32mI (78310) uart_to_node: Send: Start Root[0m
+[0;32mI (78830) uart_to_node: Send: Start Root[0m
+[0;32mI (79350) uart_to_node: Send: Start Root[0m
+[0;32mI (79870) uart_to_node: Send: Start Root[0m
+[0;32mI (80390) uart_to_node: Send: Start Root[0m
+[0;32mI (80910) uart_to_node: Send: Start Root[0m
+[0;32mI (81430) uart_to_node: Send: Start Root[0m
+[0;32mI (81950) uart_to_node: Send: Start Root[0m
+[0;32mI (82470) uart_to_node: Send: Start Root[0m
+[0;32mI (82700) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (82990) uart_to_node: Send: Start Root[0m
+[0;32mI (83510) uart_to_node: Send: Start Root[0m
+[0;32mI (84030) uart_to_node: Send: Start Root[0m
+[0;32mI (84550) uart_to_node: Send: Start Root[0m
+[0;32mI (85070) uart_to_node: Send: Start Root[0m
+[0;32mI (85590) uart_to_node: Send: Start Root[0m
+[0;32mI (86110) uart_to_node: Send: Start Root[0m
+[0;32mI (86630) uart_to_node: Send: Start Root[0m
+[0;32mI (87150) uart_to_node: Send: Start Root[0m
+[0;32mI (87670) uart_to_node: Send: Start Root[0m
+[0;32mI (87690) uart_to_node: RX 12 bytes[0m
+[0;32mI (87690) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (87700) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (87830) uart_to_node: RX 5 bytes[0m
+[0;32mI (87830) uart_to_node: 1e cd 2f f1 9f [0m
+[0;32mI (87840) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":5,"hex":"1ecd2ff19f"}[0m
+[0;32mI (88190) uart_to_node: Send: Start Root[0m
+[0;32mI (88210) uart_to_node: RX 12 bytes[0m
+[0;32mI (88210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (88220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (88690) uart_to_node: Send: Start Root[0m
+[0;32mI (88710) uart_to_node: RX 12 bytes[0m
+[0;32mI (88710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (88720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (89190) uart_to_node: Send: Start Root[0m
+[0;32mI (89210) uart_to_node: RX 12 bytes[0m
+[0;32mI (89210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (89220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (89690) uart_to_node: Send: Start Root[0m
+[0;32mI (89710) uart_to_node: RX 12 bytes[0m
+[0;32mI (89710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (89720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (90190) uart_to_node: Send: Start Root[0m
+[0;32mI (90210) uart_to_node: RX 12 bytes[0m
+[0;32mI (90210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (90220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (90690) uart_to_node: Send: Start Root[0m
+[0;32mI (90710) uart_to_node: RX 12 bytes[0m
+[0;32mI (90710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (90720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (91190) uart_to_node: Send: Start Root[0m
+[0;32mI (91210) uart_to_node: RX 12 bytes[0m
+[0;32mI (91210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (91220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (91690) uart_to_node: Send: Start Root[0m
+[0;32mI (91710) uart_to_node: RX 12 bytes[0m
+[0;32mI (91710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (91720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (92190) uart_to_node: Send: Start Root[0m
+[0;32mI (92210) uart_to_node: RX 12 bytes[0m
+[0;32mI (92210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (92220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (92690) uart_to_node: Send: Start Root[0m
+[0;32mI (92710) uart_to_node: RX 12 bytes[0m
+[0;32mI (92710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (92720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (92820) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (93190) uart_to_node: Send: Start Root[0m
+[0;32mI (93210) uart_to_node: RX 12 bytes[0m
+[0;32mI (93210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (93220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (93690) uart_to_node: Send: Start Root[0m
+[0;32mI (93710) uart_to_node: RX 12 bytes[0m
+[0;32mI (93710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (93720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (94190) uart_to_node: Send: Start Root[0m
+[0;32mI (94210) uart_to_node: RX 12 bytes[0m
+[0;32mI (94210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (94220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (94690) uart_to_node: Send: Start Root[0m
+[0;32mI (94710) uart_to_node: RX 12 bytes[0m
+[0;32mI (94710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (94720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (95190) uart_to_node: Send: Start Root[0m
+[0;32mI (95210) uart_to_node: RX 12 bytes[0m
+[0;32mI (95210) uart_to_node: d3 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (95220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"d37461727420526f6f740d0a"}[0m
+[0;32mI (95690) uart_to_node: Send: Start Root[0m
+[0;32mI (95710) uart_to_node: RX 12 bytes[0m
+[0;32mI (95710) uart_to_node: 5b 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (95720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"5b7461727420526f6f740d0a"}[0m
+[0;32mI (96190) uart_to_node: Send: Start Root[0m
+[0;32mI (96210) uart_to_node: RX 12 bytes[0m
+[0;32mI (96210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (96220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (96690) uart_to_node: Send: Start Root[0m
+[0;32mI (96710) uart_to_node: RX 12 bytes[0m
+[0;32mI (96710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (96720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (97190) uart_to_node: Send: Start Root[0m
+[0;32mI (97210) uart_to_node: RX 12 bytes[0m
+[0;32mI (97210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (97220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (97690) uart_to_node: Send: Start Root[0m
+[0;32mI (97710) uart_to_node: RX 12 bytes[0m
+[0;32mI (97710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (97720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (98190) uart_to_node: Send: Start Root[0m
+[0;32mI (98210) uart_to_node: RX 12 bytes[0m
+[0;32mI (98210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (98220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (98690) uart_to_node: Send: Start Root[0m
+[0;32mI (98710) uart_to_node: RX 12 bytes[0m
+[0;32mI (98710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (98720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (99190) uart_to_node: Send: Start Root[0m
+[0;32mI (99210) uart_to_node: RX 12 bytes[0m
+[0;32mI (99210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (99220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (99690) uart_to_node: Send: Start Root[0m
+[0;32mI (99710) uart_to_node: RX 12 bytes[0m
+[0;32mI (99710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (99720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (100190) uart_to_node: Send: Start Root[0m
+[0;32mI (100210) uart_to_node: RX 12 bytes[0m
+[0;32mI (100210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (100220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (100690) uart_to_node: Send: Start Root[0m
+[0;32mI (100710) uart_to_node: RX 12 bytes[0m
+[0;32mI (100710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (100720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (101190) uart_to_node: Send: Start Root[0m
+[0;32mI (101210) uart_to_node: RX 12 bytes[0m
+[0;32mI (101210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (101220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (101690) uart_to_node: Send: Start Root[0m
+[0;32mI (101710) uart_to_node: RX 12 bytes[0m
+[0;32mI (101710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (101720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (102190) uart_to_node: Send: Start Root[0m
+[0;32mI (102210) uart_to_node: RX 12 bytes[0m
+[0;32mI (102210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (102220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (102690) uart_to_node: Send: Start Root[0m
+[0;32mI (102710) uart_to_node: RX 12 bytes[0m
+[0;32mI (102710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (102720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (102940) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (103190) uart_to_node: Send: Start Root[0m
+[0;32mI (103210) uart_to_node: RX 12 bytes[0m
+[0;32mI (103210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (103220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (103690) uart_to_node: Send: Start Root[0m
+[0;32mI (103710) uart_to_node: RX 12 bytes[0m
+[0;32mI (103710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (103720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (104190) uart_to_node: Send: Start Root[0m
+[0;32mI (104210) uart_to_node: RX 12 bytes[0m
+[0;32mI (104210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (104220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (104690) uart_to_node: Send: Start Root[0m
+[0;32mI (104710) uart_to_node: RX 12 bytes[0m
+[0;32mI (104710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (104720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (105190) uart_to_node: Send: Start Root[0m
+[0;32mI (105210) uart_to_node: RX 12 bytes[0m
+[0;32mI (105210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (105220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (105690) uart_to_node: Send: Start Root[0m
+[0;32mI (105710) uart_to_node: RX 12 bytes[0m
+[0;32mI (105710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (105720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (106190) uart_to_node: Send: Start Root[0m
+[0;32mI (106210) uart_to_node: RX 12 bytes[0m
+[0;32mI (106210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (106220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (106690) uart_to_node: Send: Start Root[0m
+[0;32mI (106710) uart_to_node: RX 12 bytes[0m
+[0;32mI (106710) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (106720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (107190) uart_to_node: Send: Start Root[0m
+[0;32mI (107210) uart_to_node: RX 12 bytes[0m
+[0;32mI (107210) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (107220) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (107690) uart_to_node: Send: Start Root[0m
+[0;32mI (107710) uart_to_node: RX 12 bytes[0m
+[0;32mI (107710) uart_to_node: 53 74 61 72 74 20 52 ff df 7d 3b fe [0m
+[0;32mI (107720) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"53746172742052ffdf7d3bfe"}[0m
+[0;32mI (108190) uart_to_node: Send: Start Root[0m
+[0;32mI (108220) uart_to_node: RX 91 bytes[0m
+[0;32mI (108220) uart_to_node: ff ff ff ff f7 f7 ff ff ef ff ff ff ff ff ff ff [0m
+[0;32mI (108220) uart_to_node: fe df ff 7f ff ff ae ff ff fe 7f 7f fe fe ff ff [0m
+[0;32mI (108230) uart_to_node: ff ff f7 ff ff ff fe fc f8 f7 ff ff ff ff ff f7 [0m
+[0;32mI (108240) uart_to_node: 7f ff ff fb fd ff be fe ff ff ff ff ff 7f fe fe [0m
+[0;32mI (108240) uart_to_node: ff ff ff ff 6a 7b fe 8e ff ff fb ff ff ff 7f ff [0m
+[0;32mI (108250) uart_to_node: ff 73 36 75 b4 76 20 52 fe 56 fd [0m
+[0;32mI (108270) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":91,"hex":"fffffffff7f7ffffeffffffffffffffffedfff7fffffaefffffe7f7ffefefffffffff7fffffffefcf8f7fffffffffff77ffffffbfdffbefeffffffffff7ffefeffffffff6a7bfe8efffffbffffff7fffff733675b4762052fe56fd"}[0m
+[0;32mI (108700) uart_to_node: Send: Start Root[0m
+[0;32mI (108720) uart_to_node: RX 12 bytes[0m
+[0;32mI (108720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (108730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (109200) uart_to_node: Send: Start Root[0m
+[0;32mI (109220) uart_to_node: RX 12 bytes[0m
+[0;32mI (109220) uart_to_node: 53 77 6b 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (109240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"53776b727420526f6f740d0a"}[0m
+[0;32mI (109700) uart_to_node: Send: Start Root[0m
+[0;32mI (109720) uart_to_node: RX 12 bytes[0m
+[0;32mI (109720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (109730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (110200) uart_to_node: Send: Start Root[0m
+[0;32mI (110220) uart_to_node: RX 12 bytes[0m
+[0;32mI (110220) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (110230) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (110700) uart_to_node: Send: Start Root[0m
+[0;32mI (110720) uart_to_node: RX 12 bytes[0m
+[0;32mI (110720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (110730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (111200) uart_to_node: Send: Start Root[0m
+[0;32mI (111220) uart_to_node: RX 12 bytes[0m
+[0;32mI (111220) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (111230) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (111700) uart_to_node: Send: Start Root[0m
+[0;32mI (111720) uart_to_node: RX 12 bytes[0m
+[0;32mI (111720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (111730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (112200) uart_to_node: Send: Start Root[0m
+[0;32mI (112220) uart_to_node: RX 12 bytes[0m
+[0;32mI (112220) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (112230) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (112700) uart_to_node: Send: Start Root[0m
+[0;32mI (112720) uart_to_node: RX 12 bytes[0m
+[0;32mI (112720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (112730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (113070) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (113200) uart_to_node: Send: Start Root[0m
+[0;32mI (113220) uart_to_node: RX 12 bytes[0m
+[0;32mI (113220) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 43 e1 [0m
+[0;32mI (113240) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f7443e1"}[0m
+[0;32mI (113700) uart_to_node: Send: Start Root[0m
+[0;32mI (113720) uart_to_node: RX 12 bytes[0m
+[0;32mI (113720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (113730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (114200) uart_to_node: Send: Start Root[0m
+[0;32mI (114220) uart_to_node: RX 12 bytes[0m
+[0;32mI (114220) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (114230) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m
+[0;32mI (114700) uart_to_node: Send: Start Root[0m
+[0;32mI (114720) uart_to_node: RX 12 bytes[0m
+[0;32mI (114720) uart_to_node: 53 74 61 72 74 20 52 6f 6f 74 0d 0a [0m
+[0;32mI (114730) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":12,"hex":"537461727420526f6f740d0a"}[0m

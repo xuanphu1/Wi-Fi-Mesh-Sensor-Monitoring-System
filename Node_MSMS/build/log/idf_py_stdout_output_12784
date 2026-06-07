@@ -1,0 +1,923 @@
+�ESP-ROM:esp32c6-20220919
+Build:Sep 19 2022
+rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:2
+load:0x40875720,len:0x18ec
+load:0x4086c410,len:0xe60
+load:0x4086e610,len:0x2f2c
+entry 0x4086c41a
+[0;32mI (23) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Apr 18 2026 08:30:16[0m
+[0;32mI (24) boot: chip revision: v0.1[0m
+[0;32mI (27) boot: efuse block revision: v0.2[0m
+[0;32mI (31) boot.esp32c6: SPI Speed      : 80MHz[0m
+[0;32mI (36) boot.esp32c6: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32c6: SPI Flash Size : 2MB[0m
+[0;32mI (46) boot: Enabling RNG early entropy source...[0m
+[0;32mI (51) boot: Partition Table:[0m
+[0;32mI (55) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (62) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (69) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (77) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (84) boot: End of partition table[0m
+[0;32mI (89) esp_image: segment 0: paddr=00010020 vaddr=420b8020 size=2406ch (147564) map[0m
+[0;32mI (125) esp_image: segment 1: paddr=00034094 vaddr=40800000 size=03f84h ( 16260) load[0m
+[0;32mI (130) esp_image: segment 2: paddr=00038020 vaddr=42000020 size=b1a24h (727588) map[0m
+[0;32mI (270) esp_image: segment 3: paddr=000e9a4c vaddr=40803f84 size=15888h ( 88200) load[0m
+[0;32mI (289) esp_image: segment 4: paddr=000ff2dc vaddr=40819810 size=03ac8h ( 15048) load[0m
+[0;32mI (299) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (299) boot: Disabling RNG early entropy source...[0m
+[0;32mI (310) cpu_start: Unicore app[0m
+[0;33mW (319) clk: esp_perip_clk_init() has not been implemented yet[0m
+[0;32mI (326) cpu_start: Pro cpu start user code[0m
+[0;32mI (326) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (326) cpu_start: Application information:[0m
+[0;32mI (329) cpu_start: Project name:     no_router[0m
+[0;32mI (334) cpu_start: App version:      1[0m
+[0;32mI (339) cpu_start: Compile time:     Apr 18 2026 08:30:37[0m
+[0;32mI (345) cpu_start: ELF file SHA256:  91c822f70...[0m
+[0;32mI (350) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (355) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (360) cpu_start: Max chip rev:     v0.99 [0m
+[0;32mI (365) cpu_start: Chip rev:         v0.1[0m
+[0;32mI (370) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (377) heap_init: At 40822B20 len 00059AF0 (358 KiB): RAM[0m
+[0;32mI (383) heap_init: At 4087C610 len 00002F54 (11 KiB): RAM[0m
+[0;32mI (389) heap_init: At 5000006C len 00003F7C (15 KiB): RTCRAM[0m
+[0;32mI (396) spi_flash: detected chip: generic[0m
+[0;32mI (400) spi_flash: flash io: dio[0m
+[0;33mW (404) spi_flash: Detected size(16384k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (417) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (428) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (435) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (442) coexist: coex firmware version: 994b23e[0m
+[0;32mI (447) coexist: coexist rom version 5b8dcfa[0m
+[0;32mI (452) main_task: Started on CPU0[0m
+[0;32mI (455) main_task: Calling app_main()[0m
+[0;32mI (466) bridge_common: esp-iot-bridge version: 1.0.1[0m
+[0;32mI (466) pp: pp rom version: 5b8dcfa[0m
+[0;32mI (470) net80211: net80211 rom version: 5b8dcfa[0m
+[0;32mI (476) wifi:wifi driver task: 4082cbec, prio:23, stack:6656, core=0[0m
+[0;32mI (484) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (485) wifi:wifi certification version: v7.0[0m
+[0;32mI (489) wifi:config NVS flash: enabled[0m
+[0;32mI (492) wifi:config nano formating: disabled[0m
+[0;32mI (496) wifi:mac_version:HAL_MAC_ESP32AX_761,ut_version:N[0m
+[0;32mI (502) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (506) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (510) wifi:Init management short buffer num: 32[0m
+[0;32mI (515) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (519) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (523) wifi:Init static rx buffer size: 1700[0m
+[0;32mI (527) wifi:Init static rx buffer num: 10[0m
+[0;32mI (530) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (535) wifi_init: rx ba win: 6[0m
+[0;32mI (538) wifi_init: tcpip mbox: 32[0m
+[0;32mI (542) wifi_init: udp mbox: 6[0m
+[0;32mI (546) wifi_init: tcp mbox: 6[0m
+[0;32mI (550) wifi_init: tcp tx win: 5760[0m
+[0;32mI (554) wifi_init: tcp rx win: 5760[0m
+[0;32mI (558) wifi_init: tcp mss: 1440[0m
+[0;32mI (562) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (566) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (571) phy_init: phy_version 320,348a293,Sep  3 2024,16:33:12[0m
+[0;33mW (665) wifi:ACK_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (666) wifi:CTS_TAB0   :0x   90a0b, QAM16:0x9 (24Mbps), QPSK:0xa (12Mbps), BPSK:0xb (6Mbps)[0m
+[0;33mW (671) wifi:(agc)0x600a7128:0xd202b9fc, min.avgNF:0xce->0xd2(dB), RCalCount:0x2b, min.RRssi:0x9fc(-96.25)[0m
+[0;33mW (680) wifi:(TB)WDEV_PWR_TB_MCS0:19[0m
+[0;33mW (683) wifi:(TB)WDEV_PWR_TB_MCS1:19[0m
+[0;33mW (687) wifi:(TB)WDEV_PWR_TB_MCS2:19[0m
+[0;33mW (690) wifi:(TB)WDEV_PWR_TB_MCS3:19[0m
+[0;33mW (693) wifi:(TB)WDEV_PWR_TB_MCS4:19[0m
+[0;33mW (697) wifi:(TB)WDEV_PWR_TB_MCS5:19[0m
+[0;33mW (700) wifi:(TB)WDEV_PWR_TB_MCS6:18[0m
+[0;33mW (703) wifi:(TB)WDEV_PWR_TB_MCS7:18[0m
+[0;33mW (706) wifi:(TB)WDEV_PWR_TB_MCS8:17[0m
+[0;33mW (710) wifi:(TB)WDEV_PWR_TB_MCS9:15[0m
+[0;33mW (713) wifi:(TB)WDEV_PWR_TB_MCS10:15[0m
+[0;33mW (716) wifi:(TB)WDEV_PWR_TB_MCS11:15[0m
+[0;32mI (720) wifi:11ax coex: WDEVAX_PTI0(0x55777555), WDEVAX_PTI1(0x00003377).[0m
+
+[0;32mI (727) wifi:mode : null[0m
+[0;32mI (730) wifi:mode : softAP (40:4c:ca:5e:ad:c5)[0m
+[0;32mI (733) wifi:Total power save buffer number: 16[0m
+[0;32mI (737) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (742) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (747) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+Add netif ap with (commit id)
+[0;32mI (757) bridge_common: netif list add success[0m
+[0;32mI (763) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (767) bridge_common: Set ip info:192.168.5.1[0m
+[0;32mI (772) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (781) wifi:Disabled PMF config for SoftAP[0m
+[0;32mI (784) wifi:Total power save buffer number: 16[0m
+[0;32mI (789) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (797) bridge_common: [WIFI_AP_DEF ]Name Server1: 114.114.114.114[0m
+[0;32mI (804) bridge_common: DHCPS Restart, deauth all station[0m
+Add netif sta with (commit id)
+[0;32mI (812) bridge_common: netif list add success[0m
+[0;32mI (818) wifi:mode : sta (40:4c:ca:5e:ad:c4) + softAP (40:4c:ca:5e:ad:c5)[0m
+[0;32mI (824) wifi:enable tsf[0m
+[0;33mW (826) wifi:11ax mode can not work under phy bw 40M, the sta phymode changed to 11N[0m
+[0;31mE (834) NVS: Failed to read IP info from NVS[0m
+[0;32mI (839) wifi:Disabled PMF config for STA[0m
+[0;32mI (842) bridge_wifi: [esp_bridge_wifi_set_config] sta ssid:  password: [0m
+[0;32mI (850) bridge_wifi: [esp_bridge_wifi_set_config] softap ssid: ESP_Bridge_5eadc5 password: 12345678[0m
+[0;32mI (1220) wifi:Total power save buffer number: 16[0m
+[0;32mI (1222) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.5.1[0m
+[0;32mI (1223) bridge_wifi: SoftAP config changed, deauth all station[0m
+[0;32mI (1229) Mesh-Lite: esp-mesh-lite component version: 1.0.2[0m
+[0;32mI (1235) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (1239) [vendor_ie]: Mesh-Lite commit id: 308dc1f
+ [0m
+[0;32mI (1245) [vendor_ie]: Mesh ID: 77 [0m
+[0;33mW (1249) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1253) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1258) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (1263) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;32mI (1269) [ESP_Mesh_Lite_Comm]: Bind Socket 54, port 6364 [0m
+[0;32mI (1275) [ESP_Mesh_Lite_Comm]: Bind Socket 55, port 6363 [0m
+[0;32mI (1281) [ESP_Mesh_Lite_Comm]: Bind Socket 56, port 6366 [0m
+[0;32mI (1287) [ESP_Mesh_Lite_Comm]: Bind Socket 57, port 6365 [0m
+[0;32mI (1293) [mesh-lite-espnow]: Start espnow task [0m
+[0;32mI (1298) [ESP_Mesh_Lite_Comm]: msg action add success [0m
+[0;33mW (1304) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1308) no_router_child: Get ssid from nvs failed, set ssid: ESP_Bridge_5eadc5[0m
+[0;33mW (1316) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1321) no_router_child: Get psw from nvs failed, set psw: [HIDDEN][0m
+[0;33mW (1328) [vendor_ie]: Error Get[4354] [0m
+[0;33mW (1332) [vendor_ie]: Error Get[4354] [0m
+[0;32mI (1336) no_router_child: Child node[0m
+[0;32mI (1341) Mesh-Lite: Mesh-Lite connecting[0m
+[0;32mI (1346) [vendor_ie]: esp_mesh_lite_wifi_scan_start return ESP_OK [0m
+[0;32mI (1353) no_router_child: DS3231 ready on I2C port 0 (SDA=13, SCL=12)[0m
+[0;32mI (1410) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;33mW (1410) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (1415) main_task: Returned from app_main()[0m
+[0;33mW (4075) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (4174) [vendor_ie]: Mesh-Lite Scan done [0m
+[0;33mW (4174) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4174) [vendor_ie]: now parent node   : bssid:20:1b:5b:30:6d:0a, rssi:0, level:-1 [0m
+[0;32mI (4181) [vendor_ie]: update parent node: bssid:54:32:04:0c:42:fd, rssi:-33, level:2 [0m
+[0;32mI (4189) [vendor_ie]: Find ESP_Bridge_0c42fd [0m
+[0;32mI (4194) [vendor_ie]: bssid: 54:32:04:0c:42:fd, level: 3 [0m
+[0;33mW (4200) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;33mW (4209) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (4214) [vendor_ie]: wifi_cfg ESP_Bridge_0c42fd, ap_info.ssid , router_config   [0m
+[0;32mI (4222) [vendor_ie]: wifi_cfg mac 54:32:04:0c:42:fd, ap_info mac ff:ff:ff:ff:0e:00 [0m
+[0;33mW (4230) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (4235) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (4240) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_0c42fd; bssid:54:32:04:0c:42:fd; crc:496936148 [0m
+[0;32mI (4863) wifi:new:<11,2>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (4864) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (4866) wifi:state: init -> auth (b0)[0m
+[0;32mI (4872) wifi:state: auth -> assoc (0)[0m
+[0;32mI (4879) wifi:Association refused temporarily time 1500, comeback time 1600 (TUs)[0m
+[0;32mI (5163) wifi:state: assoc -> init (0)[0m
+[0;32mI (5163) wifi:new:<11,0>, old:<11,2>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;31mE (5165) [ESP_Mesh_Lite_Comm]: Disconnect reason : 3 [0m
+[0;32mI (5168) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (5173) [ESP_Mesh_Lite_Comm]: Retry to connect to the AP [0m
+[0;33mW (7090) no_router_child: No root node found in mesh list, retry...[0m
+[0;31mE (7996) [ESP_Mesh_Lite_Comm]: Disconnect reason : 205 [0m
+[0;33mW (9750) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (10163) wifi:(itwt)itwt_stop_process![0m
+[0;32mI (10164) [vendor_ie]: esp_wifi_connect return ESP_OK [0m
+[0;32mI (10164) [ESP_Mesh_Lite_Comm]: Retry to connect to the AP [0m
+[0;32mI (10172) wifi:new:<11,2>, old:<11,0>, ap:<11,2>, sta:<11,0>, prof:11[0m
+[0;32mI (10174) wifi:(connect)dot11_authmode:0x3, pairwise_cipher:0x3, group_cipher:0x3[0m
+[0;32mI (10181) wifi:state: init -> auth (b0)[0m
+[0;32mI (10187) wifi:state: auth -> assoc (0)[0m
+[0;32mI (10228) wifi:state: assoc -> run (10)[0m
+[0;32mI (10228) wifi:(trc)phytype:CBW20-SGI, snr:62, maxRate:144, highestRateIdx:0[0m
+[0;32mI (10229) wifi:(trc)rate(S-MCS7, schedIdx:0), ampdu(rate:S-MCS7, schedIdx(0, stop:8)), snr:62, ampduState:wait operational[0m
+[0;32mI (10238) wifi:ifidx:0, rssi:-35, nf:-97, phytype(0x3, CBW20-SGI), phymode(0x3, 11bgn), max_rate:1440, he:0[0m
+[0;32mI (10248) wifi:max ampdu length exponent:0(8191 bytes), mmss:0(no restriction)[0m
+[0;32mI (10267) wifi:connected with ESP_Bridge_0c42fd, aid = 1, channel 11, BW20, bssid = 54:32:04:0c:42:fd[0m
+[0;32mI (10268) wifi:security: WPA2-PSK, phy:11bgn, rssi:-35, cipher(pairwise:0x3, group:0x3), pmf:1, [0m
+[0;32mI (10274) wifi:pm start, type: 1, twt_start:0[0m
+
+[0;32mI (10278) wifi:pm start, type:1, aid:0x1, trans-BSSID:54:32:04:0c:42:fd, BSSID[5]:0xfd, mbssid(max-indicator:0, index:0), he:0[0m
+[0;32mI (10290) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (10298) wifi:set rx beacon pti, rx_bcn_pti: 10, bcn_timeout: 25000, mt_pti: 10, mt_time: 10000[0m
+[0;32mI (10306) wifi:[ADDBA]TX addba request, tid:0, dialogtoken:1, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (10317) wifi:[ADDBA]TX addba request, tid:7, dialogtoken:2, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x20)[0m
+[0;32mI (10328) wifi:[ADDBA]TX addba request, tid:5, dialogtoken:3, bufsize:64, A-MSDU:0(not supported), policy:1(IMR), ssn:0(0x0)[0m
+[0;32mI (10339) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (10346) wifi:[ADDBA]RX addba response, status:0, tid:0/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (10354) wifi:[ADDBA]RX addba response, status:0, tid:7/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (10367) wifi:[ADDBA]RX addba response, status:0, tid:5/tb:1(0xa1), bufsize:6, batimeout:0, txa_wnd:6[0m
+[0;32mI (11332) Mesh-Lite: netif network segment conflict check[0m
+[0;32mI (11332) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (11332) bridge_common: IP Address:192.168.4.1[0m
+[0;32mI (11337) bridge_common: GW Address:192.168.4.1[0m
+[0;32mI (11342) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (11348) bridge_common: ip reallocate new:192.168.4.1[0m
+[0;32mI (11353) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (11364) esp_netif_handlers: sta ip: 192.168.4.2, mask: 255.255.255.0, gw: 192.168.4.1[0m
+[0;32mI (11370) bridge_wifi: Connected with IP Address:192.168.4.2[0m
+[0;32mI (11376) bridge_common: [WIFI_AP_DEF ][0m
+[0;32mI (11381) bridge_common: IP Address:192.168.6.1[0m
+[0;32mI (11386) bridge_common: GW Address:192.168.6.1[0m
+[0;32mI (11391) bridge_common: NM Address:255.255.255.0[0m
+[0;32mI (11397) bridge_common: ip reallocate new:192.168.6.1[0m
+[0;32mI (11402) bridge_wifi: SoftAP IP network segment has changed, deauth all station[0m
+[0;32mI (11411) [vendor_ie]: RTC store: temp_mesh_id:255; ssid:ESP_Bridge_0c42fd; bssid:54:32:04:0c:42:fd; crc:496936148 [0m
+[0;33mW (11425) wifi:<ba-add>idx:0, ifx:0, tid:0, TAHI:0x100fd42, TALO:0xc043254, (ssn:0, win:64, cur_ssn:0), CONF:0xc0000005[0m
+[0;32mI (11434) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274204[0m
+MeshLite nodes 1:
+1: 0, 40:4c:ca:5e:ad:c4, 0.0.0.0
+[0;33mW (12465) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (15126) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (17786) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (20446) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (21415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275604[0m
+MeshLite nodes 1:
+1: 0, 40:4c:ca:5e:ad:c4, 0.0.0.0
+[0;33mW (23106) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (25766) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (28426) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (31086) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (31415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 275604[0m
+MeshLite nodes 1:
+1: 0, 40:4c:ca:5e:ad:c4, 0.0.0.0
+[0;33mW (33746) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (36406) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (39066) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (41415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275604[0m
+MeshLite nodes 1:
+1: 0, 40:4c:ca:5e:ad:c4, 0.0.0.0
+[0;33mW (41726) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (44386) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (47046) no_router_child: No root node found in mesh list, retry...[0m
+[0;33mW (49706) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (51415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275604[0m
+MeshLite nodes 1:
+1: 0, 40:4c:ca:5e:ad:c4, 0.0.0.0
+[0;33mW (52366) no_router_child: No root node found in mesh list, retry...[0m
+[0;32mI (55028) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:01","p":[[1,0,25.954,38.400,1011.894],[3,13,22.103,82.165]]}[0m
+[0;32mI (55035) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (60224) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:06","p":[[1,0,28.402,42.556,1021.119],[3,13,20.633,57.750]]}[0m
+[0;32mI (60231) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (61415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275168[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (65420) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:11","p":[[1,0,26.971,58.357,1004.497],[3,13,26.469,61.944]]}[0m
+[0;32mI (65427) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (70617) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:16","p":[[1,0,28.200,56.247,1028.076],[3,13,26.126,64.712]]}[0m
+[0;32mI (70624) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (71415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 275168[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (75813) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:22","p":[[1,0,31.971,47.886,1004.593],[3,13,25.479,58.168]]}[0m
+[0;32mI (75820) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (81010) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:27","p":[[1,0,25.440,36.445,1025.800],[3,13,21.907,62.394]]}[0m
+[0;32mI (81017) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (81415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 275168[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (86206) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:32","p":[[1,0,30.481,52.007,1014.910],[3,13,26.758,84.014]]}[0m
+[0;32mI (86213) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (91402) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:37","p":[[1,0,23.209,81.515,1011.798],[3,13,28.657,56.049]]}[0m
+[0;32mI (91409) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (91415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274892[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (96599) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:42","p":[[1,0,29.882,73.894,998.685],[3,13,31.887,76.512]]}[0m
+[0;32mI (96606) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (101415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 275168[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (101795) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:48","p":[[1,0,29.751,76.939,1012.410],[3,13,22.911,46.067]]}[0m
+[0;32mI (101802) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (106992) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:53","p":[[1,0,23.120,69.788,1020.411],[3,13,29.490,62.484]]}[0m
+[0;32mI (106999) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (111415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -36, free heap: 275168[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (112188) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:07:58","p":[[1,0,18.676,54.172,998.813],[3,13,33.430,43.861]]}[0m
+[0;32mI (112195) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (117384) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:03","p":[[1,0,23.741,46.671,990.108],[3,13,25.661,68.632]]}[0m
+[0;32mI (117391) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (121415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 275016[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (122580) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:08","p":[[1,0,29.820,65.653,1024.948],[3,13,21.074,63.452]]}[0m
+[0;32mI (122587) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (127777) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:14","p":[[1,0,28.410,82.970,996.433],[3,13,23.002,68.569]]}[0m
+[0;32mI (127784) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (131415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (132973) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:19","p":[[1,0,20.223,73.119,1014.714],[3,13,27.659,76.935]]}[0m
+[0;32mI (132980) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (138169) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:24","p":[[1,0,31.416,48.786,1009.426],[3,13,25.090,78.785]]}[0m
+[0;32mI (138176) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (141415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (143366) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:29","p":[[1,0,28.833,41.061,1001.561],[3,13,30.820,73.033]]}[0m
+[0;32mI (143373) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (148563) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:34","p":[[1,0,20.870,70.789,995.024],[3,13,29.398,76.562]]}[0m
+[0;32mI (148570) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (151415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -36, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (153759) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:40","p":[[1,0,21.051,57.492,1023.691],[3,13,28.133,74.860]]}[0m
+[0;32mI (153766) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (158955) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:45","p":[[1,0,26.444,55.492,1002.101],[3,13,25.584,77.439]]}[0m
+[0;32mI (158962) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (161415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (164151) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:50","p":[[1,0,19.927,77.149,999.905],[3,13,29.597,51.377]]}[0m
+[0;32mI (164158) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (169347) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:08:55","p":[[1,0,21.667,35.265,1019.443],[3,13,31.058,84.851]]}[0m
+[0;32mI (169354) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (171415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -36, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (174544) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:00","p":[[1,0,23.756,51.047,1001.133],[3,13,32.740,71.409]]}[0m
+[0;32mI (174551) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (179740) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:06","p":[[1,0,29.956,43.856,1019.495],[3,13,21.680,73.897]]}[0m
+[0;32mI (179747) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (181415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (184936) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:11","p":[[1,0,20.775,51.622,1024.763],[3,13,30.274,55.918]]}[0m
+[0;32mI (184943) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (190132) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:16","p":[[1,0,22.093,84.380,1017.611],[3,13,20.805,46.985]]}[0m
+[0;32mI (190139) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (191415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (195328) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:21","p":[[1,0,30.696,63.453,996.401],[3,13,32.478,84.590]]}[0m
+[0;32mI (195335) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (200525) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:26","p":[[1,0,25.747,60.803,1001.669],[3,13,24.672,53.965]]}[0m
+[0;32mI (200532) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (201415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (205721) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:32","p":[[1,0,27.303,81.820,998.733],[3,13,21.886,58.002]]}[0m
+[0;32mI (205728) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (210917) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:37","p":[[1,0,28.549,82.285,1018.099],[3,13,22.412,41.989]]}[0m
+[0;32mI (210924) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (211415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (216114) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:42","p":[[1,0,23.351,35.795,1003.093],[3,13,20.041,68.137]]}[0m
+[0;32mI (216121) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (221310) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:47","p":[[1,0,19.372,80.320,1007.570],[3,13,31.096,79.343]]}[0m
+[0;32mI (221317) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (221415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274924[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (226506) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:52","p":[[1,0,19.397,53.672,1007.162],[3,13,28.203,57.448]]}[0m
+[0;32mI (226513) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (231415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 275200[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (231702) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:09:58","p":[[1,0,31.045,68.503,1019.967],[3,13,33.626,40.711]]}[0m
+[0;32mI (231709) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (236898) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:03","p":[[1,0,29.229,71.294,995.577],[3,13,31.000,67.516]]}[0m
+[0;32mI (236905) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (241415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274832[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (242095) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:08","p":[[1,0,27.888,74.044,1025.920],[3,13,27.410,54.262]]}[0m
+[0;32mI (242102) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (247291) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:13","p":[[1,0,26.216,53.617,1024.303],[3,13,28.903,55.270]]}[0m
+[0;32mI (247298) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (251415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274516[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (252487) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:18","p":[[1,0,27.423,63.683,1018.331],[3,13,24.732,42.421]]}[0m
+[0;32mI (252494) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (257684) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:23","p":[[1,0,25.508,74.624,1004.497],[3,13,25.214,61.697]]}[0m
+[0;32mI (257691) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (261415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -35, free heap: 274980[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (262881) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:29","p":[[1,0,27.079,42.996,1015.683],[3,13,26.991,44.847]]}[0m
+[0;32mI (262888) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (268078) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:34","p":[[1,0,27.801,84.885,1012.730],[3,13,26.327,44.482]]}[0m
+[0;32mI (268085) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (271415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274980[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (273274) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:39","p":[[1,0,24.852,44.531,1004.505],[3,13,23.912,82.192]]}[0m
+[0;32mI (273281) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (278470) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:44","p":[[1,0,27.266,48.831,1026.532],[3,13,23.199,75.887]]}[0m
+[0;32mI (278477) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (281415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274980[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (283666) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:49","p":[[1,0,21.605,67.218,1028.548],[3,13,32.436,65.036]]}[0m
+[0;32mI (283673) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (288862) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:10:55","p":[[1,0,29.491,69.483,994.420],[3,13,23.807,76.382]]}[0m
+[0;32mI (288869) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (291415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274980[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (294058) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:00","p":[[1,0,25.856,52.577,1005.754],[3,13,33.224,62.336]]}[0m
+[0;32mI (294065) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (299254) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:05","p":[[1,0,26.390,56.822,1013.066],[3,13,25.556,59.311]]}[0m
+[0;32mI (299261) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (301415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (304450) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:10","p":[[1,0,25.369,60.233,1015.535],[3,13,20.725,50.392]]}[0m
+[0;32mI (304457) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (309647) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:15","p":[[1,0,24.110,60.713,1019.483],[3,13,31.135,83.236]]}[0m
+[0;32mI (309654) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (311415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (314843) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:21","p":[[1,0,27.501,81.100,1011.890],[3,13,23.188,54.293]]}[0m
+[0;32mI (314850) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (320039) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:26","p":[[1,0,29.098,48.306,1023.947],[3,13,33.726,84.347]]}[0m
+[0;32mI (320046) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (321415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (325235) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:31","p":[[1,0,22.518,56.002,1021.203],[3,13,30.735,40.648]]}[0m
+[0;32mI (325242) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (330431) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:36","p":[[1,0,20.020,66.628,990.188],[3,13,28.419,64.554]]}[0m
+[0;32mI (330438) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (331415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (335628) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:41","p":[[1,0,27.430,69.093,1022.075],[3,13,22.928,80.509]]}[0m
+[0;32mI (335635) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (340824) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:47","p":[[1,0,22.678,38.910,995.016],[3,13,23.677,73.132]]}[0m
+[0;32mI (340831) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (341415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (346020) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:52","p":[[1,0,23.056,75.924,1023.087],[3,13,24.671,67.525]]}[0m
+[0;32mI (346027) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (351217) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:11:57","p":[[1,0,21.685,73.749,993.096],[3,13,28.881,76.148]]}[0m
+[0;32mI (351224) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (351415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274964[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (356413) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:02","p":[[1,0,22.685,53.817,1013.990],[3,13,28.787,65.882]]}[0m
+[0;32mI (356420) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (361415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274808[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (361610) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:07","p":[[1,0,19.022,35.560,1002.445],[3,13,24.025,76.823]]}[0m
+[0;32mI (361617) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (366806) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:13","p":[[1,0,23.508,60.343,990.468],[3,13,31.389,57.759]]}[0m
+[0;32mI (366813) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (371415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (372003) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:18","p":[[1,0,21.372,35.610,1006.878],[3,13,29.639,41.283]]}[0m
+[0;32mI (372010) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (377199) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:23","p":[[1,0,21.785,37.040,1026.116],[3,13,23.962,42.376]]}[0m
+[0;32mI (377206) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (381415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (382395) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:28","p":[[1,0,24.180,35.730,991.296],[3,13,27.733,42.907]]}[0m
+[0;32mI (382402) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (387591) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:33","p":[[1,0,18.186,41.971,1023.091],[3,13,26.380,53.668]]}[0m
+[0;32mI (387598) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (391415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (392787) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:39","p":[[1,0,18.095,70.004,1009.386],[3,13,29.262,67.421]]}[0m
+[0;32mI (392794) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (397984) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:44","p":[[1,0,26.833,40.131,998.557],[3,13,22.333,48.272]]}[0m
+[0;32mI (397991) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (401415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (403180) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:49","p":[[1,0,28.679,57.677,1007.598],[3,13,32.531,60.977]]}[0m
+[0;32mI (403187) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (408376) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:54","p":[[1,0,25.564,51.467,997.325],[3,13,32.370,69.451]]}[0m
+[0;32mI (408383) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (411415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (413572) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:12:59","p":[[1,0,26.696,37.220,992.432],[3,13,30.904,49.536]]}[0m
+[0;32mI (413579) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (418768) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:05","p":[[1,0,29.648,79.304,1010.310],[3,13,29.633,75.266]]}[0m
+[0;32mI (418775) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (421415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (423965) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:10","p":[[1,0,21.083,45.271,991.160],[3,13,23.047,54.226]]}[0m
+[0;32mI (423972) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (429161) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:15","p":[[1,0,30.429,66.168,1000.065],[3,13,28.196,81.305]]}[0m
+[0;32mI (429168) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (431415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -36, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (434357) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:20","p":[[1,0,24.840,38.145,1005.021],[3,13,30.872,81.418]]}[0m
+[0;32mI (434364) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (439555) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:25","p":[[1,0,31.790,58.487,1014.550],[3,13,27.048,61.530]]}[0m
+[0;32mI (439562) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (441415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -35, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (444751) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:31","p":[[1,0,26.773,48.461,1009.502],[3,13,33.790,73.740]]}[0m
+[0;32mI (444758) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (449948) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:36","p":[[1,0,24.331,46.121,993.348],[3,13,28.702,63.587]]}[0m
+[0;32mI (449955) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (451415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -42, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (455145) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:41","p":[[1,0,18.125,43.236,990.568],[3,13,23.387,44.127]]}[0m
+[0;32mI (455152) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (460341) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:46","p":[[1,0,19.460,56.882,1028.452],[3,13,27.608,74.869]]}[0m
+[0;32mI (460348) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (461415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (465537) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:51","p":[[1,0,21.085,54.327,1017.655],[3,13,25.552,58.105]]}[0m
+[0;32mI (465544) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (470733) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:13:57","p":[[1,0,26.147,79.664,994.989],[3,13,33.362,70.050]]}[0m
+[0;32mI (470740) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (471415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (475930) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:02","p":[[1,0,28.137,55.107,992.316],[3,13,23.507,45.869]]}[0m
+[0;32mI (475937) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (481126) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:07","p":[[1,0,31.490,60.648,1003.533],[3,13,27.408,52.124]]}[0m
+[0;32mI (481133) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (481415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274804[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (486323) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:12","p":[[1,0,22.420,81.200,1021.119],[3,13,32.103,63.524]]}[0m
+[0;32mI (486330) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (491415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (491520) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:17","p":[[1,0,28.495,84.785,1004.429],[3,13,29.783,50.585]]}[0m
+[0;32mI (491527) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (496716) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:23","p":[[1,0,31.026,65.463,1025.323],[3,13,22.467,55.122]]}[0m
+[0;32mI (496723) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (501415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -41, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (501912) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:28","p":[[1,0,19.490,53.242,1007.826],[3,13,23.373,69.932]]}[0m
+[0;32mI (501919) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (507108) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:33","p":[[1,0,31.343,65.703,1028.008],[3,13,24.472,47.313]]}[0m
+[0;32mI (507115) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (511415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (512304) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:38","p":[[1,0,26.170,48.951,996.349],[3,13,25.382,44.905]]}[0m
+[0;32mI (512311) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (517501) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:43","p":[[1,0,22.660,84.835,1016.159],[3,13,20.270,60.261]]}[0m
+[0;32mI (517508) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (521415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (522697) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:49","p":[[1,0,22.396,78.444,1019.811],[3,13,33.311,81.575]]}[0m
+[0;32mI (522704) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (527893) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:54","p":[[1,0,28.605,45.551,1005.034],[3,13,24.637,71.089]]}[0m
+[0;32mI (527900) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (531415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (533089) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:14:59","p":[[1,0,27.619,67.503,1007.134],[3,13,30.630,62.115]]}[0m
+[0;32mI (533096) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (538285) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:04","p":[[1,0,21.981,58.252,1021.995],[3,13,25.427,54.482]]}[0m
+[0;32mI (538292) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (541415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (543481) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:09","p":[[1,0,30.430,73.814,1012.178],[3,13,24.828,45.189]]}[0m
+[0;32mI (543488) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (548678) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:14","p":[[1,0,19.596,37.070,1002.077],[3,13,33.882,68.303]]}[0m
+[0;32mI (548685) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (551415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (553875) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:20","p":[[1,0,20.256,83.720,1011.982],[3,13,26.838,40.342]]}[0m
+[0;32mI (553882) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (559072) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:25","p":[[1,0,25.807,79.089,1029.984],[3,13,32.932,80.887]]}[0m
+[0;32mI (559079) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (561415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (564268) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:30","p":[[1,0,29.519,74.024,992.384],[3,13,21.290,55.464]]}[0m
+[0;32mI (564275) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (569464) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:35","p":[[1,0,30.289,35.800,1012.126],[3,13,30.672,60.135]]}[0m
+[0;32mI (569471) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (571415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (574660) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:40","p":[[1,0,26.797,63.923,1017.951],[3,13,23.156,63.767]]}[0m
+[0;32mI (574667) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (579856) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:46","p":[[1,0,27.858,41.701,1017.715],[3,13,26.833,84.905]]}[0m
+[0;32mI (579863) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (581415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -34, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (585053) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:51","p":[[1,0,26.125,47.051,994.972],[3,13,32.274,79.469]]}[0m
+[0;32mI (585060) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (590249) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:15:56","p":[[1,0,23.105,47.691,991.036],[3,13,20.617,40.180]]}[0m
+[0;32mI (590256) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (591415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (595445) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:01","p":[[1,0,28.004,82.815,1021.719],[3,13,21.841,58.591]]}[0m
+[0;32mI (595452) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (600641) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:06","p":[[1,0,22.800,79.164,1023.643],[3,13,21.123,66.215]]}[0m
+[0;32mI (600648) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (601415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274808[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (605838) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:12","p":[[1,0,21.197,67.468,991.580],[3,13,26.063,68.573]]}[0m
+[0;32mI (605845) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (611035) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:17","p":[[1,0,19.141,77.664,1023.191],[3,13,25.305,75.549]]}[0m
+[0;32mI (611042) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (611415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (616231) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:22","p":[[1,0,28.911,74.809,1021.375],[3,13,31.989,40.405]]}[0m
+[0;32mI (616238) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (621415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+[0;32mI (621428) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:27","p":[[1,0,26.845,48.896,990.688],[3,13,27.389,49.856]]}[0m
+[0;32mI (621445) no_router_child: Message sent successfully (112 bytes)[0m
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (626636) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:32","p":[[1,0,26.209,72.129,1029.424],[3,13,24.133,65.635]]}[0m
+[0;32mI (626643) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (631415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -40, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (631832) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:38","p":[[1,0,26.168,45.066,1019.407],[3,13,28.251,78.038]]}[0m
+[0;32mI (631839) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (637028) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:43","p":[[1,0,24.792,46.036,999.533],[3,13,23.422,77.390]]}[0m
+[0;32mI (637035) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (641415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (642224) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:48","p":[[1,0,23.437,79.124,1023.203],[3,13,20.981,73.888]]}[0m
+[0;32mI (642231) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (647420) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:53","p":[[1,0,27.821,45.416,1010.226],[3,13,28.259,78.519]]}[0m
+[0;32mI (647427) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (651415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -31, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (652616) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:16:58","p":[[1,0,27.535,53.072,1019.891],[3,13,31.599,40.378]]}[0m
+[0;32mI (652623) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (657812) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:04","p":[[1,0,24.225,54.332,1005.622],[3,13,23.829,70.887]]}[0m
+[0;32mI (657819) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (661415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (663008) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:09","p":[[1,0,22.861,77.959,1012.754],[3,13,29.637,48.605]]}[0m
+[0;32mI (663015) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (668204) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:14","p":[[1,0,25.508,62.028,1029.860],[3,13,33.448,40.716]]}[0m
+[0;32mI (668211) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (671415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -31, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (673400) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:19","p":[[1,0,19.319,67.353,997.373],[3,13,20.003,51.022]]}[0m
+[0;32mI (673407) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (678597) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:24","p":[[1,0,27.611,77.174,1029.560],[3,13,27.484,40.428]]}[0m
+[0;32mI (678604) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (681415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (683795) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:30","p":[[1,0,28.071,77.609,1009.714],[3,13,26.953,84.595]]}[0m
+[0;32mI (683802) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (688991) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:35","p":[[1,0,21.470,52.857,1013.774],[3,13,24.269,80.392]]}[0m
+[0;32mI (688998) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (691415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (694187) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:40","p":[[1,0,31.962,35.180,996.293],[3,13,25.906,84.887]]}[0m
+[0;32mI (694194) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (699383) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:45","p":[[1,0,21.905,81.160,1029.276],[3,13,24.714,41.071]]}[0m
+[0;32mI (699390) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (701415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (704580) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:50","p":[[1,0,31.929,80.690,1007.242],[3,13,27.733,43.695]]}[0m
+[0;32mI (704587) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (709776) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:17:56","p":[[1,0,19.134,39.300,1025.876],[3,13,26.289,60.284]]}[0m
+[0;32mI (709783) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (711415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -31, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (714972) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:01","p":[[1,0,24.060,53.147,1018.891],[3,13,33.188,83.227]]}[0m
+[0;32mI (714979) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (720168) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:06","p":[[1,0,26.107,79.644,998.525],[3,13,21.959,78.290]]}[0m
+[0;32mI (720175) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (721415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274808[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (725364) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:11","p":[[1,0,29.567,62.768,1028.248],[3,13,28.674,48.339]]}[0m
+[0;32mI (725371) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (730561) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:16","p":[[1,0,30.911,79.784,1015.107],[3,13,30.187,49.901]]}[0m
+[0;32mI (730568) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (731415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (735757) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:22","p":[[1,0,28.334,73.834,1011.702],[3,13,24.871,75.941]]}[0m
+[0;32mI (735764) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (740953) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:27","p":[[1,0,31.261,47.736,1022.899],[3,13,33.287,56.121]]}[0m
+[0;32mI (740960) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (741415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (746149) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:32","p":[[1,0,29.009,42.286,1026.444],[3,13,24.004,77.624]]}[0m
+[0;32mI (746156) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (751345) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:37","p":[[1,0,28.091,42.406,998.933],[3,13,26.021,63.771]]}[0m
+[0;32mI (751352) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (751415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -31, free heap: 274688[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (756542) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:42","p":[[1,0,27.592,60.748,1015.711],[3,13,27.177,46.328]]}[0m
+[0;32mI (756549) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (761415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -33, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (761738) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:48","p":[[1,0,24.631,35.060,1026.092],[3,13,30.035,41.553]]}[0m
+[0;32mI (761745) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (766934) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:53","p":[[1,0,31.700,77.554,1027.996],[3,13,29.737,66.692]]}[0m
+[0;32mI (766941) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (771415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (772130) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:18:58","p":[[1,0,30.654,73.914,993.296],[3,13,23.708,64.689]]}[0m
+[0;32mI (772137) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (777326) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:03","p":[[1,0,26.413,64.433,999.629],[3,13,31.098,70.176]]}[0m
+[0;32mI (777333) no_router_child: Message sent successfully (112 bytes)[0m
+[0;32mI (781415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -31, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (782522) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:08","p":[[1,0,19.711,41.716,1018.991],[3,13,24.326,69.437]]}[0m
+[0;32mI (782529) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (787718) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:14","p":[[1,0,28.399,81.245,1027.580],[3,13,25.941,84.491]]}[0m
+[0;32mI (787725) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (791415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (792915) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:19","p":[[1,0,28.169,43.046,1016.747],[3,13,29.044,75.963]]}[0m
+[0;32mI (792922) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (798112) no_router_child: Sending JSON 113 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:24","p":[[1,0,19.936,69.993,1013.022],[3,13,29.408,72.961]]}[0m
+[0;32mI (798119) no_router_child: Message sent successfully (113 bytes)[0m
+[0;32mI (801415) no_router_child: System information, channel: 11, layer: 3, self mac: 40:4c:ca:5e:ad:c4, parent bssid: 54:32:04:0c:42:fd, parent rssi: -32, free heap: 274968[0m
+MeshLite nodes 3:
+1: 1, a4:cb:8f:21:81:e8, 0.0.0.0
+2: 2, 54:32:04:0c:42:fc, 192.168.5.2
+3: 3, 40:4c:ca:5e:ad:c4, 192.168.4.2
+[0;32mI (803308) no_router_child: Sending JSON 112 B to 192.168.4.1:12345 | {"v":1,"n":3,"i":"192.168.4.2","t":"2000-01-01T01:19:29","p":[[1,0,29.624,68.803,994.480],[3,13,22.475,65.594]]}[0m
+[0;32mI (803315) no_router_child: Message sent successfully (112 bytes)[0m

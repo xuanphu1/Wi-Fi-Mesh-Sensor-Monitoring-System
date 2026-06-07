@@ -1,0 +1,471 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81ba4h (531364) map[0m
+[0;32mI (307) esp_image: segment 1: paddr=00091bcc vaddr=3ffb0000 size=044d0h ( 17616) load[0m
+[0;32mI (314) esp_image: segment 2: paddr=000960a4 vaddr=40080000 size=09f74h ( 40820) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f2bach (994220) map[0m
+[0;32mI (671) esp_image: segment 4: paddr=00192bd4 vaddr=40089f74 size=113b4h ( 70580) load[0m
+[0;32mI (712) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (713) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (713) boot: Disabling RNG early entropy source...[0m
+[0;32mI (729) cpu_start: Multicore app[0m
+[0;32mI (739) cpu_start: Pro cpu start user code[0m
+[0;32mI (739) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (739) cpu_start: Application information:[0m
+[0;32mI (742) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (747) cpu_start: App version:      1[0m
+[0;32mI (751) cpu_start: Compile time:     Apr 20 2026 11:23:31[0m
+[0;32mI (757) cpu_start: ELF file SHA256:  01655e527...[0m
+[0;32mI (763) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (768) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (773) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (778) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (783) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (790) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (796) heap_init: At 3FFCB1A0 len 00014E60 (83 KiB): DRAM[0m
+[0;32mI (802) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (808) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (815) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (822) spi_flash: detected chip: generic[0m
+[0;32mI (826) spi_flash: flash io: dio[0m
+[0;33mW (830) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (840) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (849) main_task: Started on CPU0[0m
+[0;32mI (859) main_task: Calling app_main()[0m
+[0;32mI (879) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (879) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (879) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (879) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (889) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (899) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (899) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (909) disp_spi: Adding SPI device[0m
+[0;32mI (909) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1119) ILI9341: Initialization.[0m
+[0;32mI (1319) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1319) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1319) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1619) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1629) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1639) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1679) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-07 20:13:55
+[0;32mI (1739) wifi:wifi driver task: 3ffe2d5c, prio:23, stack:6656, core=0[0m
+[0;32mI (1749) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1749) wifi:wifi certification version: v7.0[0m
+[0;32mI (1749) wifi:config NVS flash: enabled[0m
+[0;32mI (1749) wifi:config nano formating: disabled[0m
+[0;32mI (1749) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1759) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1759) wifi:Init management short buffer num: 32[0m
+[0;32mI (1759) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1769) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1769) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1779) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1779) wifi_init: rx ba win: 6[0m
+[0;32mI (1789) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1789) wifi_init: udp mbox: 6[0m
+[0;32mI (1789) wifi_init: tcp mbox: 6[0m
+[0;32mI (1799) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1799) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1809) wifi_init: tcp mss: 1440[0m
+[0;32mI (1809) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1809) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1819) WiFiManager: WiFi disconnected, starting AP mode[0m
+[0;32mI (1829) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (1829) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (1839) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1919) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1929) WiFiManager: Attempting to connect to default WiFi: Unknown[0m
+[0;32mI (1949) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (1949) wifi:enable tsf[0m
+[0;32mI (1959) wifi:Total power save buffer number: 16[0m
+[0;32mI (1959) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1959) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (1969) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (1969) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (1969) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (1989) WiFiManager: Web server started on port 80[0m
+[0;32mI (1999) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1999) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (12009) WiFiManager: Failed to connect to default SSID:Unknown[0m
+[0;32mI (12009) wifi:flush txq[0m
+[0;32mI (12009) wifi:stop sw txq[0m
+[0;32mI (12009) wifi:lmac stop hw txq[0m
+[0;32mI (12509) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (12509) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (12509) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (12519) wifi:enable tsf[0m
+[0;32mI (12519) wifi:Total power save buffer number: 16[0m
+[0;32mI (12519) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12529) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (12529) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (12539) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;33mW (12539) WiFiManager: Web server already running[0m
+[0;32mI (12539) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (12549) uart: queue free spaces: 24[0m
+[0;32mI (12599) uart_to_node: Send: Start Root[0m
+[0;32mI (13119) uart_to_node: Send: Start Root[0m
+[0;32mI (13179) uart_to_node: RX line: Switching to root mode...[0m
+[0;32mI (13179) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;32mI (13569) uart_to_node: RX line: .No node[0m
+[0;32mI (14569) uart_to_node: RX line: No node[0m
+[0;32mI (15389) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (15389) WiFiManager: Connect to the AP failed[0m
+[0;32mI (15569) uart_to_node: RX line: No node[0m
+[0;32mI (16569) uart_to_node: RX line: No node[0m
+[0;32mI (17709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:12","ver":"1.0.0","err":"0x00","p":[[1,0,19.740,84.675,1013.974],[3,13,31.875,41.350]]}[0m
+[0;32mI (18209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:13","ver":"1.0.0","err":"0x00","p":[[1,0,28.661,75.889,1012.834],[3,13,22.027,69.109]]}[0m
+[0;32mI (18239) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (18249) WiFiManager: Connect to the AP failed[0m
+[0;32mI (19209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:18","ver":"1.0.0","err":"0x00","p":[[1,0,28.491,80.115,1013.694],[3,13,33.954,61.161]]}[0m
+[0;32mI (20209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:18","ver":"1.0.0","err":"0x00","p":[[1,0,24.646,50.382,1026.560],[3,13,32.339,66.184]]}[0m
+[0;32mI (21069) uart_to_node: RX line: No node[0m
+[0;32mI (21099) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (21099) WiFiManager: Connect to the AP failed[0m
+[0;32mI (22069) uart_to_node: RX line: No node[0m
+[0;32mI (23069) uart_to_node: RX line: No node[0m
+[0;32mI (23949) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (23949) WiFiManager: Connect to the AP failed[0m
+[0;32mI (24069) uart_to_node: RX line: No node[0m
+[0;32mI (24709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:23","ver":"1.0.0","err":"0x00","p":[[1,0,30.505,42.966,1023.043],[3,13,25.318,64.032]]}[0m
+[0;32mI (25209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:24","ver":"1.0.0","err":"0x00","p":[[1,0,24.740,56.127,1021.743],[3,13,25.420,68.186]]}[0m
+[0;32mI (26069) uart_to_node: RX line: No node[0m
+[0;32mI (26809) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (26809) WiFiManager: Connect to the AP failed[0m
+[0;32mI (27069) uart_to_node: RX line: No node[0m
+[0;32mI (28069) uart_to_node: RX line: No node[0m
+[0;32mI (29069) uart_to_node: RX line: No node[0m
+[0;32mI (29659) WiFiManager: Connect to the AP failed[0m
+[0;32mI (29709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:28","ver":"1.0.0","err":"0x00","p":[[1,0,24.560,41.546,1003.305],[3,13,28.107,65.851]]}[0m
+[0;32mI (30159) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<0,0>, prof:1[0m
+[0;32mI (30159) wifi:station: 42:49:b2:56:34:5c join, AID=1, bgn, 20[0m
+[0;32mI (30709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:29","ver":"1.0.0","err":"0x00","p":[[1,0,21.908,66.313,1021.215],[3,13,21.040,79.154]]}[0m
+[0;32mI (30729) wifi:<ba-add>idx:2 (ifx:1, 42:49:b2:56:34:5c), tid:0, ssn:0, winSize:64[0m
+[0;32mI (30729) esp_netif_lwip: DHCP server assigned IP to a client, IP is: 192.168.4.2[0m
+[0;32mI (31569) uart_to_node: RX line: No node[0m
+[0;32mI (32569) uart_to_node: RX line: No node[0m
+[0;32mI (33569) uart_to_node: RX line: No node[0m
+[0;32mI (34709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:33","ver":"1.0.0","err":"0x00","p":[[1,0,19.803,70.874,997.645],[3,13,28.839,55.108]]}[0m
+[0;32mI (35709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:34","ver":"1.0.0","err":"0x00","p":[[1,0,18.143,65.098,992.260],[3,13,23.016,60.423]]}[0m
+[0;32mI (36119) wifi:<ba-add>idx:3 (ifx:1, 42:49:b2:56:34:5c), tid:1, ssn:0, winSize:64[0m
+[0;32mI (36569) uart_to_node: RX line: No node[0m
+[0;32mI (37569) uart_to_node: RX line: No node[0m
+[0;32mI (38569) uart_to_node: RX line: No node[0m
+[0;32mI (39569) uart_to_node: RX line: No node[0m
+[0;32mI (40209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:38","ver":"1.0.0","err":"0x00","p":[[1,0,29.093,52.652,1014.831],[3,13,21.347,66.184]]}[0m
+[0;32mI (41209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:39","ver":"1.0.0","err":"0x00","p":[[1,0,28.367,76.074,1013.866],[3,13,31.744,66.607]]}[0m
+[0;32mI (42069) uart_to_node: RX line: No node[0m
+[0;32mI (43069) uart_to_node: RX line: No node[0m
+[0;32mI (44069) uart_to_node: RX line: No node[0m
+[0;32mI (45209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:44","ver":"1.0.0","err":"0x00","p":[[1,0,30.355,65.023,1009.074],[3,13,27.876,69.050]]}[0m
+[0;32mI (46209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:44","ver":"1.0.0","err":"0x00","p":[[1,0,19.742,66.373,996.529],[3,13,33.408,56.935]]}[0m
+[0;32mI (47069) uart_to_node: RX line: No node[0m
+[0;32mI (48069) uart_to_node: RX line: No node[0m
+[0;32mI (49069) uart_to_node: RX line: No node[0m
+[0;32mI (50069) uart_to_node: RX line: No node[0m
+[0;32mI (50709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:49","ver":"1.0.0","err":"0x00","p":[[1,0,18.477,63.243,1005.854],[3,13,24.195,45.558]]}[0m
+[0;32mI (51209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:50","ver":"1.0.0","err":"0x00","p":[[1,0,22.987,66.228,1018.791],[3,13,25.683,58.461]]}[0m
+[0;32mI (52069) uart_to_node: RX line: No node[0m
+[0;32mI (53069) uart_to_node: RX line: No node[0m
+[0;32mI (54069) uart_to_node: RX line: No node[0m
+[0;32mI (54399) WiFiManager: Configuring WebSocket URL: ws://192.168.1.26:8080/ws[0m
+[0;32mI (54399) WebSocket Handler: WebSocket URL (RAM): ws://192.168.1.26:8080/ws[0m
+[0;32mI (54409) WiFiManager: WebSocket URL set in RAM only (not flash; lost on reboot)[0m
+[0;32mI (54409) WiFiManager: Configuring HTTP: IP=0.0.0.0, Port=80[0m
+[0;32mI (54419) WiFiManager: HTTP configuration saved successfully[0m
+[0;32mI (54429) WiFiManager: Configuring WiFi: SSID=Smile[0m
+[0;32mI (54819) WiFiManager: Attempting to connect to WiFi: SSID=Smile[0m
+[0;32mI (54919) WiFiManager: Web server stopped[0m
+[0;32mI (54919) WiFiManager: DNS server task stopped[0m
+[0;32mI (54919) wifi:station: 42:49:b2:56:34:5c leave, AID = 1, reason = 2, bss_flags is 33721459, bss:0x3ffcc510[0m
+[0;32mI (54919) wifi:new:<1,0>, old:<1,0>, ap:<1,1>, sta:<0,0>, prof:1[0m
+[0;32mI (54929) wifi:<ba-del>idx:2, tid:0[0m
+[0;32mI (54929) wifi:<ba-del>idx:3, tid:1[0m
+[0;32mI (54999) wifi:flush txq[0m
+[0;32mI (54999) wifi:stop sw txq[0m
+[0;32mI (54999) wifi:lmac stop hw txq[0m
+[0;32mI (55069) uart_to_node: RX line: No node[0m
+[0;32mI (55709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:54","ver":"1.0.0","err":"0x00","p":[[1,0,29.722,82.730,1021.211],[3,13,22.811,83.299]]}[0m
+[0;32mI (55999) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (55999) wifi:enable tsf[0m
+[0;32mI (56309) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (56319) wifi:state: init -> auth (b0)[0m
+[0;32mI (56319) wifi:state: auth -> init (8a0)[0m
+[0;32mI (56319) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (56329) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (56329) WiFiManager: Connect to the AP failed[0m
+[0;32mI (56709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:27:55","ver":"1.0.0","err":"0x00","p":[[1,0,24.938,75.734,992.020],[3,13,29.143,77.948]]}[0m
+[0;32mI (57569) uart_to_node: RX line: No node[0m
+[0;32mI (58569) uart_to_node: RX line: No node[0m
+[0;32mI (58759) WiFiManager: Retry to connect to the AP[0m
+[0;32mI (58759) WiFiManager: Connect to the AP failed[0m
+[0;32mI (58769) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (58769) wifi:state: init -> auth (b0)[0m
+[0;32mI (58779) wifi:state: auth -> assoc (0)[0m
+[0;32mI (58789) wifi:state: assoc -> run (10)[0m
+[0;32mI (58809) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (58809) wifi:security: WPA2-PSK, phy: bgn, rssi: -60[0m
+[0;32mI (58809) wifi:pm start, type: 1[0m
+
+[0;32mI (58809) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (58819) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (59049) wifi:<ba-add>idx:0 (ifx:0, a8:25:eb:5e:98:e9), tid:0, ssn:1, winSize:64[0m
+[0;32mI (59569) uart_to_node: RX line: No node[0m
+[0;32mI (59829) esp_netif_handlers: sta ip: 192.168.1.119, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (59829) WiFiManager: Got IP: 192.168.1.119[0m
+[0;32mI (59829) WiFiManager: WiFi connected successfully[0m
+[0;32mI (60009) WebSocket Handler: Starting WebSocket with URL: ws://192.168.1.26:8080/ws[0m
+[0;33mW (60009) websocket_client: `reconnect_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;33mW (60019) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (60029) websocket_client: Started[0m
+[0;32mI (60029) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (60309) WebSocket Handler: Connected to server[0m
+[0;32mI (60469) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (60669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:27:59\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,22.291"}[0m
+[0;32mI (60709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:27:59","ver":"1.0.0","err":"0x00","p":[[1,0,22.291,48.691,996.125],[3,13,23.173,81.260]]}[0m
+[0;32mI (60719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",48.691,996.125],[3,13,23.173,81.260]]}."}[0m
+[0;32mI (61669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:00\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,21.331"}[0m
+[0;32mI (61709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:00","ver":"1.0.0","err":"0x00","p":[[1,0,21.331,63.088,1012.022],[3,13,24.933,56.985]]}[0m
+[0;32mI (61719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",63.088,1012.022],[3,13,24.933,56.985]]}."}[0m
+[0;32mI (62569) uart_to_node: RX line: No node[0m
+[0;32mI (63569) uart_to_node: RX line: No node[0m
+[0;32mI (64569) uart_to_node: RX line: No node[0m
+[0;32mI (65569) uart_to_node: RX line: No node[0m
+[0;32mI (66169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:04\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,28.092"}[0m
+[0;32mI (66209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:04","ver":"1.0.0","err":"0x00","p":[[1,0,28.092,59.127,1024.547],[3,13,22.158,80.468]]}[0m
+[0;32mI (66219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",59.127,1024.547],[3,13,22.158,80.468]]}."}[0m
+[0;32mI (67169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:05\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,29.320"}[0m
+[0;32mI (67209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:05","ver":"1.0.0","err":"0x00","p":[[1,0,29.320,39.840,995.457],[3,13,25.566,62.057]]}[0m
+[0;32mI (67219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",39.840,995.457],[3,13,25.566,62.057]]}."}[0m
+[0;32mI (68069) uart_to_node: RX line: No node[0m
+[0;32mI (69069) uart_to_node: RX line: No node[0m
+[0;32mI (70069) uart_to_node: RX line: No node[0m
+[0;32mI (70589) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (71169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:10\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,29.032"}[0m
+[0;32mI (71209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:10","ver":"1.0.0","err":"0x00","p":[[1,0,29.032,50.327,1021.607],[3,13,29.605,82.988]]}[0m
+[0;32mI (71219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",50.327,1021.607],[3,13,29.605,82.988]]}."}[0m
+[0;32mI (72169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:10\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,28.056"}[0m
+[0;32mI (72209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:10","ver":"1.0.0","err":"0x00","p":[[1,0,28.056,78.519,1017.803],[3,13,22.198,58.024]]}[0m
+[0;32mI (72219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",78.519,1017.803],[3,13,22.198,58.024]]}."}[0m
+[0;32mI (73069) uart_to_node: RX line: No node[0m
+[0;32mI (74069) uart_to_node: RX line: No node[0m
+[0;32mI (75069) uart_to_node: RX line: No node[0m
+[0;32mI (76069) uart_to_node: RX line: No node[0m
+[0;32mI (76669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:15\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,19.532"}[0m
+[0;32mI (76709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:15","ver":"1.0.0","err":"0x00","p":[[1,0,19.532,39.060,1002.281],[3,13,33.852,79.302]]}[0m
+[0;32mI (76719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",39.060,1002.281],[3,13,33.852,79.302]]}."}[0m
+[0;32mI (77169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:16\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,23.708"}[0m
+[0;32mI (77209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:16","ver":"1.0.0","err":"0x00","p":[[1,0,23.708,56.287,994.340],[3,13,23.272,71.656]]}[0m
+[0;32mI (77219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",56.287,994.340],[3,13,23.272,71.656]]}."}[0m
+[0;32mI (78069) uart_to_node: RX line: No node[0m
+[0;32mI (79069) uart_to_node: RX line: No node[0m
+[0;32mI (80069) uart_to_node: RX line: No node[0m
+[0;32mI (80729) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (81069) uart_to_node: RX line: No node[0m
+[0;32mI (81669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:20\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,19.164"}[0m
+[0;32mI (81709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:20","ver":"1.0.0","err":"0x00","p":[[1,0,19.164,68.443,1001.117],[3,13,31.232,58.573]]}[0m
+[0;32mI (81719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",68.443,1001.117],[3,13,31.232,58.573]]}."}[0m
+[0;32mI (82669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:21\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,27.385"}[0m
+[0;32mI (82709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:21","ver":"1.0.0","err":"0x00","p":[[1,0,27.385,48.091,992.552],[3,13,33.675,40.428]]}[0m
+[0;32mI (82719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",48.091,992.552],[3,13,33.675,40.428]]}."}[0m
+[0;32mI (83569) uart_to_node: RX line: No node[0m
+[0;32mI (84569) uart_to_node: RX line: No node[0m
+[0;32mI (85569) uart_to_node: RX line: No node[0m
+[0;32mI (86669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:25\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,29.733"}[0m
+[0;32mI (86709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:25","ver":"1.0.0","err":"0x00","p":[[1,0,29.733,50.117,1007.978],[3,13,21.763,66.089]]}[0m
+[0;32mI (86729) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",50.117,1007.978],[3,13,21.763,66.089]]}."}[0m
+[0;32mI (87669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:26\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,28.969"}[0m
+[0;32mI (87709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:26","ver":"1.0.0","err":"0x00","p":[[1,0,28.969,82.075,1028.668],[3,13,30.298,78.911]]}[0m
+[0;32mI (87719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",82.075,1028.668],[3,13,30.298,78.911]]}."}[0m
+[0;32mI (88569) uart_to_node: RX line: No node[0m
+[0;32mI (89569) uart_to_node: RX line: No node[0m
+[0;32mI (90569) uart_to_node: RX line: No node[0m
+[0;32mI (90839) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (91569) uart_to_node: RX line: No node[0m
+[0;32mI (92169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:30\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,25.419"}[0m
+[0;32mI (92209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:30","ver":"1.0.0","err":"0x00","p":[[1,0,25.419,76.814,1002.009],[3,13,22.508,44.068]]}[0m
+[0;32mI (92219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",76.814,1002.009],[3,13,22.508,44.068]]}."}[0m
+[0;32mI (93169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:31\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,25.638"}[0m
+[0;32mI (93209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:31","ver":"1.0.0","err":"0x00","p":[[1,0,25.638,46.326,1029.840],[3,13,30.217,50.158]]}[0m
+[0;32mI (93219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",46.326,1029.840],[3,13,30.217,50.158]]}."}[0m
+[0;32mI (94069) uart_to_node: RX line: No node[0m
+[0;32mI (95069) uart_to_node: RX line: No node[0m
+[0;32mI (96069) uart_to_node: RX line: No node[0m
+[0;32mI (97169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:36\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,24.779"}[0m
+[0;32mI (97209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:36","ver":"1.0.0","err":"0x00","p":[[1,0,24.779,60.598,1018.967],[3,13,22.527,41.107]]}[0m
+[0;32mI (97229) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",60.598,1018.967],[3,13,22.527,41.107]]}."}[0m
+[0;32mI (98169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:36\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,19.344"}[0m
+[0;32mI (98209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:36","ver":"1.0.0","err":"0x00","p":[[1,0,19.344,79.159,990.388],[3,13,24.660,42.678]]}[0m
+[0;32mI (98219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",79.159,990.388],[3,13,24.660,42.678]]}."}[0m
+[0;32mI (99069) uart_to_node: RX line: No node[0m
+[0;32mI (100069) uart_to_node: RX line: No node[0m
+[0;32mI (100959) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (101069) uart_to_node: RX line: No node[0m
+[0;32mI (102069) uart_to_node: RX line: No node[0m
+[0;32mI (102669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:41\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,29.504"}[0m
+[0;32mI (102709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:41","ver":"1.0.0","err":"0x00","p":[[1,0,29.504,71.209,998.565],[3,13,32.821,65.230]]}[0m
+[0;32mI (102719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",71.209,998.565],[3,13,32.821,65.230]]}."}[0m
+[0;32mI (103169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:42\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,18.689"}[0m
+[0;32mI (103209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:42","ver":"1.0.0","err":"0x00","p":[[1,0,18.689,79.859,991.104],[3,13,30.732,45.005]]}[0m
+[0;32mI (103219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",79.859,991.104],[3,13,30.732,45.005]]}."}[0m
+[0;32mI (104069) uart_to_node: RX line: No node[0m
+[0;32mI (105069) uart_to_node: RX line: No node[0m
+[0;32mI (106069) uart_to_node: RX line: No node[0m
+[0;32mI (107069) uart_to_node: RX line: No node[0m
+[0;32mI (107669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:46\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,24.876"}[0m
+[0;32mI (107709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:46","ver":"1.0.0","err":"0x00","p":[[1,0,24.876,71.444,1009.566],[3,13,27.270,41.877]]}[0m
+[0;32mI (107719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",71.444,1009.566],[3,13,27.270,41.877]]}."}[0m
+[0;32mI (108669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:47\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,27.640"}[0m
+[0;32mI (108709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:47","ver":"1.0.0","err":"0x00","p":[[1,0,27.640,81.045,1000.693],[3,13,32.864,68.402]]}[0m
+[0;32mI (108719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",81.045,1000.693],[3,13,32.864,68.402]]}."}[0m
+[0;32mI (109569) uart_to_node: RX line: No node[0m
+[0;32mI (110569) uart_to_node: RX line: No node[0m
+[0;32mI (111079) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (111569) uart_to_node: RX line: No node[0m
+[0;32mI (112669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:51\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,30.479"}[0m
+[0;32mI (112709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:51","ver":"1.0.0","err":"0x00","p":[[1,0,30.479,35.435,1016.419],[3,13,21.563,61.661]]}[0m
+[0;32mI (112719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",35.435,1016.419],[3,13,21.563,61.661]]}."}[0m
+[0;32mI (113669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:52\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,25.974"}[0m
+[0;32mI (113709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:52","ver":"1.0.0","err":"0x00","p":[[1,0,25.974,41.536,1015.062],[3,13,30.077,58.951]]}[0m
+[0;32mI (113719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",41.536,1015.062],[3,13,30.077,58.951]]}."}[0m
+[0;32mI (114569) uart_to_node: RX line: No node[0m
+[0;32mI (115569) uart_to_node: RX line: No node[0m
+[0;32mI (116569) uart_to_node: RX line: No node[0m
+[0;32mI (117569) uart_to_node: RX line: No node[0m
+[0;32mI (118169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:28:56\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,27.769"}[0m
+[0;32mI (118209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:28:56","ver":"1.0.0","err":"0x00","p":[[1,0,27.769,56.302,1027.416],[3,13,28.997,54.563]]}[0m
+[0;32mI (118219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",56.302,1027.416],[3,13,28.997,54.563]]}."}[0m
+[0;32mI (119169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:28:57\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,30.429"}[0m
+[0;32mI (119209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:28:57","ver":"1.0.0","err":"0x00","p":[[1,0,30.429,39.560,1025.196],[3,13,28.420,69.113]]}[0m
+[0;32mI (119219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",39.560,1025.196],[3,13,28.420,69.113]]}."}[0m
+[0;32mI (120069) uart_to_node: RX line: No node[0m
+[0;32mI (121069) uart_to_node: RX line: No node[0m
+[0;32mI (121219) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (122069) uart_to_node: RX line: No node[0m
+[0;32mI (123169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:02\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,30.323"}[0m
+[0;32mI (123209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:02","ver":"1.0.0","err":"0x00","p":[[1,0,30.323,83.120,1023.255],[3,13,27.201,73.861]]}[0m
+[0;32mI (123219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",83.120,1023.255],[3,13,27.201,73.861]]}."}[0m
+[0;32mI (124169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:02\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,20.860"}[0m
+[0;32mI (124209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:02","ver":"1.0.0","err":"0x00","p":[[1,0,20.860,35.035,1007.870],[3,13,28.534,78.357]]}[0m
+[0;32mI (124219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",35.035,1007.870],[3,13,28.534,78.357]]}."}[0m
+[0;32mI (125069) uart_to_node: RX line: No node[0m
+[0;32mI (126069) uart_to_node: RX line: No node[0m
+[0;32mI (127069) uart_to_node: RX line: No node[0m
+[0;32mI (128069) uart_to_node: RX line: No node[0m
+[0;32mI (128669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:07\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,23.127"}[0m
+[0;32mI (128709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:07","ver":"1.0.0","err":"0x00","p":[[1,0,23.127,82.110,1014.182],[3,13,20.983,82.205]]}[0m
+[0;32mI (128719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",82.110,1014.182],[3,13,20.983,82.205]]}."}[0m
+[0;32mI (129169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:08\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,25.012"}[0m
+[0;32mI (129209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:08","ver":"1.0.0","err":"0x00","p":[[1,0,25.012,45.826,1024.379],[3,13,26.249,71.148]]}[0m
+[0;32mI (129219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",45.826,1024.379],[3,13,26.249,71.148]]}."}[0m
+[0;32mI (130069) uart_to_node: RX line: No node[0m
+[0;32mI (131069) uart_to_node: RX line: No node[0m
+[0;32mI (131339) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (132069) uart_to_node: RX line: No node[0m
+[0;32mI (133069) uart_to_node: RX line: No node[0m
+[0;32mI (133669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:12\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,26.979"}[0m
+[0;32mI (133709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:12","ver":"1.0.0","err":"0x00","p":[[1,0,26.979,44.791,1026.684],[3,13,28.334,55.284]]}[0m
+[0;32mI (133719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",44.791,1026.684],[3,13,28.334,55.284]]}."}[0m
+[0;32mI (134669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:13\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,27.668"}[0m
+[0;32mI (134709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:13","ver":"1.0.0","err":"0x00","p":[[1,0,27.668,65.043,1011.006],[3,13,30.995,61.148]]}[0m
+[0;32mI (134719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",65.043,1011.006],[3,13,30.995,61.148]]}."}[0m
+[0;32mI (135569) uart_to_node: RX line: No node[0m
+[0;32mI (136569) uart_to_node: RX line: No node[0m
+[0;32mI (137569) uart_to_node: RX line: No node[0m
+[0;32mI (138669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:17\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,20.977"}[0m
+[0;32mI (138709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:17","ver":"1.0.0","err":"0x00","p":[[1,0,20.977,57.267,1018.307],[3,13,21.556,60.914]]}[0m
+[0;32mI (138719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",57.267,1018.307],[3,13,21.556,60.914]]}."}[0m
+[0;32mI (139669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:18\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,28.302"}[0m
+[0;32mI (139709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:18","ver":"1.0.0","err":"0x00","p":[[1,0,28.302,80.490,993.416],[3,13,30.907,47.525]]}[0m
+[0;32mI (139719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",80.490,993.416],[3,13,30.907,47.525]]}."}[0m
+[0;32mI (140569) uart_to_node: RX line: No node[0m
+[0;32mI (141479) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (141569) uart_to_node: RX line: No node[0m
+[0;32mI (142569) uart_to_node: RX line: No node[0m
+[0;32mI (143569) uart_to_node: RX line: No node[0m
+[0;32mI (144169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:22\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,26.280"}[0m
+[0;32mI (144209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:22","ver":"1.0.0","err":"0x00","p":[[1,0,26.280,68.653,1019.939],[3,13,29.409,65.779]]}[0m
+[0;32mI (144219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",68.653,1019.939],[3,13,29.409,65.779]]}."}[0m
+[0;32mI (145169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:23\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,29.912"}[0m
+[0;32mI (145209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:23","ver":"1.0.0","err":"0x00","p":[[1,0,29.912,74.409,994.376],[3,13,29.707,44.829]]}[0m
+[0;32mI (145219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",74.409,994.376],[3,13,29.707,44.829]]}."}[0m
+[0;32mI (146069) uart_to_node: RX line: No node[0m
+[0;32mI (147069) uart_to_node: RX line: No node[0m
+[0;32mI (148069) uart_to_node: RX line: No node[0m
+[0;32mI (149169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:28\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,22.304"}[0m
+[0;32mI (149209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:28","ver":"1.0.0","err":"0x00","p":[[1,0,22.304,65.438,1010.490],[3,13,32.668,45.230]]}[0m
+[0;32mI (149219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",65.438,1010.490],[3,13,32.668,45.230]]}."}[0m
+[0;32mI (150169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:28\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,30.624"}[0m
+[0;32mI (150209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:28","ver":"1.0.0","err":"0x00","p":[[1,0,30.624,73.529,1024.952],[3,13,23.940,42.219]]}[0m
+[0;32mI (150219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",73.529,1024.952],[3,13,23.940,42.219]]}."}[0m
+[0;32mI (151069) uart_to_node: RX line: No node[0m
+[0;32mI (151589) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (152069) uart_to_node: RX line: No node[0m
+[0;32mI (153069) uart_to_node: RX line: No node[0m
+[0;32mI (154069) uart_to_node: RX line: No node[0m
+[0;32mI (154669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:33\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,28.297"}[0m
+[0;32mI (154709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:33","ver":"1.0.0","err":"0x00","p":[[1,0,28.297,76.704,993.580],[3,13,30.047,45.036]]}[0m
+[0;32mI (154719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":40,"payload":",76.704,993.580],[3,13,30.047,45.036]]}."}[0m
+[0;32mI (155169) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:34\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,26.432"}[0m
+[0;32mI (155209) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:34","ver":"1.0.0","err":"0x00","p":[[1,0,26.432,78.089,1013.726],[3,13,30.403,78.771]]}[0m
+[0;32mI (155219) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",78.089,1013.726],[3,13,30.403,78.771]]}."}[0m
+[0;32mI (156069) uart_to_node: RX line: No node[0m
+[0;32mI (157069) uart_to_node: RX line: No node[0m
+[0;32mI (158069) uart_to_node: RX line: No node[0m
+[0;32mI (159069) uart_to_node: RX line: No node[0m
+[0;32mI (159669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:38\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,27.762"}[0m
+[0;32mI (159709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:38","ver":"1.0.0","err":"0x00","p":[[1,0,27.762,84.425,1021.543],[3,13,27.648,47.061]]}[0m
+[0;32mI (159719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",84.425,1021.543],[3,13,27.648,47.061]]}."}[0m
+[0;32mI (160669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:39\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,31.958"}[0m
+[0;32mI (160709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:39","ver":"1.0.0","err":"0x00","p":[[1,0,31.958,54.477,1024.464],[3,13,21.119,70.194]]}[0m
+[0;32mI (160729) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",54.477,1024.464],[3,13,21.119,70.194]]}."}[0m
+[0;32mI (161569) uart_to_node: RX line: No node[0m
+[0;32mI (161749) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (162569) uart_to_node: RX line: No node[0m
+[0;32mI (163569) uart_to_node: RX line: No node[0m
+[0;32mI (164669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.2\",\"t\":\"2001-08-09T07:29:43\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,19.220"}[0m
+[0;32mI (164709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.2","t":"2001-08-09T07:29:43","ver":"1.0.0","err":"0x00","p":[[1,0,19.220,83.500,1014.270],[3,13,30.910,44.406]]}[0m
+[0;32mI (164719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",83.500,1014.270],[3,13,30.910,44.406]]}."}[0m
+[0;32mI (165669) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":100,"payload":"{\"v\":1,\"n\":2,\"i\":\"192.168.5.3\",\"t\":\"2001-08-09T07:29:44\",\"ver\":\"1.0.0\",\"err\":\"0x00\",\"p\":[[1,0,26.978"}[0m
+[0;32mI (165709) uart_to_node: RX line: {"v":1,"n":2,"i":"192.168.5.3","t":"2001-08-09T07:29:44","ver":"1.0.0","err":"0x00","p":[[1,0,26.978,50.722,1029.916],[3,13,32.149,77.264]]}[0m
+[0;32mI (165719) WebSocket Handler: WebSocket send UART RX item: {"type":"uart_rx","len":41,"payload":",50.722,1029.916],[3,13,32.149,77.264]]}."}[0m
+[0;32mI (166569) uart_to_node: RX line: No node[0m
+[0;32mI (167569) uart_to_node: RX line: No node[0m
+[0;32mI (168569) uart_to_node: RX line: No node[0m

@@ -1,0 +1,208 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=81f1ch (532252) map[0m
+[0;32mI (307) esp_image: segment 1: paddr=00091f44 vaddr=3ffb0000 size=04540h ( 17728) load[0m
+[0;32mI (314) esp_image: segment 2: paddr=0009648c vaddr=40080000 size=09b8ch ( 39820) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=f343ch (996412) map[0m
+[0;32mI (671) esp_image: segment 4: paddr=00193464 vaddr=40089b8c size=1179ch ( 71580) load[0m
+[0;32mI (713) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (775) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (775) boot: Disabling RNG early entropy source...[0m
+[0;32mI (786) cpu_start: Multicore app[0m
+[0;32mI (795) cpu_start: Pro cpu start user code[0m
+[0;32mI (795) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (795) cpu_start: Application information:[0m
+[0;32mI (798) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (803) cpu_start: App version:      1[0m
+[0;32mI (808) cpu_start: Compile time:     May  6 2026 07:20:56[0m
+[0;32mI (814) cpu_start: ELF file SHA256:  bd601ae48...[0m
+[0;32mI (819) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (825) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (829) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (834) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (839) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (846) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (852) heap_init: At 3FFCBA20 len 000145E0 (81 KiB): DRAM[0m
+[0;32mI (858) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (865) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (871) heap_init: At 4009B328 len 00004CD8 (19 KiB): IRAM[0m
+[0;32mI (879) spi_flash: detected chip: generic[0m
+[0;32mI (882) spi_flash: flash io: dio[0m
+[0;33mW (886) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (896) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (906) main_task: Started on CPU0[0m
+[0;32mI (916) main_task: Calling app_main()[0m
+[0;32mI (936) app: SPIFFS: used 16064 / total 113201 bytes[0m
+[0;32mI (936) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (936) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (936) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (946) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (956) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (956) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (966) disp_spi: Adding SPI device[0m
+[0;32mI (966) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1176) ILI9341: Initialization.[0m
+[0;32mI (1376) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1376) ILI9341: 0x36 command value: 0x88[0m
+[0;33mW (1376) disp_backlight: Invalid GPIO number[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1646) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1646) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;31mE (1856) sdmmc_sd: sdmmc_init_sd_if_cond: send_if_cond (1) returned 0x108[0m
+[0;31mE (1856) vfs_fat_sdmmc: sdmmc_card_init failed (0x108).[0m
+[0;32mI (1856) gpio: GPIO[19]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[SD ] Failed to mount filesystem. err: 0x108
+[0;32mI (1866) gpio: GPIO[18]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1876) gpio: GPIO[17]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1886) gpio: GPIO[5]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[SD ] initSDCard() failed: ESP_ERR_INVALID_RESPONSE (0x108)
+[0;31mE (1916) i2cdev: Could not read from device [0x68 at 0]: 263 (ESP_ERR_TIMEOUT)[0m
+[RTC ] ds3231_get_time failed: ESP_ERR_TIMEOUT (0x107)
+[0;33mW (1926) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;32mI (1956) wifi:wifi driver task: 3ffdd664, prio:23, stack:6656, core=0[0m
+[0;32mI (1956) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1956) wifi:wifi certification version: v7.0[0m
+[0;32mI (1956) wifi:config NVS flash: enabled[0m
+[0;32mI (1966) wifi:config nano formating: disabled[0m
+[0;32mI (1966) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1966) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1976) wifi:Init management short buffer num: 32[0m
+[0;32mI (1976) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1986) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1986) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1986) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1996) wifi_init: rx ba win: 6[0m
+[0;32mI (1996) wifi_init: tcpip mbox: 32[0m
+[0;32mI (2006) wifi_init: udp mbox: 6[0m
+[0;32mI (2006) wifi_init: tcp mbox: 6[0m
+[0;32mI (2006) wifi_init: tcp tx win: 5760[0m
+[0;32mI (2016) wifi_init: tcp rx win: 5760[0m
+[0;32mI (2016) wifi_init: tcp mss: 1440[0m
+[0;32mI (2026) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (2026) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (2036) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (2036) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (2046) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;33mW (2046) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration[0m
+[0;32mI (2126) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(2)[0m
+[0;32mI (2146) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (2146) wifi:enable tsf[0m
+[0;32mI (2146) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (4566) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4566) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4576) wifi:flush txq[0m
+[0;32mI (4576) wifi:stop sw txq[0m
+[0;32mI (4576) wifi:lmac stop hw txq[0m
+[0;32mI (4586) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4586) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (4586) wifi:enable tsf[0m
+[0;32mI (4596) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (7016) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (7016) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (7016) wifi:flush txq[0m
+[0;32mI (7016) wifi:stop sw txq[0m
+[0;32mI (7016) wifi:lmac stop hw txq[0m
+[0;32mI (7026) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (7026) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (7026) wifi:enable tsf[0m
+[0;32mI (7036) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9456) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9456) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9456) wifi:flush txq[0m
+[0;32mI (9456) wifi:stop sw txq[0m
+[0;32mI (9466) wifi:lmac stop hw txq[0m
+[0;32mI (9466) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9476) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (9476) wifi:enable tsf[0m
+[0;32mI (9476) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11896) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11896) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11906) wifi:flush txq[0m
+[0;32mI (11906) wifi:stop sw txq[0m
+[0;32mI (11906) wifi:lmac stop hw txq[0m
+[0;32mI (11906) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11916) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (11916) wifi:enable tsf[0m
+[0;32mI (11916) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14336) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14346) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14346) wifi:flush txq[0m
+[0;32mI (14346) wifi:stop sw txq[0m
+[0;32mI (14346) wifi:lmac stop hw txq[0m
+[0;32mI (14356) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14356) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (14356) wifi:enable tsf[0m
+[0;32mI (14366) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16786) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16786) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16796) wifi:flush txq[0m
+[0;32mI (16796) wifi:stop sw txq[0m
+[0;32mI (16796) wifi:lmac stop hw txq[0m
+[0;32mI (16796) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16806) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (16806) wifi:enable tsf[0m
+[0;32mI (16806) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19226) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19226) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19236) wifi:flush txq[0m
+[0;32mI (19236) wifi:stop sw txq[0m
+[0;32mI (19236) wifi:lmac stop hw txq[0m
+[0;32mI (19236) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19246) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (19246) wifi:enable tsf[0m
+[0;32mI (19256) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21666) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21666) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21676) wifi:flush txq[0m
+[0;32mI (21676) wifi:stop sw txq[0m
+[0;32mI (21676) wifi:lmac stop hw txq[0m
+[0;32mI (21686) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21686) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (21686) wifi:enable tsf[0m
+[0;32mI (21696) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (24116) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (24116) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (24116) wifi:flush txq[0m
+[0;32mI (24126) wifi:stop sw txq[0m
+[0;32mI (24126) wifi:lmac stop hw txq[0m
+[0;32mI (24126) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (24136) wifi:mode : sta (cc:7b:5c:bc:6b:e8)[0m
+[0;32mI (24136) wifi:enable tsf[0m
+[0;32mI (24136) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m

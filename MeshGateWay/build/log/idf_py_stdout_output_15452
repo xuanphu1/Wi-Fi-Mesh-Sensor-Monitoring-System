@@ -1,0 +1,322 @@
+[0/1] Re-running CMake...
+-- Component directory D:/Engineering Project/MeshGateWay/components/core/MemoryManager does not contain a CMakeLists.txt file. No component will be added
+-- Component directory D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi does not contain a CMakeLists.txt file. No component will be added
+-- Component directory D:/Engineering Project/MeshGateWay/components/core does not contain a CMakeLists.txt file. No component will be added
+-- Component directory D:/Engineering Project/MeshGateWay/components/drivers does not contain a CMakeLists.txt file. No component will be added
+-- ccache will be used for faster recompilation
+-- git rev-parse returned 'fatal: not a git repository (or any of the parent directories): .git'
+-- Could not use 'git describe' to determine PROJECT_VER.
+-- Building ESP-IDF components for target esp32
+NOTICE: Processing 1 dependencies:
+NOTICE: [1/1] idf (5.2.5)
+-- Project sdkconfig file D:/Engineering Project/MeshGateWay/sdkconfig
+Loading defaults file D:/Engineering Project/MeshGateWay/sdkconfig.defaults...
+-- Compiler supported targets: xtensa-esp-elf
+-- App "MeshGateWay" version: 1
+-- Adding linker script D:/Engineering Project/MeshGateWay/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script D:/Engineering Project/MeshGateWay/build/esp-idf/esp_system/ld/sections.ld.in
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: DS3231 Datamanager ESP_Bus FOTAManager JsonHandle LogicHandle PowerManager SD_Card ScreenManager SystemMonitor UartToNode WebSocKetHandle WifiManager app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_bootloader_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_idf_lib_helpers esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser i2cdev idf_test ieee802154 json log lvgl lvgl_esp32_drivers lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ui ulp unity usb vfs wear_levelling webSocket wifi_provisioning wpa_supplicant xtensa
+-- Component paths: D:/Engineering Project/MeshGateWay/components/drivers/DS3231 D:/Engineering Project/MeshGateWay/components/core/Datamanager D:/Engineering Project/MeshGateWay/components/core/ESP_Bus D:/Engineering Project/MeshGateWay/components/core/FOTAManager D:/Engineering Project/MeshGateWay/components/core/JsonHandle D:/Engineering Project/MeshGateWay/components/core/LogicHandle D:/Engineering Project/MeshGateWay/components/core/PowerManager D:/Engineering Project/MeshGateWay/components/drivers/SD_Card D:/Engineering Project/MeshGateWay/components/core/ScreenManager D:/Engineering Project/MeshGateWay/components/core/SystemMonitor D:/Engineering Project/MeshGateWay/components/core/UartToNode D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle D:/Engineering Project/MeshGateWay/components/core/WifiManager C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_trace C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_update C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader_support C:/Espressif/frameworks/esp-idf-v5.2.5/components/bt C:/Espressif/frameworks/esp-idf-v5.2.5/components/cmock C:/Espressif/frameworks/esp-idf-v5.2.5/components/console C:/Espressif/frameworks/esp-idf-v5.2.5/components/cxx C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp-tls C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_app_format C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_bootloader_format C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_coex C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_eth C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_gdbstub C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hid C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_client C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_server C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_ota C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_server C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support D:/Engineering Project/MeshGateWay/components/drivers/esp_idf_lib_helpers C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_lcd C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_local_ctrl C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_mm C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif_stack C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_partition C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_phy C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_pm C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_psram C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_ringbuf C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_timer C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_wifi C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py C:/Espressif/frameworks/esp-idf-v5.2.5/components/fatfs C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal C:/Espressif/frameworks/esp-idf-v5.2.5/components/heap C:/Espressif/frameworks/esp-idf-v5.2.5/components/http_parser D:/Engineering Project/MeshGateWay/components/drivers/i2cdev C:/Espressif/frameworks/esp-idf-v5.2.5/components/idf_test C:/Espressif/frameworks/esp-idf-v5.2.5/components/ieee802154 C:/Espressif/frameworks/esp-idf-v5.2.5/components/json C:/Espressif/frameworks/esp-idf-v5.2.5/components/log D:/Engineering Project/MeshGateWay/components/drivers/lvgl D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers C:/Espressif/frameworks/esp-idf-v5.2.5/components/lwip D:/Engineering Project/MeshGateWay/main C:/Espressif/frameworks/esp-idf-v5.2.5/components/mbedtls C:/Espressif/frameworks/esp-idf-v5.2.5/components/mqtt C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_flash C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_sec_provider C:/Espressif/frameworks/esp-idf-v5.2.5/components/openthread C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table C:/Espressif/frameworks/esp-idf-v5.2.5/components/perfmon C:/Espressif/frameworks/esp-idf-v5.2.5/components/protobuf-c C:/Espressif/frameworks/esp-idf-v5.2.5/components/protocomm C:/Espressif/frameworks/esp-idf-v5.2.5/components/pthread C:/Espressif/frameworks/esp-idf-v5.2.5/components/sdmmc C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport D:/Engineering Project/MeshGateWay/components/core/ui C:/Espressif/frameworks/esp-idf-v5.2.5/components/ulp C:/Espressif/frameworks/esp-idf-v5.2.5/components/unity C:/Espressif/frameworks/esp-idf-v5.2.5/components/usb C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs C:/Espressif/frameworks/esp-idf-v5.2.5/components/wear_levelling D:/Engineering Project/MeshGateWay/components/drivers/webSocket C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning C:/Espressif/frameworks/esp-idf-v5.2.5/components/wpa_supplicant C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa
+-- Configuring done (9.9s)
+-- Generating done (1.2s)
+-- Build files have been written to: D:/Engineering Project/MeshGateWay/build
+[1/35] Building C object esp-idf/PowerManager/CMakeFiles/__idf_PowerManager.dir/PowerManager.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/PowerManager/PowerManager.h:4,
+                 from D:/Engineering Project/MeshGateWay/components/core/PowerManager/PowerManager.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+D:/Engineering Project/MeshGateWay/components/core/PowerManager/PowerManager.c: In function 'power_manager_battery_adc_init':
+D:/Engineering Project/MeshGateWay/components/core/PowerManager/PowerManager.c:10:5: warning: 'ADC_ATTEN_DB_11' is deprecated [-Wdeprecated-declarations]
+   10 |     if (adc1_config_channel_atten(BAT_ADC_CHANNEL, BAT_ADC_ATTEN) != ESP_OK)
+      |     ^~
+In file included from C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc_types_legacy.h:8,
+                 from C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:15:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal/include/hal/adc_types.h:51:5: note: declared here
+   51 |     ADC_ATTEN_DB_11 __attribute__((deprecated)) = ADC_ATTEN_DB_12,  ///<This is deprecated, it behaves the same as `ADC_ATTEN_DB_12`
+      |     ^~~~~~~~~~~~~~~
+D:/Engineering Project/MeshGateWay/components/core/PowerManager/PowerManager.c:13:5: warning: 'ADC_ATTEN_DB_11' is deprecated [-Wdeprecated-declarations]
+   13 |     esp_adc_cal_characterize(ADC_UNIT_1, BAT_ADC_ATTEN, BAT_ADC_WIDTH, 1100, &hw->adc_chars);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal/include/hal/adc_types.h:51:5: note: declared here
+   51 |     ADC_ATTEN_DB_11 __attribute__((deprecated)) = ADC_ATTEN_DB_12,  ///<This is deprecated, it behaves the same as `ADC_ATTEN_DB_12`
+      |     ^~~~~~~~~~~~~~~
+[2/35] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_tasks.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_tasks.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[3/35] Building C object esp-idf/SystemMonitor/CMakeFiles/__idf_SystemMonitor.dir/SystemMonitor.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/SystemMonitor/SystemMonitor.h:4,
+                 from D:/Engineering Project/MeshGateWay/components/core/SystemMonitor/SystemMonitor.c:5:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[4/35] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_core.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_core.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[5/35] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_http.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_http.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[6/35] Building C object esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_ap.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/WifiManager.h:22,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_internal.h:3,
+                 from D:/Engineering Project/MeshGateWay/components/core/WifiManager/wifi_manager_ap.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[7/35] Building C object esp-idf/LogicHandle/CMakeFiles/__idf_LogicHandle.dir/LogicHandle.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/LogicHandle/LogicHandle.h:5,
+                 from D:/Engineering Project/MeshGateWay/components/core/LogicHandle/LogicHandle.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[8/35] Building C object esp-idf/ScreenManager/CMakeFiles/__idf_ScreenManager.dir/ScreenManager.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.h:4,
+                 from D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[9/35] Building C object esp-idf/WebSocKetHandle/CMakeFiles/__idf_WebSocKetHandle.dir/WSHandle.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c:5:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[10/35] Building C object esp-idf/FOTAManager/CMakeFiles/__idf_FOTAManager.dir/FOTAManager.c.obj
+[11/35] Building C object esp-idf/ESP_Bus/CMakeFiles/__idf_ESP_Bus.dir/ESP_Bus.c.obj
+[12/35] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/MeshGateWay.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/main/MeshGateWay.c:3:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[13/35] Building C object esp-idf/JsonHandle/CMakeFiles/__idf_JsonHandle.dir/JsonHandle.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/JsonHandle/JsonHandle.h:6,
+                 from D:/Engineering Project/MeshGateWay/components/core/JsonHandle/JsonHandle.c:1:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[14/35] Linking C static library esp-idf\PowerManager\libPowerManager.a
+[15/35] Linking C static library esp-idf\WifiManager\libWifiManager.a
+[16/35] Linking C static library esp-idf\LogicHandle\libLogicHandle.a
+[17/35] Linking C static library esp-idf\FOTAManager\libFOTAManager.a
+[18/35] Linking C static library esp-idf\ESP_Bus\libESP_Bus.a
+[19/35] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/spiffsgen.py 0x20000 "D:/Engineering Project/MeshGateWay/components/core/WebConfigWifi" "D:/Engineering Project/MeshGateWay/build/spiffs.bin" --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len"
+[20/35] Linking C static library esp-idf\SystemMonitor\libSystemMonitor.a
+[21/35] Linking C static library esp-idf\ScreenManager\libScreenManager.a
+[22/35] Linking C static library esp-idf\WebSocKetHandle\libWebSocKetHandle.a
+[23/35] Linking C static library esp-idf\JsonHandle\libJsonHandle.a
+[24/35] Building C object esp-idf/UartToNode/CMakeFiles/__idf_UartToNode.dir/UartToNode.c.obj
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:13,
+                 from D:/Engineering Project/MeshGateWay/components/core/UartToNode/UartToNode.h:9,
+                 from D:/Engineering Project/MeshGateWay/components/core/UartToNode/UartToNode.c:5:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from D:/Engineering Project/MeshGateWay/components/core/Datamanager/Datamanager.h:14:
+C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+[25/35] Linking C static library esp-idf\UartToNode\libUartToNode.a
+[26/35] Linking C static library esp-idf\main\libmain.a
+[27/35] Performing build step for 'bootloader'
+[0/1] Re-running CMake...
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file D:/Engineering Project/MeshGateWay/sdkconfig
+-- Compiler supported targets: xtensa-esp-elf
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc/esp32/ld/esp32.peripherals.ld
+-- Bootloader project name: "bootloader" version: 1
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader/subproject/main/ld/esp32/bootloader.ld
+-- Adding linker script C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader/subproject/main/ld/esp32/bootloader.rom.ld
+-- Components: bootloader bootloader_support efuse esp_app_format esp_bootloader_format esp_common esp_hw_support esp_rom esp_system esptool_py freertos hal log main micro-ecc newlib partition_table soc spi_flash xtensa
+-- Component paths: C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader_support C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_app_format C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_bootloader_format C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal C:/Espressif/frameworks/esp-idf-v5.2.5/components/log C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader/subproject/main C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader/subproject/components/micro-ecc C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa
+-- Configuring done (7.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/Engineering Project/MeshGateWay/build/bootloader
+[1/2] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\bootloader\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 "D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin""
+Bootloader binary size 0x68b0 bytes. 0x750 bytes (7%) free.
+[28/35] No install step for 'bootloader'
+[29/35] Completed 'bootloader'
+[30/35] Generating ld/sections.ld
+[31/35] Linking CXX executable MeshGateWay.elf
+[32/35] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin
+[33/35] C:\Windows\system32\cmd.exe /C "cd /D "D:\Engineering Project\MeshGateWay\build\esp-idf\esptool_py" && C:\Espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/check_sizes.py --offset 0x8000 partition --type app "D:/Engineering Project/MeshGateWay/build/partition_table/partition-table.bin" "D:/Engineering Project/MeshGateWay/build/MeshGateWay.bin""
+MeshGateWay.bin binary size 0x193fc0 bytes. Smallest app partition is 0x1c0000 bytes. 0x2c040 bytes (10%) free.
+[33/35] C:\Windows\system32\cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.2.5\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.2.5 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D "WORKING_DIRECTORY=D:/Engineering Project/MeshGateWay/build" -P C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 MeshGateWay.bin 0x8000 partition_table/partition-table.bin 0xe000 ota_data_initial.bin 0x390000 spiffs.bin
+esptool.py v4.8.1
+Serial port COM4
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 78:1c:3c:f4:d0:d8
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x001a3fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+Flash will be erased from 0x00390000 to 0x003affff...
+SHA digest in image updated
+Compressed 26800 bytes to 16420...
+Writing at 0x00001000... (50 %)
+Writing at 0x00007894... (100 %)
+Wrote 26800 bytes (16420 compressed) at 0x00001000 in 0.8 seconds (effective 261.9 kbit/s)...
+Hash of data verified.
+Compressed 1654720 bytes to 860469...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001dae3... (3 %)
+Writing at 0x0002b5ac... (5 %)
+Writing at 0x00068fbb... (7 %)
+Writing at 0x000756d0... (9 %)
+Writing at 0x00080be9... (11 %)
+Writing at 0x00088a3c... (13 %)
+Writing at 0x0009244e... (15 %)
+Writing at 0x0009a491... (16 %)
+Writing at 0x0009fdf9... (18 %)
+Writing at 0x000a57bf... (20 %)
+Writing at 0x000ab37a... (22 %)
+Writing at 0x000b13f4... (24 %)
+Writing at 0x000b7746... (26 %)
+Writing at 0x000bd745... (28 %)
+Writing at 0x000c3221... (30 %)
+Writing at 0x000c9006... (32 %)
+Writing at 0x000ceeaf... (33 %)
+Writing at 0x000d5086... (35 %)
+Writing at 0x000dac8f... (37 %)
+Writing at 0x000e0c3b... (39 %)
+Writing at 0x000e6841... (41 %)
+Writing at 0x000ed04e... (43 %)
+Writing at 0x000f374d... (45 %)
+Writing at 0x000f941f... (47 %)
+Writing at 0x000fee4f... (49 %)
+Writing at 0x00104e69... (50 %)
+Writing at 0x0010ac4f... (52 %)
+Writing at 0x00110ab7... (54 %)
+Writing at 0x001173f7... (56 %)
+Writing at 0x0011d171... (58 %)
+Writing at 0x00122c88... (60 %)
+Writing at 0x00129519... (62 %)
+Writing at 0x0012f134... (64 %)
+Writing at 0x00134de4... (66 %)
+Writing at 0x0013a145... (67 %)
+Writing at 0x0013f557... (69 %)
+Writing at 0x00144a14... (71 %)
+Writing at 0x00149d86... (73 %)
+Writing at 0x0014f44a... (75 %)
+Writing at 0x00154c32... (77 %)
+Writing at 0x0015a86e... (79 %)
+Writing at 0x0015ff2c... (81 %)
+Writing at 0x00165c3d... (83 %)
+Writing at 0x0016b757... (84 %)
+Writing at 0x00171033... (86 %)
+Writing at 0x001769c1... (88 %)
+Writing at 0x001808c3... (90 %)
+Writing at 0x00189446... (92 %)
+Writing at 0x0018f561... (94 %)
+Writing at 0x0019562c... (96 %)
+Writing at 0x0019bcaa... (98 %)
+Writing at 0x001a106a... (100 %)
+Wrote 1654720 bytes (860469 compressed) at 0x00010000 in 22.9 seconds (effective 577.7 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 128...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (128 compressed) at 0x00008000 in 0.1 seconds (effective 473.2 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000e000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000e000 in 0.1 seconds (effective 1134.3 kbit/s)...
+Hash of data verified.
+Compressed 131072 bytes to 4846...
+Writing at 0x00390000... (100 %)
+Wrote 131072 bytes (4846 compressed) at 0x00390000 in 0.8 seconds (effective 1306.6 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
