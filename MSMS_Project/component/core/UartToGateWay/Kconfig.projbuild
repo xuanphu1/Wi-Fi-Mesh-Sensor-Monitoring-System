@@ -1,0 +1,9 @@
+menu "UART Gateway configuration"
+
+    config UART_GATEWAY_BAUD_RATE
+        int "UART gateway baudrate"
+        default 115200
+        help
+            Baudrate for the UART link from mesh root to gateway.
+
+endmenu

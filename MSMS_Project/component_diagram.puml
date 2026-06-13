@@ -1,0 +1,125 @@
+@startuml Component Diagram - MRS Project
+
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam component {
+  Padding 20
+  Margin 30
+}
+skinparam package {
+  Padding 40
+  Margin 50
+}
+skinparam note {
+  Padding 15
+  Margin 25
+}
+skinparam defaultFontSize 12
+skinparam componentArrowSize 2
+
+package "Main Application" #LightBlue {
+  [main] as Main
+}
+
+package "Core Layer" #LightGreen {
+  [DataManager] as DataManager
+  [FunctionManager] as FunctionManager
+}
+
+package "Sensors Layer" #LightYellow {
+  [SensorTypes] as SensorTypes
+  [SensorConfig] as SensorConfig
+  [SensorRegistry] as SensorRegistry
+}
+
+package "UI Layer" #LightCoral {
+  [ButtonManager] as ButtonManager
+  [ScreenManager] as ScreenManager
+  [MenuSystem] as MenuSystem
+}
+
+package "Network Layer" #LightPink {
+  [WifiManager] as WifiManager
+}
+
+package "Utils Layer" #LightGray {
+  [BitManager] as BitManager
+}
+
+package "Drivers Layer" #LightSteelBlue {
+  [Hardware Drivers] as Drivers
+  note right of Drivers
+    BME280, BMP280, DS3231,
+    DS3231Time, SSD1306,
+    LedRGB, i2cdev, etc.
+  end note
+}
+
+' Main Application dependencies (Blue)
+Main -[#0066CC]-> DataManager
+Main -[#0066CC]-> WifiManager
+Main -[#0066CC]-> ButtonManager
+Main -[#0066CC]-> MenuSystem
+Main -[#0066CC]-> Drivers
+
+' Core Layer dependencies (Green)
+DataManager -[#009900]-> SensorTypes
+FunctionManager -[#009900]-> ScreenManager
+FunctionManager -[#009900]-> DataManager
+FunctionManager -[#009900]-> BitManager
+FunctionManager -[#009900]-> SensorConfig
+FunctionManager -[#009900]-> SensorRegistry
+
+' Sensors Layer dependencies (Yellow/Orange)
+SensorConfig -[#FF9900]-> SensorTypes
+SensorConfig -[#FF9900]-> Drivers
+SensorRegistry -[#FF9900]-> SensorTypes
+SensorRegistry -[#FF9900]-> SensorConfig
+
+' UI Layer dependencies (Coral/Red)
+ButtonManager -[#FF6666]-> DataManager
+ButtonManager -[#FF6666]-> Drivers
+ScreenManager -[#FF6666]-> DataManager
+ScreenManager -[#FF6666]-> BitManager
+ScreenManager -[#FF6666]-> WifiManager
+ScreenManager -[#FF6666]-> Drivers
+MenuSystem -[#FF6666]-> DataManager
+MenuSystem -[#FF6666]-> ButtonManager
+MenuSystem -[#FF6666]-> FunctionManager
+MenuSystem -[#FF6666]-> WifiManager
+MenuSystem -[#FF6666]-> BitManager
+MenuSystem -[#FF6666]-> ScreenManager
+MenuSystem -[#FF6666]-> SensorRegistry
+MenuSystem -[#FF6666]-> Drivers
+
+' Network Layer dependencies (Pink)
+WifiManager -[#FF66CC]-> DataManager
+
+' Utils Layer dependencies (Gray)
+BitManager -[#888888]-> DataManager
+
+note right of DataManager
+  **Common.h** provides:
+  - DataManager_t
+  - Button types
+  - Menu types
+  - Screen types
+end note
+
+note right of SensorRegistry
+  **Central Registry** for:
+  - Sensor driver registration
+  - Sensor type mapping
+  - Driver lookup
+end note
+
+note right of FunctionManager
+  **Business Logic**:
+  - WiFi config callbacks
+  - Sensor selection callbacks
+  - Port management
+  - Data reading tasks
+end note
+
+@enduml
