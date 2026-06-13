@@ -1,0 +1,51 @@
+@startuml
+
+skinparam conditionStyle inside
+skinparam defaultFontSize 12
+skinparam ActivityBackgroundColor #E8F5E9
+skinparam ActivityBorderColor #2E7D32
+
+start
+:Hệ thống Gateway đang hoạt động;
+fork
+  partition "Task Giao tiếp (uart_to_node_task)" {
+    while (Vòng lặp UART)
+      :Chờ nhận dữ liệu từ phần cứng (UART RX);
+      if (Có byte đến?) then (Có)
+        :Đọc dữ liệu vào bộ đệm tạm;
+        :Bỏ qua các dòng "No node" hoặc Handshake;
+        :Đóng gói JSON Payload\nvà đẩy vào **uplink_queue**;
+      else (Timeout / Trống)
+        :Định kỳ gửi nhịp tim \n"Start Root" hoặc "Connected"\n xuống mạch MSMS;
+      endif
+    endwhile
+  }
+fork again
+  partition "Task Xử lý & Web (WebSocket_Handler)" {
+    while (Vòng lặp Xử lý)
+      :Chờ lấy dữ liệu từ **uplink_queue**;
+      if (Có gói tin JSON?) then (Có)
+        :Dùng **cJSON** để phân tích (Parse) dữ liệu;
+        :Trích xuất giá trị cảm biến, IP Node;
+        :Cập nhật các biến toàn cục trong **Datamanager**;
+        
+        fork
+          :Phát dữ liệu qua WebSocket\n(Hiển thị trực tiếp lên Web UI);
+        fork again
+          :Gọi module **MemoryManager**\nđể ghi log JSON/CSV vào thẻ nhớ SD;
+        end fork
+      endif
+    endwhile
+  }
+fork again
+  partition "Task Màn hình (SystemMonitor_Task)" {
+    while (Định kỳ mỗi giây)
+      :Đo điện áp và % dung lượng Pin (ADC);
+      :Đọc thời gian thực từ DS3231 (RTC I2C);
+      :Lấy dữ liệu cảm biến mới nhất từ **Datamanager**;
+      :Gọi API của LVGL để vẽ lại giao diện,\ncập nhật đồ thị và biểu tượng\ntrên màn hình TFT;
+      :Giải phóng CPU (vTaskDelay);
+    endwhile
+  }
+end fork
+@enduml

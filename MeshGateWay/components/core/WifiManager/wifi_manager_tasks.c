@@ -87,20 +87,31 @@ void wifi_manager_task(void *pvParameters)
         if (xSemaphoreTake(ctx->mutex, pdMS_TO_TICKS(1000)) == pdTRUE) {
             EventBits_t bits = xEventGroupGetBits(ctx->event_group);
 
-            if ((bits & WIFI_CONNECTED_BIT) && !(bits & WIFI_AP_MODE_BIT)) {
-                ESP_LOGI(WIFI_TAG, "WiFi STA connected, enabling configuration AP in AP+STA mode");
-                wifi_init_ap();
-                bits = xEventGroupGetBits(ctx->event_group);
+            bool is_wifi_connected = (bits & WIFI_CONNECTED_BIT) != 0;
+            bool is_ws_connected = (ctx->ws_state && ctx->ws_state->connected);
+            bool ap_mode_active = (bits & WIFI_AP_MODE_BIT) != 0;
+
+            if (is_wifi_connected && is_ws_connected) {
+                if (ap_mode_active) {
+                    ESP_LOGI(WIFI_TAG, "WiFi & WS connected, disabling AP mode");
+                    stop_webserver();
+                    esp_wifi_set_mode(WIFI_MODE_STA);
+                    ctx->ap_mode_active = false;
+                    xEventGroupClearBits(ctx->event_group, WIFI_AP_MODE_BIT);
+                    bits = xEventGroupGetBits(ctx->event_group);
+                }
+            } else {
+                if (!ap_mode_active && !ctx->connect_pending) {
+                    ESP_LOGI(WIFI_TAG, "WiFi or WS disconnected, enabling AP mode");
+                    wifi_init_ap();
+                    bits = xEventGroupGetBits(ctx->event_group);
+                    ap_mode_active = true;
+                }
             }
 
             if (!(bits & WIFI_STA_LINKED_BIT) && !ctx->connect_pending) {
                 if (ctx->user_sta_configured) {
                     TickType_t now = xTaskGetTickCount();
-                    if (!(bits & WIFI_AP_MODE_BIT)) {
-                        ESP_LOGI(WIFI_TAG, "WiFi disconnected, enabling AP while retrying STA");
-                        wifi_init_ap();
-                        bits = xEventGroupGetBits(ctx->event_group);
-                    }
                     if ((ctx->last_reconnect_attempt_tick == 0) ||
                         ((now - ctx->last_reconnect_attempt_tick) >=
                          pdMS_TO_TICKS(WIFI_RECONNECT_INTERVAL_MS))) {
@@ -111,7 +122,7 @@ void wifi_manager_task(void *pvParameters)
                                  WIFI_RECONNECT_INTERVAL_MS, ctx->configured_ssid);
                     }
                 } else {
-                    if (!(bits & WIFI_AP_MODE_BIT)) {
+                    if (!ap_mode_active) {
                         ESP_LOGI(WIFI_TAG, "WiFi disconnected, starting AP mode (no user config reconnect)");
                         esp_wifi_stop();
                         wifi_init_ap();

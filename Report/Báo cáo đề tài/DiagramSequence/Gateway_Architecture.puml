@@ -1,0 +1,74 @@
+@startuml
+
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam defaultFontSize 12
+skinparam padding 5
+skinparam nodesep 25
+skinparam ranksep 35
+
+package "Application Tasks (FreeRTOS)" #LightBlue {
+  [app_main\n(Khởi tạo)] as MainTask
+  [uart_to_node_task\n(Giao tiếp MSMS)] as UartTask
+  [SystemMonitor_Task\n(Giám sát & Hiển thị)] as SysMonTask
+  [WebSocket_Handler\n(Web Server & Sync)] as WSTask
+}
+
+package "UI Layer (LVGL)" #LightCoral {
+  [ui_Screen1, ui_Screen2...\n(Giao diện màn hình)] as UILayer
+  [ScreenManager\n(Điều phối giao diện)] as ScreenManager
+}
+
+package "Core Layer" #LightYellow {
+  [Datamanager\n(Lưu trữ toàn cục)] as DataManager
+  [UartToNode\n(Nhận/Gửi luồng UART)] as UartToNode
+  [JsonHandle\n(Phân tích cú pháp)] as JsonHandle
+  [PowerManager\n(Đo ADC Pin)] as PowerManager
+  [SystemMonitor\n(Đo CPU, cập nhật UI)] as SystemMonitor
+}
+
+package "Network Layer" #LightGreen {
+  [WifiManager\n(AP/STA, Captive Portal)] as WifiManager
+  [WebConfigWifi\n(Cấu hình mạng)] as WebConfig
+  [WSHandle\n(Websocket Backend)] as WSHandle
+}
+
+package "Storage & File System" #Lavender {
+  [MemoryManager\n(Ghi thẻ SD)] as MemoryManager
+  [SPIFFS\n(Web HTML/CSS)] as SPIFFS
+}
+
+package "Drivers Layer" #LightGray {
+  [LVGL Drivers\n(ILI9341, XPT2046)] as LVGL_Drv
+  [SD_Card Driver] as SD_Card
+  [DS3231 (RTC)] as DS3231
+  [UART / ADC / I2C / SPI] as HAL
+}
+
+MainTask -down-> UartTask : Khởi tạo
+MainTask -down-> SysMonTask : Khởi tạo
+MainTask -down-> WSTask : Khởi tạo
+
+UartTask -down-> UartToNode
+SysMonTask -down-> SystemMonitor
+WSTask -down-> WSHandle
+
+UartToNode -down-> DataManager : Ghi Uplink Queue
+SystemMonitor -down-> ScreenManager
+ScreenManager -down-> UILayer
+SystemMonitor -down-> PowerManager
+WSHandle -down-> JsonHandle
+WSHandle -down-> MemoryManager : Ghi log ra SD
+
+WifiManager -down-> WebConfig
+WebConfig -down-> SPIFFS
+
+UILayer -down-> LVGL_Drv
+PowerManager -down-> HAL
+UartToNode -down-> HAL
+MemoryManager -down-> SD_Card
+SD_Card -down-> HAL
+LVGL_Drv -down-> HAL
+DS3231 -down-> HAL
+
+@enduml

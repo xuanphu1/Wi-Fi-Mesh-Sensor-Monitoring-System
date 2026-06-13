@@ -1,0 +1,104 @@
+@startuml
+
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam defaultFontSize 12
+skinparam padding 5
+skinparam nodesep 25
+skinparam ranksep 35
+
+package "Application Tasks (FreeRTOS)" #LightBlue {
+  [app_main\n(Khởi tạo)] as MainTask
+  [MenuNavigation_Task\n(UI Thread)] as UITask
+  [InternetManager_Task\n(Quản lý trạng thái mạng)] as NetTask
+  [readDataSensorTask\n(Định kỳ đọc cảm biến)] as SensorTask
+  [mesh_data_task\nmesh_connection_task] as MeshTasks
+  [uart_gateway_rx/tx\n(Role Switch & Proxy)] as UARTTasks
+}
+
+package "UI Layer" #LightCoral {
+  [MenuSystem] as MenuSystem
+  [ScreenManager] as ScreenManager
+  [ButtonManager] as ButtonManager
+}
+
+package "Core Layer" #LightYellow {
+  [DataManager] as DataManager
+  [FunctionManager] as FunctionManager
+  [BatteryManager] as BatteryManager
+  [UartToGateWay] as UartToGateWay
+  [ProcessingDataMesh] as ProcessingDataMesh
+  [PinManager] as PinManager
+}
+
+package "Network Layer" #LightGreen {
+  [InternetManager] as InternetManager
+  [WifiManager\n(AP/STA)] as WifiManager
+  [MeshManager] as MeshManager
+  [WebConfigWifi\nWebSocKetHandle] as WebConfig
+}
+
+package "Sensors Layer" #Lavender {
+  [SensorConfig] as SensorConfig
+  [SensorRegistry] as SensorRegistry
+  [Sensor Drivers\n(BME280, AHT10, v.v.)] as Sensors
+}
+
+package "Drivers Layer" #LightGray {
+  [SSD1306 (OLED)] as SSD1306
+  [UART Driver] as UARTDriver
+  [ADC Driver] as ADCDriver
+  [Các Cảm biến khác\n(Mở rộng tương lai)] as FutureSensors
+  [I2C / SPI / GPIO] as HAL
+}
+
+' Task spawning
+MainTask -down-> UITask : Khởi tạo Menu
+MainTask -down-> NetTask : Khởi tạo Mạng
+MainTask -down-> UARTTasks : Gọi UartToGateWay_Init()
+FunctionManager -up-> SensorTask : Tạo task khi chọn Port
+InternetManager -up-> MeshTasks : Tạo task khi vào Mesh
+
+' Task to Logic
+UITask -down-> MenuSystem
+MeshTasks -down-> MeshManager
+UARTTasks -down-> UartToGateWay
+NetTask -down-> InternetManager
+SensorTask -down-> FunctionManager
+
+' Logic to Logic
+MenuSystem -down-> ScreenManager
+MenuSystem -down-> ButtonManager
+MenuSystem -down-> DataManager
+MenuSystem -down-> FunctionManager
+
+FunctionManager -down-> SensorRegistry
+FunctionManager -down-> SensorConfig
+FunctionManager -down-> DataManager
+FunctionManager -right-> BatteryManager
+
+MeshManager -up-> DataManager
+UartToGateWay -up-> DataManager
+UartToGateWay -right-> ProcessingDataMesh
+
+InternetManager -down-> WifiManager
+InternetManager -down-> MeshManager
+WifiManager -down-> WebConfig
+
+' Logic to Drivers
+ScreenManager -down-> SSD1306
+ButtonManager -down-> HAL
+PinManager -down-> HAL
+SensorRegistry -down-> Sensors
+SensorRegistry -down-> FutureSensors
+BatteryManager -down-> ADCDriver
+UartToGateWay -down-> UARTDriver
+
+' Drivers to HAL
+SSD1306 -down-> HAL
+Sensors -down-> HAL
+FutureSensors -down-> HAL
+UARTDriver -down-> HAL
+ADCDriver -down-> HAL
+
+@enduml

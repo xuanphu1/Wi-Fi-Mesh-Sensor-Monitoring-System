@@ -29,6 +29,7 @@ static const char k_handshake[] = UART_TO_NODE_HS_WIRE;
 
 static QueueHandle_t s_uart_queue;
 static QueueHandle_t s_uplink_queue;
+static dm_ws_t *s_ws_state;
 
 static uart_port_t cfg_uart_num(void)
 {
@@ -96,6 +97,11 @@ static TickType_t cfg_send_period_ticks(void)
 void uart_to_node_attach_uplink_queue(QueueHandle_t uplink_queue)
 {
     s_uplink_queue = uplink_queue;
+}
+
+void uart_to_node_attach_ws_state(dm_ws_t *ws_state)
+{
+    s_ws_state = ws_state;
 }
 
 /** Độ dài phần chữ trong `UART_NODE_MSG_TYPE_NO_NODE` (bỏ \\n ở cuối macro nếu có). */
@@ -192,6 +198,9 @@ static bool uart_rx_is_no_node_only_life(const uint8_t *data, size_t len)
 static void uart_node_enqueue_rx(const uint8_t *data, size_t len)
 {
     if (!s_uplink_queue || !data || len == 0) {
+        return;
+    }
+    if (s_ws_state == NULL || !s_ws_state->connected) {
         return;
     }
 
@@ -304,7 +313,7 @@ static void uart_to_node_log_rx_chunk(const uint8_t *data, size_t len)
 
 static void uart_to_node_feed_rx(uart_to_node_ctx_t *ctx, const uint8_t *data, size_t len)
 {
-    uart_to_node_log_rx_chunk(data, len);
+    // uart_to_node_log_rx_chunk(data, len);
 
     if (!uart_rx_is_no_node_only_life(data, len)) {
         uart_node_enqueue_rx(data, len);

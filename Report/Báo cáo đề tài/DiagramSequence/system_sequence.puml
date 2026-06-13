@@ -1,0 +1,124 @@
+@startuml SystemOperationSequence
+title Quá trình hoạt động hệ thống MSMS (Sequence Diagram)
+
+actor "Người dùng" as User
+participant "app_main" as Main
+participant "ButtonManager" as Btn
+participant "MenuNavigation\n_Task" as Menu
+participant "MenuSystem\n(callbacks)" as MS
+participant "FunctionManager" as FM
+participant "ScreenManager\n(OLED)" as Screen
+participant "DataManager" as Data
+participant "WifiManager" as Wifi
+participant "SensorRegistry\n/ Driver" as Sensor
+participant "BatteryManager" as Bat
+
+== Khởi động (app_main) ==
+Main -> Main : NVS, GPIO, LedRGB init
+Main -> Btn : ButtonManagerInit()
+Main -> Screen : I2C, SSD1306, ScreenManagerInit()
+Main -> MS : MenuSystemInit(DataManager)
+Main -> Bat : BatteryManager_Init()\nBatteryManager_StartTask()
+Main -> Wifi : xTaskCreate(wifi_init_sta)
+Main -> Menu : xTaskCreate(MenuNavigation_Task)
+Main -> Main : vTaskDelay() (main idle)
+
+group Task WiFi (chạy song song)
+  Wifi -> Wifi : init_spiffs(), wifi_init_common()
+  alt Có CONFIG_WIFI_SSID
+    Wifi -> Wifi : esp_wifi_set_mode(STA), start()
+    Wifi -> Wifi : Wait WIFI_CONNECTED_BIT
+    Wifi -> Wifi : vTaskDelete()
+  else Không có / thất bại
+    Wifi -> Wifi : vTaskDelete()
+  end
+end
+group Task Pin (chạy song song)
+  Bat -> Bat : battery_read_task(), đọc ADC pin định kỳ
+end
+
+== Vòng lặp chính: Menu Navigation ==
+loop Mỗi 10ms
+  Menu -> Btn : ReadButtonStatus()
+  Btn -> Btn : read_button_debounced(GPIO)
+  Btn --> Menu : BTN_UP | BTN_DOWN | BTN_SEL | BTN_BACK
+
+  alt BTN_UP / BTN_DOWN
+    Menu -> Menu : Cập nhật selected, giới hạn index
+    Menu -> Screen : MenuRender(current, selected, objectInfo)
+    Screen -> User : Hiển thị menu (OLED)
+  else BTN_SEL (chọn mục)
+    Menu -> Menu : item = current->items[selected]
+
+    alt item = MENU_ACTION (có callback)
+      Menu -> MS : item->callback(ctx)
+      MS -> Data : Đọc/ghi objectInfo, screen
+
+      opt Callback = WiFi Config
+        MS -> FM : wifi_config_callback(data)
+        FM -> Wifi : xTaskCreate(wifi_config_task)
+        activate Wifi
+        loop Chưa kết nối
+          Wifi -> Screen : ScreenWifiConnecting(data)
+          Wifi -> Wifi : update_wifi_status()\nwifi_connect_handler()
+          alt Đã kết nối
+            Wifi -> Screen : MenuRender()
+            Wifi -> Wifi : vTaskDelete()
+            deactivate Wifi
+          end
+        end
+      end
+
+      opt Callback = Chọn cảm biến (Port)
+        MS -> FM : select_sensor_cb(param)
+        FM -> Sensor : sensor_registry_get_driver(type)
+        FM -> Sensor : driver->init() (nếu chưa init)
+        FM -> Data : selectedSensor[port] = type
+        FM -> Screen : MenuRender() / ScreenShowMessage()
+      end
+
+      opt Callback = Xem dữ liệu cảm biến
+        MS -> FM : show_data_sensor_cb(param)
+        FM -> FM : readDataSensorTaskHandle[port] = NULL?
+        FM -> FM : xTaskCreate(readDataSensorTask)
+        note right: Task chạy song song với Menu
+        activate FM
+        loop Task đọc cảm biến (mỗi 1s)
+          FM -> Sensor : driver->read(&data)
+          Sensor --> FM : SensorData_t
+          FM -> Screen : ScreenShowDataSensor(fields, data)
+          Screen -> User : Hiển thị giá trị (OLED)
+          FM -> FM : vTaskDelay(1000ms)
+        end
+        deactivate FM
+      end
+
+      opt Callback = Battery Status
+        MS -> FM : battery_status_callback(data)
+        FM -> Bat : BatteryManager_UpdateInfo(&batteryInfo)
+        Bat --> FM : batteryLevel, batteryName
+        FM -> Screen : MenuRender(battery menu)
+      end
+
+      opt Callback = Reset ports
+        MS -> FM : reset_all_ports_callback(data)
+        FM -> Data : selectedSensor[] = NONE\nPortSelected[] = NONE
+        FM -> FM : vTaskDelete(readDataSensorTask từng port)
+        FM -> Screen : MenuRender()
+      end
+    else item = MENU_SUBMENU
+      Menu -> Menu : current = item->children\nselected = 0
+      Menu -> Screen : MenuRender(current, selected, objectInfo)
+      Screen -> User : Hiển thị submenu
+    end
+
+  else BTN_BACK
+    Menu -> Menu : current = current->parent\nselected = 0
+    Menu -> Screen : MenuRender(current, selected, objectInfo)
+    Screen -> User : Hiển thị menu cha
+  end
+
+  Menu -> Menu : vTaskDelay(10ms)
+end
+
+@enduml

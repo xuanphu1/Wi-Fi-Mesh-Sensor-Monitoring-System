@@ -1,0 +1,57 @@
+@startuml
+skinparam defaultFontSize 12
+skinparam conditionStyle inside
+skinparam ActivityBackgroundColor #E8F5E9
+skinparam ActivityBorderColor #2E7D32
+
+start
+:Hệ thống đang chạy ở vai trò **ROOT**;
+note right
+  - **Mesh Data Task**: Đảm nhiệm nhận UDP từ các NODE.
+  - **UART TX Task**: Đảm nhiệm đẩy dữ liệu xuống Gateway.
+end note
+
+fork
+  partition "Task Nhận UDP (Mesh Data Task)" {
+    while (Vòng lặp Mesh RX)
+      if (Kiểm tra vai trò mạng?) then (Là ROOT)
+        :Chờ nhận UDP qua hàm recvfrom();
+        if (Nhận được dữ liệu từ NODE?) then (Có)
+          :Tách thông tin Origin IP và Origin Level\ntừ chuỗi JSON (mesh_extract_origin_info);
+          :Sao chép Payload vào cấu trúc mesh_gateway_rx_msg_t;
+          
+          if (xQueueSend vào gateway_rx_queue?) then (Thành công)
+            :Ghi nhận frame đã nhận;
+          else (Queue bị đầy)
+            :Drop UDP frame và Log cảnh báo;
+          endif
+        endif
+      else (Không phải ROOT)
+        :Bỏ qua (Break hoặc vTaskDelay);
+      endif
+    endwhile
+  }
+fork again
+  partition "Task Gửi UART (UART TX Task)" {
+    while (Vòng lặp UART TX)
+      if (Kiểm tra vai trò mạng?) then (Là ROOT)
+        if (xQueueReceive từ gateway_rx_queue?) then (Có dữ liệu)
+          :Lấy bản tin JSON ra khỏi hàng đợi;
+          :Xử lý và Lọc lại JSON nếu cần\n(ProcessingDataMesh_ProcessFrame);
+          :Thêm ký tự newline '\n' vào cuối dòng;
+          :Gọi **UartToGateWay_Send()**\nđẩy dữ liệu qua TX xuống Gateway;
+          :Cập nhật Watchdog: s_mesh_gateway_no_node_tick;
+          
+        else (Timeout / Hàng đợi rỗng)
+          if (Thời gian không có dữ liệu Mesh > Ngưỡng?) then (Đúng)
+            :Gửi bản tin Heartbeat phụ:\n**"No node\n"** xuống Gateway;
+            :Cập nhật Watchdog;
+          endif
+        endif
+      else (Không phải ROOT)
+        :Chờ (vTaskDelay);
+      endif
+    endwhile
+  }
+end fork
+@enduml

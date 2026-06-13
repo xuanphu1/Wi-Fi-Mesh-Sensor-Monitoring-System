@@ -1,0 +1,35 @@
+@startuml
+skinparam defaultFontSize 12
+skinparam conditionStyle inside
+skinparam ActivityBackgroundColor #FFF8E1
+skinparam ActivityBorderColor #FF8F00
+
+start
+:Task **mesh_data_task** đang chạy ở Role = NODE;
+while (Vòng lặp mạng lưới Mesh)
+  if (Trạng thái kết nối Mesh?) then (Đã kết nối)
+    :Khởi tạo đối tượng JSON Telemetry;
+    :Gắn các trường cơ bản: Schema, Seq, Level, IP, Time, Version;
+    
+    :Đọc cấu hình cảm biến từ DataManager;
+    while (Duyệt lần lượt các Port (1, 2, 3))
+      if (Port có gắn cảm biến?) then (Có)
+        :Gọi hàm driver->read();
+        if (Đọc thành công?) then (Có)
+          :Thêm giá trị vào mảng "p" của JSON;
+        else (Lỗi đọc)
+          :Lưu mã lỗi vào mảng error_code;
+        endif
+      endif
+    endwhile
+
+    :Đóng gói mảng mã lỗi "err" vào JSON;
+    :Mở Socket UDP (Đích: CONFIG_IP_ROOT);
+    :Gửi gói tin JSON lên **ROOT**;
+    :Chờ chu kỳ tiếp theo (vTaskDelay 5000ms);
+    
+  else (Mất kết nối hoặc chưa cấp IP)
+    :Chờ (vTaskDelay 2000ms);
+  endif
+endwhile
+@enduml

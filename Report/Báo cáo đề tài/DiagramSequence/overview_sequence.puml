@@ -1,0 +1,34 @@
+@startuml OverviewSequence
+title Tổng quan luồng hoạt động hệ thống MSMS
+
+actor User
+participant "MenuNavigation_Task" as Menu
+participant "ButtonManager" as Btn
+participant "ScreenManager" as Screen
+participant "Callbacks\n(FunctionManager\n/ MenuSystem)" as CB
+participant "WifiManager\n/ Sensor Driver\n/ BatteryManager" as HW
+
+== Khởi động ==
+Menu -> Btn : Init
+Menu -> Screen : Init, MenuRender(Root)
+Screen -> User : Hiển thị menu gốc
+
+== Tương tác người dùng ==
+loop Liên tục
+  User -> Btn : Nhấn nút (UP/DOWN/SEL/BACK)
+  Menu -> Btn : ReadButtonStatus()
+  Btn --> Menu : Loại nút
+
+  alt Di chuyển (UP/DOWN) hoặc Back
+    Menu -> Screen : MenuRender(menu mới)
+    Screen -> User : Cập nhật OLED
+  else Chọn (SEL)
+    Menu -> CB : callback tương ứng mục chọn
+    CB -> HW : WiFi connect / Đọc cảm biến / Pin / Reset...
+    HW --> CB : Trạng thái hoặc dữ liệu
+    CB -> Screen : MenuRender() hoặc ScreenShowData()
+    Screen -> User : Cập nhật giao diện
+  end
+end
+
+@enduml

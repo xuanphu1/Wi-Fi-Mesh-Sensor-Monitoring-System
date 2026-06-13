@@ -1,0 +1,44 @@
+@startuml
+skinparam defaultFontSize 12
+skinparam conditionStyle inside
+skinparam ActivityBackgroundColor #E3F2FD
+skinparam ActivityBorderColor #1565C0
+
+start
+:Khởi chạy Task **uart_gateway_rx_task**;
+while (Vòng lặp lắng nghe UART)
+  :Chờ sự kiện UART từ hàng đợi (Timeout 500ms);
+  
+  if (Có dữ liệu UART tới?) then (Có)
+    :Đọc dữ liệu UART vào Buffer;
+    :Tách dòng (Line Parsing);
+    
+    if (Nội dung lệnh là gì?) then ("Connected")
+      :Cập nhật Heartbeat: s_last_connected_tick;
+      note right: Đánh dấu Gateway\nvẫn đang sống
+      
+    elseif ("Start Root")
+      if (Mesh Stack đã sẵn sàng?) then (Đúng)
+        :Gửi phản hồi "Switching to root mode...";
+        :Gọi **wifi_mesh_join_as_root_callback()**\nđể lên làm ROOT;
+        :Bật cờ theo dõi Watchdog;
+        :Cập nhật Heartbeat;
+      else (Chưa)
+        :Gửi cảnh báo "Mesh not ready";
+      endif
+      
+    else (Lệnh không xác định)
+      :Bỏ qua (Log Unknown CMD);
+    endif
+
+  else (Không, Timeout)
+    if (Watchdog bật & Đang là ROOT?) then (Đúng)
+      if (Thời gian mất kết nối > 1000ms?) then (Quá 1 giây)
+        :Kích hoạt cơ chế tự bảo vệ\n(No Heartbeat);
+        :Gọi **wifi_mesh_join_as_node_callback()**\nđể lùi về làm NODE;
+        :Tắt cờ theo dõi Watchdog;
+      endif
+    endif
+  endif
+endwhile
+@enduml

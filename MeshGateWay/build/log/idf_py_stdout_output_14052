@@ -1,0 +1,2645 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82f54h (536404) map[0m
+[0;32mI (309) esp_image: segment 1: paddr=00092f7c vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=00097504 vaddr=40080000 size=08b14h ( 35604) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbc7ch (1031292) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bca4 vaddr=40088b14 size=12880h ( 75904) load[0m
+[0;32mI (727) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (728) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (728) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (762) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (767) cpu_start: Compile time:     Jun  7 2026 14:28:29[0m
+[0;32mI (773) cpu_start: ELF file SHA256:  b7e3f345e...[0m
+[0;32mI (779) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (784) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (789) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (793) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (798) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (806) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (811) heap_init: At 3FFCC3B0 len 00013C50 (79 KiB): DRAM[0m
+[0;32mI (818) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (824) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (830) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (838) spi_flash: detected chip: generic[0m
+[0;32mI (841) spi_flash: flash io: dio[0m
+[0;33mW (845) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (856) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (865) main_task: Started on CPU0[0m
+[0;32mI (875) main_task: Calling app_main()[0m
+[0;32mI (875) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (895) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (905) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (905) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (905) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (915) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (925) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (925) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (935) disp_spi: Adding SPI device[0m
+[0;32mI (935) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1145) ILI9341: Initialization.[0m
+[0;32mI (1345) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1345) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1345) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1645) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1655) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1655) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1705) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 00:48:50
+[0;32mI (1765) wifi:wifi driver task: 3ffe69d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1765) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1775) wifi:wifi certification version: v7.0[0m
+[0;32mI (1775) wifi:config NVS flash: enabled[0m
+[0;32mI (1775) wifi:config nano formating: disabled[0m
+[0;32mI (1775) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1785) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1785) wifi:Init management short buffer num: 32[0m
+[0;32mI (1785) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1795) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1795) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1805) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1805) wifi_init: rx ba win: 6[0m
+[0;32mI (1815) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1815) wifi_init: udp mbox: 6[0m
+[0;32mI (1815) wifi_init: tcp mbox: 6[0m
+[0;32mI (1825) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1825) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1825) wifi_init: tcp mss: 1440[0m
+[0;32mI (1835) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1835) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1845) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1855) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1855) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1945) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1945) wifi:enable tsf[0m
+[0;32mI (1955) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2325) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4375) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4375) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4375) wifi:flush txq[0m
+[0;32mI (4375) wifi:stop sw txq[0m
+[0;32mI (4375) wifi:lmac stop hw txq[0m
+[0;32mI (4385) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4385) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4385) wifi:enable tsf[0m
+[0;32mI (4395) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6815) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6815) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6815) wifi:flush txq[0m
+[0;32mI (6815) wifi:stop sw txq[0m
+[0;32mI (6815) wifi:lmac stop hw txq[0m
+[0;32mI (6825) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6825) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6825) wifi:enable tsf[0m
+[0;32mI (6835) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9245) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9245) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9255) wifi:flush txq[0m
+[0;32mI (9255) wifi:stop sw txq[0m
+[0;32mI (9255) wifi:lmac stop hw txq[0m
+[0;32mI (9265) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9265) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9265) wifi:enable tsf[0m
+[0;32mI (9275) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11685) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11685) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11695) wifi:flush txq[0m
+[0;32mI (11695) wifi:stop sw txq[0m
+[0;32mI (11695) wifi:lmac stop hw txq[0m
+[0;32mI (11695) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11705) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11705) wifi:enable tsf[0m
+[0;32mI (11715) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14125) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14125) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14135) wifi:flush txq[0m
+[0;32mI (14135) wifi:stop sw txq[0m
+[0;32mI (14135) wifi:lmac stop hw txq[0m
+[0;32mI (14135) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14145) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14145) wifi:enable tsf[0m
+[0;32mI (14145) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16565) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16565) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16575) wifi:flush txq[0m
+[0;32mI (16575) wifi:stop sw txq[0m
+[0;32mI (16575) wifi:lmac stop hw txq[0m
+[0;32mI (16575) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16585) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16585) wifi:enable tsf[0m
+[0;32mI (16585) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19005) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19005) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19015) wifi:flush txq[0m
+[0;32mI (19015) wifi:stop sw txq[0m
+[0;32mI (19015) wifi:lmac stop hw txq[0m
+[0;32mI (19015) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19025) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19025) wifi:enable tsf[0m
+[0;32mI (19025) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21445) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21445) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21455) wifi:flush txq[0m
+[0;32mI (21455) wifi:stop sw txq[0m
+[0;32mI (21455) wifi:lmac stop hw txq[0m
+[0;32mI (21455) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21465) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21465) wifi:enable tsf[0m
+[0;32mI (21465) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23885) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23885) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23895) wifi:flush txq[0m
+[0;32mI (23895) wifi:stop sw txq[0m
+[0;32mI (23895) wifi:lmac stop hw txq[0m
+[0;32mI (23895) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23905) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23905) wifi:enable tsf[0m
+[0;32mI (23905) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26325) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26325) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26335) wifi:flush txq[0m
+[0;32mI (26335) wifi:stop sw txq[0m
+[0;32mI (26335) wifi:lmac stop hw txq[0m
+[0;32mI (26335) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26345) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26345) wifi:enable tsf[0m
+[0;32mI (26345) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26605) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26615) wifi:state: init -> auth (b0)[0m
+[0;32mI (26615) wifi:state: auth -> assoc (0)[0m
+[0;32mI (26625) wifi:state: assoc -> run (10)[0m
+[0;32mI (26645) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (26655) wifi:security: WPA2-PSK, phy: bgn, rssi: -52[0m
+[0;32mI (26655) wifi:pm start, type: 1[0m
+
+[0;32mI (26655) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (26665) WiFiManager: WiFi STA link established[0m
+[0;32mI (26805) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (36355) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (36355) wifi:state: run -> init (0)[0m
+[0;32mI (36355) wifi:pm stop, total sleep time: 4261223 us / 9698881 us[0m
+
+[0;32mI (36355) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36365) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36435) wifi:flush txq[0m
+[0;32mI (36435) wifi:stop sw txq[0m
+[0;32mI (36435) wifi:lmac stop hw txq[0m
+[0;32mI (36435) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36435) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36435) wifi:enable tsf[0m
+[0;32mI (36435) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36445) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (36455) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (36455) wifi:state: init -> auth (b0)[0m
+[0;32mI (36465) wifi:state: auth -> init (0)[0m
+[0;32mI (36465) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36475) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36475) wifi:flush txq[0m
+[0;32mI (36475) wifi:stop sw txq[0m
+[0;32mI (36485) wifi:lmac stop hw txq[0m
+[0;32mI (36485) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36495) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36495) wifi:enable tsf[0m
+[0;32mI (36495) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36505) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (36515) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (36515) wifi:state: init -> auth (b0)[0m
+[0;32mI (36515) wifi:state: auth -> init (0)[0m
+[0;32mI (36525) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36525) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36535) wifi:flush txq[0m
+[0;32mI (36535) wifi:stop sw txq[0m
+[0;32mI (36535) wifi:lmac stop hw txq[0m
+[0;32mI (36545) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36545) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36555) wifi:enable tsf[0m
+[0;32mI (36555) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36555) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36575) wifi:flush txq[0m
+[0;32mI (36575) wifi:stop sw txq[0m
+[0;32mI (36575) wifi:lmac stop hw txq[0m
+[0;32mI (36575) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36575) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36575) wifi:enable tsf[0m
+[0;32mI (36585) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36595) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (36595) wifi:state: init -> auth (b0)[0m
+[0;32mI (36605) wifi:state: auth -> init (8a0)[0m
+[0;32mI (36605) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36605) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36615) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (36625) wifi:flush txq[0m
+[0;32mI (36625) wifi:stop sw txq[0m
+[0;32mI (36625) wifi:lmac stop hw txq[0m
+[0;32mI (36625) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36635) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36635) wifi:enable tsf[0m
+[0;32mI (36645) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (39055) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (39055) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (39065) wifi:flush txq[0m
+[0;32mI (39065) wifi:stop sw txq[0m
+[0;32mI (39065) wifi:lmac stop hw txq[0m
+[0;32mI (39065) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (39075) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (39075) wifi:enable tsf[0m
+[0;32mI (39085) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (41495) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (41495) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (41505) wifi:flush txq[0m
+[0;32mI (41505) wifi:stop sw txq[0m
+[0;32mI (41505) wifi:lmac stop hw txq[0m
+[0;32mI (41505) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (41515) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (41515) wifi:enable tsf[0m
+[0;32mI (41515) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (43935) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (43935) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (43945) wifi:flush txq[0m
+[0;32mI (43945) wifi:stop sw txq[0m
+[0;32mI (43945) wifi:lmac stop hw txq[0m
+[0;32mI (43945) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (43955) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (43955) wifi:enable tsf[0m
+[0;32mI (43955) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (46375) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46375) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (46385) wifi:flush txq[0m
+[0;32mI (46385) wifi:stop sw txq[0m
+[0;32mI (46385) wifi:lmac stop hw txq[0m
+[0;32mI (46385) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46395) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46395) wifi:enable tsf[0m
+[0;32mI (46395) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (48815) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (48815) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (48825) wifi:flush txq[0m
+[0;32mI (48825) wifi:stop sw txq[0m
+[0;32mI (48825) wifi:lmac stop hw txq[0m
+[0;32mI (48825) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (48835) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (48835) wifi:enable tsf[0m
+[0;32mI (48835) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (51255) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (51255) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (51265) wifi:flush txq[0m
+[0;32mI (51265) wifi:stop sw txq[0m
+[0;32mI (51265) wifi:lmac stop hw txq[0m
+[0;32mI (51265) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (51275) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (51275) wifi:enable tsf[0m
+[0;32mI (51275) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (51375) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (51375) wifi:state: init -> auth (b0)[0m
+[0;32mI (51385) wifi:state: auth -> assoc (0)[0m
+[0;32mI (51395) wifi:state: assoc -> run (10)[0m
+[0;32mI (51425) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (51425) wifi:security: WPA2-PSK, phy: bgn, rssi: -51[0m
+[0;32mI (51425) wifi:pm start, type: 1[0m
+
+[0;32mI (51435) WiFiManager: WiFi STA link established[0m
+[0;32mI (51475) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (61285) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (61285) wifi:state: run -> init (0)[0m
+[0;32mI (61285) wifi:pm stop, total sleep time: 4492652 us / 9856559 us[0m
+
+[0;32mI (61285) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (61295) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (61335) wifi:flush txq[0m
+[0;32mI (61335) wifi:stop sw txq[0m
+[0;32mI (61335) wifi:lmac stop hw txq[0m
+[0;32mI (61335) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (61345) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (61345) wifi:enable tsf[0m
+[0;32mI (61345) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (61345) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (61355) wifi:flush txq[0m
+[0;32mI (61355) wifi:stop sw txq[0m
+[0;32mI (61355) wifi:lmac stop hw txq[0m
+[0;32mI (61365) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (61365) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (61365) wifi:enable tsf[0m
+[0;32mI (61375) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (61385) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (61385) wifi:state: init -> auth (b0)[0m
+[0;32mI (61395) wifi:state: auth -> assoc (0)[0m
+[0;32mI (61405) wifi:state: assoc -> run (10)[0m
+[0;32mI (61425) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (61425) wifi:security: WPA2-PSK, phy: bgn, rssi: -54[0m
+[0;32mI (61425) wifi:pm start, type: 1[0m
+
+[0;32mI (61435) WiFiManager: WiFi STA link established[0m
+[0;32mI (61515) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (71375) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (71375) wifi:state: run -> init (0)[0m
+[0;32mI (71375) wifi:pm stop, total sleep time: 4205087 us / 9944366 us[0m
+
+[0;32mI (71375) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (71385) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (71425) wifi:flush txq[0m
+[0;32mI (71425) wifi:stop sw txq[0m
+[0;32mI (71425) wifi:lmac stop hw txq[0m
+[0;32mI (71425) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (71425) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (71425) wifi:enable tsf[0m
+[0;32mI (71425) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (71435) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (71445) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (71445) wifi:state: init -> auth (b0)[0m
+[0;32mI (71455) wifi:state: auth -> init (0)[0m
+[0;32mI (71455) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (71465) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (71565) wifi:flush txq[0m
+[0;32mI (71565) wifi:stop sw txq[0m
+[0;32mI (71565) wifi:lmac stop hw txq[0m
+[0;32mI (72065) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (72065) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (72065) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (72065) wifi:enable tsf[0m
+[0;32mI (72075) wifi:Total power save buffer number: 16[0m
+[0;32mI (72075) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (72075) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (72085) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (72095) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (72095) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (72105) wifi:new:<1,1>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (72115) wifi:state: init -> auth (b0)[0m
+[0;32mI (72115) wifi:state: auth -> init (8a0)[0m
+[0;32mI (72125) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;33mW (72125) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (72135) WiFiManager: Web server started on port 80[0m
+[0;32mI (72135) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (72145) wifi:flush txq[0m
+[0;32mI (72145) wifi:stop sw txq[0m
+[0;32mI (72155) wifi:lmac stop hw txq[0m
+[0;32mI (72155) uart: queue free spaces: 24[0m
+[0;32mI (72195) uart_to_node: Send: Start Root[0m
+[0;32mI (72715) uart_to_node: Send: Start Root[0m
+[0;32mI (73155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (73235) uart_to_node: Send: Start Root[0m
+[0;32mI (73755) uart_to_node: Send: Start Root[0m
+[0;32mI (74155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (74275) uart_to_node: Send: Start Root[0m
+[0;32mI (74795) uart_to_node: Send: Start Root[0m
+[0;32mI (75155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (75315) uart_to_node: Send: Start Root[0m
+[0;32mI (75835) uart_to_node: Send: Start Root[0m
+[0;32mI (76155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (76355) uart_to_node: Send: Start Root[0m
+[0;32mI (76875) uart_to_node: Send: Start Root[0m
+[0;32mI (77155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (77395) uart_to_node: Send: Start Root[0m
+[0;32mI (77915) uart_to_node: Send: Start Root[0m
+[0;32mI (78155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (78435) uart_to_node: Send: Start Root[0m
+[0;32mI (78955) uart_to_node: Send: Start Root[0m
+[0;32mI (79155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (79475) uart_to_node: Send: Start Root[0m
+[0;32mI (79995) uart_to_node: Send: Start Root[0m
+[0;32mI (80155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (80515) uart_to_node: Send: Start Root[0m
+[0;32mI (81035) uart_to_node: Send: Start Root[0m
+[0;32mI (81155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (81555) uart_to_node: Send: Start Root[0m
+[0;32mI (82075) uart_to_node: Send: Start Root[0m
+[0;32mI (82155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (82595) uart_to_node: Send: Start Root[0m
+[0;32mI (83115) uart_to_node: Send: Start Root[0m
+[0;32mI (83155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (83635) uart_to_node: Send: Start Root[0m
+[0;32mI (84155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (84155) uart_to_node: Send: Start Root[0m
+[0;32mI (84675) uart_to_node: Send: Start Root[0m
+[0;32mI (85155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (85195) uart_to_node: Send: Start Root[0m
+[0;32mI (85715) uart_to_node: Send: Start Root[0m
+[0;32mI (86155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (86235) uart_to_node: Send: Start Root[0m
+[0;32mI (86755) uart_to_node: Send: Start Root[0m
+[0;32mI (87155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (87275) uart_to_node: Send: Start Root[0m
+[0;32mI (87795) uart_to_node: Send: Start Root[0m
+[0;32mI (88155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (88315) uart_to_node: Send: Start Root[0m
+[0;32mI (88835) uart_to_node: Send: Start Root[0m
+[0;32mI (89155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (89355) uart_to_node: Send: Start Root[0m
+[0;32mI (89875) uart_to_node: Send: Start Root[0m
+[0;32mI (90155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (90395) uart_to_node: Send: Start Root[0m
+[0;32mI (90915) uart_to_node: Send: Start Root[0m
+[0;32mI (91155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (91435) uart_to_node: Send: Start Root[0m
+[0;32mI (91955) uart_to_node: Send: Start Root[0m
+[0;32mI (92155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (92475) uart_to_node: Send: Start Root[0m
+[0;32mI (92995) uart_to_node: Send: Start Root[0m
+[0;32mI (93155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (93515) uart_to_node: Send: Start Root[0m
+[0;32mI (94035) uart_to_node: Send: Start Root[0m
+[0;32mI (94155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (94555) uart_to_node: Send: Start Root[0m
+[0;32mI (95075) uart_to_node: Send: Start Root[0m
+[0;32mI (95155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (95595) uart_to_node: Send: Start Root[0m
+[0;32mI (96115) uart_to_node: Send: Start Root[0m
+[0;32mI (96155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (96635) uart_to_node: Send: Start Root[0m
+[0;32mI (97155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (97155) uart_to_node: Send: Start Root[0m
+[0;32mI (97675) uart_to_node: Send: Start Root[0m
+[0;32mI (98155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (98195) uart_to_node: Send: Start Root[0m
+[0;32mI (98715) uart_to_node: Send: Start Root[0m
+[0;32mI (99155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (99235) uart_to_node: Send: Start Root[0m
+[0;32mI (99755) uart_to_node: Send: Start Root[0m
+[0;32mI (100155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (100275) uart_to_node: Send: Start Root[0m
+[0;32mI (100795) uart_to_node: Send: Start Root[0m
+[0;32mI (101155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (101315) uart_to_node: Send: Start Root[0m
+[0;32mI (101835) uart_to_node: Send: Start Root[0m
+[0;32mI (102155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (102355) uart_to_node: Send: Start Root[0m
+[0;32mI (102875) uart_to_node: Send: Start Root[0m
+[0;32mI (103155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (103395) uart_to_node: Send: Start Root[0m
+[0;32mI (103915) uart_to_node: Send: Start Root[0m
+[0;32mI (104155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (104435) uart_to_node: Send: Start Root[0m
+[0;32mI (104955) uart_to_node: Send: Start Root[0m
+[0;32mI (105155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (105475) uart_to_node: Send: Start Root[0m
+[0;32mI (105995) uart_to_node: Send: Start Root[0m
+[0;32mI (106155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (106515) uart_to_node: Send: Start Root[0m
+[0;32mI (107035) uart_to_node: Send: Start Root[0m
+[0;32mI (107155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (107555) uart_to_node: Send: Start Root[0m
+[0;32mI (108075) uart_to_node: Send: Start Root[0m
+[0;32mI (108155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (108595) uart_to_node: Send: Start Root[0m
+[0;32mI (109115) uart_to_node: Send: Start Root[0m
+[0;32mI (109155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (109635) uart_to_node: Send: Start Root[0m
+[0;32mI (110155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (110155) uart_to_node: Send: Start Root[0m
+[0;32mI (110675) uart_to_node: Send: Start Root[0m
+[0;32mI (111155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (111195) uart_to_node: Send: Start Root[0m
+[0;32mI (111715) uart_to_node: Send: Start Root[0m
+[0;32mI (112155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (112235) uart_to_node: Send: Start Root[0m
+[0;32mI (112755) uart_to_node: Send: Start Root[0m
+[0;32mI (113155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (113275) uart_to_node: Send: Start Root[0m
+[0;32mI (113795) uart_to_node: Send: Start Root[0m
+[0;32mI (114155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (114315) uart_to_node: Send: Start Root[0m
+[0;32mI (114835) uart_to_node: Send: Start Root[0m
+[0;32mI (115155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (115355) uart_to_node: Send: Start Root[0m
+[0;32mI (115875) uart_to_node: Send: Start Root[0m
+[0;32mI (116155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (116395) uart_to_node: Send: Start Root[0m
+[0;32mI (116915) uart_to_node: Send: Start Root[0m
+[0;32mI (117155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (117435) uart_to_node: Send: Start Root[0m
+[0;32mI (117955) uart_to_node: Send: Start Root[0m
+[0;32mI (118155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (118475) uart_to_node: Send: Start Root[0m
+[0;32mI (118995) uart_to_node: Send: Start Root[0m
+[0;32mI (119155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (119515) uart_to_node: Send: Start Root[0m
+[0;32mI (120035) uart_to_node: Send: Start Root[0m
+[0;32mI (120155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (120555) uart_to_node: Send: Start Root[0m
+[0;32mI (121075) uart_to_node: Send: Start Root[0m
+[0;32mI (121155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (121595) uart_to_node: Send: Start Root[0m
+[0;32mI (122115) uart_to_node: Send: Start Root[0m
+[0;32mI (122155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (122635) uart_to_node: Send: Start Root[0m
+[0;32mI (123155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (123155) uart_to_node: Send: Start Root[0m
+[0;32mI (123675) uart_to_node: Send: Start Root[0m
+[0;32mI (124155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (124195) uart_to_node: Send: Start Root[0m
+[0;32mI (124715) uart_to_node: Send: Start Root[0m
+[0;32mI (125155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (125235) uart_to_node: Send: Start Root[0m
+[0;32mI (125755) uart_to_node: Send: Start Root[0m
+[0;32mI (126155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (126275) uart_to_node: Send: Start Root[0m
+[0;32mI (126795) uart_to_node: Send: Start Root[0m
+[0;32mI (127155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (127315) uart_to_node: Send: Start Root[0m
+[0;32mI (127835) uart_to_node: Send: Start Root[0m
+[0;32mI (128155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (128355) uart_to_node: Send: Start Root[0m
+[0;32mI (128875) uart_to_node: Send: Start Root[0m
+[0;32mI (129155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (129395) uart_to_node: Send: Start Root[0m
+[0;32mI (129915) uart_to_node: Send: Start Root[0m
+[0;32mI (130155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (130435) uart_to_node: Send: Start Root[0m
+[0;32mI (130955) uart_to_node: Send: Start Root[0m
+[0;32mI (131155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (131475) uart_to_node: Send: Start Root[0m
+[0;32mI (131995) uart_to_node: Send: Start Root[0m
+[0;32mI (132155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (132515) uart_to_node: Send: Start Root[0m
+[0;32mI (133035) uart_to_node: Send: Start Root[0m
+[0;32mI (133155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (133555) uart_to_node: Send: Start Root[0m
+[0;32mI (134075) uart_to_node: Send: Start Root[0m
+[0;32mI (134155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (134595) uart_to_node: Send: Start Root[0m
+[0;32mI (135115) uart_to_node: Send: Start Root[0m
+[0;32mI (135155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (135635) uart_to_node: Send: Start Root[0m
+[0;32mI (136155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (136155) uart_to_node: Send: Start Root[0m
+[0;32mI (136675) uart_to_node: Send: Start Root[0m
+[0;32mI (137155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (137195) uart_to_node: Send: Start Root[0m
+[0;32mI (137715) uart_to_node: Send: Start Root[0m
+[0;32mI (138155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (138235) uart_to_node: Send: Start Root[0m
+[0;32mI (138755) uart_to_node: Send: Start Root[0m
+[0;32mI (139155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (139275) uart_to_node: Send: Start Root[0m
+[0;32mI (139795) uart_to_node: Send: Start Root[0m
+[0;32mI (140155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (140315) uart_to_node: Send: Start Root[0m
+[0;32mI (140835) uart_to_node: Send: Start Root[0m
+[0;32mI (141155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (141355) uart_to_node: Send: Start Root[0m
+[0;32mI (141875) uart_to_node: Send: Start Root[0m
+[0;32mI (142155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (142395) uart_to_node: Send: Start Root[0m
+[0;32mI (142915) uart_to_node: Send: Start Root[0m
+[0;32mI (143155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (143435) uart_to_node: Send: Start Root[0m
+[0;32mI (143955) uart_to_node: Send: Start Root[0m
+[0;32mI (144155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (144475) uart_to_node: Send: Start Root[0m
+[0;32mI (144995) uart_to_node: Send: Start Root[0m
+[0;32mI (145155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (145515) uart_to_node: Send: Start Root[0m
+[0;32mI (146035) uart_to_node: Send: Start Root[0m
+[0;32mI (146155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (146555) uart_to_node: Send: Start Root[0m
+[0;32mI (147075) uart_to_node: Send: Start Root[0m
+[0;32mI (147155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (147595) uart_to_node: Send: Start Root[0m
+[0;32mI (148115) uart_to_node: Send: Start Root[0m
+[0;32mI (148155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (148635) uart_to_node: Send: Start Root[0m
+[0;32mI (149155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (149155) uart_to_node: Send: Start Root[0m
+[0;32mI (149675) uart_to_node: Send: Start Root[0m
+[0;32mI (150155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (150195) uart_to_node: Send: Start Root[0m
+[0;32mI (150715) uart_to_node: Send: Start Root[0m
+[0;32mI (151155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (151235) uart_to_node: Send: Start Root[0m
+[0;32mI (151755) uart_to_node: Send: Start Root[0m
+[0;32mI (152155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (152275) uart_to_node: Send: Start Root[0m
+[0;32mI (152795) uart_to_node: Send: Start Root[0m
+[0;32mI (153155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (153315) uart_to_node: Send: Start Root[0m
+[0;32mI (153835) uart_to_node: Send: Start Root[0m
+[0;32mI (154155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (154355) uart_to_node: Send: Start Root[0m
+[0;32mI (154875) uart_to_node: Send: Start Root[0m
+[0;32mI (155155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (155395) uart_to_node: Send: Start Root[0m
+[0;32mI (155915) uart_to_node: Send: Start Root[0m
+[0;32mI (156155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (156435) uart_to_node: Send: Start Root[0m
+[0;32mI (156955) uart_to_node: Send: Start Root[0m
+[0;32mI (157155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (157475) uart_to_node: Send: Start Root[0m
+[0;32mI (157995) uart_to_node: Send: Start Root[0m
+[0;32mI (158155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (158515) uart_to_node: Send: Start Root[0m
+[0;32mI (159035) uart_to_node: Send: Start Root[0m
+[0;32mI (159155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (159555) uart_to_node: Send: Start Root[0m
+[0;32mI (160075) uart_to_node: Send: Start Root[0m
+[0;32mI (160155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (160595) uart_to_node: Send: Start Root[0m
+[0;32mI (161115) uart_to_node: Send: Start Root[0m
+[0;32mI (161155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (161635) uart_to_node: Send: Start Root[0m
+[0;32mI (162155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (162155) uart_to_node: Send: Start Root[0m
+[0;32mI (162675) uart_to_node: Send: Start Root[0m
+[0;32mI (163155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (163195) uart_to_node: Send: Start Root[0m
+[0;32mI (163715) uart_to_node: Send: Start Root[0m
+[0;32mI (164155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (164235) uart_to_node: Send: Start Root[0m
+[0;32mI (164755) uart_to_node: Send: Start Root[0m
+[0;32mI (165155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (165275) uart_to_node: Send: Start Root[0m
+[0;32mI (165795) uart_to_node: Send: Start Root[0m
+[0;32mI (166155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (166315) uart_to_node: Send: Start Root[0m
+[0;32mI (166835) uart_to_node: Send: Start Root[0m
+[0;32mI (167155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (167355) uart_to_node: Send: Start Root[0m
+[0;32mI (167875) uart_to_node: Send: Start Root[0m
+[0;32mI (168155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (168395) uart_to_node: Send: Start Root[0m
+[0;32mI (168915) uart_to_node: Send: Start Root[0m
+[0;32mI (169155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (169435) uart_to_node: Send: Start Root[0m
+[0;32mI (169955) uart_to_node: Send: Start Root[0m
+[0;32mI (170155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (170475) uart_to_node: Send: Start Root[0m
+[0;32mI (170995) uart_to_node: Send: Start Root[0m
+[0;32mI (171155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (171515) uart_to_node: Send: Start Root[0m
+[0;32mI (172035) uart_to_node: Send: Start Root[0m
+[0;32mI (172155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (172555) uart_to_node: Send: Start Root[0m
+[0;32mI (173075) uart_to_node: Send: Start Root[0m
+[0;32mI (173155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (173595) uart_to_node: Send: Start Root[0m
+[0;32mI (174115) uart_to_node: Send: Start Root[0m
+[0;32mI (174155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (174635) uart_to_node: Send: Start Root[0m
+[0;32mI (175155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (175155) uart_to_node: Send: Start Root[0m
+[0;32mI (175675) uart_to_node: Send: Start Root[0m
+[0;32mI (176155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (176195) uart_to_node: Send: Start Root[0m
+[0;32mI (176715) uart_to_node: Send: Start Root[0m
+[0;32mI (177155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (177235) uart_to_node: Send: Start Root[0m
+[0;32mI (177755) uart_to_node: Send: Start Root[0m
+[0;32mI (178155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (178275) uart_to_node: Send: Start Root[0m
+[0;32mI (178795) uart_to_node: Send: Start Root[0m
+[0;32mI (179155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (179315) uart_to_node: Send: Start Root[0m
+[0;32mI (179835) uart_to_node: Send: Start Root[0m
+[0;32mI (180155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (180355) uart_to_node: Send: Start Root[0m
+[0;32mI (180875) uart_to_node: Send: Start Root[0m
+[0;32mI (181155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (181395) uart_to_node: Send: Start Root[0m
+[0;32mI (181915) uart_to_node: Send: Start Root[0m
+[0;32mI (182155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (182435) uart_to_node: Send: Start Root[0m
+[0;32mI (182955) uart_to_node: Send: Start Root[0m
+[0;32mI (183155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (183475) uart_to_node: Send: Start Root[0m
+[0;32mI (183995) uart_to_node: Send: Start Root[0m
+[0;32mI (184155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (184515) uart_to_node: Send: Start Root[0m
+[0;32mI (185035) uart_to_node: Send: Start Root[0m
+[0;32mI (185155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (185555) uart_to_node: Send: Start Root[0m
+[0;32mI (186075) uart_to_node: Send: Start Root[0m
+[0;32mI (186155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (186595) uart_to_node: Send: Start Root[0m
+[0;32mI (187115) uart_to_node: Send: Start Root[0m
+[0;32mI (187155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (187635) uart_to_node: Send: Start Root[0m
+[0;32mI (188155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (188155) uart_to_node: Send: Start Root[0m
+[0;32mI (188675) uart_to_node: Send: Start Root[0m
+[0;32mI (189155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (189195) uart_to_node: Send: Start Root[0m
+[0;32mI (189715) uart_to_node: Send: Start Root[0m
+[0;32mI (190155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (190235) uart_to_node: Send: Start Root[0m
+[0;32mI (190755) uart_to_node: Send: Start Root[0m
+[0;32mI (191155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (191275) uart_to_node: Send: Start Root[0m
+[0;32mI (191795) uart_to_node: Send: Start Root[0m
+[0;32mI (192155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (192315) uart_to_node: Send: Start Root[0m
+[0;32mI (192835) uart_to_node: Send: Start Root[0m
+[0;32mI (193155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (193355) uart_to_node: Send: Start Root[0m
+[0;32mI (193875) uart_to_node: Send: Start Root[0m
+[0;32mI (194155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (194395) uart_to_node: Send: Start Root[0m
+[0;32mI (194915) uart_to_node: Send: Start Root[0m
+[0;32mI (195155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (195435) uart_to_node: Send: Start Root[0m
+[0;32mI (195955) uart_to_node: Send: Start Root[0m
+[0;32mI (196155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (196475) uart_to_node: Send: Start Root[0m
+[0;32mI (196995) uart_to_node: Send: Start Root[0m
+[0;32mI (197155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (197515) uart_to_node: Send: Start Root[0m
+[0;32mI (198035) uart_to_node: Send: Start Root[0m
+[0;32mI (198155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (198555) uart_to_node: Send: Start Root[0m
+[0;32mI (199075) uart_to_node: Send: Start Root[0m
+[0;32mI (199155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (199595) uart_to_node: Send: Start Root[0m
+[0;32mI (200115) uart_to_node: Send: Start Root[0m
+[0;32mI (200155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (200635) uart_to_node: Send: Start Root[0m
+[0;32mI (201155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (201155) uart_to_node: Send: Start Root[0m
+[0;32mI (201675) uart_to_node: Send: Start Root[0m
+[0;32mI (202155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (202195) uart_to_node: Send: Start Root[0m
+[0;32mI (202715) uart_to_node: Send: Start Root[0m
+[0;32mI (203155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (203235) uart_to_node: Send: Start Root[0m
+[0;32mI (203755) uart_to_node: Send: Start Root[0m
+[0;32mI (204155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (204275) uart_to_node: Send: Start Root[0m
+[0;32mI (204795) uart_to_node: Send: Start Root[0m
+[0;32mI (205155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (205315) uart_to_node: Send: Start Root[0m
+[0;32mI (205835) uart_to_node: Send: Start Root[0m
+[0;32mI (206155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (206355) uart_to_node: Send: Start Root[0m
+[0;32mI (206875) uart_to_node: Send: Start Root[0m
+[0;32mI (207155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (207395) uart_to_node: Send: Start Root[0m
+[0;32mI (207915) uart_to_node: Send: Start Root[0m
+[0;32mI (208155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (208435) uart_to_node: Send: Start Root[0m
+[0;32mI (208955) uart_to_node: Send: Start Root[0m
+[0;32mI (209155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (209475) uart_to_node: Send: Start Root[0m
+[0;32mI (209995) uart_to_node: Send: Start Root[0m
+[0;32mI (210155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (210515) uart_to_node: Send: Start Root[0m
+[0;32mI (211035) uart_to_node: Send: Start Root[0m
+[0;32mI (211155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (211555) uart_to_node: Send: Start Root[0m
+[0;32mI (212075) uart_to_node: Send: Start Root[0m
+[0;32mI (212155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (212595) uart_to_node: Send: Start Root[0m
+[0;32mI (213115) uart_to_node: Send: Start Root[0m
+[0;32mI (213155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (213635) uart_to_node: Send: Start Root[0m
+[0;32mI (214155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (214155) uart_to_node: Send: Start Root[0m
+[0;32mI (214675) uart_to_node: Send: Start Root[0m
+[0;32mI (215155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (215195) uart_to_node: Send: Start Root[0m
+[0;32mI (215715) uart_to_node: Send: Start Root[0m
+[0;32mI (216155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (216235) uart_to_node: Send: Start Root[0m
+[0;32mI (216755) uart_to_node: Send: Start Root[0m
+[0;32mI (217155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (217275) uart_to_node: Send: Start Root[0m
+[0;32mI (217795) uart_to_node: Send: Start Root[0m
+[0;32mI (218155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (218315) uart_to_node: Send: Start Root[0m
+[0;32mI (218835) uart_to_node: Send: Start Root[0m
+[0;32mI (219155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (219355) uart_to_node: Send: Start Root[0m
+[0;32mI (219875) uart_to_node: Send: Start Root[0m
+[0;32mI (220155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (220395) uart_to_node: Send: Start Root[0m
+[0;32mI (220915) uart_to_node: Send: Start Root[0m
+[0;32mI (221155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (221435) uart_to_node: Send: Start Root[0m
+[0;32mI (221955) uart_to_node: Send: Start Root[0m
+[0;32mI (222155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (222475) uart_to_node: Send: Start Root[0m
+[0;32mI (222995) uart_to_node: Send: Start Root[0m
+[0;32mI (223155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (223515) uart_to_node: Send: Start Root[0m
+[0;32mI (224035) uart_to_node: Send: Start Root[0m
+[0;32mI (224155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (224555) uart_to_node: Send: Start Root[0m
+[0;32mI (225075) uart_to_node: Send: Start Root[0m
+[0;32mI (225155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (225595) uart_to_node: Send: Start Root[0m
+[0;32mI (226115) uart_to_node: Send: Start Root[0m
+[0;32mI (226155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (226635) uart_to_node: Send: Start Root[0m
+[0;32mI (227155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (227155) uart_to_node: Send: Start Root[0m
+[0;32mI (227675) uart_to_node: Send: Start Root[0m
+[0;32mI (228155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (228195) uart_to_node: Send: Start Root[0m
+[0;32mI (228715) uart_to_node: Send: Start Root[0m
+[0;32mI (229155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (229235) uart_to_node: Send: Start Root[0m
+[0;32mI (229755) uart_to_node: Send: Start Root[0m
+[0;32mI (230155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (230275) uart_to_node: Send: Start Root[0m
+[0;32mI (230795) uart_to_node: Send: Start Root[0m
+[0;32mI (231155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (231315) uart_to_node: Send: Start Root[0m
+[0;32mI (231835) uart_to_node: Send: Start Root[0m
+[0;32mI (232155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (232355) uart_to_node: Send: Start Root[0m
+[0;32mI (232875) uart_to_node: Send: Start Root[0m
+[0;32mI (233155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (233395) uart_to_node: Send: Start Root[0m
+[0;32mI (233915) uart_to_node: Send: Start Root[0m
+[0;32mI (234155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (234435) uart_to_node: Send: Start Root[0m
+[0;32mI (234955) uart_to_node: Send: Start Root[0m
+[0;32mI (235155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (235475) uart_to_node: Send: Start Root[0m
+[0;32mI (235995) uart_to_node: Send: Start Root[0m
+[0;32mI (236155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (236515) uart_to_node: Send: Start Root[0m
+[0;32mI (237035) uart_to_node: Send: Start Root[0m
+[0;32mI (237155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (237555) uart_to_node: Send: Start Root[0m
+[0;32mI (238075) uart_to_node: Send: Start Root[0m
+[0;32mI (238155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (238595) uart_to_node: Send: Start Root[0m
+[0;32mI (239115) uart_to_node: Send: Start Root[0m
+[0;32mI (239155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (239635) uart_to_node: Send: Start Root[0m
+[0;32mI (240155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (240155) uart_to_node: Send: Start Root[0m
+[0;32mI (240675) uart_to_node: Send: Start Root[0m
+[0;32mI (241155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (241195) uart_to_node: Send: Start Root[0m
+[0;32mI (241715) uart_to_node: Send: Start Root[0m
+[0;32mI (242155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (242235) uart_to_node: Send: Start Root[0m
+[0;32mI (242755) uart_to_node: Send: Start Root[0m
+[0;32mI (243155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (243275) uart_to_node: Send: Start Root[0m
+[0;32mI (243795) uart_to_node: Send: Start Root[0m
+[0;32mI (244155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (244315) uart_to_node: Send: Start Root[0m
+[0;32mI (244835) uart_to_node: Send: Start Root[0m
+[0;32mI (245155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (245355) uart_to_node: Send: Start Root[0m
+[0;32mI (245875) uart_to_node: Send: Start Root[0m
+[0;32mI (246155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (246395) uart_to_node: Send: Start Root[0m
+[0;32mI (246915) uart_to_node: Send: Start Root[0m
+[0;32mI (247155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (247435) uart_to_node: Send: Start Root[0m
+[0;32mI (247955) uart_to_node: Send: Start Root[0m
+[0;32mI (248155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (248475) uart_to_node: Send: Start Root[0m
+[0;32mI (248995) uart_to_node: Send: Start Root[0m
+[0;32mI (249155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (249515) uart_to_node: Send: Start Root[0m
+[0;32mI (250035) uart_to_node: Send: Start Root[0m
+[0;32mI (250155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (250555) uart_to_node: Send: Start Root[0m
+[0;32mI (251075) uart_to_node: Send: Start Root[0m
+[0;32mI (251155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (251595) uart_to_node: Send: Start Root[0m
+[0;32mI (252115) uart_to_node: Send: Start Root[0m
+[0;32mI (252155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (252635) uart_to_node: Send: Start Root[0m
+[0;32mI (253155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (253155) uart_to_node: Send: Start Root[0m
+[0;32mI (253675) uart_to_node: Send: Start Root[0m
+[0;32mI (254155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (254195) uart_to_node: Send: Start Root[0m
+[0;32mI (254715) uart_to_node: Send: Start Root[0m
+[0;32mI (255155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (255235) uart_to_node: Send: Start Root[0m
+[0;32mI (255755) uart_to_node: Send: Start Root[0m
+[0;32mI (256155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (256275) uart_to_node: Send: Start Root[0m
+[0;32mI (256795) uart_to_node: Send: Start Root[0m
+[0;32mI (257155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (257315) uart_to_node: Send: Start Root[0m
+[0;32mI (257835) uart_to_node: Send: Start Root[0m
+[0;32mI (258155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (258355) uart_to_node: Send: Start Root[0m
+[0;32mI (258875) uart_to_node: Send: Start Root[0m
+[0;32mI (259155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (259395) uart_to_node: Send: Start Root[0m
+[0;32mI (259915) uart_to_node: Send: Start Root[0m
+[0;32mI (260155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (260435) uart_to_node: Send: Start Root[0m
+[0;32mI (260955) uart_to_node: Send: Start Root[0m
+[0;32mI (261155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (261475) uart_to_node: Send: Start Root[0m
+[0;32mI (261995) uart_to_node: Send: Start Root[0m
+[0;32mI (262155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (262515) uart_to_node: Send: Start Root[0m
+[0;32mI (263035) uart_to_node: Send: Start Root[0m
+[0;32mI (263155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (263555) uart_to_node: Send: Start Root[0m
+[0;32mI (264075) uart_to_node: Send: Start Root[0m
+[0;32mI (264155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (264595) uart_to_node: Send: Start Root[0m
+[0;32mI (265115) uart_to_node: Send: Start Root[0m
+[0;32mI (265155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (265635) uart_to_node: Send: Start Root[0m
+[0;32mI (266155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (266155) uart_to_node: Send: Start Root[0m
+[0;32mI (266675) uart_to_node: Send: Start Root[0m
+[0;32mI (267155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (267195) uart_to_node: Send: Start Root[0m
+[0;32mI (267715) uart_to_node: Send: Start Root[0m
+[0;32mI (268155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (268235) uart_to_node: Send: Start Root[0m
+[0;32mI (268755) uart_to_node: Send: Start Root[0m
+[0;32mI (269155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (269275) uart_to_node: Send: Start Root[0m
+[0;32mI (269795) uart_to_node: Send: Start Root[0m
+[0;32mI (270155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (270315) uart_to_node: Send: Start Root[0m
+[0;32mI (270835) uart_to_node: Send: Start Root[0m
+[0;32mI (271155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (271355) uart_to_node: Send: Start Root[0m
+[0;32mI (271875) uart_to_node: Send: Start Root[0m
+[0;32mI (272155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (272395) uart_to_node: Send: Start Root[0m
+[0;32mI (272915) uart_to_node: Send: Start Root[0m
+[0;32mI (273155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (273435) uart_to_node: Send: Start Root[0m
+[0;32mI (273955) uart_to_node: Send: Start Root[0m
+[0;32mI (274155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (274475) uart_to_node: Send: Start Root[0m
+[0;32mI (274995) uart_to_node: Send: Start Root[0m
+[0;32mI (275155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (275515) uart_to_node: Send: Start Root[0m
+[0;32mI (276035) uart_to_node: Send: Start Root[0m
+[0;32mI (276155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (276555) uart_to_node: Send: Start Root[0m
+[0;32mI (277075) uart_to_node: Send: Start Root[0m
+[0;32mI (277155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (277595) uart_to_node: Send: Start Root[0m
+[0;32mI (278115) uart_to_node: Send: Start Root[0m
+[0;32mI (278155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (278635) uart_to_node: Send: Start Root[0m
+[0;32mI (279155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (279155) uart_to_node: Send: Start Root[0m
+[0;32mI (279675) uart_to_node: Send: Start Root[0m
+[0;32mI (280155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (280195) uart_to_node: Send: Start Root[0m
+[0;32mI (280715) uart_to_node: Send: Start Root[0m
+[0;32mI (281155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (281235) uart_to_node: Send: Start Root[0m
+[0;32mI (281755) uart_to_node: Send: Start Root[0m
+[0;32mI (282155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (282275) uart_to_node: Send: Start Root[0m
+[0;32mI (282795) uart_to_node: Send: Start Root[0m
+[0;32mI (283155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (283315) uart_to_node: Send: Start Root[0m
+[0;32mI (283835) uart_to_node: Send: Start Root[0m
+[0;32mI (284155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (284355) uart_to_node: Send: Start Root[0m
+[0;32mI (284875) uart_to_node: Send: Start Root[0m
+[0;32mI (285155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (285395) uart_to_node: Send: Start Root[0m
+[0;32mI (285915) uart_to_node: Send: Start Root[0m
+[0;32mI (286155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (286435) uart_to_node: Send: Start Root[0m
+[0;32mI (286955) uart_to_node: Send: Start Root[0m
+[0;32mI (287155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (287475) uart_to_node: Send: Start Root[0m
+[0;32mI (287995) uart_to_node: Send: Start Root[0m
+[0;32mI (288155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (288515) uart_to_node: Send: Start Root[0m
+[0;32mI (289035) uart_to_node: Send: Start Root[0m
+[0;32mI (289155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (289555) uart_to_node: Send: Start Root[0m
+[0;32mI (290075) uart_to_node: Send: Start Root[0m
+[0;32mI (290155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (290595) uart_to_node: Send: Start Root[0m
+[0;32mI (291115) uart_to_node: Send: Start Root[0m
+[0;32mI (291155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (291635) uart_to_node: Send: Start Root[0m
+[0;32mI (292155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (292155) uart_to_node: Send: Start Root[0m
+[0;32mI (292675) uart_to_node: Send: Start Root[0m
+[0;32mI (293155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (293195) uart_to_node: Send: Start Root[0m
+[0;32mI (293715) uart_to_node: Send: Start Root[0m
+[0;32mI (294155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (294235) uart_to_node: Send: Start Root[0m
+[0;32mI (294755) uart_to_node: Send: Start Root[0m
+[0;32mI (295155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (295275) uart_to_node: Send: Start Root[0m
+[0;32mI (295795) uart_to_node: Send: Start Root[0m
+[0;32mI (296155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (296315) uart_to_node: Send: Start Root[0m
+[0;32mI (296835) uart_to_node: Send: Start Root[0m
+[0;32mI (297155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (297355) uart_to_node: Send: Start Root[0m
+[0;32mI (297875) uart_to_node: Send: Start Root[0m
+[0;32mI (298155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (298395) uart_to_node: Send: Start Root[0m
+[0;32mI (298915) uart_to_node: Send: Start Root[0m
+[0;32mI (299155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (299435) uart_to_node: Send: Start Root[0m
+[0;32mI (299955) uart_to_node: Send: Start Root[0m
+[0;32mI (300155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (300475) uart_to_node: Send: Start Root[0m
+[0;32mI (300995) uart_to_node: Send: Start Root[0m
+[0;32mI (301155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (301515) uart_to_node: Send: Start Root[0m
+[0;32mI (302035) uart_to_node: Send: Start Root[0m
+[0;32mI (302155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (302555) uart_to_node: Send: Start Root[0m
+[0;32mI (303075) uart_to_node: Send: Start Root[0m
+[0;32mI (303155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (303595) uart_to_node: Send: Start Root[0m
+[0;32mI (304115) uart_to_node: Send: Start Root[0m
+[0;32mI (304155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (304635) uart_to_node: Send: Start Root[0m
+[0;32mI (305155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (305155) uart_to_node: Send: Start Root[0m
+[0;32mI (305675) uart_to_node: Send: Start Root[0m
+[0;32mI (306155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (306195) uart_to_node: Send: Start Root[0m
+[0;32mI (306715) uart_to_node: Send: Start Root[0m
+[0;32mI (307155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (307235) uart_to_node: Send: Start Root[0m
+[0;32mI (307755) uart_to_node: Send: Start Root[0m
+[0;32mI (308155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (308275) uart_to_node: Send: Start Root[0m
+[0;32mI (308795) uart_to_node: Send: Start Root[0m
+[0;32mI (309155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (309315) uart_to_node: Send: Start Root[0m
+[0;32mI (309835) uart_to_node: Send: Start Root[0m
+[0;32mI (310155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (310355) uart_to_node: Send: Start Root[0m
+[0;32mI (310875) uart_to_node: Send: Start Root[0m
+[0;32mI (311155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (311395) uart_to_node: Send: Start Root[0m
+[0;32mI (311915) uart_to_node: Send: Start Root[0m
+[0;32mI (312155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (312435) uart_to_node: Send: Start Root[0m
+[0;32mI (312955) uart_to_node: Send: Start Root[0m
+[0;32mI (313155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (313475) uart_to_node: Send: Start Root[0m
+[0;32mI (313995) uart_to_node: Send: Start Root[0m
+[0;32mI (314155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (314515) uart_to_node: Send: Start Root[0m
+[0;32mI (315035) uart_to_node: Send: Start Root[0m
+[0;32mI (315155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (315555) uart_to_node: Send: Start Root[0m
+[0;32mI (316075) uart_to_node: Send: Start Root[0m
+[0;32mI (316155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (316595) uart_to_node: Send: Start Root[0m
+[0;32mI (317115) uart_to_node: Send: Start Root[0m
+[0;32mI (317155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (317635) uart_to_node: Send: Start Root[0m
+[0;32mI (318155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (318155) uart_to_node: Send: Start Root[0m
+[0;32mI (318675) uart_to_node: Send: Start Root[0m
+[0;32mI (319155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (319195) uart_to_node: Send: Start Root[0m
+[0;32mI (319715) uart_to_node: Send: Start Root[0m
+[0;32mI (320155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (320235) uart_to_node: Send: Start Root[0m
+[0;32mI (320755) uart_to_node: Send: Start Root[0m
+[0;32mI (321155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (321275) uart_to_node: Send: Start Root[0m
+[0;32mI (321795) uart_to_node: Send: Start Root[0m
+[0;32mI (322155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (322315) uart_to_node: Send: Start Root[0m
+[0;32mI (322835) uart_to_node: Send: Start Root[0m
+[0;32mI (323155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (323355) uart_to_node: Send: Start Root[0m
+[0;32mI (323875) uart_to_node: Send: Start Root[0m
+[0;32mI (324155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (324395) uart_to_node: Send: Start Root[0m
+[0;32mI (324915) uart_to_node: Send: Start Root[0m
+[0;32mI (325155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (325435) uart_to_node: Send: Start Root[0m
+[0;32mI (325955) uart_to_node: Send: Start Root[0m
+[0;32mI (326155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (326475) uart_to_node: Send: Start Root[0m
+[0;32mI (326995) uart_to_node: Send: Start Root[0m
+[0;32mI (327155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (327515) uart_to_node: Send: Start Root[0m
+[0;32mI (328035) uart_to_node: Send: Start Root[0m
+[0;32mI (328155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (328555) uart_to_node: Send: Start Root[0m
+[0;32mI (329075) uart_to_node: Send: Start Root[0m
+[0;32mI (329155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (329595) uart_to_node: Send: Start Root[0m
+[0;32mI (330115) uart_to_node: Send: Start Root[0m
+[0;32mI (330155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (330635) uart_to_node: Send: Start Root[0m
+[0;32mI (331155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (331155) uart_to_node: Send: Start Root[0m
+[0;32mI (331675) uart_to_node: Send: Start Root[0m
+[0;32mI (332155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (332195) uart_to_node: Send: Start Root[0m
+[0;32mI (332715) uart_to_node: Send: Start Root[0m
+[0;32mI (333155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (333235) uart_to_node: Send: Start Root[0m
+[0;32mI (333755) uart_to_node: Send: Start Root[0m
+[0;32mI (334155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (334275) uart_to_node: Send: Start Root[0m
+[0;32mI (334795) uart_to_node: Send: Start Root[0m
+[0;32mI (335155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (335315) uart_to_node: Send: Start Root[0m
+[0;32mI (335835) uart_to_node: Send: Start Root[0m
+[0;32mI (336155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (336355) uart_to_node: Send: Start Root[0m
+[0;32mI (336875) uart_to_node: Send: Start Root[0m
+[0;32mI (337155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (337395) uart_to_node: Send: Start Root[0m
+[0;32mI (337915) uart_to_node: Send: Start Root[0m
+[0;32mI (338155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (338435) uart_to_node: Send: Start Root[0m
+[0;32mI (338955) uart_to_node: Send: Start Root[0m
+[0;32mI (339155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (339475) uart_to_node: Send: Start Root[0m
+[0;32mI (339995) uart_to_node: Send: Start Root[0m
+[0;32mI (340155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (340515) uart_to_node: Send: Start Root[0m
+[0;32mI (341035) uart_to_node: Send: Start Root[0m
+[0;32mI (341155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (341555) uart_to_node: Send: Start Root[0m
+[0;32mI (342075) uart_to_node: Send: Start Root[0m
+[0;32mI (342155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (342595) uart_to_node: Send: Start Root[0m
+[0;32mI (343115) uart_to_node: Send: Start Root[0m
+[0;32mI (343155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (343635) uart_to_node: Send: Start Root[0m
+[0;32mI (344155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (344155) uart_to_node: Send: Start Root[0m
+[0;32mI (344675) uart_to_node: Send: Start Root[0m
+[0;32mI (345155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (345195) uart_to_node: Send: Start Root[0m
+[0;32mI (345715) uart_to_node: Send: Start Root[0m
+[0;32mI (346155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (346235) uart_to_node: Send: Start Root[0m
+[0;32mI (346755) uart_to_node: Send: Start Root[0m
+[0;32mI (347155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (347275) uart_to_node: Send: Start Root[0m
+[0;32mI (347795) uart_to_node: Send: Start Root[0m
+[0;32mI (348155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (348315) uart_to_node: Send: Start Root[0m
+[0;32mI (348835) uart_to_node: Send: Start Root[0m
+[0;32mI (349155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (349355) uart_to_node: Send: Start Root[0m
+[0;32mI (349875) uart_to_node: Send: Start Root[0m
+[0;32mI (350155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (350395) uart_to_node: Send: Start Root[0m
+[0;32mI (350915) uart_to_node: Send: Start Root[0m
+[0;32mI (351155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (351435) uart_to_node: Send: Start Root[0m
+[0;32mI (351955) uart_to_node: Send: Start Root[0m
+[0;32mI (352155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (352475) uart_to_node: Send: Start Root[0m
+[0;32mI (352995) uart_to_node: Send: Start Root[0m
+[0;32mI (353155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (353515) uart_to_node: Send: Start Root[0m
+[0;32mI (354035) uart_to_node: Send: Start Root[0m
+[0;32mI (354155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (354555) uart_to_node: Send: Start Root[0m
+[0;32mI (355075) uart_to_node: Send: Start Root[0m
+[0;32mI (355155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (355595) uart_to_node: Send: Start Root[0m
+[0;32mI (356115) uart_to_node: Send: Start Root[0m
+[0;32mI (356155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (356635) uart_to_node: Send: Start Root[0m
+[0;32mI (357155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (357155) uart_to_node: Send: Start Root[0m
+[0;32mI (357675) uart_to_node: Send: Start Root[0m
+[0;32mI (358155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (358195) uart_to_node: Send: Start Root[0m
+[0;32mI (358715) uart_to_node: Send: Start Root[0m
+[0;32mI (359155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (359235) uart_to_node: Send: Start Root[0m
+[0;32mI (359755) uart_to_node: Send: Start Root[0m
+[0;32mI (360155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (360275) uart_to_node: Send: Start Root[0m
+[0;32mI (360795) uart_to_node: Send: Start Root[0m
+[0;32mI (361155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (361315) uart_to_node: Send: Start Root[0m
+[0;32mI (361835) uart_to_node: Send: Start Root[0m
+[0;32mI (362155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (362355) uart_to_node: Send: Start Root[0m
+[0;32mI (362875) uart_to_node: Send: Start Root[0m
+[0;32mI (363155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (363395) uart_to_node: Send: Start Root[0m
+[0;32mI (363915) uart_to_node: Send: Start Root[0m
+[0;32mI (364155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (364435) uart_to_node: Send: Start Root[0m
+[0;32mI (364955) uart_to_node: Send: Start Root[0m
+[0;32mI (365155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (365475) uart_to_node: Send: Start Root[0m
+[0;32mI (365995) uart_to_node: Send: Start Root[0m
+[0;32mI (366155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (366515) uart_to_node: Send: Start Root[0m
+[0;32mI (367035) uart_to_node: Send: Start Root[0m
+[0;32mI (367155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (367555) uart_to_node: Send: Start Root[0m
+[0;32mI (368075) uart_to_node: Send: Start Root[0m
+[0;32mI (368155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (368595) uart_to_node: Send: Start Root[0m
+[0;32mI (369115) uart_to_node: Send: Start Root[0m
+[0;32mI (369155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (369635) uart_to_node: Send: Start Root[0m
+[0;32mI (370155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (370155) uart_to_node: Send: Start Root[0m
+[0;32mI (370675) uart_to_node: Send: Start Root[0m
+[0;32mI (371155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (371195) uart_to_node: Send: Start Root[0m
+[0;32mI (371715) uart_to_node: Send: Start Root[0m
+[0;32mI (372155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (372235) uart_to_node: Send: Start Root[0m
+[0;32mI (372755) uart_to_node: Send: Start Root[0m
+[0;32mI (373155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (373275) uart_to_node: Send: Start Root[0m
+[0;32mI (373795) uart_to_node: Send: Start Root[0m
+[0;32mI (374155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (374315) uart_to_node: Send: Start Root[0m
+[0;32mI (374835) uart_to_node: Send: Start Root[0m
+[0;32mI (375155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (375355) uart_to_node: Send: Start Root[0m
+[0;32mI (375875) uart_to_node: Send: Start Root[0m
+[0;32mI (376155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (376395) uart_to_node: Send: Start Root[0m
+[0;32mI (376915) uart_to_node: Send: Start Root[0m
+[0;32mI (377155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (377435) uart_to_node: Send: Start Root[0m
+[0;32mI (377955) uart_to_node: Send: Start Root[0m
+[0;32mI (378155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (378475) uart_to_node: Send: Start Root[0m
+[0;32mI (378995) uart_to_node: Send: Start Root[0m
+[0;32mI (379155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (379515) uart_to_node: Send: Start Root[0m
+[0;32mI (380035) uart_to_node: Send: Start Root[0m
+[0;32mI (380155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (380555) uart_to_node: Send: Start Root[0m
+[0;32mI (381075) uart_to_node: Send: Start Root[0m
+[0;32mI (381155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (381595) uart_to_node: Send: Start Root[0m
+[0;32mI (382115) uart_to_node: Send: Start Root[0m
+[0;32mI (382155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (382635) uart_to_node: Send: Start Root[0m
+[0;32mI (383155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (383155) uart_to_node: Send: Start Root[0m
+[0;32mI (383675) uart_to_node: Send: Start Root[0m
+[0;32mI (384155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (384195) uart_to_node: Send: Start Root[0m
+[0;32mI (384715) uart_to_node: Send: Start Root[0m
+[0;32mI (385155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (385235) uart_to_node: Send: Start Root[0m
+[0;32mI (385755) uart_to_node: Send: Start Root[0m
+[0;32mI (386155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (386275) uart_to_node: Send: Start Root[0m
+[0;32mI (386795) uart_to_node: Send: Start Root[0m
+[0;32mI (387155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (387315) uart_to_node: Send: Start Root[0m
+[0;32mI (387835) uart_to_node: Send: Start Root[0m
+[0;32mI (388155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (388355) uart_to_node: Send: Start Root[0m
+[0;32mI (388875) uart_to_node: Send: Start Root[0m
+[0;32mI (389155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (389395) uart_to_node: Send: Start Root[0m
+[0;32mI (389915) uart_to_node: Send: Start Root[0m
+[0;32mI (390155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (390435) uart_to_node: Send: Start Root[0m
+[0;32mI (390955) uart_to_node: Send: Start Root[0m
+[0;32mI (391155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (391475) uart_to_node: Send: Start Root[0m
+[0;32mI (391995) uart_to_node: Send: Start Root[0m
+[0;32mI (392155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (392515) uart_to_node: Send: Start Root[0m
+[0;32mI (393035) uart_to_node: Send: Start Root[0m
+[0;32mI (393155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (393555) uart_to_node: Send: Start Root[0m
+[0;32mI (394075) uart_to_node: Send: Start Root[0m
+[0;32mI (394155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (394595) uart_to_node: Send: Start Root[0m
+[0;32mI (395115) uart_to_node: Send: Start Root[0m
+[0;32mI (395155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (395635) uart_to_node: Send: Start Root[0m
+[0;32mI (396155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (396155) uart_to_node: Send: Start Root[0m
+[0;32mI (396675) uart_to_node: Send: Start Root[0m
+[0;32mI (397155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (397195) uart_to_node: Send: Start Root[0m
+[0;32mI (397715) uart_to_node: Send: Start Root[0m
+[0;32mI (398155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (398235) uart_to_node: Send: Start Root[0m
+[0;32mI (398755) uart_to_node: Send: Start Root[0m
+[0;32mI (399155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (399275) uart_to_node: Send: Start Root[0m
+[0;32mI (399795) uart_to_node: Send: Start Root[0m
+[0;32mI (400155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (400315) uart_to_node: Send: Start Root[0m
+[0;32mI (400835) uart_to_node: Send: Start Root[0m
+[0;32mI (401155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (401355) uart_to_node: Send: Start Root[0m
+[0;32mI (401875) uart_to_node: Send: Start Root[0m
+[0;32mI (402155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (402395) uart_to_node: Send: Start Root[0m
+[0;32mI (402915) uart_to_node: Send: Start Root[0m
+[0;32mI (403155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (403435) uart_to_node: Send: Start Root[0m
+[0;32mI (403955) uart_to_node: Send: Start Root[0m
+[0;32mI (404155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (404475) uart_to_node: Send: Start Root[0m
+[0;32mI (404995) uart_to_node: Send: Start Root[0m
+[0;32mI (405155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (405515) uart_to_node: Send: Start Root[0m
+[0;32mI (406035) uart_to_node: Send: Start Root[0m
+[0;32mI (406155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (406555) uart_to_node: Send: Start Root[0m
+[0;32mI (407075) uart_to_node: Send: Start Root[0m
+[0;32mI (407155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (407595) uart_to_node: Send: Start Root[0m
+[0;32mI (408115) uart_to_node: Send: Start Root[0m
+[0;32mI (408155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (408635) uart_to_node: Send: Start Root[0m
+[0;32mI (409155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (409155) uart_to_node: Send: Start Root[0m
+[0;32mI (409675) uart_to_node: Send: Start Root[0m
+[0;32mI (410155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (410195) uart_to_node: Send: Start Root[0m
+[0;32mI (410715) uart_to_node: Send: Start Root[0m
+[0;32mI (411155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (411235) uart_to_node: Send: Start Root[0m
+[0;32mI (411755) uart_to_node: Send: Start Root[0m
+[0;32mI (412155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (412275) uart_to_node: Send: Start Root[0m
+[0;32mI (412795) uart_to_node: Send: Start Root[0m
+[0;32mI (413155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (413315) uart_to_node: Send: Start Root[0m
+[0;32mI (413835) uart_to_node: Send: Start Root[0m
+[0;32mI (414155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (414355) uart_to_node: Send: Start Root[0m
+[0;32mI (414875) uart_to_node: Send: Start Root[0m
+[0;32mI (415155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (415395) uart_to_node: Send: Start Root[0m
+[0;32mI (415915) uart_to_node: Send: Start Root[0m
+[0;32mI (416155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (416435) uart_to_node: Send: Start Root[0m
+[0;32mI (416955) uart_to_node: Send: Start Root[0m
+[0;32mI (417155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (417475) uart_to_node: Send: Start Root[0m
+[0;32mI (417995) uart_to_node: Send: Start Root[0m
+[0;32mI (418155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (418515) uart_to_node: Send: Start Root[0m
+[0;32mI (419035) uart_to_node: Send: Start Root[0m
+[0;32mI (419155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (419555) uart_to_node: Send: Start Root[0m
+[0;32mI (420075) uart_to_node: Send: Start Root[0m
+[0;32mI (420155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (420595) uart_to_node: Send: Start Root[0m
+[0;32mI (421115) uart_to_node: Send: Start Root[0m
+[0;32mI (421155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (421635) uart_to_node: Send: Start Root[0m
+[0;32mI (422155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (422155) uart_to_node: Send: Start Root[0m
+[0;32mI (422675) uart_to_node: Send: Start Root[0m
+[0;32mI (423155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (423195) uart_to_node: Send: Start Root[0m
+[0;32mI (423715) uart_to_node: Send: Start Root[0m
+[0;32mI (424155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (424235) uart_to_node: Send: Start Root[0m
+[0;32mI (424755) uart_to_node: Send: Start Root[0m
+[0;32mI (425155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (425275) uart_to_node: Send: Start Root[0m
+[0;32mI (425795) uart_to_node: Send: Start Root[0m
+[0;32mI (426155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (426315) uart_to_node: Send: Start Root[0m
+[0;32mI (426835) uart_to_node: Send: Start Root[0m
+[0;32mI (427155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (427355) uart_to_node: Send: Start Root[0m
+[0;32mI (427875) uart_to_node: Send: Start Root[0m
+[0;32mI (428155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (428395) uart_to_node: Send: Start Root[0m
+[0;32mI (428915) uart_to_node: Send: Start Root[0m
+[0;32mI (429155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (429435) uart_to_node: Send: Start Root[0m
+[0;32mI (429955) uart_to_node: Send: Start Root[0m
+[0;32mI (430155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (430475) uart_to_node: Send: Start Root[0m
+[0;32mI (430995) uart_to_node: Send: Start Root[0m
+[0;32mI (431155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (431515) uart_to_node: Send: Start Root[0m
+[0;32mI (432035) uart_to_node: Send: Start Root[0m
+[0;32mI (432155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (432555) uart_to_node: Send: Start Root[0m
+[0;32mI (433075) uart_to_node: Send: Start Root[0m
+[0;32mI (433155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (433595) uart_to_node: Send: Start Root[0m
+[0;32mI (434115) uart_to_node: Send: Start Root[0m
+[0;32mI (434155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (434635) uart_to_node: Send: Start Root[0m
+[0;32mI (435155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (435155) uart_to_node: Send: Start Root[0m
+[0;32mI (435675) uart_to_node: Send: Start Root[0m
+[0;32mI (436155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (436195) uart_to_node: Send: Start Root[0m
+[0;32mI (436715) uart_to_node: Send: Start Root[0m
+[0;32mI (437155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (437235) uart_to_node: Send: Start Root[0m
+[0;32mI (437755) uart_to_node: Send: Start Root[0m
+[0;32mI (438155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (438275) uart_to_node: Send: Start Root[0m
+[0;32mI (438795) uart_to_node: Send: Start Root[0m
+[0;32mI (439155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (439315) uart_to_node: Send: Start Root[0m
+[0;32mI (439835) uart_to_node: Send: Start Root[0m
+[0;32mI (440155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (440355) uart_to_node: Send: Start Root[0m
+[0;32mI (440875) uart_to_node: Send: Start Root[0m
+[0;32mI (441155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (441395) uart_to_node: Send: Start Root[0m
+[0;32mI (441915) uart_to_node: Send: Start Root[0m
+[0;32mI (442155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (442435) uart_to_node: Send: Start Root[0m
+[0;32mI (442955) uart_to_node: Send: Start Root[0m
+[0;32mI (443155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (443475) uart_to_node: Send: Start Root[0m
+[0;32mI (443995) uart_to_node: Send: Start Root[0m
+[0;32mI (444155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (444515) uart_to_node: Send: Start Root[0m
+[0;32mI (445035) uart_to_node: Send: Start Root[0m
+[0;32mI (445155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (445555) uart_to_node: Send: Start Root[0m
+[0;32mI (446075) uart_to_node: Send: Start Root[0m
+[0;32mI (446155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (446595) uart_to_node: Send: Start Root[0m
+[0;32mI (447115) uart_to_node: Send: Start Root[0m
+[0;32mI (447155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (447635) uart_to_node: Send: Start Root[0m
+[0;32mI (448155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (448155) uart_to_node: Send: Start Root[0m
+[0;32mI (448675) uart_to_node: Send: Start Root[0m
+[0;32mI (449155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (449195) uart_to_node: Send: Start Root[0m
+[0;32mI (449715) uart_to_node: Send: Start Root[0m
+[0;32mI (450155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (450235) uart_to_node: Send: Start Root[0m
+[0;32mI (450755) uart_to_node: Send: Start Root[0m
+[0;32mI (451155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (451275) uart_to_node: Send: Start Root[0m
+[0;32mI (451795) uart_to_node: Send: Start Root[0m
+[0;32mI (452155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (452315) uart_to_node: Send: Start Root[0m
+[0;32mI (452835) uart_to_node: Send: Start Root[0m
+[0;32mI (453155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (453355) uart_to_node: Send: Start Root[0m
+[0;32mI (453875) uart_to_node: Send: Start Root[0m
+[0;32mI (454155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (454395) uart_to_node: Send: Start Root[0m
+[0;32mI (454915) uart_to_node: Send: Start Root[0m
+[0;32mI (455155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (455435) uart_to_node: Send: Start Root[0m
+[0;32mI (455955) uart_to_node: Send: Start Root[0m
+[0;32mI (456155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (456475) uart_to_node: Send: Start Root[0m
+[0;32mI (456995) uart_to_node: Send: Start Root[0m
+[0;32mI (457155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (457515) uart_to_node: Send: Start Root[0m
+[0;32mI (458035) uart_to_node: Send: Start Root[0m
+[0;32mI (458155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (458555) uart_to_node: Send: Start Root[0m
+[0;32mI (459075) uart_to_node: Send: Start Root[0m
+[0;32mI (459155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (459595) uart_to_node: Send: Start Root[0m
+[0;32mI (460115) uart_to_node: Send: Start Root[0m
+[0;32mI (460155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (460635) uart_to_node: Send: Start Root[0m
+[0;32mI (461155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (461155) uart_to_node: Send: Start Root[0m
+[0;32mI (461675) uart_to_node: Send: Start Root[0m
+[0;32mI (462155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (462195) uart_to_node: Send: Start Root[0m
+[0;32mI (462715) uart_to_node: Send: Start Root[0m
+[0;32mI (463155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (463235) uart_to_node: Send: Start Root[0m
+[0;32mI (463755) uart_to_node: Send: Start Root[0m
+[0;32mI (464155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (464275) uart_to_node: Send: Start Root[0m
+[0;32mI (464795) uart_to_node: Send: Start Root[0m
+[0;32mI (465155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (465315) uart_to_node: Send: Start Root[0m
+[0;32mI (465835) uart_to_node: Send: Start Root[0m
+[0;32mI (466155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (466355) uart_to_node: Send: Start Root[0m
+[0;32mI (466875) uart_to_node: Send: Start Root[0m
+[0;32mI (467155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (467395) uart_to_node: Send: Start Root[0m
+[0;32mI (467915) uart_to_node: Send: Start Root[0m
+[0;32mI (468155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (468435) uart_to_node: Send: Start Root[0m
+[0;32mI (468955) uart_to_node: Send: Start Root[0m
+[0;32mI (469155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (469475) uart_to_node: Send: Start Root[0m
+[0;32mI (469995) uart_to_node: Send: Start Root[0m
+[0;32mI (470155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (470515) uart_to_node: Send: Start Root[0m
+[0;32mI (471035) uart_to_node: Send: Start Root[0m
+[0;32mI (471155) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (471555) uart_to_node: Send: Start Root[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82f54h (536404) map[0m
+[0;32mI (304) esp_image: segment 1: paddr=00092f7c vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (310) esp_image: segment 2: paddr=00097504 vaddr=40080000 size=08b14h ( 35604) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbc7ch (1031292) map[0m
+[0;32mI (678) esp_image: segment 4: paddr=0019bca4 vaddr=40088b14 size=12880h ( 75904) load[0m
+[0;32mI (722) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (734) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (757) cpu_start: Compile time:     Jun  7 2026 14:28:29[0m
+[0;32mI (763) cpu_start: ELF file SHA256:  b7e3f345e...[0m
+[0;32mI (768) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (774) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (778) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (783) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (788) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (795) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (801) heap_init: At 3FFCC3B0 len 00013C50 (79 KiB): DRAM[0m
+[0;32mI (807) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (814) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (820) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (828) spi_flash: detected chip: generic[0m
+[0;32mI (831) spi_flash: flash io: dio[0m
+[0;33mW (835) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (846) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (855) main_task: Started on CPU0[0m
+[0;32mI (865) main_task: Calling app_main()[0m
+[0;32mI (865) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (885) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (895) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (895) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (895) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (905) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (915) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (915) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (925) disp_spi: Adding SPI device[0m
+[0;32mI (925) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1135) ILI9341: Initialization.[0m
+[0;32mI (1335) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1335) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1335) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1635) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1695) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 00:56:42
+[0;32mI (1755) wifi:wifi driver task: 3ffe69d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1755) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1765) wifi:wifi certification version: v7.0[0m
+[0;32mI (1765) wifi:config NVS flash: enabled[0m
+[0;32mI (1765) wifi:config nano formating: disabled[0m
+[0;32mI (1765) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1775) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1775) wifi:Init management short buffer num: 32[0m
+[0;32mI (1775) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1785) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1785) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1795) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1795) wifi_init: rx ba win: 6[0m
+[0;32mI (1805) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1805) wifi_init: udp mbox: 6[0m
+[0;32mI (1805) wifi_init: tcp mbox: 6[0m
+[0;32mI (1815) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp mss: 1440[0m
+[0;32mI (1825) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1825) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1835) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1845) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1845) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1935) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1935) wifi:enable tsf[0m
+[0;32mI (1945) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2315) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4365) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4365) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4365) wifi:flush txq[0m
+[0;32mI (4365) wifi:stop sw txq[0m
+[0;32mI (4365) wifi:lmac stop hw txq[0m
+[0;32mI (4375) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4375) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4375) wifi:enable tsf[0m
+[0;32mI (4385) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6805) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6805) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6805) wifi:flush txq[0m
+[0;32mI (6805) wifi:stop sw txq[0m
+[0;32mI (6805) wifi:lmac stop hw txq[0m
+[0;32mI (6815) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6815) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6815) wifi:enable tsf[0m
+[0;32mI (6825) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9235) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9235) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9245) wifi:flush txq[0m
+[0;32mI (9245) wifi:stop sw txq[0m
+[0;32mI (9245) wifi:lmac stop hw txq[0m
+[0;32mI (9255) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9255) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9255) wifi:enable tsf[0m
+[0;32mI (9265) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11675) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11675) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11685) wifi:flush txq[0m
+[0;32mI (11685) wifi:stop sw txq[0m
+[0;32mI (11685) wifi:lmac stop hw txq[0m
+[0;32mI (11685) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11695) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11695) wifi:enable tsf[0m
+[0;32mI (11705) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14115) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14115) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14125) wifi:flush txq[0m
+[0;32mI (14125) wifi:stop sw txq[0m
+[0;32mI (14125) wifi:lmac stop hw txq[0m
+[0;32mI (14125) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14135) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14135) wifi:enable tsf[0m
+[0;32mI (14135) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16555) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16555) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16565) wifi:flush txq[0m
+[0;32mI (16565) wifi:stop sw txq[0m
+[0;32mI (16565) wifi:lmac stop hw txq[0m
+[0;32mI (16565) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16575) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16575) wifi:enable tsf[0m
+[0;32mI (16575) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (18995) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (18995) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19005) wifi:flush txq[0m
+[0;32mI (19005) wifi:stop sw txq[0m
+[0;32mI (19005) wifi:lmac stop hw txq[0m
+[0;32mI (19005) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19015) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19015) wifi:enable tsf[0m
+[0;32mI (19015) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21435) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21435) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21445) wifi:flush txq[0m
+[0;32mI (21445) wifi:stop sw txq[0m
+[0;32mI (21445) wifi:lmac stop hw txq[0m
+[0;32mI (21445) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21455) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21455) wifi:enable tsf[0m
+[0;32mI (21455) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23875) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23875) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23885) wifi:flush txq[0m
+[0;32mI (23885) wifi:stop sw txq[0m
+[0;32mI (23885) wifi:lmac stop hw txq[0m
+[0;32mI (23885) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23895) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23895) wifi:enable tsf[0m
+[0;32mI (23895) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26315) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26315) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26315) wifi:flush txq[0m
+[0;32mI (26315) wifi:stop sw txq[0m
+[0;32mI (26325) wifi:lmac stop hw txq[0m
+[0;32mI (26325) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26335) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26335) wifi:enable tsf[0m
+[0;32mI (26335) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26605) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26605) wifi:state: init -> auth (b0)[0m
+[0;32mI (26605) wifi:state: auth -> assoc (0)[0m
+[0;32mI (26615) wifi:state: assoc -> run (10)[0m
+[0;32mI (26635) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (26635) wifi:security: WPA2-PSK, phy: bgn, rssi: -59[0m
+[0;32mI (26645) wifi:pm start, type: 1[0m
+
+[0;32mI (26645) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (26655) WiFiManager: WiFi STA link established[0m
+[0;32mI (26825) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (36345) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (36345) wifi:state: run -> init (0)[0m
+[0;32mI (36345) wifi:pm stop, total sleep time: 5409038 us / 9699669 us[0m
+
+[0;32mI (36345) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36355) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36395) wifi:flush txq[0m
+[0;32mI (36395) wifi:stop sw txq[0m
+[0;32mI (36395) wifi:lmac stop hw txq[0m
+[0;32mI (36395) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36395) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36395) wifi:enable tsf[0m
+[0;32mI (36395) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36405) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (36415) wifi:flush txq[0m
+[0;32mI (36415) wifi:stop sw txq[0m
+[0;32mI (36415) wifi:lmac stop hw txq[0m
+[0;32mI (36415) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36425) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36425) wifi:enable tsf[0m
+[0;32mI (36425) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36435) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (36445) wifi:state: init -> auth (b0)[0m
+[0;32mI (36445) wifi:state: auth -> assoc (0)[0m
+[0;32mI (36455) wifi:state: assoc -> run (10)[0m
+[0;32mI (36475) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (36475) wifi:security: WPA2-PSK, phy: bgn, rssi: -51[0m
+[0;32mI (36485) wifi:pm start, type: 1[0m
+
+[0;32mI (36485) WiFiManager: WiFi STA link established[0m
+[0;32mI (36555) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (46435) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (46435) wifi:state: run -> init (0)[0m
+[0;32mI (46435) wifi:pm stop, total sleep time: 6203673 us / 9949722 us[0m
+
+[0;32mI (46435) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46445) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46475) wifi:flush txq[0m
+[0;32mI (46475) wifi:stop sw txq[0m
+[0;32mI (46475) wifi:lmac stop hw txq[0m
+[0;32mI (46475) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46475) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46475) wifi:enable tsf[0m
+[0;32mI (46475) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46485) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (46495) wifi:flush txq[0m
+[0;32mI (46495) wifi:stop sw txq[0m
+[0;32mI (46495) wifi:lmac stop hw txq[0m
+[0;32mI (46495) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46505) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46505) wifi:enable tsf[0m
+[0;32mI (46505) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46515) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46525) wifi:state: init -> auth (b0)[0m
+[0;32mI (46525) wifi:state: auth -> assoc (0)[0m
+[0;32mI (46535) wifi:state: assoc -> run (10)[0m
+[0;32mI (46565) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (46565) wifi:security: WPA2-PSK, phy: bgn, rssi: -55[0m
+[0;32mI (46575) wifi:pm start, type: 1[0m
+
+[0;32mI (46575) WiFiManager: WiFi STA link established[0m
+[0;32mI (46595) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (56515) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (56515) wifi:state: run -> init (0)[0m
+[0;32mI (56515) wifi:pm stop, total sleep time: 6831849 us / 9940306 us[0m
+
+[0;32mI (56515) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (56525) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (56565) wifi:flush txq[0m
+[0;32mI (56565) wifi:stop sw txq[0m
+[0;32mI (56565) wifi:lmac stop hw txq[0m
+[0;32mI (56565) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (56565) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (56565) wifi:enable tsf[0m
+[0;32mI (56565) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (56575) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (56585) wifi:flush txq[0m
+[0;32mI (56585) wifi:stop sw txq[0m
+[0;32mI (56585) wifi:lmac stop hw txq[0m
+[0;32mI (56585) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (56595) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (56595) wifi:enable tsf[0m
+[0;32mI (56605) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (59015) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (59015) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (59025) wifi:flush txq[0m
+[0;32mI (59025) wifi:stop sw txq[0m
+[0;32mI (59025) wifi:lmac stop hw txq[0m
+[0;32mI (59025) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (59035) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (59035) wifi:enable tsf[0m
+[0;32mI (59035) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (61455) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (61455) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (61465) wifi:flush txq[0m
+[0;32mI (61465) wifi:stop sw txq[0m
+[0;32mI (61465) wifi:lmac stop hw txq[0m
+[0;32mI (61465) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (61475) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (61475) wifi:enable tsf[0m
+[0;32mI (61475) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (63895) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (63895) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (63895) wifi:flush txq[0m
+[0;32mI (63905) wifi:stop sw txq[0m
+[0;32mI (63905) wifi:lmac stop hw txq[0m
+[0;32mI (63905) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (63915) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (63915) wifi:enable tsf[0m
+[0;32mI (63915) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (66335) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (66335) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (66335) wifi:flush txq[0m
+[0;32mI (66335) wifi:stop sw txq[0m
+[0;32mI (66345) wifi:lmac stop hw txq[0m
+[0;32mI (66345) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (66355) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (66355) wifi:enable tsf[0m
+[0;32mI (66355) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (66365) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (66365) wifi:state: init -> auth (b0)[0m
+[0;32mI (66375) wifi:state: auth -> assoc (0)[0m
+[0;32mI (66385) wifi:state: assoc -> run (10)[0m
+[0;32mI (66405) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (66405) wifi:security: WPA2-PSK, phy: bgn, rssi: -56[0m
+[0;32mI (66405) wifi:pm start, type: 1[0m
+
+[0;32mI (66415) WiFiManager: WiFi STA link established[0m
+[0;32mI (66455) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (76365) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (76365) wifi:state: run -> init (0)[0m
+[0;32mI (76365) wifi:pm stop, total sleep time: 6144513 us / 9951920 us[0m
+
+[0;32mI (76365) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (76375) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (76415) wifi:flush txq[0m
+[0;32mI (76415) wifi:stop sw txq[0m
+[0;32mI (76415) wifi:lmac stop hw txq[0m
+[0;32mI (76415) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (76415) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (76415) wifi:enable tsf[0m
+[0;32mI (76415) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (76425) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (76445) wifi:flush txq[0m
+[0;32mI (76445) wifi:stop sw txq[0m
+[0;32mI (76445) wifi:lmac stop hw txq[0m
+[0;32mI (76445) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (76445) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (76445) wifi:enable tsf[0m
+[0;32mI (76445) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (76455) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (76465) wifi:state: init -> auth (b0)[0m
+[0;32mI (76465) wifi:state: auth -> assoc (0)[0m
+[0;32mI (76485) wifi:state: assoc -> run (10)[0m
+[0;32mI (76505) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (76505) wifi:security: WPA2-PSK, phy: bgn, rssi: -57[0m
+[0;32mI (76515) wifi:pm start, type: 1[0m
+
+[0;32mI (76515) WiFiManager: WiFi STA link established[0m
+[0;32mI (77005) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (86455) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (86455) wifi:state: run -> init (0)[0m
+[0;32mI (86455) wifi:pm stop, total sleep time: 6577666 us / 9939841 us[0m
+
+[0;32mI (86455) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (86465) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (86505) wifi:flush txq[0m
+[0;32mI (86505) wifi:stop sw txq[0m
+[0;32mI (86505) wifi:lmac stop hw txq[0m
+[0;32mI (86505) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (86505) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (86505) wifi:enable tsf[0m
+[0;32mI (86505) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (86515) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (86525) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (86525) wifi:state: init -> auth (b0)[0m
+[0;32mI (86535) wifi:state: auth -> init (0)[0m
+[0;32mI (86535) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (86545) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (86545) wifi:flush txq[0m
+[0;32mI (86545) wifi:stop sw txq[0m
+[0;32mI (86555) wifi:lmac stop hw txq[0m
+[0;32mI (86555) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (86565) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (86565) wifi:enable tsf[0m
+[0;32mI (86565) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (86575) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (86585) wifi:flush txq[0m
+[0;32mI (86585) wifi:stop sw txq[0m
+[0;32mI (86585) wifi:lmac stop hw txq[0m
+[0;32mI (87085) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (87085) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (87085) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (87085) wifi:enable tsf[0m
+[0;32mI (87095) wifi:Total power save buffer number: 16[0m
+[0;32mI (87095) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (87095) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (87105) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (87115) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (87115) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (87135) WiFiManager: Web server started on port 80[0m
+[0;32mI (87135) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (87145) wifi:flush txq[0m
+[0;32mI (87145) wifi:stop sw txq[0m
+[0;32mI (87145) wifi:lmac stop hw txq[0m
+[0;32mI (87145) uart: queue free spaces: 24[0m
+[0;32mI (87195) uart_to_node: Send: Start Root[0m
+[0;32mI (87715) uart_to_node: Send: Start Root[0m
+[0;32mI (88145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (88235) uart_to_node: Send: Start Root[0m
+[0;32mI (88755) uart_to_node: Send: Start Root[0m
+[0;32mI (89145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (89275) uart_to_node: Send: Start Root[0m
+[0;32mI (89795) uart_to_node: Send: Start Root[0m
+[0;32mI (90145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (90315) uart_to_node: Send: Start Root[0m
+[0;32mI (90835) uart_to_node: Send: Start Root[0m
+[0;32mI (91145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (91355) uart_to_node: Send: Start Root[0m
+[0;32mI (91875) uart_to_node: Send: Start Root[0m
+[0;32mI (92145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (92395) uart_to_node: Send: Start Root[0m
+[0;32mI (92915) uart_to_node: Send: Start Root[0m
+[0;32mI (93145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (93435) uart_to_node: Send: Start Root[0m
+[0;32mI (93955) uart_to_node: Send: Start Root[0m
+[0;32mI (94145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (94475) uart_to_node: Send: Start Root[0m
+[0;32mI (94995) uart_to_node: Send: Start Root[0m
+[0;32mI (95145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (95515) uart_to_node: Send: Start Root[0m
+[0;32mI (96035) uart_to_node: Send: Start Root[0m
+[0;32mI (96145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (96555) uart_to_node: Send: Start Root[0m
+[0;32mI (97075) uart_to_node: Send: Start Root[0m
+[0;32mI (97145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (97595) uart_to_node: Send: Start Root[0m
+[0;32mI (98115) uart_to_node: Send: Start Root[0m
+[0;32mI (98145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (98635) uart_to_node: Send: Start Root[0m
+[0;32mI (99145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (99155) uart_to_node: Send: Start Root[0m
+[0;32mI (99675) uart_to_node: Send: Start Root[0m
+[0;32mI (100145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (100195) uart_to_node: Send: Start Root[0m
+[0;32mI (100715) uart_to_node: Send: Start Root[0m
+[0;32mI (101145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (101235) uart_to_node: Send: Start Root[0m
+[0;32mI (101755) uart_to_node: Send: Start Root[0m
+[0;32mI (102145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (102275) uart_to_node: Send: Start Root[0m
+[0;32mI (102795) uart_to_node: Send: Start Root[0m
+[0;32mI (103145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (103315) uart_to_node: Send: Start Root[0m
+[0;32mI (103835) uart_to_node: Send: Start Root[0m
+[0;32mI (104145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (104355) uart_to_node: Send: Start Root[0m
+[0;32mI (104875) uart_to_node: Send: Start Root[0m
+[0;32mI (105145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (105395) uart_to_node: Send: Start Root[0m
+[0;32mI (105915) uart_to_node: Send: Start Root[0m
+[0;32mI (106145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (106435) uart_to_node: Send: Start Root[0m
+[0;32mI (106955) uart_to_node: Send: Start Root[0m
+[0;32mI (107145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (107475) uart_to_node: Send: Start Root[0m
+[0;32mI (107995) uart_to_node: Send: Start Root[0m
+[0;32mI (108145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (108515) uart_to_node: Send: Start Root[0m
+[0;32mI (109035) uart_to_node: Send: Start Root[0m
+[0;32mI (109145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (109555) uart_to_node: Send: Start Root[0m
+[0;32mI (110075) uart_to_node: Send: Start Root[0m
+[0;32mI (110145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (110595) uart_to_node: Send: Start Root[0m
+[0;32mI (111115) uart_to_node: Send: Start Root[0m
+[0;32mI (111145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (111635) uart_to_node: Send: Start Root[0m
+[0;32mI (112145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (112155) uart_to_node: Send: Start Root[0m
+[0;32mI (112675) uart_to_node: Send: Start Root[0m
+[0;32mI (113145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (113195) uart_to_node: Send: Start Root[0m
+[0;32mI (113715) uart_to_node: Send: Start Root[0m
+[0;32mI (114145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (114235) uart_to_node: Send: Start Root[0m
+[0;32mI (114755) uart_to_node: Send: Start Root[0m
+[0;32mI (115145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (115275) uart_to_node: Send: Start Root[0m
+[0;32mI (115795) uart_to_node: Send: Start Root[0m
+[0;32mI (116145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (116315) uart_to_node: Send: Start Root[0m
+[0;32mI (116835) uart_to_node: Send: Start Root[0m
+[0;32mI (117145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (117355) uart_to_node: Send: Start Root[0m
+[0;32mI (117875) uart_to_node: Send: Start Root[0m
+[0;32mI (118145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (118395) uart_to_node: Send: Start Root[0m
+[0;32mI (118915) uart_to_node: Send: Start Root[0m
+[0;32mI (119145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (119435) uart_to_node: Send: Start Root[0m
+[0;32mI (119955) uart_to_node: Send: Start Root[0m
+[0;32mI (120145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (120475) uart_to_node: Send: Start Root[0m
+[0;32mI (120995) uart_to_node: Send: Start Root[0m
+[0;32mI (121145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (121515) uart_to_node: Send: Start Root[0m
+[0;32mI (122035) uart_to_node: Send: Start Root[0m
+[0;32mI (122145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (122555) uart_to_node: Send: Start Root[0m
+[0;32mI (123075) uart_to_node: Send: Start Root[0m
+[0;32mI (123145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (123595) uart_to_node: Send: Start Root[0m
+[0;32mI (124115) uart_to_node: Send: Start Root[0m
+[0;32mI (124145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (124635) uart_to_node: Send: Start Root[0m
+[0;32mI (125145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (125155) uart_to_node: Send: Start Root[0m
+[0;32mI (125675) uart_to_node: Send: Start Root[0m
+[0;32mI (126145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (126195) uart_to_node: Send: Start Root[0m
+[0;32mI (126715) uart_to_node: Send: Start Root[0m
+[0;32mI (127145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (127235) uart_to_node: Send: Start Root[0m
+[0;32mI (127755) uart_to_node: Send: Start Root[0m
+[0;32mI (128145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (128275) uart_to_node: Send: Start Root[0m
+[0;32mI (128795) uart_to_node: Send: Start Root[0m
+[0;32mI (129145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (129315) uart_to_node: Send: Start Root[0m
+[0;32mI (129835) uart_to_node: Send: Start Root[0m
+[0;32mI (130145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (130355) uart_to_node: Send: Start Root[0m
+[0;32mI (130875) uart_to_node: Send: Start Root[0m
+[0;32mI (131145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (131395) uart_to_node: Send: Start Root[0m
+[0;32mI (131915) uart_to_node: Send: Start Root[0m
+[0;32mI (132145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (132435) uart_to_node: Send: Start Root[0m
+[0;32mI (132955) uart_to_node: Send: Start Root[0m
+[0;32mI (133145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (133475) uart_to_node: Send: Start Root[0m
+[0;32mI (133995) uart_to_node: Send: Start Root[0m
+[0;32mI (134145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (134515) uart_to_node: Send: Start Root[0m
+[0;32mI (135035) uart_to_node: Send: Start Root[0m
+[0;32mI (135145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (135555) uart_to_node: Send: Start Root[0m
+[0;32mI (136075) uart_to_node: Send: Start Root[0m
+[0;32mI (136145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (136595) uart_to_node: Send: Start Root[0m
+[0;32mI (137115) uart_to_node: Send: Start Root[0m
+[0;32mI (137145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (137635) uart_to_node: Send: Start Root[0m
+[0;32mI (138145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (138155) uart_to_node: Send: Start Root[0m
+[0;32mI (138675) uart_to_node: Send: Start Root[0m
+[0;32mI (139145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (139195) uart_to_node: Send: Start Root[0m
+[0;32mI (139715) uart_to_node: Send: Start Root[0m
+[0;32mI (140145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (140235) uart_to_node: Send: Start Root[0m
+[0;32mI (140755) uart_to_node: Send: Start Root[0m
+[0;32mI (141145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (141275) uart_to_node: Send: Start Root[0m
+[0;32mI (141795) uart_to_node: Send: Start Root[0m
+[0;32mI (142145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (142315) uart_to_node: Send: Start Root[0m
+[0;32mI (142835) uart_to_node: Send: Start Root[0m
+[0;32mI (143145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (143355) uart_to_node: Send: Start Root[0m
+[0;32mI (143875) uart_to_node: Send: Start Root[0m
+[0;32mI (144145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (144395) uart_to_node: Send: Start Root[0m
+[0;32mI (144915) uart_to_node: Send: Start Root[0m
+[0;32mI (145145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (145435) uart_to_node: Send: Start Root[0m
+[0;32mI (145955) uart_to_node: Send: Start Root[0m
+[0;32mI (146145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (146475) uart_to_node: Send: Start Root[0m
+[0;32mI (146995) uart_to_node: Send: Start Root[0m
+[0;32mI (147145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (147515) uart_to_node: Send: Start Root[0m
+[0;32mI (148035) uart_to_node: Send: Start Root[0m
+[0;32mI (148145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (148555) uart_to_node: Send: Start Root[0m
+[0;32mI (149075) uart_to_node: Send: Start Root[0m
+[0;32mI (149145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (149595) uart_to_node: Send: Start Root[0m
+[0;32mI (150115) uart_to_node: Send: Start Root[0m
+[0;32mI (150145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (150635) uart_to_node: Send: Start Root[0m
+[0;32mI (151145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (151155) uart_to_node: Send: Start Root[0m
+[0;32mI (151675) uart_to_node: Send: Start Root[0m
+[0;32mI (152145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (152195) uart_to_node: Send: Start Root[0m
+[0;32mI (152715) uart_to_node: Send: Start Root[0m
+[0;32mI (153145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (153235) uart_to_node: Send: Start Root[0m
+[0;32mI (153755) uart_to_node: Send: Start Root[0m
+[0;32mI (154145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (154275) uart_to_node: Send: Start Root[0m
+[0;32mI (154795) uart_to_node: Send: Start Root[0m
+[0;32mI (155145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (155315) uart_to_node: Send: Start Root[0m
+[0;32mI (155835) uart_to_node: Send: Start Root[0m
+[0;32mI (156145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (156355) uart_to_node: Send: Start Root[0m
+[0;32mI (156875) uart_to_node: Send: Start Root[0m
+[0;32mI (157145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (157395) uart_to_node: Send: Start Root[0m
+[0;32mI (157915) uart_to_node: Send: Start Root[0m
+[0;32mI (158145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (158435) uart_to_node: Send: Start Root[0m
+[0;32mI (158955) uart_to_node: Send: Start Root[0m
+[0;32mI (159145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (159475) uart_to_node: Send: Start Root[0m
+[0;32mI (159995) uart_to_node: Send: Start Root[0m
+[0;32mI (160145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (160515) uart_to_node: Send: Start Root[0m
+[0;32mI (161035) uart_to_node: Send: Start Root[0m
+[0;32mI (161145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (161555) uart_to_node: Send: Start Root[0m
+[0;32mI (162075) uart_to_node: Send: Start Root[0m
+[0;32mI (162145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (162595) uart_to_node: Send: Start Root[0m
+[0;32mI (163115) uart_to_node: Send: Start Root[0m
+[0;32mI (163145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (163635) uart_to_node: Send: Start Root[0m
+[0;32mI (164145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (164155) uart_to_node: Send: Start Root[0m
+[0;32mI (164675) uart_to_node: Send: Start Root[0m
+[0;32mI (165145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (165195) uart_to_node: Send: Start Root[0m
+[0;32mI (165715) uart_to_node: Send: Start Root[0m
+[0;32mI (166145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (166235) uart_to_node: Send: Start Root[0m
+[0;32mI (166755) uart_to_node: Send: Start Root[0m
+[0;32mI (167145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (167275) uart_to_node: Send: Start Root[0m
+[0;32mI (167795) uart_to_node: Send: Start Root[0m
+[0;32mI (168145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (168315) uart_to_node: Send: Start Root[0m
+[0;32mI (168835) uart_to_node: Send: Start Root[0m
+[0;32mI (169145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (169355) uart_to_node: Send: Start Root[0m
+[0;32mI (169875) uart_to_node: Send: Start Root[0m
+[0;32mI (170145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (170395) uart_to_node: Send: Start Root[0m
+[0;32mI (170915) uart_to_node: Send: Start Root[0m
+[0;32mI (171145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (171435) uart_to_node: Send: Start Root[0m
+[0;32mI (171955) uart_to_node: Send: Start Root[0m
+[0;32mI (172145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (172475) uart_to_node: Send: Start Root[0m
+[0;32mI (172995) uart_to_node: Send: Start Root[0m
+[0;32mI (173145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (173515) uart_to_node: Send: Start Root[0m
+[0;32mI (174035) uart_to_node: Send: Start Root[0m
+[0;32mI (174145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (174555) uart_to_node: Send: Start Root[0m
+[0;32mI (175075) uart_to_node: Send: Start Root[0m
+[0;32mI (175145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (175595) uart_to_node: Send: Start Root[0m
+[0;32mI (176115) uart_to_node: Send: Start Root[0m
+[0;32mI (176145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (176635) uart_to_node: Send: Start Root[0m
+[0;32mI (177145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (177155) uart_to_node: Send: Start Root[0m
+[0;32mI (177675) uart_to_node: Send: Start Root[0m
+[0;32mI (178145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (178195) uart_to_node: Send: Start Root[0m
+[0;32mI (178715) uart_to_node: Send: Start Root[0m
+[0;32mI (179145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (179235) uart_to_node: Send: Start Root[0m
+[0;32mI (179755) uart_to_node: Send: Start Root[0m
+[0;32mI (180145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (180275) uart_to_node: Send: Start Root[0m
+[0;32mI (180795) uart_to_node: Send: Start Root[0m
+[0;32mI (181145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (181315) uart_to_node: Send: Start Root[0m
+[0;32mI (181835) uart_to_node: Send: Start Root[0m
+[0;32mI (182145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (182355) uart_to_node: Send: Start Root[0m
+[0;32mI (182875) uart_to_node: Send: Start Root[0m
+[0;32mI (183145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (183395) uart_to_node: Send: Start Root[0m
+[0;32mI (183915) uart_to_node: Send: Start Root[0m
+[0;32mI (184145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (184435) uart_to_node: Send: Start Root[0m
+[0;32mI (184955) uart_to_node: Send: Start Root[0m
+[0;32mI (185145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (185475) uart_to_node: Send: Start Root[0m
+[0;32mI (185995) uart_to_node: Send: Start Root[0m
+[0;32mI (186145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (186515) uart_to_node: Send: Start Root[0m
+[0;32mI (187035) uart_to_node: Send: Start Root[0m
+[0;32mI (187145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (187555) uart_to_node: Send: Start Root[0m
+[0;32mI (188075) uart_to_node: Send: Start Root[0m
+[0;32mI (188145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (188595) uart_to_node: Send: Start Root[0m
+[0;32mI (189115) uart_to_node: Send: Start Root[0m
+[0;32mI (189145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (189635) uart_to_node: Send: Start Root[0m
+[0;32mI (190145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (190155) uart_to_node: Send: Start Root[0m
+[0;32mI (190675) uart_to_node: Send: Start Root[0m
+[0;32mI (191145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (191195) uart_to_node: Send: Start Root[0m
+[0;32mI (191715) uart_to_node: Send: Start Root[0m
+[0;32mI (192145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (192235) uart_to_node: Send: Start Root[0m
+[0;32mI (192755) uart_to_node: Send: Start Root[0m
+[0;32mI (193145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (193275) uart_to_node: Send: Start Root[0m
+[0;32mI (193795) uart_to_node: Send: Start Root[0m
+[0;32mI (194145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (194315) uart_to_node: Send: Start Root[0m
+[0;32mI (194835) uart_to_node: Send: Start Root[0m
+[0;32mI (195145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (195355) uart_to_node: Send: Start Root[0m
+[0;32mI (195875) uart_to_node: Send: Start Root[0m
+[0;32mI (196145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (196395) uart_to_node: Send: Start Root[0m
+[0;32mI (196915) uart_to_node: Send: Start Root[0m
+[0;32mI (197145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (197435) uart_to_node: Send: Start Root[0m
+[0;32mI (197955) uart_to_node: Send: Start Root[0m
+[0;32mI (198145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (198475) uart_to_node: Send: Start Root[0m
+[0;32mI (198995) uart_to_node: Send: Start Root[0m
+[0;32mI (199145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (199515) uart_to_node: Send: Start Root[0m
+[0;32mI (200035) uart_to_node: Send: Start Root[0m
+[0;32mI (200145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (200555) uart_to_node: Send: Start Root[0m
+[0;32mI (201075) uart_to_node: Send: Start Root[0m
+[0;32mI (201145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (201595) uart_to_node: Send: Start Root[0m
+[0;32mI (202115) uart_to_node: Send: Start Root[0m
+[0;32mI (202145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (202635) uart_to_node: Send: Start Root[0m
+[0;32mI (203145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (203155) uart_to_node: Send: Start Root[0m
+[0;32mI (203675) uart_to_node: Send: Start Root[0m
+[0;32mI (204145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (204195) uart_to_node: Send: Start Root[0m
+[0;32mI (204715) uart_to_node: Send: Start Root[0m
+[0;32mI (205145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (205235) uart_to_node: Send: Start Root[0m
+[0;32mI (205755) uart_to_node: Send: Start Root[0m
+[0;32mI (206145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (206275) uart_to_node: Send: Start Root[0m
+[0;32mI (206795) uart_to_node: Send: Start Root[0m
+[0;32mI (207145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (207315) uart_to_node: Send: Start Root[0m
+[0;32mI (207835) uart_to_node: Send: Start Root[0m
+[0;32mI (208145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (208355) uart_to_node: Send: Start Root[0m
+[0;32mI (208875) uart_to_node: Send: Start Root[0m
+[0;32mI (209145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (209395) uart_to_node: Send: Start Root[0m
+[0;32mI (209915) uart_to_node: Send: Start Root[0m
+[0;32mI (210145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (210435) uart_to_node: Send: Start Root[0m
+[0;32mI (210955) uart_to_node: Send: Start Root[0m
+[0;32mI (211145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (211475) uart_to_node: Send: Start Root[0m
+[0;32mI (211995) uart_to_node: Send: Start Root[0m
+[0;32mI (212145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (212515) uart_to_node: Send: Start Root[0m
+[0;32mI (213035) uart_to_node: Send: Start Root[0m
+[0;32mI (213145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (213555) uart_to_node: Send: Start Root[0m
+[0;32mI (214075) uart_to_node: Send: Start Root[0m
+[0;32mI (214145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (214595) uart_to_node: Send: Start Root[0m
+[0;32mI (215115) uart_to_node: Send: Start Root[0m
+[0;32mI (215145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (215635) uart_to_node: Send: Start Root[0m
+[0;32mI (216145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (216155) uart_to_node: Send: Start Root[0m
+[0;32mI (216675) uart_to_node: Send: Start Root[0m
+[0;32mI (217145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (217195) uart_to_node: Send: Start Root[0m
+[0;32mI (217715) uart_to_node: Send: Start Root[0m
+[0;32mI (218145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (218235) uart_to_node: Send: Start Root[0m
+[0;32mI (218755) uart_to_node: Send: Start Root[0m
+[0;32mI (219145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (219275) uart_to_node: Send: Start Root[0m
+[0;32mI (219795) uart_to_node: Send: Start Root[0m
+[0;32mI (220145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (220315) uart_to_node: Send: Start Root[0m
+[0;32mI (220835) uart_to_node: Send: Start Root[0m
+[0;32mI (221145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (221355) uart_to_node: Send: Start Root[0m
+[0;32mI (221875) uart_to_node: Send: Start Root[0m
+[0;32mI (222145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (222395) uart_to_node: Send: Start Root[0m
+[0;32mI (222915) uart_to_node: Send: Start Root[0m
+[0;32mI (223145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (223435) uart_to_node: Send: Start Root[0m
+[0;32mI (223955) uart_to_node: Send: Start Root[0m
+[0;32mI (224145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (224475) uart_to_node: Send: Start Root[0m
+[0;32mI (224995) uart_to_node: Send: Start Root[0m
+[0;32mI (225145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (225515) uart_to_node: Send: Start Root[0m
+[0;32mI (226035) uart_to_node: Send: Start Root[0m
+[0;32mI (226145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (226555) uart_to_node: Send: Start Root[0m
+[0;32mI (227075) uart_to_node: Send: Start Root[0m
+[0;32mI (227145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (227595) uart_to_node: Send: Start Root[0m
+[0;32mI (228115) uart_to_node: Send: Start Root[0m
+[0;32mI (228145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (228635) uart_to_node: Send: Start Root[0m
+[0;32mI (229145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (229155) uart_to_node: Send: Start Root[0m
+[0;32mI (229675) uart_to_node: Send: Start Root[0m
+[0;32mI (230145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (230195) uart_to_node: Send: Start Root[0m
+[0;32mI (230715) uart_to_node: Send: Start Root[0m
+[0;32mI (231145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (231235) uart_to_node: Send: Start Root[0m
+[0;32mI (231755) uart_to_node: Send: Start Root[0m
+[0;32mI (232145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (232275) uart_to_node: Send: Start Root[0m
+[0;32mI (232795) uart_to_node: Send: Start Root[0m
+[0;32mI (233145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (233315) uart_to_node: Send: Start Root[0m
+[0;32mI (233835) uart_to_node: Send: Start Root[0m
+[0;32mI (234145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (234355) uart_to_node: Send: Start Root[0m
+[0;32mI (234875) uart_to_node: Send: Start Root[0m
+[0;32mI (235145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (235395) uart_to_node: Send: Start Root[0m
+[0;32mI (235915) uart_to_node: Send: Start Root[0m
+[0;32mI (236145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (236435) uart_to_node: Send: Start Root[0m
+[0;32mI (236955) uart_to_node: Send: Start Root[0m
+[0;32mI (237145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (237475) uart_to_node: Send: Start Root[0m
+[0;32mI (237995) uart_to_node: Send: Start Root[0m
+[0;32mI (238145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (238515) uart_to_node: Send: Start Root[0m
+[0;32mI (239035) uart_to_node: Send: Start Root[0m
+[0;32mI (239145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (239555) uart_to_node: Send: Start Root[0m
+[0;32mI (240075) uart_to_node: Send: Start Root[0m
+[0;32mI (240145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (240595) uart_to_node: Send: Start Root[0m
+[0;32mI (241115) uart_to_node: Send: Start Root[0m
+[0;32mI (241145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (241635) uart_to_node: Send: Start Root[0m
+[0;32mI (242145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (242155) uart_to_node: Send: Start Root[0m
+[0;32mI (242675) uart_to_node: Send: Start Root[0m
+[0;32mI (243145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (243195) uart_to_node: Send: Start Root[0m
+[0;32mI (243715) uart_to_node: Send: Start Root[0m
+[0;32mI (244145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (244235) uart_to_node: Send: Start Root[0m
+[0;32mI (244755) uart_to_node: Send: Start Root[0m
+[0;32mI (245145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (245275) uart_to_node: Send: Start Root[0m
+[0;32mI (245795) uart_to_node: Send: Start Root[0m
+[0;32mI (246145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (246315) uart_to_node: Send: Start Root[0m
+[0;32mI (246835) uart_to_node: Send: Start Root[0m
+[0;32mI (247145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (247355) uart_to_node: Send: Start Root[0m
+[0;32mI (247875) uart_to_node: Send: Start Root[0m
+[0;32mI (248145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (248395) uart_to_node: Send: Start Root[0m
+[0;32mI (248915) uart_to_node: Send: Start Root[0m
+[0;32mI (249145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (249435) uart_to_node: Send: Start Root[0m
+[0;32mI (249955) uart_to_node: Send: Start Root[0m
+[0;32mI (250145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (250475) uart_to_node: Send: Start Root[0m
+[0;32mI (250995) uart_to_node: Send: Start Root[0m
+[0;32mI (251145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (251515) uart_to_node: Send: Start Root[0m
+[0;32mI (252035) uart_to_node: Send: Start Root[0m
+[0;32mI (252145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (252555) uart_to_node: Send: Start Root[0m
+[0;32mI (253075) uart_to_node: Send: Start Root[0m
+[0;32mI (253145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (253595) uart_to_node: Send: Start Root[0m
+[0;32mI (254115) uart_to_node: Send: Start Root[0m
+[0;32mI (254145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (254635) uart_to_node: Send: Start Root[0m
+[0;32mI (255145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (255155) uart_to_node: Send: Start Root[0m
+[0;32mI (255675) uart_to_node: Send: Start Root[0m
+[0;32mI (256145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (256195) uart_to_node: Send: Start Root[0m
+[0;32mI (256715) uart_to_node: Send: Start Root[0m
+[0;32mI (257145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (257235) uart_to_node: Send: Start Root[0m
+[0;32mI (257755) uart_to_node: Send: Start Root[0m
+[0;32mI (258145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (258275) uart_to_node: Send: Start Root[0m
+[0;32mI (258795) uart_to_node: Send: Start Root[0m
+[0;32mI (259145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (259315) uart_to_node: Send: Start Root[0m
+[0;32mI (259835) uart_to_node: Send: Start Root[0m
+[0;32mI (260145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (260355) uart_to_node: Send: Start Root[0m
+[0;32mI (260875) uart_to_node: Send: Start Root[0m
+[0;32mI (261145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (261395) uart_to_node: Send: Start Root[0m
+[0;32mI (261915) uart_to_node: Send: Start Root[0m
+[0;32mI (262145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (262435) uart_to_node: Send: Start Root[0m
+[0;32mI (262955) uart_to_node: Send: Start Root[0m
+[0;32mI (263145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (263475) uart_to_node: Send: Start Root[0m
+[0;32mI (263995) uart_to_node: Send: Start Root[0m
+[0;32mI (264145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (264515) uart_to_node: Send: Start Root[0m
+[0;32mI (265035) uart_to_node: Send: Start Root[0m
+[0;32mI (265145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (265555) uart_to_node: Send: Start Root[0m
+[0;32mI (266075) uart_to_node: Send: Start Root[0m
+[0;32mI (266145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (266595) uart_to_node: Send: Start Root[0m
+[0;32mI (267115) uart_to_node: Send: Start Root[0m
+[0;32mI (267145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (267635) uart_to_node: Send: Start Root[0m
+[0;32mI (268145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (268155) uart_to_node: Send: Start Root[0m
+[0;32mI (268675) uart_to_node: Send: Start Root[0m
+[0;32mI (269145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (269195) uart_to_node: Send: Start Root[0m
+[0;32mI (269715) uart_to_node: Send: Start Root[0m
+[0;32mI (270145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (270235) uart_to_node: Send: Start Root[0m
+[0;32mI (270755) uart_to_node: Send: Start Root[0m
+[0;32mI (271145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (271275) uart_to_node: Send: Start Root[0m
+[0;32mI (271795) uart_to_node: Send: Start Root[0m
+[0;32mI (272145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (272315) uart_to_node: Send: Start Root[0m
+[0;32mI (272835) uart_to_node: Send: Start Root[0m
+[0;32mI (273145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (273355) uart_to_node: Send: Start Root[0m
+[0;32mI (273875) uart_to_node: Send: Start Root[0m
+[0;32mI (274145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (274395) uart_to_node: Send: Start Root[0m
+[0;32mI (274915) uart_to_node: Send: Start Root[0m
+[0;32mI (275145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (275435) uart_to_node: Send: Start Root[0m
+[0;32mI (275955) uart_to_node: Send: Start Root[0m
+[0;32mI (276145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (276475) uart_to_node: Send: Start Root[0m
+[0;32mI (276995) uart_to_node: Send: Start Root[0m
+[0;32mI (277145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (277515) uart_to_node: Send: Start Root[0m
+[0;32mI (278035) uart_to_node: Send: Start Root[0m
+[0;32mI (278145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (278555) uart_to_node: Send: Start Root[0m
+[0;32mI (279075) uart_to_node: Send: Start Root[0m
+[0;32mI (279145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (279595) uart_to_node: Send: Start Root[0m
+[0;32mI (280115) uart_to_node: Send: Start Root[0m
+[0;32mI (280145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (280635) uart_to_node: Send: Start Root[0m
+[0;32mI (281145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (281155) uart_to_node: Send: Start Root[0m
+[0;32mI (281675) uart_to_node: Send: Start Root[0m
+[0;32mI (282145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (282195) uart_to_node: Send: Start Root[0m
+[0;32mI (282715) uart_to_node: Send: Start Root[0m
+[0;32mI (283145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (283235) uart_to_node: Send: Start Root[0m
+[0;32mI (283755) uart_to_node: Send: Start Root[0m
+[0;32mI (284145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (284275) uart_to_node: Send: Start Root[0m
+[0;32mI (284795) uart_to_node: Send: Start Root[0m
+[0;32mI (285145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (285315) uart_to_node: Send: Start Root[0m
+[0;32mI (285835) uart_to_node: Send: Start Root[0m
+[0;32mI (286145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (286355) uart_to_node: Send: Start Root[0m
+[0;32mI (286875) uart_to_node: Send: Start Root[0m
+[0;32mI (287145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (287395) uart_to_node: Send: Start Root[0m
+[0;32mI (287915) uart_to_node: Send: Start Root[0m
+[0;32mI (288145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m
+[0;32mI (288435) uart_to_node: Send: Start Root[0m
+[0;32mI (288955) uart_to_node: Send: Start Root[0m
+[0;32mI (289145) WiFiManager: WiFi disconnected, stopping STA (no user config reconnect)[0m

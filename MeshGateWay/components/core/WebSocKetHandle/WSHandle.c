@@ -363,7 +363,7 @@ static void ws_send_uart_rx_payload(const char *payload, size_t payload_len)
     if (json_str) {
         esp_websocket_client_send_text(client, json_str, strlen(json_str),
                                        pdMS_TO_TICKS(2000));
-        ESP_LOGI(TAG_WEBSOCKET, "WebSocket send UART RX item: %s", json_str);
+        // ESP_LOGI(TAG_WEBSOCKET, "WebSocket send UART RX item: %s", json_str);
         free(json_str);
     }
 }

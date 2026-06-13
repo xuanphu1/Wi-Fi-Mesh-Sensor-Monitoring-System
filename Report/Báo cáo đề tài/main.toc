@@ -1,0 +1,64 @@
+\babel@toc {vietnamese}{}\relax 
+\thispagestyle {empty}
+\contentsline {section}{\hbox to\@tempdima {\hfil } DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT}{1}{section*.3}%
+\contentsline {section}{\hbox to\@tempdima {\hfil } DANH MỤC HÌNH ẢNH}{3}{section*.4}%
+\contentsline {section}{\hbox to\@tempdima {\hfil } DANH MỤC BẢNG BIỂU}{4}{section*.5}%
+\contentsline {section}{\hbox to\@tempdima {\hfil } TÓM TẮT DỰ ÁN}{5}{section*.6}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 1. CHƯƠNG MỞ ĐẦU}{6}{section*.6}%
+\contentsline {subsection}{\numberline {1.1}Giới thiệu vấn đề và giải pháp}{6}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Mục tiêu và phạm vi của dự án}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Tóm tắt cấu trúc dự án}{8}{subsection.1.3}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 2. PHÂN TÍCH YÊU CẦU KĨ THUẬT}{10}{subsection.1.3}%
+\contentsline {subsection}{\numberline {2.1}Các trường dữ liệu và loại cảm biến}{10}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Tốc độ lấy mẫu và giới hạn truyền dữ liệu}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Tốc độ lấy mẫu tại node MSMS}{11}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Tốc độ truyền qua Wi-Fi Mesh và xử lý tại Root - Gateway}{11}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Phân tích và tính toán giới hạn tốc độ toàn hệ thống}{12}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Yêu cầu chức năng}{14}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Yêu cầu phi chức năng}{15}{subsection.2.4}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 3. THIẾT KẾ CHI TIẾT HỆ THỐNG}{16}{subsection.2.4}%
+\contentsline {subsection}{\numberline {3.1}Thiết kế tổng thể hệ thống}{16}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Tổng quan và sơ đồ hệ thống}{16}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Linh kiện sử dụng}{18}{subsubsection.3.1.2}%
+\contentsline {paragraph}{A) Vi điều khiển ESP32}{18}{section*.12}%
+\contentsline {paragraph}{B) Module RTC DS3231}{18}{section*.15}%
+\contentsline {paragraph}{C) Module lưu trữ SD Card}{19}{section*.18}%
+\contentsline {paragraph}{D) Module mạch sạc IP5306}{20}{section*.21}%
+\contentsline {paragraph}{E) Pin Lithium Polymer}{22}{section*.24}%
+\contentsline {paragraph}{F) Module màn hình OLED SSD1306}{24}{section*.27}%
+\contentsline {paragraph}{G) IC ổn áp AMS1117-3.3}{25}{section*.30}%
+\contentsline {paragraph}{H) Màn hình TFT ILI9341}{26}{section*.33}%
+\contentsline {paragraph}{I) IC mở rộng I/O PCF8574}{26}{section*.36}%
+\contentsline {paragraph}{J) MOSFET AO3400 (N-Channel) và AO3401 (P-Channel)}{27}{section*.39}%
+\contentsline {paragraph}{K) IC giao tiếp USB-to-Serial CH340C}{28}{section*.42}%
+\contentsline {paragraph}{L) MOSFET BSS138 (Logic Level Shifter)}{29}{section*.45}%
+\contentsline {subsection}{\numberline {3.2}Thiết kế chi tiết hệ thống}{30}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Thiết kế phần cứng mạch MSMS Node}{30}{subsubsection.3.2.1}%
+\contentsline {paragraph}{\numberline {3.2.1.1}A. Tính toán đáp ứng công suất nguồn}{30}{paragraph.3.2.1.1}%
+\contentsline {paragraph}{\numberline {3.2.1.2}B. Thiết kế mạch nguyên lý (Schematic)}{32}{paragraph.3.2.1.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}Layout PCB}{37}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Thiết kế phần cứng mạch Gateway}{38}{subsubsection.3.2.3}%
+\contentsline {paragraph}{\numberline {3.2.3.1}A. Tính toán đáp ứng công suất nguồn Gateway}{38}{paragraph.3.2.3.1}%
+\contentsline {paragraph}{\numberline {3.2.3.2}B. Thiết kế mạch nguyên lý (Schematic) Gateway}{39}{paragraph.3.2.3.2}%
+\contentsline {paragraph}{\numberline {3.2.3.3}C. Layout PCB mạch Gateway}{42}{paragraph.3.2.3.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Thiết kế Firmware}{43}{subsubsection.3.2.4}%
+\contentsline {paragraph}{\numberline {3.2.4.1}A. Thiết kế Firmware MSMS}{43}{paragraph.3.2.4.1}%
+\contentsline {paragraph}{\numberline {3.2.4.2}B. Thiết kế Firmware Gateway}{53}{paragraph.3.2.4.2}%
+\contentsline {paragraph}{\numberline {3.2.4.3}C. Thiết kế Software (Web Dashboard \& Mobile App)}{55}{paragraph.3.2.4.3}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 4. KIỂM THỬ HỆ THỐNG VÀ LẤY DỮ LIỆU}{58}{Item.32}%
+\contentsline {subsection}{\numberline {4.1}Chiến lược kiểm thử}{58}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Kiểm thử mạch Node MSMS}{58}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Kiểm thử phần cứng \& Cảm biến}{58}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Kiểm thử Firmware (Menu \& Mesh UDP)}{58}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Kiểm thử mạch Gateway}{59}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Kiểm thử Màn hình TFT (LVGL) \& Giao tiếp UART}{59}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Kiểm thử RTC DS3231 \& Thẻ nhớ SD}{59}{subsubsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.4}Kiểm thử Hệ sinh thái Software (Web Dashboard \& Mobile App)}{59}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Kiểm thử Web Dashboard \& WebSocket Server}{59}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Kiểm thử Mobile App (React Native)}{59}{subsubsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.5}Kiểm thử tích hợp toàn hệ thống (End-to-End Test)}{60}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Đánh giá hiệu năng mạng Mesh (Packet Loss)}{63}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Tổng hợp kết quả kiểm thử}{63}{subsection.4.7}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 5. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{64}{table.caption.75}%
+\contentsline {subsection}{\numberline {5.1}Kết quả đạt được}{64}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Hướng phát triển}{64}{subsection.5.2}%

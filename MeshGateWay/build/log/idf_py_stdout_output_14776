@@ -1,0 +1,437 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82f24h (536356) map[0m
+[0;32mI (309) esp_image: segment 1: paddr=00092f4c vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=000974d4 vaddr=40080000 size=08b44h ( 35652) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbba0h (1031072) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bbc8 vaddr=40088b44 size=12850h ( 75856) load[0m
+[0;32mI (727) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (727) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (728) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (762) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (767) cpu_start: Compile time:     Jun  9 2026 14:03:45[0m
+[0;32mI (773) cpu_start: ELF file SHA256:  a4709138d...[0m
+[0;32mI (778) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (784) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (789) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (793) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (798) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (806) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (811) heap_init: At 3FFCC1A8 len 00013E58 (79 KiB): DRAM[0m
+[0;32mI (818) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (824) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (830) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (838) spi_flash: detected chip: generic[0m
+[0;32mI (841) spi_flash: flash io: dio[0m
+[0;33mW (845) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (856) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (865) main_task: Started on CPU0[0m
+[0;32mI (875) main_task: Calling app_main()[0m
+[0;32mI (875) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (895) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (905) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (905) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (905) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (915) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (925) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (925) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (935) disp_spi: Adding SPI device[0m
+[0;32mI (935) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1145) ILI9341: Initialization.[0m
+[0;32mI (1345) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1345) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1345) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1635) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1695) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-03 01:26:37
+[0;32mI (1755) wifi:wifi driver task: 3ffe67c0, prio:23, stack:6656, core=0[0m
+[0;32mI (1755) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1765) wifi:wifi certification version: v7.0[0m
+[0;32mI (1765) wifi:config NVS flash: enabled[0m
+[0;32mI (1765) wifi:config nano formating: disabled[0m
+[0;32mI (1765) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1775) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1775) wifi:Init management short buffer num: 32[0m
+[0;32mI (1775) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1785) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1785) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1795) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1795) wifi_init: rx ba win: 6[0m
+[0;32mI (1805) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1805) wifi_init: udp mbox: 6[0m
+[0;32mI (1805) wifi_init: tcp mbox: 6[0m
+[0;32mI (1815) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1825) wifi_init: tcp mss: 1440[0m
+[0;32mI (1825) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1825) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1835) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1845) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1845) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1935) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (2005) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (2005) wifi:enable tsf[0m
+[0;32mI (2015) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2385) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4435) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4435) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4435) wifi:flush txq[0m
+[0;32mI (4435) wifi:stop sw txq[0m
+[0;32mI (4435) wifi:lmac stop hw txq[0m
+[0;32mI (4445) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4445) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4455) wifi:enable tsf[0m
+[0;32mI (4455) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6875) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6875) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6875) wifi:flush txq[0m
+[0;32mI (6875) wifi:stop sw txq[0m
+[0;32mI (6875) wifi:lmac stop hw txq[0m
+[0;32mI (6885) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6885) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6885) wifi:enable tsf[0m
+[0;32mI (6895) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9305) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9315) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9315) wifi:flush txq[0m
+[0;32mI (9315) wifi:stop sw txq[0m
+[0;32mI (9315) wifi:lmac stop hw txq[0m
+[0;32mI (9325) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9325) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9325) wifi:enable tsf[0m
+[0;32mI (9335) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11745) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11745) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11755) wifi:flush txq[0m
+[0;32mI (11755) wifi:stop sw txq[0m
+[0;32mI (11755) wifi:lmac stop hw txq[0m
+[0;32mI (11765) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11765) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11765) wifi:enable tsf[0m
+[0;32mI (11775) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14185) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14185) WiFiManager: Startup WiFi try 1/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (14195) wifi:flush txq[0m
+[0;32mI (14195) wifi:stop sw txq[0m
+[0;32mI (14195) wifi:lmac stop hw txq[0m
+[0;32mI (14205) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14205) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14205) wifi:enable tsf[0m
+[0;32mI (14215) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (16625) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16625) WiFiManager: Startup WiFi try 2/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (16635) wifi:flush txq[0m
+[0;32mI (16635) wifi:stop sw txq[0m
+[0;32mI (16635) wifi:lmac stop hw txq[0m
+[0;32mI (16645) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16645) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16645) wifi:enable tsf[0m
+[0;32mI (16655) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (19065) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19065) WiFiManager: Startup WiFi try 3/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (19075) wifi:flush txq[0m
+[0;32mI (19075) wifi:stop sw txq[0m
+[0;32mI (19075) wifi:lmac stop hw txq[0m
+[0;32mI (19085) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19085) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19085) wifi:enable tsf[0m
+[0;32mI (19095) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (21505) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21505) WiFiManager: Startup WiFi try 4/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (21515) wifi:flush txq[0m
+[0;32mI (21515) wifi:stop sw txq[0m
+[0;32mI (21515) wifi:lmac stop hw txq[0m
+[0;32mI (21525) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21525) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21525) wifi:enable tsf[0m
+[0;32mI (21535) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (23945) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23955) WiFiManager: Startup WiFi try 5/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (23955) wifi:flush txq[0m
+[0;32mI (23955) wifi:stop sw txq[0m
+[0;32mI (23955) wifi:lmac stop hw txq[0m
+[0;32mI (23965) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23965) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23965) wifi:enable tsf[0m
+[0;32mI (23975) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (26395) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26395) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26395) wifi:flush txq[0m
+[0;32mI (26395) wifi:stop sw txq[0m
+[0;32mI (26395) wifi:lmac stop hw txq[0m
+[0;32mI (26405) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26405) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26405) wifi:enable tsf[0m
+[0;32mI (26415) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28835) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28835) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28835) wifi:flush txq[0m
+[0;32mI (28835) wifi:stop sw txq[0m
+[0;32mI (28835) wifi:lmac stop hw txq[0m
+[0;32mI (28845) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28845) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (28855) wifi:enable tsf[0m
+[0;32mI (28855) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31275) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31275) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31275) wifi:flush txq[0m
+[0;32mI (31275) wifi:stop sw txq[0m
+[0;32mI (31275) wifi:lmac stop hw txq[0m
+[0;32mI (31285) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31285) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (31285) wifi:enable tsf[0m
+[0;32mI (31295) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33705) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33715) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33715) wifi:flush txq[0m
+[0;32mI (33715) wifi:stop sw txq[0m
+[0;32mI (33715) wifi:lmac stop hw txq[0m
+[0;32mI (33725) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33725) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (33725) wifi:enable tsf[0m
+[0;32mI (33735) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36145) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36145) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36155) wifi:flush txq[0m
+[0;32mI (36155) wifi:stop sw txq[0m
+[0;32mI (36155) wifi:lmac stop hw txq[0m
+[0;32mI (36165) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36165) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36165) wifi:enable tsf[0m
+[0;32mI (36175) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38585) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38585) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (38595) wifi:flush txq[0m
+[0;32mI (38595) wifi:stop sw txq[0m
+[0;32mI (38595) wifi:lmac stop hw txq[0m
+[0;32mI (38605) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (38605) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (38605) wifi:enable tsf[0m
+[0;32mI (38615) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (41025) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (41035) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (41035) wifi:flush txq[0m
+[0;32mI (41035) wifi:stop sw txq[0m
+[0;32mI (41035) wifi:lmac stop hw txq[0m
+[0;32mI (41045) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (41045) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (41045) wifi:enable tsf[0m
+[0;32mI (41055) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (43465) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (43465) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (43475) wifi:flush txq[0m
+[0;32mI (43475) wifi:stop sw txq[0m
+[0;32mI (43475) wifi:lmac stop hw txq[0m
+[0;32mI (43485) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (43485) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (43485) wifi:enable tsf[0m
+[0;32mI (43495) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (45905) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (45915) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (45915) wifi:flush txq[0m
+[0;32mI (45915) wifi:stop sw txq[0m
+[0;32mI (45915) wifi:lmac stop hw txq[0m
+[0;32mI (45925) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (45925) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (45925) wifi:enable tsf[0m
+[0;32mI (45935) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (48345) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (48345) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (48355) wifi:flush txq[0m
+[0;32mI (48355) wifi:stop sw txq[0m
+[0;32mI (48355) wifi:lmac stop hw txq[0m
+[0;32mI (48365) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (48365) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (48365) wifi:enable tsf[0m
+[0;32mI (48375) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (50785) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (50785) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (50795) wifi:flush txq[0m
+[0;32mI (50795) wifi:stop sw txq[0m
+[0;32mI (50795) wifi:lmac stop hw txq[0m
+[0;32mI (50805) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (50805) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (50805) wifi:enable tsf[0m
+[0;32mI (50815) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (53225) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (53225) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (53235) wifi:flush txq[0m
+[0;32mI (53235) wifi:stop sw txq[0m
+[0;32mI (53235) wifi:lmac stop hw txq[0m
+[0;32mI (53235) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (53245) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (53245) wifi:enable tsf[0m
+[0;32mI (53255) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (55665) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (55665) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (55675) wifi:flush txq[0m
+[0;32mI (55675) wifi:stop sw txq[0m
+[0;32mI (55675) wifi:lmac stop hw txq[0m
+[0;32mI (55675) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (55685) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (55685) wifi:enable tsf[0m
+[0;32mI (55685) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (58105) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (58105) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (58115) wifi:flush txq[0m
+[0;32mI (58115) wifi:stop sw txq[0m
+[0;32mI (58115) wifi:lmac stop hw txq[0m
+[0;32mI (58115) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (58125) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (58125) wifi:enable tsf[0m
+[0;32mI (58125) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (60545) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (60545) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (60555) wifi:flush txq[0m
+[0;32mI (60555) wifi:stop sw txq[0m
+[0;32mI (60555) wifi:lmac stop hw txq[0m
+[0;32mI (60555) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (60565) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (60565) wifi:enable tsf[0m
+[0;32mI (60565) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (62985) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (62985) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (62995) wifi:flush txq[0m
+[0;32mI (62995) wifi:stop sw txq[0m
+[0;32mI (62995) wifi:lmac stop hw txq[0m
+[0;32mI (62995) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (63005) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (63005) wifi:enable tsf[0m
+[0;32mI (63005) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (65425) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (65425) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (65425) wifi:flush txq[0m
+[0;32mI (65425) wifi:stop sw txq[0m
+[0;32mI (65435) wifi:lmac stop hw txq[0m
+[0;32mI (65435) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (65445) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (65445) wifi:enable tsf[0m
+[0;32mI (65445) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (67865) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (67865) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (67865) wifi:flush txq[0m
+[0;32mI (67865) wifi:stop sw txq[0m
+[0;32mI (67875) wifi:lmac stop hw txq[0m
+[0;32mI (67875) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (67875) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (67885) wifi:enable tsf[0m
+[0;32mI (67885) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (70305) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (70305) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (70305) wifi:flush txq[0m
+[0;32mI (70305) wifi:stop sw txq[0m
+[0;32mI (70305) wifi:lmac stop hw txq[0m
+[0;32mI (70315) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (70315) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (70325) wifi:enable tsf[0m
+[0;32mI (70325) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (72745) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (72745) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (72745) wifi:flush txq[0m
+[0;32mI (72745) wifi:stop sw txq[0m
+[0;32mI (72745) wifi:lmac stop hw txq[0m
+[0;32mI (72755) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (72755) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (72755) wifi:enable tsf[0m
+[0;32mI (72765) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (75175) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (75185) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (75185) wifi:flush txq[0m
+[0;32mI (75185) wifi:stop sw txq[0m
+[0;32mI (75185) wifi:lmac stop hw txq[0m
+[0;32mI (75695) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (75695) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (75695) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (75695) wifi:enable tsf[0m
+[0;32mI (75705) wifi:Total power save buffer number: 16[0m
+[0;32mI (75705) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (75705) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (75715) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (75725) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (75725) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (75745) WiFiManager: Web server started on port 80[0m
+[0;32mI (75745) uart: queue free spaces: 24[0m
+[0;32mI (75785) uart_to_node: Send: Start Root[0m
+[0;32mI (76305) uart_to_node: Send: Start Root[0m
+[0;32mI (76305) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;33mW (78565) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;33mW (92435) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (137425) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (171325) uart_to_node: RX idle > 2000 ms, reset handshake[0m
+[0;32mI (171325) uart_to_node: Send: Start Root[0m
+[0;32mI (171845) uart_to_node: Send: Start Root[0m
+[0;32mI (172365) uart_to_node: Send: Start Root[0m
+[0;32mI (172885) uart_to_node: Send: Start Root[0m
+[0;32mI (172925) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m

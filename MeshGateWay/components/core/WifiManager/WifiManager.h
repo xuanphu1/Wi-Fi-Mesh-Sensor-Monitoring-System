@@ -22,7 +22,7 @@
 #include "Datamanager.h"
 
 /** Gắn state Wi-Fi để cập nhật STA status khi nhận event. */
-void wifi_manager_attach_state(dm_wifi_t *wifi_state);
+void wifi_manager_attach_state(dm_wifi_t *wifi_state, dm_ws_t *ws_state);
 
 // WiFi event group bits
 #define WIFI_CONNECTED_BIT BIT0

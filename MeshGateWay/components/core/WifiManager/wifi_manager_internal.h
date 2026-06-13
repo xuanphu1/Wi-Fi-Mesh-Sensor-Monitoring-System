@@ -28,6 +28,7 @@ typedef struct
     int dns_sock;
     volatile bool dns_stop;
     dm_wifi_t *wifi_state;
+    dm_ws_t *ws_state;
     char ap_ip[16];
     char ap_netmask[16];
     char ap_gateway[16];

@@ -1,0 +1,10 @@
+\section*{TÓM TẮT ĐỒ ÁN}
+
+Trong bối cảnh các ứng dụng Internet of Things (IoT) và đô thị thông minh ngày càng phát triển, nhu cầu thu thập dữ liệu diện rộng từ đa dạng các loại cảm biến đang trở nên vô cùng cấp thiết. Thay vì thiết kế các hệ thống đo lường cứng nhắc cho từng mục đích đơn lẻ, đề tài này tập trung vào việc \textbf{xây dựng hệ thống nhúng chuẩn hóa kết nối và quản lý đa cảm biến} kết hợp với mạng truyền thông không dây diện rộng.
+
+Dự án phát triển một hệ thống toàn diện bao gồm các thiết bị đầu cuối (Node) được thiết kế chuẩn hóa cả về phần cứng lẫn phần mềm trên nền tảng ESP32. Mỗi Node cho phép kết nối linh hoạt với nhiều loại cảm biến khác nhau, tự động cấu hình và đồng bộ dữ liệu thông qua giao diện trực quan tại chỗ. Điểm nổi bật của hệ thống là ứng dụng công nghệ mạng \textbf{Wi-Fi Mesh (ESP-Mesh-Lite)} hoạt động theo mô hình không cần Router trung tâm. Kiến trúc này giúp các Node tự động định tuyến, truyền dữ liệu tầm xa và vượt qua giới hạn về vùng phủ sóng của các hạ tầng Wi-Fi truyền thống.
+
+Dữ liệu từ các Node cảm biến trong mạng Mesh được thu thập về một thiết bị Gateway trung tâm, sau đó đóng gói và đẩy lên máy chủ qua các giao thức MQTT/WebSocket. Nhằm đảm bảo khả năng giám sát từ xa, dự án đã phát triển đồng bộ một nền tảng theo dõi dữ liệu bao gồm Web Dashboard (React) và Mobile App để trực quan hóa dữ liệu thời gian thực. Bên cạnh đó, hệ thống còn đi kèm với các công cụ kiểm thử hiệu năng (Python Tools) hỗ trợ giả lập lưu lượng, đo đạc và vẽ biểu đồ đánh giá tỷ lệ mất gói tin (Packet Loss).
+
+Kết quả đạt được là một giải pháp giám sát IoT linh hoạt, toàn diện từ thiết bị biên đến điện toán đám mây. Hệ thống giải quyết hiệu quả bài toán phân mảnh chuẩn giao tiếp của cảm biến và tối ưu hóa năng lực truyền tải mạng cho số lượng lớn thiết bị, mở ra tiềm năng ứng dụng lớn trong giám sát môi trường, nông nghiệp công nghệ cao và công nghiệp thông minh.
+\cleardoublepage

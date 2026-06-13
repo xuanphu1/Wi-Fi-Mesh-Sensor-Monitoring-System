@@ -15,6 +15,8 @@ extern "C" {
 /** Gắn queue uplink để đẩy RX UART và chuyển lên server. Gọi trước `uart_to_node_start`. */
 void uart_to_node_attach_uplink_queue(QueueHandle_t uplink_queue);
 
+void uart_to_node_attach_ws_state(dm_ws_t *ws_state);
+
 /**
  * @brief Khởi động task UART handshake với node.
  *

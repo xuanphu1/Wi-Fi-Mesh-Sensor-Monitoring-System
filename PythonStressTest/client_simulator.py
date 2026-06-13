@@ -8,7 +8,7 @@ async def simulate_node(node_id, loss_probability=0.05, interval=0.5):
     Simulates an ESP32 node sending packets to the server.
     Randomly drops packets based on loss_probability to test the server's detection.
     """
-    uri = "ws://localhost:8765"
+    uri = "ws://localhost:8080"
     
     print(f"[{node_id}] Connecting to {uri}...")
     try:

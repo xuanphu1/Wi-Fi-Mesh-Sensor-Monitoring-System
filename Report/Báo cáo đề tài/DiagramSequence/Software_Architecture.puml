@@ -1,0 +1,31 @@
+@startuml
+
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam defaultFontSize 12
+skinparam padding 5
+skinparam nodesep 25
+skinparam ranksep 35
+
+package "Tầng Nhúng (Embedded)" #LightGray {
+  [MSMS Nodes\n(Gửi UDP)] as Nodes
+  [Mạch Gateway\n(ESP32 + LVGL)] as Gateway
+}
+
+package "Backend Server (Node.js)" #LightBlue {
+  [WebSocket Server\n(server.js)] as WSServer
+  [MongoDB Database\n(Lịch sử & Cấu hình)] as MongoDB
+}
+
+package "Tầng Ứng dụng (Frontend)" #LightGreen {
+  [Web Dashboard\n(React.js + Material UI)] as WebApp
+  [Mobile App\n(React Native + Expo)] as MobileApp
+}
+
+Nodes -right-> Gateway : Mạng Wi-Fi Mesh (UDP)
+Gateway -up-> WSServer : Gửi Telemetry (WebSocket)
+WSServer <-right-> MongoDB : Ghi & Đọc dữ liệu
+WSServer <-up-> WebApp : Trực tiếp (Real-time WS)
+WSServer <-up-> MobileApp : REST API / WebSocket
+
+@enduml

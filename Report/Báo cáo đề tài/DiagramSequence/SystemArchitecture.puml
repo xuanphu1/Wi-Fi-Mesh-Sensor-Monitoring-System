@@ -1,0 +1,64 @@
+@startuml SystemArchitecture
+
+skinparam componentStyle uml2
+skinparam backgroundColor white
+
+package "Mạng cảm biến không dây (Wi-Fi Mesh)" {
+    component "MSMS Node 1" as Node1
+    component "MSMS Node 2" as Node2
+    component "MSMS Node N" as NodeN
+    
+    component "MSMS Root" as Root
+    
+    Node1 <--> Root : ESP-Mesh-Lite\n(Wi-Fi)
+    Node2 <--> Root : ESP-Mesh-Lite\n(Wi-Fi)
+    NodeN <--> Root : ESP-Mesh-Lite\n(Wi-Fi)
+}
+
+package "Ngoại vi Node Cảm biến" {
+    component "Cảm biến\n(BME280, PMS7003,...)" as Sensors
+    component "Màn hình OLED" as OLED
+    component "Nút bấm" as Buttons
+    
+    Sensors --> Node1 : I2C/UART/ADC
+    Node1 --> OLED : I2C
+    Buttons --> Node1 : GPIO
+}
+
+package "Trạm thu thập trung tâm" {
+    component "Gateway" as Gateway
+    database "Thẻ nhớ SD" as SDCard
+    component "Màn hình TFT" as TFT
+    
+    Root <--> Gateway : UART (>= 921600 bps)
+    Gateway --> SDCard : SPI
+    Gateway --> TFT : SPI
+}
+
+cloud "Internet / Local Network" {
+    component "MQTT Broker /\nWebSocket Server" as Server
+}
+
+package "Hệ thống giám sát (Clients)" {
+    component "Web Dashboard\n(React)" as Web
+    component "Mobile App\n(React Native)" as App
+    component "Python Tools\n(Stress Test)" as Python
+}
+
+Gateway <--> Server : Wi-Fi (STA)\nMQTT / WebSocket
+
+Server <--> Web : WebSocket / HTTP
+Server <--> App : WebSocket / HTTP
+Server <--> Python : WebSocket / HTTP
+
+note right of Root
+  Tập hợp dữ liệu từ mạng Mesh
+  và đẩy qua UART
+end note
+
+note right of Gateway
+  Xử lý JSON, lưu trữ thẻ nhớ,
+  hiển thị TFT và kết nối máy chủ
+end note
+
+@enduml

@@ -1,0 +1,47 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Ví dụ các module cảm biến đơn chức năng trên thị trường.}}{7}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Cấu trúc tổng quan của hệ thống.}}{16}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Vi điều khiển ESP32.}}{18}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Module DS3231.}}{19}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Module SD Card.}}{20}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Module mạch sạc IP5306.}}{21}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Pin Lithium Polymer 3.7V 1500mAh (Model FL 803450).}}{23}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Module màn hình OLED SSD1306.}}{24}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces IC ổn áp AMS1117-3.3.}}{25}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Màn hình TFT ILI9341.}}{26}{figure.caption.35}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces IC mở rộng I/O PCF8574.}}{27}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces MOSFET AO3400 / AO3401 (Kiểu chân SOT-23).}}{28}{figure.caption.41}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces IC giao tiếp USB-to-Serial CH340C.}}{29}{figure.caption.44}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces MOSFET BSS138 (SOT-23).}}{30}{figure.caption.47}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Khối xử lý và nút bấm.}}{32}{figure.caption.49}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Khối nguồn.}}{33}{figure.caption.50}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Khối ngoại vi (Peripheral).}}{34}{figure.caption.51}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Khối điều khiển và kết nối ngoại vi mở rộng (Control-Peripheral).}}{36}{figure.caption.52}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Lớp Top (Đường tín hiệu).}}{37}{figure.caption.53}%
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Lớp Bottom (Mặt dưới).}}{37}{figure.caption.53}%
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Mô hình 3D (Mặt trên).}}{38}{figure.caption.54}%
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Mô hình 3D (Mặt dưới).}}{38}{figure.caption.54}%
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Khối mạch nạp và giao tiếp USB (Type-C-Debug) của Gateway.}}{39}{figure.caption.56}%
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Khối MCU điều khiển trung tâm của Gateway.}}{40}{figure.caption.57}%
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Khối ngoại vi (Peripheral) của Gateway.}}{41}{figure.caption.58}%
+\contentsline {figure}{\numberline {3.25}{\ignorespaces Lớp Top (Đường tín hiệu).}}{42}{figure.caption.59}%
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Lớp Bottom (Mặt dưới).}}{42}{figure.caption.59}%
+\contentsline {figure}{\numberline {3.27}{\ignorespaces Mô hình 3D (Mặt trên).}}{43}{figure.caption.60}%
+\contentsline {figure}{\numberline {3.28}{\ignorespaces Mô hình 3D (Mặt dưới).}}{43}{figure.caption.60}%
+\contentsline {figure}{\numberline {3.29}{\ignorespaces Sơ đồ kiến trúc phần mềm MSMS.}}{44}{figure.caption.61}%
+\contentsline {figure}{\numberline {3.30}{\ignorespaces Web server (Captive Portal) cấu hình Wi-Fi cho hệ thống.}}{46}{figure.caption.62}%
+\contentsline {figure}{\numberline {3.31}{\ignorespaces Sơ đồ chuyển đổi vai trò (Role Switch) thông qua UART.}}{48}{figure.caption.63}%
+\contentsline {figure}{\numberline {3.32}{\ignorespaces Hoạt động ở trạng thái NODE.}}{50}{figure.caption.64}%
+\contentsline {figure}{\numberline {3.33}{\ignorespaces Hoạt động ở trạng thái ROOT (Trung chuyển Dữ liệu).}}{51}{figure.caption.65}%
+\contentsline {figure}{\numberline {3.34}{\ignorespaces Sơ đồ topology mạng Wi-Fi Mesh của các node MSMS.}}{52}{figure.caption.66}%
+\contentsline {figure}{\numberline {3.35}{\ignorespaces Sơ đồ kiến trúc phần mềm Gateway.}}{53}{figure.caption.67}%
+\contentsline {figure}{\numberline {3.36}{\ignorespaces Lưu đồ hoạt động trung tâm của Gateway.}}{55}{figure.caption.68}%
+\contentsline {figure}{\numberline {3.37}{\ignorespaces Sơ đồ kiến trúc phần mềm (Web Dashboard \& Mobile App).}}{56}{figure.caption.69}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Bố trí thiết lập môi trường kiểm thử thực tế (End-to-End).}}{61}{figure.caption.70}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Giao diện tổng quan (Main Dashboard) của Server hiển thị bản đồ và số liệu.}}{62}{figure.caption.71}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Danh sách các Node đang hoạt động.}}{62}{figure.caption.72}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Chi tiết dữ liệu đo đạc của một Node.}}{62}{figure.caption.72}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Cơ sở dữ liệu lưu lại log lịch sử đo đạc từ các Node.}}{62}{figure.caption.73}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Hiệu suất khi truyền dữ liệu 10Hz (Packet loss = 0\%).}}{63}{figure.caption.74}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Hiệu suất khi truyền dữ liệu 100Hz (Packet loss = 0\%).}}{63}{figure.caption.74}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Kết quả kiểm tra suy hao gói tin mạng Wi-Fi Mesh.}}{63}{figure.caption.74}%

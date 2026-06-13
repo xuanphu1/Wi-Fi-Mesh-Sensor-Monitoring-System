@@ -94,7 +94,7 @@ void app_main(void)
     }
 
     websocket_attach_state(&g_ws);
-    wifi_manager_attach_state(&g_wifi);
+    wifi_manager_attach_state(&g_wifi, &g_ws);
 
     g_uart.uplink_queue =
         xQueueCreate(UART_NODE_RX_QUEUE_DEPTH, sizeof(uart_node_rx_item_t));
@@ -128,6 +128,7 @@ void app_main(void)
     xTaskCreate(WebSocket_Handler, "ws_hdl", ws_stack, &g_ws_ctx, 5, NULL);
 
     uart_to_node_attach_uplink_queue(g_uart.uplink_queue);
+    uart_to_node_attach_ws_state(&g_ws);
     uart_to_node_start();
 
     vTaskDelete(NULL);

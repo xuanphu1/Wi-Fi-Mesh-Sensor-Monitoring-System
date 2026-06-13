@@ -1,0 +1,738 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82ec4h (536260) map[0m
+[0;32mI (304) esp_image: segment 1: paddr=00092eec vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (310) esp_image: segment 2: paddr=00097474 vaddr=40080000 size=08ba4h ( 35748) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbb88h (1031048) map[0m
+[0;32mI (678) esp_image: segment 4: paddr=0019bbb0 vaddr=40088ba4 size=127f0h ( 75760) load[0m
+[0;32mI (722) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (733) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (757) cpu_start: Compile time:     Jun  9 2026 15:53:15[0m
+[0;32mI (763) cpu_start: ELF file SHA256:  373df978d...[0m
+[0;32mI (768) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (774) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (778) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (783) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (788) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (795) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (801) heap_init: At 3FFCC1A8 len 00013E58 (79 KiB): DRAM[0m
+[0;32mI (807) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (814) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (820) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (828) spi_flash: detected chip: generic[0m
+[0;32mI (831) spi_flash: flash io: dio[0m
+[0;33mW (835) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (845) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (855) main_task: Started on CPU0[0m
+[0;32mI (865) main_task: Calling app_main()[0m
+[0;32mI (865) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (885) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (895) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (895) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (895) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (905) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (905) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (915) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (925) disp_spi: Adding SPI device[0m
+[0;32mI (925) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1135) ILI9341: Initialization.[0m
+[0;32mI (1335) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1335) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1335) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1625) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1635) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1635) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1685) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-03 01:43:49
+[0;32mI (1745) wifi:wifi driver task: 3ffe67c0, prio:23, stack:6656, core=0[0m
+[0;32mI (1745) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1755) wifi:wifi certification version: v7.0[0m
+[0;32mI (1755) wifi:config NVS flash: enabled[0m
+[0;32mI (1755) wifi:config nano formating: disabled[0m
+[0;32mI (1755) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1765) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1765) wifi:Init management short buffer num: 32[0m
+[0;32mI (1765) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1775) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1775) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1785) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1785) wifi_init: rx ba win: 6[0m
+[0;32mI (1795) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1795) wifi_init: udp mbox: 6[0m
+[0;32mI (1795) wifi_init: tcp mbox: 6[0m
+[0;32mI (1805) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1805) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp mss: 1440[0m
+[0;32mI (1815) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1815) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1825) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1835) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1835) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1925) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1945) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1955) wifi:enable tsf[0m
+[0;32mI (1955) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2335) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4375) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4375) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4375) wifi:flush txq[0m
+[0;32mI (4375) wifi:stop sw txq[0m
+[0;32mI (4375) wifi:lmac stop hw txq[0m
+[0;32mI (4385) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4385) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4385) wifi:enable tsf[0m
+[0;32mI (4395) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6805) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6815) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6815) wifi:flush txq[0m
+[0;32mI (6815) wifi:stop sw txq[0m
+[0;32mI (6815) wifi:lmac stop hw txq[0m
+[0;32mI (6825) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6825) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6825) wifi:enable tsf[0m
+[0;32mI (6835) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9245) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9245) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9255) wifi:flush txq[0m
+[0;32mI (9255) wifi:stop sw txq[0m
+[0;32mI (9255) wifi:lmac stop hw txq[0m
+[0;32mI (9255) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9265) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9265) wifi:enable tsf[0m
+[0;32mI (9265) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11685) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11685) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11695) wifi:flush txq[0m
+[0;32mI (11695) wifi:stop sw txq[0m
+[0;32mI (11695) wifi:lmac stop hw txq[0m
+[0;32mI (11695) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11705) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11705) wifi:enable tsf[0m
+[0;32mI (11705) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14125) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14125) WiFiManager: Startup WiFi try 1/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (14135) wifi:flush txq[0m
+[0;32mI (14135) wifi:stop sw txq[0m
+[0;32mI (14135) wifi:lmac stop hw txq[0m
+[0;32mI (14135) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14145) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14145) wifi:enable tsf[0m
+[0;32mI (14145) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (16565) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16565) WiFiManager: Startup WiFi try 2/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (16575) wifi:flush txq[0m
+[0;32mI (16575) wifi:stop sw txq[0m
+[0;32mI (16575) wifi:lmac stop hw txq[0m
+[0;32mI (16575) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16585) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16585) wifi:enable tsf[0m
+[0;32mI (16585) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (19005) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19005) WiFiManager: Startup WiFi try 3/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (19015) wifi:flush txq[0m
+[0;32mI (19015) wifi:stop sw txq[0m
+[0;32mI (19015) wifi:lmac stop hw txq[0m
+[0;32mI (19015) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19025) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19025) wifi:enable tsf[0m
+[0;32mI (19025) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (21445) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21445) WiFiManager: Startup WiFi try 4/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (21455) wifi:flush txq[0m
+[0;32mI (21455) wifi:stop sw txq[0m
+[0;32mI (21455) wifi:lmac stop hw txq[0m
+[0;32mI (21455) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21465) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21465) wifi:enable tsf[0m
+[0;32mI (21465) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (23885) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23885) WiFiManager: Startup WiFi try 5/5 for SSID=Chung Cu Mini Momo[0m
+[0;32mI (23895) wifi:flush txq[0m
+[0;32mI (23895) wifi:stop sw txq[0m
+[0;32mI (23895) wifi:lmac stop hw txq[0m
+[0;32mI (23895) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23905) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23905) wifi:enable tsf[0m
+[0;32mI (23905) WiFiManager: Attempting startup WiFi: SSID=Chung Cu Mini Momo[0m
+[0;33mW (26325) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26325) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26335) wifi:flush txq[0m
+[0;32mI (26335) wifi:stop sw txq[0m
+[0;32mI (26335) wifi:lmac stop hw txq[0m
+[0;32mI (26335) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26345) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26345) wifi:enable tsf[0m
+[0;32mI (26345) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (28765) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (28765) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (28765) wifi:flush txq[0m
+[0;32mI (28775) wifi:stop sw txq[0m
+[0;32mI (28775) wifi:lmac stop hw txq[0m
+[0;32mI (28775) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (28785) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (28785) wifi:enable tsf[0m
+[0;32mI (28785) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (31205) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (31205) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (31205) wifi:flush txq[0m
+[0;32mI (31205) wifi:stop sw txq[0m
+[0;32mI (31215) wifi:lmac stop hw txq[0m
+[0;32mI (31215) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (31225) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (31225) wifi:enable tsf[0m
+[0;32mI (31225) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (33645) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (33645) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (33645) wifi:flush txq[0m
+[0;32mI (33645) wifi:stop sw txq[0m
+[0;32mI (33645) wifi:lmac stop hw txq[0m
+[0;32mI (33655) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (33655) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (33665) wifi:enable tsf[0m
+[0;32mI (33665) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (36085) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36085) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (36085) wifi:flush txq[0m
+[0;32mI (36085) wifi:stop sw txq[0m
+[0;32mI (36085) wifi:lmac stop hw txq[0m
+[0;32mI (36095) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36095) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36095) wifi:enable tsf[0m
+[0;32mI (36105) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;33mW (38515) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (38525) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (38525) wifi:flush txq[0m
+[0;32mI (38525) wifi:stop sw txq[0m
+[0;32mI (38525) wifi:lmac stop hw txq[0m
+[0;32mI (39035) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (39035) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (39035) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (39035) wifi:enable tsf[0m
+[0;32mI (39045) wifi:Total power save buffer number: 16[0m
+[0;32mI (39045) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39045) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (39055) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (39065) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (39065) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (39085) WiFiManager: Web server started on port 80[0m
+[0;32mI (39085) uart: queue free spaces: 24[0m
+[0;32mI (39125) uart_to_node: Send: Start Root[0m
+[0;32mI (39125) uart_to_node: Handshake OK (exact wire): Switching to root mode... -> connected[0m
+[0;33mW (41905) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (53775) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<0,0>, prof:1[0m
+[0;32mI (53775) wifi:station: 42:49:b2:56:34:5c join, AID=1, bgn, 20[0m
+[0;32mI (54195) wifi:<ba-add>idx:2 (ifx:1, 42:49:b2:56:34:5c), tid:0, ssn:0, winSize:64[0m
+[0;32mI (54325) esp_netif_lwip: DHCP server assigned IP to a client, IP is: 192.168.4.2[0m
+[0;32mI (55595) esp_netif_lwip: DHCP server assigned IP to a client, IP is: 192.168.4.2[0m
+[0;33mW (57385) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (58455) wifi:Haven't to connect to a suitable AP now![0m
+[0;32mI (76995) WiFiManager: Configuring WebSocket URL: ws://192.168.1.90:8080/ws[0m
+[0;32mI (76995) WebSocket Handler: WebSocket URL (RAM): ws://192.168.1.90:8080/ws[0m
+[0;32mI (76995) WiFiManager: WebSocket URL set in RAM only (not flash; lost on reboot)[0m
+[0;32mI (77005) WiFiManager: Configuring WiFi: SSID=Chung Cu Mini MoMo[0m
+[0;32mI (77085) WiFiManager: Attempting to connect to WiFi: SSID=Chung Cu Mini MoMo[0m
+[0;32mI (77345) wifi:primary chan differ, old=1, new=1, start CSA timer[0m
+[0;32mI (77345) wifi:new:<1,1>, old:<1,0>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (77345) wifi:state: init -> auth (b0)[0m
+[0;32mI (77355) wifi:state: auth -> assoc (0)[0m
+[0;32mI (77355) wifi:state: assoc -> run (10)[0m
+[0;33mW (77415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (77455) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (77455) wifi:[ADDBA]rx delba, code:39, delete tid:0[0m
+[0;33mW (77455) wifi:[ADDBA]rx delba, code:39, delete tid:6[0m
+[0;32mI (77465) wifi:connected with Chung Cu Mini MoMo, aid = 2, channel 1, BW20, bssid = 28:77:77:da:bf:34[0m
+[0;32mI (77475) wifi:security: WPA2-PSK, phy: bgn, rssi: -67[0m
+[0;32mI (77475) wifi:pm start, type: 1[0m
+
+[0;32mI (77475) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (77495) WiFiManager: WiFi STA link established[0m
+[0;32mI (77545) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (79655) wifi:<ba-add>idx:0 (ifx:0, 28:77:77:da:bf:34), tid:6, ssn:2, winSize:64[0m
+[0;31mE (87085) WiFiManager: WiFi connection failed[0m
+[0;32mI (87995) esp_netif_handlers: sta ip: 192.168.1.96, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (87995) WiFiManager: Got IP: 192.168.1.96[0m
+[0;32mI (87995) mdns_mem: mDNS task will be created from internal RAM[0m
+[0;32mI (88005) WiFiManager: mDNS started: http://meshgateway.local[0m
+[0;32mI (88435) WebSocket Handler: Starting WebSocket with URL: ws://192.168.1.90:8080/ws[0m
+[0;32mI (88435) websocket_client: Started[0m
+[0;32mI (88435) WebSocket Handler: WebSocket client start issued[0m
+[0;32mI (88455) wifi:<ba-add>idx:1 (ifx:0, 28:77:77:da:bf:34), tid:0, ssn:2, winSize:64[0m
+[0;32mI (88465) WebSocket Handler: Connected to server[0m
+[0;32mI (89125) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (89305) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;32mI (89405) WiFiManager: Web server stopped[0m
+[0;32mI (89455) WiFiManager: DNS server task stopped[0m
+[0;32mI (89455) wifi:station: 42:49:b2:56:34:5c leave, AID = 1, reason = 2, bss_flags is 33721459, bss:0x3ffcd518[0m
+[0;32mI (89455) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (89465) wifi:<ba-del>idx:2, tid:0[0m
+[0;32mI (89465) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (89515) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":14.5,"ram_used_kb":201,"ram_used_percent":88,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":88,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (94415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (94565) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.4,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":93,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (95635) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (99635) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7.3,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":98,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (102125) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (102125) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;31mE (102195) transport_ws: Error transport_poll_write[0m
+[0;31mE (102195) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (102195) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (102205) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (102205) WebSocket Handler: Disconnected from server[0m
+[0;32mI (102465) WiFiManager: WiFi or WS disconnected, enabling AP mode[0m
+[0;32mI (102465) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (102465) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (102475) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (102475) wifi:Total power save buffer number: 16[0m
+[0;32mI (102485) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (102485) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (102495) wifi:Total power save buffer number: 16[0m
+[0;32mI (102495) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (102495) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (102505) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (102515) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (102535) WiFiManager: Web server started on port 80[0m
+[0;33mW (105415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (117235) WebSocket Handler: Connected to server[0m
+[0;32mI (117535) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;32mI (117635) WiFiManager: Web server stopped[0m
+[0;32mI (117685) WiFiManager: DNS server task stopped[0m
+[0;32mI (117685) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (117915) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (117915) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (119885) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.9,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":118,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (123165) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (124895) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":123,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (127275) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (127275) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (127415) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (127415) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (127495) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (127495) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (127975) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (129305) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (129975) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.3,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":128,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (135055) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.7,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":133,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (137495) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (139415) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (140055) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.3,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":138,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (145065) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7.7,"ram_used_kb":191,"ram_used_percent":84,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":143,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (147635) uart_to_node: uart uplink queue full, drop 75 bytes[0m
+[0;33mW (147845) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (147845) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (147855) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (147855) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (148065) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (148065) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (148075) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (148075) uart_to_node: uart uplink queue full, drop 107 bytes[0m
+[0;33mW (148935) uart_to_node: uart uplink queue full, drop 70 bytes[0m
+[0;33mW (148935) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (148935) uart_to_node: uart uplink queue full, drop 73 bytes[0m
+[0;33mW (149145) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (149145) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (149145) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (149155) uart_to_node: uart uplink queue full, drop 107 bytes[0m
+[0;33mW (149365) uart_to_node: uart uplink queue full, drop 107 bytes[0m
+[0;33mW (149365) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;33mW (149365) uart_to_node: uart uplink queue full, drop 174 bytes[0m
+[0;33mW (149525) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (149575) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (149575) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (149585) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (149585) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (149795) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (149795) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (149795) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (149805) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (150005) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (150005) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (150015) uart_to_node: uart uplink queue full, drop 100 bytes[0m
+[0;33mW (150015) uart_to_node: uart uplink queue full, drop 74 bytes[0m
+[0;32mI (150105) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":6.9,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":148,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (150105) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (155185) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":6.5,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":153,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (157545) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (157895) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (160185) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.1,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.648,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":158,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-71,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (160305) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (165265) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.3,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":163,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (168295) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (168295) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;33mW (168405) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (168405) uart_to_node: uart uplink queue full, drop 66 bytes[0m
+[0;33mW (168515) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (168515) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (169855) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (170335) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.8,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.642,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":168,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (171105) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (175345) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.9,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":173,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (180355) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.5,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":178,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (181245) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (183365) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (183795) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (185415) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.6,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.644,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":184,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (191335) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (191375) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (191375) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (191555) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (191555) uart_to_node: uart uplink queue full, drop 70 bytes[0m
+[0;32mI (191615) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (191625) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":5.7,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":190,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (196675) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.3,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":195,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (201675) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.1,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":200,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (201785) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (204415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (206725) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.2,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":205,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (209345) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (209345) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (209415) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (209415) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (209565) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (209565) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;32mI (211735) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.6,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":210,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (214085) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (214365) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (216735) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":215,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (221795) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.9,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.644,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":220,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (224285) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (225465) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (226815) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.5,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":225,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (231365) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (231865) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.644,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":230,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (234445) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (237285) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7.7,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.648,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":235,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (242275) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":6.9,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":240,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-72,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (243845) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (246095) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (246855) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (247285) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.6,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":245,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (252335) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.9,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":250,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-71,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (256255) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (257405) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":256,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (262405) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7.7,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.648,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":261,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (266595) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (267475) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.3,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.632,"battery_percent":36,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":266,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (267515) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (269805) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (271385) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (271385) uart_to_node: uart uplink queue full, drop 70 bytes[0m
+[0;33mW (271485) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (271485) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (271595) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (271595) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (271705) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (271705) uart_to_node: uart uplink queue full, drop 70 bytes[0m
+[0;33mW (271815) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (271815) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (271915) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (271915) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;33mW (272035) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (272035) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (272135) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (272135) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (272245) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (272245) uart_to_node: uart uplink queue full, drop 73 bytes[0m
+[0;33mW (272355) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (272355) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;31mE (272415) transport_ws: Error transport_poll_write[0m
+[0;31mE (272415) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (272415) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (272425) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (272425) WebSocket Handler: Disconnected from server[0m
+[0;32mI (272685) WiFiManager: WiFi or WS disconnected, enabling AP mode[0m
+[0;32mI (272685) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (272685) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (272695) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (272695) wifi:Total power save buffer number: 16[0m
+[0;32mI (272695) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (272705) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (272715) wifi:Total power save buffer number: 16[0m
+[0;32mI (272715) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (272715) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (272725) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (272735) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (272755) WiFiManager: Web server started on port 80[0m
+[0;33mW (280415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (287455) WebSocket Handler: Connected to server[0m
+[0;32mI (287675) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":4.8,"ram_used_kb":202,"ram_used_percent":88,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":286,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (287755) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;32mI (287855) WiFiManager: Web server stopped[0m
+[0;32mI (287905) WiFiManager: DNS server task stopped[0m
+[0;32mI (287905) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (288185) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (288225) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (292695) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":5.4,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":291,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (297725) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":5.4,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":296,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-64,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (298335) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (302755) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":5.6,"ram_used_kb":185,"ram_used_percent":81,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":301,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (307805) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.4,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":306,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-69,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (309435) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (312845) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":6.5,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":311,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (317915) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7.6,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.648,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":316,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-69,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (319875) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (320585) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (322955) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.8,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":321,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-69,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (328025) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.1,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":326,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (332665) uart_to_node: uart uplink queue full, drop 2 bytes[0m
+[0;33mW (332665) uart_to_node: uart uplink queue full, drop 173 bytes[0m
+[0;33mW (332755) uart_to_node: uart uplink queue full, drop 2 bytes[0m
+[0;33mW (332755) uart_to_node: uart uplink queue full, drop 173 bytes[0m
+[0;33mW (332855) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (332875) uart_to_node: uart uplink queue full, drop 107 bytes[0m
+[0;33mW (332875) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (332965) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (332965) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;32mI (333085) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (333115) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":7,"ram_used_kb":192,"ram_used_percent":84,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":331,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (338135) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.5,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":336,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (343185) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":10.3,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":341,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-69,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (344595) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (348245) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.5,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":346,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (348415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (351215) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (353315) uart_to_node: uart uplink queue full, drop 104 bytes[0m
+[0;33mW (353315) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (353405) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (353405) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (353525) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (353535) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;32mI (353635) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":5.8,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":352,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (355695) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (358675) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.5,"ram_used_kb":189,"ram_used_percent":83,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":357,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (363745) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.8,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":362,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (365845) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (369335) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (369335) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (369455) uart_to_node: uart uplink queue full, drop 104 bytes[0m
+[0;33mW (369455) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (369555) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (369555) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (369665) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (369665) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (369765) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (369765) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (369885) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (369885) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (369975) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (369985) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (370105) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (370105) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (370195) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (370195) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (370315) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (370315) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;31mE (370385) transport_ws: Error transport_poll_write[0m
+[0;31mE (370385) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (370385) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (370395) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (370395) WebSocket Handler: Disconnected from server[0m
+[0;32mI (370905) WiFiManager: WiFi or WS disconnected, enabling AP mode[0m
+[0;32mI (370905) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (370905) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (370915) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (370915) wifi:Total power save buffer number: 16[0m
+[0;32mI (370915) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (370925) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (370935) wifi:Total power save buffer number: 16[0m
+[0;32mI (370935) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (370935) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (370945) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (370955) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (370975) WiFiManager: Web server started on port 80[0m
+[0;32mI (385425) WebSocket Handler: Connected to server[0m
+[0;32mI (385585) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":4.5,"ram_used_kb":202,"ram_used_percent":88,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":384,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (385975) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;32mI (386075) WiFiManager: Web server stopped[0m
+[0;32mI (386125) WiFiManager: DNS server task stopped[0m
+[0;32mI (386125) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (386345) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (386355) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (390645) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":6.2,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":389,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-70,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (395695) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.7,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":394,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-68,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (396565) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (400755) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.3,"ram_used_kb":188,"ram_used_percent":82,"battery_voltage_v":3.644,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":399,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (403895) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (403895) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (403985) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (403985) uart_to_node: uart uplink queue full, drop 73 bytes[0m
+[0;33mW (404115) uart_to_node: uart uplink queue full, drop 120 bytes[0m
+[0;33mW (404115) uart_to_node: uart uplink queue full, drop 49 bytes[0m
+[0;33mW (404195) uart_to_node: uart uplink queue full, drop 101 bytes[0m
+[0;33mW (404195) uart_to_node: uart uplink queue full, drop 74 bytes[0m
+[0;33mW (404325) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (404325) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (404405) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (404405) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (404545) uart_to_node: uart uplink queue full, drop 104 bytes[0m
+[0;33mW (404545) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (404625) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (404625) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (404755) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (404765) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (404845) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (404845) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;31mE (404915) transport_ws: Error transport_poll_write[0m
+[0;31mE (404915) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (404915) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (404925) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (404925) WebSocket Handler: Disconnected from server[0m
+[0;32mI (405125) WiFiManager: WiFi or WS disconnected, enabling AP mode[0m
+[0;32mI (405125) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (405125) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (405135) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (405135) wifi:Total power save buffer number: 16[0m
+[0;32mI (405135) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (405145) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (405155) wifi:Total power save buffer number: 16[0m
+[0;32mI (405155) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (405155) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (405165) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (405175) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (405195) WiFiManager: Web server started on port 80[0m
+[0;32mI (419955) WebSocket Handler: Connected to server[0m
+[0;32mI (420195) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;32mI (420295) WiFiManager: Web server stopped[0m
+[0;32mI (420345) WiFiManager: DNS server task stopped[0m
+[0;32mI (420345) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;33mW (420345) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (420435) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (420435) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (420985) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.7,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":419,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (426035) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.6,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.652,"battery_percent":39,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":424,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (426415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (430415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (430605) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (431105) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.1,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":429,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (436145) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.5,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.64,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":434,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (441215) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":10.1,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.634,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":439,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-66,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (441305) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (443415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (446265) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.7,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":444,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (446805) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (447235) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (447235) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (447365) uart_to_node: uart uplink queue full, drop 45 bytes[0m
+[0;33mW (447365) uart_to_node: uart uplink queue full, drop 128 bytes[0m
+[0;33mW (447415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;33mW (447455) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (447455) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (447585) uart_to_node: uart uplink queue full, drop 111 bytes[0m
+[0;33mW (447585) uart_to_node: uart uplink queue full, drop 64 bytes[0m
+[0;32mI (451335) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.6,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.65,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":449,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-65,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (452135) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (454895) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (456395) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":9.7,"ram_used_kb":187,"ram_used_percent":82,"battery_voltage_v":3.636,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":455,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-67,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (457415) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (461455) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8,"ram_used_kb":190,"ram_used_percent":83,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":460,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-71,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;32mI (462285) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;33mW (465225) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (465225) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (465325) uart_to_node: uart uplink queue full, drop 102 bytes[0m
+[0;33mW (465325) uart_to_node: uart uplink queue full, drop 72 bytes[0m
+[0;33mW (465445) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (465445) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (465545) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (465545) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;32mI (466505) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":10.6,"ram_used_kb":189,"ram_used_percent":82,"battery_voltage_v":3.638,"battery_percent":37,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":465,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-71,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m
+[0;33mW (468335) uart_to_node: uart uplink queue full, drop 105 bytes[0m
+[0;33mW (468345) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (468455) uart_to_node: uart uplink queue full, drop 107 bytes[0m
+[0;33mW (468455) uart_to_node: uart uplink queue full, drop 66 bytes[0m
+[0;33mW (468555) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (468555) uart_to_node: uart uplink queue full, drop 68 bytes[0m
+[0;33mW (468675) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (468675) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (468765) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (468765) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (468885) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (468885) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (468985) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (468985) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;33mW (469095) uart_to_node: uart uplink queue full, drop 103 bytes[0m
+[0;33mW (469095) uart_to_node: uart uplink queue full, drop 71 bytes[0m
+[0;33mW (469195) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (469195) uart_to_node: uart uplink queue full, drop 67 bytes[0m
+[0;33mW (469315) uart_to_node: uart uplink queue full, drop 106 bytes[0m
+[0;33mW (469315) uart_to_node: uart uplink queue full, drop 69 bytes[0m
+[0;31mE (469395) transport_ws: Error transport_poll_write[0m
+[0;31mE (469395) websocket_client: esp_transport_write() returned 0, transport_error=ESP_OK, tls_error_code=0, tls_flags=0, errno=0[0m
+[0;31mE (469395) WebSocket Handler: WebSocket error occurred[0m
+[0;32mI (469405) websocket_client: Reconnect after 15000 ms[0m
+[0;33mW (469405) WebSocket Handler: Disconnected from server[0m
+[0;32mI (470345) WiFiManager: WiFi or WS disconnected, enabling AP mode[0m
+[0;32mI (470345) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (470345) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (470355) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (470355) wifi:Total power save buffer number: 16[0m
+[0;32mI (470355) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (470365) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (470375) wifi:Total power save buffer number: 16[0m
+[0;32mI (470375) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (470375) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (470385) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (470395) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (470415) WiFiManager: Web server started on port 80[0m
+[0;32mI (484435) WebSocket Handler: Connected to server[0m
+[0;32mI (484985) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (484985) WebSocket Handler: WEBSOCKET_EVENT_DATA[0m
+[0;32mI (485415) WiFiManager: WiFi & WS connected, disabling AP mode[0m
+[0;33mW (485455) uart_to_node: UART RX FIFO overflow (mất dữ liệu) -> flush RX[0m
+[0;32mI (485515) WiFiManager: Web server stopped[0m
+[0;32mI (485565) WiFiManager: DNS server task stopped[0m
+[0;32mI (485565) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (486745) WebSocket Handler: gateway_status send: {"type":"gateway_status","clientType":"esp32","cpu_load_percent":8.7,"ram_used_kb":189,"ram_used_percent":83,"battery_voltage_v":3.646,"battery_percent":38,"power_source":"battery","chip_temp_internal_supported":false,"chip_temp_c":null,"uptime_s":485,"wifi_ssid":"Chung Cu Mini MoMo","wifi_rssi":-72,"sta_ip":"192.168.1.96","sta_gateway":"192.168.1.1"}[0m

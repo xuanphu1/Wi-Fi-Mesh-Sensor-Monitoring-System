@@ -1,0 +1,1497 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82f54h (536404) map[0m
+[0;32mI (304) esp_image: segment 1: paddr=00092f7c vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (310) esp_image: segment 2: paddr=00097504 vaddr=40080000 size=08b14h ( 35604) load[0m
+[0;32mI (325) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbc78h (1031288) map[0m
+[0;32mI (678) esp_image: segment 4: paddr=0019bca0 vaddr=40088b14 size=12880h ( 75904) load[0m
+[0;32mI (722) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (722) boot: Disabling RNG early entropy source...[0m
+[0;32mI (734) cpu_start: Multicore app[0m
+[0;32mI (743) cpu_start: Pro cpu start user code[0m
+[0;32mI (743) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (743) cpu_start: Application information:[0m
+[0;32mI (746) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (751) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (757) cpu_start: Compile time:     Jun  7 2026 14:28:29[0m
+[0;32mI (763) cpu_start: ELF file SHA256:  e8846e1a5...[0m
+[0;32mI (768) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (774) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (778) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (783) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (788) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (795) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (801) heap_init: At 3FFCC3B0 len 00013C50 (79 KiB): DRAM[0m
+[0;32mI (807) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (814) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (820) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (828) spi_flash: detected chip: generic[0m
+[0;32mI (831) spi_flash: flash io: dio[0m
+[0;33mW (835) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (846) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (855) main_task: Started on CPU0[0m
+[0;32mI (865) main_task: Calling app_main()[0m
+[0;32mI (865) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (885) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (895) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (895) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (895) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (905) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (915) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (915) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (925) disp_spi: Adding SPI device[0m
+[0;32mI (925) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1135) ILI9341: Initialization.[0m
+[0;32mI (1335) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1335) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1335) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1635) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1635) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1695) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 01:57:07
+[0;32mI (1755) wifi:wifi driver task: 3ffe69d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1755) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1755) wifi:wifi certification version: v7.0[0m
+[0;32mI (1755) wifi:config NVS flash: enabled[0m
+[0;32mI (1765) wifi:config nano formating: disabled[0m
+[0;32mI (1765) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1775) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1775) wifi:Init management short buffer num: 32[0m
+[0;32mI (1775) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1785) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1785) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1795) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1795) wifi_init: rx ba win: 6[0m
+[0;32mI (1805) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1805) wifi_init: udp mbox: 6[0m
+[0;32mI (1805) wifi_init: tcp mbox: 6[0m
+[0;32mI (1815) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1815) wifi_init: tcp mss: 1440[0m
+[0;32mI (1825) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1825) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1835) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1845) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1845) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1945) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1945) wifi:enable tsf[0m
+[0;32mI (1955) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2315) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4365) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4365) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4375) wifi:flush txq[0m
+[0;32mI (4375) wifi:stop sw txq[0m
+[0;32mI (4375) wifi:lmac stop hw txq[0m
+[0;32mI (4375) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4385) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4385) wifi:enable tsf[0m
+[0;32mI (4385) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6805) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6805) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6805) wifi:flush txq[0m
+[0;32mI (6805) wifi:stop sw txq[0m
+[0;32mI (6815) wifi:lmac stop hw txq[0m
+[0;32mI (6815) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6815) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6825) wifi:enable tsf[0m
+[0;32mI (6825) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9245) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9245) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9245) wifi:flush txq[0m
+[0;32mI (9245) wifi:stop sw txq[0m
+[0;32mI (9245) wifi:lmac stop hw txq[0m
+[0;32mI (9255) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9255) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9255) wifi:enable tsf[0m
+[0;32mI (9265) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11675) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11675) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11685) wifi:flush txq[0m
+[0;32mI (11685) wifi:stop sw txq[0m
+[0;32mI (11685) wifi:lmac stop hw txq[0m
+[0;32mI (11695) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11695) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11695) wifi:enable tsf[0m
+[0;32mI (11705) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14115) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14115) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (14125) wifi:flush txq[0m
+[0;32mI (14125) wifi:stop sw txq[0m
+[0;32mI (14125) wifi:lmac stop hw txq[0m
+[0;32mI (14125) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14135) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14135) wifi:enable tsf[0m
+[0;32mI (14145) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (14405) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (14405) wifi:state: init -> auth (b0)[0m
+[0;32mI (14445) wifi:state: auth -> assoc (0)[0m
+[0;32mI (14455) wifi:state: assoc -> run (10)[0m
+[0;32mI (14495) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (14495) wifi:security: WPA2-PSK, phy: bgn, rssi: -50[0m
+[0;32mI (14495) wifi:pm start, type: 1[0m
+
+[0;32mI (14495) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (14505) WiFiManager: WiFi STA link established[0m
+[0;32mI (14515) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (34145) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (34145) wifi:state: run -> init (0)[0m
+[0;32mI (34145) wifi:pm stop, total sleep time: 16048395 us / 19645877 us[0m
+
+[0;32mI (34145) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (34155) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (34225) wifi:flush txq[0m
+[0;32mI (34225) wifi:stop sw txq[0m
+[0;32mI (34225) wifi:lmac stop hw txq[0m
+[0;32mI (34225) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (34225) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (34225) wifi:enable tsf[0m
+[0;32mI (34225) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (34235) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (34245) wifi:flush txq[0m
+[0;32mI (34245) wifi:stop sw txq[0m
+[0;32mI (34245) wifi:lmac stop hw txq[0m
+[0;32mI (34245) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (34255) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (34255) wifi:enable tsf[0m
+[0;32mI (34265) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (34275) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (34275) wifi:state: init -> auth (b0)[0m
+[0;32mI (34285) wifi:state: auth -> assoc (0)[0m
+[0;32mI (34295) wifi:state: assoc -> run (10)[0m
+[0;32mI (34325) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (34325) wifi:security: WPA2-PSK, phy: bgn, rssi: -53[0m
+[0;32mI (34325) wifi:pm start, type: 1[0m
+
+[0;32mI (34325) WiFiManager: WiFi STA link established[0m
+[0;32mI (34375) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (54265) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (54265) wifi:state: run -> init (0)[0m
+[0;32mI (54265) wifi:pm stop, total sleep time: 16783609 us / 19936932 us[0m
+
+[0;32mI (54265) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (54275) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (54315) wifi:flush txq[0m
+[0;32mI (54315) wifi:stop sw txq[0m
+[0;32mI (54315) wifi:lmac stop hw txq[0m
+[0;32mI (54315) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (54315) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (54315) wifi:enable tsf[0m
+[0;32mI (54315) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (54325) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (54335) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (54335) wifi:state: init -> auth (b0)[0m
+[0;32mI (54345) wifi:state: auth -> init (0)[0m
+[0;32mI (54345) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (54355) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (54355) wifi:flush txq[0m
+[0;32mI (54355) wifi:stop sw txq[0m
+[0;32mI (54365) wifi:lmac stop hw txq[0m
+[0;32mI (54365) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (54375) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (54375) wifi:enable tsf[0m
+[0;32mI (54375) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (54385) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (54385) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (54395) wifi:state: init -> auth (b0)[0m
+[0;32mI (54395) wifi:state: auth -> init (0)[0m
+[0;32mI (54405) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (54405) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (54415) wifi:flush txq[0m
+[0;32mI (54415) wifi:stop sw txq[0m
+[0;32mI (54415) wifi:lmac stop hw txq[0m
+[0;32mI (54425) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (54425) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (54425) wifi:enable tsf[0m
+[0;32mI (54435) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (54435) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (54445) wifi:flush txq[0m
+[0;32mI (54445) wifi:stop sw txq[0m
+[0;32mI (54445) wifi:lmac stop hw txq[0m
+[0;32mI (54455) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (54455) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (54455) wifi:enable tsf[0m
+[0;32mI (54465) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (56875) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (56885) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (56885) wifi:flush txq[0m
+[0;32mI (56885) wifi:stop sw txq[0m
+[0;32mI (56885) wifi:lmac stop hw txq[0m
+[0;32mI (56895) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (56895) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (56895) wifi:enable tsf[0m
+[0;32mI (56905) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (59315) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (59315) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (59325) wifi:flush txq[0m
+[0;32mI (59325) wifi:stop sw txq[0m
+[0;32mI (59325) wifi:lmac stop hw txq[0m
+[0;32mI (59335) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (59335) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (59335) wifi:enable tsf[0m
+[0;32mI (59345) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (61755) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (61755) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (61765) wifi:flush txq[0m
+[0;32mI (61765) wifi:stop sw txq[0m
+[0;32mI (61765) wifi:lmac stop hw txq[0m
+[0;32mI (61765) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (61775) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (61775) wifi:enable tsf[0m
+[0;32mI (61785) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (64195) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (64195) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (64205) wifi:flush txq[0m
+[0;32mI (64205) wifi:stop sw txq[0m
+[0;32mI (64205) wifi:lmac stop hw txq[0m
+[0;32mI (64205) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (64215) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (64215) wifi:enable tsf[0m
+[0;32mI (64225) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (66635) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (66635) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (66645) wifi:flush txq[0m
+[0;32mI (66645) wifi:stop sw txq[0m
+[0;32mI (66645) wifi:lmac stop hw txq[0m
+[0;32mI (66645) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (66655) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (66655) wifi:enable tsf[0m
+[0;32mI (66655) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (69075) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (69075) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (69085) wifi:flush txq[0m
+[0;32mI (69085) wifi:stop sw txq[0m
+[0;32mI (69085) wifi:lmac stop hw txq[0m
+[0;32mI (69085) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (69095) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (69095) wifi:enable tsf[0m
+[0;32mI (69095) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (71515) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (71515) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (71525) wifi:flush txq[0m
+[0;32mI (71525) wifi:stop sw txq[0m
+[0;32mI (71525) wifi:lmac stop hw txq[0m
+[0;32mI (71525) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (71535) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (71535) wifi:enable tsf[0m
+[0;32mI (71535) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (73955) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (73955) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (73955) wifi:flush txq[0m
+[0;32mI (73955) wifi:stop sw txq[0m
+[0;32mI (73965) wifi:lmac stop hw txq[0m
+[0;32mI (73965) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (73975) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (73975) wifi:enable tsf[0m
+[0;32mI (73975) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (76395) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (76395) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (76395) wifi:flush txq[0m
+[0;32mI (76395) wifi:stop sw txq[0m
+[0;32mI (76395) wifi:lmac stop hw txq[0m
+[0;32mI (76405) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (76405) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (76415) wifi:enable tsf[0m
+[0;32mI (76415) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (76475) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (76475) wifi:state: init -> auth (b0)[0m
+[0;32mI (76485) wifi:state: auth -> assoc (0)[0m
+[0;32mI (76495) wifi:state: assoc -> run (10)[0m
+[0;32mI (76535) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (76545) wifi:security: WPA2-PSK, phy: bgn, rssi: -56[0m
+[0;32mI (76545) wifi:pm start, type: 1[0m
+
+[0;32mI (76545) WiFiManager: WiFi STA link established[0m
+[0;32mI (76565) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (96425) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (96425) wifi:state: run -> init (0)[0m
+[0;32mI (96425) wifi:pm stop, total sleep time: 17068539 us / 19882484 us[0m
+
+[0;32mI (96425) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (96435) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (96515) wifi:flush txq[0m
+[0;32mI (96515) wifi:stop sw txq[0m
+[0;32mI (96515) wifi:lmac stop hw txq[0m
+[0;32mI (96515) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96515) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96515) wifi:enable tsf[0m
+[0;32mI (96515) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96525) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (96535) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (96535) wifi:state: init -> auth (b0)[0m
+[0;32mI (96545) wifi:state: auth -> init (0)[0m
+[0;32mI (96545) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (96555) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (96555) wifi:flush txq[0m
+[0;32mI (96555) wifi:stop sw txq[0m
+[0;32mI (96565) wifi:lmac stop hw txq[0m
+[0;32mI (96565) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96575) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96575) wifi:enable tsf[0m
+[0;32mI (96575) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96585) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (96585) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (96595) wifi:state: init -> auth (b0)[0m
+[0;32mI (96595) wifi:state: auth -> init (0)[0m
+[0;32mI (96605) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (96605) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (96715) wifi:flush txq[0m
+[0;32mI (96715) wifi:stop sw txq[0m
+[0;32mI (96715) wifi:lmac stop hw txq[0m
+[0;32mI (96715) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96715) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96715) wifi:enable tsf[0m
+[0;32mI (96715) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96725) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (96735) wifi:flush txq[0m
+[0;32mI (96735) wifi:stop sw txq[0m
+[0;32mI (96735) wifi:lmac stop hw txq[0m
+[0;32mI (96735) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96745) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96745) wifi:enable tsf[0m
+[0;32mI (96745) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96755) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (96765) wifi:state: init -> auth (b0)[0m
+[0;32mI (96775) wifi:state: auth -> init (8a0)[0m
+[0;32mI (96775) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (96775) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (96785) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (96795) wifi:flush txq[0m
+[0;32mI (96795) wifi:stop sw txq[0m
+[0;32mI (96795) wifi:lmac stop hw txq[0m
+[0;32mI (97295) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (97295) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (97295) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (97295) wifi:enable tsf[0m
+[0;32mI (97305) wifi:Total power save buffer number: 16[0m
+[0;32mI (97305) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (97305) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (97315) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (97325) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (97325) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (97335) wifi:new:<1,1>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (97345) wifi:state: init -> auth (b0)[0m
+[0;32mI (97345) wifi:state: auth -> assoc (0)[0m
+[0;32mI (97355) WiFiManager: Web server started on port 80[0m
+[0;32mI (97355) uart: queue free spaces: 24[0m
+[0;32mI (97355) wifi:state: assoc -> run (10)[0m
+[0;32mI (97385) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (97385) wifi:security: WPA2-PSK, phy: bgn, rssi: -58[0m
+[0;32mI (97385) wifi:pm start, type: 1[0m
+
+[0;32mI (97395) WiFiManager: WiFi STA link established[0m
+[0;32mI (97405) uart_to_node: Send: Start Root[0m
+[0;32mI (97455) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (97925) uart_to_node: Send: Start Root[0m
+[0;32mI (98445) uart_to_node: Send: Start Root[0m
+[0;32mI (98965) uart_to_node: Send: Start Root[0m
+[0;32mI (99485) uart_to_node: Send: Start Root[0m
+[0;32mI (100005) uart_to_node: Send: Start Root[0m
+[0;32mI (100525) uart_to_node: Send: Start Root[0m
+[0;32mI (101045) uart_to_node: Send: Start Root[0m
+[0;32mI (101565) uart_to_node: Send: Start Root[0m
+[0;32mI (102085) uart_to_node: Send: Start Root[0m
+[0;32mI (102605) uart_to_node: Send: Start Root[0m
+[0;32mI (103125) uart_to_node: Send: Start Root[0m
+[0;32mI (103645) uart_to_node: Send: Start Root[0m
+[0;32mI (104165) uart_to_node: Send: Start Root[0m
+[0;32mI (104685) uart_to_node: Send: Start Root[0m
+[0;32mI (105205) uart_to_node: Send: Start Root[0m
+[0;32mI (105725) uart_to_node: Send: Start Root[0m
+[0;32mI (106245) uart_to_node: Send: Start Root[0m
+[0;32mI (106765) uart_to_node: Send: Start Root[0m
+[0;32mI (107285) uart_to_node: Send: Start Root[0m
+[0;32mI (107805) uart_to_node: Send: Start Root[0m
+[0;32mI (108325) uart_to_node: Send: Start Root[0m
+[0;32mI (108845) uart_to_node: Send: Start Root[0m
+[0;32mI (109365) uart_to_node: Send: Start Root[0m
+[0;32mI (109885) uart_to_node: Send: Start Root[0m
+[0;32mI (110405) uart_to_node: Send: Start Root[0m
+[0;32mI (110925) uart_to_node: Send: Start Root[0m
+[0;32mI (111445) uart_to_node: Send: Start Root[0m
+[0;32mI (111965) uart_to_node: Send: Start Root[0m
+[0;32mI (112485) uart_to_node: Send: Start Root[0m
+[0;32mI (113005) uart_to_node: Send: Start Root[0m
+[0;32mI (113525) uart_to_node: Send: Start Root[0m
+[0;32mI (114045) uart_to_node: Send: Start Root[0m
+[0;32mI (114565) uart_to_node: Send: Start Root[0m
+[0;32mI (115085) uart_to_node: Send: Start Root[0m
+[0;32mI (115605) uart_to_node: Send: Start Root[0m
+[0;32mI (116125) uart_to_node: Send: Start Root[0m
+[0;32mI (116645) uart_to_node: Send: Start Root[0m
+[0;32mI (117165) uart_to_node: Send: Start Root[0m
+[0;32mI (117685) uart_to_node: Send: Start Root[0m
+[0;32mI (118205) uart_to_node: Send: Start Root[0m
+[0;32mI (118725) uart_to_node: Send: Start Root[0m
+[0;32mI (119245) uart_to_node: Send: Start Root[0m
+[0;32mI (119765) uart_to_node: Send: Start Root[0m
+[0;32mI (120285) uart_to_node: Send: Start Root[0m
+[0;32mI (120805) uart_to_node: Send: Start Root[0m
+[0;32mI (121325) uart_to_node: Send: Start Root[0m
+[0;32mI (121845) uart_to_node: Send: Start Root[0m
+[0;32mI (122365) uart_to_node: Send: Start Root[0m
+[0;32mI (122885) uart_to_node: Send: Start Root[0m
+[0;32mI (123405) uart_to_node: Send: Start Root[0m
+[0;32mI (123925) uart_to_node: Send: Start Root[0m
+[0;32mI (124445) uart_to_node: Send: Start Root[0m
+[0;32mI (124965) uart_to_node: Send: Start Root[0m
+[0;32mI (125485) uart_to_node: Send: Start Root[0m
+[0;32mI (126005) uart_to_node: Send: Start Root[0m
+[0;32mI (126525) uart_to_node: Send: Start Root[0m
+[0;32mI (127045) uart_to_node: Send: Start Root[0m
+[0;32mI (127565) uart_to_node: Send: Start Root[0m
+[0;32mI (128085) uart_to_node: Send: Start Root[0m
+[0;32mI (128605) uart_to_node: Send: Start Root[0m
+[0;32mI (129125) uart_to_node: Send: Start Root[0m
+[0;32mI (129645) uart_to_node: Send: Start Root[0m
+[0;32mI (130165) uart_to_node: Send: Start Root[0m
+[0;32mI (130685) uart_to_node: Send: Start Root[0m
+[0;32mI (131205) uart_to_node: Send: Start Root[0m
+[0;32mI (131725) uart_to_node: Send: Start Root[0m
+[0;32mI (132245) uart_to_node: Send: Start Root[0m
+[0;32mI (132765) uart_to_node: Send: Start Root[0m
+[0;32mI (133285) uart_to_node: Send: Start Root[0m
+[0;32mI (133805) uart_to_node: Send: Start Root[0m
+[0;32mI (134325) uart_to_node: Send: Start Root[0m
+[0;32mI (134845) uart_to_node: Send: Start Root[0m
+[0;32mI (135365) uart_to_node: Send: Start Root[0m
+[0;32mI (135885) uart_to_node: Send: Start Root[0m
+[0;32mI (136405) uart_to_node: Send: Start Root[0m
+[0;32mI (136925) uart_to_node: Send: Start Root[0m
+[0;32mI (137445) uart_to_node: Send: Start Root[0m
+[0;32mI (137965) uart_to_node: Send: Start Root[0m
+[0;32mI (138485) uart_to_node: Send: Start Root[0m
+[0;32mI (139005) uart_to_node: Send: Start Root[0m
+[0;32mI (139525) uart_to_node: Send: Start Root[0m
+[0;32mI (140045) uart_to_node: Send: Start Root[0m
+[0;32mI (140565) uart_to_node: Send: Start Root[0m
+[0;32mI (141085) uart_to_node: Send: Start Root[0m
+[0;32mI (141605) uart_to_node: Send: Start Root[0m
+[0;32mI (142125) uart_to_node: Send: Start Root[0m
+[0;32mI (142645) uart_to_node: Send: Start Root[0m
+[0;32mI (143165) uart_to_node: Send: Start Root[0m
+[0;32mI (143685) uart_to_node: Send: Start Root[0m
+[0;32mI (144205) uart_to_node: Send: Start Root[0m
+[0;32mI (144725) uart_to_node: Send: Start Root[0m
+[0;32mI (145245) uart_to_node: Send: Start Root[0m
+[0;32mI (145765) uart_to_node: Send: Start Root[0m
+[0;32mI (146285) uart_to_node: Send: Start Root[0m
+[0;32mI (146805) uart_to_node: Send: Start Root[0m
+[0;32mI (147325) uart_to_node: Send: Start Root[0m
+[0;32mI (147845) uart_to_node: Send: Start Root[0m
+[0;32mI (148365) uart_to_node: Send: Start Root[0m
+[0;32mI (148885) uart_to_node: Send: Start Root[0m
+[0;32mI (149405) uart_to_node: Send: Start Root[0m
+[0;32mI (149925) uart_to_node: Send: Start Root[0m
+[0;32mI (150445) uart_to_node: Send: Start Root[0m
+[0;32mI (150965) uart_to_node: Send: Start Root[0m
+[0;32mI (151485) uart_to_node: Send: Start Root[0m
+[0;32mI (152005) uart_to_node: Send: Start Root[0m
+[0;32mI (152525) uart_to_node: Send: Start Root[0m
+[0;32mI (153045) uart_to_node: Send: Start Root[0m
+[0;32mI (153565) uart_to_node: Send: Start Root[0m
+[0;32mI (154085) uart_to_node: Send: Start Root[0m
+[0;32mI (154605) uart_to_node: Send: Start Root[0m
+[0;32mI (155125) uart_to_node: Send: Start Root[0m
+[0;32mI (155645) uart_to_node: Send: Start Root[0m
+[0;32mI (156165) uart_to_node: Send: Start Root[0m
+[0;32mI (156685) uart_to_node: Send: Start Root[0m
+[0;32mI (157205) uart_to_node: Send: Start Root[0m
+[0;32mI (157725) uart_to_node: Send: Start Root[0m
+[0;32mI (158245) uart_to_node: Send: Start Root[0m
+[0;32mI (158765) uart_to_node: Send: Start Root[0m
+[0;32mI (159285) uart_to_node: Send: Start Root[0m
+[0;32mI (159805) uart_to_node: Send: Start Root[0m
+[0;32mI (160325) uart_to_node: Send: Start Root[0m
+[0;32mI (160845) uart_to_node: Send: Start Root[0m
+[0;32mI (161365) uart_to_node: Send: Start Root[0m
+[0;32mI (161885) uart_to_node: Send: Start Root[0m
+[0;32mI (162405) uart_to_node: Send: Start Root[0m
+[0;32mI (162925) uart_to_node: Send: Start Root[0m
+[0;32mI (163445) uart_to_node: Send: Start Root[0m
+[0;32mI (163965) uart_to_node: Send: Start Root[0m
+[0;32mI (164485) uart_to_node: Send: Start Root[0m
+[0;32mI (165005) uart_to_node: Send: Start Root[0m
+[0;32mI (165525) uart_to_node: Send: Start Root[0m
+[0;32mI (166045) uart_to_node: Send: Start Root[0m
+[0;32mI (166565) uart_to_node: Send: Start Root[0m
+[0;32mI (167085) uart_to_node: Send: Start Root[0m
+[0;32mI (167605) uart_to_node: Send: Start Root[0m
+[0;32mI (168125) uart_to_node: Send: Start Root[0m
+[0;32mI (168645) uart_to_node: Send: Start Root[0m
+[0;32mI (169165) uart_to_node: Send: Start Root[0m
+[0;32mI (169685) uart_to_node: Send: Start Root[0m
+[0;32mI (170205) uart_to_node: Send: Start Root[0m
+[0;32mI (170725) uart_to_node: Send: Start Root[0m
+[0;32mI (171245) uart_to_node: Send: Start Root[0m
+[0;32mI (171765) uart_to_node: Send: Start Root[0m
+[0;32mI (172285) uart_to_node: Send: Start Root[0m
+[0;32mI (172805) uart_to_node: Send: Start Root[0m
+[0;32mI (173325) uart_to_node: Send: Start Root[0m
+[0;32mI (173845) uart_to_node: Send: Start Root[0m
+[0;32mI (174365) uart_to_node: Send: Start Root[0m
+[0;32mI (174885) uart_to_node: Send: Start Root[0m
+[0;32mI (175405) uart_to_node: Send: Start Root[0m
+[0;32mI (175925) uart_to_node: Send: Start Root[0m
+[0;32mI (176445) uart_to_node: Send: Start Root[0m
+[0;32mI (176965) uart_to_node: Send: Start Root[0m
+[0;32mI (177485) uart_to_node: Send: Start Root[0m
+[0;32mI (178005) uart_to_node: Send: Start Root[0m
+[0;32mI (178525) uart_to_node: Send: Start Root[0m
+[0;32mI (179045) uart_to_node: Send: Start Root[0m
+[0;32mI (179565) uart_to_node: Send: Start Root[0m
+[0;32mI (180085) uart_to_node: Send: Start Root[0m
+[0;32mI (180605) uart_to_node: Send: Start Root[0m
+[0;32mI (181125) uart_to_node: Send: Start Root[0m
+[0;32mI (181645) uart_to_node: Send: Start Root[0m
+[0;32mI (182165) uart_to_node: Send: Start Root[0m
+[0;32mI (182685) uart_to_node: Send: Start Root[0m
+[0;32mI (183205) uart_to_node: Send: Start Root[0m
+[0;32mI (183725) uart_to_node: Send: Start Root[0m
+[0;32mI (184245) uart_to_node: Send: Start Root[0m
+[0;32mI (184765) uart_to_node: Send: Start Root[0m
+[0;32mI (185285) uart_to_node: Send: Start Root[0m
+[0;32mI (185805) uart_to_node: Send: Start Root[0m
+[0;32mI (186325) uart_to_node: Send: Start Root[0m
+[0;32mI (186845) uart_to_node: Send: Start Root[0m
+[0;32mI (187365) uart_to_node: Send: Start Root[0m
+[0;32mI (187885) uart_to_node: Send: Start Root[0m
+[0;32mI (188405) uart_to_node: Send: Start Root[0m
+[0;32mI (188925) uart_to_node: Send: Start Root[0m
+[0;32mI (189445) uart_to_node: Send: Start Root[0m
+[0;32mI (189965) uart_to_node: Send: Start Root[0m
+[0;32mI (190485) uart_to_node: Send: Start Root[0m
+[0;32mI (191005) uart_to_node: Send: Start Root[0m
+[0;32mI (191525) uart_to_node: Send: Start Root[0m
+[0;32mI (192045) uart_to_node: Send: Start Root[0m
+[0;32mI (192565) uart_to_node: Send: Start Root[0m
+[0;32mI (193085) uart_to_node: Send: Start Root[0m
+[0;32mI (193605) uart_to_node: Send: Start Root[0m
+[0;32mI (194125) uart_to_node: Send: Start Root[0m
+[0;32mI (194645) uart_to_node: Send: Start Root[0m
+[0;32mI (195165) uart_to_node: Send: Start Root[0m
+[0;32mI (195685) uart_to_node: Send: Start Root[0m
+[0;32mI (196205) uart_to_node: Send: Start Root[0m
+[0;32mI (196725) uart_to_node: Send: Start Root[0m
+[0;32mI (197245) uart_to_node: Send: Start Root[0m
+[0;32mI (197765) uart_to_node: Send: Start Root[0m
+[0;32mI (198285) uart_to_node: Send: Start Root[0m
+[0;32mI (198805) uart_to_node: Send: Start Root[0m
+[0;32mI (199325) uart_to_node: Send: Start Root[0m
+[0;32mI (199845) uart_to_node: Send: Start Root[0m
+[0;32mI (200365) uart_to_node: Send: Start Root[0m
+[0;32mI (200885) uart_to_node: Send: Start Root[0m
+[0;32mI (201405) uart_to_node: Send: Start Root[0m
+[0;32mI (201925) uart_to_node: Send: Start Root[0m
+[0;32mI (202445) uart_to_node: Send: Start Root[0m
+[0;32mI (202965) uart_to_node: Send: Start Root[0m
+[0;32mI (203485) uart_to_node: Send: Start Root[0m
+[0;32mI (204005) uart_to_node: Send: Start Root[0m
+[0;32mI (204525) uart_to_node: Send: Start Root[0m
+[0;32mI (205045) uart_to_node: Send: Start Root[0m
+[0;32mI (205565) uart_to_node: Send: Start Root[0m
+[0;32mI (205675) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (205675) wifi:station: 42:49:b2:56:34:5c join, AID=1, bgn, 20[0m
+[0;32mI (206085) uart_to_node: Send: Start Root[0m
+[0;32mI (206255) wifi:<ba-add>idx:2 (ifx:1, 42:49:b2:56:34:5c), tid:0, ssn:0, winSize:64[0m
+[0;32mI (206605) uart_to_node: Send: Start Root[0m
+[0;32mI (207125) uart_to_node: Send: Start Root[0m
+[0;32mI (207425) esp_netif_lwip: DHCP server assigned IP to a client, IP is: 192.168.4.2[0m
+[0;32mI (207645) uart_to_node: Send: Start Root[0m
+[0;32mI (208165) uart_to_node: Send: Start Root[0m
+[0;32mI (208685) uart_to_node: Send: Start Root[0m
+[0;32mI (209205) uart_to_node: Send: Start Root[0m
+[0;32mI (209725) uart_to_node: Send: Start Root[0m
+[0;32mI (210245) uart_to_node: Send: Start Root[0m
+[0;32mI (210765) uart_to_node: Send: Start Root[0m
+[0;32mI (211285) uart_to_node: Send: Start Root[0m
+[0;32mI (211805) uart_to_node: Send: Start Root[0m
+[0;32mI (212325) uart_to_node: Send: Start Root[0m
+[0;32mI (212845) uart_to_node: Send: Start Root[0m
+[0;32mI (213155) wifi:<ba-add>idx:3 (ifx:1, 42:49:b2:56:34:5c), tid:1, ssn:0, winSize:64[0m
+[0;32mI (213365) uart_to_node: Send: Start Root[0m
+[0;32mI (213885) uart_to_node: Send: Start Root[0m
+[0;32mI (214405) uart_to_node: Send: Start Root[0m
+[0;32mI (214925) uart_to_node: Send: Start Root[0m
+[0;32mI (215445) uart_to_node: Send: Start Root[0m
+[0;32mI (215965) uart_to_node: Send: Start Root[0m
+[0;32mI (216485) uart_to_node: Send: Start Root[0m
+[0;32mI (217005) uart_to_node: Send: Start Root[0m
+[0;32mI (217525) uart_to_node: Send: Start Root[0m
+[0;32mI (218045) uart_to_node: Send: Start Root[0m
+[0;32mI (218565) uart_to_node: Send: Start Root[0m
+[0;32mI (219085) uart_to_node: Send: Start Root[0m
+[0;32mI (219605) uart_to_node: Send: Start Root[0m
+[0;32mI (220125) uart_to_node: Send: Start Root[0m
+[0;32mI (220645) uart_to_node: Send: Start Root[0m
+[0;32mI (221165) uart_to_node: Send: Start Root[0m
+[0;32mI (221685) uart_to_node: Send: Start Root[0m
+[0;32mI (222205) uart_to_node: Send: Start Root[0m
+[0;32mI (222725) uart_to_node: Send: Start Root[0m
+[0;32mI (223245) uart_to_node: Send: Start Root[0m
+[0;32mI (223765) uart_to_node: Send: Start Root[0m
+[0;32mI (224285) uart_to_node: Send: Start Root[0m
+[0;32mI (224805) uart_to_node: Send: Start Root[0m
+[0;32mI (225325) uart_to_node: Send: Start Root[0m
+[0;32mI (225845) uart_to_node: Send: Start Root[0m
+[0;32mI (226365) uart_to_node: Send: Start Root[0m
+[0;32mI (226885) uart_to_node: Send: Start Root[0m
+[0;32mI (227405) uart_to_node: Send: Start Root[0m
+[0;32mI (227925) uart_to_node: Send: Start Root[0m
+[0;32mI (228445) uart_to_node: Send: Start Root[0m
+[0;32mI (228965) uart_to_node: Send: Start Root[0m
+[0;32mI (229485) uart_to_node: Send: Start Root[0m
+[0;32mI (230005) uart_to_node: Send: Start Root[0m
+[0;32mI (230525) uart_to_node: Send: Start Root[0m
+[0;32mI (231045) uart_to_node: Send: Start Root[0m
+[0;32mI (231565) uart_to_node: Send: Start Root[0m
+[0;32mI (232085) uart_to_node: Send: Start Root[0m
+[0;32mI (232605) uart_to_node: Send: Start Root[0m
+[0;32mI (233125) uart_to_node: Send: Start Root[0m
+[0;32mI (233645) uart_to_node: Send: Start Root[0m
+[0;32mI (234125) WiFiManager: Configuring WebSocket URL: ws://172.20.10.2:8080/ws[0m
+[0;32mI (234125) WebSocket Handler: WebSocket URL (RAM): ws://172.20.10.2:8080/ws[0m
+[0;32mI (234125) WiFiManager: WebSocket URL set in RAM only (not flash; lost on reboot)[0m
+[0;32mI (234135) WiFiManager: Configuring WiFi: SSID=Smile[0m
+[0;32mI (234165) uart_to_node: Send: Start Root[0m
+[0;32mI (234355) WiFiManager: Attempting to connect to WiFi: SSID=Smile[0m
+[0;33mW (234355) wifi:sta is connected, disconnect before connecting to new ap[0m
+[0;32mI (234685) uart_to_node: Send: Start Root[0m
+[0;32mI (235205) uart_to_node: Send: Start Root[0m
+[0;32mI (235725) uart_to_node: Send: Start Root[0m
+[0;32mI (236245) uart_to_node: Send: Start Root[0m
+[0;32mI (236765) uart_to_node: Send: Start Root[0m
+[0;32mI (237285) uart_to_node: Send: Start Root[0m
+[0;32mI (237805) uart_to_node: Send: Start Root[0m
+[0;32mI (238325) uart_to_node: Send: Start Root[0m
+[0;32mI (238845) uart_to_node: Send: Start Root[0m
+[0;32mI (239365) uart_to_node: Send: Start Root[0m
+[0;32mI (239885) uart_to_node: Send: Start Root[0m
+[0;32mI (240405) uart_to_node: Send: Start Root[0m
+[0;32mI (240925) uart_to_node: Send: Start Root[0m
+[0;32mI (241445) uart_to_node: Send: Start Root[0m
+[0;32mI (241965) uart_to_node: Send: Start Root[0m
+[0;32mI (242485) uart_to_node: Send: Start Root[0m
+[0;32mI (243005) uart_to_node: Send: Start Root[0m
+[0;32mI (243525) uart_to_node: Send: Start Root[0m
+[0;32mI (244045) uart_to_node: Send: Start Root[0m
+[0;31mE (244355) WiFiManager: WiFi connection failed[0m
+[0;32mI (244355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (244565) uart_to_node: Send: Start Root[0m
+[0;32mI (245085) uart_to_node: Send: Start Root[0m
+[0;32mI (245355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (245605) uart_to_node: Send: Start Root[0m
+[0;32mI (246125) uart_to_node: Send: Start Root[0m
+[0;32mI (246355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (246645) uart_to_node: Send: Start Root[0m
+[0;32mI (247165) uart_to_node: Send: Start Root[0m
+[0;32mI (247355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (247685) uart_to_node: Send: Start Root[0m
+[0;32mI (248205) uart_to_node: Send: Start Root[0m
+[0;32mI (248355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (248725) uart_to_node: Send: Start Root[0m
+[0;32mI (249245) uart_to_node: Send: Start Root[0m
+[0;32mI (249355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (249765) uart_to_node: Send: Start Root[0m
+[0;32mI (250285) uart_to_node: Send: Start Root[0m
+[0;32mI (250355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (250805) uart_to_node: Send: Start Root[0m
+[0;32mI (251325) uart_to_node: Send: Start Root[0m
+[0;32mI (251355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (251845) uart_to_node: Send: Start Root[0m
+[0;32mI (252355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (252365) uart_to_node: Send: Start Root[0m
+[0;32mI (252885) uart_to_node: Send: Start Root[0m
+[0;32mI (253355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (253405) uart_to_node: Send: Start Root[0m
+[0;32mI (253925) uart_to_node: Send: Start Root[0m
+[0;32mI (254355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (254445) uart_to_node: Send: Start Root[0m
+[0;32mI (254965) uart_to_node: Send: Start Root[0m
+[0;32mI (255355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (255485) uart_to_node: Send: Start Root[0m
+[0;32mI (256005) uart_to_node: Send: Start Root[0m
+[0;32mI (256355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (256525) uart_to_node: Send: Start Root[0m
+[0;32mI (257045) uart_to_node: Send: Start Root[0m
+[0;32mI (257355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (257565) uart_to_node: Send: Start Root[0m
+[0;32mI (258085) uart_to_node: Send: Start Root[0m
+[0;32mI (258355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (258605) uart_to_node: Send: Start Root[0m
+[0;32mI (259125) uart_to_node: Send: Start Root[0m
+[0;32mI (259355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (259645) uart_to_node: Send: Start Root[0m
+[0;32mI (260165) uart_to_node: Send: Start Root[0m
+[0;32mI (260355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (260685) uart_to_node: Send: Start Root[0m
+[0;32mI (261205) uart_to_node: Send: Start Root[0m
+[0;32mI (261355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (261725) uart_to_node: Send: Start Root[0m
+[0;32mI (262245) uart_to_node: Send: Start Root[0m
+[0;32mI (262355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (262765) uart_to_node: Send: Start Root[0m
+[0;32mI (263285) uart_to_node: Send: Start Root[0m
+[0;32mI (263355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (263805) uart_to_node: Send: Start Root[0m
+[0;32mI (264325) uart_to_node: Send: Start Root[0m
+[0;32mI (264355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (264845) uart_to_node: Send: Start Root[0m
+[0;32mI (265355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (265365) uart_to_node: Send: Start Root[0m
+[0;32mI (265885) uart_to_node: Send: Start Root[0m
+[0;32mI (266355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (266405) uart_to_node: Send: Start Root[0m
+[0;32mI (266925) uart_to_node: Send: Start Root[0m
+[0;32mI (267355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (267445) uart_to_node: Send: Start Root[0m
+[0;32mI (267965) uart_to_node: Send: Start Root[0m
+[0;32mI (268355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (268485) uart_to_node: Send: Start Root[0m
+[0;32mI (269005) uart_to_node: Send: Start Root[0m
+[0;32mI (269355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (269525) uart_to_node: Send: Start Root[0m
+[0;32mI (270045) uart_to_node: Send: Start Root[0m
+[0;32mI (270355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (270565) uart_to_node: Send: Start Root[0m
+[0;32mI (271085) uart_to_node: Send: Start Root[0m
+[0;32mI (271355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (271605) uart_to_node: Send: Start Root[0m
+[0;32mI (272125) uart_to_node: Send: Start Root[0m
+[0;32mI (272355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (272645) uart_to_node: Send: Start Root[0m
+[0;32mI (273165) uart_to_node: Send: Start Root[0m
+[0;32mI (273355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (273685) uart_to_node: Send: Start Root[0m
+[0;32mI (274205) uart_to_node: Send: Start Root[0m
+[0;32mI (274355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (274725) uart_to_node: Send: Start Root[0m
+[0;32mI (275245) uart_to_node: Send: Start Root[0m
+[0;32mI (275355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (275765) uart_to_node: Send: Start Root[0m
+[0;32mI (276285) uart_to_node: Send: Start Root[0m
+[0;32mI (276295) wifi:station: 42:49:b2:56:34:5c leave, AID = 1, reason = 8, bss_flags is 33721459, bss:0x3ffcd734[0m
+[0;32mI (276295) wifi:new:<1,0>, old:<1,0>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (276305) wifi:<ba-del>idx:2, tid:0[0m
+[0;32mI (276305) wifi:<ba-del>idx:3, tid:1[0m
+[0;32mI (276355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (276805) uart_to_node: Send: Start Root[0m
+[0;32mI (277325) uart_to_node: Send: Start Root[0m
+[0;32mI (277355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (277845) uart_to_node: Send: Start Root[0m
+[0;32mI (278355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (278365) uart_to_node: Send: Start Root[0m
+[0;32mI (278885) uart_to_node: Send: Start Root[0m
+[0;32mI (279355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (279405) uart_to_node: Send: Start Root[0m
+[0;32mI (279925) uart_to_node: Send: Start Root[0m
+[0;32mI (280355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (280445) uart_to_node: Send: Start Root[0m
+[0;32mI (280965) uart_to_node: Send: Start Root[0m
+[0;32mI (281355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (281485) uart_to_node: Send: Start Root[0m
+[0;32mI (282005) uart_to_node: Send: Start Root[0m
+[0;32mI (282355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (282525) uart_to_node: Send: Start Root[0m
+[0;32mI (283045) uart_to_node: Send: Start Root[0m
+[0;32mI (283355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (283565) uart_to_node: Send: Start Root[0m
+[0;32mI (284085) uart_to_node: Send: Start Root[0m
+[0;32mI (284355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (284605) uart_to_node: Send: Start Root[0m
+[0;32mI (285125) uart_to_node: Send: Start Root[0m
+[0;32mI (285355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (285645) uart_to_node: Send: Start Root[0m
+[0;32mI (286165) uart_to_node: Send: Start Root[0m
+[0;32mI (286355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (286685) uart_to_node: Send: Start Root[0m
+[0;32mI (287205) uart_to_node: Send: Start Root[0m
+[0;32mI (287355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (287725) uart_to_node: Send: Start Root[0m
+[0;32mI (288245) uart_to_node: Send: Start Root[0m
+[0;32mI (288355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (288765) uart_to_node: Send: Start Root[0m
+[0;32mI (289285) uart_to_node: Send: Start Root[0m
+[0;32mI (289355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (289805) uart_to_node: Send: Start Root[0m
+[0;32mI (290325) uart_to_node: Send: Start Root[0m
+[0;32mI (290355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (290845) uart_to_node: Send: Start Root[0m
+[0;32mI (291355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (291365) uart_to_node: Send: Start Root[0m
+[0;32mI (291885) uart_to_node: Send: Start Root[0m
+[0;32mI (292355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (292405) uart_to_node: Send: Start Root[0m
+[0;32mI (292925) uart_to_node: Send: Start Root[0m
+[0;32mI (293355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (293445) uart_to_node: Send: Start Root[0m
+[0;32mI (293965) uart_to_node: Send: Start Root[0m
+[0;32mI (294355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (294485) uart_to_node: Send: Start Root[0m
+[0;32mI (295005) uart_to_node: Send: Start Root[0m
+[0;32mI (295355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (295525) uart_to_node: Send: Start Root[0m
+[0;32mI (296045) uart_to_node: Send: Start Root[0m
+[0;32mI (296355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (296565) uart_to_node: Send: Start Root[0m
+[0;32mI (297085) uart_to_node: Send: Start Root[0m
+[0;32mI (297355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (297605) uart_to_node: Send: Start Root[0m
+[0;32mI (298125) uart_to_node: Send: Start Root[0m
+[0;32mI (298355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (298645) uart_to_node: Send: Start Root[0m
+[0;32mI (299165) uart_to_node: Send: Start Root[0m
+[0;32mI (299355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (299685) uart_to_node: Send: Start Root[0m
+[0;32mI (300205) uart_to_node: Send: Start Root[0m
+[0;32mI (300355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (300725) uart_to_node: Send: Start Root[0m
+[0;32mI (301245) uart_to_node: Send: Start Root[0m
+[0;32mI (301355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (301765) uart_to_node: Send: Start Root[0m
+[0;32mI (302285) uart_to_node: Send: Start Root[0m
+[0;32mI (302355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (302805) uart_to_node: Send: Start Root[0m
+[0;32mI (303325) uart_to_node: Send: Start Root[0m
+[0;32mI (303355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (303845) uart_to_node: Send: Start Root[0m
+[0;32mI (304355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (304365) uart_to_node: Send: Start Root[0m
+[0;32mI (304885) uart_to_node: Send: Start Root[0m
+[0;32mI (305355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (305405) uart_to_node: Send: Start Root[0m
+[0;32mI (305925) uart_to_node: Send: Start Root[0m
+[0;32mI (306355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (306445) uart_to_node: Send: Start Root[0m
+[0;32mI (306965) uart_to_node: Send: Start Root[0m
+[0;32mI (307355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (307485) uart_to_node: Send: Start Root[0m
+[0;32mI (308005) uart_to_node: Send: Start Root[0m
+[0;32mI (308355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (308525) uart_to_node: Send: Start Root[0m
+[0;32mI (309045) uart_to_node: Send: Start Root[0m
+[0;32mI (309355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (309565) uart_to_node: Send: Start Root[0m
+[0;32mI (310085) uart_to_node: Send: Start Root[0m
+[0;32mI (310355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (310605) uart_to_node: Send: Start Root[0m
+[0;32mI (311125) uart_to_node: Send: Start Root[0m
+[0;32mI (311355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (311645) uart_to_node: Send: Start Root[0m
+[0;32mI (312165) uart_to_node: Send: Start Root[0m
+[0;32mI (312355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (312685) uart_to_node: Send: Start Root[0m
+[0;32mI (313205) uart_to_node: Send: Start Root[0m
+[0;32mI (313355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (313725) uart_to_node: Send: Start Root[0m
+[0;32mI (314245) uart_to_node: Send: Start Root[0m
+[0;32mI (314355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (314765) uart_to_node: Send: Start Root[0m
+[0;32mI (315285) uart_to_node: Send: Start Root[0m
+[0;32mI (315355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (315805) uart_to_node: Send: Start Root[0m
+[0;32mI (316325) uart_to_node: Send: Start Root[0m
+[0;32mI (316355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (316845) uart_to_node: Send: Start Root[0m
+[0;32mI (317355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (317365) uart_to_node: Send: Start Root[0m
+[0;32mI (317885) uart_to_node: Send: Start Root[0m
+[0;32mI (318355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (318405) uart_to_node: Send: Start Root[0m
+[0;32mI (318925) uart_to_node: Send: Start Root[0m
+[0;32mI (319355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (319445) uart_to_node: Send: Start Root[0m
+[0;32mI (319965) uart_to_node: Send: Start Root[0m
+[0;32mI (320355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (320485) uart_to_node: Send: Start Root[0m
+[0;32mI (321005) uart_to_node: Send: Start Root[0m
+[0;32mI (321355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (321525) uart_to_node: Send: Start Root[0m
+[0;32mI (322045) uart_to_node: Send: Start Root[0m
+[0;32mI (322355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (322565) uart_to_node: Send: Start Root[0m
+[0;32mI (323085) uart_to_node: Send: Start Root[0m
+[0;32mI (323355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (323605) uart_to_node: Send: Start Root[0m
+[0;32mI (324125) uart_to_node: Send: Start Root[0m
+[0;32mI (324355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (324645) uart_to_node: Send: Start Root[0m
+[0;32mI (325165) uart_to_node: Send: Start Root[0m
+[0;32mI (325355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (325685) uart_to_node: Send: Start Root[0m
+[0;32mI (326205) uart_to_node: Send: Start Root[0m
+[0;32mI (326355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (326725) uart_to_node: Send: Start Root[0m
+[0;32mI (327245) uart_to_node: Send: Start Root[0m
+[0;32mI (327355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (327765) uart_to_node: Send: Start Root[0m
+[0;32mI (328285) uart_to_node: Send: Start Root[0m
+[0;32mI (328355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (328805) uart_to_node: Send: Start Root[0m
+[0;32mI (329325) uart_to_node: Send: Start Root[0m
+[0;32mI (329355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (329845) uart_to_node: Send: Start Root[0m
+[0;32mI (330355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (330365) uart_to_node: Send: Start Root[0m
+[0;32mI (330885) uart_to_node: Send: Start Root[0m
+[0;32mI (331355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (331405) uart_to_node: Send: Start Root[0m
+[0;32mI (331925) uart_to_node: Send: Start Root[0m
+[0;32mI (332355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (332445) uart_to_node: Send: Start Root[0m
+[0;32mI (332965) uart_to_node: Send: Start Root[0m
+[0;32mI (333355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (333485) uart_to_node: Send: Start Root[0m
+[0;32mI (334005) uart_to_node: Send: Start Root[0m
+[0;32mI (334355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (334525) uart_to_node: Send: Start Root[0m
+[0;32mI (335045) uart_to_node: Send: Start Root[0m
+[0;32mI (335355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (335565) uart_to_node: Send: Start Root[0m
+[0;32mI (336085) uart_to_node: Send: Start Root[0m
+[0;32mI (336355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (336605) uart_to_node: Send: Start Root[0m
+[0;32mI (337125) uart_to_node: Send: Start Root[0m
+[0;32mI (337355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (337645) uart_to_node: Send: Start Root[0m
+[0;32mI (338165) uart_to_node: Send: Start Root[0m
+[0;32mI (338355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (338685) uart_to_node: Send: Start Root[0m
+[0;32mI (339205) uart_to_node: Send: Start Root[0m
+[0;32mI (339355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (339725) uart_to_node: Send: Start Root[0m
+[0;32mI (340245) uart_to_node: Send: Start Root[0m
+[0;32mI (340355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (340765) uart_to_node: Send: Start Root[0m
+[0;32mI (341285) uart_to_node: Send: Start Root[0m
+[0;32mI (341355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (341805) uart_to_node: Send: Start Root[0m
+[0;32mI (342325) uart_to_node: Send: Start Root[0m
+[0;32mI (342355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (342845) uart_to_node: Send: Start Root[0m
+[0;32mI (343355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (343365) uart_to_node: Send: Start Root[0m
+[0;32mI (343885) uart_to_node: Send: Start Root[0m
+[0;32mI (344355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (344405) uart_to_node: Send: Start Root[0m
+[0;32mI (344925) uart_to_node: Send: Start Root[0m
+[0;32mI (345355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (345445) uart_to_node: Send: Start Root[0m
+[0;32mI (345965) uart_to_node: Send: Start Root[0m
+[0;32mI (346355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (346485) uart_to_node: Send: Start Root[0m
+[0;32mI (347005) uart_to_node: Send: Start Root[0m
+[0;32mI (347355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (347525) uart_to_node: Send: Start Root[0m
+[0;32mI (348045) uart_to_node: Send: Start Root[0m
+[0;32mI (348355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (348565) uart_to_node: Send: Start Root[0m
+[0;32mI (349085) uart_to_node: Send: Start Root[0m
+[0;32mI (349355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (349605) uart_to_node: Send: Start Root[0m
+[0;32mI (350125) uart_to_node: Send: Start Root[0m
+[0;32mI (350355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (350645) uart_to_node: Send: Start Root[0m
+[0;32mI (351165) uart_to_node: Send: Start Root[0m
+[0;32mI (351355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (351685) uart_to_node: Send: Start Root[0m
+[0;32mI (352205) uart_to_node: Send: Start Root[0m
+[0;32mI (352355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (352725) uart_to_node: Send: Start Root[0m
+[0;32mI (353245) uart_to_node: Send: Start Root[0m
+[0;32mI (353355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (353765) uart_to_node: Send: Start Root[0m
+[0;32mI (354285) uart_to_node: Send: Start Root[0m
+[0;32mI (354355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (354805) uart_to_node: Send: Start Root[0m
+[0;32mI (355325) uart_to_node: Send: Start Root[0m
+[0;32mI (355355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (355845) uart_to_node: Send: Start Root[0m
+[0;32mI (356355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (356365) uart_to_node: Send: Start Root[0m
+[0;32mI (356885) uart_to_node: Send: Start Root[0m
+[0;32mI (357355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (357405) uart_to_node: Send: Start Root[0m
+[0;32mI (357925) uart_to_node: Send: Start Root[0m
+[0;32mI (358355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (358445) uart_to_node: Send: Start Root[0m
+[0;32mI (358965) uart_to_node: Send: Start Root[0m
+[0;32mI (359355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (359485) uart_to_node: Send: Start Root[0m
+[0;32mI (360005) uart_to_node: Send: Start Root[0m
+[0;32mI (360355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (360525) uart_to_node: Send: Start Root[0m
+[0;32mI (361045) uart_to_node: Send: Start Root[0m
+[0;32mI (361355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (361565) uart_to_node: Send: Start Root[0m
+[0;32mI (362085) uart_to_node: Send: Start Root[0m
+[0;32mI (362355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (362605) uart_to_node: Send: Start Root[0m
+[0;32mI (363125) uart_to_node: Send: Start Root[0m
+[0;32mI (363355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (363645) uart_to_node: Send: Start Root[0m
+[0;32mI (364165) uart_to_node: Send: Start Root[0m
+[0;32mI (364355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (364685) uart_to_node: Send: Start Root[0m
+[0;32mI (365205) uart_to_node: Send: Start Root[0m
+[0;32mI (365355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (365725) uart_to_node: Send: Start Root[0m
+[0;32mI (366245) uart_to_node: Send: Start Root[0m
+[0;32mI (366355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (366765) uart_to_node: Send: Start Root[0m
+[0;32mI (367285) uart_to_node: Send: Start Root[0m
+[0;32mI (367355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (367805) uart_to_node: Send: Start Root[0m
+[0;32mI (368325) uart_to_node: Send: Start Root[0m
+[0;32mI (368355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (368845) uart_to_node: Send: Start Root[0m
+[0;32mI (369355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (369365) uart_to_node: Send: Start Root[0m
+[0;32mI (369885) uart_to_node: Send: Start Root[0m
+[0;32mI (370355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (370405) uart_to_node: Send: Start Root[0m
+[0;32mI (370925) uart_to_node: Send: Start Root[0m
+[0;32mI (371355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (371445) uart_to_node: Send: Start Root[0m
+[0;32mI (371965) uart_to_node: Send: Start Root[0m
+[0;32mI (372355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (372485) uart_to_node: Send: Start Root[0m
+[0;32mI (373005) uart_to_node: Send: Start Root[0m
+[0;32mI (373355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (373525) uart_to_node: Send: Start Root[0m
+[0;32mI (374045) uart_to_node: Send: Start Root[0m
+[0;32mI (374355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (374565) uart_to_node: Send: Start Root[0m
+[0;32mI (375085) uart_to_node: Send: Start Root[0m
+[0;32mI (375355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (375605) uart_to_node: Send: Start Root[0m
+[0;32mI (376125) uart_to_node: Send: Start Root[0m
+[0;32mI (376355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (376645) uart_to_node: Send: Start Root[0m
+[0;32mI (377165) uart_to_node: Send: Start Root[0m
+[0;32mI (377355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (377685) uart_to_node: Send: Start Root[0m
+[0;32mI (378205) uart_to_node: Send: Start Root[0m
+[0;32mI (378355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (378725) uart_to_node: Send: Start Root[0m
+[0;32mI (379245) uart_to_node: Send: Start Root[0m
+[0;32mI (379355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (379765) uart_to_node: Send: Start Root[0m
+[0;32mI (380285) uart_to_node: Send: Start Root[0m
+[0;32mI (380355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (380805) uart_to_node: Send: Start Root[0m
+[0;32mI (381325) uart_to_node: Send: Start Root[0m
+[0;32mI (381355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (381845) uart_to_node: Send: Start Root[0m
+[0;32mI (382355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (382365) uart_to_node: Send: Start Root[0m
+[0;32mI (382885) uart_to_node: Send: Start Root[0m
+[0;32mI (383355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (383405) uart_to_node: Send: Start Root[0m
+[0;32mI (383925) uart_to_node: Send: Start Root[0m
+[0;32mI (384355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (384445) uart_to_node: Send: Start Root[0m
+[0;32mI (384965) uart_to_node: Send: Start Root[0m
+[0;32mI (385355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (385485) uart_to_node: Send: Start Root[0m
+[0;32mI (386005) uart_to_node: Send: Start Root[0m
+[0;32mI (386355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (386525) uart_to_node: Send: Start Root[0m
+[0;32mI (387045) uart_to_node: Send: Start Root[0m
+[0;32mI (387355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (387565) uart_to_node: Send: Start Root[0m
+[0;32mI (388085) uart_to_node: Send: Start Root[0m
+[0;32mI (388355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (388605) uart_to_node: Send: Start Root[0m
+[0;32mI (389125) uart_to_node: Send: Start Root[0m
+[0;32mI (389355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (389645) uart_to_node: Send: Start Root[0m
+[0;32mI (390165) uart_to_node: Send: Start Root[0m
+[0;32mI (390355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (390685) uart_to_node: Send: Start Root[0m
+[0;32mI (391205) uart_to_node: Send: Start Root[0m
+[0;32mI (391355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (391725) uart_to_node: Send: Start Root[0m
+[0;32mI (392245) uart_to_node: Send: Start Root[0m
+[0;32mI (392355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (392765) uart_to_node: Send: Start Root[0m
+[0;32mI (393285) uart_to_node: Send: Start Root[0m
+[0;32mI (393355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (393805) uart_to_node: Send: Start Root[0m
+[0;32mI (394325) uart_to_node: Send: Start Root[0m
+[0;32mI (394355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (394845) uart_to_node: Send: Start Root[0m
+[0;32mI (395355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (395365) uart_to_node: Send: Start Root[0m
+[0;32mI (395885) uart_to_node: Send: Start Root[0m
+[0;32mI (396355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (396405) uart_to_node: Send: Start Root[0m
+[0;32mI (396925) uart_to_node: Send: Start Root[0m
+[0;32mI (397355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (397445) uart_to_node: Send: Start Root[0m
+[0;32mI (397965) uart_to_node: Send: Start Root[0m
+[0;32mI (398355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (398485) uart_to_node: Send: Start Root[0m
+[0;32mI (399005) uart_to_node: Send: Start Root[0m
+[0;32mI (399355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (399525) uart_to_node: Send: Start Root[0m
+[0;32mI (400045) uart_to_node: Send: Start Root[0m
+[0;32mI (400355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (400565) uart_to_node: Send: Start Root[0m
+[0;32mI (401085) uart_to_node: Send: Start Root[0m
+[0;32mI (401355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (401605) uart_to_node: Send: Start Root[0m
+[0;32mI (402125) uart_to_node: Send: Start Root[0m
+[0;32mI (402355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (402645) uart_to_node: Send: Start Root[0m
+[0;32mI (403165) uart_to_node: Send: Start Root[0m
+[0;32mI (403355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (403685) uart_to_node: Send: Start Root[0m
+[0;32mI (404205) uart_to_node: Send: Start Root[0m
+[0;32mI (404355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (404725) uart_to_node: Send: Start Root[0m
+[0;32mI (405245) uart_to_node: Send: Start Root[0m
+[0;32mI (405355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (405765) uart_to_node: Send: Start Root[0m
+[0;32mI (406285) uart_to_node: Send: Start Root[0m
+[0;32mI (406355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (406805) uart_to_node: Send: Start Root[0m
+[0;32mI (407325) uart_to_node: Send: Start Root[0m
+[0;32mI (407355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (407845) uart_to_node: Send: Start Root[0m
+[0;32mI (408355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (408365) uart_to_node: Send: Start Root[0m
+[0;32mI (408885) uart_to_node: Send: Start Root[0m
+[0;32mI (409355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (409405) uart_to_node: Send: Start Root[0m
+[0;32mI (409925) uart_to_node: Send: Start Root[0m
+[0;32mI (410355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (410445) uart_to_node: Send: Start Root[0m
+[0;32mI (410965) uart_to_node: Send: Start Root[0m
+[0;32mI (411355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (411485) uart_to_node: Send: Start Root[0m
+[0;32mI (412005) uart_to_node: Send: Start Root[0m
+[0;32mI (412355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (412525) uart_to_node: Send: Start Root[0m
+[0;32mI (413045) uart_to_node: Send: Start Root[0m
+[0;32mI (413355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (413565) uart_to_node: Send: Start Root[0m
+[0;32mI (414085) uart_to_node: Send: Start Root[0m
+[0;32mI (414355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (414605) uart_to_node: Send: Start Root[0m
+[0;32mI (415125) uart_to_node: Send: Start Root[0m
+[0;32mI (415355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (415645) uart_to_node: Send: Start Root[0m
+[0;32mI (416165) uart_to_node: Send: Start Root[0m
+[0;32mI (416355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (416685) uart_to_node: Send: Start Root[0m
+[0;32mI (417205) uart_to_node: Send: Start Root[0m
+[0;32mI (417355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (417725) uart_to_node: Send: Start Root[0m
+[0;32mI (418245) uart_to_node: Send: Start Root[0m
+[0;32mI (418355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (418765) uart_to_node: Send: Start Root[0m
+[0;32mI (419285) uart_to_node: Send: Start Root[0m
+[0;32mI (419355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (419805) uart_to_node: Send: Start Root[0m
+[0;32mI (420325) uart_to_node: Send: Start Root[0m
+[0;32mI (420355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (420845) uart_to_node: Send: Start Root[0m
+[0;32mI (421355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (421365) uart_to_node: Send: Start Root[0m
+[0;32mI (421885) uart_to_node: Send: Start Root[0m
+[0;32mI (422355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (422405) uart_to_node: Send: Start Root[0m
+[0;32mI (422925) uart_to_node: Send: Start Root[0m
+[0;32mI (423355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (423445) uart_to_node: Send: Start Root[0m
+[0;32mI (423965) uart_to_node: Send: Start Root[0m
+[0;32mI (424355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (424485) uart_to_node: Send: Start Root[0m
+[0;32mI (425005) uart_to_node: Send: Start Root[0m
+[0;32mI (425355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (425525) uart_to_node: Send: Start Root[0m
+[0;32mI (426045) uart_to_node: Send: Start Root[0m
+[0;32mI (426355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (426565) uart_to_node: Send: Start Root[0m
+[0;32mI (427085) uart_to_node: Send: Start Root[0m
+[0;32mI (427355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (427605) uart_to_node: Send: Start Root[0m
+[0;32mI (428125) uart_to_node: Send: Start Root[0m
+[0;32mI (428355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (428645) uart_to_node: Send: Start Root[0m
+[0;32mI (429165) uart_to_node: Send: Start Root[0m
+[0;32mI (429355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (429685) uart_to_node: Send: Start Root[0m
+[0;32mI (430205) uart_to_node: Send: Start Root[0m
+[0;32mI (430355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (430725) uart_to_node: Send: Start Root[0m
+[0;32mI (431245) uart_to_node: Send: Start Root[0m
+[0;32mI (431355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (431765) uart_to_node: Send: Start Root[0m
+[0;32mI (432285) uart_to_node: Send: Start Root[0m
+[0;32mI (432355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (432805) uart_to_node: Send: Start Root[0m
+[0;32mI (433325) uart_to_node: Send: Start Root[0m
+[0;32mI (433355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (433845) uart_to_node: Send: Start Root[0m
+[0;32mI (434355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (434365) uart_to_node: Send: Start Root[0m
+[0;32mI (434885) uart_to_node: Send: Start Root[0m
+[0;32mI (435355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (435405) uart_to_node: Send: Start Root[0m
+[0;32mI (435925) uart_to_node: Send: Start Root[0m
+[0;32mI (436355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (436445) uart_to_node: Send: Start Root[0m
+[0;32mI (436965) uart_to_node: Send: Start Root[0m
+[0;32mI (437355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (437485) uart_to_node: Send: Start Root[0m
+[0;32mI (438005) uart_to_node: Send: Start Root[0m
+[0;32mI (438355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (438525) uart_to_node: Send: Start Root[0m
+[0;32mI (439045) uart_to_node: Send: Start Root[0m
+[0;32mI (439355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (439565) uart_to_node: Send: Start Root[0m
+[0;32mI (440085) uart_to_node: Send: Start Root[0m
+[0;32mI (440355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (440605) uart_to_node: Send: Start Root[0m
+[0;32mI (441125) uart_to_node: Send: Start Root[0m
+[0;32mI (441355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (441645) uart_to_node: Send: Start Root[0m
+[0;32mI (442165) uart_to_node: Send: Start Root[0m
+[0;32mI (442355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (442685) uart_to_node: Send: Start Root[0m
+[0;32mI (443205) uart_to_node: Send: Start Root[0m
+[0;32mI (443355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (443725) uart_to_node: Send: Start Root[0m
+[0;32mI (444245) uart_to_node: Send: Start Root[0m
+[0;32mI (444355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (444765) uart_to_node: Send: Start Root[0m
+[0;32mI (445285) uart_to_node: Send: Start Root[0m
+[0;32mI (445355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (445805) uart_to_node: Send: Start Root[0m
+[0;32mI (446325) uart_to_node: Send: Start Root[0m
+[0;32mI (446355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (446845) uart_to_node: Send: Start Root[0m
+[0;32mI (447355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (447365) uart_to_node: Send: Start Root[0m
+[0;32mI (447885) uart_to_node: Send: Start Root[0m
+[0;32mI (448355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (448405) uart_to_node: Send: Start Root[0m
+[0;32mI (448925) uart_to_node: Send: Start Root[0m
+[0;32mI (449355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (449445) uart_to_node: Send: Start Root[0m
+[0;32mI (449965) uart_to_node: Send: Start Root[0m
+[0;32mI (450355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (450485) uart_to_node: Send: Start Root[0m
+[0;32mI (451005) uart_to_node: Send: Start Root[0m
+[0;32mI (451355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (451525) uart_to_node: Send: Start Root[0m
+[0;32mI (452045) uart_to_node: Send: Start Root[0m
+[0;32mI (452355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (452565) uart_to_node: Send: Start Root[0m
+[0;32mI (453085) uart_to_node: Send: Start Root[0m
+[0;32mI (453355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (453605) uart_to_node: Send: Start Root[0m
+[0;32mI (454125) uart_to_node: Send: Start Root[0m
+[0;32mI (454355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (454645) uart_to_node: Send: Start Root[0m
+[0;32mI (455165) uart_to_node: Send: Start Root[0m
+[0;32mI (455355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (455685) uart_to_node: Send: Start Root[0m
+[0;32mI (456205) uart_to_node: Send: Start Root[0m
+[0;32mI (456355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (456725) uart_to_node: Send: Start Root[0m
+[0;32mI (457245) uart_to_node: Send: Start Root[0m
+[0;32mI (457355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (457765) uart_to_node: Send: Start Root[0m
+[0;32mI (458285) uart_to_node: Send: Start Root[0m
+[0;32mI (458355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (458805) uart_to_node: Send: Start Root[0m
+[0;32mI (459325) uart_to_node: Send: Start Root[0m
+[0;32mI (459355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (459845) uart_to_node: Send: Start Root[0m
+[0;32mI (460355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (460365) uart_to_node: Send: Start Root[0m
+[0;32mI (460885) uart_to_node: Send: Start Root[0m
+[0;32mI (461355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (461405) uart_to_node: Send: Start Root[0m
+[0;32mI (461925) uart_to_node: Send: Start Root[0m
+[0;32mI (462355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (462445) uart_to_node: Send: Start Root[0m
+[0;32mI (462965) uart_to_node: Send: Start Root[0m
+[0;32mI (463355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (463485) uart_to_node: Send: Start Root[0m
+[0;32mI (464005) uart_to_node: Send: Start Root[0m
+[0;32mI (464355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (464525) uart_to_node: Send: Start Root[0m
+[0;32mI (465045) uart_to_node: Send: Start Root[0m
+[0;32mI (465355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (465565) uart_to_node: Send: Start Root[0m
+[0;32mI (466085) uart_to_node: Send: Start Root[0m
+[0;32mI (466355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (466605) uart_to_node: Send: Start Root[0m
+[0;32mI (467125) uart_to_node: Send: Start Root[0m
+[0;32mI (467355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (467645) uart_to_node: Send: Start Root[0m
+[0;32mI (468165) uart_to_node: Send: Start Root[0m
+[0;32mI (468355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (468685) uart_to_node: Send: Start Root[0m
+[0;32mI (469205) uart_to_node: Send: Start Root[0m
+[0;32mI (469355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (469725) uart_to_node: Send: Start Root[0m
+[0;32mI (470245) uart_to_node: Send: Start Root[0m
+[0;32mI (470355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (470765) uart_to_node: Send: Start Root[0m
+[0;32mI (471285) uart_to_node: Send: Start Root[0m
+[0;32mI (471355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (471805) uart_to_node: Send: Start Root[0m
+[0;32mI (472325) uart_to_node: Send: Start Root[0m
+[0;32mI (472355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (472845) uart_to_node: Send: Start Root[0m
+[0;32mI (473355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (473365) uart_to_node: Send: Start Root[0m
+[0;32mI (473885) uart_to_node: Send: Start Root[0m
+[0;32mI (474355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (474405) uart_to_node: Send: Start Root[0m
+[0;32mI (474925) uart_to_node: Send: Start Root[0m
+[0;32mI (475355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (475445) uart_to_node: Send: Start Root[0m
+[0;32mI (475965) uart_to_node: Send: Start Root[0m
+[0;32mI (476355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (476485) uart_to_node: Send: Start Root[0m
+[0;32mI (477005) uart_to_node: Send: Start Root[0m
+[0;32mI (477355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (477525) uart_to_node: Send: Start Root[0m
+[0;32mI (478045) uart_to_node: Send: Start Root[0m
+[0;32mI (478355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (478565) uart_to_node: Send: Start Root[0m
+[0;32mI (479085) uart_to_node: Send: Start Root[0m
+[0;32mI (479355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (479605) uart_to_node: Send: Start Root[0m
+[0;32mI (480125) uart_to_node: Send: Start Root[0m
+[0;32mI (480355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (480645) uart_to_node: Send: Start Root[0m
+[0;32mI (481165) uart_to_node: Send: Start Root[0m
+[0;32mI (481355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (481685) uart_to_node: Send: Start Root[0m
+[0;32mI (482205) uart_to_node: Send: Start Root[0m
+[0;32mI (482355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (482725) uart_to_node: Send: Start Root[0m
+[0;32mI (483245) uart_to_node: Send: Start Root[0m
+[0;32mI (483355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (483765) uart_to_node: Send: Start Root[0m
+[0;32mI (484285) uart_to_node: Send: Start Root[0m
+[0;32mI (484355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (484805) uart_to_node: Send: Start Root[0m
+[0;32mI (485325) uart_to_node: Send: Start Root[0m
+[0;32mI (485355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (485845) uart_to_node: Send: Start Root[0m
+[0;32mI (486355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (486365) uart_to_node: Send: Start Root[0m
+[0;32mI (486885) uart_to_node: Send: Start Root[0m
+[0;32mI (487355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (487405) uart_to_node: Send: Start Root[0m
+[0;32mI (487925) uart_to_node: Send: Start Root[0m
+[0;32mI (488355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (488445) uart_to_node: Send: Start Root[0m
+[0;32mI (488965) uart_to_node: Send: Start Root[0m
+[0;32mI (489355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (489485) uart_to_node: Send: Start Root[0m
+[0;32mI (490005) uart_to_node: Send: Start Root[0m
+[0;32mI (490355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (490525) uart_to_node: Send: Start Root[0m
+[0;32mI (491045) uart_to_node: Send: Start Root[0m
+[0;32mI (491355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (491565) uart_to_node: Send: Start Root[0m
+[0;32mI (492085) uart_to_node: Send: Start Root[0m
+[0;32mI (492355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (492605) uart_to_node: Send: Start Root[0m
+[0;32mI (493125) uart_to_node: Send: Start Root[0m
+[0;32mI (493355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (493645) uart_to_node: Send: Start Root[0m
+[0;32mI (494165) uart_to_node: Send: Start Root[0m
+[0;32mI (494355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (494685) uart_to_node: Send: Start Root[0m
+[0;32mI (495205) uart_to_node: Send: Start Root[0m
+[0;32mI (495355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (495725) uart_to_node: Send: Start Root[0m
+[0;32mI (496245) uart_to_node: Send: Start Root[0m
+[0;32mI (496355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (496765) uart_to_node: Send: Start Root[0m
+[0;32mI (497285) uart_to_node: Send: Start Root[0m
+[0;32mI (497355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (497805) uart_to_node: Send: Start Root[0m
+[0;32mI (498325) uart_to_node: Send: Start Root[0m
+[0;32mI (498355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (498845) uart_to_node: Send: Start Root[0m
+[0;32mI (499355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (499365) uart_to_node: Send: Start Root[0m
+[0;32mI (499885) uart_to_node: Send: Start Root[0m
+[0;32mI (500355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (500405) uart_to_node: Send: Start Root[0m
+[0;32mI (500925) uart_to_node: Send: Start Root[0m
+[0;32mI (501355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (501445) uart_to_node: Send: Start Root[0m
+[0;32mI (501965) uart_to_node: Send: Start Root[0m
+[0;32mI (502355) WiFiManager: Retrying configured WiFi in 5000 ms cycle: SSID=Smile[0m
+[0;32mI (502485) uart_to_node: Send: Start Root[0m

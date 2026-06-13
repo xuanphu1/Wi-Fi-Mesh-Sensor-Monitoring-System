@@ -1,0 +1,2 @@
+ninja: error: remove(esp-idf\freertos\CMakeFiles\__idf_freertos.dir\FreeRTOS-Kernel\queue.c.obj.d): The process cannot access the file because it is being used by another process.
+

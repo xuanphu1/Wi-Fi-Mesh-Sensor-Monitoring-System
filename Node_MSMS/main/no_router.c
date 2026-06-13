@@ -350,7 +350,7 @@ static void mesh_udp_client_task(void *pvParameters)
         }
 
         close(sock);
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 

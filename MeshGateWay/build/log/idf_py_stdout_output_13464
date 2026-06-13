@@ -1,0 +1,786 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82f54h (536404) map[0m
+[0;32mI (309) esp_image: segment 1: paddr=00092f7c vaddr=3ffb0000 size=04580h ( 17792) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=00097504 vaddr=40080000 size=08b14h ( 35604) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbc78h (1031288) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bca0 vaddr=40088b14 size=12880h ( 75904) load[0m
+[0;32mI (727) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (728) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (728) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (762) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (767) cpu_start: Compile time:     Jun  7 2026 14:28:29[0m
+[0;32mI (773) cpu_start: ELF file SHA256:  de1fa2803...[0m
+[0;32mI (779) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (784) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (789) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (793) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (798) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (806) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (811) heap_init: At 3FFCC3B0 len 00013C50 (79 KiB): DRAM[0m
+[0;32mI (818) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (824) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (830) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (838) spi_flash: detected chip: generic[0m
+[0;32mI (841) spi_flash: flash io: dio[0m
+[0;33mW (845) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (856) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (865) main_task: Started on CPU0[0m
+[0;32mI (875) main_task: Calling app_main()[0m
+[0;32mI (875) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (895) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (905) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (905) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (905) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (915) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (925) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (925) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (935) disp_spi: Adding SPI device[0m
+[0;32mI (935) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1145) ILI9341: Initialization.[0m
+[0;32mI (1345) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1345) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1345) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1645) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1645) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1655) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1705) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 01:50:26
+[0;32mI (1765) wifi:wifi driver task: 3ffe69d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1765) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1765) wifi:wifi certification version: v7.0[0m
+[0;32mI (1765) wifi:config NVS flash: enabled[0m
+[0;32mI (1775) wifi:config nano formating: disabled[0m
+[0;32mI (1775) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1785) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1785) wifi:Init management short buffer num: 32[0m
+[0;32mI (1785) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1795) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1795) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1805) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1805) wifi_init: rx ba win: 6[0m
+[0;32mI (1815) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1815) wifi_init: udp mbox: 6[0m
+[0;32mI (1815) wifi_init: tcp mbox: 6[0m
+[0;32mI (1825) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1825) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1825) wifi_init: tcp mss: 1440[0m
+[0;32mI (1835) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1835) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1845) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1855) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1855) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1945) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (2015) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (2015) wifi:enable tsf[0m
+[0;32mI (2025) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2385) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4445) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4445) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4445) wifi:flush txq[0m
+[0;32mI (4445) wifi:stop sw txq[0m
+[0;32mI (4445) wifi:lmac stop hw txq[0m
+[0;32mI (4455) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4455) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4455) wifi:enable tsf[0m
+[0;32mI (4465) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6875) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6885) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6885) wifi:flush txq[0m
+[0;32mI (6885) wifi:stop sw txq[0m
+[0;32mI (6885) wifi:lmac stop hw txq[0m
+[0;32mI (6895) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6895) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6895) wifi:enable tsf[0m
+[0;32mI (6905) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9315) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9315) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9325) wifi:flush txq[0m
+[0;32mI (9325) wifi:stop sw txq[0m
+[0;32mI (9325) wifi:lmac stop hw txq[0m
+[0;32mI (9325) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9335) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9335) wifi:enable tsf[0m
+[0;32mI (9335) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11755) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11755) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11765) wifi:flush txq[0m
+[0;32mI (11765) wifi:stop sw txq[0m
+[0;32mI (11765) wifi:lmac stop hw txq[0m
+[0;32mI (11765) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11775) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11775) wifi:enable tsf[0m
+[0;32mI (11775) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14195) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14195) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14205) wifi:flush txq[0m
+[0;32mI (14205) wifi:stop sw txq[0m
+[0;32mI (14205) wifi:lmac stop hw txq[0m
+[0;32mI (14205) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14215) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14215) wifi:enable tsf[0m
+[0;32mI (14215) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16635) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16635) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16645) wifi:flush txq[0m
+[0;32mI (16645) wifi:stop sw txq[0m
+[0;32mI (16645) wifi:lmac stop hw txq[0m
+[0;32mI (16645) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16655) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16655) wifi:enable tsf[0m
+[0;32mI (16655) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19075) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19075) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19085) wifi:flush txq[0m
+[0;32mI (19085) wifi:stop sw txq[0m
+[0;32mI (19085) wifi:lmac stop hw txq[0m
+[0;32mI (19085) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19095) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19095) wifi:enable tsf[0m
+[0;32mI (19095) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21515) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21515) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21525) wifi:flush txq[0m
+[0;32mI (21525) wifi:stop sw txq[0m
+[0;32mI (21525) wifi:lmac stop hw txq[0m
+[0;32mI (21525) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21535) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21535) wifi:enable tsf[0m
+[0;32mI (21535) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23955) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23955) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23955) wifi:flush txq[0m
+[0;32mI (23955) wifi:stop sw txq[0m
+[0;32mI (23965) wifi:lmac stop hw txq[0m
+[0;32mI (23965) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23975) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23975) wifi:enable tsf[0m
+[0;32mI (23975) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26395) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26395) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26395) wifi:flush txq[0m
+[0;32mI (26405) wifi:stop sw txq[0m
+[0;32mI (26405) wifi:lmac stop hw txq[0m
+[0;32mI (26405) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26405) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26415) wifi:enable tsf[0m
+[0;32mI (26415) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26675) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26675) wifi:state: init -> auth (b0)[0m
+[0;32mI (26685) wifi:state: auth -> assoc (0)[0m
+[0;32mI (26695) wifi:state: assoc -> run (10)[0m
+[0;32mI (26725) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (26725) wifi:security: WPA2-PSK, phy: bgn, rssi: -55[0m
+[0;32mI (26725) wifi:pm start, type: 1[0m
+
+[0;32mI (26725) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (26735) WiFiManager: WiFi STA link established[0m
+[0;32mI (26815) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (46415) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (46415) wifi:state: run -> init (0)[0m
+[0;32mI (46415) wifi:pm stop, total sleep time: 17815563 us / 19686132 us[0m
+
+[0;32mI (46415) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46425) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46465) wifi:flush txq[0m
+[0;32mI (46465) wifi:stop sw txq[0m
+[0;32mI (46465) wifi:lmac stop hw txq[0m
+[0;32mI (46465) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46465) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46465) wifi:enable tsf[0m
+[0;32mI (46465) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46475) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46475) wifi:state: init -> auth (b0)[0m
+[0;32mI (46485) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (46485) wifi:state: auth -> assoc (0)[0m
+[0;32mI (46495) wifi:state: assoc -> init (0)[0m
+[0;32mI (46495) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46505) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46555) wifi:flush txq[0m
+[0;32mI (46555) wifi:stop sw txq[0m
+[0;32mI (46555) wifi:lmac stop hw txq[0m
+[0;32mI (46555) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46555) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46555) wifi:enable tsf[0m
+[0;32mI (46555) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46565) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (46575) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46575) wifi:state: init -> auth (b0)[0m
+[0;32mI (46585) wifi:state: auth -> init (0)[0m
+[0;32mI (46585) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46595) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46595) wifi:flush txq[0m
+[0;32mI (46595) wifi:stop sw txq[0m
+[0;32mI (46605) wifi:lmac stop hw txq[0m
+[0;32mI (46605) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46615) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46615) wifi:enable tsf[0m
+[0;32mI (46615) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46625) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (46635) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46635) wifi:state: init -> auth (b0)[0m
+[0;32mI (46635) wifi:state: auth -> init (0)[0m
+[0;32mI (46645) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46645) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46655) wifi:flush txq[0m
+[0;32mI (46655) wifi:stop sw txq[0m
+[0;32mI (46655) wifi:lmac stop hw txq[0m
+[0;32mI (46665) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46665) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46665) wifi:enable tsf[0m
+[0;32mI (46675) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46675) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (46685) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46685) wifi:state: init -> auth (b0)[0m
+[0;32mI (46695) wifi:state: auth -> init (0)[0m
+[0;32mI (46695) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46705) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46715) wifi:flush txq[0m
+[0;32mI (46715) wifi:stop sw txq[0m
+[0;32mI (46715) wifi:lmac stop hw txq[0m
+[0;32mI (46715) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46725) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46725) wifi:enable tsf[0m
+[0;32mI (46735) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (46735) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (46745) wifi:flush txq[0m
+[0;32mI (46745) wifi:stop sw txq[0m
+[0;32mI (46745) wifi:lmac stop hw txq[0m
+[0;32mI (46745) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46755) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46755) wifi:enable tsf[0m
+[0;32mI (46765) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (49175) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (49175) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (49185) wifi:flush txq[0m
+[0;32mI (49185) wifi:stop sw txq[0m
+[0;32mI (49185) wifi:lmac stop hw txq[0m
+[0;32mI (49185) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (49195) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (49195) wifi:enable tsf[0m
+[0;32mI (49195) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (51615) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (51615) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (51625) wifi:flush txq[0m
+[0;32mI (51625) wifi:stop sw txq[0m
+[0;32mI (51625) wifi:lmac stop hw txq[0m
+[0;32mI (51625) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (51635) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (51635) wifi:enable tsf[0m
+[0;32mI (51635) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (54055) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (54055) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (54065) wifi:flush txq[0m
+[0;32mI (54065) wifi:stop sw txq[0m
+[0;32mI (54065) wifi:lmac stop hw txq[0m
+[0;32mI (54065) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (54075) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (54075) wifi:enable tsf[0m
+[0;32mI (54075) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (56495) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (56495) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (56495) wifi:flush txq[0m
+[0;32mI (56505) wifi:stop sw txq[0m
+[0;32mI (56505) wifi:lmac stop hw txq[0m
+[0;32mI (56505) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (56515) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (56515) wifi:enable tsf[0m
+[0;32mI (56515) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (56525) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (56525) wifi:state: init -> auth (b0)[0m
+[0;32mI (56545) wifi:state: auth -> assoc (0)[0m
+[0;32mI (56545) wifi:state: assoc -> run (10)[0m
+[0;32mI (56565) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (56565) wifi:security: WPA2-PSK, phy: bgn, rssi: -52[0m
+[0;32mI (56565) wifi:pm start, type: 1[0m
+
+[0;32mI (56575) WiFiManager: WiFi STA link established[0m
+[0;32mI (56615) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (76525) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (76525) wifi:state: run -> init (0)[0m
+[0;32mI (76525) wifi:pm stop, total sleep time: 15582110 us / 19955855 us[0m
+
+[0;32mI (76525) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (76535) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (76575) wifi:flush txq[0m
+[0;32mI (76575) wifi:stop sw txq[0m
+[0;32mI (76575) wifi:lmac stop hw txq[0m
+[0;32mI (76575) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (76575) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (76575) wifi:enable tsf[0m
+[0;32mI (76575) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (76585) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (76595) wifi:flush txq[0m
+[0;32mI (76595) wifi:stop sw txq[0m
+[0;32mI (76595) wifi:lmac stop hw txq[0m
+[0;32mI (76595) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (76605) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (76605) wifi:enable tsf[0m
+[0;32mI (76605) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (76615) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (76625) wifi:state: init -> auth (b0)[0m
+[0;32mI (76635) wifi:state: auth -> assoc (0)[0m
+[0;32mI (76635) wifi:state: assoc -> run (10)[0m
+[0;32mI (76655) wifi:connected with Smile, aid = 3, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (76655) wifi:security: WPA2-PSK, phy: bgn, rssi: -51[0m
+[0;32mI (76655) wifi:pm start, type: 1[0m
+
+[0;32mI (76665) WiFiManager: WiFi STA link established[0m
+[0;32mI (76685) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (96615) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (96615) wifi:state: run -> init (0)[0m
+[0;32mI (96615) wifi:pm stop, total sleep time: 18089426 us / 19956201 us[0m
+
+[0;32mI (96615) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (96625) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (96665) wifi:flush txq[0m
+[0;32mI (96665) wifi:stop sw txq[0m
+[0;32mI (96665) wifi:lmac stop hw txq[0m
+[0;32mI (96665) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96665) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96665) wifi:enable tsf[0m
+[0;32mI (96665) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96675) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (96685) wifi:flush txq[0m
+[0;32mI (96685) wifi:stop sw txq[0m
+[0;32mI (96685) wifi:lmac stop hw txq[0m
+[0;32mI (96685) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (96695) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (96695) wifi:enable tsf[0m
+[0;32mI (96705) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (96725) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (96725) wifi:state: init -> auth (b0)[0m
+[0;32mI (97725) wifi:state: auth -> init (200)[0m
+[0;32mI (97725) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (97725) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (97735) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (97745) wifi:flush txq[0m
+[0;32mI (97745) wifi:stop sw txq[0m
+[0;32mI (97745) wifi:lmac stop hw txq[0m
+[0;32mI (98245) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (98245) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (98245) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (98245) wifi:enable tsf[0m
+[0;32mI (98255) wifi:Total power save buffer number: 16[0m
+[0;32mI (98255) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (98255) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (98265) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (98275) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (98275) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (98285) wifi:new:<1,1>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;32mI (98295) wifi:state: init -> auth (b0)[0m
+[0;32mI (98305) WiFiManager: Web server started on port 80[0m
+[0;32mI (98305) uart: queue free spaces: 24[0m
+[0;32mI (98305) wifi:state: auth -> init (8a0)[0m
+[0;32mI (98315) wifi:new:<1,0>, old:<1,1>, ap:<1,1>, sta:<1,0>, prof:1[0m
+[0;33mW (98315) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (98365) uart_to_node: Send: Start Root[0m
+[0;32mI (98885) uart_to_node: Send: Start Root[0m
+[0;32mI (99405) uart_to_node: Send: Start Root[0m
+[0;32mI (99925) uart_to_node: Send: Start Root[0m
+[0;32mI (100445) uart_to_node: Send: Start Root[0m
+[0;32mI (100965) uart_to_node: Send: Start Root[0m
+[0;32mI (101485) uart_to_node: Send: Start Root[0m
+[0;32mI (102005) uart_to_node: Send: Start Root[0m
+[0;32mI (102525) uart_to_node: Send: Start Root[0m
+[0;32mI (103045) uart_to_node: Send: Start Root[0m
+[0;32mI (103565) uart_to_node: Send: Start Root[0m
+[0;32mI (104085) uart_to_node: Send: Start Root[0m
+[0;32mI (104605) uart_to_node: Send: Start Root[0m
+[0;32mI (105125) uart_to_node: Send: Start Root[0m
+[0;32mI (105645) uart_to_node: Send: Start Root[0m
+[0;32mI (106165) uart_to_node: Send: Start Root[0m
+[0;32mI (106685) uart_to_node: Send: Start Root[0m
+[0;32mI (107205) uart_to_node: Send: Start Root[0m
+[0;32mI (107725) uart_to_node: Send: Start Root[0m
+[0;32mI (108245) uart_to_node: Send: Start Root[0m
+[0;32mI (108765) uart_to_node: Send: Start Root[0m
+[0;32mI (109285) uart_to_node: Send: Start Root[0m
+[0;32mI (109805) uart_to_node: Send: Start Root[0m
+[0;32mI (110325) uart_to_node: Send: Start Root[0m
+[0;32mI (110845) uart_to_node: Send: Start Root[0m
+[0;32mI (111365) uart_to_node: Send: Start Root[0m
+[0;32mI (111885) uart_to_node: Send: Start Root[0m
+[0;32mI (112405) uart_to_node: Send: Start Root[0m
+[0;32mI (112925) uart_to_node: Send: Start Root[0m
+[0;32mI (113445) uart_to_node: Send: Start Root[0m
+[0;32mI (113965) uart_to_node: Send: Start Root[0m
+[0;32mI (114485) uart_to_node: Send: Start Root[0m
+[0;32mI (115005) uart_to_node: Send: Start Root[0m
+[0;32mI (115525) uart_to_node: Send: Start Root[0m
+[0;32mI (116045) uart_to_node: Send: Start Root[0m
+[0;32mI (116565) uart_to_node: Send: Start Root[0m
+[0;32mI (117085) uart_to_node: Send: Start Root[0m
+[0;32mI (117605) uart_to_node: Send: Start Root[0m
+[0;32mI (118125) uart_to_node: Send: Start Root[0m
+[0;32mI (118645) uart_to_node: Send: Start Root[0m
+[0;32mI (119165) uart_to_node: Send: Start Root[0m
+[0;32mI (119685) uart_to_node: Send: Start Root[0m
+[0;32mI (120205) uart_to_node: Send: Start Root[0m
+[0;32mI (120725) uart_to_node: Send: Start Root[0m
+[0;32mI (121245) uart_to_node: Send: Start Root[0m
+[0;32mI (121765) uart_to_node: Send: Start Root[0m
+[0;32mI (122285) uart_to_node: Send: Start Root[0m
+[0;32mI (122805) uart_to_node: Send: Start Root[0m
+[0;32mI (123325) uart_to_node: Send: Start Root[0m
+[0;32mI (123845) uart_to_node: Send: Start Root[0m
+[0;32mI (124365) uart_to_node: Send: Start Root[0m
+[0;32mI (124885) uart_to_node: Send: Start Root[0m
+[0;32mI (125405) uart_to_node: Send: Start Root[0m
+[0;32mI (125925) uart_to_node: Send: Start Root[0m
+[0;32mI (126445) uart_to_node: Send: Start Root[0m
+[0;32mI (126965) uart_to_node: Send: Start Root[0m
+[0;32mI (127485) uart_to_node: Send: Start Root[0m
+[0;32mI (128005) uart_to_node: Send: Start Root[0m
+[0;32mI (128525) uart_to_node: Send: Start Root[0m
+[0;32mI (129045) uart_to_node: Send: Start Root[0m
+[0;32mI (129565) uart_to_node: Send: Start Root[0m
+[0;32mI (130085) uart_to_node: Send: Start Root[0m
+[0;32mI (130605) uart_to_node: Send: Start Root[0m
+[0;32mI (131125) uart_to_node: Send: Start Root[0m
+[0;32mI (131645) uart_to_node: Send: Start Root[0m
+[0;32mI (132165) uart_to_node: Send: Start Root[0m
+[0;32mI (132685) uart_to_node: Send: Start Root[0m
+[0;32mI (133205) uart_to_node: Send: Start Root[0m
+[0;32mI (133725) uart_to_node: Send: Start Root[0m
+[0;32mI (134245) uart_to_node: Send: Start Root[0m
+[0;32mI (134765) uart_to_node: Send: Start Root[0m
+[0;32mI (135285) uart_to_node: Send: Start Root[0m
+[0;32mI (135805) uart_to_node: Send: Start Root[0m
+[0;32mI (136325) uart_to_node: Send: Start Root[0m
+[0;32mI (136845) uart_to_node: Send: Start Root[0m
+[0;32mI (137365) uart_to_node: Send: Start Root[0m
+[0;32mI (137885) uart_to_node: Send: Start Root[0m
+[0;32mI (138405) uart_to_node: Send: Start Root[0m
+[0;32mI (138925) uart_to_node: Send: Start Root[0m
+[0;32mI (139445) uart_to_node: Send: Start Root[0m
+[0;32mI (139965) uart_to_node: Send: Start Root[0m
+[0;32mI (140485) uart_to_node: Send: Start Root[0m
+[0;32mI (141005) uart_to_node: Send: Start Root[0m
+[0;32mI (141525) uart_to_node: Send: Start Root[0m
+[0;32mI (142045) uart_to_node: Send: Start Root[0m
+[0;32mI (142565) uart_to_node: Send: Start Root[0m
+[0;32mI (143085) uart_to_node: Send: Start Root[0m
+[0;32mI (143605) uart_to_node: Send: Start Root[0m
+[0;32mI (144125) uart_to_node: Send: Start Root[0m
+[0;32mI (144645) uart_to_node: Send: Start Root[0m
+[0;32mI (145165) uart_to_node: Send: Start Root[0m
+[0;32mI (145685) uart_to_node: Send: Start Root[0m
+[0;32mI (146205) uart_to_node: Send: Start Root[0m
+[0;32mI (146725) uart_to_node: Send: Start Root[0m
+[0;32mI (147245) uart_to_node: Send: Start Root[0m
+[0;32mI (147765) uart_to_node: Send: Start Root[0m
+[0;32mI (148285) uart_to_node: Send: Start Root[0m
+[0;32mI (148805) uart_to_node: Send: Start Root[0m
+[0;32mI (149325) uart_to_node: Send: Start Root[0m
+[0;32mI (149845) uart_to_node: Send: Start Root[0m
+[0;32mI (150365) uart_to_node: Send: Start Root[0m
+[0;32mI (150885) uart_to_node: Send: Start Root[0m
+[0;32mI (151405) uart_to_node: Send: Start Root[0m
+[0;32mI (151925) uart_to_node: Send: Start Root[0m
+[0;32mI (152445) uart_to_node: Send: Start Root[0m
+[0;32mI (152965) uart_to_node: Send: Start Root[0m
+[0;32mI (153485) uart_to_node: Send: Start Root[0m
+[0;32mI (154005) uart_to_node: Send: Start Root[0m
+[0;32mI (154525) uart_to_node: Send: Start Root[0m
+[0;32mI (155045) uart_to_node: Send: Start Root[0m
+[0;32mI (155565) uart_to_node: Send: Start Root[0m
+[0;32mI (156085) uart_to_node: Send: Start Root[0m
+[0;32mI (156605) uart_to_node: Send: Start Root[0m
+[0;32mI (157125) uart_to_node: Send: Start Root[0m
+[0;32mI (157645) uart_to_node: Send: Start Root[0m
+[0;32mI (158165) uart_to_node: Send: Start Root[0m
+[0;32mI (158685) uart_to_node: Send: Start Root[0m
+[0;32mI (159205) uart_to_node: Send: Start Root[0m
+[0;32mI (159725) uart_to_node: Send: Start Root[0m
+[0;32mI (160245) uart_to_node: Send: Start Root[0m
+[0;32mI (160765) uart_to_node: Send: Start Root[0m
+[0;32mI (161285) uart_to_node: Send: Start Root[0m
+[0;32mI (161805) uart_to_node: Send: Start Root[0m
+[0;32mI (162325) uart_to_node: Send: Start Root[0m
+[0;32mI (162845) uart_to_node: Send: Start Root[0m
+[0;32mI (163365) uart_to_node: Send: Start Root[0m
+[0;32mI (163885) uart_to_node: Send: Start Root[0m
+[0;32mI (164405) uart_to_node: Send: Start Root[0m
+[0;32mI (164925) uart_to_node: Send: Start Root[0m
+[0;32mI (165445) uart_to_node: Send: Start Root[0m
+[0;32mI (165965) uart_to_node: Send: Start Root[0m
+[0;32mI (166485) uart_to_node: Send: Start Root[0m
+[0;32mI (167005) uart_to_node: Send: Start Root[0m
+[0;32mI (167525) uart_to_node: Send: Start Root[0m
+[0;32mI (168045) uart_to_node: Send: Start Root[0m
+[0;32mI (168565) uart_to_node: Send: Start Root[0m
+[0;32mI (169085) uart_to_node: Send: Start Root[0m
+[0;32mI (169605) uart_to_node: Send: Start Root[0m
+[0;32mI (170125) uart_to_node: Send: Start Root[0m
+[0;32mI (170645) uart_to_node: Send: Start Root[0m
+[0;32mI (171165) uart_to_node: Send: Start Root[0m
+[0;32mI (171685) uart_to_node: Send: Start Root[0m
+[0;32mI (172205) uart_to_node: Send: Start Root[0m
+[0;32mI (172725) uart_to_node: Send: Start Root[0m
+[0;32mI (173245) uart_to_node: Send: Start Root[0m
+[0;32mI (173765) uart_to_node: Send: Start Root[0m
+[0;32mI (174285) uart_to_node: Send: Start Root[0m
+[0;32mI (174805) uart_to_node: Send: Start Root[0m
+[0;32mI (175325) uart_to_node: Send: Start Root[0m
+[0;32mI (175845) uart_to_node: Send: Start Root[0m
+[0;32mI (176365) uart_to_node: Send: Start Root[0m
+[0;32mI (176885) uart_to_node: Send: Start Root[0m
+[0;32mI (177405) uart_to_node: Send: Start Root[0m
+[0;32mI (177925) uart_to_node: Send: Start Root[0m
+[0;32mI (178445) uart_to_node: Send: Start Root[0m
+[0;32mI (178965) uart_to_node: Send: Start Root[0m
+[0;32mI (179485) uart_to_node: Send: Start Root[0m
+[0;32mI (180005) uart_to_node: Send: Start Root[0m
+[0;32mI (180525) uart_to_node: Send: Start Root[0m
+[0;32mI (181045) uart_to_node: Send: Start Root[0m
+[0;32mI (181565) uart_to_node: Send: Start Root[0m
+[0;32mI (182085) uart_to_node: Send: Start Root[0m
+[0;32mI (182605) uart_to_node: Send: Start Root[0m
+[0;32mI (183125) uart_to_node: Send: Start Root[0m
+[0;32mI (183645) uart_to_node: Send: Start Root[0m
+[0;32mI (184165) uart_to_node: Send: Start Root[0m
+[0;32mI (184685) uart_to_node: Send: Start Root[0m
+[0;32mI (185205) uart_to_node: Send: Start Root[0m
+[0;32mI (185725) uart_to_node: Send: Start Root[0m
+[0;32mI (186245) uart_to_node: Send: Start Root[0m
+[0;32mI (186765) uart_to_node: Send: Start Root[0m
+[0;32mI (187285) uart_to_node: Send: Start Root[0m
+[0;32mI (187805) uart_to_node: Send: Start Root[0m
+[0;32mI (188325) uart_to_node: Send: Start Root[0m
+[0;32mI (188845) uart_to_node: Send: Start Root[0m
+[0;32mI (189365) uart_to_node: Send: Start Root[0m
+[0;32mI (189885) uart_to_node: Send: Start Root[0m
+[0;32mI (190405) uart_to_node: Send: Start Root[0m
+[0;32mI (190925) uart_to_node: Send: Start Root[0m
+[0;32mI (191445) uart_to_node: Send: Start Root[0m
+[0;32mI (191965) uart_to_node: Send: Start Root[0m
+[0;32mI (192485) uart_to_node: Send: Start Root[0m
+[0;32mI (193005) uart_to_node: Send: Start Root[0m
+[0;32mI (193525) uart_to_node: Send: Start Root[0m
+[0;32mI (194045) uart_to_node: Send: Start Root[0m
+[0;32mI (194565) uart_to_node: Send: Start Root[0m
+[0;32mI (195085) uart_to_node: Send: Start Root[0m
+[0;32mI (195605) uart_to_node: Send: Start Root[0m
+[0;32mI (196125) uart_to_node: Send: Start Root[0m
+[0;32mI (196645) uart_to_node: Send: Start Root[0m
+[0;32mI (197165) uart_to_node: Send: Start Root[0m
+[0;32mI (197685) uart_to_node: Send: Start Root[0m
+[0;32mI (198205) uart_to_node: Send: Start Root[0m
+[0;32mI (198725) uart_to_node: Send: Start Root[0m
+[0;32mI (199245) uart_to_node: Send: Start Root[0m
+[0;32mI (199765) uart_to_node: Send: Start Root[0m
+[0;32mI (200285) uart_to_node: Send: Start Root[0m
+[0;32mI (200805) uart_to_node: Send: Start Root[0m
+[0;32mI (201325) uart_to_node: Send: Start Root[0m
+[0;32mI (201845) uart_to_node: Send: Start Root[0m
+[0;32mI (202365) uart_to_node: Send: Start Root[0m
+[0;32mI (202885) uart_to_node: Send: Start Root[0m
+[0;32mI (203405) uart_to_node: Send: Start Root[0m
+[0;32mI (203925) uart_to_node: Send: Start Root[0m
+[0;32mI (204445) uart_to_node: Send: Start Root[0m
+[0;32mI (204965) uart_to_node: Send: Start Root[0m
+[0;32mI (205485) uart_to_node: Send: Start Root[0m
+[0;32mI (206005) uart_to_node: Send: Start Root[0m
+[0;32mI (206525) uart_to_node: Send: Start Root[0m
+[0;32mI (207045) uart_to_node: Send: Start Root[0m
+[0;32mI (207565) uart_to_node: Send: Start Root[0m
+[0;32mI (208085) uart_to_node: Send: Start Root[0m
+[0;32mI (208605) uart_to_node: Send: Start Root[0m
+[0;32mI (209125) uart_to_node: Send: Start Root[0m
+[0;32mI (209645) uart_to_node: Send: Start Root[0m
+[0;32mI (210165) uart_to_node: Send: Start Root[0m
+[0;32mI (210685) uart_to_node: Send: Start Root[0m
+[0;32mI (211205) uart_to_node: Send: Start Root[0m
+[0;32mI (211725) uart_to_node: Send: Start Root[0m
+[0;32mI (212245) uart_to_node: Send: Start Root[0m
+[0;32mI (212765) uart_to_node: Send: Start Root[0m
+[0;32mI (213285) uart_to_node: Send: Start Root[0m
+[0;32mI (213805) uart_to_node: Send: Start Root[0m
+[0;32mI (214325) uart_to_node: Send: Start Root[0m
+[0;32mI (214845) uart_to_node: Send: Start Root[0m
+[0;32mI (215365) uart_to_node: Send: Start Root[0m
+[0;32mI (215885) uart_to_node: Send: Start Root[0m
+[0;32mI (216405) uart_to_node: Send: Start Root[0m
+[0;32mI (216925) uart_to_node: Send: Start Root[0m
+[0;32mI (217445) uart_to_node: Send: Start Root[0m
+[0;32mI (217965) uart_to_node: Send: Start Root[0m
+[0;32mI (218485) uart_to_node: Send: Start Root[0m
+[0;32mI (219005) uart_to_node: Send: Start Root[0m
+[0;32mI (219525) uart_to_node: Send: Start Root[0m
+[0;32mI (220045) uart_to_node: Send: Start Root[0m
+[0;32mI (220565) uart_to_node: Send: Start Root[0m
+[0;32mI (221085) uart_to_node: Send: Start Root[0m
+[0;32mI (221605) uart_to_node: Send: Start Root[0m
+[0;32mI (222125) uart_to_node: Send: Start Root[0m
+[0;32mI (222645) uart_to_node: Send: Start Root[0m
+[0;32mI (223165) uart_to_node: Send: Start Root[0m
+[0;32mI (223685) uart_to_node: Send: Start Root[0m
+[0;32mI (224205) uart_to_node: Send: Start Root[0m
+[0;32mI (224725) uart_to_node: Send: Start Root[0m
+[0;32mI (225245) uart_to_node: Send: Start Root[0m
+[0;32mI (225765) uart_to_node: Send: Start Root[0m
+[0;32mI (226285) uart_to_node: Send: Start Root[0m
+[0;32mI (226805) uart_to_node: Send: Start Root[0m
+[0;32mI (227325) uart_to_node: Send: Start Root[0m
+[0;32mI (227845) uart_to_node: Send: Start Root[0m
+[0;32mI (228365) uart_to_node: Send: Start Root[0m
+[0;32mI (228885) uart_to_node: Send: Start Root[0m
+[0;32mI (229405) uart_to_node: Send: Start Root[0m
+[0;32mI (229925) uart_to_node: Send: Start Root[0m
+[0;32mI (230445) uart_to_node: Send: Start Root[0m
+[0;32mI (230965) uart_to_node: Send: Start Root[0m
+[0;32mI (231485) uart_to_node: Send: Start Root[0m
+[0;32mI (232005) uart_to_node: Send: Start Root[0m
+[0;32mI (232525) uart_to_node: Send: Start Root[0m
+[0;32mI (233045) uart_to_node: Send: Start Root[0m
+[0;32mI (233565) uart_to_node: Send: Start Root[0m
+[0;32mI (234085) uart_to_node: Send: Start Root[0m
+[0;32mI (234605) uart_to_node: Send: Start Root[0m
+[0;32mI (235125) uart_to_node: Send: Start Root[0m
+[0;32mI (235645) uart_to_node: Send: Start Root[0m
+[0;32mI (236165) uart_to_node: Send: Start Root[0m
+[0;32mI (236685) uart_to_node: Send: Start Root[0m
+[0;32mI (237205) uart_to_node: Send: Start Root[0m
+[0;32mI (237725) uart_to_node: Send: Start Root[0m
+[0;32mI (238245) uart_to_node: Send: Start Root[0m
+[0;32mI (238765) uart_to_node: Send: Start Root[0m
+[0;32mI (239285) uart_to_node: Send: Start Root[0m
+[0;32mI (239805) uart_to_node: Send: Start Root[0m
+[0;32mI (240325) uart_to_node: Send: Start Root[0m
+[0;32mI (240845) uart_to_node: Send: Start Root[0m
+[0;32mI (241365) uart_to_node: Send: Start Root[0m
+[0;32mI (241885) uart_to_node: Send: Start Root[0m
+[0;32mI (242405) uart_to_node: Send: Start Root[0m
+[0;32mI (242925) uart_to_node: Send: Start Root[0m
+[0;32mI (243445) uart_to_node: Send: Start Root[0m
+[0;32mI (243965) uart_to_node: Send: Start Root[0m
+[0;32mI (244485) uart_to_node: Send: Start Root[0m
+[0;32mI (245005) uart_to_node: Send: Start Root[0m
+[0;32mI (245525) uart_to_node: Send: Start Root[0m
+[0;32mI (246045) uart_to_node: Send: Start Root[0m
+[0;32mI (246565) uart_to_node: Send: Start Root[0m
+[0;32mI (247085) uart_to_node: Send: Start Root[0m
+[0;32mI (247605) uart_to_node: Send: Start Root[0m
+[0;32mI (248125) uart_to_node: Send: Start Root[0m
+[0;32mI (248645) uart_to_node: Send: Start Root[0m
+[0;32mI (249165) uart_to_node: Send: Start Root[0m
+[0;32mI (249685) uart_to_node: Send: Start Root[0m
+[0;32mI (250205) uart_to_node: Send: Start Root[0m
+[0;32mI (250725) uart_to_node: Send: Start Root[0m
+[0;32mI (251245) uart_to_node: Send: Start Root[0m
+[0;32mI (251765) uart_to_node: Send: Start Root[0m
+[0;32mI (252285) uart_to_node: Send: Start Root[0m
+[0;32mI (252805) uart_to_node: Send: Start Root[0m
+[0;32mI (253325) uart_to_node: Send: Start Root[0m
+[0;32mI (253845) uart_to_node: Send: Start Root[0m
+[0;32mI (254365) uart_to_node: Send: Start Root[0m
+[0;32mI (254885) uart_to_node: Send: Start Root[0m
+[0;32mI (255405) uart_to_node: Send: Start Root[0m
+[0;32mI (255925) uart_to_node: Send: Start Root[0m
+[0;32mI (256445) uart_to_node: Send: Start Root[0m
+[0;32mI (256965) uart_to_node: Send: Start Root[0m
+[0;32mI (257485) uart_to_node: Send: Start Root[0m
+[0;32mI (258005) uart_to_node: Send: Start Root[0m
+[0;32mI (258525) uart_to_node: Send: Start Root[0m
+[0;32mI (259045) uart_to_node: Send: Start Root[0m
+[0;32mI (259565) uart_to_node: Send: Start Root[0m
+[0;32mI (260085) uart_to_node: Send: Start Root[0m
+[0;32mI (260605) uart_to_node: Send: Start Root[0m
+[0;32mI (261125) uart_to_node: Send: Start Root[0m
+[0;32mI (261645) uart_to_node: Send: Start Root[0m
+[0;32mI (262165) uart_to_node: Send: Start Root[0m
+[0;32mI (262685) uart_to_node: Send: Start Root[0m
+[0;32mI (263205) uart_to_node: Send: Start Root[0m
+[0;32mI (263725) uart_to_node: Send: Start Root[0m
+[0;32mI (264245) uart_to_node: Send: Start Root[0m
+[0;32mI (264765) uart_to_node: Send: Start Root[0m
+[0;32mI (265285) uart_to_node: Send: Start Root[0m
+[0;32mI (265805) uart_to_node: Send: Start Root[0m
+[0;32mI (266325) uart_to_node: Send: Start Root[0m
+[0;32mI (266845) uart_to_node: Send: Start Root[0m
+[0;32mI (267365) uart_to_node: Send: Start Root[0m
+[0;32mI (267885) uart_to_node: Send: Start Root[0m
+[0;32mI (268405) uart_to_node: Send: Start Root[0m
+[0;32mI (268925) uart_to_node: Send: Start Root[0m
+[0;32mI (269445) uart_to_node: Send: Start Root[0m
+[0;32mI (269965) uart_to_node: Send: Start Root[0m
+[0;32mI (270485) uart_to_node: Send: Start Root[0m
+[0;32mI (271005) uart_to_node: Send: Start Root[0m
+[0;32mI (271525) uart_to_node: Send: Start Root[0m
+[0;32mI (272045) uart_to_node: Send: Start Root[0m
+[0;32mI (272565) uart_to_node: Send: Start Root[0m
+[0;32mI (273085) uart_to_node: Send: Start Root[0m
+[0;32mI (273605) uart_to_node: Send: Start Root[0m
+[0;32mI (274125) uart_to_node: Send: Start Root[0m
+[0;32mI (274645) uart_to_node: Send: Start Root[0m
+[0;32mI (275165) uart_to_node: Send: Start Root[0m
+[0;32mI (275685) uart_to_node: Send: Start Root[0m
+[0;32mI (276205) uart_to_node: Send: Start Root[0m
+[0;32mI (276725) uart_to_node: Send: Start Root[0m
+[0;32mI (277245) uart_to_node: Send: Start Root[0m

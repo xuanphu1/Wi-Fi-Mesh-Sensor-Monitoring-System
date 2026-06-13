@@ -1,0 +1,2706 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.2.5-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 20 2026 11:23:51[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 ota_0            OTA app          00 10 00010000 001c0000[0m
+[0;32mI (92) boot:  3 ota_1            OTA app          00 11 001d0000 001c0000[0m
+[0;32mI (99) boot:  4 spiffs           Unknown data     01 82 00390000 00020000[0m
+[0;32mI (107) boot: End of partition table[0m
+[0;32mI (111) boot: No factory image, trying OTA 0[0m
+[0;32mI (116) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=82ed4h (536276) map[0m
+[0;32mI (309) esp_image: segment 1: paddr=00092efc vaddr=3ffb0000 size=04570h ( 17776) load[0m
+[0;32mI (315) esp_image: segment 2: paddr=00097474 vaddr=40080000 size=08ba4h ( 35748) load[0m
+[0;32mI (330) esp_image: segment 3: paddr=000a0020 vaddr=400d0020 size=fbb00h (1030912) map[0m
+[0;32mI (683) esp_image: segment 4: paddr=0019bb28 vaddr=40088ba4 size=127f0h ( 75760) load[0m
+[0;32mI (726) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (727) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (727) boot: Disabling RNG early entropy source...[0m
+[0;32mI (744) cpu_start: Multicore app[0m
+[0;32mI (753) cpu_start: Pro cpu start user code[0m
+[0;32mI (753) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (753) cpu_start: Application information:[0m
+[0;32mI (756) cpu_start: Project name:     MeshGateWay[0m
+[0;32mI (761) cpu_start: App version:      3f3c4d5-dirty[0m
+[0;32mI (767) cpu_start: Compile time:     Jun  7 2026 14:28:29[0m
+[0;32mI (773) cpu_start: ELF file SHA256:  20e10a97d...[0m
+[0;32mI (778) cpu_start: ESP-IDF:          v5.2.5-dirty[0m
+[0;32mI (784) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (788) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (793) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (798) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (805) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (811) heap_init: At 3FFCC3A0 len 00013C60 (79 KiB): DRAM[0m
+[0;32mI (817) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (824) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (830) heap_init: At 4009B394 len 00004C6C (19 KiB): IRAM[0m
+[0;32mI (838) spi_flash: detected chip: generic[0m
+[0;32mI (841) spi_flash: flash io: dio[0m
+[0;33mW (845) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;33mW (856) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (865) main_task: Started on CPU0[0m
+[0;32mI (875) main_task: Calling app_main()[0m
+[0;32mI (875) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (895) app: SPIFFS: used 17821 / total 113201 bytes[0m
+[0;32mI (905) lvgl_helpers: Display buffer size: 9600[0m
+[0;32mI (905) lvgl_helpers: Initializing SPI master for display[0m
+[0;32mI (905) lvgl_helpers: Configuring SPI host SPI3_HOST[0m
+[0;32mI (915) lvgl_helpers: MISO pin: -1, MOSI pin: 12, SCLK pin: 14, IO2/WP pin: -1, IO3/HD pin: -1[0m
+[0;32mI (925) lvgl_helpers: Max transfer size: 19200 (bytes)[0m
+[0;32mI (925) lvgl_helpers: Initializing SPI bus...[0m
+[0;32mI (935) disp_spi: Adding SPI device[0m
+[0;32mI (935) disp_spi: Clock speed: 40000000Hz, mode: 0, CS pin: 27[0m
+[0;32mI (1145) ILI9341: Initialization.[0m
+[0;32mI (1345) ILI9341: Display orientation: PORTRAIT_INVERTED[0m
+[0;32mI (1345) ILI9341: 0x36 command value: 0x88[0m
+[0;32mI (1345) disp_backlight: Setting LCD backlight: 100%[0m
+[SD ] initSDCard: host.slot=1 (CS=19, MISO=17 MOSI=18 CLK=5)
+[0;32mI (1675) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1675) gpio: GPIO[19]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1685) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1735) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+[SD ] SD Card mounted successfully (host.slot=1)
+Name: SMI  
+Type: SDHC/SDXC
+Speed: 4.00 MHz (limit: 4.00 MHz)
+Size: 1920MB
+CSD: ver=2, sector_size=512, capacity=3932160 read_bl_len=9
+SSR: bus_width=1
+[RTC ] init OK: 2000-01-01 00:10:58
+[0;32mI (1795) wifi:wifi driver task: 3ffe69c0, prio:23, stack:6656, core=0[0m
+[0;32mI (1805) wifi:wifi firmware version: 01d22db[0m
+[0;32mI (1805) wifi:wifi certification version: v7.0[0m
+[0;32mI (1805) wifi:config NVS flash: enabled[0m
+[0;32mI (1805) wifi:config nano formating: disabled[0m
+[0;32mI (1805) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (1815) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (1815) wifi:Init management short buffer num: 32[0m
+[0;32mI (1815) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1825) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1825) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1835) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1835) wifi_init: rx ba win: 6[0m
+[0;32mI (1845) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1845) wifi_init: udp mbox: 6[0m
+[0;32mI (1845) wifi_init: tcp mbox: 6[0m
+[0;32mI (1855) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1855) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1865) wifi_init: tcp mss: 1440[0m
+[0;32mI (1865) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1865) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1875) WiFiManager: Startup WiFi try 1/5 for SSID=MrKoi[0m
+[0;32mI (1885) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (1885) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1975) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (1975) wifi:enable tsf[0m
+[0;32mI (1985) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (2365) system_monitor: Nhiệt chip nội bộ: target không có SOC_TEMP_SENSOR trong IDF (vd. ESP32); gateway_status gửi chip_temp_c=null — dùng C3/S3/C6… hoặc cảm biến ngoài.[0m
+[0;33mW (4405) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (4405) WiFiManager: Startup WiFi try 2/5 for SSID=MrKoi[0m
+[0;32mI (4405) wifi:flush txq[0m
+[0;32mI (4405) wifi:stop sw txq[0m
+[0;32mI (4405) wifi:lmac stop hw txq[0m
+[0;32mI (4415) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (4415) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (4415) wifi:enable tsf[0m
+[0;32mI (4425) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (6835) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (6835) WiFiManager: Startup WiFi try 3/5 for SSID=MrKoi[0m
+[0;32mI (6845) wifi:flush txq[0m
+[0;32mI (6845) wifi:stop sw txq[0m
+[0;32mI (6845) wifi:lmac stop hw txq[0m
+[0;32mI (6855) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (6855) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (6855) wifi:enable tsf[0m
+[0;32mI (6865) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (9275) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (9275) WiFiManager: Startup WiFi try 4/5 for SSID=MrKoi[0m
+[0;32mI (9285) wifi:flush txq[0m
+[0;32mI (9285) wifi:stop sw txq[0m
+[0;32mI (9285) wifi:lmac stop hw txq[0m
+[0;32mI (9285) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (9295) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (9295) wifi:enable tsf[0m
+[0;32mI (9295) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (11715) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (11715) WiFiManager: Startup WiFi try 5/5 for SSID=MrKoi[0m
+[0;32mI (11725) wifi:flush txq[0m
+[0;32mI (11725) wifi:stop sw txq[0m
+[0;32mI (11725) wifi:lmac stop hw txq[0m
+[0;32mI (11725) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (11735) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (11735) wifi:enable tsf[0m
+[0;32mI (11735) WiFiManager: Attempting startup WiFi: SSID=MrKoi[0m
+[0;33mW (14155) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (14155) WiFiManager: Startup WiFi try 1/5 for SSID=Vinh Than[0m
+[0;32mI (14165) wifi:flush txq[0m
+[0;32mI (14165) wifi:stop sw txq[0m
+[0;32mI (14165) wifi:lmac stop hw txq[0m
+[0;32mI (14165) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (14175) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (14175) wifi:enable tsf[0m
+[0;32mI (14175) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (16595) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (16595) WiFiManager: Startup WiFi try 2/5 for SSID=Vinh Than[0m
+[0;32mI (16605) wifi:flush txq[0m
+[0;32mI (16605) wifi:stop sw txq[0m
+[0;32mI (16605) wifi:lmac stop hw txq[0m
+[0;32mI (16605) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (16615) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (16615) wifi:enable tsf[0m
+[0;32mI (16615) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (19035) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (19035) WiFiManager: Startup WiFi try 3/5 for SSID=Vinh Than[0m
+[0;32mI (19045) wifi:flush txq[0m
+[0;32mI (19045) wifi:stop sw txq[0m
+[0;32mI (19045) wifi:lmac stop hw txq[0m
+[0;32mI (19045) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (19055) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (19055) wifi:enable tsf[0m
+[0;32mI (19055) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (21475) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (21475) WiFiManager: Startup WiFi try 4/5 for SSID=Vinh Than[0m
+[0;32mI (21475) wifi:flush txq[0m
+[0;32mI (21475) wifi:stop sw txq[0m
+[0;32mI (21485) wifi:lmac stop hw txq[0m
+[0;32mI (21485) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (21495) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (21495) wifi:enable tsf[0m
+[0;32mI (21495) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (23915) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (23915) WiFiManager: Startup WiFi try 5/5 for SSID=Vinh Than[0m
+[0;32mI (23915) wifi:flush txq[0m
+[0;32mI (23915) wifi:stop sw txq[0m
+[0;32mI (23925) wifi:lmac stop hw txq[0m
+[0;32mI (23925) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (23935) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (23935) wifi:enable tsf[0m
+[0;32mI (23935) WiFiManager: Attempting startup WiFi: SSID=Vinh Than[0m
+[0;33mW (26355) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (26355) WiFiManager: Startup WiFi try 1/5 for SSID=Smile[0m
+[0;32mI (26355) wifi:flush txq[0m
+[0;32mI (26355) wifi:stop sw txq[0m
+[0;32mI (26355) wifi:lmac stop hw txq[0m
+[0;32mI (26365) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (26375) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (26375) wifi:enable tsf[0m
+[0;32mI (26375) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (26635) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (26635) wifi:state: init -> auth (b0)[0m
+[0;32mI (26645) wifi:state: auth -> assoc (0)[0m
+[0;32mI (26655) wifi:state: assoc -> run (10)[0m
+[0;32mI (26675) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (26675) wifi:security: WPA2-PSK, phy: bgn, rssi: -52[0m
+[0;32mI (26685) wifi:pm start, type: 1[0m
+
+[0;32mI (26685) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (26695) WiFiManager: WiFi STA link established[0m
+[0;32mI (26745) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (36375) WiFiManager: Startup WiFi try 2/5 for SSID=Smile[0m
+[0;32mI (36375) wifi:state: run -> init (0)[0m
+[0;32mI (36375) wifi:pm stop, total sleep time: 8795985 us / 9688312 us[0m
+
+[0;32mI (36375) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (36385) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (36425) wifi:flush txq[0m
+[0;32mI (36425) wifi:stop sw txq[0m
+[0;32mI (36425) wifi:lmac stop hw txq[0m
+[0;32mI (36425) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36425) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36425) wifi:enable tsf[0m
+[0;32mI (36425) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36435) WiFiManager: Startup WiFi try 3/5 for SSID=Smile[0m
+[0;32mI (36445) wifi:flush txq[0m
+[0;32mI (36445) wifi:stop sw txq[0m
+[0;32mI (36445) wifi:lmac stop hw txq[0m
+[0;32mI (36445) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (36455) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (36455) wifi:enable tsf[0m
+[0;32mI (36455) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (36465) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (36475) wifi:state: init -> auth (b0)[0m
+[0;32mI (36475) wifi:state: auth -> assoc (0)[0m
+[0;32mI (36485) wifi:state: assoc -> run (10)[0m
+[0;32mI (36505) wifi:connected with Smile, aid = 2, channel 1, BW20, bssid = a8:25:eb:5e:98:e9[0m
+[0;32mI (36505) wifi:security: WPA2-PSK, phy: bgn, rssi: -44[0m
+[0;32mI (36515) wifi:pm start, type: 1[0m
+
+[0;32mI (36515) WiFiManager: WiFi STA link established[0m
+[0;32mI (36575) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (46465) WiFiManager: Startup WiFi try 4/5 for SSID=Smile[0m
+[0;32mI (46465) wifi:state: run -> init (0)[0m
+[0;32mI (46465) wifi:pm stop, total sleep time: 9126006 us / 9949389 us[0m
+
+[0;32mI (46465) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46475) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46515) wifi:flush txq[0m
+[0;32mI (46515) wifi:stop sw txq[0m
+[0;32mI (46515) wifi:lmac stop hw txq[0m
+[0;32mI (46515) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46515) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46515) wifi:enable tsf[0m
+[0;32mI (46515) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46525) WiFiManager: Startup WiFi try 5/5 for SSID=Smile[0m
+[0;32mI (46535) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46535) wifi:state: init -> auth (b0)[0m
+[0;32mI (46545) wifi:state: auth -> init (0)[0m
+[0;32mI (46545) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46555) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46555) wifi:flush txq[0m
+[0;32mI (46555) wifi:stop sw txq[0m
+[0;32mI (46565) wifi:lmac stop hw txq[0m
+[0;32mI (46565) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46575) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46575) wifi:enable tsf[0m
+[0;32mI (46575) WiFiManager: Attempting startup WiFi: SSID=Smile[0m
+[0;32mI (46585) WiFiManager: Startup WiFi try 1/5 for SSID=Unknown[0m
+[0;32mI (46585) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;32mI (46595) wifi:state: init -> auth (b0)[0m
+[0;32mI (46595) wifi:state: auth -> init (0)[0m
+[0;32mI (46605) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1[0m
+[0;33mW (46605) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (46615) wifi:flush txq[0m
+[0;32mI (46615) wifi:stop sw txq[0m
+[0;32mI (46615) wifi:lmac stop hw txq[0m
+[0;32mI (46625) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46625) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46625) wifi:enable tsf[0m
+[0;32mI (46635) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;32mI (46635) WiFiManager: Startup WiFi try 2/5 for SSID=Unknown[0m
+[0;32mI (46645) wifi:flush txq[0m
+[0;32mI (46645) wifi:stop sw txq[0m
+[0;32mI (46645) wifi:lmac stop hw txq[0m
+[0;32mI (46655) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (46655) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (46655) wifi:enable tsf[0m
+[0;32mI (46665) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (49075) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (49075) WiFiManager: Startup WiFi try 3/5 for SSID=Unknown[0m
+[0;32mI (49085) wifi:flush txq[0m
+[0;32mI (49085) wifi:stop sw txq[0m
+[0;32mI (49085) wifi:lmac stop hw txq[0m
+[0;32mI (49095) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (49095) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (49095) wifi:enable tsf[0m
+[0;32mI (49105) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (51515) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (51515) WiFiManager: Startup WiFi try 4/5 for SSID=Unknown[0m
+[0;32mI (51525) wifi:flush txq[0m
+[0;32mI (51525) wifi:stop sw txq[0m
+[0;32mI (51525) wifi:lmac stop hw txq[0m
+[0;32mI (51535) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (51535) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (51535) wifi:enable tsf[0m
+[0;32mI (51545) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (53955) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (53955) WiFiManager: Startup WiFi try 5/5 for SSID=Unknown[0m
+[0;32mI (53965) wifi:flush txq[0m
+[0;32mI (53965) wifi:stop sw txq[0m
+[0;32mI (53965) wifi:lmac stop hw txq[0m
+[0;32mI (53965) wifi:Set ps type: 1, coexist: 0[0m
+
+[0;32mI (53975) wifi:mode : sta (78:1c:3c:f4:d0:d8)[0m
+[0;32mI (53975) wifi:enable tsf[0m
+[0;32mI (53985) WiFiManager: Attempting startup WiFi: SSID=Unknown[0m
+[0;33mW (56395) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (56395) WiFiManager: All startup WiFi credentials failed, starting configuration AP[0m
+[0;32mI (56405) wifi:flush txq[0m
+[0;32mI (56405) wifi:stop sw txq[0m
+[0;32mI (56405) wifi:lmac stop hw txq[0m
+[0;32mI (56905) WiFiManager: Initializing WiFi AP mode[0m
+[0;32mI (56905) WiFiManager: No saved AP IP config found, using defaults[0m
+[0;32mI (56905) wifi:mode : sta (78:1c:3c:f4:d0:d8) + softAP (78:1c:3c:f4:d0:d9)[0m
+[0;32mI (56905) wifi:enable tsf[0m
+[0;32mI (56915) wifi:Total power save buffer number: 16[0m
+[0;32mI (56915) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (56915) wifi:Init max length of beacon: 752/752[0m
+[0;32mI (56925) WiFiManager: WiFi AP started with SSID: GateWay Config (No password required)[0m
+[0;32mI (56935) WiFiManager: AP IP address: 192.168.4.1[0m
+[0;32mI (56935) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1[0m
+[0;32mI (56955) WiFiManager: Web server started on port 80[0m
+[0;32mI (56955) uart: queue free spaces: 24[0m
+[0;32mI (56995) uart_to_node: Send: Start Root[0m
+[0;32mI (57515) uart_to_node: Send: Start Root[0m
+[0;32mI (58035) uart_to_node: Send: Start Root[0m
+[0;32mI (58555) uart_to_node: Send: Start Root[0m
+[0;32mI (59075) uart_to_node: Send: Start Root[0m
+[0;32mI (59595) uart_to_node: Send: Start Root[0m
+[0;33mW (59775) WiFiManager: WiFi disconnected, waiting for reconnect scheduler[0m
+[0;32mI (60115) uart_to_node: Send: Start Root[0m
+[0;32mI (60635) uart_to_node: Send: Start Root[0m
+[0;32mI (61155) uart_to_node: Send: Start Root[0m
+[0;32mI (61675) uart_to_node: Send: Start Root[0m
+[0;32mI (62195) uart_to_node: Send: Start Root[0m
+[0;32mI (62715) uart_to_node: Send: Start Root[0m
+[0;32mI (63235) uart_to_node: Send: Start Root[0m
+[0;32mI (63755) uart_to_node: Send: Start Root[0m
+[0;32mI (64275) uart_to_node: Send: Start Root[0m
+[0;32mI (64795) uart_to_node: Send: Start Root[0m
+[0;32mI (65315) uart_to_node: Send: Start Root[0m
+[0;32mI (65835) uart_to_node: Send: Start Root[0m
+[0;32mI (66355) uart_to_node: Send: Start Root[0m
+[0;32mI (66875) uart_to_node: Send: Start Root[0m
+[0;32mI (67395) uart_to_node: Send: Start Root[0m
+[0;32mI (67915) uart_to_node: Send: Start Root[0m
+[0;32mI (68435) uart_to_node: Send: Start Root[0m
+[0;32mI (68955) uart_to_node: Send: Start Root[0m
+[0;32mI (69475) uart_to_node: Send: Start Root[0m
+[0;32mI (69995) uart_to_node: Send: Start Root[0m
+[0;32mI (70515) uart_to_node: Send: Start Root[0m
+[0;32mI (71035) uart_to_node: Send: Start Root[0m
+[0;32mI (71555) uart_to_node: Send: Start Root[0m
+[0;32mI (72075) uart_to_node: Send: Start Root[0m
+[0;32mI (72595) uart_to_node: Send: Start Root[0m
+[0;32mI (73115) uart_to_node: Send: Start Root[0m
+[0;32mI (73635) uart_to_node: Send: Start Root[0m
+[0;32mI (74155) uart_to_node: Send: Start Root[0m
+[0;32mI (74675) uart_to_node: Send: Start Root[0m
+[0;32mI (75195) uart_to_node: Send: Start Root[0m
+[0;32mI (75715) uart_to_node: Send: Start Root[0m
+[0;32mI (76235) uart_to_node: Send: Start Root[0m
+[0;32mI (76755) uart_to_node: Send: Start Root[0m
+[0;32mI (77275) uart_to_node: Send: Start Root[0m
+[0;32mI (77795) uart_to_node: Send: Start Root[0m
+[0;32mI (78315) uart_to_node: Send: Start Root[0m
+[0;32mI (78835) uart_to_node: Send: Start Root[0m
+[0;32mI (79355) uart_to_node: Send: Start Root[0m
+[0;32mI (79875) uart_to_node: Send: Start Root[0m
+[0;32mI (80395) uart_to_node: Send: Start Root[0m
+[0;32mI (80915) uart_to_node: Send: Start Root[0m
+[0;32mI (81435) uart_to_node: Send: Start Root[0m
+[0;32mI (81955) uart_to_node: Send: Start Root[0m
+[0;32mI (82475) uart_to_node: Send: Start Root[0m
+[0;32mI (82995) uart_to_node: Send: Start Root[0m
+[0;32mI (83515) uart_to_node: Send: Start Root[0m
+[0;32mI (84035) uart_to_node: Send: Start Root[0m
+[0;32mI (84555) uart_to_node: Send: Start Root[0m
+[0;32mI (85075) uart_to_node: Send: Start Root[0m
+[0;32mI (85595) uart_to_node: Send: Start Root[0m
+[0;32mI (86115) uart_to_node: Send: Start Root[0m
+[0;32mI (86635) uart_to_node: Send: Start Root[0m
+[0;32mI (87155) uart_to_node: Send: Start Root[0m
+[0;32mI (87675) uart_to_node: Send: Start Root[0m
+[0;32mI (88195) uart_to_node: Send: Start Root[0m
+[0;32mI (88715) uart_to_node: Send: Start Root[0m
+[0;32mI (89235) uart_to_node: Send: Start Root[0m
+[0;32mI (89755) uart_to_node: Send: Start Root[0m
+[0;32mI (90275) uart_to_node: Send: Start Root[0m
+[0;32mI (90795) uart_to_node: Send: Start Root[0m
+[0;32mI (91315) uart_to_node: Send: Start Root[0m
+[0;32mI (91835) uart_to_node: Send: Start Root[0m
+[0;32mI (92355) uart_to_node: Send: Start Root[0m
+[0;32mI (92875) uart_to_node: Send: Start Root[0m
+[0;32mI (93395) uart_to_node: Send: Start Root[0m
+[0;32mI (93915) uart_to_node: Send: Start Root[0m
+[0;32mI (94435) uart_to_node: Send: Start Root[0m
+[0;32mI (94955) uart_to_node: Send: Start Root[0m
+[0;32mI (95475) uart_to_node: Send: Start Root[0m
+[0;32mI (95995) uart_to_node: Send: Start Root[0m
+[0;32mI (96515) uart_to_node: Send: Start Root[0m
+[0;32mI (97035) uart_to_node: Send: Start Root[0m
+[0;32mI (97555) uart_to_node: Send: Start Root[0m
+[0;32mI (98075) uart_to_node: Send: Start Root[0m
+[0;32mI (98595) uart_to_node: Send: Start Root[0m
+[0;32mI (99115) uart_to_node: Send: Start Root[0m
+[0;32mI (99635) uart_to_node: Send: Start Root[0m
+[0;32mI (100155) uart_to_node: Send: Start Root[0m
+[0;32mI (100675) uart_to_node: Send: Start Root[0m
+[0;32mI (101195) uart_to_node: Send: Start Root[0m
+[0;32mI (101715) uart_to_node: Send: Start Root[0m
+[0;32mI (102235) uart_to_node: Send: Start Root[0m
+[0;32mI (102755) uart_to_node: Send: Start Root[0m
+[0;32mI (103275) uart_to_node: Send: Start Root[0m
+[0;32mI (103795) uart_to_node: Send: Start Root[0m
+[0;32mI (104315) uart_to_node: Send: Start Root[0m
+[0;32mI (104835) uart_to_node: Send: Start Root[0m
+[0;32mI (105355) uart_to_node: Send: Start Root[0m
+[0;32mI (105875) uart_to_node: Send: Start Root[0m
+[0;32mI (106395) uart_to_node: Send: Start Root[0m
+[0;32mI (106915) uart_to_node: Send: Start Root[0m
+[0;32mI (107435) uart_to_node: Send: Start Root[0m
+[0;32mI (107955) uart_to_node: Send: Start Root[0m
+[0;32mI (108475) uart_to_node: Send: Start Root[0m
+[0;32mI (108995) uart_to_node: Send: Start Root[0m
+[0;32mI (109515) uart_to_node: Send: Start Root[0m
+[0;32mI (110035) uart_to_node: Send: Start Root[0m
+[0;32mI (110555) uart_to_node: Send: Start Root[0m
+[0;32mI (111075) uart_to_node: Send: Start Root[0m
+[0;32mI (111595) uart_to_node: Send: Start Root[0m
+[0;32mI (112115) uart_to_node: Send: Start Root[0m
+[0;32mI (112635) uart_to_node: Send: Start Root[0m
+[0;32mI (113155) uart_to_node: Send: Start Root[0m
+[0;32mI (113675) uart_to_node: Send: Start Root[0m
+[0;32mI (114195) uart_to_node: Send: Start Root[0m
+[0;32mI (114715) uart_to_node: Send: Start Root[0m
+[0;32mI (115235) uart_to_node: Send: Start Root[0m
+[0;32mI (115755) uart_to_node: Send: Start Root[0m
+[0;32mI (116275) uart_to_node: Send: Start Root[0m
+[0;32mI (116795) uart_to_node: Send: Start Root[0m
+[0;32mI (117315) uart_to_node: Send: Start Root[0m
+[0;32mI (117835) uart_to_node: Send: Start Root[0m
+[0;32mI (118355) uart_to_node: Send: Start Root[0m
+[0;32mI (118875) uart_to_node: Send: Start Root[0m
+[0;32mI (119395) uart_to_node: Send: Start Root[0m
+[0;32mI (119915) uart_to_node: Send: Start Root[0m
+[0;32mI (120435) uart_to_node: Send: Start Root[0m
+[0;32mI (120955) uart_to_node: Send: Start Root[0m
+[0;32mI (121475) uart_to_node: Send: Start Root[0m
+[0;32mI (121995) uart_to_node: Send: Start Root[0m
+[0;32mI (122515) uart_to_node: Send: Start Root[0m
+[0;32mI (123035) uart_to_node: Send: Start Root[0m
+[0;32mI (123555) uart_to_node: Send: Start Root[0m
+[0;32mI (124075) uart_to_node: Send: Start Root[0m
+[0;32mI (124595) uart_to_node: Send: Start Root[0m
+[0;32mI (125115) uart_to_node: Send: Start Root[0m
+[0;32mI (125635) uart_to_node: Send: Start Root[0m
+[0;32mI (126155) uart_to_node: Send: Start Root[0m
+[0;32mI (126675) uart_to_node: Send: Start Root[0m
+[0;32mI (127195) uart_to_node: Send: Start Root[0m
+[0;32mI (127715) uart_to_node: Send: Start Root[0m
+[0;32mI (128235) uart_to_node: Send: Start Root[0m
+[0;32mI (128755) uart_to_node: Send: Start Root[0m
+[0;32mI (129275) uart_to_node: Send: Start Root[0m
+[0;32mI (129795) uart_to_node: Send: Start Root[0m
+[0;32mI (130315) uart_to_node: Send: Start Root[0m
+[0;32mI (130835) uart_to_node: Send: Start Root[0m
+[0;32mI (131355) uart_to_node: Send: Start Root[0m
+[0;32mI (131875) uart_to_node: Send: Start Root[0m
+[0;32mI (132395) uart_to_node: Send: Start Root[0m
+[0;32mI (132915) uart_to_node: Send: Start Root[0m
+[0;32mI (133435) uart_to_node: Send: Start Root[0m
+[0;32mI (133955) uart_to_node: Send: Start Root[0m
+[0;32mI (134475) uart_to_node: Send: Start Root[0m
+[0;32mI (134995) uart_to_node: Send: Start Root[0m
+[0;32mI (135515) uart_to_node: Send: Start Root[0m
+[0;32mI (136035) uart_to_node: Send: Start Root[0m
+[0;32mI (136555) uart_to_node: Send: Start Root[0m
+[0;32mI (137075) uart_to_node: Send: Start Root[0m
+[0;32mI (137595) uart_to_node: Send: Start Root[0m
+[0;32mI (138115) uart_to_node: Send: Start Root[0m
+[0;32mI (138635) uart_to_node: Send: Start Root[0m
+[0;32mI (139155) uart_to_node: Send: Start Root[0m
+[0;32mI (139675) uart_to_node: Send: Start Root[0m
+[0;32mI (140195) uart_to_node: Send: Start Root[0m
+[0;32mI (140715) uart_to_node: Send: Start Root[0m
+[0;32mI (141235) uart_to_node: Send: Start Root[0m
+[0;32mI (141755) uart_to_node: Send: Start Root[0m
+[0;32mI (142275) uart_to_node: Send: Start Root[0m
+[0;32mI (142795) uart_to_node: Send: Start Root[0m
+[0;32mI (143315) uart_to_node: Send: Start Root[0m
+[0;32mI (143835) uart_to_node: Send: Start Root[0m
+[0;32mI (144355) uart_to_node: Send: Start Root[0m
+[0;32mI (144875) uart_to_node: Send: Start Root[0m
+[0;32mI (145395) uart_to_node: Send: Start Root[0m
+[0;32mI (145915) uart_to_node: Send: Start Root[0m
+[0;32mI (146435) uart_to_node: Send: Start Root[0m
+[0;32mI (146955) uart_to_node: Send: Start Root[0m
+[0;32mI (147475) uart_to_node: Send: Start Root[0m
+[0;32mI (147995) uart_to_node: Send: Start Root[0m
+[0;32mI (148515) uart_to_node: Send: Start Root[0m
+[0;32mI (149035) uart_to_node: Send: Start Root[0m
+[0;32mI (149555) uart_to_node: Send: Start Root[0m
+[0;32mI (150075) uart_to_node: Send: Start Root[0m
+[0;32mI (150595) uart_to_node: Send: Start Root[0m
+[0;32mI (151115) uart_to_node: Send: Start Root[0m
+[0;32mI (151635) uart_to_node: Send: Start Root[0m
+[0;32mI (152155) uart_to_node: Send: Start Root[0m
+[0;32mI (152675) uart_to_node: Send: Start Root[0m
+[0;32mI (153195) uart_to_node: Send: Start Root[0m
+[0;32mI (153715) uart_to_node: Send: Start Root[0m
+[0;32mI (154235) uart_to_node: Send: Start Root[0m
+[0;32mI (154755) uart_to_node: Send: Start Root[0m
+[0;32mI (155275) uart_to_node: Send: Start Root[0m
+[0;32mI (155795) uart_to_node: Send: Start Root[0m
+[0;32mI (156315) uart_to_node: Send: Start Root[0m
+[0;32mI (156835) uart_to_node: Send: Start Root[0m
+[0;32mI (157355) uart_to_node: Send: Start Root[0m
+[0;32mI (157875) uart_to_node: Send: Start Root[0m
+[0;32mI (158395) uart_to_node: Send: Start Root[0m
+[0;32mI (158915) uart_to_node: Send: Start Root[0m
+[0;32mI (159435) uart_to_node: Send: Start Root[0m
+[0;32mI (159955) uart_to_node: Send: Start Root[0m
+[0;32mI (160475) uart_to_node: Send: Start Root[0m
+[0;32mI (160995) uart_to_node: Send: Start Root[0m
+[0;32mI (161515) uart_to_node: Send: Start Root[0m
+[0;32mI (162035) uart_to_node: Send: Start Root[0m
+[0;32mI (162555) uart_to_node: Send: Start Root[0m
+[0;32mI (163075) uart_to_node: Send: Start Root[0m
+[0;32mI (163595) uart_to_node: Send: Start Root[0m
+[0;32mI (164115) uart_to_node: Send: Start Root[0m
+[0;32mI (164635) uart_to_node: Send: Start Root[0m
+[0;32mI (165155) uart_to_node: Send: Start Root[0m
+[0;32mI (165675) uart_to_node: Send: Start Root[0m
+[0;32mI (166195) uart_to_node: Send: Start Root[0m
+[0;32mI (166715) uart_to_node: Send: Start Root[0m
+[0;32mI (167235) uart_to_node: Send: Start Root[0m
+[0;32mI (167755) uart_to_node: Send: Start Root[0m
+[0;32mI (168275) uart_to_node: Send: Start Root[0m
+[0;32mI (168795) uart_to_node: Send: Start Root[0m
+[0;32mI (169315) uart_to_node: Send: Start Root[0m
+[0;32mI (169835) uart_to_node: Send: Start Root[0m
+[0;32mI (170355) uart_to_node: Send: Start Root[0m
+[0;32mI (170875) uart_to_node: Send: Start Root[0m
+[0;32mI (171395) uart_to_node: Send: Start Root[0m
+[0;32mI (171915) uart_to_node: Send: Start Root[0m
+[0;32mI (172435) uart_to_node: Send: Start Root[0m
+[0;32mI (172955) uart_to_node: Send: Start Root[0m
+[0;32mI (173475) uart_to_node: Send: Start Root[0m
+[0;32mI (173995) uart_to_node: Send: Start Root[0m
+[0;32mI (174515) uart_to_node: Send: Start Root[0m
+[0;32mI (175035) uart_to_node: Send: Start Root[0m
+[0;32mI (175555) uart_to_node: Send: Start Root[0m
+[0;32mI (176075) uart_to_node: Send: Start Root[0m
+[0;32mI (176595) uart_to_node: Send: Start Root[0m
+[0;32mI (177115) uart_to_node: Send: Start Root[0m
+[0;32mI (177635) uart_to_node: Send: Start Root[0m
+[0;32mI (178155) uart_to_node: Send: Start Root[0m
+[0;32mI (178675) uart_to_node: Send: Start Root[0m
+[0;32mI (179195) uart_to_node: Send: Start Root[0m
+[0;32mI (179715) uart_to_node: Send: Start Root[0m
+[0;32mI (180235) uart_to_node: Send: Start Root[0m
+[0;32mI (180755) uart_to_node: Send: Start Root[0m
+[0;32mI (181275) uart_to_node: Send: Start Root[0m
+[0;32mI (181795) uart_to_node: Send: Start Root[0m
+[0;32mI (182315) uart_to_node: Send: Start Root[0m
+[0;32mI (182835) uart_to_node: Send: Start Root[0m
+[0;32mI (183355) uart_to_node: Send: Start Root[0m
+[0;32mI (183875) uart_to_node: Send: Start Root[0m
+[0;32mI (184395) uart_to_node: Send: Start Root[0m
+[0;32mI (184915) uart_to_node: Send: Start Root[0m
+[0;32mI (185435) uart_to_node: Send: Start Root[0m
+[0;32mI (185955) uart_to_node: Send: Start Root[0m
+[0;32mI (186475) uart_to_node: Send: Start Root[0m
+[0;32mI (186995) uart_to_node: Send: Start Root[0m
+[0;32mI (187515) uart_to_node: Send: Start Root[0m
+[0;32mI (188035) uart_to_node: Send: Start Root[0m
+[0;32mI (188555) uart_to_node: Send: Start Root[0m
+[0;32mI (189075) uart_to_node: Send: Start Root[0m
+[0;32mI (189595) uart_to_node: Send: Start Root[0m
+[0;32mI (190115) uart_to_node: Send: Start Root[0m
+[0;32mI (190635) uart_to_node: Send: Start Root[0m
+[0;32mI (191155) uart_to_node: Send: Start Root[0m
+[0;32mI (191675) uart_to_node: Send: Start Root[0m
+[0;32mI (192195) uart_to_node: Send: Start Root[0m
+[0;32mI (192715) uart_to_node: Send: Start Root[0m
+[0;32mI (193235) uart_to_node: Send: Start Root[0m
+[0;32mI (193755) uart_to_node: Send: Start Root[0m
+[0;32mI (194275) uart_to_node: Send: Start Root[0m
+[0;32mI (194795) uart_to_node: Send: Start Root[0m
+[0;32mI (195315) uart_to_node: Send: Start Root[0m
+[0;32mI (195835) uart_to_node: Send: Start Root[0m
+[0;32mI (196355) uart_to_node: Send: Start Root[0m
+[0;32mI (196875) uart_to_node: Send: Start Root[0m
+[0;32mI (197395) uart_to_node: Send: Start Root[0m
+[0;32mI (197915) uart_to_node: Send: Start Root[0m
+[0;32mI (198435) uart_to_node: Send: Start Root[0m
+[0;32mI (198955) uart_to_node: Send: Start Root[0m
+[0;32mI (199475) uart_to_node: Send: Start Root[0m
+[0;32mI (199995) uart_to_node: Send: Start Root[0m
+[0;32mI (200515) uart_to_node: Send: Start Root[0m
+[0;32mI (201035) uart_to_node: Send: Start Root[0m
+[0;32mI (201555) uart_to_node: Send: Start Root[0m
+[0;32mI (202075) uart_to_node: Send: Start Root[0m
+[0;32mI (202595) uart_to_node: Send: Start Root[0m
+[0;32mI (203115) uart_to_node: Send: Start Root[0m
+[0;32mI (203635) uart_to_node: Send: Start Root[0m
+[0;32mI (204155) uart_to_node: Send: Start Root[0m
+[0;32mI (204675) uart_to_node: Send: Start Root[0m
+[0;32mI (205195) uart_to_node: Send: Start Root[0m
+[0;32mI (205715) uart_to_node: Send: Start Root[0m
+[0;32mI (206235) uart_to_node: Send: Start Root[0m
+[0;32mI (206755) uart_to_node: Send: Start Root[0m
+[0;32mI (207275) uart_to_node: Send: Start Root[0m
+[0;32mI (207795) uart_to_node: Send: Start Root[0m
+[0;32mI (208315) uart_to_node: Send: Start Root[0m
+[0;32mI (208835) uart_to_node: Send: Start Root[0m
+[0;32mI (209355) uart_to_node: Send: Start Root[0m
+[0;32mI (209875) uart_to_node: Send: Start Root[0m
+[0;32mI (210395) uart_to_node: Send: Start Root[0m
+[0;32mI (210915) uart_to_node: Send: Start Root[0m
+[0;32mI (211435) uart_to_node: Send: Start Root[0m
+[0;32mI (211955) uart_to_node: Send: Start Root[0m
+[0;32mI (212475) uart_to_node: Send: Start Root[0m
+[0;32mI (212995) uart_to_node: Send: Start Root[0m
+[0;32mI (213515) uart_to_node: Send: Start Root[0m
+[0;32mI (214035) uart_to_node: Send: Start Root[0m
+[0;32mI (214555) uart_to_node: Send: Start Root[0m
+[0;32mI (215075) uart_to_node: Send: Start Root[0m
+[0;32mI (215595) uart_to_node: Send: Start Root[0m
+[0;32mI (216115) uart_to_node: Send: Start Root[0m
+[0;32mI (216635) uart_to_node: Send: Start Root[0m
+[0;32mI (217155) uart_to_node: Send: Start Root[0m
+[0;32mI (217675) uart_to_node: Send: Start Root[0m
+[0;32mI (218195) uart_to_node: Send: Start Root[0m
+[0;32mI (218715) uart_to_node: Send: Start Root[0m
+[0;32mI (219235) uart_to_node: Send: Start Root[0m
+[0;32mI (219755) uart_to_node: Send: Start Root[0m
+[0;32mI (220275) uart_to_node: Send: Start Root[0m
+[0;32mI (220795) uart_to_node: Send: Start Root[0m
+[0;32mI (221315) uart_to_node: Send: Start Root[0m
+[0;32mI (221835) uart_to_node: Send: Start Root[0m
+[0;32mI (222355) uart_to_node: Send: Start Root[0m
+[0;32mI (222875) uart_to_node: Send: Start Root[0m
+[0;32mI (223395) uart_to_node: Send: Start Root[0m
+[0;32mI (223915) uart_to_node: Send: Start Root[0m
+[0;32mI (224435) uart_to_node: Send: Start Root[0m
+[0;32mI (224955) uart_to_node: Send: Start Root[0m
+[0;32mI (225475) uart_to_node: Send: Start Root[0m
+[0;32mI (225995) uart_to_node: Send: Start Root[0m
+[0;32mI (226515) uart_to_node: Send: Start Root[0m
+[0;32mI (227035) uart_to_node: Send: Start Root[0m
+[0;32mI (227555) uart_to_node: Send: Start Root[0m
+[0;32mI (228075) uart_to_node: Send: Start Root[0m
+[0;32mI (228595) uart_to_node: Send: Start Root[0m
+[0;32mI (229115) uart_to_node: Send: Start Root[0m
+[0;32mI (229635) uart_to_node: Send: Start Root[0m
+[0;32mI (230155) uart_to_node: Send: Start Root[0m
+[0;32mI (230675) uart_to_node: Send: Start Root[0m
+[0;32mI (231195) uart_to_node: Send: Start Root[0m
+[0;32mI (231715) uart_to_node: Send: Start Root[0m
+[0;32mI (232235) uart_to_node: Send: Start Root[0m
+[0;32mI (232755) uart_to_node: Send: Start Root[0m
+[0;32mI (233275) uart_to_node: Send: Start Root[0m
+[0;32mI (233795) uart_to_node: Send: Start Root[0m
+[0;32mI (234315) uart_to_node: Send: Start Root[0m
+[0;32mI (234835) uart_to_node: Send: Start Root[0m
+[0;32mI (235355) uart_to_node: Send: Start Root[0m
+[0;32mI (235875) uart_to_node: Send: Start Root[0m
+[0;32mI (236395) uart_to_node: Send: Start Root[0m
+[0;32mI (236915) uart_to_node: Send: Start Root[0m
+[0;32mI (237435) uart_to_node: Send: Start Root[0m
+[0;32mI (237955) uart_to_node: Send: Start Root[0m
+[0;32mI (238475) uart_to_node: Send: Start Root[0m
+[0;32mI (238995) uart_to_node: Send: Start Root[0m
+[0;32mI (239515) uart_to_node: Send: Start Root[0m
+[0;32mI (240035) uart_to_node: Send: Start Root[0m
+[0;32mI (240555) uart_to_node: Send: Start Root[0m
+[0;32mI (241075) uart_to_node: Send: Start Root[0m
+[0;32mI (241595) uart_to_node: Send: Start Root[0m
+[0;32mI (242115) uart_to_node: Send: Start Root[0m
+[0;32mI (242635) uart_to_node: Send: Start Root[0m
+[0;32mI (243155) uart_to_node: Send: Start Root[0m
+[0;32mI (243675) uart_to_node: Send: Start Root[0m
+[0;32mI (244195) uart_to_node: Send: Start Root[0m
+[0;32mI (244715) uart_to_node: Send: Start Root[0m
+[0;32mI (245235) uart_to_node: Send: Start Root[0m
+[0;32mI (245755) uart_to_node: Send: Start Root[0m
+[0;32mI (246275) uart_to_node: Send: Start Root[0m
+[0;32mI (246795) uart_to_node: Send: Start Root[0m
+[0;32mI (247315) uart_to_node: Send: Start Root[0m
+[0;32mI (247835) uart_to_node: Send: Start Root[0m
+[0;32mI (248355) uart_to_node: Send: Start Root[0m
+[0;32mI (248875) uart_to_node: Send: Start Root[0m
+[0;32mI (249395) uart_to_node: Send: Start Root[0m
+[0;32mI (249915) uart_to_node: Send: Start Root[0m
+[0;32mI (250435) uart_to_node: Send: Start Root[0m
+[0;32mI (250955) uart_to_node: Send: Start Root[0m
+[0;32mI (251475) uart_to_node: Send: Start Root[0m
+[0;32mI (251995) uart_to_node: Send: Start Root[0m
+[0;32mI (252515) uart_to_node: Send: Start Root[0m
+[0;32mI (253035) uart_to_node: Send: Start Root[0m
+[0;32mI (253555) uart_to_node: Send: Start Root[0m
+[0;32mI (254075) uart_to_node: Send: Start Root[0m
+[0;32mI (254595) uart_to_node: Send: Start Root[0m
+[0;32mI (255115) uart_to_node: Send: Start Root[0m
+[0;32mI (255635) uart_to_node: Send: Start Root[0m
+[0;32mI (256155) uart_to_node: Send: Start Root[0m
+[0;32mI (256675) uart_to_node: Send: Start Root[0m
+[0;32mI (257195) uart_to_node: Send: Start Root[0m
+[0;32mI (257715) uart_to_node: Send: Start Root[0m
+[0;32mI (258235) uart_to_node: Send: Start Root[0m
+[0;32mI (258755) uart_to_node: Send: Start Root[0m
+[0;32mI (259275) uart_to_node: Send: Start Root[0m
+[0;32mI (259795) uart_to_node: Send: Start Root[0m
+[0;32mI (260315) uart_to_node: Send: Start Root[0m
+[0;32mI (260835) uart_to_node: Send: Start Root[0m
+[0;32mI (261355) uart_to_node: Send: Start Root[0m
+[0;32mI (261875) uart_to_node: Send: Start Root[0m
+[0;32mI (262395) uart_to_node: Send: Start Root[0m
+[0;32mI (262915) uart_to_node: Send: Start Root[0m
+[0;32mI (263435) uart_to_node: Send: Start Root[0m
+[0;32mI (263955) uart_to_node: Send: Start Root[0m
+[0;32mI (264475) uart_to_node: Send: Start Root[0m
+[0;32mI (264995) uart_to_node: Send: Start Root[0m
+[0;32mI (265515) uart_to_node: Send: Start Root[0m
+[0;32mI (266035) uart_to_node: Send: Start Root[0m
+[0;32mI (266555) uart_to_node: Send: Start Root[0m
+[0;32mI (267075) uart_to_node: Send: Start Root[0m
+[0;32mI (267595) uart_to_node: Send: Start Root[0m
+[0;32mI (268115) uart_to_node: Send: Start Root[0m
+[0;32mI (268635) uart_to_node: Send: Start Root[0m
+[0;32mI (269155) uart_to_node: Send: Start Root[0m
+[0;32mI (269675) uart_to_node: Send: Start Root[0m
+[0;32mI (270195) uart_to_node: Send: Start Root[0m
+[0;32mI (270715) uart_to_node: Send: Start Root[0m
+[0;32mI (271235) uart_to_node: Send: Start Root[0m
+[0;32mI (271755) uart_to_node: Send: Start Root[0m
+[0;32mI (272275) uart_to_node: Send: Start Root[0m
+[0;32mI (272795) uart_to_node: Send: Start Root[0m
+[0;32mI (273315) uart_to_node: Send: Start Root[0m
+[0;32mI (273835) uart_to_node: Send: Start Root[0m
+[0;32mI (274355) uart_to_node: Send: Start Root[0m
+[0;32mI (274875) uart_to_node: Send: Start Root[0m
+[0;32mI (275395) uart_to_node: Send: Start Root[0m
+[0;32mI (275915) uart_to_node: Send: Start Root[0m
+[0;32mI (276435) uart_to_node: Send: Start Root[0m
+[0;32mI (276955) uart_to_node: Send: Start Root[0m
+[0;32mI (277475) uart_to_node: Send: Start Root[0m
+[0;32mI (277995) uart_to_node: Send: Start Root[0m
+[0;32mI (278515) uart_to_node: Send: Start Root[0m
+[0;32mI (279035) uart_to_node: Send: Start Root[0m
+[0;32mI (279555) uart_to_node: Send: Start Root[0m
+[0;32mI (280075) uart_to_node: Send: Start Root[0m
+[0;32mI (280595) uart_to_node: Send: Start Root[0m
+[0;32mI (281115) uart_to_node: Send: Start Root[0m
+[0;32mI (281635) uart_to_node: Send: Start Root[0m
+[0;32mI (282155) uart_to_node: Send: Start Root[0m
+[0;32mI (282675) uart_to_node: Send: Start Root[0m
+[0;32mI (283195) uart_to_node: Send: Start Root[0m
+[0;32mI (283715) uart_to_node: Send: Start Root[0m
+[0;32mI (284235) uart_to_node: Send: Start Root[0m
+[0;32mI (284755) uart_to_node: Send: Start Root[0m
+[0;32mI (285275) uart_to_node: Send: Start Root[0m
+[0;32mI (285795) uart_to_node: Send: Start Root[0m
+[0;32mI (286315) uart_to_node: Send: Start Root[0m
+[0;32mI (286835) uart_to_node: Send: Start Root[0m
+[0;32mI (287355) uart_to_node: Send: Start Root[0m
+[0;32mI (287875) uart_to_node: Send: Start Root[0m
+[0;32mI (288395) uart_to_node: Send: Start Root[0m
+[0;32mI (288915) uart_to_node: Send: Start Root[0m
+[0;32mI (289435) uart_to_node: Send: Start Root[0m
+[0;32mI (289955) uart_to_node: Send: Start Root[0m
+[0;32mI (290475) uart_to_node: Send: Start Root[0m
+[0;32mI (290995) uart_to_node: Send: Start Root[0m
+[0;32mI (291515) uart_to_node: Send: Start Root[0m
+[0;32mI (292035) uart_to_node: Send: Start Root[0m
+[0;32mI (292555) uart_to_node: Send: Start Root[0m
+[0;32mI (293075) uart_to_node: Send: Start Root[0m
+[0;32mI (293595) uart_to_node: Send: Start Root[0m
+[0;32mI (294115) uart_to_node: Send: Start Root[0m
+[0;32mI (294635) uart_to_node: Send: Start Root[0m
+[0;32mI (295155) uart_to_node: Send: Start Root[0m
+[0;32mI (295675) uart_to_node: Send: Start Root[0m
+[0;32mI (296195) uart_to_node: Send: Start Root[0m
+[0;32mI (296715) uart_to_node: Send: Start Root[0m
+[0;32mI (297235) uart_to_node: Send: Start Root[0m
+[0;32mI (297755) uart_to_node: Send: Start Root[0m
+[0;32mI (298275) uart_to_node: Send: Start Root[0m
+[0;32mI (298795) uart_to_node: Send: Start Root[0m
+[0;32mI (299315) uart_to_node: Send: Start Root[0m
+[0;32mI (299835) uart_to_node: Send: Start Root[0m
+[0;32mI (300355) uart_to_node: Send: Start Root[0m
+[0;32mI (300875) uart_to_node: Send: Start Root[0m
+[0;32mI (301395) uart_to_node: Send: Start Root[0m
+[0;32mI (301915) uart_to_node: Send: Start Root[0m
+[0;32mI (302435) uart_to_node: Send: Start Root[0m
+[0;32mI (302955) uart_to_node: Send: Start Root[0m
+[0;32mI (303475) uart_to_node: Send: Start Root[0m
+[0;32mI (303995) uart_to_node: Send: Start Root[0m
+[0;32mI (304515) uart_to_node: Send: Start Root[0m
+[0;32mI (305035) uart_to_node: Send: Start Root[0m
+[0;32mI (305555) uart_to_node: Send: Start Root[0m
+[0;32mI (306075) uart_to_node: Send: Start Root[0m
+[0;32mI (306595) uart_to_node: Send: Start Root[0m
+[0;32mI (307115) uart_to_node: Send: Start Root[0m
+[0;32mI (307635) uart_to_node: Send: Start Root[0m
+[0;32mI (308155) uart_to_node: Send: Start Root[0m
+[0;32mI (308675) uart_to_node: Send: Start Root[0m
+[0;32mI (309195) uart_to_node: Send: Start Root[0m
+[0;32mI (309715) uart_to_node: Send: Start Root[0m
+[0;32mI (310235) uart_to_node: Send: Start Root[0m
+[0;32mI (310755) uart_to_node: Send: Start Root[0m
+[0;32mI (311275) uart_to_node: Send: Start Root[0m
+[0;32mI (311795) uart_to_node: Send: Start Root[0m
+[0;32mI (312315) uart_to_node: Send: Start Root[0m
+[0;32mI (312835) uart_to_node: Send: Start Root[0m
+[0;32mI (313355) uart_to_node: Send: Start Root[0m
+[0;32mI (313875) uart_to_node: Send: Start Root[0m
+[0;32mI (314395) uart_to_node: Send: Start Root[0m
+[0;32mI (314915) uart_to_node: Send: Start Root[0m
+[0;32mI (315435) uart_to_node: Send: Start Root[0m
+[0;32mI (315955) uart_to_node: Send: Start Root[0m
+[0;32mI (316475) uart_to_node: Send: Start Root[0m
+[0;32mI (316995) uart_to_node: Send: Start Root[0m
+[0;32mI (317515) uart_to_node: Send: Start Root[0m
+[0;32mI (318035) uart_to_node: Send: Start Root[0m
+[0;32mI (318555) uart_to_node: Send: Start Root[0m
+[0;32mI (319075) uart_to_node: Send: Start Root[0m
+[0;32mI (319595) uart_to_node: Send: Start Root[0m
+[0;32mI (320115) uart_to_node: Send: Start Root[0m
+[0;32mI (320635) uart_to_node: Send: Start Root[0m
+[0;32mI (321155) uart_to_node: Send: Start Root[0m
+[0;32mI (321675) uart_to_node: Send: Start Root[0m
+[0;32mI (322195) uart_to_node: Send: Start Root[0m
+[0;32mI (322715) uart_to_node: Send: Start Root[0m
+[0;32mI (323235) uart_to_node: Send: Start Root[0m
+[0;32mI (323755) uart_to_node: Send: Start Root[0m
+[0;32mI (324275) uart_to_node: Send: Start Root[0m
+[0;32mI (324795) uart_to_node: Send: Start Root[0m
+[0;32mI (325315) uart_to_node: Send: Start Root[0m
+[0;32mI (325835) uart_to_node: Send: Start Root[0m
+[0;32mI (326355) uart_to_node: Send: Start Root[0m
+[0;32mI (326875) uart_to_node: Send: Start Root[0m
+[0;32mI (327395) uart_to_node: Send: Start Root[0m
+[0;32mI (327915) uart_to_node: Send: Start Root[0m
+[0;32mI (328435) uart_to_node: Send: Start Root[0m
+[0;32mI (328955) uart_to_node: Send: Start Root[0m
+[0;32mI (329475) uart_to_node: Send: Start Root[0m
+[0;32mI (329995) uart_to_node: Send: Start Root[0m
+[0;32mI (330515) uart_to_node: Send: Start Root[0m
+[0;32mI (331035) uart_to_node: Send: Start Root[0m
+[0;32mI (331555) uart_to_node: Send: Start Root[0m
+[0;32mI (332075) uart_to_node: Send: Start Root[0m
+[0;32mI (332595) uart_to_node: Send: Start Root[0m
+[0;32mI (333115) uart_to_node: Send: Start Root[0m
+[0;32mI (333635) uart_to_node: Send: Start Root[0m
+[0;32mI (334155) uart_to_node: Send: Start Root[0m
+[0;32mI (334675) uart_to_node: Send: Start Root[0m
+[0;32mI (335195) uart_to_node: Send: Start Root[0m
+[0;32mI (335715) uart_to_node: Send: Start Root[0m
+[0;32mI (336235) uart_to_node: Send: Start Root[0m
+[0;32mI (336755) uart_to_node: Send: Start Root[0m
+[0;32mI (337275) uart_to_node: Send: Start Root[0m
+[0;32mI (337795) uart_to_node: Send: Start Root[0m
+[0;32mI (338315) uart_to_node: Send: Start Root[0m
+[0;32mI (338835) uart_to_node: Send: Start Root[0m
+[0;32mI (339355) uart_to_node: Send: Start Root[0m
+[0;32mI (339875) uart_to_node: Send: Start Root[0m
+[0;32mI (340395) uart_to_node: Send: Start Root[0m
+[0;32mI (340915) uart_to_node: Send: Start Root[0m
+[0;32mI (341435) uart_to_node: Send: Start Root[0m
+[0;32mI (341955) uart_to_node: Send: Start Root[0m
+[0;32mI (342475) uart_to_node: Send: Start Root[0m
+[0;32mI (342995) uart_to_node: Send: Start Root[0m
+[0;32mI (343515) uart_to_node: Send: Start Root[0m
+[0;32mI (344035) uart_to_node: Send: Start Root[0m
+[0;32mI (344555) uart_to_node: Send: Start Root[0m
+[0;32mI (345075) uart_to_node: Send: Start Root[0m
+[0;32mI (345595) uart_to_node: Send: Start Root[0m
+[0;32mI (346115) uart_to_node: Send: Start Root[0m
+[0;32mI (346635) uart_to_node: Send: Start Root[0m
+[0;32mI (347155) uart_to_node: Send: Start Root[0m
+[0;32mI (347675) uart_to_node: Send: Start Root[0m
+[0;32mI (348195) uart_to_node: Send: Start Root[0m
+[0;32mI (348715) uart_to_node: Send: Start Root[0m
+[0;32mI (349235) uart_to_node: Send: Start Root[0m
+[0;32mI (349755) uart_to_node: Send: Start Root[0m
+[0;32mI (350275) uart_to_node: Send: Start Root[0m
+[0;32mI (350795) uart_to_node: Send: Start Root[0m
+[0;32mI (351315) uart_to_node: Send: Start Root[0m
+[0;32mI (351835) uart_to_node: Send: Start Root[0m
+[0;32mI (352355) uart_to_node: Send: Start Root[0m
+[0;32mI (352875) uart_to_node: Send: Start Root[0m
+[0;32mI (353395) uart_to_node: Send: Start Root[0m
+[0;32mI (353915) uart_to_node: Send: Start Root[0m
+[0;32mI (354435) uart_to_node: Send: Start Root[0m
+[0;32mI (354955) uart_to_node: Send: Start Root[0m
+[0;32mI (355475) uart_to_node: Send: Start Root[0m
+[0;32mI (355995) uart_to_node: Send: Start Root[0m
+[0;32mI (356515) uart_to_node: Send: Start Root[0m
+[0;32mI (357035) uart_to_node: Send: Start Root[0m
+[0;32mI (357555) uart_to_node: Send: Start Root[0m
+[0;32mI (358075) uart_to_node: Send: Start Root[0m
+[0;32mI (358595) uart_to_node: Send: Start Root[0m
+[0;32mI (359115) uart_to_node: Send: Start Root[0m
+[0;32mI (359635) uart_to_node: Send: Start Root[0m
+[0;32mI (360155) uart_to_node: Send: Start Root[0m
+[0;32mI (360675) uart_to_node: Send: Start Root[0m
+[0;32mI (361195) uart_to_node: Send: Start Root[0m
+[0;32mI (361715) uart_to_node: Send: Start Root[0m
+[0;32mI (362235) uart_to_node: Send: Start Root[0m
+[0;32mI (362755) uart_to_node: Send: Start Root[0m
+[0;32mI (363275) uart_to_node: Send: Start Root[0m
+[0;32mI (363795) uart_to_node: Send: Start Root[0m
+[0;32mI (364315) uart_to_node: Send: Start Root[0m
+[0;32mI (364835) uart_to_node: Send: Start Root[0m
+[0;32mI (365355) uart_to_node: Send: Start Root[0m
+[0;32mI (365875) uart_to_node: Send: Start Root[0m
+[0;32mI (366395) uart_to_node: Send: Start Root[0m
+[0;32mI (366915) uart_to_node: Send: Start Root[0m
+[0;32mI (367435) uart_to_node: Send: Start Root[0m
+[0;32mI (367955) uart_to_node: Send: Start Root[0m
+[0;32mI (368475) uart_to_node: Send: Start Root[0m
+[0;32mI (368995) uart_to_node: Send: Start Root[0m
+[0;32mI (369515) uart_to_node: Send: Start Root[0m
+[0;32mI (370035) uart_to_node: Send: Start Root[0m
+[0;32mI (370555) uart_to_node: Send: Start Root[0m
+[0;32mI (371075) uart_to_node: Send: Start Root[0m
+[0;32mI (371595) uart_to_node: Send: Start Root[0m
+[0;32mI (372115) uart_to_node: Send: Start Root[0m
+[0;32mI (372635) uart_to_node: Send: Start Root[0m
+[0;32mI (373155) uart_to_node: Send: Start Root[0m
+[0;32mI (373675) uart_to_node: Send: Start Root[0m
+[0;32mI (374195) uart_to_node: Send: Start Root[0m
+[0;32mI (374715) uart_to_node: Send: Start Root[0m
+[0;32mI (375235) uart_to_node: Send: Start Root[0m
+[0;32mI (375755) uart_to_node: Send: Start Root[0m
+[0;32mI (376275) uart_to_node: Send: Start Root[0m
+[0;32mI (376795) uart_to_node: Send: Start Root[0m
+[0;32mI (377315) uart_to_node: Send: Start Root[0m
+[0;32mI (377835) uart_to_node: Send: Start Root[0m
+[0;32mI (378355) uart_to_node: Send: Start Root[0m
+[0;32mI (378875) uart_to_node: Send: Start Root[0m
+[0;32mI (379395) uart_to_node: Send: Start Root[0m
+[0;32mI (379915) uart_to_node: Send: Start Root[0m
+[0;32mI (380435) uart_to_node: Send: Start Root[0m
+[0;32mI (380955) uart_to_node: Send: Start Root[0m
+[0;32mI (381475) uart_to_node: Send: Start Root[0m
+[0;32mI (381995) uart_to_node: Send: Start Root[0m
+[0;32mI (382515) uart_to_node: Send: Start Root[0m
+[0;32mI (383035) uart_to_node: Send: Start Root[0m
+[0;32mI (383555) uart_to_node: Send: Start Root[0m
+[0;32mI (384075) uart_to_node: Send: Start Root[0m
+[0;32mI (384595) uart_to_node: Send: Start Root[0m
+[0;32mI (385115) uart_to_node: Send: Start Root[0m
+[0;32mI (385635) uart_to_node: Send: Start Root[0m
+[0;32mI (386155) uart_to_node: Send: Start Root[0m
+[0;32mI (386675) uart_to_node: Send: Start Root[0m
+[0;32mI (387195) uart_to_node: Send: Start Root[0m
+[0;32mI (387715) uart_to_node: Send: Start Root[0m
+[0;32mI (388235) uart_to_node: Send: Start Root[0m
+[0;32mI (388755) uart_to_node: Send: Start Root[0m
+[0;32mI (389275) uart_to_node: Send: Start Root[0m
+[0;32mI (389795) uart_to_node: Send: Start Root[0m
+[0;32mI (390315) uart_to_node: Send: Start Root[0m
+[0;32mI (390835) uart_to_node: Send: Start Root[0m
+[0;32mI (391355) uart_to_node: Send: Start Root[0m
+[0;32mI (391875) uart_to_node: Send: Start Root[0m
+[0;32mI (392395) uart_to_node: Send: Start Root[0m
+[0;32mI (392915) uart_to_node: Send: Start Root[0m
+[0;32mI (393435) uart_to_node: Send: Start Root[0m
+[0;32mI (393955) uart_to_node: Send: Start Root[0m
+[0;32mI (394475) uart_to_node: Send: Start Root[0m
+[0;32mI (394995) uart_to_node: Send: Start Root[0m
+[0;32mI (395515) uart_to_node: Send: Start Root[0m
+[0;32mI (396035) uart_to_node: Send: Start Root[0m
+[0;32mI (396555) uart_to_node: Send: Start Root[0m
+[0;32mI (397075) uart_to_node: Send: Start Root[0m
+[0;32mI (397595) uart_to_node: Send: Start Root[0m
+[0;32mI (398115) uart_to_node: Send: Start Root[0m
+[0;32mI (398635) uart_to_node: Send: Start Root[0m
+[0;32mI (399155) uart_to_node: Send: Start Root[0m
+[0;32mI (399675) uart_to_node: Send: Start Root[0m
+[0;32mI (400195) uart_to_node: Send: Start Root[0m
+[0;32mI (400715) uart_to_node: Send: Start Root[0m
+[0;32mI (401235) uart_to_node: Send: Start Root[0m
+[0;32mI (401755) uart_to_node: Send: Start Root[0m
+[0;32mI (402275) uart_to_node: Send: Start Root[0m
+[0;32mI (402795) uart_to_node: Send: Start Root[0m
+[0;32mI (403315) uart_to_node: Send: Start Root[0m
+[0;32mI (403835) uart_to_node: Send: Start Root[0m
+[0;32mI (404355) uart_to_node: Send: Start Root[0m
+[0;32mI (404875) uart_to_node: Send: Start Root[0m
+[0;32mI (405395) uart_to_node: Send: Start Root[0m
+[0;32mI (405915) uart_to_node: Send: Start Root[0m
+[0;32mI (406435) uart_to_node: Send: Start Root[0m
+[0;32mI (406955) uart_to_node: Send: Start Root[0m
+[0;32mI (407475) uart_to_node: Send: Start Root[0m
+[0;32mI (407995) uart_to_node: Send: Start Root[0m
+[0;32mI (408515) uart_to_node: Send: Start Root[0m
+[0;32mI (409035) uart_to_node: Send: Start Root[0m
+[0;32mI (409555) uart_to_node: Send: Start Root[0m
+[0;32mI (410075) uart_to_node: Send: Start Root[0m
+[0;32mI (410595) uart_to_node: Send: Start Root[0m
+[0;32mI (411115) uart_to_node: Send: Start Root[0m
+[0;32mI (411635) uart_to_node: Send: Start Root[0m
+[0;32mI (412155) uart_to_node: Send: Start Root[0m
+[0;32mI (412675) uart_to_node: Send: Start Root[0m
+[0;32mI (413195) uart_to_node: Send: Start Root[0m
+[0;32mI (413715) uart_to_node: Send: Start Root[0m
+[0;32mI (414235) uart_to_node: Send: Start Root[0m
+[0;32mI (414755) uart_to_node: Send: Start Root[0m
+[0;32mI (415275) uart_to_node: Send: Start Root[0m
+[0;32mI (415795) uart_to_node: Send: Start Root[0m
+[0;32mI (416315) uart_to_node: Send: Start Root[0m
+[0;32mI (416835) uart_to_node: Send: Start Root[0m
+[0;32mI (417355) uart_to_node: Send: Start Root[0m
+[0;32mI (417875) uart_to_node: Send: Start Root[0m
+[0;32mI (418395) uart_to_node: Send: Start Root[0m
+[0;32mI (418915) uart_to_node: Send: Start Root[0m
+[0;32mI (419435) uart_to_node: Send: Start Root[0m
+[0;32mI (419955) uart_to_node: Send: Start Root[0m
+[0;32mI (420475) uart_to_node: Send: Start Root[0m
+[0;32mI (420995) uart_to_node: Send: Start Root[0m
+[0;32mI (421515) uart_to_node: Send: Start Root[0m
+[0;32mI (422035) uart_to_node: Send: Start Root[0m
+[0;32mI (422555) uart_to_node: Send: Start Root[0m
+[0;32mI (423075) uart_to_node: Send: Start Root[0m
+[0;32mI (423595) uart_to_node: Send: Start Root[0m
+[0;32mI (424115) uart_to_node: Send: Start Root[0m
+[0;32mI (424635) uart_to_node: Send: Start Root[0m
+[0;32mI (425155) uart_to_node: Send: Start Root[0m
+[0;32mI (425675) uart_to_node: Send: Start Root[0m
+[0;32mI (426195) uart_to_node: Send: Start Root[0m
+[0;32mI (426715) uart_to_node: Send: Start Root[0m
+[0;32mI (427235) uart_to_node: Send: Start Root[0m
+[0;32mI (427755) uart_to_node: Send: Start Root[0m
+[0;32mI (428275) uart_to_node: Send: Start Root[0m
+[0;32mI (428795) uart_to_node: Send: Start Root[0m
+[0;32mI (429315) uart_to_node: Send: Start Root[0m
+[0;32mI (429835) uart_to_node: Send: Start Root[0m
+[0;32mI (430355) uart_to_node: Send: Start Root[0m
+[0;32mI (430875) uart_to_node: Send: Start Root[0m
+[0;32mI (431395) uart_to_node: Send: Start Root[0m
+[0;32mI (431915) uart_to_node: Send: Start Root[0m
+[0;32mI (432435) uart_to_node: Send: Start Root[0m
+[0;32mI (432955) uart_to_node: Send: Start Root[0m
+[0;32mI (433475) uart_to_node: Send: Start Root[0m
+[0;32mI (433995) uart_to_node: Send: Start Root[0m
+[0;32mI (434515) uart_to_node: Send: Start Root[0m
+[0;32mI (435035) uart_to_node: Send: Start Root[0m
+[0;32mI (435555) uart_to_node: Send: Start Root[0m
+[0;32mI (436075) uart_to_node: Send: Start Root[0m
+[0;32mI (436595) uart_to_node: Send: Start Root[0m
+[0;32mI (437115) uart_to_node: Send: Start Root[0m
+[0;32mI (437635) uart_to_node: Send: Start Root[0m
+[0;32mI (438155) uart_to_node: Send: Start Root[0m
+[0;32mI (438675) uart_to_node: Send: Start Root[0m
+[0;32mI (439195) uart_to_node: Send: Start Root[0m
+[0;32mI (439715) uart_to_node: Send: Start Root[0m
+[0;32mI (440235) uart_to_node: Send: Start Root[0m
+[0;32mI (440755) uart_to_node: Send: Start Root[0m
+[0;32mI (441275) uart_to_node: Send: Start Root[0m
+[0;32mI (441795) uart_to_node: Send: Start Root[0m
+[0;32mI (442315) uart_to_node: Send: Start Root[0m
+[0;32mI (442835) uart_to_node: Send: Start Root[0m
+[0;32mI (443355) uart_to_node: Send: Start Root[0m
+[0;32mI (443875) uart_to_node: Send: Start Root[0m
+[0;32mI (444395) uart_to_node: Send: Start Root[0m
+[0;32mI (444915) uart_to_node: Send: Start Root[0m
+[0;32mI (445435) uart_to_node: Send: Start Root[0m
+[0;32mI (445955) uart_to_node: Send: Start Root[0m
+[0;32mI (446475) uart_to_node: Send: Start Root[0m
+[0;32mI (446995) uart_to_node: Send: Start Root[0m
+[0;32mI (447515) uart_to_node: Send: Start Root[0m
+[0;32mI (448035) uart_to_node: Send: Start Root[0m
+[0;32mI (448555) uart_to_node: Send: Start Root[0m
+[0;32mI (449075) uart_to_node: Send: Start Root[0m
+[0;32mI (449595) uart_to_node: Send: Start Root[0m
+[0;32mI (450115) uart_to_node: Send: Start Root[0m
+[0;32mI (450635) uart_to_node: Send: Start Root[0m
+[0;32mI (451155) uart_to_node: Send: Start Root[0m
+[0;32mI (451675) uart_to_node: Send: Start Root[0m
+[0;32mI (452195) uart_to_node: Send: Start Root[0m
+[0;32mI (452715) uart_to_node: Send: Start Root[0m
+[0;32mI (453235) uart_to_node: Send: Start Root[0m
+[0;32mI (453755) uart_to_node: Send: Start Root[0m
+[0;32mI (454275) uart_to_node: Send: Start Root[0m
+[0;32mI (454795) uart_to_node: Send: Start Root[0m
+[0;32mI (455315) uart_to_node: Send: Start Root[0m
+[0;32mI (455835) uart_to_node: Send: Start Root[0m
+[0;32mI (456355) uart_to_node: Send: Start Root[0m
+[0;32mI (456875) uart_to_node: Send: Start Root[0m
+[0;32mI (457395) uart_to_node: Send: Start Root[0m
+[0;32mI (457915) uart_to_node: Send: Start Root[0m
+[0;32mI (458435) uart_to_node: Send: Start Root[0m
+[0;32mI (458955) uart_to_node: Send: Start Root[0m
+[0;32mI (459475) uart_to_node: Send: Start Root[0m
+[0;32mI (459995) uart_to_node: Send: Start Root[0m
+[0;32mI (460515) uart_to_node: Send: Start Root[0m
+[0;32mI (461035) uart_to_node: Send: Start Root[0m
+[0;32mI (461555) uart_to_node: Send: Start Root[0m
+[0;32mI (462075) uart_to_node: Send: Start Root[0m
+[0;32mI (462595) uart_to_node: Send: Start Root[0m
+[0;32mI (463115) uart_to_node: Send: Start Root[0m
+[0;32mI (463635) uart_to_node: Send: Start Root[0m
+[0;32mI (464155) uart_to_node: Send: Start Root[0m
+[0;32mI (464675) uart_to_node: Send: Start Root[0m
+[0;32mI (465195) uart_to_node: Send: Start Root[0m
+[0;32mI (465715) uart_to_node: Send: Start Root[0m
+[0;32mI (466235) uart_to_node: Send: Start Root[0m
+[0;32mI (466755) uart_to_node: Send: Start Root[0m
+[0;32mI (467275) uart_to_node: Send: Start Root[0m
+[0;32mI (467795) uart_to_node: Send: Start Root[0m
+[0;32mI (468315) uart_to_node: Send: Start Root[0m
+[0;32mI (468835) uart_to_node: Send: Start Root[0m
+[0;32mI (469355) uart_to_node: Send: Start Root[0m
+[0;32mI (469875) uart_to_node: Send: Start Root[0m
+[0;32mI (470395) uart_to_node: Send: Start Root[0m
+[0;32mI (470915) uart_to_node: Send: Start Root[0m
+[0;32mI (471435) uart_to_node: Send: Start Root[0m
+[0;32mI (471955) uart_to_node: Send: Start Root[0m
+[0;32mI (472475) uart_to_node: Send: Start Root[0m
+[0;32mI (472995) uart_to_node: Send: Start Root[0m
+[0;32mI (473515) uart_to_node: Send: Start Root[0m
+[0;32mI (474035) uart_to_node: Send: Start Root[0m
+[0;32mI (474555) uart_to_node: Send: Start Root[0m
+[0;32mI (475075) uart_to_node: Send: Start Root[0m
+[0;32mI (475595) uart_to_node: Send: Start Root[0m
+[0;32mI (476115) uart_to_node: Send: Start Root[0m
+[0;32mI (476635) uart_to_node: Send: Start Root[0m
+[0;32mI (477155) uart_to_node: Send: Start Root[0m
+[0;32mI (477675) uart_to_node: Send: Start Root[0m
+[0;32mI (478195) uart_to_node: Send: Start Root[0m
+[0;32mI (478715) uart_to_node: Send: Start Root[0m
+[0;32mI (479235) uart_to_node: Send: Start Root[0m
+[0;32mI (479755) uart_to_node: Send: Start Root[0m
+[0;32mI (480275) uart_to_node: Send: Start Root[0m
+[0;32mI (480795) uart_to_node: Send: Start Root[0m
+[0;32mI (481315) uart_to_node: Send: Start Root[0m
+[0;32mI (481835) uart_to_node: Send: Start Root[0m
+[0;32mI (482355) uart_to_node: Send: Start Root[0m
+[0;32mI (482875) uart_to_node: Send: Start Root[0m
+[0;32mI (483395) uart_to_node: Send: Start Root[0m
+[0;32mI (483915) uart_to_node: Send: Start Root[0m
+[0;32mI (484435) uart_to_node: Send: Start Root[0m
+[0;32mI (484955) uart_to_node: Send: Start Root[0m
+[0;32mI (485475) uart_to_node: Send: Start Root[0m
+[0;32mI (485995) uart_to_node: Send: Start Root[0m
+[0;32mI (486515) uart_to_node: Send: Start Root[0m
+[0;32mI (487035) uart_to_node: Send: Start Root[0m
+[0;32mI (487555) uart_to_node: Send: Start Root[0m
+[0;32mI (488075) uart_to_node: Send: Start Root[0m
+[0;32mI (488595) uart_to_node: Send: Start Root[0m
+[0;32mI (489115) uart_to_node: Send: Start Root[0m
+[0;32mI (489635) uart_to_node: Send: Start Root[0m
+[0;32mI (490155) uart_to_node: Send: Start Root[0m
+[0;32mI (490675) uart_to_node: Send: Start Root[0m
+[0;32mI (491195) uart_to_node: Send: Start Root[0m
+[0;32mI (491715) uart_to_node: Send: Start Root[0m
+[0;32mI (492235) uart_to_node: Send: Start Root[0m
+[0;32mI (492755) uart_to_node: Send: Start Root[0m
+[0;32mI (493275) uart_to_node: Send: Start Root[0m
+[0;32mI (493795) uart_to_node: Send: Start Root[0m
+[0;32mI (494315) uart_to_node: Send: Start Root[0m
+[0;32mI (494835) uart_to_node: Send: Start Root[0m
+[0;32mI (495355) uart_to_node: Send: Start Root[0m
+[0;32mI (495875) uart_to_node: Send: Start Root[0m
+[0;32mI (496395) uart_to_node: Send: Start Root[0m
+[0;32mI (496915) uart_to_node: Send: Start Root[0m
+[0;32mI (497435) uart_to_node: Send: Start Root[0m
+[0;32mI (497955) uart_to_node: Send: Start Root[0m
+[0;32mI (498475) uart_to_node: Send: Start Root[0m
+[0;32mI (498995) uart_to_node: Send: Start Root[0m
+[0;32mI (499515) uart_to_node: Send: Start Root[0m
+[0;32mI (500035) uart_to_node: Send: Start Root[0m
+[0;32mI (500555) uart_to_node: Send: Start Root[0m
+[0;32mI (501075) uart_to_node: Send: Start Root[0m
+[0;32mI (501595) uart_to_node: Send: Start Root[0m
+[0;32mI (502115) uart_to_node: Send: Start Root[0m
+[0;32mI (502635) uart_to_node: Send: Start Root[0m
+[0;32mI (503155) uart_to_node: Send: Start Root[0m
+[0;32mI (503675) uart_to_node: Send: Start Root[0m
+[0;32mI (504195) uart_to_node: Send: Start Root[0m
+[0;32mI (504715) uart_to_node: Send: Start Root[0m
+[0;32mI (505235) uart_to_node: Send: Start Root[0m
+[0;32mI (505755) uart_to_node: Send: Start Root[0m
+[0;32mI (506275) uart_to_node: Send: Start Root[0m
+[0;32mI (506795) uart_to_node: Send: Start Root[0m
+[0;32mI (507315) uart_to_node: Send: Start Root[0m
+[0;32mI (507835) uart_to_node: Send: Start Root[0m
+[0;32mI (508355) uart_to_node: Send: Start Root[0m
+[0;32mI (508875) uart_to_node: Send: Start Root[0m
+[0;32mI (509395) uart_to_node: Send: Start Root[0m
+[0;32mI (509915) uart_to_node: Send: Start Root[0m
+[0;32mI (510435) uart_to_node: Send: Start Root[0m
+[0;32mI (510955) uart_to_node: Send: Start Root[0m
+[0;32mI (511475) uart_to_node: Send: Start Root[0m
+[0;32mI (511995) uart_to_node: Send: Start Root[0m
+[0;32mI (512515) uart_to_node: Send: Start Root[0m
+[0;32mI (513035) uart_to_node: Send: Start Root[0m
+[0;32mI (513555) uart_to_node: Send: Start Root[0m
+[0;32mI (514075) uart_to_node: Send: Start Root[0m
+[0;32mI (514595) uart_to_node: Send: Start Root[0m
+[0;32mI (515115) uart_to_node: Send: Start Root[0m
+[0;32mI (515635) uart_to_node: Send: Start Root[0m
+[0;32mI (516155) uart_to_node: Send: Start Root[0m
+[0;32mI (516675) uart_to_node: Send: Start Root[0m
+[0;32mI (517195) uart_to_node: Send: Start Root[0m
+[0;32mI (517715) uart_to_node: Send: Start Root[0m
+[0;32mI (518235) uart_to_node: Send: Start Root[0m
+[0;32mI (518755) uart_to_node: Send: Start Root[0m
+[0;32mI (519275) uart_to_node: Send: Start Root[0m
+[0;32mI (519795) uart_to_node: Send: Start Root[0m
+[0;32mI (520315) uart_to_node: Send: Start Root[0m
+[0;32mI (520835) uart_to_node: Send: Start Root[0m
+[0;32mI (521355) uart_to_node: Send: Start Root[0m
+[0;32mI (521875) uart_to_node: Send: Start Root[0m
+[0;32mI (522395) uart_to_node: Send: Start Root[0m
+[0;32mI (522915) uart_to_node: Send: Start Root[0m
+[0;32mI (523435) uart_to_node: Send: Start Root[0m
+[0;32mI (523955) uart_to_node: Send: Start Root[0m
+[0;32mI (524475) uart_to_node: Send: Start Root[0m
+[0;32mI (524995) uart_to_node: Send: Start Root[0m
+[0;32mI (525515) uart_to_node: Send: Start Root[0m
+[0;32mI (526035) uart_to_node: Send: Start Root[0m
+[0;32mI (526555) uart_to_node: Send: Start Root[0m
+[0;32mI (527075) uart_to_node: Send: Start Root[0m
+[0;32mI (527595) uart_to_node: Send: Start Root[0m
+[0;32mI (528115) uart_to_node: Send: Start Root[0m
+[0;32mI (528635) uart_to_node: Send: Start Root[0m
+[0;32mI (529155) uart_to_node: Send: Start Root[0m
+[0;32mI (529675) uart_to_node: Send: Start Root[0m
+[0;32mI (530195) uart_to_node: Send: Start Root[0m
+[0;32mI (530715) uart_to_node: Send: Start Root[0m
+[0;32mI (531235) uart_to_node: Send: Start Root[0m
+[0;32mI (531755) uart_to_node: Send: Start Root[0m
+[0;32mI (532275) uart_to_node: Send: Start Root[0m
+[0;32mI (532795) uart_to_node: Send: Start Root[0m
+[0;32mI (533315) uart_to_node: Send: Start Root[0m
+[0;32mI (533835) uart_to_node: Send: Start Root[0m
+[0;32mI (534355) uart_to_node: Send: Start Root[0m
+[0;32mI (534875) uart_to_node: Send: Start Root[0m
+[0;32mI (535395) uart_to_node: Send: Start Root[0m
+[0;32mI (535915) uart_to_node: Send: Start Root[0m
+[0;32mI (536435) uart_to_node: Send: Start Root[0m
+[0;32mI (536955) uart_to_node: Send: Start Root[0m
+[0;32mI (537475) uart_to_node: Send: Start Root[0m
+[0;32mI (537995) uart_to_node: Send: Start Root[0m
+[0;32mI (538515) uart_to_node: Send: Start Root[0m
+[0;32mI (539035) uart_to_node: Send: Start Root[0m
+[0;32mI (539555) uart_to_node: Send: Start Root[0m
+[0;32mI (540075) uart_to_node: Send: Start Root[0m
+[0;32mI (540595) uart_to_node: Send: Start Root[0m
+[0;32mI (541115) uart_to_node: Send: Start Root[0m
+[0;32mI (541635) uart_to_node: Send: Start Root[0m
+[0;32mI (542155) uart_to_node: Send: Start Root[0m
+[0;32mI (542675) uart_to_node: Send: Start Root[0m
+[0;32mI (543195) uart_to_node: Send: Start Root[0m
+[0;32mI (543715) uart_to_node: Send: Start Root[0m
+[0;32mI (544235) uart_to_node: Send: Start Root[0m
+[0;32mI (544755) uart_to_node: Send: Start Root[0m
+[0;32mI (545275) uart_to_node: Send: Start Root[0m
+[0;32mI (545795) uart_to_node: Send: Start Root[0m
+[0;32mI (546315) uart_to_node: Send: Start Root[0m
+[0;32mI (546835) uart_to_node: Send: Start Root[0m
+[0;32mI (547355) uart_to_node: Send: Start Root[0m
+[0;32mI (547875) uart_to_node: Send: Start Root[0m
+[0;32mI (548395) uart_to_node: Send: Start Root[0m
+[0;32mI (548915) uart_to_node: Send: Start Root[0m
+[0;32mI (549435) uart_to_node: Send: Start Root[0m
+[0;32mI (549955) uart_to_node: Send: Start Root[0m
+[0;32mI (550475) uart_to_node: Send: Start Root[0m
+[0;32mI (550995) uart_to_node: Send: Start Root[0m
+[0;32mI (551515) uart_to_node: Send: Start Root[0m
+[0;32mI (552035) uart_to_node: Send: Start Root[0m
+[0;32mI (552555) uart_to_node: Send: Start Root[0m
+[0;32mI (553075) uart_to_node: Send: Start Root[0m
+[0;32mI (553595) uart_to_node: Send: Start Root[0m
+[0;32mI (554115) uart_to_node: Send: Start Root[0m
+[0;32mI (554635) uart_to_node: Send: Start Root[0m
+[0;32mI (555155) uart_to_node: Send: Start Root[0m
+[0;32mI (555675) uart_to_node: Send: Start Root[0m
+[0;32mI (556195) uart_to_node: Send: Start Root[0m
+[0;32mI (556715) uart_to_node: Send: Start Root[0m
+[0;32mI (557235) uart_to_node: Send: Start Root[0m
+[0;32mI (557755) uart_to_node: Send: Start Root[0m
+[0;32mI (558275) uart_to_node: Send: Start Root[0m
+[0;32mI (558795) uart_to_node: Send: Start Root[0m
+[0;32mI (559315) uart_to_node: Send: Start Root[0m
+[0;32mI (559835) uart_to_node: Send: Start Root[0m
+[0;32mI (560355) uart_to_node: Send: Start Root[0m
+[0;32mI (560875) uart_to_node: Send: Start Root[0m
+[0;32mI (561395) uart_to_node: Send: Start Root[0m
+[0;32mI (561915) uart_to_node: Send: Start Root[0m
+[0;32mI (562435) uart_to_node: Send: Start Root[0m
+[0;32mI (562955) uart_to_node: Send: Start Root[0m
+[0;32mI (563475) uart_to_node: Send: Start Root[0m
+[0;32mI (563995) uart_to_node: Send: Start Root[0m
+[0;32mI (564515) uart_to_node: Send: Start Root[0m
+[0;32mI (565035) uart_to_node: Send: Start Root[0m
+[0;32mI (565555) uart_to_node: Send: Start Root[0m
+[0;32mI (566075) uart_to_node: Send: Start Root[0m
+[0;32mI (566595) uart_to_node: Send: Start Root[0m
+[0;32mI (567115) uart_to_node: Send: Start Root[0m
+[0;32mI (567635) uart_to_node: Send: Start Root[0m
+[0;32mI (568155) uart_to_node: Send: Start Root[0m
+[0;32mI (568675) uart_to_node: Send: Start Root[0m
+[0;32mI (569195) uart_to_node: Send: Start Root[0m
+[0;32mI (569715) uart_to_node: Send: Start Root[0m
+[0;32mI (570235) uart_to_node: Send: Start Root[0m
+[0;32mI (570755) uart_to_node: Send: Start Root[0m
+[0;32mI (571275) uart_to_node: Send: Start Root[0m
+[0;32mI (571795) uart_to_node: Send: Start Root[0m
+[0;32mI (572315) uart_to_node: Send: Start Root[0m
+[0;32mI (572835) uart_to_node: Send: Start Root[0m
+[0;32mI (573355) uart_to_node: Send: Start Root[0m
+[0;32mI (573875) uart_to_node: Send: Start Root[0m
+[0;32mI (574395) uart_to_node: Send: Start Root[0m
+[0;32mI (574915) uart_to_node: Send: Start Root[0m
+[0;32mI (575435) uart_to_node: Send: Start Root[0m
+[0;32mI (575955) uart_to_node: Send: Start Root[0m
+[0;32mI (576475) uart_to_node: Send: Start Root[0m
+[0;32mI (576995) uart_to_node: Send: Start Root[0m
+[0;32mI (577515) uart_to_node: Send: Start Root[0m
+[0;32mI (578035) uart_to_node: Send: Start Root[0m
+[0;32mI (578555) uart_to_node: Send: Start Root[0m
+[0;32mI (579075) uart_to_node: Send: Start Root[0m
+[0;32mI (579595) uart_to_node: Send: Start Root[0m
+[0;32mI (580115) uart_to_node: Send: Start Root[0m
+[0;32mI (580635) uart_to_node: Send: Start Root[0m
+[0;32mI (581155) uart_to_node: Send: Start Root[0m
+[0;32mI (581675) uart_to_node: Send: Start Root[0m
+[0;32mI (582195) uart_to_node: Send: Start Root[0m
+[0;32mI (582715) uart_to_node: Send: Start Root[0m
+[0;32mI (583235) uart_to_node: Send: Start Root[0m
+[0;32mI (583755) uart_to_node: Send: Start Root[0m
+[0;32mI (584275) uart_to_node: Send: Start Root[0m
+[0;32mI (584795) uart_to_node: Send: Start Root[0m
+[0;32mI (585315) uart_to_node: Send: Start Root[0m
+[0;32mI (585835) uart_to_node: Send: Start Root[0m
+[0;32mI (586355) uart_to_node: Send: Start Root[0m
+[0;32mI (586875) uart_to_node: Send: Start Root[0m
+[0;32mI (587395) uart_to_node: Send: Start Root[0m
+[0;32mI (587915) uart_to_node: Send: Start Root[0m
+[0;32mI (588435) uart_to_node: Send: Start Root[0m
+[0;32mI (588955) uart_to_node: Send: Start Root[0m
+[0;32mI (589475) uart_to_node: Send: Start Root[0m
+[0;32mI (589995) uart_to_node: Send: Start Root[0m
+[0;32mI (590515) uart_to_node: Send: Start Root[0m
+[0;32mI (591035) uart_to_node: Send: Start Root[0m
+[0;32mI (591555) uart_to_node: Send: Start Root[0m
+[0;32mI (592075) uart_to_node: Send: Start Root[0m
+[0;32mI (592595) uart_to_node: Send: Start Root[0m
+[0;32mI (593115) uart_to_node: Send: Start Root[0m
+[0;32mI (593635) uart_to_node: Send: Start Root[0m
+[0;32mI (594155) uart_to_node: Send: Start Root[0m
+[0;32mI (594675) uart_to_node: Send: Start Root[0m
+[0;32mI (595195) uart_to_node: Send: Start Root[0m
+[0;32mI (595715) uart_to_node: Send: Start Root[0m
+[0;32mI (596235) uart_to_node: Send: Start Root[0m
+[0;32mI (596755) uart_to_node: Send: Start Root[0m
+[0;32mI (597275) uart_to_node: Send: Start Root[0m
+[0;32mI (597795) uart_to_node: Send: Start Root[0m
+[0;32mI (598315) uart_to_node: Send: Start Root[0m
+[0;32mI (598835) uart_to_node: Send: Start Root[0m
+[0;32mI (599355) uart_to_node: Send: Start Root[0m
+[0;32mI (599875) uart_to_node: Send: Start Root[0m
+[0;32mI (600395) uart_to_node: Send: Start Root[0m
+[0;32mI (600915) uart_to_node: Send: Start Root[0m
+[0;32mI (601435) uart_to_node: Send: Start Root[0m
+[0;32mI (601955) uart_to_node: Send: Start Root[0m
+[0;32mI (602475) uart_to_node: Send: Start Root[0m
+[0;32mI (602995) uart_to_node: Send: Start Root[0m
+[0;32mI (603515) uart_to_node: Send: Start Root[0m
+[0;32mI (604035) uart_to_node: Send: Start Root[0m
+[0;32mI (604555) uart_to_node: Send: Start Root[0m
+[0;32mI (605075) uart_to_node: Send: Start Root[0m
+[0;32mI (605595) uart_to_node: Send: Start Root[0m
+[0;32mI (606115) uart_to_node: Send: Start Root[0m
+[0;32mI (606635) uart_to_node: Send: Start Root[0m
+[0;32mI (607155) uart_to_node: Send: Start Root[0m
+[0;32mI (607675) uart_to_node: Send: Start Root[0m
+[0;32mI (608195) uart_to_node: Send: Start Root[0m
+[0;32mI (608715) uart_to_node: Send: Start Root[0m
+[0;32mI (609235) uart_to_node: Send: Start Root[0m
+[0;32mI (609755) uart_to_node: Send: Start Root[0m
+[0;32mI (610275) uart_to_node: Send: Start Root[0m
+[0;32mI (610795) uart_to_node: Send: Start Root[0m
+[0;32mI (611315) uart_to_node: Send: Start Root[0m
+[0;32mI (611835) uart_to_node: Send: Start Root[0m
+[0;32mI (612355) uart_to_node: Send: Start Root[0m
+[0;32mI (612875) uart_to_node: Send: Start Root[0m
+[0;32mI (613395) uart_to_node: Send: Start Root[0m
+[0;32mI (613915) uart_to_node: Send: Start Root[0m
+[0;32mI (614435) uart_to_node: Send: Start Root[0m
+[0;32mI (614955) uart_to_node: Send: Start Root[0m
+[0;32mI (615475) uart_to_node: Send: Start Root[0m
+[0;32mI (615995) uart_to_node: Send: Start Root[0m
+[0;32mI (616515) uart_to_node: Send: Start Root[0m
+[0;32mI (617035) uart_to_node: Send: Start Root[0m
+[0;32mI (617555) uart_to_node: Send: Start Root[0m
+[0;32mI (618075) uart_to_node: Send: Start Root[0m
+[0;32mI (618595) uart_to_node: Send: Start Root[0m
+[0;32mI (619115) uart_to_node: Send: Start Root[0m
+[0;32mI (619635) uart_to_node: Send: Start Root[0m
+[0;32mI (620155) uart_to_node: Send: Start Root[0m
+[0;32mI (620675) uart_to_node: Send: Start Root[0m
+[0;32mI (621195) uart_to_node: Send: Start Root[0m
+[0;32mI (621715) uart_to_node: Send: Start Root[0m
+[0;32mI (622235) uart_to_node: Send: Start Root[0m
+[0;32mI (622755) uart_to_node: Send: Start Root[0m
+[0;32mI (623275) uart_to_node: Send: Start Root[0m
+[0;32mI (623795) uart_to_node: Send: Start Root[0m
+[0;32mI (624315) uart_to_node: Send: Start Root[0m
+[0;32mI (624835) uart_to_node: Send: Start Root[0m
+[0;32mI (625355) uart_to_node: Send: Start Root[0m
+[0;32mI (625875) uart_to_node: Send: Start Root[0m
+[0;32mI (626395) uart_to_node: Send: Start Root[0m
+[0;32mI (626915) uart_to_node: Send: Start Root[0m
+[0;32mI (627435) uart_to_node: Send: Start Root[0m
+[0;32mI (627955) uart_to_node: Send: Start Root[0m
+[0;32mI (628475) uart_to_node: Send: Start Root[0m
+[0;32mI (628995) uart_to_node: Send: Start Root[0m
+[0;32mI (629515) uart_to_node: Send: Start Root[0m
+[0;32mI (630035) uart_to_node: Send: Start Root[0m
+[0;32mI (630555) uart_to_node: Send: Start Root[0m
+[0;32mI (631075) uart_to_node: Send: Start Root[0m
+[0;32mI (631595) uart_to_node: Send: Start Root[0m
+[0;32mI (632115) uart_to_node: Send: Start Root[0m
+[0;32mI (632635) uart_to_node: Send: Start Root[0m
+[0;32mI (633155) uart_to_node: Send: Start Root[0m
+[0;32mI (633675) uart_to_node: Send: Start Root[0m
+[0;32mI (634195) uart_to_node: Send: Start Root[0m
+[0;32mI (634715) uart_to_node: Send: Start Root[0m
+[0;32mI (635235) uart_to_node: Send: Start Root[0m
+[0;32mI (635755) uart_to_node: Send: Start Root[0m
+[0;32mI (636275) uart_to_node: Send: Start Root[0m
+[0;32mI (636795) uart_to_node: Send: Start Root[0m
+[0;32mI (637315) uart_to_node: Send: Start Root[0m
+[0;32mI (637835) uart_to_node: Send: Start Root[0m
+[0;32mI (638355) uart_to_node: Send: Start Root[0m
+[0;32mI (638875) uart_to_node: Send: Start Root[0m
+[0;32mI (639395) uart_to_node: Send: Start Root[0m
+[0;32mI (639915) uart_to_node: Send: Start Root[0m
+[0;32mI (640435) uart_to_node: Send: Start Root[0m
+[0;32mI (640955) uart_to_node: Send: Start Root[0m
+[0;32mI (641475) uart_to_node: Send: Start Root[0m
+[0;32mI (641995) uart_to_node: Send: Start Root[0m
+[0;32mI (642515) uart_to_node: Send: Start Root[0m
+[0;32mI (643035) uart_to_node: Send: Start Root[0m
+[0;32mI (643555) uart_to_node: Send: Start Root[0m
+[0;32mI (644075) uart_to_node: Send: Start Root[0m
+[0;32mI (644595) uart_to_node: Send: Start Root[0m
+[0;32mI (645115) uart_to_node: Send: Start Root[0m
+[0;32mI (645635) uart_to_node: Send: Start Root[0m
+[0;32mI (646155) uart_to_node: Send: Start Root[0m
+[0;32mI (646675) uart_to_node: Send: Start Root[0m
+[0;32mI (647195) uart_to_node: Send: Start Root[0m
+[0;32mI (647715) uart_to_node: Send: Start Root[0m
+[0;32mI (648235) uart_to_node: Send: Start Root[0m
+[0;32mI (648755) uart_to_node: Send: Start Root[0m
+[0;32mI (649275) uart_to_node: Send: Start Root[0m
+[0;32mI (649795) uart_to_node: Send: Start Root[0m
+[0;32mI (650315) uart_to_node: Send: Start Root[0m
+[0;32mI (650835) uart_to_node: Send: Start Root[0m
+[0;32mI (651355) uart_to_node: Send: Start Root[0m
+[0;32mI (651875) uart_to_node: Send: Start Root[0m
+[0;32mI (652395) uart_to_node: Send: Start Root[0m
+[0;32mI (652915) uart_to_node: Send: Start Root[0m
+[0;32mI (653435) uart_to_node: Send: Start Root[0m
+[0;32mI (653955) uart_to_node: Send: Start Root[0m
+[0;32mI (654475) uart_to_node: Send: Start Root[0m
+[0;32mI (654995) uart_to_node: Send: Start Root[0m
+[0;32mI (655515) uart_to_node: Send: Start Root[0m
+[0;32mI (656035) uart_to_node: Send: Start Root[0m
+[0;32mI (656555) uart_to_node: Send: Start Root[0m
+[0;32mI (657075) uart_to_node: Send: Start Root[0m
+[0;32mI (657595) uart_to_node: Send: Start Root[0m
+[0;32mI (658115) uart_to_node: Send: Start Root[0m
+[0;32mI (658635) uart_to_node: Send: Start Root[0m
+[0;32mI (659155) uart_to_node: Send: Start Root[0m
+[0;32mI (659675) uart_to_node: Send: Start Root[0m
+[0;32mI (660195) uart_to_node: Send: Start Root[0m
+[0;32mI (660715) uart_to_node: Send: Start Root[0m
+[0;32mI (661235) uart_to_node: Send: Start Root[0m
+[0;32mI (661755) uart_to_node: Send: Start Root[0m
+[0;32mI (662275) uart_to_node: Send: Start Root[0m
+[0;32mI (662795) uart_to_node: Send: Start Root[0m
+[0;32mI (663315) uart_to_node: Send: Start Root[0m
+[0;32mI (663835) uart_to_node: Send: Start Root[0m
+[0;32mI (664355) uart_to_node: Send: Start Root[0m
+[0;32mI (664875) uart_to_node: Send: Start Root[0m
+[0;32mI (665395) uart_to_node: Send: Start Root[0m
+[0;32mI (665915) uart_to_node: Send: Start Root[0m
+[0;32mI (666435) uart_to_node: Send: Start Root[0m
+[0;32mI (666955) uart_to_node: Send: Start Root[0m
+[0;32mI (667475) uart_to_node: Send: Start Root[0m
+[0;32mI (667995) uart_to_node: Send: Start Root[0m
+[0;32mI (668515) uart_to_node: Send: Start Root[0m
+[0;32mI (669035) uart_to_node: Send: Start Root[0m
+[0;32mI (669555) uart_to_node: Send: Start Root[0m
+[0;32mI (670075) uart_to_node: Send: Start Root[0m
+[0;32mI (670595) uart_to_node: Send: Start Root[0m
+[0;32mI (671115) uart_to_node: Send: Start Root[0m
+[0;32mI (671635) uart_to_node: Send: Start Root[0m
+[0;32mI (672155) uart_to_node: Send: Start Root[0m
+[0;32mI (672675) uart_to_node: Send: Start Root[0m
+[0;32mI (673195) uart_to_node: Send: Start Root[0m
+[0;32mI (673715) uart_to_node: Send: Start Root[0m
+[0;32mI (674235) uart_to_node: Send: Start Root[0m
+[0;32mI (674755) uart_to_node: Send: Start Root[0m
+[0;32mI (675275) uart_to_node: Send: Start Root[0m
+[0;32mI (675795) uart_to_node: Send: Start Root[0m
+[0;32mI (676315) uart_to_node: Send: Start Root[0m
+[0;32mI (676835) uart_to_node: Send: Start Root[0m
+[0;32mI (677355) uart_to_node: Send: Start Root[0m
+[0;32mI (677875) uart_to_node: Send: Start Root[0m
+[0;32mI (678395) uart_to_node: Send: Start Root[0m
+[0;32mI (678915) uart_to_node: Send: Start Root[0m
+[0;32mI (679435) uart_to_node: Send: Start Root[0m
+[0;32mI (679955) uart_to_node: Send: Start Root[0m
+[0;32mI (680475) uart_to_node: Send: Start Root[0m
+[0;32mI (680995) uart_to_node: Send: Start Root[0m
+[0;32mI (681515) uart_to_node: Send: Start Root[0m
+[0;32mI (682035) uart_to_node: Send: Start Root[0m
+[0;32mI (682555) uart_to_node: Send: Start Root[0m
+[0;32mI (683075) uart_to_node: Send: Start Root[0m
+[0;32mI (683595) uart_to_node: Send: Start Root[0m
+[0;32mI (684115) uart_to_node: Send: Start Root[0m
+[0;32mI (684635) uart_to_node: Send: Start Root[0m
+[0;32mI (685155) uart_to_node: Send: Start Root[0m
+[0;32mI (685675) uart_to_node: Send: Start Root[0m
+[0;32mI (686195) uart_to_node: Send: Start Root[0m
+[0;32mI (686715) uart_to_node: Send: Start Root[0m
+[0;32mI (687235) uart_to_node: Send: Start Root[0m
+[0;32mI (687755) uart_to_node: Send: Start Root[0m
+[0;32mI (688275) uart_to_node: Send: Start Root[0m
+[0;32mI (688795) uart_to_node: Send: Start Root[0m
+[0;32mI (689315) uart_to_node: Send: Start Root[0m
+[0;32mI (689835) uart_to_node: Send: Start Root[0m
+[0;32mI (690355) uart_to_node: Send: Start Root[0m
+[0;32mI (690875) uart_to_node: Send: Start Root[0m
+[0;32mI (691395) uart_to_node: Send: Start Root[0m
+[0;32mI (691915) uart_to_node: Send: Start Root[0m
+[0;32mI (692435) uart_to_node: Send: Start Root[0m
+[0;32mI (692955) uart_to_node: Send: Start Root[0m
+[0;32mI (693475) uart_to_node: Send: Start Root[0m
+[0;32mI (693995) uart_to_node: Send: Start Root[0m
+[0;32mI (694515) uart_to_node: Send: Start Root[0m
+[0;32mI (695035) uart_to_node: Send: Start Root[0m
+[0;32mI (695555) uart_to_node: Send: Start Root[0m
+[0;32mI (696075) uart_to_node: Send: Start Root[0m
+[0;32mI (696595) uart_to_node: Send: Start Root[0m
+[0;32mI (697115) uart_to_node: Send: Start Root[0m
+[0;32mI (697635) uart_to_node: Send: Start Root[0m
+[0;32mI (698155) uart_to_node: Send: Start Root[0m
+[0;32mI (698675) uart_to_node: Send: Start Root[0m
+[0;32mI (699195) uart_to_node: Send: Start Root[0m
+[0;32mI (699715) uart_to_node: Send: Start Root[0m
+[0;32mI (700235) uart_to_node: Send: Start Root[0m
+[0;32mI (700755) uart_to_node: Send: Start Root[0m
+[0;32mI (701275) uart_to_node: Send: Start Root[0m
+[0;32mI (701795) uart_to_node: Send: Start Root[0m
+[0;32mI (702315) uart_to_node: Send: Start Root[0m
+[0;32mI (702835) uart_to_node: Send: Start Root[0m
+[0;32mI (703355) uart_to_node: Send: Start Root[0m
+[0;32mI (703875) uart_to_node: Send: Start Root[0m
+[0;32mI (704395) uart_to_node: Send: Start Root[0m
+[0;32mI (704915) uart_to_node: Send: Start Root[0m
+[0;32mI (705435) uart_to_node: Send: Start Root[0m
+[0;32mI (705955) uart_to_node: Send: Start Root[0m
+[0;32mI (706475) uart_to_node: Send: Start Root[0m
+[0;32mI (706995) uart_to_node: Send: Start Root[0m
+[0;32mI (707515) uart_to_node: Send: Start Root[0m
+[0;32mI (708035) uart_to_node: Send: Start Root[0m
+[0;32mI (708555) uart_to_node: Send: Start Root[0m
+[0;32mI (709075) uart_to_node: Send: Start Root[0m
+[0;32mI (709595) uart_to_node: Send: Start Root[0m
+[0;32mI (710115) uart_to_node: Send: Start Root[0m
+[0;32mI (710635) uart_to_node: Send: Start Root[0m
+[0;32mI (711155) uart_to_node: Send: Start Root[0m
+[0;32mI (711675) uart_to_node: Send: Start Root[0m
+[0;32mI (712195) uart_to_node: Send: Start Root[0m
+[0;32mI (712715) uart_to_node: Send: Start Root[0m
+[0;32mI (713235) uart_to_node: Send: Start Root[0m
+[0;32mI (713755) uart_to_node: Send: Start Root[0m
+[0;32mI (714275) uart_to_node: Send: Start Root[0m
+[0;32mI (714795) uart_to_node: Send: Start Root[0m
+[0;32mI (715315) uart_to_node: Send: Start Root[0m
+[0;32mI (715835) uart_to_node: Send: Start Root[0m
+[0;32mI (716355) uart_to_node: Send: Start Root[0m
+[0;32mI (716875) uart_to_node: Send: Start Root[0m
+[0;32mI (717395) uart_to_node: Send: Start Root[0m
+[0;32mI (717915) uart_to_node: Send: Start Root[0m
+[0;32mI (718435) uart_to_node: Send: Start Root[0m
+[0;32mI (718955) uart_to_node: Send: Start Root[0m
+[0;32mI (719475) uart_to_node: Send: Start Root[0m
+[0;32mI (719995) uart_to_node: Send: Start Root[0m
+[0;32mI (720515) uart_to_node: Send: Start Root[0m
+[0;32mI (721035) uart_to_node: Send: Start Root[0m
+[0;32mI (721555) uart_to_node: Send: Start Root[0m
+[0;32mI (722075) uart_to_node: Send: Start Root[0m
+[0;32mI (722595) uart_to_node: Send: Start Root[0m
+[0;32mI (723115) uart_to_node: Send: Start Root[0m
+[0;32mI (723635) uart_to_node: Send: Start Root[0m
+[0;32mI (724155) uart_to_node: Send: Start Root[0m
+[0;32mI (724675) uart_to_node: Send: Start Root[0m
+[0;32mI (725195) uart_to_node: Send: Start Root[0m
+[0;32mI (725715) uart_to_node: Send: Start Root[0m
+[0;32mI (726235) uart_to_node: Send: Start Root[0m
+[0;32mI (726755) uart_to_node: Send: Start Root[0m
+[0;32mI (727275) uart_to_node: Send: Start Root[0m
+[0;32mI (727795) uart_to_node: Send: Start Root[0m
+[0;32mI (728315) uart_to_node: Send: Start Root[0m
+[0;32mI (728835) uart_to_node: Send: Start Root[0m
+[0;32mI (729355) uart_to_node: Send: Start Root[0m
+[0;32mI (729875) uart_to_node: Send: Start Root[0m
+[0;32mI (730395) uart_to_node: Send: Start Root[0m
+[0;32mI (730915) uart_to_node: Send: Start Root[0m
+[0;32mI (731435) uart_to_node: Send: Start Root[0m
+[0;32mI (731955) uart_to_node: Send: Start Root[0m
+[0;32mI (732475) uart_to_node: Send: Start Root[0m
+[0;32mI (732995) uart_to_node: Send: Start Root[0m
+[0;32mI (733515) uart_to_node: Send: Start Root[0m
+[0;32mI (734035) uart_to_node: Send: Start Root[0m
+[0;32mI (734555) uart_to_node: Send: Start Root[0m
+[0;32mI (735075) uart_to_node: Send: Start Root[0m
+[0;32mI (735595) uart_to_node: Send: Start Root[0m
+[0;32mI (736115) uart_to_node: Send: Start Root[0m
+[0;32mI (736635) uart_to_node: Send: Start Root[0m
+[0;32mI (737155) uart_to_node: Send: Start Root[0m
+[0;32mI (737675) uart_to_node: Send: Start Root[0m
+[0;32mI (738195) uart_to_node: Send: Start Root[0m
+[0;32mI (738715) uart_to_node: Send: Start Root[0m
+[0;32mI (739235) uart_to_node: Send: Start Root[0m
+[0;32mI (739755) uart_to_node: Send: Start Root[0m
+[0;32mI (740275) uart_to_node: Send: Start Root[0m
+[0;32mI (740795) uart_to_node: Send: Start Root[0m
+[0;32mI (741315) uart_to_node: Send: Start Root[0m
+[0;32mI (741835) uart_to_node: Send: Start Root[0m
+[0;32mI (742355) uart_to_node: Send: Start Root[0m
+[0;32mI (742875) uart_to_node: Send: Start Root[0m
+[0;32mI (743395) uart_to_node: Send: Start Root[0m
+[0;32mI (743915) uart_to_node: Send: Start Root[0m
+[0;32mI (744435) uart_to_node: Send: Start Root[0m
+[0;32mI (744955) uart_to_node: Send: Start Root[0m
+[0;32mI (745475) uart_to_node: Send: Start Root[0m
+[0;32mI (745995) uart_to_node: Send: Start Root[0m
+[0;32mI (746515) uart_to_node: Send: Start Root[0m
+[0;32mI (747035) uart_to_node: Send: Start Root[0m
+[0;32mI (747555) uart_to_node: Send: Start Root[0m
+[0;32mI (748075) uart_to_node: Send: Start Root[0m
+[0;32mI (748595) uart_to_node: Send: Start Root[0m
+[0;32mI (749115) uart_to_node: Send: Start Root[0m
+[0;32mI (749635) uart_to_node: Send: Start Root[0m
+[0;32mI (750155) uart_to_node: Send: Start Root[0m
+[0;32mI (750675) uart_to_node: Send: Start Root[0m
+[0;32mI (751195) uart_to_node: Send: Start Root[0m
+[0;32mI (751715) uart_to_node: Send: Start Root[0m
+[0;32mI (752235) uart_to_node: Send: Start Root[0m
+[0;32mI (752755) uart_to_node: Send: Start Root[0m
+[0;32mI (753275) uart_to_node: Send: Start Root[0m
+[0;32mI (753795) uart_to_node: Send: Start Root[0m
+[0;32mI (754315) uart_to_node: Send: Start Root[0m
+[0;32mI (754835) uart_to_node: Send: Start Root[0m
+[0;32mI (755355) uart_to_node: Send: Start Root[0m
+[0;32mI (755875) uart_to_node: Send: Start Root[0m
+[0;32mI (756395) uart_to_node: Send: Start Root[0m
+[0;32mI (756915) uart_to_node: Send: Start Root[0m
+[0;32mI (757435) uart_to_node: Send: Start Root[0m
+[0;32mI (757955) uart_to_node: Send: Start Root[0m
+[0;32mI (758475) uart_to_node: Send: Start Root[0m
+[0;32mI (758995) uart_to_node: Send: Start Root[0m
+[0;32mI (759515) uart_to_node: Send: Start Root[0m
+[0;32mI (760035) uart_to_node: Send: Start Root[0m
+[0;32mI (760555) uart_to_node: Send: Start Root[0m
+[0;32mI (761075) uart_to_node: Send: Start Root[0m
+[0;32mI (761595) uart_to_node: Send: Start Root[0m
+[0;32mI (762115) uart_to_node: Send: Start Root[0m
+[0;32mI (762635) uart_to_node: Send: Start Root[0m
+[0;32mI (763155) uart_to_node: Send: Start Root[0m
+[0;32mI (763675) uart_to_node: Send: Start Root[0m
+[0;32mI (764195) uart_to_node: Send: Start Root[0m
+[0;32mI (764715) uart_to_node: Send: Start Root[0m
+[0;32mI (765235) uart_to_node: Send: Start Root[0m
+[0;32mI (765755) uart_to_node: Send: Start Root[0m
+[0;32mI (766275) uart_to_node: Send: Start Root[0m
+[0;32mI (766795) uart_to_node: Send: Start Root[0m
+[0;32mI (767315) uart_to_node: Send: Start Root[0m
+[0;32mI (767835) uart_to_node: Send: Start Root[0m
+[0;32mI (768355) uart_to_node: Send: Start Root[0m
+[0;32mI (768875) uart_to_node: Send: Start Root[0m
+[0;32mI (769395) uart_to_node: Send: Start Root[0m
+[0;32mI (769915) uart_to_node: Send: Start Root[0m
+[0;32mI (770435) uart_to_node: Send: Start Root[0m
+[0;32mI (770955) uart_to_node: Send: Start Root[0m
+[0;32mI (771475) uart_to_node: Send: Start Root[0m
+[0;32mI (771995) uart_to_node: Send: Start Root[0m
+[0;32mI (772515) uart_to_node: Send: Start Root[0m
+[0;32mI (773035) uart_to_node: Send: Start Root[0m
+[0;32mI (773555) uart_to_node: Send: Start Root[0m
+[0;32mI (774075) uart_to_node: Send: Start Root[0m
+[0;32mI (774595) uart_to_node: Send: Start Root[0m
+[0;32mI (775115) uart_to_node: Send: Start Root[0m
+[0;32mI (775635) uart_to_node: Send: Start Root[0m
+[0;32mI (776155) uart_to_node: Send: Start Root[0m
+[0;32mI (776675) uart_to_node: Send: Start Root[0m
+[0;32mI (777195) uart_to_node: Send: Start Root[0m
+[0;32mI (777715) uart_to_node: Send: Start Root[0m
+[0;32mI (778235) uart_to_node: Send: Start Root[0m
+[0;32mI (778755) uart_to_node: Send: Start Root[0m
+[0;32mI (779275) uart_to_node: Send: Start Root[0m
+[0;32mI (779795) uart_to_node: Send: Start Root[0m
+[0;32mI (780315) uart_to_node: Send: Start Root[0m
+[0;32mI (780835) uart_to_node: Send: Start Root[0m
+[0;32mI (781355) uart_to_node: Send: Start Root[0m
+[0;32mI (781875) uart_to_node: Send: Start Root[0m
+[0;32mI (782395) uart_to_node: Send: Start Root[0m
+[0;32mI (782915) uart_to_node: Send: Start Root[0m
+[0;32mI (783435) uart_to_node: Send: Start Root[0m
+[0;32mI (783955) uart_to_node: Send: Start Root[0m
+[0;32mI (784475) uart_to_node: Send: Start Root[0m
+[0;32mI (784995) uart_to_node: Send: Start Root[0m
+[0;32mI (785515) uart_to_node: Send: Start Root[0m
+[0;32mI (786035) uart_to_node: Send: Start Root[0m
+[0;32mI (786555) uart_to_node: Send: Start Root[0m
+[0;32mI (787075) uart_to_node: Send: Start Root[0m
+[0;32mI (787595) uart_to_node: Send: Start Root[0m
+[0;32mI (788115) uart_to_node: Send: Start Root[0m
+[0;32mI (788635) uart_to_node: Send: Start Root[0m
+[0;32mI (789155) uart_to_node: Send: Start Root[0m
+[0;32mI (789675) uart_to_node: Send: Start Root[0m
+[0;32mI (790195) uart_to_node: Send: Start Root[0m
+[0;32mI (790715) uart_to_node: Send: Start Root[0m
+[0;32mI (791235) uart_to_node: Send: Start Root[0m
+[0;32mI (791755) uart_to_node: Send: Start Root[0m
+[0;32mI (792275) uart_to_node: Send: Start Root[0m
+[0;32mI (792795) uart_to_node: Send: Start Root[0m
+[0;32mI (793315) uart_to_node: Send: Start Root[0m
+[0;32mI (793835) uart_to_node: Send: Start Root[0m
+[0;32mI (794355) uart_to_node: Send: Start Root[0m
+[0;32mI (794875) uart_to_node: Send: Start Root[0m
+[0;32mI (795395) uart_to_node: Send: Start Root[0m
+[0;32mI (795915) uart_to_node: Send: Start Root[0m
+[0;32mI (796435) uart_to_node: Send: Start Root[0m
+[0;32mI (796955) uart_to_node: Send: Start Root[0m
+[0;32mI (797475) uart_to_node: Send: Start Root[0m
+[0;32mI (797995) uart_to_node: Send: Start Root[0m
+[0;32mI (798515) uart_to_node: Send: Start Root[0m
+[0;32mI (799035) uart_to_node: Send: Start Root[0m
+[0;32mI (799555) uart_to_node: Send: Start Root[0m
+[0;32mI (800075) uart_to_node: Send: Start Root[0m
+[0;32mI (800595) uart_to_node: Send: Start Root[0m
+[0;32mI (801115) uart_to_node: Send: Start Root[0m
+[0;32mI (801635) uart_to_node: Send: Start Root[0m
+[0;32mI (802155) uart_to_node: Send: Start Root[0m
+[0;32mI (802675) uart_to_node: Send: Start Root[0m
+[0;32mI (803195) uart_to_node: Send: Start Root[0m
+[0;32mI (803715) uart_to_node: Send: Start Root[0m
+[0;32mI (804235) uart_to_node: Send: Start Root[0m
+[0;32mI (804755) uart_to_node: Send: Start Root[0m
+[0;32mI (805275) uart_to_node: Send: Start Root[0m
+[0;32mI (805795) uart_to_node: Send: Start Root[0m
+[0;32mI (806315) uart_to_node: Send: Start Root[0m
+[0;32mI (806835) uart_to_node: Send: Start Root[0m
+[0;32mI (807355) uart_to_node: Send: Start Root[0m
+[0;32mI (807875) uart_to_node: Send: Start Root[0m
+[0;32mI (808395) uart_to_node: Send: Start Root[0m
+[0;32mI (808915) uart_to_node: Send: Start Root[0m
+[0;32mI (809435) uart_to_node: Send: Start Root[0m
+[0;32mI (809955) uart_to_node: Send: Start Root[0m
+[0;32mI (810475) uart_to_node: Send: Start Root[0m
+[0;32mI (810995) uart_to_node: Send: Start Root[0m
+[0;32mI (811515) uart_to_node: Send: Start Root[0m
+[0;32mI (812035) uart_to_node: Send: Start Root[0m
+[0;32mI (812555) uart_to_node: Send: Start Root[0m
+[0;32mI (813075) uart_to_node: Send: Start Root[0m
+[0;32mI (813595) uart_to_node: Send: Start Root[0m
+[0;32mI (814115) uart_to_node: Send: Start Root[0m
+[0;32mI (814635) uart_to_node: Send: Start Root[0m
+[0;32mI (815155) uart_to_node: Send: Start Root[0m
+[0;32mI (815675) uart_to_node: Send: Start Root[0m
+[0;32mI (816195) uart_to_node: Send: Start Root[0m
+[0;32mI (816715) uart_to_node: Send: Start Root[0m
+[0;32mI (817235) uart_to_node: Send: Start Root[0m
+[0;32mI (817755) uart_to_node: Send: Start Root[0m
+[0;32mI (818275) uart_to_node: Send: Start Root[0m
+[0;32mI (818795) uart_to_node: Send: Start Root[0m
+[0;32mI (819315) uart_to_node: Send: Start Root[0m
+[0;32mI (819835) uart_to_node: Send: Start Root[0m
+[0;32mI (820355) uart_to_node: Send: Start Root[0m
+[0;32mI (820875) uart_to_node: Send: Start Root[0m
+[0;32mI (821395) uart_to_node: Send: Start Root[0m
+[0;32mI (821915) uart_to_node: Send: Start Root[0m
+[0;32mI (822435) uart_to_node: Send: Start Root[0m
+[0;32mI (822955) uart_to_node: Send: Start Root[0m
+[0;32mI (823475) uart_to_node: Send: Start Root[0m
+[0;32mI (823995) uart_to_node: Send: Start Root[0m
+[0;32mI (824515) uart_to_node: Send: Start Root[0m
+[0;32mI (825035) uart_to_node: Send: Start Root[0m
+[0;32mI (825555) uart_to_node: Send: Start Root[0m
+[0;32mI (826075) uart_to_node: Send: Start Root[0m
+[0;32mI (826595) uart_to_node: Send: Start Root[0m
+[0;32mI (827115) uart_to_node: Send: Start Root[0m
+[0;32mI (827635) uart_to_node: Send: Start Root[0m
+[0;32mI (828155) uart_to_node: Send: Start Root[0m
+[0;32mI (828675) uart_to_node: Send: Start Root[0m
+[0;32mI (829195) uart_to_node: Send: Start Root[0m
+[0;32mI (829715) uart_to_node: Send: Start Root[0m
+[0;32mI (830235) uart_to_node: Send: Start Root[0m
+[0;32mI (830755) uart_to_node: Send: Start Root[0m
+[0;32mI (831275) uart_to_node: Send: Start Root[0m
+[0;32mI (831795) uart_to_node: Send: Start Root[0m
+[0;32mI (832315) uart_to_node: Send: Start Root[0m
+[0;32mI (832835) uart_to_node: Send: Start Root[0m
+[0;32mI (833355) uart_to_node: Send: Start Root[0m
+[0;32mI (833875) uart_to_node: Send: Start Root[0m
+[0;32mI (834395) uart_to_node: Send: Start Root[0m
+[0;32mI (834915) uart_to_node: Send: Start Root[0m
+[0;32mI (835435) uart_to_node: Send: Start Root[0m
+[0;32mI (835955) uart_to_node: Send: Start Root[0m
+[0;32mI (836475) uart_to_node: Send: Start Root[0m
+[0;32mI (836995) uart_to_node: Send: Start Root[0m
+[0;32mI (837515) uart_to_node: Send: Start Root[0m
+[0;32mI (838035) uart_to_node: Send: Start Root[0m
+[0;32mI (838555) uart_to_node: Send: Start Root[0m
+[0;32mI (839075) uart_to_node: Send: Start Root[0m
+[0;32mI (839595) uart_to_node: Send: Start Root[0m
+[0;32mI (840115) uart_to_node: Send: Start Root[0m
+[0;32mI (840635) uart_to_node: Send: Start Root[0m
+[0;32mI (841155) uart_to_node: Send: Start Root[0m
+[0;32mI (841675) uart_to_node: Send: Start Root[0m
+[0;32mI (842195) uart_to_node: Send: Start Root[0m
+[0;32mI (842715) uart_to_node: Send: Start Root[0m
+[0;32mI (843235) uart_to_node: Send: Start Root[0m
+[0;32mI (843755) uart_to_node: Send: Start Root[0m
+[0;32mI (844275) uart_to_node: Send: Start Root[0m
+[0;32mI (844795) uart_to_node: Send: Start Root[0m
+[0;32mI (845315) uart_to_node: Send: Start Root[0m
+[0;32mI (845835) uart_to_node: Send: Start Root[0m
+[0;32mI (846355) uart_to_node: Send: Start Root[0m
+[0;32mI (846875) uart_to_node: Send: Start Root[0m
+[0;32mI (847395) uart_to_node: Send: Start Root[0m
+[0;32mI (847915) uart_to_node: Send: Start Root[0m
+[0;32mI (848435) uart_to_node: Send: Start Root[0m
+[0;32mI (848955) uart_to_node: Send: Start Root[0m
+[0;32mI (849475) uart_to_node: Send: Start Root[0m
+[0;32mI (849995) uart_to_node: Send: Start Root[0m
+[0;32mI (850515) uart_to_node: Send: Start Root[0m
+[0;32mI (851035) uart_to_node: Send: Start Root[0m
+[0;32mI (851555) uart_to_node: Send: Start Root[0m
+[0;32mI (852075) uart_to_node: Send: Start Root[0m
+[0;32mI (852595) uart_to_node: Send: Start Root[0m
+[0;32mI (853115) uart_to_node: Send: Start Root[0m
+[0;32mI (853635) uart_to_node: Send: Start Root[0m
+[0;32mI (854155) uart_to_node: Send: Start Root[0m
+[0;32mI (854675) uart_to_node: Send: Start Root[0m
+[0;32mI (855195) uart_to_node: Send: Start Root[0m
+[0;32mI (855715) uart_to_node: Send: Start Root[0m
+[0;32mI (856235) uart_to_node: Send: Start Root[0m
+[0;32mI (856755) uart_to_node: Send: Start Root[0m
+[0;32mI (857275) uart_to_node: Send: Start Root[0m
+[0;32mI (857795) uart_to_node: Send: Start Root[0m
+[0;32mI (858315) uart_to_node: Send: Start Root[0m
+[0;32mI (858835) uart_to_node: Send: Start Root[0m
+[0;32mI (859355) uart_to_node: Send: Start Root[0m
+[0;32mI (859875) uart_to_node: Send: Start Root[0m
+[0;32mI (860395) uart_to_node: Send: Start Root[0m
+[0;32mI (860915) uart_to_node: Send: Start Root[0m
+[0;32mI (861435) uart_to_node: Send: Start Root[0m
+[0;32mI (861955) uart_to_node: Send: Start Root[0m
+[0;32mI (862475) uart_to_node: Send: Start Root[0m
+[0;32mI (862995) uart_to_node: Send: Start Root[0m
+[0;32mI (863515) uart_to_node: Send: Start Root[0m
+[0;32mI (864035) uart_to_node: Send: Start Root[0m
+[0;32mI (864555) uart_to_node: Send: Start Root[0m
+[0;32mI (865075) uart_to_node: Send: Start Root[0m
+[0;32mI (865595) uart_to_node: Send: Start Root[0m
+[0;32mI (866115) uart_to_node: Send: Start Root[0m
+[0;32mI (866635) uart_to_node: Send: Start Root[0m
+[0;32mI (867155) uart_to_node: Send: Start Root[0m
+[0;32mI (867675) uart_to_node: Send: Start Root[0m
+[0;32mI (868195) uart_to_node: Send: Start Root[0m
+[0;32mI (868715) uart_to_node: Send: Start Root[0m
+[0;32mI (869235) uart_to_node: Send: Start Root[0m
+[0;32mI (869755) uart_to_node: Send: Start Root[0m
+[0;32mI (870275) uart_to_node: Send: Start Root[0m
+[0;32mI (870795) uart_to_node: Send: Start Root[0m
+[0;32mI (871315) uart_to_node: Send: Start Root[0m
+[0;32mI (871835) uart_to_node: Send: Start Root[0m
+[0;32mI (872355) uart_to_node: Send: Start Root[0m
+[0;32mI (872875) uart_to_node: Send: Start Root[0m
+[0;32mI (873395) uart_to_node: Send: Start Root[0m
+[0;32mI (873915) uart_to_node: Send: Start Root[0m
+[0;32mI (874435) uart_to_node: Send: Start Root[0m
+[0;32mI (874955) uart_to_node: Send: Start Root[0m
+[0;32mI (875475) uart_to_node: Send: Start Root[0m
+[0;32mI (875995) uart_to_node: Send: Start Root[0m
+[0;32mI (876515) uart_to_node: Send: Start Root[0m
+[0;32mI (877035) uart_to_node: Send: Start Root[0m
+[0;32mI (877555) uart_to_node: Send: Start Root[0m
+[0;32mI (878075) uart_to_node: Send: Start Root[0m
+[0;32mI (878595) uart_to_node: Send: Start Root[0m
+[0;32mI (879115) uart_to_node: Send: Start Root[0m
+[0;32mI (879635) uart_to_node: Send: Start Root[0m
+[0;32mI (880155) uart_to_node: Send: Start Root[0m
+[0;32mI (880675) uart_to_node: Send: Start Root[0m
+[0;32mI (881195) uart_to_node: Send: Start Root[0m
+[0;32mI (881715) uart_to_node: Send: Start Root[0m
+[0;32mI (882235) uart_to_node: Send: Start Root[0m
+[0;32mI (882755) uart_to_node: Send: Start Root[0m
+[0;32mI (883275) uart_to_node: Send: Start Root[0m
+[0;32mI (883795) uart_to_node: Send: Start Root[0m
+[0;32mI (884315) uart_to_node: Send: Start Root[0m
+[0;32mI (884835) uart_to_node: Send: Start Root[0m
+[0;32mI (885355) uart_to_node: Send: Start Root[0m
+[0;32mI (885875) uart_to_node: Send: Start Root[0m
+[0;32mI (886395) uart_to_node: Send: Start Root[0m
+[0;32mI (886915) uart_to_node: Send: Start Root[0m
+[0;32mI (887435) uart_to_node: Send: Start Root[0m
+[0;32mI (887955) uart_to_node: Send: Start Root[0m
+[0;32mI (888475) uart_to_node: Send: Start Root[0m
+[0;32mI (888995) uart_to_node: Send: Start Root[0m
+[0;32mI (889515) uart_to_node: Send: Start Root[0m
+[0;32mI (890035) uart_to_node: Send: Start Root[0m
+[0;32mI (890555) uart_to_node: Send: Start Root[0m
+[0;32mI (891075) uart_to_node: Send: Start Root[0m
+[0;32mI (891595) uart_to_node: Send: Start Root[0m
+[0;32mI (892115) uart_to_node: Send: Start Root[0m
+[0;32mI (892635) uart_to_node: Send: Start Root[0m
+[0;32mI (893155) uart_to_node: Send: Start Root[0m
+[0;32mI (893675) uart_to_node: Send: Start Root[0m
+[0;32mI (894195) uart_to_node: Send: Start Root[0m
+[0;32mI (894715) uart_to_node: Send: Start Root[0m
+[0;32mI (895235) uart_to_node: Send: Start Root[0m
+[0;32mI (895755) uart_to_node: Send: Start Root[0m
+[0;32mI (896275) uart_to_node: Send: Start Root[0m
+[0;32mI (896795) uart_to_node: Send: Start Root[0m
+[0;32mI (897315) uart_to_node: Send: Start Root[0m
+[0;32mI (897835) uart_to_node: Send: Start Root[0m
+[0;32mI (898355) uart_to_node: Send: Start Root[0m
+[0;32mI (898875) uart_to_node: Send: Start Root[0m
+[0;32mI (899395) uart_to_node: Send: Start Root[0m
+[0;32mI (899915) uart_to_node: Send: Start Root[0m
+[0;32mI (900435) uart_to_node: Send: Start Root[0m
+[0;32mI (900955) uart_to_node: Send: Start Root[0m
+[0;32mI (901475) uart_to_node: Send: Start Root[0m
+[0;32mI (901995) uart_to_node: Send: Start Root[0m
+[0;32mI (902515) uart_to_node: Send: Start Root[0m
+[0;32mI (903035) uart_to_node: Send: Start Root[0m
+[0;32mI (903555) uart_to_node: Send: Start Root[0m
+[0;32mI (904075) uart_to_node: Send: Start Root[0m
+[0;32mI (904595) uart_to_node: Send: Start Root[0m
+[0;32mI (905115) uart_to_node: Send: Start Root[0m
+[0;32mI (905635) uart_to_node: Send: Start Root[0m
+[0;32mI (906155) uart_to_node: Send: Start Root[0m
+[0;32mI (906675) uart_to_node: Send: Start Root[0m
+[0;32mI (907195) uart_to_node: Send: Start Root[0m
+[0;32mI (907715) uart_to_node: Send: Start Root[0m
+[0;32mI (908235) uart_to_node: Send: Start Root[0m
+[0;32mI (908755) uart_to_node: Send: Start Root[0m
+[0;32mI (909275) uart_to_node: Send: Start Root[0m
+[0;32mI (909795) uart_to_node: Send: Start Root[0m
+[0;32mI (910315) uart_to_node: Send: Start Root[0m
+[0;32mI (910835) uart_to_node: Send: Start Root[0m
+[0;32mI (911355) uart_to_node: Send: Start Root[0m
+[0;32mI (911875) uart_to_node: Send: Start Root[0m
+[0;32mI (912395) uart_to_node: Send: Start Root[0m
+[0;32mI (912915) uart_to_node: Send: Start Root[0m
+[0;32mI (913435) uart_to_node: Send: Start Root[0m
+[0;32mI (913955) uart_to_node: Send: Start Root[0m
+[0;32mI (914475) uart_to_node: Send: Start Root[0m
+[0;32mI (914995) uart_to_node: Send: Start Root[0m
+[0;32mI (915515) uart_to_node: Send: Start Root[0m
+[0;32mI (916035) uart_to_node: Send: Start Root[0m
+[0;32mI (916555) uart_to_node: Send: Start Root[0m
+[0;32mI (917075) uart_to_node: Send: Start Root[0m
+[0;32mI (917595) uart_to_node: Send: Start Root[0m
+[0;32mI (918115) uart_to_node: Send: Start Root[0m
+[0;32mI (918635) uart_to_node: Send: Start Root[0m
+[0;32mI (919155) uart_to_node: Send: Start Root[0m
+[0;32mI (919675) uart_to_node: Send: Start Root[0m
+[0;32mI (920195) uart_to_node: Send: Start Root[0m
+[0;32mI (920715) uart_to_node: Send: Start Root[0m
+[0;32mI (921235) uart_to_node: Send: Start Root[0m
+[0;32mI (921755) uart_to_node: Send: Start Root[0m
+[0;32mI (922275) uart_to_node: Send: Start Root[0m
+[0;32mI (922795) uart_to_node: Send: Start Root[0m
+[0;32mI (923315) uart_to_node: Send: Start Root[0m
+[0;32mI (923835) uart_to_node: Send: Start Root[0m
+[0;32mI (924355) uart_to_node: Send: Start Root[0m
+[0;32mI (924875) uart_to_node: Send: Start Root[0m
+[0;32mI (925395) uart_to_node: Send: Start Root[0m
+[0;32mI (925915) uart_to_node: Send: Start Root[0m
+[0;32mI (926435) uart_to_node: Send: Start Root[0m
+[0;32mI (926955) uart_to_node: Send: Start Root[0m
+[0;32mI (927475) uart_to_node: Send: Start Root[0m
+[0;32mI (927995) uart_to_node: Send: Start Root[0m
+[0;32mI (928515) uart_to_node: Send: Start Root[0m
+[0;32mI (929035) uart_to_node: Send: Start Root[0m
+[0;32mI (929555) uart_to_node: Send: Start Root[0m
+[0;32mI (930075) uart_to_node: Send: Start Root[0m
+[0;32mI (930595) uart_to_node: Send: Start Root[0m
+[0;32mI (931115) uart_to_node: Send: Start Root[0m
+[0;32mI (931635) uart_to_node: Send: Start Root[0m
+[0;32mI (932155) uart_to_node: Send: Start Root[0m
+[0;32mI (932675) uart_to_node: Send: Start Root[0m
+[0;32mI (933195) uart_to_node: Send: Start Root[0m
+[0;32mI (933715) uart_to_node: Send: Start Root[0m
+[0;32mI (934235) uart_to_node: Send: Start Root[0m
+[0;32mI (934755) uart_to_node: Send: Start Root[0m
+[0;32mI (935275) uart_to_node: Send: Start Root[0m
+[0;32mI (935795) uart_to_node: Send: Start Root[0m
+[0;32mI (936315) uart_to_node: Send: Start Root[0m
+[0;32mI (936835) uart_to_node: Send: Start Root[0m
+[0;32mI (937355) uart_to_node: Send: Start Root[0m
+[0;32mI (937875) uart_to_node: Send: Start Root[0m
+[0;32mI (938395) uart_to_node: Send: Start Root[0m
+[0;32mI (938915) uart_to_node: Send: Start Root[0m
+[0;32mI (939435) uart_to_node: Send: Start Root[0m
+[0;32mI (939955) uart_to_node: Send: Start Root[0m
+[0;32mI (940475) uart_to_node: Send: Start Root[0m
+[0;32mI (940995) uart_to_node: Send: Start Root[0m
+[0;32mI (941515) uart_to_node: Send: Start Root[0m
+[0;32mI (942035) uart_to_node: Send: Start Root[0m
+[0;32mI (942555) uart_to_node: Send: Start Root[0m
+[0;32mI (943075) uart_to_node: Send: Start Root[0m
+[0;32mI (943595) uart_to_node: Send: Start Root[0m
+[0;32mI (944115) uart_to_node: Send: Start Root[0m
+[0;32mI (944635) uart_to_node: Send: Start Root[0m
+[0;32mI (945155) uart_to_node: Send: Start Root[0m
+[0;32mI (945675) uart_to_node: Send: Start Root[0m
+[0;32mI (946195) uart_to_node: Send: Start Root[0m
+[0;32mI (946715) uart_to_node: Send: Start Root[0m
+[0;32mI (947235) uart_to_node: Send: Start Root[0m
+[0;32mI (947755) uart_to_node: Send: Start Root[0m
+[0;32mI (948275) uart_to_node: Send: Start Root[0m
+[0;32mI (948795) uart_to_node: Send: Start Root[0m
+[0;32mI (949315) uart_to_node: Send: Start Root[0m
+[0;32mI (949835) uart_to_node: Send: Start Root[0m
+[0;32mI (950355) uart_to_node: Send: Start Root[0m
+[0;32mI (950875) uart_to_node: Send: Start Root[0m
+[0;32mI (951395) uart_to_node: Send: Start Root[0m
+[0;32mI (951915) uart_to_node: Send: Start Root[0m
+[0;32mI (952435) uart_to_node: Send: Start Root[0m
+[0;32mI (952955) uart_to_node: Send: Start Root[0m
+[0;32mI (953475) uart_to_node: Send: Start Root[0m
+[0;32mI (953995) uart_to_node: Send: Start Root[0m
+[0;32mI (954515) uart_to_node: Send: Start Root[0m
+[0;32mI (955035) uart_to_node: Send: Start Root[0m
+[0;32mI (955555) uart_to_node: Send: Start Root[0m
+[0;32mI (956075) uart_to_node: Send: Start Root[0m
+[0;32mI (956595) uart_to_node: Send: Start Root[0m
+[0;32mI (957115) uart_to_node: Send: Start Root[0m
+[0;32mI (957635) uart_to_node: Send: Start Root[0m
+[0;32mI (958155) uart_to_node: Send: Start Root[0m
+[0;32mI (958675) uart_to_node: Send: Start Root[0m
+[0;32mI (959195) uart_to_node: Send: Start Root[0m
+[0;32mI (959715) uart_to_node: Send: Start Root[0m
+[0;32mI (960235) uart_to_node: Send: Start Root[0m
+[0;32mI (960755) uart_to_node: Send: Start Root[0m
+[0;32mI (961275) uart_to_node: Send: Start Root[0m
+[0;32mI (961795) uart_to_node: Send: Start Root[0m
+[0;32mI (962315) uart_to_node: Send: Start Root[0m
+[0;32mI (962835) uart_to_node: Send: Start Root[0m
+[0;32mI (963355) uart_to_node: Send: Start Root[0m
+[0;32mI (963875) uart_to_node: Send: Start Root[0m
+[0;32mI (964395) uart_to_node: Send: Start Root[0m
+[0;32mI (964915) uart_to_node: Send: Start Root[0m
+[0;32mI (965435) uart_to_node: Send: Start Root[0m
+[0;32mI (965955) uart_to_node: Send: Start Root[0m
+[0;32mI (966475) uart_to_node: Send: Start Root[0m
+[0;32mI (966995) uart_to_node: Send: Start Root[0m
+[0;32mI (967515) uart_to_node: Send: Start Root[0m
+[0;32mI (968035) uart_to_node: Send: Start Root[0m
+[0;32mI (968555) uart_to_node: Send: Start Root[0m
+[0;32mI (969075) uart_to_node: Send: Start Root[0m
+[0;32mI (969595) uart_to_node: Send: Start Root[0m
+[0;32mI (970115) uart_to_node: Send: Start Root[0m
+[0;32mI (970635) uart_to_node: Send: Start Root[0m
+[0;32mI (971155) uart_to_node: Send: Start Root[0m
+[0;32mI (971675) uart_to_node: Send: Start Root[0m
+[0;32mI (972195) uart_to_node: Send: Start Root[0m
+[0;32mI (972715) uart_to_node: Send: Start Root[0m
+[0;32mI (973235) uart_to_node: Send: Start Root[0m
+[0;32mI (973755) uart_to_node: Send: Start Root[0m
+[0;32mI (974275) uart_to_node: Send: Start Root[0m
+[0;32mI (974795) uart_to_node: Send: Start Root[0m
+[0;32mI (975315) uart_to_node: Send: Start Root[0m
+[0;32mI (975835) uart_to_node: Send: Start Root[0m
+[0;32mI (976355) uart_to_node: Send: Start Root[0m
+[0;32mI (976875) uart_to_node: Send: Start Root[0m
+[0;32mI (977395) uart_to_node: Send: Start Root[0m
+[0;32mI (977915) uart_to_node: Send: Start Root[0m
+[0;32mI (978435) uart_to_node: Send: Start Root[0m
+[0;32mI (978955) uart_to_node: Send: Start Root[0m
+[0;32mI (979475) uart_to_node: Send: Start Root[0m
+[0;32mI (979995) uart_to_node: Send: Start Root[0m
+[0;32mI (980515) uart_to_node: Send: Start Root[0m
+[0;32mI (981035) uart_to_node: Send: Start Root[0m
+[0;32mI (981555) uart_to_node: Send: Start Root[0m
+[0;32mI (982075) uart_to_node: Send: Start Root[0m
+[0;32mI (982595) uart_to_node: Send: Start Root[0m
+[0;32mI (983115) uart_to_node: Send: Start Root[0m
+[0;32mI (983635) uart_to_node: Send: Start Root[0m
+[0;32mI (984155) uart_to_node: Send: Start Root[0m
+[0;32mI (984675) uart_to_node: Send: Start Root[0m
+[0;32mI (985195) uart_to_node: Send: Start Root[0m
+[0;32mI (985715) uart_to_node: Send: Start Root[0m
+[0;32mI (986235) uart_to_node: Send: Start Root[0m
+[0;32mI (986755) uart_to_node: Send: Start Root[0m
+[0;32mI (987275) uart_to_node: Send: Start Root[0m
+[0;32mI (987795) uart_to_node: Send: Start Root[0m
+[0;32mI (988315) uart_to_node: Send: Start Root[0m
+[0;32mI (988835) uart_to_node: Send: Start Root[0m
+[0;32mI (989355) uart_to_node: Send: Start Root[0m
+[0;32mI (989875) uart_to_node: Send: Start Root[0m
+[0;32mI (990395) uart_to_node: Send: Start Root[0m
+[0;32mI (990915) uart_to_node: Send: Start Root[0m
+[0;32mI (991435) uart_to_node: Send: Start Root[0m
+[0;32mI (991955) uart_to_node: Send: Start Root[0m
+[0;32mI (992475) uart_to_node: Send: Start Root[0m
+[0;32mI (992995) uart_to_node: Send: Start Root[0m
+[0;32mI (993515) uart_to_node: Send: Start Root[0m
+[0;32mI (994035) uart_to_node: Send: Start Root[0m
+[0;32mI (994555) uart_to_node: Send: Start Root[0m
+[0;32mI (995075) uart_to_node: Send: Start Root[0m
+[0;32mI (995595) uart_to_node: Send: Start Root[0m
+[0;32mI (996115) uart_to_node: Send: Start Root[0m
+[0;32mI (996635) uart_to_node: Send: Start Root[0m
+[0;32mI (997155) uart_to_node: Send: Start Root[0m
+[0;32mI (997675) uart_to_node: Send: Start Root[0m
+[0;32mI (998195) uart_to_node: Send: Start Root[0m
+[0;32mI (998715) uart_to_node: Send: Start Root[0m
+[0;32mI (999235) uart_to_node: Send: Start Root[0m
+[0;32mI (999755) uart_to_node: Send: Start Root[0m
+[0;32mI (1000275) uart_to_node: Send: Start Root[0m
+[0;32mI (1000795) uart_to_node: Send: Start Root[0m
+[0;32mI (1001315) uart_to_node: Send: Start Root[0m
+[0;32mI (1001835) uart_to_node: Send: Start Root[0m
+[0;32mI (1002355) uart_to_node: Send: Start Root[0m
+[0;32mI (1002875) uart_to_node: Send: Start Root[0m
+[0;32mI (1003395) uart_to_node: Send: Start Root[0m
+[0;32mI (1003915) uart_to_node: Send: Start Root[0m
+[0;32mI (1004435) uart_to_node: Send: Start Root[0m
+[0;32mI (1004955) uart_to_node: Send: Start Root[0m
+[0;32mI (1005475) uart_to_node: Send: Start Root[0m
+[0;32mI (1005995) uart_to_node: Send: Start Root[0m
+[0;32mI (1006515) uart_to_node: Send: Start Root[0m
+[0;32mI (1007035) uart_to_node: Send: Start Root[0m
+[0;32mI (1007555) uart_to_node: Send: Start Root[0m
+[0;32mI (1008075) uart_to_node: Send: Start Root[0m
+[0;32mI (1008595) uart_to_node: Send: Start Root[0m
+[0;32mI (1009115) uart_to_node: Send: Start Root[0m
+[0;32mI (1009635) uart_to_node: Send: Start Root[0m
+[0;32mI (1010155) uart_to_node: Send: Start Root[0m
+[0;32mI (1010675) uart_to_node: Send: Start Root[0m
+[0;32mI (1011195) uart_to_node: Send: Start Root[0m
+[0;32mI (1011715) uart_to_node: Send: Start Root[0m
+[0;32mI (1012235) uart_to_node: Send: Start Root[0m
+[0;32mI (1012755) uart_to_node: Send: Start Root[0m
+[0;32mI (1013275) uart_to_node: Send: Start Root[0m
+[0;32mI (1013795) uart_to_node: Send: Start Root[0m
+[0;32mI (1014315) uart_to_node: Send: Start Root[0m
+[0;32mI (1014835) uart_to_node: Send: Start Root[0m
+[0;32mI (1015355) uart_to_node: Send: Start Root[0m
+[0;32mI (1015875) uart_to_node: Send: Start Root[0m
+[0;32mI (1016395) uart_to_node: Send: Start Root[0m
+[0;32mI (1016915) uart_to_node: Send: Start Root[0m
+[0;32mI (1017435) uart_to_node: Send: Start Root[0m
+[0;32mI (1017955) uart_to_node: Send: Start Root[0m
+[0;32mI (1018475) uart_to_node: Send: Start Root[0m
+[0;32mI (1018995) uart_to_node: Send: Start Root[0m
+[0;32mI (1019515) uart_to_node: Send: Start Root[0m
+[0;32mI (1020035) uart_to_node: Send: Start Root[0m
+[0;32mI (1020555) uart_to_node: Send: Start Root[0m
+[0;32mI (1021075) uart_to_node: Send: Start Root[0m
+[0;32mI (1021595) uart_to_node: Send: Start Root[0m
+[0;32mI (1022115) uart_to_node: Send: Start Root[0m
+[0;32mI (1022635) uart_to_node: Send: Start Root[0m
+[0;32mI (1023155) uart_to_node: Send: Start Root[0m
+[0;32mI (1023675) uart_to_node: Send: Start Root[0m
+[0;32mI (1024195) uart_to_node: Send: Start Root[0m
+[0;32mI (1024715) uart_to_node: Send: Start Root[0m
+[0;32mI (1025235) uart_to_node: Send: Start Root[0m
+[0;32mI (1025755) uart_to_node: Send: Start Root[0m
+[0;32mI (1026275) uart_to_node: Send: Start Root[0m
+[0;32mI (1026795) uart_to_node: Send: Start Root[0m
+[0;32mI (1027315) uart_to_node: Send: Start Root[0m
+[0;32mI (1027835) uart_to_node: Send: Start Root[0m
+[0;32mI (1028355) uart_to_node: Send: Start Root[0m
+[0;32mI (1028875) uart_to_node: Send: Start Root[0m
+[0;32mI (1029395) uart_to_node: Send: Start Root[0m
+[0;32mI (1029915) uart_to_node: Send: Start Root[0m
+[0;32mI (1030435) uart_to_node: Send: Start Root[0m
+[0;32mI (1030955) uart_to_node: Send: Start Root[0m
+[0;32mI (1031475) uart_to_node: Send: Start Root[0m
+[0;32mI (1031995) uart_to_node: Send: Start Root[0m
+[0;32mI (1032515) uart_to_node: Send: Start Root[0m
+[0;32mI (1033035) uart_to_node: Send: Start Root[0m
+[0;32mI (1033555) uart_to_node: Send: Start Root[0m
+[0;32mI (1034075) uart_to_node: Send: Start Root[0m
+[0;32mI (1034595) uart_to_node: Send: Start Root[0m
+[0;32mI (1035115) uart_to_node: Send: Start Root[0m
+[0;32mI (1035635) uart_to_node: Send: Start Root[0m
+[0;32mI (1036155) uart_to_node: Send: Start Root[0m
+[0;32mI (1036675) uart_to_node: Send: Start Root[0m
+[0;32mI (1037195) uart_to_node: Send: Start Root[0m
+[0;32mI (1037715) uart_to_node: Send: Start Root[0m
+[0;32mI (1038235) uart_to_node: Send: Start Root[0m
+[0;32mI (1038755) uart_to_node: Send: Start Root[0m
+[0;32mI (1039275) uart_to_node: Send: Start Root[0m
+[0;32mI (1039795) uart_to_node: Send: Start Root[0m
+[0;32mI (1040315) uart_to_node: Send: Start Root[0m
+[0;32mI (1040835) uart_to_node: Send: Start Root[0m
+[0;32mI (1041355) uart_to_node: Send: Start Root[0m
+[0;32mI (1041875) uart_to_node: Send: Start Root[0m
+[0;32mI (1042395) uart_to_node: Send: Start Root[0m
+[0;32mI (1042915) uart_to_node: Send: Start Root[0m
+[0;32mI (1043435) uart_to_node: Send: Start Root[0m
+[0;32mI (1043955) uart_to_node: Send: Start Root[0m
+[0;32mI (1044475) uart_to_node: Send: Start Root[0m
+[0;32mI (1044995) uart_to_node: Send: Start Root[0m
+[0;32mI (1045515) uart_to_node: Send: Start Root[0m
+[0;32mI (1046035) uart_to_node: Send: Start Root[0m
+[0;32mI (1046555) uart_to_node: Send: Start Root[0m
+[0;32mI (1047075) uart_to_node: Send: Start Root[0m
+[0;32mI (1047595) uart_to_node: Send: Start Root[0m
+[0;32mI (1048115) uart_to_node: Send: Start Root[0m
+[0;32mI (1048635) uart_to_node: Send: Start Root[0m
+[0;32mI (1049155) uart_to_node: Send: Start Root[0m
+[0;32mI (1049675) uart_to_node: Send: Start Root[0m
+[0;32mI (1050195) uart_to_node: Send: Start Root[0m
+[0;32mI (1050715) uart_to_node: Send: Start Root[0m
+[0;32mI (1051235) uart_to_node: Send: Start Root[0m
+[0;32mI (1051755) uart_to_node: Send: Start Root[0m
+[0;32mI (1052275) uart_to_node: Send: Start Root[0m
+[0;32mI (1052795) uart_to_node: Send: Start Root[0m
+[0;32mI (1053315) uart_to_node: Send: Start Root[0m
+[0;32mI (1053835) uart_to_node: Send: Start Root[0m
+[0;32mI (1054355) uart_to_node: Send: Start Root[0m
+[0;32mI (1054875) uart_to_node: Send: Start Root[0m
+[0;32mI (1055395) uart_to_node: Send: Start Root[0m
+[0;32mI (1055915) uart_to_node: Send: Start Root[0m
+[0;32mI (1056435) uart_to_node: Send: Start Root[0m
+[0;32mI (1056955) uart_to_node: Send: Start Root[0m
+[0;32mI (1057475) uart_to_node: Send: Start Root[0m
+[0;32mI (1057995) uart_to_node: Send: Start Root[0m
+[0;32mI (1058515) uart_to_node: Send: Start Root[0m
+[0;32mI (1059035) uart_to_node: Send: Start Root[0m
+[0;32mI (1059555) uart_to_node: Send: Start Root[0m
+[0;32mI (1060075) uart_to_node: Send: Start Root[0m
+[0;32mI (1060595) uart_to_node: Send: Start Root[0m
+[0;32mI (1061115) uart_to_node: Send: Start Root[0m
+[0;32mI (1061635) uart_to_node: Send: Start Root[0m
+[0;32mI (1062155) uart_to_node: Send: Start Root[0m
+[0;32mI (1062675) uart_to_node: Send: Start Root[0m
+[0;32mI (1063195) uart_to_node: Send: Start Root[0m
+[0;32mI (1063715) uart_to_node: Send: Start Root[0m
+[0;32mI (1064235) uart_to_node: Send: Start Root[0m
+[0;32mI (1064755) uart_to_node: Send: Start Root[0m
+[0;32mI (1065275) uart_to_node: Send: Start Root[0m
+[0;32mI (1065795) uart_to_node: Send: Start Root[0m
+[0;32mI (1066315) uart_to_node: Send: Start Root[0m
+[0;32mI (1066835) uart_to_node: Send: Start Root[0m
+[0;32mI (1067355) uart_to_node: Send: Start Root[0m
+[0;32mI (1067875) uart_to_node: Send: Start Root[0m
+[0;32mI (1068395) uart_to_node: Send: Start Root[0m
+[0;32mI (1068915) uart_to_node: Send: Start Root[0m
+[0;32mI (1069435) uart_to_node: Send: Start Root[0m
+[0;32mI (1069955) uart_to_node: Send: Start Root[0m
+[0;32mI (1070475) uart_to_node: Send: Start Root[0m
+[0;32mI (1070995) uart_to_node: Send: Start Root[0m
+[0;32mI (1071515) uart_to_node: Send: Start Root[0m
+[0;32mI (1072035) uart_to_node: Send: Start Root[0m
+[0;32mI (1072555) uart_to_node: Send: Start Root[0m
+[0;32mI (1073075) uart_to_node: Send: Start Root[0m
+[0;32mI (1073595) uart_to_node: Send: Start Root[0m
+[0;32mI (1074115) uart_to_node: Send: Start Root[0m
+[0;32mI (1074635) uart_to_node: Send: Start Root[0m
+[0;32mI (1075155) uart_to_node: Send: Start Root[0m
+[0;32mI (1075675) uart_to_node: Send: Start Root[0m
+[0;32mI (1076195) uart_to_node: Send: Start Root[0m
+[0;32mI (1076715) uart_to_node: Send: Start Root[0m
+[0;32mI (1077235) uart_to_node: Send: Start Root[0m
+[0;32mI (1077755) uart_to_node: Send: Start Root[0m
+[0;32mI (1078275) uart_to_node: Send: Start Root[0m
+[0;32mI (1078795) uart_to_node: Send: Start Root[0m
+[0;32mI (1079315) uart_to_node: Send: Start Root[0m
+[0;32mI (1079835) uart_to_node: Send: Start Root[0m
+[0;32mI (1080355) uart_to_node: Send: Start Root[0m
+[0;32mI (1080875) uart_to_node: Send: Start Root[0m
+[0;32mI (1081395) uart_to_node: Send: Start Root[0m
+[0;32mI (1081915) uart_to_node: Send: Start Root[0m
+[0;32mI (1082435) uart_to_node: Send: Start Root[0m
+[0;32mI (1082955) uart_to_node: Send: Start Root[0m
+[0;32mI (1083475) uart_to_node: Send: Start Root[0m
+[0;32mI (1083995) uart_to_node: Send: Start Root[0m
+[0;32mI (1084515) uart_to_node: Send: Start Root[0m
+[0;32mI (1085035) uart_to_node: Send: Start Root[0m
+[0;32mI (1085555) uart_to_node: Send: Start Root[0m
+[0;32mI (1086075) uart_to_node: Send: Start Root[0m
+[0;32mI (1086595) uart_to_node: Send: Start Root[0m
+[0;32mI (1087115) uart_to_node: Send: Start Root[0m
+[0;32mI (1087635) uart_to_node: Send: Start Root[0m
+[0;32mI (1088155) uart_to_node: Send: Start Root[0m
+[0;32mI (1088675) uart_to_node: Send: Start Root[0m
+[0;32mI (1089195) uart_to_node: Send: Start Root[0m
+[0;32mI (1089715) uart_to_node: Send: Start Root[0m
+[0;32mI (1090235) uart_to_node: Send: Start Root[0m
+[0;32mI (1090755) uart_to_node: Send: Start Root[0m
+[0;32mI (1091275) uart_to_node: Send: Start Root[0m
+[0;32mI (1091795) uart_to_node: Send: Start Root[0m
+[0;32mI (1092315) uart_to_node: Send: Start Root[0m
+[0;32mI (1092835) uart_to_node: Send: Start Root[0m
+[0;32mI (1093355) uart_to_node: Send: Start Root[0m
+[0;32mI (1093875) uart_to_node: Send: Start Root[0m
+[0;32mI (1094395) uart_to_node: Send: Start Root[0m
+[0;32mI (1094915) uart_to_node: Send: Start Root[0m
+[0;32mI (1095435) uart_to_node: Send: Start Root[0m
+[0;32mI (1095955) uart_to_node: Send: Start Root[0m
+[0;32mI (1096475) uart_to_node: Send: Start Root[0m
+[0;32mI (1096995) uart_to_node: Send: Start Root[0m
+[0;32mI (1097515) uart_to_node: Send: Start Root[0m
+[0;32mI (1098035) uart_to_node: Send: Start Root[0m
+[0;32mI (1098555) uart_to_node: Send: Start Root[0m
+[0;32mI (1099075) uart_to_node: Send: Start Root[0m
+[0;32mI (1099595) uart_to_node: Send: Start Root[0m
+[0;32mI (1100115) uart_to_node: Send: Start Root[0m
+[0;32mI (1100635) uart_to_node: Send: Start Root[0m
+[0;32mI (1101155) uart_to_node: Send: Start Root[0m
+[0;32mI (1101675) uart_to_node: Send: Start Root[0m
+[0;32mI (1102195) uart_to_node: Send: Start Root[0m
+[0;32mI (1102715) uart_to_node: Send: Start Root[0m
+[0;32mI (1103235) uart_to_node: Send: Start Root[0m
+[0;32mI (1103755) uart_to_node: Send: Start Root[0m
+[0;32mI (1104275) uart_to_node: Send: Start Root[0m
+[0;32mI (1104795) uart_to_node: Send: Start Root[0m
+[0;32mI (1105315) uart_to_node: Send: Start Root[0m
+[0;32mI (1105835) uart_to_node: Send: Start Root[0m
+[0;32mI (1106355) uart_to_node: Send: Start Root[0m
+[0;32mI (1106875) uart_to_node: Send: Start Root[0m
+[0;32mI (1107395) uart_to_node: Send: Start Root[0m
+[0;32mI (1107915) uart_to_node: Send: Start Root[0m
+[0;32mI (1108435) uart_to_node: Send: Start Root[0m
+[0;32mI (1108955) uart_to_node: Send: Start Root[0m
+[0;32mI (1109475) uart_to_node: Send: Start Root[0m
+[0;32mI (1109995) uart_to_node: Send: Start Root[0m
+[0;32mI (1110515) uart_to_node: Send: Start Root[0m
+[0;32mI (1111035) uart_to_node: Send: Start Root[0m
+[0;32mI (1111555) uart_to_node: Send: Start Root[0m
+[0;32mI (1112075) uart_to_node: Send: Start Root[0m
+[0;32mI (1112595) uart_to_node: Send: Start Root[0m
+[0;32mI (1113115) uart_to_node: Send: Start Root[0m
+[0;32mI (1113635) uart_to_node: Send: Start Root[0m
+[0;32mI (1114155) uart_to_node: Send: Start Root[0m
+[0;32mI (1114675) uart_to_node: Send: Start Root[0m
+[0;32mI (1115195) uart_to_node: Send: Start Root[0m
+[0;32mI (1115715) uart_to_node: Send: Start Root[0m
+[0;32mI (1116235) uart_to_node: Send: Start Root[0m
+[0;32mI (1116755) uart_to_node: Send: Start Root[0m
+[0;32mI (1117275) uart_to_node: Send: Start Root[0m
+[0;32mI (1117795) uart_to_node: Send: Start Root[0m
+[0;32mI (1118315) uart_to_node: Send: Start Root[0m
+[0;32mI (1118835) uart_to_node: Send: Start Root[0m
+[0;32mI (1119355) uart_to_node: Send: Start Root[0m
+[0;32mI (1119875) uart_to_node: Send: Start Root[0m
+[0;32mI (1120395) uart_to_node: Send: Start Root[0m
+[0;32mI (1120915) uart_to_node: Send: Start Root[0m
+[0;32mI (1121435) uart_to_node: Send: Start Root[0m
+[0;32mI (1121955) uart_to_node: Send: Start Root[0m
+[0;32mI (1122475) uart_to_node: Send: Start Root[0m
+[0;32mI (1122995) uart_to_node: Send: Start Root[0m
+[0;32mI (1123515) uart_to_node: Send: Start Root[0m
+[0;32mI (1124035) uart_to_node: Send: Start Root[0m
+[0;32mI (1124555) uart_to_node: Send: Start Root[0m
+[0;32mI (1125075) uart_to_node: Send: Start Root[0m
+[0;32mI (1125595) uart_to_node: Send: Start Root[0m
+[0;32mI (1126115) uart_to_node: Send: Start Root[0m
+[0;32mI (1126635) uart_to_node: Send: Start Root[0m
+[0;32mI (1127155) uart_to_node: Send: Start Root[0m
+[0;32mI (1127675) uart_to_node: Send: Start Root[0m
+[0;32mI (1128195) uart_to_node: Send: Start Root[0m
+[0;32mI (1128715) uart_to_node: Send: Start Root[0m
+[0;32mI (1129235) uart_to_node: Send: Start Root[0m
+[0;32mI (1129755) uart_to_node: Send: Start Root[0m
+[0;32mI (1130275) uart_to_node: Send: Start Root[0m
+[0;32mI (1130795) uart_to_node: Send: Start Root[0m
+[0;32mI (1131315) uart_to_node: Send: Start Root[0m
+[0;32mI (1131835) uart_to_node: Send: Start Root[0m
+[0;32mI (1132355) uart_to_node: Send: Start Root[0m
+[0;32mI (1132875) uart_to_node: Send: Start Root[0m
+[0;32mI (1133395) uart_to_node: Send: Start Root[0m
+[0;32mI (1133915) uart_to_node: Send: Start Root[0m
+[0;32mI (1134435) uart_to_node: Send: Start Root[0m
+[0;32mI (1134955) uart_to_node: Send: Start Root[0m
+[0;32mI (1135475) uart_to_node: Send: Start Root[0m
+[0;32mI (1135995) uart_to_node: Send: Start Root[0m
+[0;32mI (1136515) uart_to_node: Send: Start Root[0m
+[0;32mI (1137035) uart_to_node: Send: Start Root[0m
+[0;32mI (1137555) uart_to_node: Send: Start Root[0m
+[0;32mI (1138075) uart_to_node: Send: Start Root[0m
+[0;32mI (1138595) uart_to_node: Send: Start Root[0m
+[0;32mI (1139115) uart_to_node: Send: Start Root[0m
+[0;32mI (1139635) uart_to_node: Send: Start Root[0m
+[0;32mI (1140155) uart_to_node: Send: Start Root[0m
+[0;32mI (1140675) uart_to_node: Send: Start Root[0m
+[0;32mI (1141195) uart_to_node: Send: Start Root[0m
+[0;32mI (1141715) uart_to_node: Send: Start Root[0m
+[0;32mI (1142235) uart_to_node: Send: Start Root[0m
+[0;32mI (1142755) uart_to_node: Send: Start Root[0m
+[0;32mI (1143275) uart_to_node: Send: Start Root[0m
+[0;32mI (1143795) uart_to_node: Send: Start Root[0m
+[0;32mI (1144315) uart_to_node: Send: Start Root[0m
+[0;32mI (1144835) uart_to_node: Send: Start Root[0m
+[0;32mI (1145355) uart_to_node: Send: Start Root[0m
+[0;32mI (1145875) uart_to_node: Send: Start Root[0m
+[0;32mI (1146395) uart_to_node: Send: Start Root[0m
+[0;32mI (1146915) uart_to_node: Send: Start Root[0m
+[0;32mI (1147435) uart_to_node: Send: Start Root[0m
+[0;32mI (1147955) uart_to_node: Send: Start Root[0m
+[0;32mI (1148475) uart_to_node: Send: Start Root[0m
+[0;32mI (1148995) uart_to_node: Send: Start Root[0m
+[0;32mI (1149515) uart_to_node: Send: Start Root[0m
+[0;32mI (1150035) uart_to_node: Send: Start Root[0m
+[0;32mI (1150555) uart_to_node: Send: Start Root[0m
+[0;32mI (1151075) uart_to_node: Send: Start Root[0m
+[0;32mI (1151595) uart_to_node: Send: Start Root[0m
+[0;32mI (1152115) uart_to_node: Send: Start Root[0m
+[0;32mI (1152635) uart_to_node: Send: Start Root[0m
+[0;32mI (1153155) uart_to_node: Send: Start Root[0m
+[0;32mI (1153675) uart_to_node: Send: Start Root[0m
+[0;32mI (1154195) uart_to_node: Send: Start Root[0m
+[0;32mI (1154715) uart_to_node: Send: Start Root[0m
+[0;32mI (1155235) uart_to_node: Send: Start Root[0m
+[0;32mI (1155755) uart_to_node: Send: Start Root[0m
+[0;32mI (1156275) uart_to_node: Send: Start Root[0m
+[0;32mI (1156795) uart_to_node: Send: Start Root[0m
+[0;32mI (1157315) uart_to_node: Send: Start Root[0m
+[0;32mI (1157835) uart_to_node: Send: Start Root[0m
+[0;32mI (1158355) uart_to_node: Send: Start Root[0m
+[0;32mI (1158875) uart_to_node: Send: Start Root[0m
+[0;32mI (1159395) uart_to_node: Send: Start Root[0m
+[0;32mI (1159915) uart_to_node: Send: Start Root[0m
+[0;32mI (1160435) uart_to_node: Send: Start Root[0m
+[0;32mI (1160955) uart_to_node: Send: Start Root[0m
+[0;32mI (1161475) uart_to_node: Send: Start Root[0m
+[0;32mI (1161995) uart_to_node: Send: Start Root[0m
+[0;32mI (1162515) uart_to_node: Send: Start Root[0m
+[0;32mI (1163035) uart_to_node: Send: Start Root[0m
+[0;32mI (1163555) uart_to_node: Send: Start Root[0m
+[0;32mI (1164075) uart_to_node: Send: Start Root[0m
+[0;32mI (1164595) uart_to_node: Send: Start Root[0m
+[0;32mI (1165115) uart_to_node: Send: Start Root[0m
+[0;32mI (1165635) uart_to_node: Send: Start Root[0m
+[0;32mI (1166155) uart_to_node: Send: Start Root[0m
+[0;32mI (1166675) uart_to_node: Send: Start Root[0m
+[0;32mI (1167195) uart_to_node: Send: Start Root[0m
+[0;32mI (1167715) uart_to_node: Send: Start Root[0m
+[0;32mI (1168235) uart_to_node: Send: Start Root[0m
+[0;32mI (1168755) uart_to_node: Send: Start Root[0m
+[0;32mI (1169275) uart_to_node: Send: Start Root[0m
+[0;32mI (1169795) uart_to_node: Send: Start Root[0m
+[0;32mI (1170315) uart_to_node: Send: Start Root[0m
+[0;32mI (1170835) uart_to_node: Send: Start Root[0m
+[0;32mI (1171355) uart_to_node: Send: Start Root[0m
+[0;32mI (1171875) uart_to_node: Send: Start Root[0m
+[0;32mI (1172395) uart_to_node: Send: Start Root[0m
+[0;32mI (1172915) uart_to_node: Send: Start Root[0m
+[0;32mI (1173435) uart_to_node: Send: Start Root[0m
+[0;32mI (1173955) uart_to_node: Send: Start Root[0m
+[0;32mI (1174475) uart_to_node: Send: Start Root[0m
+[0;32mI (1174995) uart_to_node: Send: Start Root[0m
+[0;32mI (1175515) uart_to_node: Send: Start Root[0m
+[0;32mI (1176035) uart_to_node: Send: Start Root[0m
+[0;32mI (1176555) uart_to_node: Send: Start Root[0m
+[0;32mI (1177075) uart_to_node: Send: Start Root[0m
+[0;32mI (1177595) uart_to_node: Send: Start Root[0m
+[0;32mI (1178115) uart_to_node: Send: Start Root[0m
+[0;32mI (1178635) uart_to_node: Send: Start Root[0m
+[0;32mI (1179155) uart_to_node: Send: Start Root[0m
+[0;32mI (1179675) uart_to_node: Send: Start Root[0m
+[0;32mI (1180195) uart_to_node: Send: Start Root[0m
+[0;32mI (1180715) uart_to_node: Send: Start Root[0m
+[0;32mI (1181235) uart_to_node: Send: Start Root[0m
+[0;32mI (1181755) uart_to_node: Send: Start Root[0m
+[0;32mI (1182275) uart_to_node: Send: Start Root[0m
+[0;32mI (1182795) uart_to_node: Send: Start Root[0m
+[0;32mI (1183315) uart_to_node: Send: Start Root[0m
+[0;32mI (1183835) uart_to_node: Send: Start Root[0m
+[0;32mI (1184355) uart_to_node: Send: Start Root[0m
+[0;32mI (1184875) uart_to_node: Send: Start Root[0m
+[0;32mI (1185395) uart_to_node: Send: Start Root[0m
+[0;32mI (1185915) uart_to_node: Send: Start Root[0m
+[0;32mI (1186435) uart_to_node: Send: Start Root[0m
+[0;32mI (1186955) uart_to_node: Send: Start Root[0m
+[0;32mI (1187475) uart_to_node: Send: Start Root[0m
+[0;32mI (1187995) uart_to_node: Send: Start Root[0m
+[0;32mI (1188515) uart_to_node: Send: Start Root[0m
+[0;32mI (1189035) uart_to_node: Send: Start Root[0m
+[0;32mI (1189555) uart_to_node: Send: Start Root[0m
+[0;32mI (1190075) uart_to_node: Send: Start Root[0m
+[0;32mI (1190595) uart_to_node: Send: Start Root[0m
+[0;32mI (1191115) uart_to_node: Send: Start Root[0m
+[0;32mI (1191635) uart_to_node: Send: Start Root[0m
+[0;32mI (1192155) uart_to_node: Send: Start Root[0m
+[0;32mI (1192675) uart_to_node: Send: Start Root[0m
+[0;32mI (1193195) uart_to_node: Send: Start Root[0m
+[0;32mI (1193715) uart_to_node: Send: Start Root[0m
+[0;32mI (1194235) uart_to_node: Send: Start Root[0m
+[0;32mI (1194755) uart_to_node: Send: Start Root[0m
+[0;32mI (1195275) uart_to_node: Send: Start Root[0m
+[0;32mI (1195795) uart_to_node: Send: Start Root[0m
+[0;32mI (1196315) uart_to_node: Send: Start Root[0m
+[0;32mI (1196835) uart_to_node: Send: Start Root[0m
+[0;32mI (1197355) uart_to_node: Send: Start Root[0m
+[0;32mI (1197875) uart_to_node: Send: Start Root[0m
+[0;32mI (1198395) uart_to_node: Send: Start Root[0m
+[0;32mI (1198915) uart_to_node: Send: Start Root[0m
+[0;32mI (1199435) uart_to_node: Send: Start Root[0m
+[0;32mI (1199955) uart_to_node: Send: Start Root[0m
+[0;32mI (1200475) uart_to_node: Send: Start Root[0m
+[0;32mI (1200995) uart_to_node: Send: Start Root[0m
+[0;32mI (1201515) uart_to_node: Send: Start Root[0m
+[0;32mI (1202035) uart_to_node: Send: Start Root[0m
+[0;32mI (1202555) uart_to_node: Send: Start Root[0m
+[0;32mI (1203075) uart_to_node: Send: Start Root[0m
+[0;32mI (1203595) uart_to_node: Send: Start Root[0m
+[0;32mI (1204115) uart_to_node: Send: Start Root[0m
+[0;32mI (1204635) uart_to_node: Send: Start Root[0m
+[0;32mI (1205155) uart_to_node: Send: Start Root[0m
+[0;32mI (1205675) uart_to_node: Send: Start Root[0m
+[0;32mI (1206195) uart_to_node: Send: Start Root[0m
+[0;32mI (1206715) uart_to_node: Send: Start Root[0m
+[0;32mI (1207235) uart_to_node: Send: Start Root[0m
+[0;32mI (1207755) uart_to_node: Send: Start Root[0m
+[0;32mI (1208275) uart_to_node: Send: Start Root[0m
+[0;32mI (1208795) uart_to_node: Send: Start Root[0m
+[0;32mI (1209315) uart_to_node: Send: Start Root[0m
+[0;32mI (1209835) uart_to_node: Send: Start Root[0m
+[0;32mI (1210355) uart_to_node: Send: Start Root[0m
+[0;32mI (1210875) uart_to_node: Send: Start Root[0m
+[0;32mI (1211395) uart_to_node: Send: Start Root[0m
+[0;32mI (1211915) uart_to_node: Send: Start Root[0m
+[0;32mI (1212435) uart_to_node: Send: Start Root[0m
+[0;32mI (1212955) uart_to_node: Send: Start Root[0m
+[0;32mI (1213475) uart_to_node: Send: Start Root[0m
+[0;32mI (1213995) uart_to_node: Send: Start Root[0m
+[0;32mI (1214515) uart_to_node: Send: Start Root[0m
+[0;32mI (1215035) uart_to_node: Send: Start Root[0m
+[0;32mI (1215555) uart_to_node: Send: Start Root[0m
+[0;32mI (1216075) uart_to_node: Send: Start Root[0m
+[0;32mI (1216595) uart_to_node: Send: Start Root[0m
+[0;32mI (1217115) uart_to_node: Send: Start Root[0m
+[0;32mI (1217635) uart_to_node: Send: Start Root[0m
+[0;32mI (1218155) uart_to_node: Send: Start Root[0m
+[0;32mI (1218675) uart_to_node: Send: Start Root[0m
+[0;32mI (1219195) uart_to_node: Send: Start Root[0m
+[0;32mI (1219715) uart_to_node: Send: Start Root[0m
+[0;32mI (1220235) uart_to_node: Send: Start Root[0m
+[0;32mI (1220755) uart_to_node: Send: Start Root[0m
+[0;32mI (1221275) uart_to_node: Send: Start Root[0m
+[0;32mI (1221795) uart_to_node: Send: Start Root[0m
+[0;32mI (1222315) uart_to_node: Send: Start Root[0m
+[0;32mI (1222835) uart_to_node: Send: Start Root[0m
+[0;32mI (1223355) uart_to_node: Send: Start Root[0m
+[0;32mI (1223875) uart_to_node: Send: Start Root[0m
+[0;32mI (1224395) uart_to_node: Send: Start Root[0m
+[0;32mI (1224915) uart_to_node: Send: Start Root[0m
+[0;32mI (1225435) uart_to_node: Send: Start Root[0m
+[0;32mI (1225955) uart_to_node: Send: Start Root[0m
+[0;32mI (1226475) uart_to_node: Send: Start Root[0m
+[0;32mI (1226995) uart_to_node: Send: Start Root[0m
+[0;32mI (1227515) uart_to_node: Send: Start Root[0m
+[0;32mI (1228035) uart_to_node: Send: Start Root[0m
+[0;32mI (1228555) uart_to_node: Send: Start Root[0m
+[0;32mI (1229075) uart_to_node: Send: Start Root[0m
+[0;32mI (1229595) uart_to_node: Send: Start Root[0m
+[0;32mI (1230115) uart_to_node: Send: Start Root[0m
+[0;32mI (1230635) uart_to_node: Send: Start Root[0m
+[0;32mI (1231155) uart_to_node: Send: Start Root[0m
+[0;32mI (1231675) uart_to_node: Send: Start Root[0m
+[0;32mI (1232195) uart_to_node: Send: Start Root[0m
+[0;32mI (1232715) uart_to_node: Send: Start Root[0m
+[0;32mI (1233235) uart_to_node: Send: Start Root[0m
+[0;32mI (1233755) uart_to_node: Send: Start Root[0m
+[0;32mI (1234275) uart_to_node: Send: Start Root[0m
+[0;32mI (1234795) uart_to_node: Send: Start Root[0m
+[0;32mI (1235315) uart_to_node: Send: Start Root[0m
+[0;32mI (1235835) uart_to_node: Send: Start Root[0m
+[0;32mI (1236355) uart_to_node: Send: Start Root[0m
+[0;32mI (1236875) uart_to_node: Send: Start Root[0m
+[0;32mI (1237395) uart_to_node: Send: Start Root[0m
+[0;32mI (1237915) uart_to_node: Send: Start Root[0m
+[0;32mI (1238435) uart_to_node: Send: Start Root[0m
+[0;32mI (1238955) uart_to_node: Send: Start Root[0m
+[0;32mI (1239475) uart_to_node: Send: Start Root[0m
+[0;32mI (1239995) uart_to_node: Send: Start Root[0m
+[0;32mI (1240515) uart_to_node: Send: Start Root[0m
+[0;32mI (1241035) uart_to_node: Send: Start Root[0m
+[0;32mI (1241555) uart_to_node: Send: Start Root[0m
+[0;32mI (1242075) uart_to_node: Send: Start Root[0m
+[0;32mI (1242595) uart_to_node: Send: Start Root[0m
+[0;32mI (1243115) uart_to_node: Send: Start Root[0m
+[0;32mI (1243635) uart_to_node: Send: Start Root[0m
+[0;32mI (1244155) uart_to_node: Send: Start Root[0m
+[0;32mI (1244675) uart_to_node: Send: Start Root[0m
+[0;32mI (1245195) uart_to_node: Send: Start Root[0m
+[0;32mI (1245715) uart_to_node: Send: Start Root[0m
+[0;32mI (1246235) uart_to_node: Send: Start Root[0m
+[0;32mI (1246755) uart_to_node: Send: Start Root[0m
+[0;32mI (1247275) uart_to_node: Send: Start Root[0m
+[0;32mI (1247795) uart_to_node: Send: Start Root[0m
+[0;32mI (1248315) uart_to_node: Send: Start Root[0m
+[0;32mI (1248835) uart_to_node: Send: Start Root[0m
+[0;32mI (1249355) uart_to_node: Send: Start Root[0m
+[0;32mI (1249875) uart_to_node: Send: Start Root[0m
+[0;32mI (1250395) uart_to_node: Send: Start Root[0m
+[0;32mI (1250915) uart_to_node: Send: Start Root[0m
+[0;32mI (1251435) uart_to_node: Send: Start Root[0m
+[0;32mI (1251955) uart_to_node: Send: Start Root[0m
+[0;32mI (1252475) uart_to_node: Send: Start Root[0m
+[0;32mI (1252995) uart_to_node: Send: Start Root[0m
+[0;32mI (1253515) uart_to_node: Send: Start Root[0m
+[0;32mI (1254035) uart_to_node: Send: Start Root[0m
+[0;32mI (1254555) uart_to_node: Send: Start Root[0m
+[0;32mI (1255075) uart_to_node: Send: Start Root[0m
+[0;32mI (1255595) uart_to_node: Send: Start Root[0m
+[0;32mI (1256115) uart_to_node: Send: Start Root[0m
+[0;32mI (1256635) uart_to_node: Send: Start Root[0m
+[0;32mI (1257155) uart_to_node: Send: Start Root[0m
+[0;32mI (1257675) uart_to_node: Send: Start Root[0m
+[0;32mI (1258195) uart_to_node: Send: Start Root[0m
+[0;32mI (1258715) uart_to_node: Send: Start Root[0m
+[0;32mI (1259235) uart_to_node: Send: Start Root[0m
+[0;32mI (1259755) uart_to_node: Send: Start Root[0m
+[0;32mI (1260275) uart_to_node: Send: Start Root[0m
+[0;32mI (1260795) uart_to_node: Send: Start Root[0m
+[0;32mI (1261315) uart_to_node: Send: Start Root[0m
+[0;32mI (1261835) uart_to_node: Send: Start Root[0m
+[0;32mI (1262355) uart_to_node: Send: Start Root[0m
+[0;32mI (1262875) uart_to_node: Send: Start Root[0m
+[0;32mI (1263395) uart_to_node: Send: Start Root[0m
+[0;32mI (1263915) uart_to_node: Send: Start Root[0m
+[0;32mI (1264435) uart_to_node: Send: Start Root[0m
+[0;32mI (1264955) uart_to_node: Send: Start Root[0m
+[0;32mI (1265475) uart_to_node: Send: Start Root[0m
+[0;32mI (1265995) uart_to_node: Send: Start Root[0m
+[0;32mI (1266515) uart_to_node: Send: Start Root[0m
+[0;32mI (1267035) uart_to_node: Send: Start Root[0m
+[0;32mI (1267555) uart_to_node: Send: Start Root[0m
+[0;32mI (1268075) uart_to_node: Send: Start Root[0m
+[0;32mI (1268595) uart_to_node: Send: Start Root[0m
+[0;32mI (1269115) uart_to_node: Send: Start Root[0m
+[0;32mI (1269635) uart_to_node: Send: Start Root[0m
+[0;32mI (1270155) uart_to_node: Send: Start Root[0m
+[0;32mI (1270675) uart_to_node: Send: Start Root[0m
+[0;32mI (1271195) uart_to_node: Send: Start Root[0m
+[0;32mI (1271715) uart_to_node: Send: Start Root[0m
+[0;32mI (1272235) uart_to_node: Send: Start Root[0m
+[0;32mI (1272755) uart_to_node: Send: Start Root[0m
+[0;32mI (1273275) uart_to_node: Send: Start Root[0m
+[0;32mI (1273795) uart_to_node: Send: Start Root[0m
+[0;32mI (1274315) uart_to_node: Send: Start Root[0m
+[0;32mI (1274835) uart_to_node: Send: Start Root[0m
+[0;32mI (1275355) uart_to_node: Send: Start Root[0m
+[0;32mI (1275875) uart_to_node: Send: Start Root[0m
+[0;32mI (1276395) uart_to_node: Send: Start Root[0m
