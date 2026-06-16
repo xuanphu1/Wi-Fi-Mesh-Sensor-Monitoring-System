@@ -297,13 +297,14 @@ static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
       int draw_y = (int)(center_y - (size == 12 ? 6.0f : 4.0f));
 
       if (draw_y > (int)offset - 16 && draw_y < 64) {
-        float arc_offset = rel * rel * 6.0f;
-        uint8_t x_pos = 50 + (uint8_t)arc_offset;
-
         int actual_index = i % menu->count;
         if (actual_index < 0) {
           actual_index += menu->count;
         }
+
+        float arc_offset = rel * rel * 6.0f;
+        uint8_t base_x = (menu->items[actual_index].image_item_preview.image != NULL) ? 50 : 10;
+        uint8_t x_pos = base_x + (uint8_t)arc_offset;
 
         if (menu->items != NULL && menu->items[actual_index].name != NULL) {
           if (size == 12) {
@@ -333,8 +334,9 @@ static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
   // 5. VẼ HỘP INVERT ROUND RECT VÀO TRUNG TÂM
   int box_h = 16;
   int box_y = center_base_y - box_h / 2;
-  int box_w = 82; // Chạy tới mép phải (128 - 46 = 82)
-  invert_round_rect(oled, 46, box_y, box_w, box_h);
+  int box_x = (menu->items[*selected].image_item_preview.image != NULL) ? 46 : 6;
+  int box_w = 128 - box_x; 
+  invert_round_rect(oled, box_x, box_y, box_w, box_h);
   esp_err_t ret = ssd1306_refresh_gram(oled);
   if (oled_mutex != NULL) {
     xSemaphoreGive(oled_mutex);
