@@ -34,8 +34,9 @@ system_err_t ScreenManagerInit(ssd1306_handle_t *_oled);
  *
  * @return MRS_OK or display error code.
  */
-system_err_t MenuRender(menu_list_t *menu, int8_t *selected,
-                        objectInfoManager_t *objectInfo);
+
+void ScreenDashboard(DataManager_t *data);
+void MenuRender_Task(void *pvParameters);
 
 /**
  * @brief Reserved single-port sensor screen; current implementation is a no-op stub.

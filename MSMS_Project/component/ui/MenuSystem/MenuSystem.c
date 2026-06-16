@@ -1,5 +1,6 @@
 #include "MenuSystem.h"
-#include "Common.h"
+#include "DataManager.h"
+#include "InternetManager.h"
 #include "SensorRegistry.h"
 #include "SensorTypes.h"
 #include "sdkconfig.h"
@@ -9,6 +10,10 @@
 #include <sys/_types.h>
 #include <time.h>
 
+/**
+ * @file MenuSystem.c
+ * @brief Static menu trees, dynamic sensor submenus, and navigation task.
+ */
 
 #define NUM_INTERFACES 4
 #define PORT_DISPLAY_NAME_LEN 28
@@ -23,8 +28,10 @@ static const char *MENU_INTERFACE_NAMES[] = {"UART", "I2C", "SPI", "PULSE"};
 menu_list_t WiFi_Config_Menu;
 DataManager_t *Data;
 static const char *port[NUM_PORTS] = {"Port 1", "Port 2", "Port 3"};
+static char wifi_manager_label[20] = "Wifi Manager";
+static char mesh_manager_label[20] = "Mesh Manager";
 
-/* -------------------- Dynamic Arrays (theo port + giao tiáº¿p)
+/* -------------------- Dynamic arrays (per port + interface)
  * -------------------- */
 static SelectionParam_t *SensorSelectionByIface[NUM_PORTS][NUM_INTERFACES] = {
     {NULL}};
@@ -32,21 +39,33 @@ static menu_item_t *SensorItemsByIface[NUM_PORTS][NUM_INTERFACES] = {{NULL}};
 static char port_display_name[NUM_PORTS][PORT_DISPLAY_NAME_LEN];
 ShowDataSensorParam_t ShowDataSensorSelection[NUM_PORTS];
 
-/* -------------------- Menu: Sensors â†’ Port 1/2 â†’ UART/I2C/SPI/ANALOG/PULSE â†’
- * danh sÃ¡ch cáº£m biáº¿n -------------------- */
-menu_list_t PortInterfaceMenus[NUM_PORTS][NUM_INTERFACES]; /* [port][interface]
-                                                              = menu cáº£m biáº¿n */
-menu_item_t PortInterfaceMenuItems[NUM_PORTS]
-                                  [NUM_INTERFACES]; /* "UART", "I2C", ... cho
-                                                       má»—i port */
-menu_list_t PortMenus[NUM_PORTS];                   /* Port 1, 2, 3 menu */
+/* -------------------- Menu: Sensors → Port 1/2 → UART/I2C/SPI/PULSE →
+ * sensor list -------------------- */
+menu_list_t PortInterfaceMenus[NUM_PORTS][NUM_INTERFACES]; /* [port][iface] =
+                                                              sensor submenu */
+menu_item_t
+    PortInterfaceMenuItems[NUM_PORTS]
+                          [NUM_INTERFACES]; /* "UART", "I2C", ... per port */
+menu_list_t PortMenus[NUM_PORTS];           /* Port 1, 2, 3 menu */
 
-menu_item_t Show_Data_Sensor[] = {{NULL, MENU_ACTION, show_data_sensor_cb,
-                                   &ShowDataSensorSelection[PORT_1], NULL, {0}},
-                                  {NULL, MENU_ACTION, show_data_sensor_cb,
-                                   &ShowDataSensorSelection[PORT_2], NULL, {0}},
-                                  {NULL, MENU_ACTION, show_data_sensor_cb,
-                                   &ShowDataSensorSelection[PORT_3], NULL, {0}}};
+menu_item_t Show_Data_Sensor[] = {{NULL,
+                                   MENU_ACTION,
+                                   show_data_sensor_cb,
+                                   &ShowDataSensorSelection[PORT_1],
+                                   NULL,
+                                   {0}},
+                                  {NULL,
+                                   MENU_ACTION,
+                                   show_data_sensor_cb,
+                                   &ShowDataSensorSelection[PORT_2],
+                                   NULL,
+                                   {0}},
+                                  {NULL,
+                                   MENU_ACTION,
+                                   show_data_sensor_cb,
+                                   &ShowDataSensorSelection[PORT_3],
+                                   NULL,
+                                   {0}}};
 
 menu_list_t Show_Data_Sensor_Menu = {
     .items = Show_Data_Sensor,
@@ -55,8 +74,8 @@ menu_list_t Show_Data_Sensor_Menu = {
     .port_index = -1,
 };
 
-/* Sensor_Menu_Items: 5 má»¥c = Port 1, Port 2, Port 3, Show data sensor, Reset
- * All Ports (gÃ¡n trong init) */
+/* Sensor_Menu_Items: 5 entries = Port 1–3, Show data sensor, Reset All Ports
+ * (filled in init) */
 static menu_item_t Sensor_Menu_Items[5];
 menu_list_t Sensor_Menu = {
     .items = Sensor_Menu_Items,
@@ -64,10 +83,11 @@ menu_list_t Sensor_Menu = {
     .parent = NULL,
     .port_index = -1,
 };
+const image_t imageNULL = {0};
 
-// Submenu "WiFi Config" (káº¿t ná»‘i WiFi thÃ´ng thÆ°á»ng)
+// Submenu "WiFi Config" (standard STA Wi‑Fi)
 menu_item_t WiFi_Config_Items[] = {
-    {"OK", MENU_ACTION, wifi_config_callback, NULL, NULL, {0}},
+    {"OK", MENU_ACTION, wifi_config_callback, NULL, NULL},
 };
 
 const image_t WiFi_Config_Image = {
@@ -97,13 +117,13 @@ const text_t WiFi_Mesh_Text = {
 };
 
 const image_t WiFi_Mesh_Config_Image = {
-  .image = imageManager,
-  .width = 32,
-  .height = 32,
+    .image = imageManager,
+    .width = 32,
+    .height = 32,
 };
 
 menu_item_t WiFi_MeshConfig_Items[] = {
-  {"OK", MENU_ACTION, wifi_mesh_join_as_node_callback, NULL, NULL, {0}},
+    {"OK", MENU_ACTION, wifi_mesh_join_as_node_callback, NULL, NULL},
 };
 
 menu_list_t WiFi_Mesh_Config_Menu = {
@@ -116,11 +136,12 @@ menu_list_t WiFi_Mesh_Config_Menu = {
     .port_index = -1,
 };
 
-
-// Submenu chá»n cháº¿ Ä‘á»™ WiFi: Connect WiFi / Join WiFi Mesh
+// Submenu: Connect WiFi / Join WiFi Mesh
 menu_item_t WiFi_Mode_Items[] = {
-    {"Connect WiFi", MENU_SUBMENU, NULL, NULL, &WiFi_Config_Menu, {0}},
-    {"Join WiFi Mesh", MENU_SUBMENU, NULL, NULL, &WiFi_Mesh_Config_Menu, {0}},
+    {wifi_manager_label, MENU_SUBMENU, NULL, NULL, &WiFi_Config_Menu,
+     imageNULL},
+    {mesh_manager_label, MENU_SUBMENU, NULL, NULL, &WiFi_Mesh_Config_Menu,
+     imageNULL},
 };
 
 menu_list_t WiFi_Mode_Menu = {
@@ -133,7 +154,7 @@ menu_list_t WiFi_Mode_Menu = {
 
 // Submenu "Battery Status"
 menu_item_t Battery_Status_Items[] = {
-    {"OK", MENU_ACTION, NULL, NULL, NULL, {0}},
+    {"OK", MENU_ACTION, NULL, NULL, NULL},
 };
 
 const image_t Battery_Status_Image = {
@@ -157,43 +178,27 @@ menu_list_t Battery_Status_Menu = {
     .port_index = -1,
 };
 
-/* -------------------- Actuators: board-fixed GPIOs -------------------- */
-#if CONFIG_IDF_TARGET_ESP32
-#define PIN_ACTUATOR_IO1_P1 32
-#define PIN_ACTUATOR_IO3_P2 35
-#define PIN_ACTUATOR_IO1_P3 33
-#elif CONFIG_IDF_TARGET_ESP32C6 || CONFIG_IDF_TARGET_ESP32C3
-#define PIN_ACTUATOR_IO1_P1 -1
-#define PIN_ACTUATOR_IO3_P2 2
-#define PIN_ACTUATOR_IO1_P3 3
-#else
-#define PIN_ACTUATOR_IO1_P1 0
-#define PIN_ACTUATOR_IO3_P2 0
-#define PIN_ACTUATOR_IO1_P3 0
-#endif
+/* -------------------- Actuators: board-fixed GPIOs (formerly main/Kconfig)
+ * -------------------- */
 
 menu_item_t Actuator_IO1_Port1_Items[] = {
     {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1,
-     NULL, {0}},
-    {"OFF", MENU_ACTION, actuator_off_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1,
-     NULL, {0}},
+     NULL},
+    {"OFF", MENU_ACTION, actuator_off_cb,
+     (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1, NULL},
 };
 menu_item_t Actuator_IO3_Port2_Items[] = {
     {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2,
-     NULL, {0}},
-    {"OFF", MENU_ACTION, actuator_off_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2,
-     NULL, {0}},
+     NULL},
+    {"OFF", MENU_ACTION, actuator_off_cb,
+     (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2, NULL},
 };
 menu_item_t Actuator_IO1_Port3_Items[] = {
     {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3,
-     NULL, {0}},
-    {"OFF", MENU_ACTION, actuator_off_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3,
-     NULL, {0}},
+     NULL},
+    {"OFF", MENU_ACTION, actuator_off_cb,
+     (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3, NULL},
 };
-
-#undef PIN_ACTUATOR_IO1_P1
-#undef PIN_ACTUATOR_IO3_P2
-#undef PIN_ACTUATOR_IO1_P3
 
 menu_list_t Actuator_IO1_Port1_Menu = {
     .items = Actuator_IO1_Port1_Items,
@@ -215,25 +220,78 @@ menu_list_t Actuator_IO1_Port3_Menu = {
 };
 
 menu_item_t Actuators_Items[] = {
-    {"IO1-Port1", MENU_SUBMENU, NULL, NULL, &Actuator_IO1_Port1_Menu, {0}},
-    {"IO3-Port2", MENU_SUBMENU, NULL, NULL, &Actuator_IO3_Port2_Menu, {0}},
-    {"IO1-Port3", MENU_SUBMENU, NULL, NULL, &Actuator_IO1_Port3_Menu, {0}},
+    {"IO1-Port1", MENU_SUBMENU, NULL, NULL, &Actuator_IO1_Port1_Menu,
+     imageNULL},
+    {"IO3-Port2", MENU_SUBMENU, NULL, NULL, &Actuator_IO3_Port2_Menu,
+     imageNULL},
+    {"IO1-Port3", MENU_SUBMENU, NULL, NULL, &Actuator_IO1_Port3_Menu,
+     imageNULL},
 };
 
 menu_list_t Actuators_Menu = {
     .items = Actuators_Items,
     .count = ARRAY_SIZE(Actuators_Items),
     .parent = NULL,
-    .port_index = NUM_PORTS, /* hiá»ƒn thá»‹ cáº£ Port 1, 2, 3 Ä‘Ã£ chá»n á»Ÿ Ä‘áº§u menu */
+    .port_index = NUM_PORTS, /* show all three port lines at top of menu */
+};
+
+menu_item_t Application_Items[] = {
+    {"Empty App", MENU_ACTION, NULL, NULL, NULL},
+};
+
+menu_list_t Application_Menu = {
+    .items = Application_Items,
+    .object = OBJECT_NONE,
+    .count = ARRAY_SIZE(Application_Items),
+    .parent = NULL,
+    .port_index = -1,
 };
 
 // Root Menu
+
+const image_t NetworkConfig = {
+    .image = imageManager,
+    .width = 37,
+    .height = 32,
+};
+const image_t Sensors = {
+    .image = imageManager,
+    .width = 35,
+    .height = 34,
+};
+
+const image_t Actuators = {
+    .image = imageManager,
+    .width = 36,
+    .height = 45,
+};
+
+const image_t Battery = {
+    .image = imageManager,
+    .width = 24,
+    .height = 16,
+};
+
+const image_t Information = {
+    .image = imageManager,
+    .width = 35,
+    .height = 35,
+};
+
+const image_t Application_Image = {
+    .image = imageManager,
+    .width = 35,
+    .height = 35,
+};
+
 menu_item_t Root_Items[] = {
-    {"WiFi Config", MENU_SUBMENU, NULL, NULL, &WiFi_Mode_Menu, {0}},
-    {"Sensors", MENU_SUBMENU, NULL, NULL, &Sensor_Menu, {0}},
-    {"Actuators", MENU_SUBMENU, NULL, NULL, &Actuators_Menu, {0}},
-    {"Battery Status", MENU_SUBMENU, NULL, NULL, &Battery_Status_Menu, {0}},
-    {"Information", MENU_ACTION, information_callback, NULL, NULL, {0}},
+    {"NetworkCfg", MENU_SUBMENU, NULL, NULL, &WiFi_Mode_Menu, NetworkConfig},
+    {"Sensors", MENU_SUBMENU, NULL, NULL, &Sensor_Menu, Sensors},
+    {"Application", MENU_SUBMENU, NULL, NULL, &Application_Menu,
+     Application_Image},
+    {"Actuators", MENU_SUBMENU, NULL, NULL, &Actuators_Menu, Actuators},
+    {"Battery", MENU_SUBMENU, NULL, NULL, &Battery_Status_Menu, Battery},
+    {"Information", MENU_ACTION, information_callback, NULL, NULL, Information},
 };
 
 menu_list_t Root_Menu = {
@@ -246,10 +304,11 @@ menu_list_t Root_Menu = {
     .port_index = -1,
 };
 
-// LiÃªn káº¿t parent cho submenu
+// Link parent pointers for submenus
 __attribute__((constructor)) static void link_menus(void) {
   Sensor_Menu.parent = &Root_Menu;
   WiFi_Mode_Menu.parent = &Root_Menu;
+  Application_Menu.parent = &Root_Menu;
   WiFi_Config_Menu.parent = &WiFi_Mode_Menu;
   WiFi_Mesh_Config_Menu.parent = &WiFi_Mode_Menu;
   Battery_Status_Menu.parent = &Root_Menu;
@@ -269,8 +328,7 @@ __attribute__((constructor)) static void link_menus(void) {
 /* -------------------- Menu Functions -------------------- */
 
 /**
- * @brief Khá»Ÿi táº¡o menu Sensors: Port 1/2 â†’ UART/I2C/SPI/ANALOG/PULSE â†’ danh
- * sÃ¡ch cáº£m biáº¿n.
+ * @brief Build Sensors menu: Port 1/2 → UART/I2C/SPI/PULSE → sensor lists.
  */
 static void init_sensor_interface_port_menu_items(DataManager_t *data) {
   for (PortId_t port = PORT_1; port < NUM_PORTS; port++) {
@@ -345,7 +403,7 @@ static void init_sensor_interface_port_menu_items(DataManager_t *data) {
     PortMenus[port].count = NUM_INTERFACES;
     PortMenus[port].parent = &Sensor_Menu;
     PortMenus[port].port_index =
-        (int8_t)port; /* menu Port 1/2/3 hiá»ƒn thá»‹ cáº£m biáº¿n Ä‘Ã£ chá»n */
+        (int8_t)port; /* Port 1/2/3 row shows selected sensor name */
   }
 
   Sensor_Menu_Items[0] = (menu_item_t){
@@ -370,17 +428,17 @@ static void init_sensor_interface_port_menu_items(DataManager_t *data) {
       .children = &PortMenus[PORT_3],
   };
   Sensor_Menu_Items[3] = (menu_item_t){
-      .name = "Show data sensor",
+      .name = "Show Data",
       .type = MENU_SUBMENU,
       .callback = NULL,
       .ctx = NULL,
       .children = &Show_Data_Sensor_Menu,
   };
   Sensor_Menu_Items[4] = (menu_item_t){
-      .name = "Reset All Ports",
+      .name = "RS All Ports",
       .type = MENU_ACTION,
       .callback = reset_all_ports_callback,
-      .ctx = NULL, /* gÃ¡n Data trong MenuSystemInit */
+      .ctx = NULL, /* Data assigned in MenuSystemInit */
       .children = NULL,
   };
 }
@@ -392,8 +450,8 @@ static void init_show_data_sensor_selection(DataManager_t *data) {
   }
 }
 
-/** Cáº­p nháº­t tÃªn Sensor_Menu_Items[0..2]: "Port X" hoáº·c "Port X - tÃªn cáº£m biáº¿n"
- * theo data->selectedSensor. */
+/** Refresh Sensor_Menu_Items[0..2] labels: "Port X" or "Port X - sensor name"
+ * from data->selectedSensor. */
 static void update_port_names(DataManager_t *data) {
   if (data == NULL) {
     return;
@@ -410,8 +468,8 @@ static void update_port_names(DataManager_t *data) {
   }
 }
 
-/** Chuyá»ƒn mÃ n hÃ¬nh vá» menu Sensors, highlight má»¥c selected_index (0=Port1,
- * 1=Port2, 2=Port3). */
+/** Return to Sensors menu; highlight selected_index (0=Port1, 1=Port2,
+ * 2=Port3). */
 static void go_to_sensor_menu(DataManager_t *data, int8_t selected_index) {
   if (data == NULL) {
     return;
@@ -424,7 +482,7 @@ static void go_to_sensor_menu(DataManager_t *data, int8_t selected_index) {
     selected_index = Sensor_Menu.count - 1;
   }
   data->screen.selected = selected_index;
-  MenuRender(data->screen.current, &data->screen.selected, &data->objectInfo);
+  data->screen.is_menu_active = true;
 }
 
 static void menu_on_sensor_selected(DataManager_t *data, int port) {
@@ -436,15 +494,34 @@ static void menu_on_ports_reset(DataManager_t *data) {
   update_port_names(data);
 }
 
+static void update_network_menu_names(void) {
+  internet_mode_t mode = InternetManager_GetMode();
+  bool wifi_active = mode == INTERNET_MODE_WIFI;
+  bool mesh_active = mode == INTERNET_MODE_MESH;
+
+  snprintf(wifi_manager_label, sizeof(wifi_manager_label), "Wifi %s",
+           wifi_active ? "(v)" : "");
+  snprintf(mesh_manager_label, sizeof(mesh_manager_label), "Mesh %s",
+           mesh_active ? "(v)" : "");
+  WiFi_Mode_Items[0].name = wifi_manager_label;
+  WiFi_Mode_Items[1].name = mesh_manager_label;
+}
+
+/**
+ * @brief Wire all menus, dynamic sensor submenus, and callbacks into
+ * DataManager.
+ */
 void MenuSystemInit(DataManager_t *data) {
   Data = data;
   Data->screen.current = &Root_Menu;
-  Data->screen.selected = 0;
-  Data->screen.prev_selected = 0;
+  Data->screen.selected = 3;
+  Data->screen.prev_selected = 3;
+  Data->screen.is_menu_active = false;
+  Data->screen.is_dashboard_active = true;
   Data->MenuReturn[0] = &WiFi_Config_Menu;
   Data->MenuReturn[1] = &Battery_Status_Menu;
   Data->MenuReturn[2] = &WiFi_Mesh_Config_Menu;
-  // Khá»Ÿi táº¡o selectedSensor
+  // Init selectedSensor
   for (int i = 0; i < NUM_PORTS; ++i) {
     Data->selectedSensor[i] = SENSOR_NONE;
   }
@@ -457,24 +534,29 @@ void MenuSystemInit(DataManager_t *data) {
   Show_Data_Sensor[2].name = port[2];
 
   WiFi_Config_Items[0].ctx = Data;
-  WiFi_MeshConfig_Items[0].ctx = Data;  /* Join WiFi Mesh - OK button */
-  WiFi_Mode_Items[1].ctx = Data;        /* Join WiFi Mesh submenu */
+  WiFi_MeshConfig_Items[0].ctx = Data; /* Join as Root */
+  WiFi_Mode_Items[1].ctx = Data;       /* Join WiFi Mesh submenu */
   Battery_Status_Items[0].ctx = Data;
   Sensor_Menu_Items[3].ctx = Data; /* Show data sensor */
   Sensor_Menu_Items[4].ctx = Data; /* Reset All Ports */
 
-  update_port_names(Data); /* "Port 1", "Port 2", "Port 3" */
+  update_port_names(Data); /* default "Port 1", "Port 2", "Port 3" */
+  update_network_menu_names();
   Data->on_sensor_selected = menu_on_sensor_selected;
   Data->on_ports_reset = menu_on_ports_reset;
 
-  // Cáº­p nháº­t callback cho Battery Status menu item trong Root Menu
-  Root_Items[3].callback = battery_status_callback;
-  Root_Items[3].ctx = Data;
-  // Information callback cáº§n Data Ä‘á»ƒ váº½ láº¡i menu sau khi hiá»ƒn thá»‹ thÃ´ng tin
+  // Battery Status item callback in root menu (now index 4)
+  Root_Items[4].callback = battery_status_callback;
   Root_Items[4].ctx = Data;
+  // Information callback needs Data to redraw menu after info screen (now index
+  // 5)
+  Root_Items[5].ctx = Data;
 }
 
 /* -------------------- Navigation Task -------------------- */
+/**
+ * @brief Poll ADC keys, update selection, invoke menu callbacks, redraw OLED.
+ */
 void MenuNavigation_Task(void *pvParameter) {
   DataManager_t *data = (DataManager_t *)pvParameter;
 
@@ -485,35 +567,87 @@ void MenuNavigation_Task(void *pvParameter) {
     data->objectInfo.selectedSensorName[p] =
         sensor_type_to_name(data->selectedSensor[p]);
   }
-  MenuRender(data->screen.current, &data->screen.selected, &data->objectInfo);
+  data->screen.is_menu_active = true;
+
+  uint32_t last_interaction_time = xTaskGetTickCount();
 
   while (1) {
+    update_network_menu_names();
     for (int p = 0; p < NUM_PORTS; p++) {
       data->objectInfo.selectedSensorName[p] =
           sensor_type_to_name(data->selectedSensor[p]);
     }
-    switch (ReadButtonStatus()) {
+
+    button_type_t btn = ReadButtonStatus();
+
+    if (btn != BTN_NONE) {
+      last_interaction_time = xTaskGetTickCount();
+      if (data->screen.is_dashboard_active) {
+        if (btn == BTN_SEL) {
+          data->screen.dashboard_page = (data->screen.dashboard_page + 1) % 3;
+          btn = BTN_NONE;
+        } else if (btn == BTN_BACK) {
+          if (data->screen.dashboard_page == 0)
+            data->screen.dashboard_page = 2;
+          else
+            data->screen.dashboard_page--;
+          btn = BTN_NONE;
+        } else {
+          // MOVE (UP or DOWN) switches to menu
+          data->screen.is_dashboard_active = false;
+          data->screen.is_menu_active = true;
+          btn = BTN_NONE;
+        }
+      }
+    } else {
+      if (data->screen.is_menu_active &&
+          ((xTaskGetTickCount() - last_interaction_time) * portTICK_PERIOD_MS >
+           3000)) {
+        data->screen.current = &Root_Menu;
+        data->screen.selected = 0;
+        data->screen.is_menu_active = false;
+        data->screen.is_dashboard_active = true;
+      }
+    }
+
+    switch (btn) {
     case BTN_UP:
+      /* Tránh count==0: (count-1) kiểu size_t bị underflow; items NULL gây
+       * crash khi SEL. */
+      if (data->screen.current == NULL || data->screen.current->count == 0) {
+        break;
+      }
       data->screen.prev_selected = data->screen.selected;
       data->screen.selected--;
 
-      if (data->screen.selected < 0)
-        data->screen.selected = data->screen.current->count - 1;
-      MenuRender(data->screen.current, &data->screen.selected,
-                 &data->objectInfo);
+      if (data->screen.selected < 0) {
+        data->screen.selected = (int8_t)(data->screen.current->count - 1U);
+      }
+      data->screen.is_menu_active = true;
       break;
 
     case BTN_DOWN:
+      if (data->screen.current == NULL || data->screen.current->count == 0) {
+        break;
+      }
       data->screen.prev_selected = data->screen.selected;
       data->screen.selected++;
 
-      if (data->screen.selected >= data->screen.current->count)
+      if ((size_t)data->screen.selected >= data->screen.current->count) {
         data->screen.selected = 0;
-      MenuRender(data->screen.current, &data->screen.selected,
-                 &data->objectInfo);
+      }
+      data->screen.is_menu_active = true;
       break;
 
     case BTN_SEL: {
+      if (data->screen.current == NULL || data->screen.current->items == NULL ||
+          data->screen.current->count == 0) {
+        break;
+      }
+      if (data->screen.selected < 0 ||
+          (size_t)data->screen.selected >= data->screen.current->count) {
+        break;
+      }
       menu_item_t *item = &data->screen.current->items[data->screen.selected];
 
       if (item->type == MENU_ACTION && item->callback) {
@@ -525,23 +659,27 @@ void MenuNavigation_Task(void *pvParameter) {
       } else if (item->type == MENU_SUBMENU && item->children) {
         data->screen.current = item->children;
         data->screen.selected = 0;
-        MenuRender(data->screen.current, &data->screen.selected,
-                   &data->objectInfo);
+        data->screen.is_menu_active = true;
       }
       break;
     }
 
     case BTN_BACK:
-
-      if (data->screen.current->parent) {
-        if (data->screen.current == &Show_Data_Sensor_Menu &&
-            data->screen.selected < NUM_PORTS) {
-          ShowDataSensorSelection[data->screen.selected].ShowDataScreen = false;
+      if (data->screen.current != NULL) {
+        if (data->screen.current->parent != NULL) {
+          if (data->screen.current == &Show_Data_Sensor_Menu &&
+              data->screen.selected < NUM_PORTS) {
+            ShowDataSensorSelection[data->screen.selected].ShowDataScreen =
+                false;
+          }
+          data->screen.current = data->screen.current->parent;
+          data->screen.selected = 0;
+          data->screen.is_menu_active = true;
+        } else {
+          // At root menu, return to dashboard
+          data->screen.is_menu_active = false;
+          data->screen.is_dashboard_active = true;
         }
-        data->screen.current = data->screen.current->parent;
-        data->screen.selected = 0;
-        MenuRender(data->screen.current, &data->screen.selected,
-                   &data->objectInfo);
       }
       break;
 
@@ -551,3 +689,11 @@ void MenuNavigation_Task(void *pvParameter) {
     vTaskDelay(10 / portTICK_PERIOD_MS);
   }
 }
+
+/**
+ * @brief Reserved hook for a periodic sensor polling task (unused in current
+ * firmware).
+ *
+ * @param pvParameter Unused.
+ */
+void ReadSensor_Task(void *pvParameter) { (void)pvParameter; }

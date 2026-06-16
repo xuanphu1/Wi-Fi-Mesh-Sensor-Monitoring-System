@@ -7,15 +7,15 @@ File này xây dựng **cây menu** của firmware (Root → WiFi Config, Sensor
 ## 1. Hằng số và thứ tự giao tiếp
 
 ```c
-#define NUM_INTERFACES 5
+#define NUM_INTERFACES 4
 static const TypeCommunication_t MENU_INTERFACE_ORDER[] = {
   COMMUNICATION_UART, COMMUNICATION_I2C, COMMUNICATION_SPI,
-  COMMUNICATION_ANALOG, COMMUNICATION_PULSE,
+  COMMUNICATION_PULSE,
 };
-static const char *MENU_INTERFACE_NAMES[] = { "UART", "I2C", "SPI", "ANALOG", "PULSE" };
+static const char *MENU_INTERFACE_NAMES[] = { "UART", "I2C", "SPI", "PULSE" };
 ```
 
-- Có **5 loại giao tiếp** cảm biến: UART, I2C, SPI, ANALOG, PULSE.
+- Có **4 loại giao tiếp** cảm biến: UART, I2C, SPI, PULSE.
 - Thứ tự trong menu luôn giống `MENU_INTERFACE_ORDER`; tên hiển thị lấy từ `MENU_INTERFACE_NAMES`.
 
 ---
@@ -40,12 +40,12 @@ static menu_item_t *SensorItemsByIface[NUM_PORTS][NUM_INTERFACES];
 ShowDataSensorParam_t ShowDataSensorSelection[NUM_PORTS];
 
 menu_list_t PortInterfaceMenus[NUM_PORTS][NUM_INTERFACES];   // Menu con: danh sách cảm biến
-menu_item_t PortInterfaceMenuItems[NUM_PORTS][NUM_INTERFACES];  // 5 mục: "UART", "I2C", ...
+menu_item_t PortInterfaceMenuItems[NUM_PORTS][NUM_INTERFACES];  // 4 mục: "UART", "I2C", ...
 menu_list_t PortMenus[NUM_PORTS];  // Port 1 menu, Port 2 menu, Port 3 menu
 ```
 
 - **Port 1 / 2 / 3**: mỗi port có một `menu_list_t` (`PortMenus[port]`).
-- Mỗi port có **5 mục con** tương ứng 5 giao tiếp: UART, I2C, SPI, ANALOG, PULSE (`PortInterfaceMenuItems[port][0..4]`).
+- Mỗi port có **4 mục con** tương ứng 4 giao tiếp: UART, I2C, SPI, PULSE (`PortInterfaceMenuItems[port][0..3]`).
 - Mỗi mục giao tiếp trỏ tới **menu lá** là danh sách cảm biến thuộc giao tiếp đó (`PortInterfaceMenus[port][i]`).
 - Danh sách cảm biến được **cấp phát động** trong `init_sensor_interface_port_menu_items()` từ SensorRegistry (số lượng cảm biến UART/I2C/... có thể thay đổi).
 - `SensorSelectionByIface[port][i]`: mảng `SelectionParam_t` (data, port, sensor) truyền vào callback khi chọn cảm biến.
@@ -106,7 +106,7 @@ Tất cả submenu đều được nối **parent** trong hàm `link_menus()` (c
 
 ## 7. Khởi tạo menu động theo giao tiếp: `init_sensor_interface_port_menu_items(Data)`
 
-Hàm này xây toàn bộ nhánh **Sensors → Port 1/2/3 → UART/I2C/SPI/ANALOG/PULSE → danh sách cảm biến**.
+Hàm này xây toàn bộ nhánh **Sensors → Port 1/2/3 → UART/I2C/SPI/PULSE → danh sách cảm biến**.
 
 - Với mỗi cặp **(port, interface)**:
   - Gọi `sensor_registry_get_count_by_interface(iface)` để biết số cảm biến (ví dụ I2C có 1 là BME280).
@@ -114,7 +114,7 @@ Hàm này xây toàn bộ nhánh **Sensors → Port 1/2/3 → UART/I2C/SPI/ANALO
     - `SensorSelectionByIface[port][i]`: mảng `SelectionParam_t` (data, port, sensor_type).
     - `SensorItemsByIface[port][i]`: mảng `menu_item_t` (name = driver->name, callback = `select_sensor_cb`, ctx = &SensorSelectionByIface[port][i][k]).
   - Gán `PortInterfaceMenus[port][i].items` / `.count` / `.parent` / `.port_index`.
-- Với mỗi port: tạo 5 mục "UART", "I2C", "SPI", "ANALOG", "PULSE" (`PortInterfaceMenuItems[port][i]`), mỗi mục `.children = &PortInterfaceMenus[port][i]`.
+- Với mỗi port: tạo 4 mục "UART", "I2C", "SPI", "PULSE" (`PortInterfaceMenuItems[port][i]`), mỗi mục `.children = &PortInterfaceMenus[port][i]`.
 - Gán `PortMenus[port].items = PortInterfaceMenuItems[port]`, `.count = NUM_INTERFACES`, `.parent = &Sensor_Menu`, `.port_index = port`.
 - Cuối cùng gán 5 mục của **Sensor_Menu**: Port 1, Port 2, Port 3 (children = &PortMenus[PORT_1/2/3]), "Show data sensor" (children = &Show_Data_Sensor_Menu), "Reset All Ports" (callback = reset_all_ports_callback).
 

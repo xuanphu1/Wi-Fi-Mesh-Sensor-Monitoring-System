@@ -1,14 +1,15 @@
 #ifndef DATA_MANAGER_H
 #define DATA_MANAGER_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
 #include "SensorTypes.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 #define MAX_TEXT_LENGTH 21
@@ -20,9 +21,14 @@
 #define BTN_BACK_GPIO 13
 #define MAX_VISIBLE_ITEMS 4
 
+#define PIN_ACTUATOR_IO1_P1 32
+#define PIN_ACTUATOR_IO3_P2 35
+#define PIN_ACTUATOR_IO1_P3 33
+
 /**
  * @file DataManager.h
- * @brief Cáº¥u trÃºc dá»¯ liá»‡u á»©ng dá»¥ng: menu, mÃ n hÃ¬nh, objectInfo, DataManager vÃ  bundle tham sá»‘ task.
+ * @brief Cáº¥u trÃºc dá»¯ liá»‡u á»©ng dá»¥ng: menu, mÃ n hÃ¬nh, objectInfo,
+ * DataManager vÃ  bundle tham sá»‘ task.
  */
 
 typedef enum { BTN_UP, BTN_DOWN, BTN_SEL, BTN_BACK, BTN_NONE } button_type_t;
@@ -48,18 +54,15 @@ typedef enum {
   ERROR,
 } status;
 
-
-typedef enum
-{
-    STATUS_OK = 0,
-    STATUS_ERROR = 1,
-    STATUS_WARNING = 2,
-    STATUS_INFO = 3,
-    STATUS_DEBUG = 4,
-    STATUS_TRACE = 5,
-    STATUS_FATAL = 6,
-    STATUS_UNKNOWN = 7,
-
+typedef enum {
+  STATUS_OK = 0,
+  STATUS_ERROR = 1,
+  STATUS_WARNING = 2,
+  STATUS_INFO = 3,
+  STATUS_DEBUG = 4,
+  STATUS_TRACE = 5,
+  STATUS_FATAL = 6,
+  STATUS_UNKNOWN = 7,
 
 } Status_t;
 
@@ -132,7 +135,7 @@ typedef struct menu_list {
   menu_item_t *items;
   text_t text;
   image_t image;
-  size_t count;
+  int8_t count;
   object_type_t object;
   struct menu_list *parent;
   int8_t port_index;
@@ -142,11 +145,16 @@ typedef struct {
   menu_list_t *current;
   int8_t selected;
   int8_t prev_selected;
+  bool is_menu_active;
+  bool is_dashboard_active;
+  uint8_t dashboard_page;
 } ScreenManager_t;
 
 typedef struct {
   uint8_t batteryLevel;
+  uint8_t levelPercent;
   char *batteryName;
+  bool is_charging;
 } BatteryInfo_t;
 
 typedef struct {
@@ -171,7 +179,8 @@ typedef enum {
 #define MESH_GATEWAY_RX_QUEUE_DEPTH 64
 /** Gá»­i heartbeat "No node" khi queue rá»—ng (root, ms). */
 #define MESH_ROOT_UART_NO_NODE_MS 1000
-/** Schema JSON trong payload UDP telemetry (MeshManager). v4: thÃªm "ver" + "err" (máº£ng lá»—i). */
+/** Schema JSON trong payload UDP telemetry (MeshManager). v4: thÃªm "ver" +
+ * "err" (máº£ng lá»—i). */
 #define MESH_UDP_JSON_SCHEMA 1
 
 /** Má»™t gÃ³i Ä‘Ã£ nháº­n trÃªn root (Ä‘Æ°a vÃ o gateway_rx_queue). */
@@ -182,8 +191,9 @@ typedef struct {
 } mesh_gateway_rx_msg_t;
 
 /**
- * Tráº¡ng thÃ¡i mesh I/O dÃ¹ng chung: link, vai trÃ², queue gateway, socket UDP (má»Ÿ bá»Ÿi mesh_link).
- * udp_tx_* / udp_tx_sock: node gá»­i telemetry. udp_rx_sock: root nháº­n UDP.
+ * Tráº¡ng thÃ¡i mesh I/O dÃ¹ng chung: link, vai trÃ², queue gateway, socket UDP
+ * (má»Ÿ bá»Ÿi mesh_link). udp_tx_* / udp_tx_sock: node gá»­i telemetry.
+ * udp_rx_sock: root nháº­n UDP.
  */
 typedef struct {
   QueueHandle_t gateway_rx_queue;
@@ -192,22 +202,20 @@ typedef struct {
   mesh_role_t role;
   int udp_tx_sock;
   int udp_rx_sock;
-  /** ÄÃ­ch gá»­i node â†’ root (network byte order, giá»‘ng sin_addr.s_addr). */
+  /** ÄÃ­ch gá»­i node â†’ root (network byte order, giá»‘ng sin_addr.s_addr).
+   */
   uint32_t udp_tx_ip_be;
   /** Cá»•ng Ä‘Ã­ch host order (sáº½ htons trong mesh_data). */
   uint16_t udp_tx_port_host;
 } mesh_io_context_t;
 
+typedef struct {
+  Status_t status;
 
-typedef struct
-{
-    Status_t status;
-
-    /** Äá»“ng bá»™ Wiâ€‘Fi STA (cáº­p nháº­t tá»« WifiManager). */
-    bool sta_connected;
+  /** Äá»“ng bá»™ Wiâ€‘Fi STA (cáº­p nháº­t tá»« WifiManager).
+   */
+  bool sta_connected;
 } dm_wifi_t;
-
-
 
 typedef struct {
   BatteryInfo_t batteryInfo;
@@ -227,6 +235,7 @@ typedef struct DataManager_t {
   objectInfoManager_t objectInfo;
   menu_list_t *MenuReturn[10];
   SensorType_t selectedSensor[NUM_PORTS];
+  SensorData_t port_data[NUM_PORTS];
   on_sensor_selected_fn on_sensor_selected;
   on_ports_reset_fn on_ports_reset;
 

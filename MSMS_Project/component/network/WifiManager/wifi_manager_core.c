@@ -292,3 +292,16 @@ bool is_wifi_connecting(void)
            !(bits & WIFI_FAIL_BIT) &&
            ctx->connect_pending;
 }
+
+void wifi_manager_get_mac(uint8_t mac[6]) {
+    if (mac == NULL) return;
+    esp_wifi_get_mac(WIFI_IF_STA, mac);
+}
+
+int8_t wifi_manager_get_rssi(void) {
+    wifi_ap_record_t ap_info;
+    if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK) {
+        return ap_info.rssi;
+    }
+    return 0;
+}

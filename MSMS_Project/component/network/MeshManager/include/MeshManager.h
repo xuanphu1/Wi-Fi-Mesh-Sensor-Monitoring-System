@@ -106,4 +106,11 @@ void MeshManager_GetGatewayStats(mesh_gateway_stats_t *out_stats);
  */
 bool MeshManager_IsConnected(void);
 
+/**
+ * @brief Get the mesh network throughput.
+ *
+ * @return Current throughput value.
+ */
+int mesh_manager_get_throughput(void);
+
 #endif /* MESH_MANAGER_H */

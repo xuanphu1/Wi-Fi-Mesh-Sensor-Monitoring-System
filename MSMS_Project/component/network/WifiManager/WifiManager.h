@@ -47,6 +47,8 @@ void wifi_manager_task(void *pvParameters);
 void wifi_manager_stop_tasks(void);
 bool is_wifi_connected(void);
 bool is_wifi_connecting(void);
+void wifi_manager_get_mac(uint8_t mac[6]);
+int8_t wifi_manager_get_rssi(void);
 
 
 #endif // __WIFI_MANAGER_H__

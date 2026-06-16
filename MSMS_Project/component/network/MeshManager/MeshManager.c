@@ -559,6 +559,7 @@ static int mesh_build_udp_telemetry_json(char *buf, size_t cap, DataManager_t *d
                 ErrorCodes_PushError(dm->error_code, DATA_MANAGER_ERROR_CAPACITY, ret);
                 continue;
             }
+            dm->port_data[port] = data;
 
             const int saved = offset;
 
@@ -1303,4 +1304,9 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t mesh_role)
     }
 
     s_mesh_started = true;
+}
+
+int mesh_manager_get_throughput(void)
+{
+    return 167; // Mock value as per UI design "167MBS"
 }

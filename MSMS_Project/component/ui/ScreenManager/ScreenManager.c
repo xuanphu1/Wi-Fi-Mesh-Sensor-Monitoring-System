@@ -1,7 +1,12 @@
 #include "ScreenManager.h"
 #include "DataManager.h"
 #include "MeshManager.h"
+#include "SensorRegistry.h"
+#include "SystemPerfomance.h"
+#include "TimeManager.h"
+#include "WifiManager.h"
 #include "driver/i2c.h"
+#include "esp_timer.h"
 #include "freertos/semphr.h"
 #include <stdio.h>
 #include <string.h>
@@ -37,16 +42,18 @@ static void my_draw_small_char(ssd1306_handle_t dev, int chXpos, int chYpos,
     }
   }
 }
-static void __attribute__((unused)) my_draw_small_string(ssd1306_handle_t dev, int chXpos, int chYpos,
-                                 const char *pchString) {
+static void __attribute__((unused))
+my_draw_small_string(ssd1306_handle_t dev, int chXpos, int chYpos,
+                     const char *pchString) {
   while (*pchString != '\0') {
     my_draw_small_char(dev, chXpos, chYpos, *pchString);
     chXpos += 6;
     pchString++;
   }
 }
-static void __attribute__((unused)) my_draw_bitmap_horizontal(ssd1306_handle_t dev, int x, int y,
-                                      const uint8_t *bitmap, int w, int h) {
+static void __attribute__((unused))
+my_draw_bitmap_horizontal(ssd1306_handle_t dev, int x, int y,
+                          const uint8_t *bitmap, int w, int h) {
   if (!bitmap)
     return;
   int bytes_per_row = (w + 7) / 8;
@@ -62,8 +69,8 @@ static void __attribute__((unused)) my_draw_bitmap_horizontal(ssd1306_handle_t d
     }
   }
 }
-static void __attribute__((unused)) invert_round_rect(ssd1306_handle_t dev, int x, int y, int w,
-                              int h) {
+static void __attribute__((unused))
+invert_round_rect(ssd1306_handle_t dev, int x, int y, int w, int h) {
   my_ssd1306_dev_t *device = (my_ssd1306_dev_t *)dev;
   if (!device)
     return;
@@ -97,14 +104,6 @@ static void __attribute__((unused)) invert_round_rect(ssd1306_handle_t dev, int 
 /**
  * @brief Draw one menu row: optional “>” prefix plus item title at 12 px font.
  */
-static void ssd1306_draw_menu_item(menu_item_t *item, int index, int selected,
-                                   int offset) {
-  int y = index * 12 + offset;
-  if (selected) {
-    ssd1306_draw_string(oled, 0, y, (uint8_t *)">", 12, 1);
-  }
-  ssd1306_draw_string(oled, 12, y, (uint8_t *)item->name, 12, 1);
-}
 
 static void initUIState(void);
 
@@ -143,39 +142,36 @@ static void initUIState(void) {
   ssd1306_refresh_gram(oled);
 }
 
-/**
- * @brief Draw the current menu page (icons, title text, paginated items) with
- * mutex protection.
- */
-system_err_t MenuRender(menu_list_t *menu, int8_t *selected,
-                        objectInfoManager_t *objectInfo) {
+bool g_menu_is_animating = false;
+
+static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
+                                    objectInfoManager_t *objectInfo) {
   if (oled == NULL) {
     ESP_LOGE(TAG_SCREEN_MANAGER, "MenuRender: oled is not initialized");
     return MRS_ERR_SCREENMANAGER_NOT_INIT;
   }
-
-  if (menu == NULL) {
-    ESP_LOGW(TAG_SCREEN_MANAGER, "MenuRender: menu is NULL");
+  if (menu == NULL || selected == NULL) {
+    ESP_LOGW(TAG_SCREEN_MANAGER, "MenuRender: invalid params");
     return MRS_ERR_UI_INVALID_MENU;
   }
-
-  if (selected == NULL) {
-    ESP_LOGW(TAG_SCREEN_MANAGER, "MenuRender: selected is NULL");
-    return MRS_ERR_UI_INVALID_MENU;
-  }
-
   if (objectInfo == NULL) {
-    ESP_LOGW(TAG_SCREEN_MANAGER, "MenuRender: objectInfo is NULL");
     return MRS_ERR_CORE_INVALID_PARAM;
   }
-
   if (oled_mutex != NULL &&
       xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE) {
     return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
   }
 
-  ssd1306_clear_screen(oled, 0);
+  // Khởi tạo các biến tracking cho animation
+  static float anim_selection = 0;
+  static menu_list_t *last_menu = NULL;
 
+  if (menu != last_menu) {
+    anim_selection = *selected; // Reset animation khi đổi menu
+    last_menu = menu;
+  }
+  ssd1306_clear_screen(oled, 0);
+  // 1. VẼ PHẦN HEADER CỦA DỰ ÁN CŨ (Wifi, Battery, v.v...)
   uint32_t offset = 0;
   if (menu->image.image != NULL) {
     switch (menu->object) {
@@ -190,34 +186,25 @@ system_err_t MenuRender(menu_list_t *menu, int8_t *selected,
       break;
     }
     case OBJECT_BATTERY: {
-      // Map batteryLevel vào index đúng (0-6)
       uint8_t index = objectInfo->batteryInfo.batteryLevel;
-      if (index >= 7) {
-        index = 0; // Default to 0% nếu index không hợp lệ
-      }
+      if (index >= 7)
+        index = 0;
       ssd1306_draw_bitmap(oled, 55, 0,
                           (uint8_t *)menu->image.image[menu->object][index],
                           menu->image.width, menu->image.height);
       break;
     }
     case OBJECT_WIFI_MESH: {
-      /* Icon mesh nằm ở imageManagerWifi[2], không phải
-       * imageManager[OBJECT_WIFI_MESH] */
       ssd1306_draw_bitmap(oled, 48, 0, (uint8_t *)menu->image.image[0][2],
                           menu->image.width, menu->image.height);
       break;
     }
-    case OBJECT_DIFFERENT:
-      break;
-    case OBJECT_SENSOR:
-      break;
-    case OBJECT_INFORMATION:
-      break;
     default:
       break;
     }
     offset += menu->image.height;
   }
+
   if (menu->text.text != NULL) {
     bool extraText = false;
     switch (menu->object) {
@@ -235,33 +222,21 @@ system_err_t MenuRender(menu_list_t *menu, int8_t *selected,
         snprintf(wifi_info_text, sizeof(wifi_info_text), "%s%s",
                  objectInfo->wifiInfo.wifiName,
                  menu->text.text[menu->object][2]);
-
         ssd1306_draw_string(oled, textLength * (menu->text.size / 2), offset,
                             (uint8_t *)wifi_info_text, menu->text.size, 1);
-
         textLength += strlen(wifi_info_text);
-
-        // Khi cần clear:
-        memset(wifi_info_text, 0, sizeof(wifi_info_text));
       }
       if (textLength > MAX_TEXT_LENGTH)
         extraText = true;
     } break;
     case OBJECT_BATTERY: {
-      // Hiển thị text từ batteryName nếu có, nếu không thì dùng mảng text
-      const char *battery_text = NULL;
-      if (objectInfo->batteryInfo.batteryName != NULL) {
-        battery_text = objectInfo->batteryInfo.batteryName;
-      } else {
-        // Fallback: dùng mảng text với index đã được map
-        uint8_t index = objectInfo->batteryInfo.batteryLevel;
-        if (index < 7) { // Có 7 mức: 0, 17, 33, 50, 67, 83, 100
-          battery_text = menu->text.text[menu->object][index];
-        } else {
-          battery_text = menu->text.text[menu->object][0]; // Default to 0%
-        }
-      }
-
+      const char *battery_text =
+          objectInfo->batteryInfo.batteryName
+              ? objectInfo->batteryInfo.batteryName
+              : menu->text.text[menu->object]
+                               [objectInfo->batteryInfo.batteryLevel < 7
+                                    ? objectInfo->batteryInfo.batteryLevel
+                                    : 0];
       if (battery_text != NULL) {
         ssd1306_draw_string(oled, 0, offset, (uint8_t *)battery_text,
                             menu->text.size, 1);
@@ -272,76 +247,317 @@ system_err_t MenuRender(menu_list_t *menu, int8_t *selected,
     }
     case OBJECT_WIFI_MESH: {
       char mesh_information_text[64];
-      const char *base ;
-      if (objectInfo->meshInfo.meshStatus == CONNECTED &&
-          objectInfo->meshInfo.ipRoot != NULL) {
-        base = menu->text.text[2][1];
-        snprintf(mesh_information_text, sizeof(mesh_information_text), "%s %s",
-                 base, objectInfo->meshInfo.ipRoot);
-      } else {
-        base = menu->text.text[2][0];
-        snprintf(mesh_information_text, sizeof(mesh_information_text), "%s", base);
-      }
+      const char *base = menu->text.text[2][0];
+      snprintf(mesh_information_text, sizeof(mesh_information_text), "%s",
+               base);
       ssd1306_draw_string(oled, 0, offset, (uint8_t *)mesh_information_text,
                           menu->text.size, 1);
       break;
     }
-    case OBJECT_DIFFERENT:
-      break;
-    case OBJECT_SENSOR:
-      break;
-    case OBJECT_INFORMATION:
-      break;
     default:
       break;
     }
-    if (extraText) {
-      offset += menu->text.size * 2;
-    } else {
-      offset += menu->text.size;
-    }
+    offset += extraText ? (menu->text.size * 2) : menu->text.size;
   }
-  int start_index = 0;
-  int end_index = menu->count;
+  // 2. TÍNH TOÁN ANIMATION
+  float diff = *selected - anim_selection;
+  if (diff > menu->count / 2.0f)
+    diff -= menu->count;
+  if (diff < -menu->count / 2.0f)
+    diff += menu->count;
+  if (diff > -0.02f && diff < 0.02f) {
+    anim_selection = *selected;
+    g_menu_is_animating = false; // Đã đến đích
+  } else {
+    anim_selection += diff * 0.2f; // Hệ số cuộn animation
+    g_menu_is_animating = true;    // Đang chạy animation
+  }
+  if (anim_selection < 0)
+    anim_selection += menu->count;
+  if (anim_selection >= menu->count)
+    anim_selection -= menu->count;
+  // 3. VẼ MENU DẠNG VÒNG CUNG
+  int available_h = 64 - offset;
+  int center_base_y = offset + available_h / 2;
+  // ESP_LOGI("TEST_MENU", "Start drawing menu. count = %d, items = %p",
+  // menu->count, menu->items); // Bỏ log debug
+  if (menu->count > 0) {
+    int start_i, end_i;
+    if (menu->count == 1) {
+      start_i = 0;
+      end_i = 0;
+    } else {
+      start_i = (int)anim_selection - 3;
+      end_i = (int)anim_selection + 3;
+    }
+    for (int i = start_i; i <= end_i; i++) {
+      float rel = i - anim_selection;
+      float center_y = center_base_y + rel * 20;
+      uint8_t size = (rel > -0.5f && rel < 0.5f) ? 12 : 8;
+      int draw_y = (int)(center_y - (size == 12 ? 6.0f : 4.0f));
 
-  if (menu->count > MAX_VISIBLE_ITEMS) {
-    // Nếu có nhiều hơn 4 items, áp dụng pagination
-    if (*selected >= MAX_VISIBLE_ITEMS) {
-      // Khi selected >= 4, hiển thị từ selected trở đi (selected, selected+1,
-      // selected+2, selected+3)
-      start_index = *selected;
-      end_index = *selected + MAX_VISIBLE_ITEMS;
+      if (draw_y > (int)offset - 16 && draw_y < 64) {
+        float arc_offset = rel * rel * 6.0f;
+        uint8_t x_pos = 50 + (uint8_t)arc_offset;
 
-      // Đảm bảo không vượt quá count
-      if (end_index > menu->count) {
-        end_index = menu->count;
+        int actual_index = i % menu->count;
+        if (actual_index < 0) {
+          actual_index += menu->count;
+        }
+
+        if (menu->items != NULL && menu->items[actual_index].name != NULL) {
+          if (size == 12) {
+            ssd1306_draw_string(oled, x_pos, (uint8_t)draw_y,
+                                (uint8_t *)menu->items[actual_index].name, 12,
+                                1);
+          } else {
+            my_draw_small_string(oled, x_pos, draw_y,
+                                 menu->items[actual_index].name);
+          }
+        }
       }
-    } else {
-      // Khi selected < 4, hiển thị từ 0 đến 3
-      start_index = 0;
-      end_index = MAX_VISIBLE_ITEMS;
     }
   }
-
-  // Hiển thị items trong phạm vi đã tính toán
-  int display_index = 0;
-  for (int i = start_index; i < end_index; i++) {
-    ssd1306_draw_menu_item(&menu->items[i], display_index, (i == *selected),
-                           offset);
-    display_index++;
+  // 4. VẼ HÌNH ẢNH ICON BÊN TRÁI CHO ITEM ĐƯỢC CHỌN (Tĩnh)
+  if (menu->items[*selected].image_item_preview.image != NULL) {
+    int img_w = menu->items[*selected].image_item_preview.width;
+    int img_h = menu->items[*selected].image_item_preview.height;
+    int img_x = (46 - img_w) / 2;
+    int img_y = center_base_y - img_h / 2;
+    my_draw_bitmap_horizontal(
+        oled, img_x, img_y,
+        menu->items[*selected].image_item_preview.image[3][*selected], img_w,
+        img_h);
   }
 
+  // 5. VẼ HỘP INVERT ROUND RECT VÀO TRUNG TÂM
+  int box_h = 16;
+  int box_y = center_base_y - box_h / 2;
+  int box_w = 82; // Chạy tới mép phải (128 - 46 = 82)
+  invert_round_rect(oled, 46, box_y, box_w, box_h);
   esp_err_t ret = ssd1306_refresh_gram(oled);
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
   if (ret != ESP_OK) {
     ESP_LOGE(TAG_SCREEN_MANAGER, "MenuRender: refresh_gram failed: %s",
              esp_err_to_name(ret));
-    if (oled_mutex != NULL)
-      xSemaphoreGive(oled_mutex);
     return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
   }
-  if (oled_mutex != NULL)
-    xSemaphoreGive(oled_mutex);
   return MRS_OK;
+}
+
+void ScreenDashboard(DataManager_t *data) {
+  if (oled == NULL || data == NULL)
+    return;
+  if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
+    return;
+
+  ssd1306_clear_screen(oled, 0x00);
+
+  // Line 1
+  ssd1306_draw_line(oled, 0, 16, 127, 16);
+
+  // MeshLabel
+  my_draw_small_string(oled, 1, 4, "Mesh Network");
+
+  // battery icon
+  int bat_idx = data->objectInfo.batteryInfo.batteryLevel;
+  if (bat_idx > 7)
+    bat_idx = 7;
+  my_draw_bitmap_horizontal(oled, 104, 0, imageManager[1][bat_idx], 24, 16);
+
+  if (data->objectInfo.batteryInfo.is_charging) {
+    my_draw_small_string(oled, 80, 4, "Chg");
+  } else {
+    // Battery value
+    char bat_str[10];
+    snprintf(bat_str, sizeof(bat_str), "%d%%",
+             data->objectInfo.batteryInfo.levelPercent);
+    my_draw_small_string(oled, 80, 4, bat_str);
+  }
+
+  // Mac
+  uint8_t mac[6];
+  wifi_manager_get_mac(mac);
+  char mac_str[24];
+  snprintf(mac_str, sizeof(mac_str), "MAC:%02X:%02X:%02X:%02X:%02X:%02X",
+           mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+  my_draw_small_string(oled, 0, 56, mac_str);
+
+  // NetworkSig text (dBm)
+  char rssi_str[16] = "--dBm";
+  if (data->objectInfo.wifiInfo.wifiStatus == CONNECTED) {
+    snprintf(rssi_str, sizeof(rssi_str), "%ddBm", wifi_manager_get_rssi());
+  }
+  my_draw_small_string(oled, 22, 46, rssi_str);
+
+  // NetworkSig icon
+  my_draw_bitmap_horizontal(
+      oled, 1, 39, imageManager[2][2], 16,
+      16); // image_NetworkSig_bits is index 2 in imageManagerDifferent
+
+  // clock icon
+  my_draw_bitmap_horizontal(oled, 1, 19, imageManager[2][1], 15,
+                            16); // image_clock_bits is index 1
+
+  // Time text
+  struct tm timeinfo = {0};
+  char time_str[16] = "--:--:--";
+  if (TimeManager_GetTime(&timeinfo) == ESP_OK) {
+    snprintf(time_str, sizeof(time_str), "%02d:%02d:%02d", timeinfo.tm_hour,
+             timeinfo.tm_min, timeinfo.tm_sec);
+  }
+  my_draw_small_string(oled, 21, 23, time_str);
+
+  // Uptime text
+  int64_t uptime_us = esp_timer_get_time();
+  int uptime_s = uptime_us / 1000000;
+  char uptime_str[16];
+  snprintf(uptime_str, sizeof(uptime_str), "%02d:%02d:%02d", uptime_s / 3600,
+           (uptime_s % 3600) / 60, uptime_s % 60);
+  my_draw_small_string(oled, 21, 33, uptime_str);
+
+  // Vertical line 10
+  ssd1306_draw_line(oled, 71, 18, 71, 40);
+
+  // StatusMesh
+  my_draw_small_string(oled, 85, 20, "Active");
+
+  // Version
+  my_draw_small_string(oled, 74, 33, "Ver:1.0.0");
+
+  // Vertical line 13
+  ssd1306_draw_line(oled, 71, 39, 71, 52);
+
+  // NetworkSpeed
+  char speed_str[16] = "--MBS";
+  if (data->objectInfo.meshInfo.meshStatus == CONNECTED) {
+    snprintf(speed_str, sizeof(speed_str), "%dMBS",
+             mesh_manager_get_throughput());
+  }
+  my_draw_small_string(oled, 86, 46, speed_str);
+
+  ssd1306_refresh_gram(oled);
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+}
+
+void ScreenSensors(DataManager_t *data) {
+  if (oled == NULL || data == NULL)
+    return;
+  if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
+    return;
+
+  ssd1306_clear_screen(oled, 0x00);
+
+  // Header
+  my_draw_small_string(oled, 28, 0, "SENSORS DATA");
+  ssd1306_draw_line(oled, 0, 10, 127, 10);
+
+  for (int i = 0; i < NUM_PORTS; i++) {
+    char buf[32];
+    int y_offset = 14 + i * 17;
+
+    // Draw port number
+    snprintf(buf, sizeof(buf), "P%d:", i + 1);
+    my_draw_small_string(oled, 0, y_offset, buf);
+
+    if (data->selectedSensor[i] != SENSOR_NONE) {
+      sensor_driver_t *driver =
+          sensor_registry_get_driver(data->selectedSensor[i]);
+      if (driver != NULL) {
+        // Print sensor name
+        my_draw_small_string(oled, 22, y_offset, driver->name);
+
+        // Print first value and unit
+        if (driver->unit_count > 0) {
+          snprintf(buf, sizeof(buf), "%.1f %s", data->port_data[i].data_fl[0],
+                   driver->unit[0] ? driver->unit[0] : "");
+          my_draw_small_string(oled, 70, y_offset, buf);
+        }
+      }
+    } else {
+      my_draw_small_string(oled, 22, y_offset, "None");
+    }
+    // Draw line separator between ports
+    if (i < 2)
+      ssd1306_draw_line(oled, 0, y_offset + 14, 127, y_offset + 14);
+  }
+
+  ssd1306_refresh_gram(oled);
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+}
+
+void ScreenPerformance(DataManager_t *data) {
+  if (oled == NULL || data == NULL)
+    return;
+  if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
+    return;
+
+  ssd1306_clear_screen(oled, 0x00);
+  my_draw_small_string(oled, 15, 0, "SYSTEM PERFORMANCE");
+  ssd1306_draw_line(oled, 0, 10, 127, 10);
+
+  uint8_t cpu_hist[PERFORMANCE_HISTORY_SIZE];
+  uint8_t ram_hist[PERFORMANCE_HISTORY_SIZE];
+  SystemPerformance_GetCPUHistory(cpu_hist);
+  SystemPerformance_GetRAMHistory(ram_hist);
+
+  char buf[32];
+
+  // Draw CPU Graph
+  snprintf(buf, sizeof(buf), "CPU: %d%%",
+           cpu_hist[PERFORMANCE_HISTORY_SIZE - 1]);
+  my_draw_small_string(oled, 0, 14, buf);
+  for (int i = 0; i < 100; i++) {
+    int hist_idx = PERFORMANCE_HISTORY_SIZE - 100 + i;
+    int x = 28 + i;
+    int y = 35 - (cpu_hist[hist_idx] * 20) / 100; // max height 20
+    ssd1306_draw_line(oled, x, y, x, y);
+  }
+  ssd1306_draw_line(oled, 0, 37, 127, 37);
+
+  // Draw RAM Graph
+  snprintf(buf, sizeof(buf), "RAM: %d%%",
+           ram_hist[PERFORMANCE_HISTORY_SIZE - 1]);
+  my_draw_small_string(oled, 0, 41, buf);
+  for (int i = 0; i < 100; i++) {
+    int hist_idx = PERFORMANCE_HISTORY_SIZE - 100 + i;
+    int x = 28 + i;
+    int y = 62 - (ram_hist[hist_idx] * 20) / 100; // max height 20
+    ssd1306_draw_line(oled, x, y, x, y);
+  }
+
+  ssd1306_refresh_gram(oled);
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+}
+
+void MenuRender_Task(void *pvParameters) {
+  DataManager_t *data = (DataManager_t *)pvParameters;
+  ESP_LOGI(TAG_SCREEN_MANAGER, "MenuRender_Task started");
+  while (1) {
+    if (data->screen.is_dashboard_active) {
+      if (data->screen.dashboard_page == 0) {
+        ScreenDashboard(data);
+      } else if (data->screen.dashboard_page == 1) {
+        ScreenSensors(data);
+      } else if (data->screen.dashboard_page == 2) {
+        ScreenPerformance(data);
+      } else {
+        ScreenDashboard(data);
+      }
+    } else if (data->screen.is_menu_active && data->screen.current != NULL) {
+      Draw_Menu_Frame(data->screen.current, &data->screen.selected,
+                      &data->objectInfo);
+    }
+    vTaskDelay(pdMS_TO_TICKS(10)); // 20 FPS
+  }
 }
 
 /**
