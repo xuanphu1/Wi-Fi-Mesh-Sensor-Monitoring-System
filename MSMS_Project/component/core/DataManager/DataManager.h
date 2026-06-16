@@ -113,6 +113,8 @@ typedef struct {
 
 typedef struct {
   const unsigned char ***image;
+  uint8_t img_category;
+  uint8_t img_index;
   uint8_t width;
   uint8_t height;
 } image_t;

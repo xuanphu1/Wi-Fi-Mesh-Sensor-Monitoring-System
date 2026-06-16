@@ -321,13 +321,14 @@ static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
   }
   // 4. VẼ HÌNH ẢNH ICON BÊN TRÁI CHO ITEM ĐƯỢC CHỌN (Tĩnh)
   if (menu->items[*selected].image_item_preview.image != NULL) {
-    int img_w = menu->items[*selected].image_item_preview.width;
-    int img_h = menu->items[*selected].image_item_preview.height;
+    image_t *img = &menu->items[*selected].image_item_preview;
+    int img_w = img->width;
+    int img_h = img->height;
     int img_x = (46 - img_w) / 2;
     int img_y = center_base_y - img_h / 2;
     my_draw_bitmap_horizontal(
         oled, img_x, img_y,
-        menu->items[*selected].image_item_preview.image[3][*selected], img_w,
+        img->image[img->img_category][img->img_index], img_w,
         img_h);
   }
 

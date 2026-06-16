@@ -1,4 +1,5 @@
 #include "MenuSystem.h"
+#include "BitManager.h"
 #include "DataManager.h"
 #include "InternetManager.h"
 #include "SensorRegistry.h"
@@ -90,11 +91,11 @@ menu_item_t WiFi_Config_Items[] = {
     {"OK", MENU_ACTION, wifi_config_callback, NULL, NULL},
 };
 
-const image_t WiFi_Config_Image = {
-    .image = imageManager,
-    .width = 19,
-    .height = 16,
-};
+const image_t WiFi_Config_Image = {.image = imageManager,
+                                   .width = 19,
+                                   .height = 16,
+                                   .img_category = IMAGE_CATEGORY_PREVIEW,
+                                   .img_index = WIFI_PREVIEW_IMAGE};
 
 const text_t WiFi_Config_Text = {
     .size = 12,
@@ -116,11 +117,11 @@ const text_t WiFi_Mesh_Text = {
     .text = ManagerText,
 };
 
-const image_t WiFi_Mesh_Config_Image = {
-    .image = imageManager,
-    .width = 32,
-    .height = 32,
-};
+const image_t WiFi_Mesh_Config_Image = {.image = imageManager,
+                                        .width = 32,
+                                        .height = 32,
+                                        .img_category = IMAGE_CATEGORY_PREVIEW,
+                                        .img_index = MESH_PREVIEW_IMAGE};
 
 menu_item_t WiFi_MeshConfig_Items[] = {
     {"OK", MENU_ACTION, wifi_mesh_join_as_node_callback, NULL, NULL},
@@ -139,9 +140,9 @@ menu_list_t WiFi_Mesh_Config_Menu = {
 // Submenu: Connect WiFi / Join WiFi Mesh
 menu_item_t WiFi_Mode_Items[] = {
     {wifi_manager_label, MENU_SUBMENU, NULL, NULL, &WiFi_Config_Menu,
-     imageNULL},
+     WiFi_Config_Image},
     {mesh_manager_label, MENU_SUBMENU, NULL, NULL, &WiFi_Mesh_Config_Menu,
-     imageNULL},
+     WiFi_Mesh_Config_Image},
 };
 
 menu_list_t WiFi_Mode_Menu = {
@@ -251,35 +252,47 @@ menu_list_t Application_Menu = {
 
 const image_t NetworkConfig = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = NETWORK_CONFIG_IMAGE,
     .width = 37,
     .height = 32,
 };
 const image_t Sensors = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = SENSOR_IMAGE,
     .width = 35,
     .height = 34,
 };
 
 const image_t Actuators = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = ACTUATOR_IMAGE,
     .width = 36,
     .height = 45,
 };
 
 const image_t Battery = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = BATTERY_IMAGE,
     .width = 24,
     .height = 16,
 };
 
 const image_t Information = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = INFORMATION_IMAGE,
     .width = 35,
     .height = 35,
 };
 
 const image_t Application_Image = {
     .image = imageManager,
+    .img_category = IMAGE_CATEGORY_PREVIEW,
+    .img_index = APPLICATION_IMAGE,
     .width = 35,
     .height = 35,
 };

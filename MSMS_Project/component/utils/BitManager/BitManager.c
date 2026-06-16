@@ -232,9 +232,14 @@ const uint8_t *imageManagerDifferent[] = {
     image_MrKoi_Logo2_bits, image_clock_bits, image_NetworkSig_bits};
 
 const uint8_t *imagePreview[] = {
-    image_Network,           image_Sensor,
-    image_Application,       image_Actuator,
-    image_battery_full_bits, image_information,
+    image_Network,
+    image_Sensor,
+    image_Application,
+    image_Actuator,
+    image_battery_full_bits,
+    image_information,
+    image_wifi_connected_bits,
+    image_mesh_network_bits,
 };
 
 const uint8_t **imageManager[] = {imageManagerWifi, imageManagerBattery,
