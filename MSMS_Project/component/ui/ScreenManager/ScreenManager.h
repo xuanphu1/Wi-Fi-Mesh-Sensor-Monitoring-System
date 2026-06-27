@@ -90,6 +90,16 @@ system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
                                   const char **units, size_t count);
 
 /**
+ * @brief Move to the next data field when displaying sensor data.
+ */
+void ScreenSensorNextField(void);
+
+/**
+ * @brief Reset the data field index.
+ */
+void ScreenSensorResetField(void);
+
+/**
  * @brief Status line while mesh child attempts to reach root IP.
  *
  * @param data App context with meshInfo.

@@ -39,10 +39,12 @@ enum {
 /**
  * @brief 
  * 
- * @param uart_config 
+ * @param uart_num
+ * @param tx_pin
+ * @param rx_pin
  * @return esp_err_t 
  */
-esp_err_t pms7003_initUart(uart_config_t *uart_config);
+esp_err_t pms7003_initUart(uart_port_t uart_num, int tx_pin, int rx_pin);
 
 //static esp_err_t pms7003_checkCRC(uint8_t data[32]);
 

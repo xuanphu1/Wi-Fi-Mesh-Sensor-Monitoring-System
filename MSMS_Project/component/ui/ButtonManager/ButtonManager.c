@@ -1,7 +1,7 @@
-﻿#include "ButtonManager.h"
+#include "ButtonManager.h"
 #include "sdkconfig.h"
 
-#if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_BUTTON_MODE_DIGITAL
 #include "driver/gpio.h"
 #else
 #include "esp_adc/adc_oneshot.h"
@@ -12,13 +12,13 @@
  * @brief Target-specific button input: ESP32 uses GPIO keys, ESP32-C3/C6 uses ADC ladder.
  */
 
-#if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_BUTTON_MODE_DIGITAL
 
-#define BUTTON_GPIO_DOWN GPIO_NUM_39
-#define BUTTON_GPIO_SEL GPIO_NUM_35
-#define BUTTON_GPIO_BACK GPIO_NUM_2
-#define BUTTON_GPIO_ACTIVE_LEVEL 1
-#define BUTTON_GPIO_DEBOUNCE_MS 30
+#define BUTTON_GPIO_DOWN ((gpio_num_t)CONFIG_BUTTON_DIGITAL_DOWN_GPIO)
+#define BUTTON_GPIO_SEL ((gpio_num_t)CONFIG_BUTTON_DIGITAL_SEL_GPIO)
+#define BUTTON_GPIO_BACK ((gpio_num_t)CONFIG_BUTTON_DIGITAL_BACK_GPIO)
+#define BUTTON_GPIO_ACTIVE_LEVEL CONFIG_BUTTON_DIGITAL_ACTIVE_LEVEL
+#define BUTTON_GPIO_DEBOUNCE_MS CONFIG_BUTTON_DIGITAL_DEBOUNCE_MS
 
 static button_type_t s_last_gpio_sample = BTN_NONE;
 static button_type_t s_last_gpio_stable = BTN_NONE;

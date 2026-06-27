@@ -52,9 +52,10 @@ import FirmwareManagement from "layouts/firmware-management";
 import UpdateNodes from "layouts/update-nodes";
 import SystemSettings from "layouts/system-settings";
 import About from "layouts/about";
+import ServerMonitor from "layouts/server-monitor";
 
 // Icons
-import { IoHome, IoHardwareChip, IoPulse, IoWarning, IoCloudDownload, IoSettings, IoInformationCircle, IoWifi, IoAnalytics } from "react-icons/io5";
+import { IoHome, IoHardwareChip, IoPulse, IoWarning, IoCloudDownload, IoSettings, IoInformationCircle, IoWifi, IoAnalytics, IoServer } from "react-icons/io5";
 import { IoList } from "react-icons/io5";
 
 const routes = [
@@ -112,15 +113,15 @@ const routes = [
     component: Alerts,
     noCollapse: true,
   },
-  {
-    type: "collapse",
-    name: "Performance",
-    key: "performance",
-    route: "/performance",
-    icon: <IoAnalytics size="15px" color="inherit" />,
-    component: Performance,
-    noCollapse: true,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Performance",
+  //   key: "performance",
+  //   route: "/performance",
+  //   icon: <IoAnalytics size="15px" color="inherit" />,
+  //   component: Performance,
+  //   noCollapse: true,
+  // },
   { type: "title", title: "OTA", key: "ota-title" },
   {
     type: "collapse",
@@ -159,6 +160,7 @@ const routes = [
     component: SystemSettings,
     noCollapse: true,
   },
+
   {
     type: "collapse",
     name: "About",

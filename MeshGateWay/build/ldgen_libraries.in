@@ -66,13 +66,14 @@ $<TARGET_FILE:__idf_DS3231>
 $<TARGET_FILE:__idf_PowerManager>
 $<TARGET_FILE:__idf_SD_Card>
 $<TARGET_FILE:__idf_SystemMonitor>
+$<TARGET_FILE:__idf_UartToNode>
 $<TARGET_FILE:__idf_lvgl>
 $<TARGET_FILE:__idf_ui>
 $<TARGET_FILE:__idf_lvgl_esp32_drivers>
 $<TARGET_FILE:__idf_espressif__mdns>
 $<TARGET_FILE:__idf_WifiManager>
+$<TARGET_FILE:__idf_MemoryManager>
 $<TARGET_FILE:__idf_ScreenManager>
-$<TARGET_FILE:__idf_UartToNode>
 $<TARGET_FILE:__idf_webSocket>
 $<TARGET_FILE:__idf_WebSocKetHandle>
 $<TARGET_FILE:__idf_main>

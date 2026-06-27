@@ -1,0 +1,162 @@
+@startuml Component Diagram - MRS Project (Detailed)
+
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam component {
+  Padding 20
+  Margin 30
+}
+skinparam package {
+  Padding 40
+  Margin 50
+}
+skinparam note {
+  Padding 15
+  Margin 25
+}
+skinparam defaultFontSize 12
+skinparam componentArrowSize 2
+
+package "Main Application" #LightBlue {
+  [main] as Main
+}
+
+package "Core Layer" #LightGreen {
+  [DataManager] as DataManager <<core>>
+  [FunctionManager] as FunctionManager <<core>>
+  
+  interface "Common.h" as CommonInterface
+  DataManager ..> CommonInterface : provides
+}
+
+package "Sensors Layer" #LightYellow {
+  [SensorTypes] as SensorTypes <<types>>
+  [SensorConfig] as SensorConfig <<wrapper>>
+  [SensorRegistry] as SensorRegistry <<registry>>
+  
+  interface "SensorDriver API" as SensorDriverAPI
+  SensorRegistry ..> SensorDriverAPI : uses
+  SensorConfig ..> SensorDriverAPI : implements
+}
+
+package "UI Layer" #LightCoral {
+  [ButtonManager] as ButtonManager <<input>>
+  [ScreenManager] as ScreenManager <<display>>
+  [MenuSystem] as MenuSystem <<menu>>
+  
+  interface "Button API" as ButtonAPI
+  interface "Screen API" as ScreenAPI
+  interface "Menu API" as MenuAPI
+  
+  ButtonManager ..> ButtonAPI : provides
+  ScreenManager ..> ScreenAPI : provides
+  MenuSystem ..> MenuAPI : provides
+}
+
+package "Network Layer" #LightPink {
+  [WifiManager] as WifiManager <<network>>
+  
+  interface "WiFi API" as WiFiAPI
+  WifiManager ..> WiFiAPI : provides
+}
+
+package "Utils Layer" #LightGray {
+  [BitManager] as BitManager <<utils>>
+}
+
+package "Drivers Layer" #LightSteelBlue {
+  [BME280] as BME280 <<driver>>
+  [BMP280] as BMP280 <<driver>>
+  [DS3231] as DS3231 <<driver>>
+  [DS3231Time] as DS3231Time <<driver>>
+  [ssd1306] as SSD1306 <<driver>>
+  [LedRGB] as LedRGB <<driver>>
+  [i2cdev] as I2CDev <<driver>>
+}
+
+' Main Application dependencies (Blue)
+Main -[#0066CC]-> DataManager : uses
+Main -[#0066CC]-> WifiManager : uses
+Main -[#0066CC]-> ButtonManager : uses
+Main -[#0066CC]-> MenuSystem : uses
+Main -[#0066CC]-> BME280 : uses
+Main -[#0066CC]-> LedRGB : uses
+
+' Core Layer dependencies (Green)
+DataManager -[#009900]-> SensorTypes : depends on
+FunctionManager -[#009900]-> ScreenManager : uses
+FunctionManager -[#009900]-> DataManager : uses
+FunctionManager -[#009900]-> BitManager : uses
+FunctionManager -[#009900]-> SensorConfig : uses
+FunctionManager -[#009900]-> SensorRegistry : uses
+
+' Sensors Layer dependencies (Orange)
+SensorConfig -[#FF9900]-> SensorTypes : depends on
+SensorConfig -[#FF9900]-> BME280 : wraps
+SensorRegistry -[#FF9900]-> SensorTypes : depends on
+SensorRegistry -[#FF9900]-> SensorConfig : uses
+
+' UI Layer dependencies (Red/Coral)
+ButtonManager -[#FF6666]-> DataManager : uses
+ButtonManager -[#FF6666]-> SSD1306 : uses
+ButtonManager -[#FF6666]-> LedRGB : uses
+ScreenManager -[#FF6666]-> SSD1306 : uses
+ScreenManager -[#FF6666]-> DataManager : uses
+ScreenManager -[#FF6666]-> BitManager : uses
+ScreenManager -[#FF6666]-> WifiManager : uses
+MenuSystem -[#FF6666]-> SSD1306 : uses
+MenuSystem -[#FF6666]-> DataManager : uses
+MenuSystem -[#FF6666]-> ButtonManager : uses
+MenuSystem -[#FF6666]-> FunctionManager : uses
+MenuSystem -[#FF6666]-> WifiManager : uses
+MenuSystem -[#FF6666]-> BitManager : uses
+MenuSystem -[#FF6666]-> ScreenManager : uses
+MenuSystem -[#FF6666]-> SensorRegistry : uses
+
+' Network Layer dependencies (Pink)
+WifiManager -[#FF66CC]-> DataManager : uses
+
+' Utils Layer dependencies (Gray)
+BitManager -[#888888]-> DataManager : uses
+
+' Driver dependencies (Purple)
+BME280 -[#9966FF]-> BMP280 : extends
+BME280 -[#9966FF]-> I2CDev : uses
+DS3231Time -[#9966FF]-> DS3231 : wraps
+DS3231Time -[#9966FF]-> I2CDev : uses
+SSD1306 -[#9966FF]-> I2CDev : uses
+
+note right of DataManager
+  **Common.h** provides:
+  - DataManager_t
+  - Button types
+  - Menu structures
+  - Screen structures
+  - Object info types
+end note
+
+note right of SensorRegistry
+  **Central Registry** for:
+  - Sensor driver registration
+  - Sensor type mapping
+  - Driver lookup
+end note
+
+note right of FunctionManager
+  **Business Logic**:
+  - WiFi config callbacks
+  - Sensor selection callbacks
+  - Port management
+  - Data reading tasks
+end note
+
+note right of MenuSystem
+  **Menu Navigation**:
+  - Menu tree structure
+  - Dynamic sensor menus
+  - Port configuration
+  - User interaction handling
+end note
+
+@enduml

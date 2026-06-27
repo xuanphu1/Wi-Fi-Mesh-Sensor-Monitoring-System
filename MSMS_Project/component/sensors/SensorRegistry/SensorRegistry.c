@@ -37,12 +37,12 @@ static sensor_driver_t sensor_drivers[] = {
     },
     {
         .name = "MH-Z14A",
-        .init = TestInit,
-        .read = TestRead,
-        .deinit = NULL,
-        .description = {"CO2"},
-        .unit = {"ppm"},
-        .unit_count = 1,
+        .init = mhz14aInitialize,
+        .read = mhz14aReadData,
+        .deinit = mhz14aDeinitialize,
+        .description = {"CO2", "Temperature"},
+        .unit = {"ppm", "°C"},
+        .unit_count = 2,
         .is_init = false,
         .interface = COMMUNICATION_UART,
     },
@@ -59,9 +59,9 @@ static sensor_driver_t sensor_drivers[] = {
     },
     {
         .name = "DHT22",
-        .init = NULL,
-        .read = NULL,
-        .deinit = NULL,
+        .init = dht22Initialize,
+        .read = dht22ReadData,
+        .deinit = dht22Deinitialize,
         .description = {"Temperature", "Humidity"},
         .unit = {"°C", "%"},
         .unit_count = 2,
@@ -72,7 +72,29 @@ static sensor_driver_t sensor_drivers[] = {
         .name = "AHT10",
         .init = aht10Initialize,
         .read = aht10ReadData,
-        .deinit = NULL,
+        .deinit = aht10Deinitialize,
+        .description = {"Temperature", "Humidity"},
+        .unit = {"°C", "%"},
+        .unit_count = 2,
+        .is_init = false,
+        .interface = COMMUNICATION_I2C,
+    },
+    {
+        .name = "DHT11",
+        .init = dht11Initialize,
+        .read = dht11ReadData,
+        .deinit = dht11Deinitialize,
+        .description = {"Temperature", "Humidity"},
+        .unit = {"°C", "%"},
+        .unit_count = 2,
+        .is_init = false,
+        .interface = COMMUNICATION_PULSE,
+    },
+    {
+        .name = "HTU21D",
+        .init = htu21dInitialize,
+        .read = htu21dReadData,
+        .deinit = htu21dDeinitialize,
         .description = {"Temperature", "Humidity"},
         .unit = {"°C", "%"},
         .unit_count = 2,
@@ -95,6 +117,10 @@ const char *sensor_type_to_name(SensorType_t t) {
     return "DHT22";
   case SENSOR_AHT10:
     return "AHT10";
+  case SENSOR_DHT11:
+    return "DHT11";
+  case SENSOR_HTU21D:
+    return "HTU21D";
   case SENSOR_NONE:
     return "None";
   default:

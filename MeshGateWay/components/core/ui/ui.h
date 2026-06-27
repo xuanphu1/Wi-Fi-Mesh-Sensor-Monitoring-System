@@ -36,7 +36,6 @@ LV_IMG_DECLARE(ui_img_733045785);    // assets/MeshIcon_1 (1).png
 LV_IMG_DECLARE(ui_img_136761274);    // assets/Warning-removebg-preview (1).png
 LV_IMG_DECLARE(ui_img_arrowdown_png);    // assets/ArrowDown.png
 LV_IMG_DECLARE(ui_img_arrowup_png);    // assets/ArrowUp.png
-LV_IMG_DECLARE(ui_img_packetloss_png);    // assets/Packetloss.png
 LV_IMG_DECLARE(ui_img_latency_png);    // assets/Latency.png
 LV_IMG_DECLARE(ui_img_throught_png);    // assets/Throught.png
 

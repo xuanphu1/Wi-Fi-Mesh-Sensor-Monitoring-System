@@ -296,7 +296,7 @@ void wifi_init_ap(void)
     ESP_LOGI(WIFI_TAG, "AP IP address: %s", ctx->ap_ip);
 
     if (ctx->dns_server_task_handle == NULL) {
-        xTaskCreate(dns_server_task, "dns_server", 4096, NULL, 5, &ctx->dns_server_task_handle);
+        xTaskCreate(dns_server_task, "dns_server", 2560, NULL, 5, &ctx->dns_server_task_handle);
     }
 
     ctx->ap_mode_active = true;

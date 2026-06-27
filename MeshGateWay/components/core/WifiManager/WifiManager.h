@@ -48,5 +48,11 @@ void wifi_manager_task(void *pvParameters);
 bool is_wifi_connected(void);
 bool is_wifi_connecting(void);
 
+/** Get current STA IP string. Return true if success. */
+bool wifi_manager_get_ip_info(char *ip_buf, size_t max_len);
+
+/** Get current STA MAC string. Return true if success. */
+bool wifi_manager_get_mac_info(char *mac_buf, size_t max_len);
+
 
 #endif // __WIFI_MANAGER_H__

@@ -1,0 +1,75 @@
+menu "PinManager — UART"
+
+    config PIN_UART_TX
+        int "UART TX GPIO"
+        default 16 if IDF_TARGET_ESP32
+        default 5 if IDF_TARGET_ESP32C6
+        default 3 if IDF_TARGET_ESP32C3
+        help
+            Chân TX (GPIO) của UART đã chọn (UART port bên dưới).
+
+    config PIN_UART_RX
+        int "UART RX GPIO"
+        default 17 if IDF_TARGET_ESP32
+        default 4 if IDF_TARGET_ESP32C6
+        default 2 if IDF_TARGET_ESP32C3
+        help
+            Chân RX (GPIO).
+
+    config PIN_UART_NUM
+        int "UART port (UART_NUM_0=0, UART_NUM_1=1, UART_NUM_2=2)"
+        range 0 2 if IDF_TARGET_ESP32
+        range 0 1 if IDF_TARGET_ESP32C3
+        range 0 1 if IDF_TARGET_ESP32C6
+        default 2 if IDF_TARGET_ESP32
+        default 1 if IDF_TARGET_ESP32C3
+        default 1 if IDF_TARGET_ESP32C6
+        help
+            Bộ điều khiển UART: 0, 1 hoặc 2 (tùy chip có đủ UART).
+
+endmenu
+
+menu "PinManager — I2C"
+
+    config PIN_I2C_SDA
+        int "I2C SDA GPIO"
+        default 21 if IDF_TARGET_ESP32
+        default 6 if IDF_TARGET_ESP32C6
+        default 9 if IDF_TARGET_ESP32C3
+        help
+            SDA — dùng trong code qua macro PIN_I2C_SDA.
+
+    config PIN_I2C_SCL
+        int "I2C SCL GPIO"
+        default 22 if IDF_TARGET_ESP32
+        default 7 if IDF_TARGET_ESP32C6
+        default 8 if IDF_TARGET_ESP32C3
+        help
+            SCL — PIN_I2C_SCL.
+
+    config PIN_I2C_PORT
+        int "I2C port (I2C_NUM_0=0, I2C_NUM_1=1)"
+        range 0 1
+        default 0
+        help
+            Port I2C phần cứng.
+
+    config PIN_I2C_CLK_HZ
+        int "I2C tốc độ (Hz)"
+        default 400000
+        help
+            Clock bus I2C master.
+
+    config I2CDEV_TIMEOUT
+        int "I2C dev mutex / giao dịch timeout (ms)"
+        default 1000
+        help
+            Timeout mutex và i2c_master_cmd_begin (ms).
+
+    config I2CDEV_NOLOCK
+        bool "Tắt mutex I2Cdev (không thread-safe)"
+        default n
+        help
+            Bật: truy cập I2C không khóa mutex.
+
+endmenu

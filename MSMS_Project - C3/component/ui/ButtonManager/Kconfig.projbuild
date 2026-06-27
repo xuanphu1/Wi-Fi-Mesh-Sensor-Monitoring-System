@@ -1,0 +1,59 @@
+menu "Button Manager"
+
+    comment "ESP32 target uses fixed GPIO buttons: GPIO2=DOWN, GPIO35=SEL, GPIO39=BACK"
+        depends on IDF_TARGET_ESP32
+
+    config BUTTON_ANALOG_GPIO
+        int "Analog button GPIO"
+        depends on !IDF_TARGET_ESP32
+        default 4 if IDF_TARGET_ESP32C6
+        default 4 if IDF_TARGET_ESP32C3
+        range 0 48
+        help
+            One ADC resistor-ladder button input. Used on ESP32-C3/C6 targets.
+
+    config BUTTON_ANALOG_ATTEN_DB
+        int "ADC attenuation (dB)"
+        depends on !IDF_TARGET_ESP32
+        default 0
+        range 0 12
+        help
+            Use 0, 2, 6, or 12. Other values are rounded when initialized.
+
+    config BUTTON_ANALOG_DOWN_MIN
+        int "DOWN - ADC raw minimum"
+        depends on !IDF_TARGET_ESP32
+        default 2000
+        range 0 4095
+
+    config BUTTON_ANALOG_DOWN_MAX
+        int "DOWN - ADC raw maximum"
+        depends on !IDF_TARGET_ESP32
+        default 2300
+        range 0 4095
+
+    config BUTTON_ANALOG_SEL_MIN
+        int "SELECT - ADC raw minimum"
+        depends on !IDF_TARGET_ESP32
+        default 1300
+        range 0 4095
+
+    config BUTTON_ANALOG_SEL_MAX
+        int "SELECT - ADC raw maximum"
+        depends on !IDF_TARGET_ESP32
+        default 1900
+        range 0 4095
+
+    config BUTTON_ANALOG_BACK_MIN
+        int "BACK - ADC raw minimum"
+        depends on !IDF_TARGET_ESP32
+        default 3200
+        range 0 4095
+
+    config BUTTON_ANALOG_BACK_MAX
+        int "BACK - ADC raw maximum"
+        depends on !IDF_TARGET_ESP32
+        default 3400
+        range 0 4095
+
+endmenu

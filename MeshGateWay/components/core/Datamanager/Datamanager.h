@@ -164,6 +164,12 @@ typedef struct
     float pm1_0;
     float pm2_5;
     float pm10;
+
+    /** Thống kê số lượng gói tin để tính throughput và RX/TX rate */
+    uint32_t rx_packet_count;
+    uint32_t tx_packet_count;
+    uint32_t rx_byte_count;
+    uint32_t tx_byte_count;
 } dm_telemetry_t;
 
 typedef struct
@@ -177,7 +183,7 @@ typedef struct
 
 /** Payload một lần đọc UART (chia nhỏ nếu chunk > UART_NODE_RX_DATA_MAX). */
 #define UART_NODE_RX_DATA_MAX 512
-#define UART_NODE_RX_QUEUE_DEPTH 16
+#define UART_NODE_RX_QUEUE_DEPTH 8
 
 typedef struct {
     size_t len;

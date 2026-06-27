@@ -1,4 +1,5 @@
 #include "PowerManager.h"
+#include "driver/gpio.h"
 
 void power_manager_battery_adc_init(dm_hw_t *hw)
 {
@@ -53,4 +54,21 @@ int power_manager_battery_get_percent(dm_hw_t *hw, uint32_t *raw_avg_out, uint32
     if (pct < 0) pct = 0;
     if (pct > 100) pct = 100;
     return (int)pct;
+}
+
+void power_manager_screen_set_state(bool on)
+{
+    static bool s_screen_gpio_configured = false;
+    if (!s_screen_gpio_configured) {
+        gpio_config_t io_conf = {
+            .pin_bit_mask = BIT64(GPIO_NUM_2),
+            .mode = GPIO_MODE_OUTPUT,
+            .pull_up_en = GPIO_PULLUP_DISABLE,
+            .pull_down_en = GPIO_PULLDOWN_DISABLE,
+            .intr_type = GPIO_INTR_DISABLE,
+        };
+        gpio_config(&io_conf);
+        s_screen_gpio_configured = true;
+    }
+    gpio_set_level(GPIO_NUM_2, on ? 1 : 0);
 }

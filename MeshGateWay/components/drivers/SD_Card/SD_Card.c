@@ -89,6 +89,7 @@ esp_err_t initSDCard(void)
 
 esp_err_t writeSD_Card(const char *filename, const char *data)
 {
+    if (sdcard == NULL) return ESP_FAIL;
     char path[128];
     snprintf(path, sizeof(path), "%s/%s", MOUNT_POINT, filename);
 
@@ -106,6 +107,7 @@ esp_err_t writeSD_Card(const char *filename, const char *data)
 
 esp_err_t writeFinalFileSD_Card(const char *filename, const char *data)
 {
+    if (sdcard == NULL) return ESP_FAIL;
     char path[128];
     snprintf(path, sizeof(path), "%s/%s", MOUNT_POINT, filename);
 
@@ -123,6 +125,7 @@ esp_err_t writeFinalFileSD_Card(const char *filename, const char *data)
 
 esp_err_t readSD_Card(const char *filename, char *out_buf, size_t buf_size)
 {
+    if (sdcard == NULL) return ESP_FAIL;
     char path[128];
     snprintf(path, sizeof(path), "%s/%s", MOUNT_POINT, filename);
 
@@ -145,6 +148,7 @@ esp_err_t readSD_Card(const char *filename, char *out_buf, size_t buf_size)
 
 esp_err_t renameSD_Card(const char *oldname, const char *newname)
 {
+    if (sdcard == NULL) return ESP_FAIL;
     char oldpath[128];
     char newpath[128];
     snprintf(oldpath, sizeof(oldpath), "%s/%s", MOUNT_POINT, oldname);
@@ -178,6 +182,7 @@ esp_err_t renameSD_Card(const char *oldname, const char *newname)
 
 esp_err_t getSD_CardSpaceKB(uint32_t *total_kb, uint32_t *free_kb)
 {
+    if (sdcard == NULL) return ESP_FAIL;
     if (total_kb == NULL || free_kb == NULL)
     {
         return ESP_ERR_INVALID_ARG;

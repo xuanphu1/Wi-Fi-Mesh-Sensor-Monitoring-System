@@ -6,6 +6,7 @@
 
 #include "ScreenManager.h"
 #include "WifiManager.h"
+#include "esp_crt_bundle.h"
 #include "esp_log.h"
 #include "esp_netif.h"
 #include "esp_wifi.h"
@@ -17,15 +18,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "cJSON.h"
 
 static esp_websocket_client_handle_t client = NULL;
 
+static dm_ws_t *s_ws_state = NULL;
+static dm_telemetry_t *s_ws_telemetry = NULL;
+static char ws_last_type[32] = {0};
+static char ws_last_version[32] = {0};
+static char ws_url[128] = {0};
+static volatile bool s_ws_restart_requested = false;
+
 #define TAG_WEBSOCKET "WebSocket Handler"
 #define GATEWAY_STATUS_INTERVAL_MS 5000
 #define WS_RECONNECT_TIMEOUT_MS 15000
-#define WS_NETWORK_TIMEOUT_MS 5000
+#define WS_NETWORK_TIMEOUT_MS 15000
 
 static void websocket_client_destroy_current(void) {
   if (client == NULL) {
@@ -164,18 +171,15 @@ static void ws_send_gateway_status(ws_handler_ctx_t *ctx) {
   cJSON_Delete(root);
   if (json_str != NULL) {
     ESP_LOGI(TAG_WEBSOCKET, "gateway_status send: %s", json_str);
-    esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                   pdMS_TO_TICKS(2000));
+    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
+                                             pdMS_TO_TICKS(2000));
+    if (ret >= 0 && ctx->telemetry) {
+      ctx->telemetry->tx_packet_count++;
+      ctx->telemetry->tx_byte_count += strlen(json_str);
+    }
     free(json_str);
   }
 }
-
-static char ws_last_type[32] = {0};
-static char ws_last_version[32] = {0};
-
-static char ws_url[128] = {0};
-static dm_ws_t *s_ws_state = NULL;
-static volatile bool s_ws_restart_requested = false;
 
 void websocket_attach_state(dm_ws_t *ws_state) { s_ws_state = ws_state; }
 
@@ -235,8 +239,12 @@ void SendSignalRegister(void) {
 
   char *json_str = cJSON_PrintUnformatted(data);
   if (json_str) {
-    esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                   portMAX_DELAY);
+    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
+                                             portMAX_DELAY);
+    if (ret >= 0 && s_ws_telemetry) {
+      s_ws_telemetry->tx_packet_count++;
+      s_ws_telemetry->tx_byte_count += strlen(json_str);
+    }
     free(json_str);
   }
   cJSON_Delete(data);
@@ -323,6 +331,7 @@ static void websocket_app_start(void) {
       .task_stack = 6144,
       .buffer_size = 2048,
       .keep_alive_enable = true,
+      .crt_bundle_attach = esp_crt_bundle_attach,
   };
 
   ESP_LOGI(TAG_WEBSOCKET, "Starting WebSocket with URL: %s", url_to_use);
@@ -361,8 +370,12 @@ static void ws_send_uart_rx_payload(const char *payload, size_t payload_len) {
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str) {
-    esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                   pdMS_TO_TICKS(2000));
+    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
+                                             pdMS_TO_TICKS(2000));
+    if (ret >= 0 && s_ws_telemetry) {
+      s_ws_telemetry->tx_packet_count++;
+      s_ws_telemetry->tx_byte_count += strlen(json_str);
+    }
     // ESP_LOGI(TAG_WEBSOCKET, "WebSocket send UART RX item: %s", json_str);
     free(json_str);
   }
@@ -414,6 +427,9 @@ void WebSocket_Handler(void *pvParameter) {
   ws_handler_ctx_t *ctx = (ws_handler_ctx_t *)pvParameter;
   if (ctx && ctx->ws) {
     s_ws_state = ctx->ws;
+  }
+  if (ctx && ctx->telemetry) {
+    s_ws_telemetry = ctx->telemetry;
   }
 
   TickType_t last_wifi_tick = xTaskGetTickCount();

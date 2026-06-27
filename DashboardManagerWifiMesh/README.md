@@ -177,7 +177,9 @@ npm run build
 
 - `WS_PORT`: cổng websocket (mặc định `8080`)
 - `WS_HOST`: host bind (mặc định `0.0.0.0`)
-- `MONGO_URI`: URI MongoDB (mặc định `mongodb://127.0.0.1:27017/MeshData`)
+- `DB_TYPE`: Loại database sử dụng. Có thể cấu hình `mongodb` (mặc định) hoặc `sqlite`.
+- `MONGO_URI`: URI MongoDB (dùng khi DB_TYPE=mongodb, mặc định `mongodb://127.0.0.1:27017/MeshData`)
+- `SQLITE_DB_PATH`: Đường dẫn tới file SQLite (dùng khi DB_TYPE=sqlite, mặc định `mesh-data.sqlite`)
 
 ## Cấu trúc thư mục chính
 

@@ -1,0 +1,16 @@
+menu "Wifi Mesh config"
+
+    config IP_ROOT
+        string "IP Root"
+        default "192.168.5.1"
+        help
+            IP root to connect to.
+
+    config UDP_PORT
+        int "UDP Port"
+        default 12345
+        help
+            WiFi password (WPA or WPA2) for the example to use.
+
+
+endmenu

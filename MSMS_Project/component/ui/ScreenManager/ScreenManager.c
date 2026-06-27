@@ -757,6 +757,16 @@ system_err_t ScreenShowInformation(const char **lines, size_t n_lines) {
 /**
  * @brief Cycle up to three sensor fields with large numeric font and units.
  */
+static size_t current_index = 0;
+
+void ScreenSensorNextField(void) {
+  current_index++;
+}
+
+void ScreenSensorResetField(void) {
+  current_index = 0;
+}
+
 system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
                                   const char **units, size_t count) {
   if (oled == NULL) {
@@ -778,12 +788,7 @@ system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
     return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
   }
 
-  static size_t current_index = 0;
-
-  // Rotate through fields (each ~300 ms slot in caller’s loop)
-  size_t iterations = count < 3 ? count : 3; // at most 3 fields per pass
-  for (size_t step = 0; step < iterations; ++step) {
-    size_t idx = current_index % count;
+  size_t idx = current_index % count;
 
     const char *name = field_names[idx] ? field_names[idx] : "Field";
     const char *unit = units[idx] ? units[idx] : "";
@@ -841,19 +846,16 @@ system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
       ssd1306_draw_string(oled, unit_x, cursor_y + 32, (uint8_t *)unit, 12, 1);
     }
 
-    esp_err_t ret = ssd1306_refresh_gram(oled);
-    if (ret != ESP_OK) {
-      ESP_LOGE(TAG_SCREEN_MANAGER,
-               "ScreenShowDataSensor: refresh_gram failed: %s",
-               esp_err_to_name(ret));
-      if (oled_mutex != NULL)
-        xSemaphoreGive(oled_mutex);
-      return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
-    }
-
-    vTaskDelay(pdMS_TO_TICKS(300));
-    current_index = (current_index + 1) % count;
+  esp_err_t ret = ssd1306_refresh_gram(oled);
+  if (ret != ESP_OK) {
+    ESP_LOGE(TAG_SCREEN_MANAGER,
+             "ScreenShowDataSensor: refresh_gram failed: %s",
+             esp_err_to_name(ret));
+    if (oled_mutex != NULL)
+      xSemaphoreGive(oled_mutex);
+    return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
   }
+
   if (oled_mutex != NULL)
     xSemaphoreGive(oled_mutex);
   return MRS_OK;

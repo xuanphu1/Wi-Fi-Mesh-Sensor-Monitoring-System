@@ -1,6 +1,7 @@
 const os = require("os");
 const { WebSocketServer } = require("ws");
-const { createMongoStore } = require("./mongodb-store");
+const si = require("systeminformation");
+
 
 const PORT = Number(process.env.WS_PORT || process.env.PORT || 8080);
 const HOST = process.env.WS_HOST || "0.0.0.0";
@@ -94,16 +95,9 @@ const SENSOR_TYPE_NAMES = {
   1: "SENSOR_MHZ14A",
   2: "SENSOR_PMS7003",
   3: "SENSOR_DHT22",
-  4: "SENSOR_MQ2",
-  5: "SENSOR_MQ3",
-  6: "SENSOR_MQ4",
-  7: "SENSOR_MQ5",
-  8: "SENSOR_MQ6",
-  9: "SENSOR_MQ7",
-  10: "SENSOR_MQ8",
-  11: "SENSOR_MQ9",
-  12: "SENSOR_MQ135",
-  13: "SENSOR_AHT10",
+  4: "SENSOR_AHT10",
+  5: "SENSOR_DHT11",
+  6: "SENSOR_HTU21D",
 };
 
 function sensorTypeName(typeId) {
@@ -112,20 +106,13 @@ function sensorTypeName(typeId) {
 }
 
 const SENSOR_VALUE_FIELD_NAMES = {
-  0: ["temp_C", "humidity_RH", "pressure_hPa"],
-  1: ["co2_ppm"],
+  0: ["temp_C", "pressure_hPa", "humidity_RH"],
+  1: ["co2_ppm", "temp_C"],
   2: ["pm1_0_ugm3", "pm2_5_ugm3", "pm10_ugm3"],
   3: ["temp_C", "humidity_RH"],
-  4: ["v0", "v1", "v2", "v3", "v4"],
-  5: ["v0", "v1", "v2", "v3", "v4"],
-  6: ["v0", "v1", "v2", "v3", "v4"],
-  7: ["v0", "v1", "v2", "v3", "v4"],
-  8: ["v0", "v1", "v2", "v3", "v4"],
-  9: ["v0", "v1", "v2", "v3", "v4"],
-  10: ["v0", "v1", "v2", "v3", "v4"],
-  11: ["v0", "v1", "v2", "v3", "v4"],
-  12: ["v0", "v1", "v2", "v3", "v4"],
-  13: ["temp_C", "humidity_RH"],
+  4: ["temp_C", "humidity_RH"],
+  5: ["temp_C", "humidity_RH"],
+  6: ["temp_C", "humidity_RH"],
 };
 
 function formatSensorScalar(x) {
@@ -147,16 +134,33 @@ function formatMeshValuesLabeled(sensorType, values) {
 }
 
 function looksLikeMeshUdpJson(o) {
-  return mongoStore.isMeshPayload(o);
+  return store.isMeshPayload(o);
+}
+
+const seqStats = new Map();
+
+function trackSeq(pkt) {
+  if (!pkt || typeof pkt !== "object") return;
+  const ip = pkt.M || pkt.i;
+  const seq = pkt.seq;
+  if (typeof ip === "string" && typeof seq === "number") {
+    if (!seqStats.has(ip)) {
+      seqStats.set(ip, { count: 0, minSeq: seq, maxSeq: seq });
+    }
+    const stat = seqStats.get(ip);
+    stat.count++;
+    if (seq < stat.minSeq) stat.minSeq = seq;
+    if (seq > stat.maxSeq) stat.maxSeq = seq;
+  }
 }
 
 function logMeshUdpJson(remoteIp, sourceTag, frameIdx, pkt) {
   const v = pkt.v;
   const n = pkt.n;
-  const sta = pkt.i;
+  const sta = pkt.M || pkt.i;
   const t = typeof pkt.t === "string" ? pkt.t : "";
   console.log(
-    `[ws] ${sourceTag} from ${remoteIp} frame[${frameIdx}] header: schema(v)=${v}, mesh_level(n)=${n}, sta_ipv4(i)=${sta}, rtc(t)=${t || "(missing)"}`
+    `[ws] ${sourceTag} from ${remoteIp} frame[${frameIdx}] header: schema(v)=${v}, mesh_level(n)=${n}, mac/ip=${sta}, rtc(t)=${t || "(missing)"}`
   );
 
   if (!Array.isArray(pkt.p) || pkt.p.length === 0) {
@@ -247,11 +251,24 @@ function parseUartFrames(parsed, state) {
   return packets;
 }
 
-const mongoStore = createMongoStore({
-  mongoUri: MONGO_URI,
-  sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
-  sensorTypeName,
-});
+const DB_TYPE = process.env.DB_TYPE || "mongodb";
+let store;
+
+if (DB_TYPE === "sqlite") {
+  const { createSqliteStore } = require("./sqlite-store");
+  store = createSqliteStore({
+    dbPath: process.env.SQLITE_DB_PATH || "mesh-data.sqlite",
+    sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
+    sensorTypeName,
+  });
+} else {
+  const { createMongoStore } = require("./mongodb-store");
+  store = createMongoStore({
+    mongoUri: MONGO_URI,
+    sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
+    sensorTypeName,
+  });
+}
 
 const wss = new WebSocketServer({ port: PORT, host: HOST });
 
@@ -275,7 +292,7 @@ wss.on("connection", async (ws, req) => {
   const state = { uartCarry: "" };
   let nodeSnapshot = [];
   try {
-    nodeSnapshot = await mongoStore.getNodeSnapshot();
+    nodeSnapshot = await store.getNodeSnapshot();
   } catch (err) {
     console.error("[mongo] getNodeSnapshot failed:", err.message);
   }
@@ -303,14 +320,48 @@ wss.on("connection", async (ws, req) => {
       const msgType = parsed && typeof parsed === "object" ? parsed.type || "unknown" : "non-object";
       console.log(`[ws] Parsed JSON from ${ip}: type=${msgType}`);
 
+      if (parsed && parsed.type === "history_export_mac_request") {
+        try {
+          const csv = await store.getHistoryAllForMacCsv(parsed.mac, parsed.from, parsed.to, (progress, total) => {
+             ws.send(
+               JSON.stringify({
+                 type: "history_export_mac_progress",
+                 requestId: parsed.requestId || null,
+                 mac: parsed.mac || "",
+                 progress,
+                 total,
+               })
+             );
+          });
+          ws.send(
+            JSON.stringify({
+              type: "history_export_mac_response",
+              requestId: parsed.requestId || null,
+              mac: parsed.mac || "",
+              csv,
+            })
+          );
+        } catch (err) {
+          ws.send(
+            JSON.stringify({
+              type: "history_export_mac_response",
+              requestId: parsed.requestId || null,
+              mac: parsed.mac || "",
+              error: err.message,
+            })
+          );
+        }
+        return;
+      }
+
       if (parsed && parsed.type === "history_meta_request") {
         try {
-          const ips = await mongoStore.getHistoryIps(parsed.limit || 200);
+          const macs = await store.getHistoryMacs(parsed.limit || 200);
           ws.send(
             JSON.stringify({
               type: "history_meta_response",
               requestId: parsed.requestId || null,
-              ips,
+              macs,
             })
           );
         } catch (err) {
@@ -318,7 +369,7 @@ wss.on("connection", async (ws, req) => {
             JSON.stringify({
               type: "history_meta_response",
               requestId: parsed.requestId || null,
-              ips: [],
+              macs: [],
               error: err.message,
             })
           );
@@ -328,8 +379,9 @@ wss.on("connection", async (ws, req) => {
 
       if (parsed && parsed.type === "history_series_request") {
         try {
-          const items = await mongoStore.getHistorySeries({
-            ip: parsed.ip,
+          const items = await store.getHistorySeries({
+            mac: parsed.mac,
+            sensorName: parsed.sensorName,
             field: parsed.field,
             from: parsed.from,
             to: parsed.to,
@@ -339,7 +391,8 @@ wss.on("connection", async (ws, req) => {
             JSON.stringify({
               type: "history_series_response",
               requestId: parsed.requestId || null,
-              ip: parsed.ip || "",
+              mac: parsed.mac || "",
+              sensorName: parsed.sensorName || "",
               field: parsed.field || "",
               items,
             })
@@ -349,7 +402,8 @@ wss.on("connection", async (ws, req) => {
             JSON.stringify({
               type: "history_series_response",
               requestId: parsed.requestId || null,
-              ip: parsed.ip || "",
+              mac: parsed.mac || "",
+              sensorName: parsed.sensorName || "",
               field: parsed.field || "",
               items: [],
               error: err.message,
@@ -363,14 +417,21 @@ wss.on("connection", async (ws, req) => {
 
       const uartPackets = parseUartFrames(parsed, state);
       uartPackets.forEach(({ idx, obj }) => {
+        trackSeq(obj);
         logMeshUdpJson(ip, "uart_rx", idx, obj);
-        mongoStore.persistMeshPacket(obj, ip, receivedAt);
+        store.persistMeshPacket(obj, ip, receivedAt);
       });
 
       if (looksLikeMeshUdpJson(parsed)) {
+        trackSeq(parsed);
         logMeshUdpJson(ip, "mesh", 0, parsed);
-        mongoStore.persistMeshPacket(parsed, ip, receivedAt);
+        store.persistMeshPacket(parsed, ip, receivedAt);
       }
+      
+      if (parsed && parsed.type === "gateway_status") {
+        store.persistGatewayStatus(parsed, ip, receivedAt);
+      }
+
       broadcast(parsed, ws);
     } catch {
       console.log(`[ws] Non-JSON text from ${ip}, forwarding as { type: "text" }`);
@@ -383,12 +444,65 @@ wss.on("connection", async (ws, req) => {
   });
 });
 
+setInterval(() => {
+  if (seqStats.size === 0) return;
+  const updates = {};
+  const now = new Date();
+  
+  for (const [ip, stat] of seqStats.entries()) {
+    if (stat.count > 0) {
+      let expected = stat.maxSeq - stat.minSeq + 1;
+      if (expected < 0 || expected > 10000) expected = stat.count;
+      let lost = expected - stat.count;
+      if (lost < 0) lost = 0;
+      const loss = (lost / expected) * 100;
+      updates[ip] = Number(loss.toFixed(2));
+      
+      const fakePkt = {
+        v: 1, n: 2, i: ip,
+        packetloss: updates[ip],
+        p: []
+      };
+      store.persistMeshPacket(fakePkt, "127.0.0.1", now);
+    }
+  }
+  
+  if (Object.keys(updates).length > 0) {
+    broadcast({ type: "packetloss_update", data: updates }, null);
+  }
+  seqStats.clear();
+}, 10000);
+
+setInterval(async () => {
+  if (wss.clients.size === 0) return; // Save resources if no clients
+  try {
+    const load = await si.currentLoad();
+    const mem = await si.mem();
+    const temp = await si.cpuTemperature();
+    const time = await si.time();
+
+    const metrics = {
+      type: "server_metrics",
+      cpuLoadPercent: load.currentLoad,
+      ramTotalMb: mem.total / 1048576,
+      ramUsedMb: mem.active / 1048576,
+      ramUsedPercent: (mem.active / mem.total) * 100,
+      chipTempC: temp.main,
+      uptimeS: time.uptime,
+      receivedAtIso: new Date().toISOString(),
+    };
+    broadcast(metrics, null);
+  } catch (err) {
+    console.error("[metrics] fetch failed:", err.message);
+  }
+}, 5000);
+
 async function start() {
   try {
-    await mongoStore.connect();
-    console.log(`[mongo] connected: ${MONGO_URI}`);
+    await store.connect();
+    console.log(`[db] connected to ${DB_TYPE} database`);
   } catch (err) {
-    console.error("[mongo] connect failed:", err.message);
+    console.error(`[db] connect failed:`, err.message);
   }
   console.log(`[ws] server ready on ws://${HOST === "0.0.0.0" ? "localhost" : HOST}:${PORT}`);
 }

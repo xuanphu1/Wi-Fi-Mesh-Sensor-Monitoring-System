@@ -8,9 +8,9 @@ export function getWebSocketUrl() {
   if (fromEnv != null && String(fromEnv).trim() !== "") {
     return String(fromEnv).trim();
   }
-  if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  if (typeof window !== "undefined") {
     const host = window.location.hostname || "localhost";
     return `ws://${host}:8080`;
   }
-  return "";
+  return "ws://localhost:8080";
 }

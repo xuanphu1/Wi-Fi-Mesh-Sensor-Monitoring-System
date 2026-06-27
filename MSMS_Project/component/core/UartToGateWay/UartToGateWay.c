@@ -1,10 +1,5 @@
 #include "UartToGateWay.h"
 
-#include <ctype.h>
-#include <inttypes.h>
-#include <string.h>
-#include <stdlib.h>
-#include <arpa/inet.h>
 #include "DataManager.h"
 #include "FunctionManager.h"
 #include "InternetManager.h"
@@ -16,6 +11,12 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "soc/uart_reg.h"
+#include <arpa/inet.h>
+#include <ctype.h>
+#include <inttypes.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 #ifndef CONFIG_UART_GATEWAY_BAUD_RATE
 #define CONFIG_UART_GATEWAY_BAUD_RATE 115200
@@ -35,9 +36,11 @@
 static QueueHandle_t s_uart_event_queue = NULL;
 static DataManager_t *s_data = NULL;
 static bool s_uart_started = false;
+static bool s_uart_gateway_paused = false;
 static uart_port_t s_uart_num = UART_NUM_1;
 
-/* Gateway heartbeat: when in ROOT mode, gateway must periodically send "Connected". */
+/* Gateway heartbeat: when in ROOT mode, gateway must periodically send
+ * "Connected". */
 static TickType_t s_last_connected_tick = 0;
 static bool s_connected_watchdog_enabled = false;
 /** Root: lần cuối gửi heartbeat "No node" khi queue mesh rỗng. */
@@ -57,9 +60,9 @@ static bool uart_gateway_mesh_stack_ready(void) {
 }
 
 /** Parse nhanh origin info trong JSON telemetry để log theo node gốc. */
-static void gateway_extract_origin_info(const uint8_t *payload, size_t payload_len,
-                                        char *origin_ip, size_t origin_ip_cap,
-                                        int *origin_lvl) {
+static void gateway_extract_origin_info(const uint8_t *payload,
+                                        size_t payload_len, char *origin_ip,
+                                        size_t origin_ip_cap, int *origin_lvl) {
   if (origin_ip != NULL && origin_ip_cap > 0) {
     snprintf(origin_ip, origin_ip_cap, "unknown");
   }
@@ -137,10 +140,11 @@ static void handle_gateway_line(char *line) {
                nw);
       return;
     }
-    int nw = UartToGateWay_Send("Switching to root mode...\r\n", sizeof("Switching to root mode...\r\n"));
+    int nw = UartToGateWay_Send("Switching to root mode...\r\n",
+                                sizeof("Switching to root mode...\r\n"));
     ESP_LOGI(TAG_UART_GATEWAY,
-             "UART cmd: Start Root -> switch mesh root (TX %d/%d bytes)",
-             nw, (int)sizeof("Switching to root mode...\r\n"));
+             "UART cmd: Start Root -> switch mesh root (TX %d/%d bytes)", nw,
+             (int)sizeof("Switching to root mode...\r\n"));
     wifi_mesh_join_as_root_callback(s_data);
     s_connected_watchdog_enabled = true;
     s_last_connected_tick = xTaskGetTickCount();
@@ -160,7 +164,7 @@ static void uart_gateway_rx_task(void *pvParameter) {
   size_t line_len = 0;
 
   while (1) {
-    if (!uart_gateway_mesh_mode_active()) {
+    if (!uart_gateway_mesh_mode_active() || s_uart_gateway_paused) {
       line_len = 0;
       s_connected_watchdog_enabled = false;
       if (s_uart_event_queue != NULL) {
@@ -171,12 +175,13 @@ static void uart_gateway_rx_task(void *pvParameter) {
       continue;
     }
 
-    if (xQueueReceive(s_uart_event_queue, &event, pdMS_TO_TICKS(500)) != pdTRUE) {
+    if (xQueueReceive(s_uart_event_queue, &event, pdMS_TO_TICKS(500)) !=
+        pdTRUE) {
       TickType_t now = xTaskGetTickCount();
       if (s_connected_watchdog_enabled) {
         if ((now - s_last_connected_tick) > pdMS_TO_TICKS(1000)) {
-          ESP_LOGW(TAG_UART_GATEWAY,
-                   "No 'Connected' heartbeat from gateway for >1s -> switch to node");
+          ESP_LOGW(TAG_UART_GATEWAY, "No 'Connected' heartbeat from gateway "
+                                     "for >1s -> switch to node");
           wifi_mesh_join_as_node_callback(s_data);
           s_connected_watchdog_enabled = false;
           s_last_connected_tick = now;
@@ -186,77 +191,58 @@ static void uart_gateway_rx_task(void *pvParameter) {
     }
 
     switch (event.type) {
-      case UART_DATA: {
-        int read_len = uart_read_bytes(s_uart_num, rx_data,
-                                       (event.size < UART_RX_BUF_SIZE)
-                                           ? (int)event.size
-                                           : UART_RX_BUF_SIZE,
-                                       0);
-        for (int i = 0; i < read_len; i++) {
-          char c = (char)rx_data[i];
-          if (c == '\r' || c == '\n') {
-            if (line_len > 0) {
-              line_buf[line_len] = '\0';
-              handle_gateway_line(line_buf);
-              line_len = 0;
-            }
-            continue;
-          }
-          if (line_len < (UART_CMD_LINE_MAX - 1)) {
-            line_buf[line_len++] = c;
-          } else {
+    case UART_DATA: {
+      int read_len = uart_read_bytes(
+          s_uart_num, rx_data,
+          (event.size < UART_RX_BUF_SIZE) ? (int)event.size : UART_RX_BUF_SIZE,
+          0);
+      for (int i = 0; i < read_len; i++) {
+        char c = (char)rx_data[i];
+        if (c == '\r' || c == '\n') {
+          if (line_len > 0) {
+            line_buf[line_len] = '\0';
+            handle_gateway_line(line_buf);
             line_len = 0;
           }
+          continue;
         }
-        break;
+        if (line_len < (UART_CMD_LINE_MAX - 1)) {
+          line_buf[line_len++] = c;
+        } else {
+          line_len = 0;
+        }
       }
-      case UART_FIFO_OVF:
-      case UART_BUFFER_FULL:
-        ESP_LOGW(TAG_UART_GATEWAY, "UART RX overflow, flush input");
-        uart_flush_input(s_uart_num);
-        xQueueReset(s_uart_event_queue);
-        break;
-      default:
-        break;
+      break;
+    }
+    case UART_FIFO_OVF:
+    case UART_BUFFER_FULL:
+      ESP_LOGW(TAG_UART_GATEWAY, "UART RX overflow, flush input");
+      uart_flush_input(s_uart_num);
+      xQueueReset(s_uart_event_queue);
+      break;
+    default:
+      break;
     }
   }
 }
 
-/** Gửi: mesh root lấy `gateway_rx_queue` → UART; heartbeat `No node` khi queue rỗng. */
+/** Gửi: mesh root lấy `gateway_rx_queue` → UART; heartbeat `No node` khi queue
+ * rỗng. */
 static bool uart_gateway_send_mesh_msg(const mesh_gateway_rx_msg_t *msg) {
   if (msg == NULL || msg->len == 0 || msg->len > sizeof(msg->data)) {
     return false;
   }
 
-  char processed_payload[512];
-  size_t processed_len = 0;
-  struct in_addr src = {.s_addr = msg->src_ip};
-  char origin_ip[16];
-  int origin_lvl = -1;
-  gateway_extract_origin_info(msg->data, msg->len, origin_ip,
-                              sizeof(origin_ip), &origin_lvl);
-  ESP_LOGD(TAG_UART_GATEWAY,
-           "Mesh data -> gateway UART: %u bytes, src_hop_ip=%s, origin_ip=%s, origin_lvl=%d",
-           (unsigned)msg->len, inet_ntoa(src), origin_ip, origin_lvl);
-
-  system_err_t process_ret = ProcessingDataMesh_ProcessFrame(
-      msg->data, msg->len, processed_payload, sizeof(processed_payload),
-      &processed_len);
-  if (process_ret != MRS_OK) {
-    ESP_LOGW(TAG_UART_GATEWAY,
-             "ProcessingDataMesh failed: %s, drop mesh payload",
-             system_err_to_name(process_ret));
-    return false;
-  }
-
-  ESP_LOGD(TAG_UART_GATEWAY, "UART TX payload: %.*s",
-           (int)processed_len, processed_payload);
+  char tx_buffer[1450];
   int sent = 0;
-  if (processed_len + 1U <= sizeof(processed_payload)) {
-    processed_payload[processed_len] = '\n';
-    sent = UartToGateWay_Send(processed_payload, processed_len + 1U);
+  ESP_LOGD(TAG_UART_GATEWAY, "UART TX payload: %.*s", (int)msg->len, msg->data);
+
+  if (msg->len + 1U <= sizeof(tx_buffer)) {
+    memcpy(tx_buffer, msg->data, msg->len);
+    tx_buffer[msg->len] = '\n';
+    sent = UartToGateWay_Send(tx_buffer, msg->len + 1U);
   } else {
-    sent = UartToGateWay_Send(processed_payload, processed_len);
+    sent = UartToGateWay_Send(msg->data, msg->len);
     int newline_sent = UartToGateWay_Send("\n", 1);
     if (newline_sent > 0) {
       sent += newline_sent;
@@ -267,6 +253,45 @@ static bool uart_gateway_send_mesh_msg(const mesh_gateway_rx_msg_t *msg) {
     s_uart_gateway_sent_bytes += (uint32_t)sent;
   }
   return true;
+}
+
+void UartToGateWay_Pause(void) {
+  if (!s_uart_started || s_uart_gateway_paused) return;
+  s_uart_gateway_paused = true;
+  
+  // Wait to ensure rx_task exits xQueueReceive
+  vTaskDelay(pdMS_TO_TICKS(600)); 
+
+  if (uart_is_driver_installed(s_uart_num)) {
+    uart_driver_delete(s_uart_num);
+    s_uart_event_queue = NULL;
+  }
+}
+
+void UartToGateWay_Resume(void) {
+  if (!s_uart_started || !s_uart_gateway_paused) return;
+
+  if (uart_is_driver_installed(s_uart_num)) {
+    uart_driver_delete(s_uart_num);
+  }
+
+  const uart_config_t uart_config = {
+      .baud_rate = CONFIG_UART_GATEWAY_BAUD_RATE,
+      .data_bits = UART_DATA_8_BITS,
+      .parity = UART_PARITY_DISABLE,
+      .stop_bits = UART_STOP_BITS_1,
+      .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+      .source_clk = UART_SCLK_DEFAULT,
+  };
+
+  if (uart_driver_install(s_uart_num, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE,
+                          UART_EVENT_QUEUE_LEN, &s_uart_event_queue,
+                          0) == ESP_OK) {
+    uart_param_config(s_uart_num, &uart_config);
+    uart_set_pin(s_uart_num, PIN_UART_TX, PIN_UART_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+  }
+  
+  s_uart_gateway_paused = false;
 }
 
 static void uart_gateway_log_tx_stats(QueueHandle_t queue) {
@@ -284,7 +309,8 @@ static void uart_gateway_log_tx_stats(QueueHandle_t queue) {
   }
 
   ESP_LOGI(TAG_UART_GATEWAY,
-           "UART gateway TX: frames=%" PRIu32 ", bytes=%" PRIu32 ", queue=%u/%u",
+           "UART gateway TX: frames=%" PRIu32 ", bytes=%" PRIu32
+           ", queue=%u/%u",
            s_uart_gateway_sent_frames, s_uart_gateway_sent_bytes,
            (unsigned)queue_used, (unsigned)queue_total);
   s_uart_gateway_sent_frames = 0;
@@ -296,7 +322,7 @@ static void uart_gateway_tx_task(void *pvParameter) {
   (void)pvParameter;
 
   for (;;) {
-    if (!uart_gateway_mesh_mode_active()) {
+    if (!uart_gateway_mesh_mode_active() || s_uart_gateway_paused) {
       vTaskDelay(pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS));
       continue;
     }
@@ -377,7 +403,8 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   };
 
   if (uart_driver_install(s_uart_num, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE,
-                          UART_EVENT_QUEUE_LEN, &s_uart_event_queue, 0) != ESP_OK) {
+                          UART_EVENT_QUEUE_LEN, &s_uart_event_queue,
+                          0) != ESP_OK) {
     ESP_LOGE(TAG_UART_GATEWAY, "uart_driver_install failed");
     return MRS_ERR_DRIVERS_INIT_FAILED;
   }
@@ -392,7 +419,8 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   }
 
   const uart_intr_config_t uart_intr = {
-      .intr_enable_mask = UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
+      .intr_enable_mask =
+          UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
       .rxfifo_full_thresh = UART_RXFIFO_FULL_THRESH,
       .rx_timeout_thresh = UART_RX_TIMEOUT_THRESH,
       .txfifo_empty_intr_thresh = 0,
@@ -426,11 +454,12 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   }
 
   s_uart_started = true;
-  ESP_LOGI(TAG_UART_GATEWAY,
-           "UART gateway RX+TX on UART%d TX=%d RX=%d baud=%d (rxfifo=%d timeout=%d)",
-           (int)s_uart_num, (int)PIN_UART_TX, (int)PIN_UART_RX,
-           CONFIG_UART_GATEWAY_BAUD_RATE, UART_RXFIFO_FULL_THRESH,
-           UART_RX_TIMEOUT_THRESH);
+  ESP_LOGI(
+      TAG_UART_GATEWAY,
+      "UART gateway RX+TX on UART%d TX=%d RX=%d baud=%d (rxfifo=%d timeout=%d)",
+      (int)s_uart_num, (int)PIN_UART_TX, (int)PIN_UART_RX,
+      CONFIG_UART_GATEWAY_BAUD_RATE, UART_RXFIFO_FULL_THRESH,
+      UART_RX_TIMEOUT_THRESH);
   return MRS_OK;
 }
 

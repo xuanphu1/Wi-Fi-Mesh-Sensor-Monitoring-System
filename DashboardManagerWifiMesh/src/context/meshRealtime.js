@@ -233,6 +233,9 @@ export function MeshRealtimeProvider({ children }) {
   const [gatewaySeries, setGatewaySeries] = useState([]);
   const [gatewayLogs, setGatewayLogs] = useState([]);
 
+  const [serverMetrics, setServerMetrics] = useState(null);
+  const [serverMetricsSeries, setServerMetricsSeries] = useState([]);
+
   const [throughputSeries, setThroughputSeries] = useState([]);
   const throughputBytesRef = useRef(new Map());
 
@@ -332,8 +335,23 @@ export function MeshRealtimeProvider({ children }) {
           return;
         }
 
+        if (msg && msg.type === "packetloss_update" && msg.data) {
+          setRegistry((prev) => {
+            const next = new Map(prev);
+            for (const [ip, loss] of Object.entries(msg.data)) {
+              const node = next.get(ip);
+              if (node) {
+                next.set(ip, { ...node, packetLoss: loss });
+              }
+            }
+            return next;
+          });
+          return;
+        }
+
         const isWelcomeMsg = Boolean(msg && msg.type === "welcome");
         const isGatewayStatus = Boolean(msg && msg.type === "gateway_status");
+        const isServerMetrics = Boolean(msg && msg.type === "server_metrics");
         const isDeviceMsg = Boolean(msg && msg.clientType === "esp32");
 
         // Update registry even if we don't have mesh payload.
@@ -395,7 +413,22 @@ export function MeshRealtimeProvider({ children }) {
           }
         }
 
-        if (meshPayloads.length === 0 && !isDeviceMsg && !isWelcomeMsg && !isGatewayStatus) return;
+        if (isServerMetrics) {
+          setServerMetrics(msg);
+          setServerMetricsSeries((prev) =>
+            [
+              ...prev,
+              {
+                t: Date.now(),
+                cpu: msg.cpuLoadPercent,
+                ram: msg.ramUsedPercent,
+                temp: msg.chipTempC,
+              },
+            ].slice(-GATEWAY_SERIES_LIMIT)
+          );
+        }
+
+        if (meshPayloads.length === 0 && !isDeviceMsg && !isWelcomeMsg && !isGatewayStatus && !isServerMetrics) return;
 
         const nowMs = Date.now();
 
@@ -552,6 +585,8 @@ export function MeshRealtimeProvider({ children }) {
       debugLogs,
       nodes,
       registrySize: registry.size,
+      serverMetrics,
+      serverMetricsSeries,
     }),
     [
       wsOpen,
@@ -569,6 +604,8 @@ export function MeshRealtimeProvider({ children }) {
       debugLogs,
       nodes,
       registry,
+      serverMetrics,
+      serverMetricsSeries,
     ]
   );
 

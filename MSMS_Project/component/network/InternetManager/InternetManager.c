@@ -64,7 +64,8 @@ bool InternetManager_IsTransitioning(void) { return s_transitioning; }
 
 static system_err_t InternetManager_CleanCore(DataManager_t *data,
                                               bool destroy_default_netifs) {
-  ESP_LOGI(TAG, "Cleaning network stack, destroy_default_netifs=%d", destroy_default_netifs);
+  ESP_LOGI(TAG, "Cleaning network stack, destroy_default_netifs=%d",
+           destroy_default_netifs);
 
   InternetManager_StopTask(data, TASK_MESH_LINK);
   InternetManager_StopTask(data, TASK_MESH_DATA);
@@ -75,7 +76,8 @@ static system_err_t InternetManager_CleanCore(DataManager_t *data,
   MeshManager_ResetState();
 
   InternetManager_LogIgnoredEspError("esp_wifi_stop", esp_wifi_stop());
-  InternetManager_LogIgnoredEspError("esp_wifi_disconnect", esp_wifi_disconnect());
+  InternetManager_LogIgnoredEspError("esp_wifi_disconnect",
+                                     esp_wifi_disconnect());
 
   if (destroy_default_netifs) {
     esp_netif_t *sta_netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
@@ -101,7 +103,8 @@ static system_err_t InternetManager_CleanCore(DataManager_t *data,
   return MRS_OK;
 }
 
-system_err_t InternetManager_Clean(DataManager_t *data, bool destroy_default_netifs) {
+system_err_t InternetManager_Clean(DataManager_t *data,
+                                   bool destroy_default_netifs) {
   if (s_transitioning) {
     ESP_LOGW(TAG, "Clean requested while transition is running");
     return MRS_ERR_CORE_INVALID_STATE;
@@ -152,7 +155,8 @@ system_err_t InternetManager_Init(DataManager_t *data, internet_mode_t mode) {
   return InternetManager_SwitchMode(data, mode);
 }
 
-system_err_t InternetManager_SwitchMode(DataManager_t *data, internet_mode_t mode) {
+system_err_t InternetManager_SwitchMode(DataManager_t *data,
+                                        internet_mode_t mode) {
   if (s_transitioning) {
     ESP_LOGW(TAG, "Switch requested while transition is running");
     return MRS_ERR_CORE_INVALID_STATE;

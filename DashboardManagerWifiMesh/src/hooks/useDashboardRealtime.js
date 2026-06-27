@@ -143,6 +143,8 @@ export function useDashboardRealtime() {
     lastDeviceRtcIso: ctx.lastDeviceRtcIso,
     lastDataLatencyMs: ctx.lastDataLatencyMs,
     debugLogs: ctx.debugLogs,
+    serverMetrics: ctx.serverMetrics,
+    serverMetricsSeries: ctx.serverMetricsSeries,
   };
   /*
   const url = getWebSocketUrl();

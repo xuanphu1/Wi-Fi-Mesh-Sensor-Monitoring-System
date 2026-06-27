@@ -1,4 +1,4 @@
-D:/Engineering Project/Node_MSMS/build/esp-idf/riscv/libriscv.a
+D:/Engineering Project/Node_MSMS/build/esp-idf/xtensa/libxtensa.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/esp_ringbuf/libesp_ringbuf.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/efuse/libefuse.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/esp_mm/libesp_mm.a
@@ -55,10 +55,10 @@ D:/Engineering Project/Node_MSMS/build/esp-idf/espcoredump/libespcoredump.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/wear_levelling/libwear_levelling.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/sdmmc/libsdmmc.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/fatfs/libfatfs.a
-D:/Engineering Project/Node_MSMS/build/esp-idf/ieee802154/libieee802154.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/json/libjson.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/mqtt/libmqtt.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/nvs_sec_provider/libnvs_sec_provider.a
+D:/Engineering Project/Node_MSMS/build/esp-idf/perfmon/libperfmon.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/spiffs/libspiffs.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 D:/Engineering Project/Node_MSMS/build/esp-idf/espressif__led_strip/libespressif__led_strip.a

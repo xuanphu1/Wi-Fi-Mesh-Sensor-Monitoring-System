@@ -144,6 +144,17 @@
             <div class="form-group">
                 <button type="button" id="scanBtn">Quét WiFi</button>
                 <div id="wifiList" class="wifi-list" style="display:none;"></div>
+        <div id="status"></div>
+        
+        <form id="wifiForm">
+            <h2 class="section-title">WiFi</h2>
+            <div class="form-group">
+                <label for="ssid">Tên WiFi:</label>
+                <input type="text" id="ssid" name="ssid">
+            </div>
+            <div class="form-group">
+                <button type="button" id="scanBtn">Quét WiFi</button>
+                <div id="wifiList" class="wifi-list" style="display:none;"></div>
             </div>
             <div class="form-group">
                 <label for="password">Mật khẩu:</label>
@@ -152,10 +163,9 @@
             
             <h2 class="section-title">WebSocket</h2>
             <div class="form-group">
-                <label for="ws_url">URL WebSocket (gồm cổng, ví dụ Node <code>:8080</code>):</label>
-                <input type="text" id="ws_ip" name="ws_ip" placeholder="192.168.1.6" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
-                    title="Thiếu :port → client dùng cổng 80; server Node mặc định 8080">
-                <p class="subtitle" style="margin-top:6px;font-size:0.9em;color:#666;">Lưu trong RAM và WebSocket sẽ tự kết nối lại bằng URL mới. Sau reset dùng mặc định menuconfig nếu trống.</p>
+                <label for="ws_url">URL hoặc IP WebSocket:</label>
+                <input type="text" id="ws_url" name="ws_url" placeholder="VD: 192.168.1.6 hoặc wss://domain.com/ws">
+                <p class="subtitle" style="margin-top:6px;font-size:0.9em;color:#666;">Bạn có thể nhập URL đầy đủ, hoặc chỉ nhập IP (hệ thống sẽ tự động ghép thành ws://IP:8080/ws).</p>
             </div>
             
             <h2 class="section-title">HTTP</h2>
@@ -179,27 +189,7 @@
         }
 
         function extractWsIp(wsUrl) {
-            if (!wsUrl) {
-                return '';
-            }
-            const match = String(wsUrl).match(/^wss?:\/\/([^/:]+)(?::\d+)?(?:\/.*)?$/i);
-            return match ? match[1] : wsUrl;
-        }
-
-        function setupWebSocketIpField() {
-            const label = document.querySelector('label[for="ws_url"]');
-            const input = document.getElementById('ws_ip');
-            if (label) {
-                label.setAttribute('for', 'ws_ip');
-                label.textContent = 'IP WebSocket server:';
-            }
-            if (input) {
-                input.title = 'Chi nhap IP. Thiet bi se tu ghep thanh ws://IP:8080/ws';
-                const help = input.parentElement ? input.parentElement.querySelector('p') : null;
-                if (help) {
-                    help.textContent = 'Chi nhap IP, he thong tu dung ws://IP:8080/ws.';
-                }
-            }
+            return wsUrl || '';
         }
 
         function renderWifiList(networks) {
@@ -244,7 +234,6 @@
 
         // Load current configuration on page load
         window.addEventListener('load', function() {
-            setupWebSocketIpField();
             fetch('/status')
                 .then(response => response.json())
                 .then(data => {
@@ -253,7 +242,7 @@
                         document.getElementById('ssid').value = currentSsid;
                     }
                     if (data.ws_url) {
-                        document.getElementById('ws_ip').value = extractWsIp(data.ws_url);
+                        document.getElementById('ws_url').value = data.ws_url;
                     }
                     if (data.http_ip) {
                         const httpIpInput = document.getElementById('http_ip');
@@ -280,7 +269,7 @@
             // Only include fields that have values
             const ssid = formData.get('ssid');
             const password = formData.get('password');
-            const ws_ip = formData.get('ws_ip');
+            const ws_input = formData.get('ws_url');
             const http_ip = formData.get('http_ip');
             const http_port = formData.get('http_port');
             
@@ -288,8 +277,17 @@
                 data.ssid = ssid;
                 data.password = password;
             }
-            if (ws_ip && ws_ip.trim() !== '') {
-                data.ws_url = `ws://${ws_ip.trim()}:8080/ws`;
+            if (ws_input && ws_input.trim() !== '') {
+                let final_ws = ws_input.trim();
+                if (!final_ws.startsWith('ws://') && !final_ws.startsWith('wss://')) {
+                    if (final_ws.includes(':')) {
+                        if (!final_ws.includes('/')) final_ws += '/ws';
+                        final_ws = 'ws://' + final_ws;
+                    } else {
+                        final_ws = 'ws://' + final_ws + ':8080/ws';
+                    }
+                }
+                data.ws_url = final_ws;
             }
             const httpIpInput = document.getElementById('http_ip');
             const httpPortInput = document.getElementById('http_port');

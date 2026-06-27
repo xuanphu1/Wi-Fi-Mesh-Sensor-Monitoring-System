@@ -38,16 +38,9 @@ export const SensorType = Object.freeze({
   SENSOR_MHZ14A: 1,
   SENSOR_PMS7003: 2,
   SENSOR_DHT22: 3,
-  SENSOR_MQ2: 4,
-  SENSOR_MQ3: 5,
-  SENSOR_MQ4: 6,
-  SENSOR_MQ5: 7,
-  SENSOR_MQ6: 8,
-  SENSOR_MQ7: 9,
-  SENSOR_MQ8: 10,
-  SENSOR_MQ9: 11,
-  SENSOR_MQ135: 12,
-  SENSOR_AHT10: 13,
+  SENSOR_AHT10: 4,
+  SENSOR_DHT11: 5,
+  SENSOR_HTU21D: 6,
 });
 
 /** Mảng ID hợp lệ trên wire (0…13), thứ tự giống enum sau SENSOR_NONE. */
@@ -56,16 +49,9 @@ export const SENSOR_TYPE_WIRE_IDS = Object.freeze([
   SensorType.SENSOR_MHZ14A,
   SensorType.SENSOR_PMS7003,
   SensorType.SENSOR_DHT22,
-  SensorType.SENSOR_MQ2,
-  SensorType.SENSOR_MQ3,
-  SensorType.SENSOR_MQ4,
-  SensorType.SENSOR_MQ5,
-  SensorType.SENSOR_MQ6,
-  SensorType.SENSOR_MQ7,
-  SensorType.SENSOR_MQ8,
-  SensorType.SENSOR_MQ9,
-  SensorType.SENSOR_MQ135,
   SensorType.SENSOR_AHT10,
+  SensorType.SENSOR_DHT11,
+  SensorType.SENSOR_HTU21D,
 ]);
 
 /** Trùng `sensor_type_to_name()` — SensorRegistry.c */
@@ -75,16 +61,9 @@ const TYPE_NAMES = {
   1: "MH-Z14A",
   2: "PMS7003",
   3: "DHT22",
-  4: "MQ-2",
-  5: "MQ-3",
-  6: "MQ-4",
-  7: "MQ-5",
-  8: "MQ-6",
-  9: "MQ-7",
-  10: "MQ-8",
-  11: "MQ-9",
-  12: "MQ-135",
-  13: "AHT10",
+  4: "AHT10",
+  5: "DHT11",
+  6: "HTU21D",
 };
 
 /**
@@ -94,52 +73,34 @@ const TYPE_NAMES = {
 export const SENSOR_REGISTRY_FIELDS = Object.freeze({
   [-1]: Object.freeze([]),
   0: Object.freeze([
-    Object.freeze({ key: "temperature", description: "Temperature", unit: "°C" }),
-    Object.freeze({ key: "humidity", description: "Humidity", unit: "%" }),
-    Object.freeze({ key: "pressure", description: "Pressure", unit: "hPa" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
+    Object.freeze({ key: "pressure_hPa", description: "Pressure", unit: "hPa" }),
+    Object.freeze({ key: "humidity_RH", description: "Humidity", unit: "%" }),
   ]),
   1: Object.freeze([
-    Object.freeze({ key: "co2", description: "CO2", unit: "ppm" }),
+    Object.freeze({ key: "co2_ppm", description: "CO2", unit: "ppm" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
   ]),
   2: Object.freeze([
-    Object.freeze({ key: "pm1_0", description: "PM1.0", unit: "ug/m3" }),
-    Object.freeze({ key: "pm2_5", description: "PM2.5", unit: "ug/m3" }),
-    Object.freeze({ key: "pm10", description: "PM10", unit: "ug/m3" }),
+    Object.freeze({ key: "pm1_0_ugm3", description: "PM1.0", unit: "ug/m3" }),
+    Object.freeze({ key: "pm2_5_ugm3", description: "PM2.5", unit: "ug/m3" }),
+    Object.freeze({ key: "pm10_ugm3", description: "PM10", unit: "ug/m3" }),
   ]),
   3: Object.freeze([
-    Object.freeze({ key: "temperature", description: "Temperature", unit: "°C" }),
-    Object.freeze({ key: "humidity", description: "Humidity", unit: "%" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
+    Object.freeze({ key: "humidity_RH", description: "Humidity", unit: "%" }),
   ]),
   4: Object.freeze([
-    Object.freeze({ key: "gas", description: "Gas", unit: "ppm" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
+    Object.freeze({ key: "humidity_RH", description: "Humidity", unit: "%" }),
   ]),
   5: Object.freeze([
-    Object.freeze({ key: "alcohol", description: "Alcohol", unit: "ppm" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
+    Object.freeze({ key: "humidity_RH", description: "Humidity", unit: "%" }),
   ]),
   6: Object.freeze([
-    Object.freeze({ key: "ch4", description: "CH4", unit: "ppm" }),
-  ]),
-  7: Object.freeze([
-    Object.freeze({ key: "lpg", description: "LPG", unit: "ppm" }),
-  ]),
-  8: Object.freeze([
-    Object.freeze({ key: "lpg", description: "LPG", unit: "ppm" }),
-  ]),
-  9: Object.freeze([
-    Object.freeze({ key: "co", description: "CO", unit: "ppm" }),
-  ]),
-  10: Object.freeze([
-    Object.freeze({ key: "h2", description: "H2", unit: "ppm" }),
-  ]),
-  11: Object.freeze([
-    Object.freeze({ key: "co_lpg", description: "CO/LPG", unit: "ppm" }),
-  ]),
-  12: Object.freeze([
-    Object.freeze({ key: "air_quality", description: "Air Quality", unit: "ppm" }),
-  ]),
-  13: Object.freeze([
-    Object.freeze({ key: "temperature", description: "Temperature", unit: "°C" }),
-    Object.freeze({ key: "humidity", description: "Humidity", unit: "%" }),
+    Object.freeze({ key: "temp_C", description: "Temperature", unit: "°C" }),
+    Object.freeze({ key: "humidity_RH", description: "Humidity", unit: "%" }),
   ]),
 });
 
@@ -239,9 +200,8 @@ export function isMeshUdpSensorPayload(obj) {
   return (
     "v" in obj &&
     "n" in obj &&
-    "i" in obj &&
+    ("i" in obj || "M" in obj) &&
     "p" in obj &&
-    typeof obj.i === "string" &&
     Array.isArray(obj.p)
   );
 }
@@ -328,7 +288,7 @@ export function parseMeshUdpSensorPayload(obj) {
     packetLossRaw !== undefined && packetLossRaw !== null && packetLossRaw !== ""
       ? Number(packetLossRaw)
       : null;
-  const staIpv4 = obj.i != null ? String(obj.i) : "";
+  const staIpv4 = String(obj.M || obj.i || "").trim();
   const rtcIso =
     typeof obj.t === "string" && obj.t.trim().length > 0
       ? obj.t.trim()
@@ -348,7 +308,7 @@ export function parseMeshUdpSensorPayload(obj) {
   if (!Number.isFinite(schemaVersion)) errors.push("v (schema) thiếu hoặc không phải số");
   if (!Number.isFinite(meshLevel)) errors.push("n (mesh level) thiếu hoặc không phải số");
   if (packetLoss != null && !Number.isFinite(packetLoss)) errors.push("packetloss không phải số");
-  if (typeof obj.i !== "string") errors.push('i phải là string IPv4');
+  if (typeof obj.i !== "string" && typeof obj.M !== "string") errors.push('i hoặc M phải là string');
   if (obj.t != null && typeof obj.t !== "string") errors.push("t phải là string ISO 8601");
   // ver / err are optional metadata. Do not reject payload when these fields are malformed.
 

@@ -100,5 +100,5 @@ direct_dependencies:
 - espressif/mesh_lite
 - idf
 manifest_hash: c11a1f68013aa45384cc3bb9fd1b0e6c98aa1eb783fc468567a71241df3ee419
-target: esp32c6
+target: esp32
 version: 2.0.0

@@ -24,7 +24,7 @@ import Footer from "examples/Footer";
 import LineChart from "examples/Charts/LineCharts/LineChart";
 
 import { getWebSocketUrl } from "utils/wsConfig";
-import { SENSOR_REGISTRY_FIELDS, sensorTypeToName } from "utils/meshUdpJsonSchema";
+import { SENSOR_REGISTRY_FIELDS, sensorTypeToName, SensorType } from "utils/meshUdpJsonSchema";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 
 import {
@@ -58,7 +58,6 @@ const historyFilterSx = {
     color: "rgba(255, 255, 255, 0.45) !important",
     "&.Mui-focused, &.MuiInputLabel-shrink": {
       color: "#ffffff !important",
-      transform: "translate(14px, 10px) scale(0.85) !important",
     },
   },
   "& .MuiSelect-select": {
@@ -171,70 +170,158 @@ function openNativeDateTimePicker(inputEl) {
   inputEl.focus();
 }
 
-function normalizeIpRows(rows) {
+function normalizeMacRows(rows) {
   const map = new Map();
   (Array.isArray(rows) ? rows : []).forEach((r) => {
-    const ip = String(r?.ip || "").trim();
-    if (!ip) return;
+    const mac = String(r?.mac || r?.ip || "").trim(); // fallback to ip if needed
+    if (!mac) return;
     const lastSeen = r?.lastSeen || null;
-    if (!map.has(ip)) map.set(ip, { ip, lastSeen });
+    const sensors = r?.sensors || [];
+    if (!map.has(mac)) map.set(mac, { mac, lastSeen, sensors });
   });
   return Array.from(map.values());
 }
 
-function buildPredefinedFieldOptions() {
-  const out = [];
+const dbSensorNames = Object.fromEntries(
+  Object.entries(SensorType).map(([k, v]) => [v, k])
+);
+
+function buildSensorOptions(availableSensors = null) {
+  const sensors = new Map();
   Object.entries(SENSOR_REGISTRY_FIELDS).forEach(([typeStr, defs]) => {
     const type = Number(typeStr);
     if (!Number.isFinite(type) || type < 0) return;
-    const sensor = sensorTypeToName(type);
+    const dbName = dbSensorNames[type] || `UNKNOWN_${type}`;
+    
+    // If availableSensors is provided, only include sensors in that list
+    if (availableSensors && !availableSensors.includes(dbName)) return;
+
+    const sensorLabel = sensorTypeToName(type);
+    if (!sensors.has(dbName)) {
+      sensors.set(dbName, { label: sensorLabel, fields: [] });
+    }
     (defs || []).forEach((d) => {
-      out.push({
+      sensors.get(dbName).fields.push({
         key: d.key,
         label: d.description || d.key,
         unit: d.unit || "",
-        sensor,
       });
     });
   });
-  const uniq = new Map();
-  out.forEach((f) => {
-    if (!uniq.has(f.key)) uniq.set(f.key, f);
-  });
-  return Array.from(uniq.values()).sort((a, b) => a.key.localeCompare(b.key));
+  
+  if (!availableSensors || availableSensors.includes("System")) {
+    if (!sensors.has("System")) {
+      sensors.set("System", { label: "System", fields: [] });
+    }
+    sensors.get("System").fields.push({
+      key: "packetloss",
+      label: "Packet Loss",
+      unit: "%"
+    });
+  }
+
+  if (!availableSensors || availableSensors.includes("Gateway")) {
+    if (!sensors.has("Gateway")) {
+      sensors.set("Gateway", { label: "Gateway", fields: [] });
+    }
+    sensors.get("Gateway").fields.push(
+      { key: "cpu_load", label: "CPU Load", unit: "%" },
+      { key: "ram_used", label: "RAM Used", unit: "%" },
+      { key: "wifi_rssi", label: "Wi-Fi RSSI", unit: "dBm" },
+      { key: "battery_v", label: "Battery Voltage", unit: "V" },
+      { key: "uptime_s", label: "Uptime", unit: "s" }
+    );
+  }
+
+  return Array.from(sensors.entries()).map(([name, data]) => ({
+    name,
+    label: data.label,
+    fields: data.fields
+  })).sort((a, b) => a.label.localeCompare(b.label));
 }
 
 function History() {
   const wsUrl = getWebSocketUrl();
-  const [nodeIp, setNodeIp] = useState("");
+  const [nodeMac, setNodeMac] = useState("");
+  const [sensor, setSensor] = useState("");
   const [field, setField] = useState("");
   const [fromLocal, setFromLocal] = useState(() => toDateTimeLocalValue(Date.now() - 60 * 60_000));
-  const [toLocal, setToLocal] = useState(() => toDateTimeLocalValue(Date.now()));
-  const [ips, setIps] = useState([]);
+  const [macs, setMacs] = useState([]);
   const [samples, setSamples] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [retryCnt, setRetryCnt] = useState(0);
+  const [exportProgress, setExportProgress] = useState(null);
 
   const wsRef = useRef(null);
   const fromInputRef = useRef(null);
-  const toInputRef = useRef(null);
   const requestSeqRef = useRef(1);
   const metaReqIdRef = useRef(null);
   const seriesReqIdRef = useRef(null);
 
-  const fields = useMemo(() => buildPredefinedFieldOptions(), []);
+  const handleDownloadCsv = () => {
+    if (!samples || samples.length === 0) return;
+    const header = `Time,Value\n`;
+    const rows = samples.map(s => {
+      // s.time might be a valid date string
+      let timeStr = s.time;
+      try { timeStr = new Date(s.time).toISOString(); } catch(e){}
+      return `${timeStr},${s.value}`;
+    }).join('\n');
+    const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const safeMac = (nodeMac || "unknown").replace(/:/g, "-");
+    a.download = `history_${safeMac}_${sensor}_${field}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
-  useEffect(() => {
-    if (!fields.length) return;
-    setField((prev) => prev || fields[0].key);
-  }, [fields]);
+  const handleDownloadAllMacCsv = () => {
+    if (!nodeMac || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+    setExportProgress({ current: 0, total: 1 });
+    const requestId = `export-${requestSeqRef.current++}`;
+    wsRef.current.send(JSON.stringify({
+      type: "history_export_mac_request",
+      requestId,
+      mac: nodeMac,
+      from: null,
+      to: null,
+    }));
+  };
 
+  const availableSensorsForMac = useMemo(() => {
+    if (!nodeMac) return null;
+    const macData = macs.find(m => m.mac === nodeMac);
+    return macData && Array.isArray(macData.sensors) && macData.sensors.length > 0 ? macData.sensors : null;
+  }, [macs, nodeMac]);
+
+  const sensorConfig = useMemo(() => buildSensorOptions(availableSensorsForMac), [availableSensorsForMac]);
+  
+  const currentSensorFields = useMemo(() => {
+    const match = sensorConfig.find(s => s.name === sensor);
+    return match ? match.fields : [];
+  }, [sensorConfig, sensor]);
+
+  // If the currently selected sensor is no longer in the list of available sensors, select the first available one
   useEffect(() => {
-    if (!nodeIp && ips.length > 0) {
-      setNodeIp(ips[0].ip);
+    if (sensorConfig.length > 0 && (!sensor || !sensorConfig.find(s => s.name === sensor))) {
+      setSensor(sensorConfig[0].name);
     }
-  }, [ips, nodeIp]);
+  }, [sensorConfig, sensor]);
+
+  useEffect(() => {
+    if (currentSensorFields.length > 0 && (!field || !currentSensorFields.find(f => f.key === field))) {
+      setField(currentSensorFields[0].key);
+    }
+  }, [currentSensorFields, field]);
+
+  useEffect(() => {
+    if (!nodeMac && macs.length > 0) {
+      setNodeMac(macs[0].mac);
+    }
+  }, [macs, nodeMac]);
 
   useEffect(() => {
     if (!wsUrl) {
@@ -280,18 +367,37 @@ function History() {
             setError(String(msg.error));
             return;
           }
-          const list = normalizeIpRows(msg.ips);
-          setIps(list);
-          setNodeIp((prev) => (prev ? String(prev).trim() : "") || list[0]?.ip || "");
+          const list = normalizeMacRows(msg.macs || msg.ips);
+          setMacs(list);
+          setNodeMac((prev) => (prev ? String(prev).trim() : "") || list[0]?.mac || "");
           return;
         }
+
+        if (msg && msg.type === "history_export_mac_response") {
+          if (msg.error) {
+            alert(`Export failed: ${msg.error}`);
+            return;
+          }
+          if (msg.csv) {
+            const blob = new Blob([msg.csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const safeMac = (msg.mac || "unknown").replace(/:/g, "-");
+            a.download = `history_all_${safeMac}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
+          return;
+        }
+
         if (msg && msg.type === "welcome" && Array.isArray(msg.nodeSnapshot)) {
-          const fallbackIps = normalizeIpRows(
-            msg.nodeSnapshot.map((n) => ({ ip: n?.ip, lastSeen: n?.lastSeen || null }))
+          const fallbackMacs = normalizeMacRows(
+            msg.nodeSnapshot.map((n) => ({ mac: n?.mac || n?.ip, lastSeen: n?.lastSeen || null }))
           );
-          if (fallbackIps.length > 0) {
-            setIps((prev) => (prev.length > 0 ? prev : fallbackIps));
-            setNodeIp((prev) => (prev ? String(prev).trim() : "") || fallbackIps[0]?.ip || "");
+          if (fallbackMacs.length > 0) {
+            setMacs((prev) => (prev.length > 0 ? prev : fallbackMacs));
+            setNodeMac((prev) => (prev ? String(prev).trim() : "") || fallbackMacs[0]?.mac || "");
           }
           return;
         }
@@ -305,6 +411,24 @@ function History() {
           setSamples(Array.isArray(msg.items) ? msg.items : []);
           setLoading(false);
           setError("");
+        } else if (msg && msg.type === "history_export_mac_progress") {
+          setExportProgress({ current: msg.progress, total: msg.total || 1 });
+        } else if (msg && msg.type === "history_export_mac_response") {
+          setExportProgress(null);
+          if (msg.error) {
+            alert(`Export failed: ${msg.error}`);
+            return;
+          }
+          if (msg.csv) {
+            const blob = new Blob([msg.csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const safeMac = (msg.mac || "unknown").replace(/:/g, "-");
+            a.download = `export_all_${safeMac}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
         }
       };
 
@@ -337,7 +461,7 @@ function History() {
   }, [wsUrl]);
 
   useEffect(() => {
-    if (!nodeIp || !field) {
+    if (!nodeMac || !sensor || !field) {
       setSamples([]);
       return;
     }
@@ -347,22 +471,22 @@ function History() {
     }
     setLoading(true);
     setError(""); // Clear error before fetching
-    const from = fromLocal ? new Date(fromLocal).toISOString() : buildRangeStartIso("1h");
-    const to = toLocal ? new Date(toLocal).toISOString() : new Date().toISOString();
+    const from = fromLocal ? new Date(fromLocal).toISOString() : null;
     const requestId = `series-${requestSeqRef.current++}`;
     seriesReqIdRef.current = requestId;
     wsRef.current.send(
       JSON.stringify({
         type: "history_series_request",
         requestId,
-        ip: nodeIp,
+        mac: nodeMac,
+        sensorName: sensor,
         field,
         from,
-        to,
+        to: null,
         limit: 2000,
       })
     );
-  }, [nodeIp, field, fromLocal, toLocal, retryCnt]);
+  }, [nodeMac, sensor, field, fromLocal, retryCnt]);
 
   const chartPoints = useMemo(
     () =>
@@ -371,17 +495,19 @@ function History() {
         .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y)),
     [samples]
   );
-  const selectedFieldMeta = useMemo(() => fields.find((f) => f.key === field) || null, [fields, field]);
+  const selectedFieldMeta = useMemo(() => currentSensorFields.find((f) => f.key === field) || null, [currentSensorFields, field]);
   const unit = selectedFieldMeta?.unit || "";
+
+  const selectedFieldLabel = selectedFieldMeta?.label;
 
   const chartData = useMemo(
     () => [
       {
-        name: selectedFieldMeta?.sensorName ? `${selectedFieldMeta.sensorName} · ${field}` : field || "value",
+        name: sensor ? `${sensor} · ${selectedFieldLabel || field}` : field || "value",
         data: chartPoints,
       },
     ],
-    [selectedFieldMeta, field, chartPoints]
+    [sensor, selectedFieldLabel, field, chartPoints]
   );
 
   const chartOptions = useMemo(
@@ -391,6 +517,15 @@ function History() {
         ...lineChartOptionsDashboard.xaxis,
         type: "datetime",
         categories: undefined,
+        labels: {
+          ...lineChartOptionsDashboard.xaxis?.labels,
+          datetimeUTC: false,
+          formatter: function(val) {
+            if (!val) return "";
+            const d = new Date(val);
+            return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          }
+        },
       },
       yaxis: {
         ...lineChartOptionsDashboard.yaxis,
@@ -423,51 +558,58 @@ function History() {
       <DashboardNavbar />
       <VuiBox py={3}>
         <Grid container spacing={3} mb={3}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
-              <InputLabel id="history-ip-label" shrink>
-                Select IP
+              <InputLabel id="history-ip-label">
+                Select MAC
               </InputLabel>
               <Select
                 labelId="history-ip-label"
                 id="history-ip"
-                value={nodeIp}
-                onChange={(e) => setNodeIp(String(e.target.value || "").trim())}
+                value={nodeMac}
+                onChange={(e) => setNodeMac(String(e.target.value || "").trim())}
                 MenuProps={historySelectMenuProps}
-                IconComponent={(props) => (
-                  <div
-                    {...props}
-                    style={{
-                      right: 14,
-                      position: "absolute",
-                      pointerEvents: "none",
-                      display: "flex",
-                      gap: "8px",
-                      color: "rgba(255,255,255,0.4)",
-                    }}
-                  >
-                    <IoDesktopOutline size="16px" />
-                    <IoChevronDown size="16px" />
-                  </div>
-                )}
+                label="Select MAC"
               >
-                {ips.length === 0 ? (
+                {macs.length === 0 ? (
                   <MenuItem value="" disabled>
-                    No IP found in database
+                    No MAC found in database
                   </MenuItem>
                 ) : null}
-                {ips.map((n) => (
-                  <MenuItem key={n.ip} value={n.ip}>
-                    {n.ip}
+                {macs.map((n) => {
+                  const isGateway = n.sensors?.includes("Gateway");
+                  return (
+                    <MenuItem key={n.mac} value={n.mac}>
+                      {isGateway ? `🌟 ${n.mac} (Gateway)` : n.mac}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
+              <InputLabel id="history-sensor-label">
+                Select Sensor
+              </InputLabel>
+              <Select
+                labelId="history-sensor-label"
+                value={sensor}
+                onChange={(e) => setSensor(e.target.value)}
+                sx={{ borderRadius: "8px", background: "rgba(10, 14, 35, 0.5)", color: "white" }}
+              >
+                {sensorConfig.map((s) => (
+                  <MenuItem key={s.name} value={s.name}>
+                    {s.label}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
-              <InputLabel id="history-field-label" shrink>
-                Select field
+              <InputLabel id="history-field-label">
+                Select Field
               </InputLabel>
               <Select
                 labelId="history-field-label"
@@ -475,24 +617,9 @@ function History() {
                 value={field}
                 onChange={(e) => setField(e.target.value)}
                 MenuProps={historySelectMenuProps}
-                IconComponent={(props) => (
-                  <div
-                    {...props}
-                    style={{
-                      right: 14,
-                      position: "absolute",
-                      pointerEvents: "none",
-                      display: "flex",
-                      gap: "8px",
-                      color: "rgba(255,255,255,0.4)",
-                    }}
-                  >
-                    <IoAnalyticsOutline size="16px" />
-                    <IoChevronDown size="16px" />
-                  </div>
-                )}
+                label="Select Field"
               >
-                {fields.map((s) => (
+                {currentSensorFields.map((s) => (
                   <MenuItem key={s.key} value={s.key}>
                     {`${s.label} (${s.key}${s.unit ? `, ${s.unit}` : ""})`}
                   </MenuItem>
@@ -500,38 +627,16 @@ function History() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={12}>
             <TextField
               fullWidth
               type="datetime-local"
-              label="From time"
+              label="Start time"
               value={fromLocal}
               onChange={(e) => setFromLocal(e.target.value)}
               inputRef={fromInputRef}
               onClick={() => openNativeDateTimePicker(fromInputRef.current)}
               onFocus={() => openNativeDateTimePicker(fromInputRef.current)}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ step: 60 }}
-              sx={historyFilterSx}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" sx={{ pointerEvents: "none" }}>
-                    <IoCalendarOutline color="rgba(255,255,255,0.4)" size="16px" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              fullWidth
-              type="datetime-local"
-              label="To time"
-              value={toLocal}
-              onChange={(e) => setToLocal(e.target.value)}
-              inputRef={toInputRef}
-              onClick={() => openNativeDateTimePicker(toInputRef.current)}
-              onFocus={() => openNativeDateTimePicker(toInputRef.current)}
               InputLabelProps={{ shrink: true }}
               inputProps={{ step: 60 }}
               sx={historyFilterSx}
@@ -562,8 +667,8 @@ function History() {
                 History / Charts
               </VuiTypography>
               <VuiTypography variant="caption" color="text">
-                IP: {nodeIp || "-"} • Field: {selectedFieldMeta?.label || field || "-"} • From:{" "}
-                {fromLocal ? fromLocal.replace("T", " ") : "-"} • To: {toLocal ? toLocal.replace("T", " ") : "-"} •
+                MAC: {nodeMac || "-"} • Sensor: {sensor || "-"} • Field: {selectedFieldMeta?.label || field || "-"} • Start:{" "}
+                {fromLocal ? fromLocal.replace("T", " ") : "Latest"} •
                 Points: {samples.length}
               </VuiTypography>
             </VuiBox>
@@ -572,10 +677,33 @@ function History() {
                 variant="outlined"
                 color="white"
                 size="small"
+                onClick={handleDownloadCsv}
                 sx={{ borderRadius: "8px", borderColor: "rgba(255,255,255,0.1)" }}
               >
-                <IoDownloadOutline style={{ marginRight: 6 }} size="14px" /> Download{" "}
-                <IoChevronDown style={{ marginLeft: 6 }} size="14px" />
+                <IoDownloadOutline style={{ marginRight: 6 }} size="14px" /> Download Chart CSV
+              </Button>
+              <Button
+                variant="outlined"
+                color="white"
+                size="small"
+                onClick={handleDownloadAllMacCsv}
+                disabled={exportProgress !== null}
+                sx={{ borderRadius: "8px", borderColor: "rgba(255,255,255,0.1)", position: "relative", overflow: "hidden" }}
+              >
+                {exportProgress !== null && (
+                  <div style={{
+                    position: "absolute", left: 0, top: 0, bottom: 0, 
+                    width: `${Math.max(5, Math.round((exportProgress.current / exportProgress.total) * 100))}%`, 
+                    background: "rgba(56, 189, 248, 0.2)", zIndex: 0,
+                    transition: "width 0.2s"
+                  }} />
+                )}
+                <span style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center" }}>
+                  <IoDownloadOutline style={{ marginRight: 6 }} size="14px" /> 
+                  {exportProgress !== null 
+                    ? `Exporting... ${Math.round((exportProgress.current / exportProgress.total) * 100)}%`
+                    : "Export ALL for MAC"}
+                </span>
               </Button>
               <Button
                 variant="outlined"
@@ -683,7 +811,7 @@ function History() {
               iconColor="#ffb547"
             />
             <SummaryCard
-              title="Duration"
+              title="Displayed Timespan"
               value={summary.dur}
               sub="-"
               icon={<IoTimerOutline size="18px" />}
@@ -694,8 +822,7 @@ function History() {
         </Card>
 
         <VuiTypography variant="caption" color="text" display="block" mt={3} mb={1}>
-          Showing data from {fromLocal ? new Date(fromLocal).toLocaleString() : "-"} to{" "}
-          {toLocal ? new Date(toLocal).toLocaleString() : "-"}
+          Showing data from {fromLocal ? new Date(fromLocal).toLocaleString() : "Latest"}
         </VuiTypography>
       </VuiBox>
       <Footer />

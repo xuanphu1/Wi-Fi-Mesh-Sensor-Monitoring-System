@@ -15,4 +15,11 @@ void power_manager_battery_adc_init(dm_hw_t *hw);
  */
 int power_manager_battery_get_percent(dm_hw_t *hw, uint32_t *raw_avg_out, uint32_t *v_adc_mv_out);
 
+/**
+ * @brief Turn the screen power on or off using GPIO 2.
+ * 
+ * @param on true to turn on (GPIO high), false to turn off (GPIO low)
+ */
+void power_manager_screen_set_state(bool on);
+
 #endif // POWER_MANAGER_H

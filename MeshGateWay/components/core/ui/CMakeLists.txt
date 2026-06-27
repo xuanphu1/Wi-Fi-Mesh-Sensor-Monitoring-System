@@ -10,7 +10,6 @@ SET(SOURCES ui_Screen1.c
     ui_img_136761274.c
     ui_img_arrowdown_png.c
     ui_img_arrowup_png.c
-    ui_img_packetloss_png.c
     ui_img_latency_png.c
     ui_img_throught_png.c
     ui_font_Arteon10.c
@@ -21,7 +20,6 @@ SET(SOURCES ui_Screen1.c
     ui_font_Arteon24.c
     ui_font_Arteon30.c
     ui_font_Arteon40.c)
-
 
     idf_component_register(SRCS ${SOURCES}
     INCLUDE_DIRS "."

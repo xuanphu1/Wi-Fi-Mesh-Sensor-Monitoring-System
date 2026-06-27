@@ -7,6 +7,7 @@
 #include "SensorConfig.h"
 #include "SensorRegistry.h"
 #include "WifiManager.h"
+#include "UartToGateWay.h"
 #include "driver/gpio.h"
 #include "freertos/idf_additions.h"
 #include <stdbool.h>
@@ -24,6 +25,7 @@ static void mesh_root_screen_task(void *pvParameters) {
   while (data != NULL && InternetManager_GetMode() == INTERNET_MODE_MESH &&
          data->meshIo.role == MESH_ROLE_ROOT) {
     data->screen.is_menu_active = false;
+    data->screen.is_dashboard_active = false;
     (void)ScreenMeshRoot(data);
     vTaskDelay(pdMS_TO_TICKS(10));
   }
@@ -278,8 +280,21 @@ void reset_all_ports_callback(void *ctx) {
   }
   sensor_driver_t *drivers = sensor_registry_get_drivers();
   size_t driver_count = sensor_registry_get_count();
+  bool uart_sensor_cleared = false;
   for (size_t i = 0; i < driver_count; i++) {
-    drivers[i].is_init = false;
+    if (drivers[i].is_init) {
+      if (drivers[i].interface == COMMUNICATION_UART) {
+        uart_sensor_cleared = true;
+      }
+      if (drivers[i].deinit != NULL) {
+        drivers[i].deinit();
+      }
+      drivers[i].is_init = false;
+    }
+  }
+
+  if (uart_sensor_cleared) {
+    UartToGateWay_Resume();
   }
 
   if (data->on_ports_reset) {
@@ -342,8 +357,14 @@ void select_sensor_cb(void *ctx) {
       ESP_LOGI(TAG_FUNCTION_MANAGER, "Port %d was selected", param->port);
       allow_set_sensor = true;
     } else if (!driver->is_init) {
+      if (driver->interface == COMMUNICATION_UART) {
+        UartToGateWay_Pause();
+      }
       system_err_t init_ret = driver->init();
       if (init_ret != MRS_OK) {
+        if (driver->interface == COMMUNICATION_UART) {
+          UartToGateWay_Resume();
+        }
         ErrorCodes_PushError(param->data->error_code,
                              DATA_MANAGER_ERROR_CAPACITY, init_ret);
         ESP_LOGE(TAG_FUNCTION_MANAGER,

@@ -1,0 +1,29 @@
+sudo ss -ltnp | grep ':8080'
+
+cd ~/Documents/Server_Node_js/websocket-server
+
+DB_TYPE=sqlite SQLITE_DB_PATH="/mnt/server-data/msems/database/mesh.sqlite" npm start
+
+serve -s build -l 3000
+
+
+sudo systemctl stop server-app.service
+
+
+msems-backend.service
+msems-web.service
+
+systemctl status 1339'
+
+system.slice/homelab.service
+
+http://energy.local:5055/api/energy
+
+
+
+sudo systemctl stop msems-backend.service
+ls -lh /mnt/server-data/msems/database/
+rm /mnt/server-data/msems/database/mesh.sqlite
+rm /mnt/server-data/msems/database/mesh.sqlite*
+
+sudo systemctl start msems-backend.service

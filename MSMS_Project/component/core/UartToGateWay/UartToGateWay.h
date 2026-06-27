@@ -37,6 +37,16 @@
 system_err_t UartToGateWay_Init(DataManager_t *data);
 
 /**
+ * @brief Tạm dừng các task liên quan đến UART gateway.
+ */
+void UartToGateWay_Pause(void);
+
+/**
+ * @brief Tiếp tục các task liên quan đến UART gateway.
+ */
+void UartToGateWay_Resume(void);
+
+/**
  * @brief Gửi raw bytes tới gateway (UART TX). Có thể gọi từ bất kỳ task nào; driver UART serialize.
  *
  * @param data Pointer to bytes.

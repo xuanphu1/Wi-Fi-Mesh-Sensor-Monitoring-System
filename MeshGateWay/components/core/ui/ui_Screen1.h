@@ -10,8 +10,6 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
-
 // SCREEN: ui_Screen1
 extern void ui_Screen1_screen_init(void);
 extern void ui_Screen1_screen_destroy(void);
@@ -48,7 +46,6 @@ extern lv_obj_t * ui_Label3;
 extern lv_obj_t * ui_Image2;
 extern lv_obj_t * ui_LabelNumWeakConn;
 extern lv_obj_t * ui_Label5;
-extern lv_obj_t * ui_Label6;
 extern lv_obj_t * ui_PanelStatusBat;
 extern lv_obj_t * ui_Image3;
 extern lv_obj_t * ui_LabelWeakBatNode;
@@ -61,7 +58,6 @@ extern lv_obj_t * ui_Label10;
 extern lv_obj_t * ui_LabelVersionGateway;
 extern lv_obj_t * ui_LabelVersionNode;
 extern lv_obj_t * ui_Paneluptime;
-extern lv_obj_t * ui_Label12;
 extern lv_obj_t * ui_LabelUpTime;
 extern lv_obj_t * ui_Label14;
 extern lv_obj_t * ui_PanelTXRXRate;
@@ -76,8 +72,7 @@ extern lv_obj_t * ui_LabelTXRate;
 extern lv_obj_t * ui_LabelRXRate;
 extern lv_obj_t * ui_Label59;
 extern lv_obj_t * ui_PanelPacketLoss;
-extern lv_obj_t * ui_LabelPacketLoss;
-extern lv_obj_t * ui_Image4;
+extern lv_obj_t * ui_LabelQueue;
 extern lv_obj_t * ui_Label20;
 extern lv_obj_t * ui_PanelLatency;
 extern lv_obj_t * ui_LabelLatency;
@@ -114,9 +109,6 @@ extern lv_obj_t * ui_LabelStatus;
 extern lv_obj_t * ui_Labelhyphen;
 extern lv_obj_t * ui_Labelhyphen1;
 // CUSTOM VARIABLES
-
-/** Cập nhật nhãn trạng thái WebSocket (an toàn gọi từ task khác LVGL). */
-void ui_notify_websocket_status(bool connected);
 
 #ifdef __cplusplus
 } /*extern "C"*/

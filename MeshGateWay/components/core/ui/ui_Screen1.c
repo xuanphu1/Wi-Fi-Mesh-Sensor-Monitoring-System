@@ -5,9 +5,6 @@
 
 #include "ui.h"
 
-#include <stdbool.h>
-#include <stdint.h>
-
 lv_obj_t * ui_Screen1 = NULL;
 lv_obj_t * ui_ImageMatrix = NULL;
 lv_obj_t * ui_PanelLayer = NULL;
@@ -41,7 +38,6 @@ lv_obj_t * ui_Label3 = NULL;
 lv_obj_t * ui_Image2 = NULL;
 lv_obj_t * ui_LabelNumWeakConn = NULL;
 lv_obj_t * ui_Label5 = NULL;
-lv_obj_t * ui_Label6 = NULL;
 lv_obj_t * ui_PanelStatusBat = NULL;
 lv_obj_t * ui_Image3 = NULL;
 lv_obj_t * ui_LabelWeakBatNode = NULL;
@@ -54,7 +50,6 @@ lv_obj_t * ui_Label10 = NULL;
 lv_obj_t * ui_LabelVersionGateway = NULL;
 lv_obj_t * ui_LabelVersionNode = NULL;
 lv_obj_t * ui_Paneluptime = NULL;
-lv_obj_t * ui_Label12 = NULL;
 lv_obj_t * ui_LabelUpTime = NULL;
 lv_obj_t * ui_Label14 = NULL;
 lv_obj_t * ui_PanelTXRXRate = NULL;
@@ -69,8 +64,7 @@ lv_obj_t * ui_LabelTXRate = NULL;
 lv_obj_t * ui_LabelRXRate = NULL;
 lv_obj_t * ui_Label59 = NULL;
 lv_obj_t * ui_PanelPacketLoss = NULL;
-lv_obj_t * ui_LabelPacketLoss = NULL;
-lv_obj_t * ui_Image4 = NULL;
+lv_obj_t * ui_LabelQueue = NULL;
 lv_obj_t * ui_Label20 = NULL;
 lv_obj_t * ui_PanelLatency = NULL;
 lv_obj_t * ui_LabelLatency = NULL;
@@ -177,7 +171,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_align(ui_ImageWifiNotCon, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ImageWifiNotCon, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_ImageWifiNotCon, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_ImageWifiNotCon, 145);
+    lv_img_set_zoom(ui_ImageWifiNotCon, 200);
 
     ui_PanelRealTime = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_PanelRealTime, 102);
@@ -423,7 +417,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_x(ui_LabelNumConn, -38);
     lv_obj_set_y(ui_LabelNumConn, -7);
     lv_obj_set_align(ui_LabelNumConn, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelNumConn, "5");
+    lv_label_set_text(ui_LabelNumConn, "8");
     lv_obj_set_style_text_color(ui_LabelNumConn, lv_color_hex(0x0DFF00), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LabelNumConn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_LabelNumConn, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -464,24 +458,13 @@ void ui_Screen1_screen_init(void)
     ui_Label5 = lv_label_create(ui_PanelSatusNode);
     lv_obj_set_width(ui_Label5, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label5, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label5, -3);
+    lv_obj_set_x(ui_Label5, 17);
     lv_obj_set_y(ui_Label5, 6);
     lv_obj_set_align(ui_Label5, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label5, "WEAK");
+    lv_label_set_text(ui_Label5, "ERROR");
     lv_obj_set_style_text_color(ui_Label5, lv_color_hex(0xF2F300), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label5, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label5, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Label6 = lv_label_create(ui_PanelSatusNode);
-    lv_obj_set_width(ui_Label6, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Label6, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label6, 48);
-    lv_obj_set_y(ui_Label6, 7);
-    lv_obj_set_align(ui_Label6, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label6, "NODE");
-    lv_obj_set_style_text_color(ui_Label6, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Label6, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label6, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PanelStatusBat = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_PanelStatusBat, 178);
@@ -520,10 +503,10 @@ void ui_Screen1_screen_init(void)
     ui_Label8 = lv_label_create(ui_PanelStatusBat);
     lv_obj_set_width(ui_Label8, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label8, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label8, -15);
+    lv_obj_set_x(ui_Label8, -22);
     lv_obj_set_y(ui_Label8, 0);
     lv_obj_set_align(ui_Label8, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label8, "WEAK");
+    lv_label_set_text(ui_Label8, "No");
     lv_obj_set_style_text_color(ui_Label8, lv_color_hex(0xFF0000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label8, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label8, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -531,10 +514,10 @@ void ui_Screen1_screen_init(void)
     ui_Label9 = lv_label_create(ui_PanelStatusBat);
     lv_obj_set_width(ui_Label9, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label9, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label9, 49);
+    lv_obj_set_x(ui_Label9, 37);
     lv_obj_set_y(ui_Label9, 0);
     lv_obj_set_align(ui_Label9, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label9, "battery");
+    lv_label_set_text(ui_Label9, "Adapter");
     lv_obj_set_style_text_color(ui_Label9, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label9, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label9, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -626,22 +609,11 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_border_opa(ui_Paneluptime, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_Paneluptime, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Label12 = lv_label_create(ui_Paneluptime);
-    lv_obj_set_width(ui_Label12, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Label12, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label12, -12);
-    lv_obj_set_y(ui_Label12, -8);
-    lv_obj_set_align(ui_Label12, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label12, "uptime");
-    lv_obj_set_style_text_color(ui_Label12, lv_color_hex(0xF0DB09), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_Label12, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label12, &ui_font_Arteon10, LV_PART_MAIN | LV_STATE_DEFAULT);
-
     ui_LabelUpTime = lv_label_create(ui_Paneluptime);
     lv_obj_set_width(ui_LabelUpTime, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_LabelUpTime, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelUpTime, -27);
-    lv_obj_set_y(ui_LabelUpTime, 6);
+    lv_obj_set_x(ui_LabelUpTime, 0);
+    lv_obj_set_y(ui_LabelUpTime, 8);
     lv_obj_set_align(ui_LabelUpTime, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelUpTime, "12");
     lv_obj_set_style_text_color(ui_LabelUpTime, lv_color_hex(0xF0DB09), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -651,13 +623,13 @@ void ui_Screen1_screen_init(void)
     ui_Label14 = lv_label_create(ui_Paneluptime);
     lv_obj_set_width(ui_Label14, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label14, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label14, 10);
-    lv_obj_set_y(ui_Label14, 6);
+    lv_obj_set_x(ui_Label14, 0);
+    lv_obj_set_y(ui_Label14, -8);
     lv_obj_set_align(ui_Label14, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label14, "Days");
     lv_obj_set_style_text_color(ui_Label14, lv_color_hex(0xF0DB09), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label14, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label14, &ui_font_Arteon16, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label14, &ui_font_Arteon14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PanelTXRXRate = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_PanelTXRXRate, 240);
@@ -812,38 +784,27 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_style_border_opa(ui_PanelPacketLoss, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_PanelPacketLoss, 1, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_LabelPacketLoss = lv_label_create(ui_PanelPacketLoss);
-    lv_obj_set_width(ui_LabelPacketLoss, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelPacketLoss, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelPacketLoss, -9);
-    lv_obj_set_y(ui_LabelPacketLoss, 14);
-    lv_obj_set_align(ui_LabelPacketLoss, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelPacketLoss, "0.12");
-    lv_obj_set_style_text_color(ui_LabelPacketLoss, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_LabelPacketLoss, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_LabelPacketLoss, &ui_font_Arteon14, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_Image4 = lv_img_create(ui_PanelPacketLoss);
-    lv_img_set_src(ui_Image4, &ui_img_packetloss_png);
-    lv_obj_set_width(ui_Image4, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Image4, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Image4, -17);
-    lv_obj_set_y(ui_Image4, -8);
-    lv_obj_set_align(ui_Image4, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_Image4, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_Image4, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_Image4, 150);
+    ui_LabelQueue = lv_label_create(ui_PanelPacketLoss);
+    lv_obj_set_width(ui_LabelQueue, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelQueue, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelQueue, 0);
+    lv_obj_set_y(ui_LabelQueue, 8);
+    lv_obj_set_align(ui_LabelQueue, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelQueue, "4/16");
+    lv_obj_set_style_text_color(ui_LabelQueue, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_LabelQueue, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_LabelQueue, &ui_font_Arteon20S, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Label20 = lv_label_create(ui_PanelPacketLoss);
     lv_obj_set_width(ui_Label20, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label20, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label20, 13);
-    lv_obj_set_y(ui_Label20, -8);
+    lv_obj_set_x(ui_Label20, 1);
+    lv_obj_set_y(ui_Label20, -14);
     lv_obj_set_align(ui_Label20, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label20, "pkl");
+    lv_label_set_text(ui_Label20, "Queue");
     lv_obj_set_style_text_color(ui_Label20, lv_color_hex(0xFBFBFB), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label20, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label20, &ui_font_Arteon12, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label20, &ui_font_Arteon10, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PanelLatency = lv_obj_create(ui_Screen1);
     lv_obj_set_width(ui_PanelLatency, 59);
@@ -1230,19 +1191,6 @@ void ui_Screen1_screen_init(void)
 
 }
 
-static void ui_ws_status_async_cb(void *user_data)
-{
-    bool connected = ((intptr_t)user_data != 0);
-    if (ui_LabelStatus != NULL) {
-        lv_label_set_text(ui_LabelStatus, connected ? "Connected" : "Disconnected");
-    }
-}
-
-void ui_notify_websocket_status(bool connected)
-{
-    (void)lv_async_call(ui_ws_status_async_cb, (void *)(intptr_t)(connected ? 1 : 0));
-}
-
 void ui_Screen1_screen_destroy(void)
 {
     if(ui_Screen1) lv_obj_del(ui_Screen1);
@@ -1281,7 +1229,6 @@ void ui_Screen1_screen_destroy(void)
     ui_Image2 = NULL;
     ui_LabelNumWeakConn = NULL;
     ui_Label5 = NULL;
-    ui_Label6 = NULL;
     ui_PanelStatusBat = NULL;
     ui_Image3 = NULL;
     ui_LabelWeakBatNode = NULL;
@@ -1294,7 +1241,6 @@ void ui_Screen1_screen_destroy(void)
     ui_LabelVersionGateway = NULL;
     ui_LabelVersionNode = NULL;
     ui_Paneluptime = NULL;
-    ui_Label12 = NULL;
     ui_LabelUpTime = NULL;
     ui_Label14 = NULL;
     ui_PanelTXRXRate = NULL;
@@ -1309,8 +1255,7 @@ void ui_Screen1_screen_destroy(void)
     ui_LabelRXRate = NULL;
     ui_Label59 = NULL;
     ui_PanelPacketLoss = NULL;
-    ui_LabelPacketLoss = NULL;
-    ui_Image4 = NULL;
+    ui_LabelQueue = NULL;
     ui_Label20 = NULL;
     ui_PanelLatency = NULL;
     ui_LabelLatency = NULL;

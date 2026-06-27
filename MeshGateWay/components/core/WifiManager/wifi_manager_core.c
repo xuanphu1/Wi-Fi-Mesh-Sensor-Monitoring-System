@@ -12,11 +12,10 @@ typedef struct {
  */
 static const wifi_boot_credential_t s_boot_wifi_list[] = {
     {.ssid = CONFIG_WIFI_SSID, .password = CONFIG_WIFI_PASS},
-    {.ssid = "Chung Cu Mini Momo", .password = "21082021"},
+    {.ssid = "Chung Cu Mini MoMo", .password = "21082021"},
     {.ssid = "Smile", .password = "hoiphongbencanh"}
     // {.ssid = "Unknown", .password = "12345789"},
     // {.ssid = "Vinh Than", .password = "0987110001"},
-
 
 };
 
@@ -280,4 +279,33 @@ bool is_wifi_connecting(void) {
   EventBits_t bits = xEventGroupGetBits(ctx->event_group);
   return !(bits & WIFI_STA_LINKED_BIT) && !(bits & WIFI_AP_MODE_BIT) &&
          !(bits & WIFI_FAIL_BIT) && ctx->connect_pending;
+}
+
+bool wifi_manager_get_ip_info(char *ip_buf, size_t max_len) {
+  if (!ip_buf || max_len == 0)
+    return false;
+  esp_netif_t *netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+  if (!netif) {
+    snprintf(ip_buf, max_len, "0.0.0.0");
+    return false;
+  }
+  esp_netif_ip_info_t ip_info;
+  if (esp_netif_get_ip_info(netif, &ip_info) == ESP_OK) {
+    snprintf(ip_buf, max_len, IPSTR, IP2STR(&ip_info.ip));
+    return true;
+  }
+  snprintf(ip_buf, max_len, "0.0.0.0");
+  return false;
+}
+
+bool wifi_manager_get_mac_info(char *mac_buf, size_t max_len) {
+  if (!mac_buf || max_len == 0)
+    return false;
+  uint8_t mac[6] = {0};
+  if (esp_wifi_get_mac(WIFI_IF_STA, mac) == ESP_OK) {
+    snprintf(mac_buf, max_len, "...%02X:%02X:%02X", mac[3], mac[4], mac[5]);
+    return true;
+  }
+  snprintf(mac_buf, max_len, "00:00:00:00:00:00");
+  return false;
 }

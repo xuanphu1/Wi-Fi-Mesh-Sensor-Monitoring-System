@@ -623,8 +623,16 @@ void MenuNavigation_Task(void *pvParameter) {
       }
     }
 
+    bool is_showing_data = (data->screen.current == &Show_Data_Sensor_Menu &&
+                            data->screen.selected < NUM_PORTS &&
+                            ShowDataSensorSelection[data->screen.selected].ShowDataScreen);
+
     switch (btn) {
     case BTN_UP:
+      if (is_showing_data) {
+        ScreenSensorNextField();
+        break;
+      }
       /* Tránh count==0: (count-1) kiểu size_t bị underflow; items NULL gây
        * crash khi SEL. */
       if (data->screen.current == NULL || data->screen.current->count == 0) {
@@ -640,6 +648,10 @@ void MenuNavigation_Task(void *pvParameter) {
       break;
 
     case BTN_DOWN:
+      if (is_showing_data) {
+        ScreenSensorNextField();
+        break;
+      }
       if (data->screen.current == NULL || data->screen.current->count == 0) {
         break;
       }
@@ -653,6 +665,10 @@ void MenuNavigation_Task(void *pvParameter) {
       break;
 
     case BTN_SEL: {
+      if (is_showing_data) {
+        ScreenSensorNextField();
+        break;
+      }
       if (data->screen.current == NULL || data->screen.current->items == NULL ||
           data->screen.current->count == 0) {
         break;
@@ -667,6 +683,7 @@ void MenuNavigation_Task(void *pvParameter) {
         if (data->screen.current == &Show_Data_Sensor_Menu &&
             data->screen.selected < NUM_PORTS) {
           ShowDataSensorSelection[data->screen.selected].ShowDataScreen = true;
+          ScreenSensorResetField();
         }
         item->callback(item->ctx);
       } else if (item->type == MENU_SUBMENU && item->children) {

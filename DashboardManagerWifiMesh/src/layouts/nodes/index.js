@@ -172,9 +172,8 @@ function Nodes() {
   const columns = useMemo(
     () => [
       { name: "name", align: "left" },
-      { name: "id", align: "left" },
-      { name: "location", align: "left" },
       { name: "mac", align: "left" },
+      { name: "location", align: "left" },
       { name: "status", align: "left" },
       { name: "rssi", align: "left" },
       { name: "lastSeen", align: "left" },
@@ -198,19 +197,14 @@ function Nodes() {
             </VuiTypography>
           </VuiBox>
         ),
-        id: (
-          <VuiTypography variant="button" color="text">
+        mac: (
+          <VuiTypography variant="button" color="text" sx={{ fontFamily: "monospace" }}>
             {n.id}
           </VuiTypography>
         ),
         location: (
           <VuiTypography variant="button" color="text">
             {n.location || "-"}
-          </VuiTypography>
-        ),
-        mac: (
-          <VuiTypography variant="caption" color="text" sx={{ fontFamily: "monospace" }}>
-            {n.mac || "—"}
           </VuiTypography>
         ),
         status: (

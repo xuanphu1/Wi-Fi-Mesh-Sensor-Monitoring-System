@@ -26,12 +26,29 @@ system_err_t aht10Initialize(void);
 system_err_t aht10ReadData(SensorData_t *data);
 system_err_t aht10Deinitialize(void);
 
-
 /* -------------------- PMS7003 Driver Wrapper Functions -------------------- */
 system_err_t pms7003Initialize(void);
 system_err_t pms7003ReadData(SensorData_t *data);
 system_err_t pms7003Deinitialize(void);
 
+/* -------------------- MH-Z14A Driver Wrapper Functions -------------------- */
+system_err_t mhz14aInitialize(void);
+system_err_t mhz14aReadData(SensorData_t *data);
+system_err_t mhz14aDeinitialize(void);
+
+/* -------------------- DHT11 Driver Wrapper Functions -------------------- */
+system_err_t dht11Initialize(void);
+system_err_t dht11ReadData(SensorData_t *data);
+system_err_t dht11Deinitialize(void);
+
+/* -------------------- DHT22 Driver Wrapper Functions -------------------- */
+system_err_t dht22Initialize(void);
+system_err_t dht22ReadData(SensorData_t *data);
+system_err_t dht22Deinitialize(void);
+
+/* -------------------- HTU21D Driver Wrapper Functions -------------------- */
+system_err_t htu21dInitialize(void);
+system_err_t htu21dReadData(SensorData_t *data);
+system_err_t htu21dDeinitialize(void);
+
 #endif /* __SENSOR_CONFIG_H__ */
-
-

@@ -66,13 +66,14 @@ D:/Engineering Project/MeshGateWay/build/esp-idf/DS3231/libDS3231.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/PowerManager/libPowerManager.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/SD_Card/libSD_Card.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/SystemMonitor/libSystemMonitor.a
+D:/Engineering Project/MeshGateWay/build/esp-idf/UartToNode/libUartToNode.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/lvgl/liblvgl.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/ui/libui.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/lvgl_esp32_drivers/liblvgl_esp32_drivers.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/espressif__mdns/libespressif__mdns.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/WifiManager/libWifiManager.a
+D:/Engineering Project/MeshGateWay/build/esp-idf/MemoryManager/libMemoryManager.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/ScreenManager/libScreenManager.a
-D:/Engineering Project/MeshGateWay/build/esp-idf/UartToNode/libUartToNode.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/webSocket/libwebSocket.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/WebSocKetHandle/libWebSocKetHandle.a
 D:/Engineering Project/MeshGateWay/build/esp-idf/main/libmain.a

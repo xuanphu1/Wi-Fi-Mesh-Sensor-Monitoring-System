@@ -1,0 +1,25 @@
+menu "MHZ14a configuration"
+
+    config QUEUE_SIZE
+        int "Max size queue"
+        default 1
+        help
+            Max size queue for store capture PWM.
+
+    choice MHZ14A_PROTOCOL_COMMUNICATION
+        prompt "MHZ14a protocol"
+        default MHZ14A_PWM
+        help
+            MHZ14a protocol communication to get data.
+
+        config MHZ14A_PWM
+            bool "PWM"
+            default 0
+            
+        config MHZ14A_UART
+            bool "UART"
+            default 1
+        
+    endchoice
+
+endmenu

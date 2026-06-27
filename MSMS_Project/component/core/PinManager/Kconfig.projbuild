@@ -27,6 +27,18 @@ menu "PinManager — UART"
         help
             Bộ điều khiển UART: 0, 1 hoặc 2 (tùy chip có đủ UART).
 
+    config UART_GATEWAY_BAUD_RATE
+        int "UART gateway baudrate"
+        default 2000000
+        help
+            Baudrate for the UART link from mesh root to gateway.
+
+    config UART_PERIPHERAL_BAUD_RATE
+        int "UART peripheral baudrate"
+        default 9600
+        help
+            Baudrate for peripheral sensors over UART.
+
 endmenu
 
 menu "PinManager — I2C"
@@ -71,5 +83,55 @@ menu "PinManager — I2C"
         default n
         help
             Bật: truy cập I2C không khóa mutex.
+
+endmenu
+
+menu "PinManager — SPI"
+
+    config PIN_SPI_HOST
+        int "SPI Host ID"
+        default 3
+        help
+            ID của SPI Host (ví dụ: 1 = SPI2_HOST, 2 = SPI3_HOST).
+
+    config PIN_SPI_MISO
+        int "SPI MISO GPIO"
+        default 4
+        help
+            Chân MISO cho SPI Peripheral.
+
+    config PIN_SPI_MOSI
+        int "SPI MOSI GPIO"
+        default 13
+        help
+            Chân MOSI cho SPI Peripheral.
+
+    config PIN_SPI_SCLK
+        int "SPI SCLK GPIO"
+        default 15
+        help
+            Chân SCLK cho SPI Peripheral.
+
+    config PIN_SPI_CS
+        int "SPI CS GPIO"
+        default 5
+        help
+            Chân CS (Chip Select) cho SPI Peripheral.
+
+endmenu
+
+menu "PinManager — Pulse"
+
+    config PIN_PULSE_1
+        int "Pulse 1 GPIO"
+        default 26
+        help
+            Chân cấu hình cho Pulse 1 Peripheral (ví dụ DHT11/22).
+
+    config PIN_PULSE_2
+        int "Pulse 2 GPIO"
+        default 25
+        help
+            Chân cấu hình cho Pulse 2 Peripheral.
 
 endmenu

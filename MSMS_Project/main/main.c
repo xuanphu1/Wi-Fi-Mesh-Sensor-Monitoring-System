@@ -47,7 +47,7 @@ void app_main(void) {
   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
       ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
     ESP_ERROR_CHECK(nvs_flash_erase());
-    ret = nvs_flash_init();
+    ret = nvs_flash_init(); 
   }
   ESP_ERROR_CHECK(ret);
 
@@ -63,15 +63,16 @@ void app_main(void) {
 #pragma GCC diagnostic pop
   if (MainScreen == NULL) {
     ESP_LOGE(TAG_MAIN, "Failed to create SSD1306 handle");
-    vTaskDelay(portMAX_DELAY);
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_SSD1306_INIT_FAILED);
+  } else {
+    ScreenManagerInit(&MainScreen);
+    /* No sensor selected yet -> menu shows plain "Port 1/2/3", not "Port 1 -
+     * BME280" from zero-init */
+    for (int i = 0; i < NUM_PORTS; i++) {
+      DataManager.selectedSensor[i] = SENSOR_NONE;
+    }
+    MenuSystemInit(&DataManager);
   }
-  ScreenManagerInit(&MainScreen);
-  /* No sensor selected yet -> menu shows plain "Port 1/2/3", not "Port 1 -
-   * BME280" from zero-init */
-  for (int i = 0; i < NUM_PORTS; i++) {
-    DataManager.selectedSensor[i] = SENSOR_NONE;
-  }
-  MenuSystemInit(&DataManager);
   UartToGateWay_Init(&DataManager);
 
   // Battery Manager init
@@ -90,30 +91,38 @@ void app_main(void) {
    * định). */
   InternetManager_Init(&DataManager, INTERNET_MODE_MESH);
 
-  // Time and Storage Manager Init
-  TimeManager_Init();
+  // Time and Storage Manager Init (Only on ESP32)
+#if defined(CONFIG_IDF_TARGET_ESP32)
+  if (TimeManager_Init() != ESP_OK) {
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_DS3231_INIT_FAILED);
+  }
+
   if (StorageManager_Init() == ESP_OK) {
     StorageManager_StartTask(&DataManager);
-  }
-
-  ret = xTaskCreate(MenuNavigation_Task, "MenuNavigation_Task", 4096,
-                    &DataManager, 5, NULL);
-  if (ret != pdPASS) {
-    ESP_LOGE(TAG_MAIN, "Failed to create MenuNavigation_Task: %s",
-             esp_err_to_name(ret));
-    vTaskDelay(portMAX_DELAY);
   } else {
-    ESP_LOGI(TAG_MAIN, "MenuNavigation_Task created successfully");
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_SDCARD_INIT_FAILED);
   }
+#endif
 
-  ret = xTaskCreate(MenuRender_Task, "MenuRender_Task", 4096, &DataManager, 5,
-                    NULL);
-  if (ret != pdPASS) {
-    ESP_LOGE(TAG_MAIN, "Failed to create MenuRender_Task: %s",
-             esp_err_to_name(ret));
-    vTaskDelay(portMAX_DELAY);
-  } else {
-    ESP_LOGI(TAG_MAIN, "MenuRender_Task created successfully");
+
+  if (MainScreen != NULL) {
+    ret = xTaskCreate(MenuNavigation_Task, "MenuNavigation_Task", 4096,
+                      &DataManager, 5, NULL);
+    if (ret != pdPASS) {
+      ESP_LOGE(TAG_MAIN, "Failed to create MenuNavigation_Task: %s",
+               esp_err_to_name(ret));
+    } else {
+      ESP_LOGI(TAG_MAIN, "MenuNavigation_Task created successfully");
+    }
+
+    ret = xTaskCreate(MenuRender_Task, "MenuRender_Task", 4096, &DataManager, 5,
+                      NULL);
+    if (ret != pdPASS) {
+      ESP_LOGE(TAG_MAIN, "Failed to create MenuRender_Task: %s",
+               esp_err_to_name(ret));
+    } else {
+      ESP_LOGI(TAG_MAIN, "MenuRender_Task created successfully");
+    }
   }
 
   // Test task: read DS3231 time and log to SD card
