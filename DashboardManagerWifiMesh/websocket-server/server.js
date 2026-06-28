@@ -1,6 +1,11 @@
 const os = require("os");
 const { WebSocketServer } = require("ws");
 const si = require("systeminformation");
+const express = require("express");
+const cors = require("cors");
+const http = require("http");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 
 const PORT = Number(process.env.WS_PORT || process.env.PORT || 8080);
@@ -39,22 +44,24 @@ function isLikelyVirtualAdapter(name) {
 function logMachineLanHint(port) {
   const all = listIPv4Addresses();
   const likelyLan = all.filter((x) => !isLikelyVirtualAdapter(x.name));
-  console.log("[net] Gợi ý IP LAN (ESP/Wi‑Fi — URI ws://IP:PORT, không TLS):");
-  if (likelyLan.length === 0) {
-    console.log("  (không lọc được — xem danh sách đầy đủ bên dưới)");
-  } else {
-    likelyLan.forEach(({ name, address }) => {
-      console.log(`  ws://${address}:${port}   ← ${name}`);
-    });
-  }
-  console.log("[net] Mọi IPv4 trên máy (không gồm 127.0.0.1):");
-  if (all.length === 0) {
-    console.log("  (không có)");
-  } else {
+  
+  const lanIp = likelyLan.length > 0 ? likelyLan[0].address : "192.168.x.x";
+
+  console.log("\n  You can now view \x1b[1mdashboard-ws-server API Docs\x1b[0m in the browser.\n");
+  console.log(`    \x1b[1mLocal:\x1b[0m            http://localhost:${port}/api-docs`);
+  console.log(`    \x1b[1mOn Your Network:\x1b[0m  http://${lanIp}:${port}/api-docs\n`);
+
+  console.log("  WebSocket Server is also running:");
+  console.log(`    \x1b[1mLocal:\x1b[0m            ws://localhost:${port}`);
+  console.log(`    \x1b[1mOn Your Network:\x1b[0m  ws://${lanIp}:${port}\n`);
+
+  if (all.length > 0) {
+    console.log("  Available IPv4 addresses (all):");
     all.forEach(({ name, address }) => {
-      const tag = isLikelyVirtualAdapter(name) ? " [thường là adapter ảo]" : "";
-      console.log(`  ${address.padEnd(15)} ${name}${tag}`);
+      const tag = isLikelyVirtualAdapter(name) ? " (virtual)" : "";
+      console.log(`    - ${address} [${name}]${tag}`);
     });
+    console.log("\n");
   }
 }
 
@@ -270,10 +277,211 @@ if (DB_TYPE === "sqlite") {
   });
 }
 
-const wss = new WebSocketServer({ port: PORT, host: HOST });
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-wss.on("listening", () => {
-  console.log(`WebSocket listening on ws://${HOST === "0.0.0.0" ? "localhost" : HOST}:${PORT} (bind ${HOST})`);
+// --- Swagger Configuration ---
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Wi-Fi Mesh Dashboard API",
+      version: "1.0.0",
+      description: "API Documentation for the Wi-Fi Mesh Dashboard Server",
+    },
+    servers: [
+      {
+        url: `http://${HOST === "0.0.0.0" ? "localhost" : HOST}:${PORT}`,
+        description: "Local Server",
+      },
+    ],
+  },
+  apis: ["./server.js"], // Files containing annotations
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// --- REST APIs for History ---
+
+/**
+ * @swagger
+ * /api/history/meta:
+ *   get:
+ *     summary: Retrieve a list of all MAC addresses
+ *     description: Fetches a list of all unique MAC addresses (gateways and nodes) available in the history database.
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Maximum number of MACs to return (default 200).
+ *     responses:
+ *       200:
+ *         description: A list of MAC addresses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 macs:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Internal server error
+ */
+app.get("/api/history/meta", async (req, res) => {
+  try {
+    const limit = Number(req.query.limit) || 200;
+    const macs = await store.getHistoryMacs(limit);
+    res.json({ macs });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/history/series:
+ *   get:
+ *     summary: Retrieve history series data for charts
+ *     description: Fetches up to 2000 data points for a specific sensor and field to be plotted on the dashboard.
+ *     parameters:
+ *       - in: query
+ *         name: mac
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The MAC address of the node.
+ *       - in: query
+ *         name: sensorName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The name of the sensor (e.g., wifi, system, memory).
+ *       - in: query
+ *         name: field
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The specific field to retrieve (e.g., rssi, temp).
+ *       - in: query
+ *         name: from
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: ISO 8601 timestamp to fetch data from.
+ *       - in: query
+ *         name: to
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: ISO 8601 timestamp to fetch data to.
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Maximum number of data points (default 2000).
+ *     responses:
+ *       200:
+ *         description: An array of time-series data points
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Internal server error
+ */
+app.get("/api/history/series", async (req, res) => {
+  try {
+    const items = await store.getHistorySeries({
+      mac: req.query.mac,
+      sensorName: req.query.sensorName,
+      field: req.query.field,
+      from: req.query.from,
+      to: req.query.to,
+      limit: Number(req.query.limit) || 2000,
+    });
+    res.json({ items });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/history/export:
+ *   get:
+ *     summary: Download all history data for a MAC address as CSV
+ *     description: Streams a complete CSV file containing all sensor records for a given MAC address. The output is directly streamed using chunked transfer encoding for optimal performance.
+ *     parameters:
+ *       - in: query
+ *         name: mac
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The MAC address of the node to export data for.
+ *       - in: query
+ *         name: from
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: ISO 8601 timestamp to start exporting from.
+ *       - in: query
+ *         name: to
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: ISO 8601 timestamp to stop exporting at.
+ *     responses:
+ *       200:
+ *         description: A streamed CSV file
+ *         content:
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       400:
+ *         description: Missing required parameters (mac)
+ *       500:
+ *         description: Internal server error
+ */
+app.get("/api/history/export", async (req, res) => {
+  try {
+    const { mac, from, to } = req.query;
+    if (!mac) {
+      return res.status(400).send("MAC address is required");
+    }
+
+    const safeMac = mac.replace(/:/g, "-");
+    res.setHeader("Content-Type", "text/csv;charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="export_all_${safeMac}.csv"`);
+    res.setHeader("Transfer-Encoding", "chunked");
+
+    // Call store method and write to response stream
+    const csvHeader = await store.getHistoryAllForMacCsv(mac, from, to, (progress, total, chunk) => {
+      // With the new streaming setup, sqlite-store should ideally stream chunks directly.
+      // We will adjust getHistoryAllForMacCsv to stream output directly into `res`.
+    }, res);
+    
+  } catch (err) {
+    if (!res.headersSent) {
+      res.status(500).send(err.message);
+    }
+  }
+});
+
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+
+server.listen(PORT, HOST, () => {
   logMachineLanHint(PORT);
 });
 
@@ -320,98 +528,7 @@ wss.on("connection", async (ws, req) => {
       const msgType = parsed && typeof parsed === "object" ? parsed.type || "unknown" : "non-object";
       console.log(`[ws] Parsed JSON from ${ip}: type=${msgType}`);
 
-      if (parsed && parsed.type === "history_export_mac_request") {
-        try {
-          const csv = await store.getHistoryAllForMacCsv(parsed.mac, parsed.from, parsed.to, (progress, total) => {
-             ws.send(
-               JSON.stringify({
-                 type: "history_export_mac_progress",
-                 requestId: parsed.requestId || null,
-                 mac: parsed.mac || "",
-                 progress,
-                 total,
-               })
-             );
-          });
-          ws.send(
-            JSON.stringify({
-              type: "history_export_mac_response",
-              requestId: parsed.requestId || null,
-              mac: parsed.mac || "",
-              csv,
-            })
-          );
-        } catch (err) {
-          ws.send(
-            JSON.stringify({
-              type: "history_export_mac_response",
-              requestId: parsed.requestId || null,
-              mac: parsed.mac || "",
-              error: err.message,
-            })
-          );
-        }
-        return;
-      }
-
-      if (parsed && parsed.type === "history_meta_request") {
-        try {
-          const macs = await store.getHistoryMacs(parsed.limit || 200);
-          ws.send(
-            JSON.stringify({
-              type: "history_meta_response",
-              requestId: parsed.requestId || null,
-              macs,
-            })
-          );
-        } catch (err) {
-          ws.send(
-            JSON.stringify({
-              type: "history_meta_response",
-              requestId: parsed.requestId || null,
-              macs: [],
-              error: err.message,
-            })
-          );
-        }
-        return;
-      }
-
-      if (parsed && parsed.type === "history_series_request") {
-        try {
-          const items = await store.getHistorySeries({
-            mac: parsed.mac,
-            sensorName: parsed.sensorName,
-            field: parsed.field,
-            from: parsed.from,
-            to: parsed.to,
-            limit: parsed.limit || 2000,
-          });
-          ws.send(
-            JSON.stringify({
-              type: "history_series_response",
-              requestId: parsed.requestId || null,
-              mac: parsed.mac || "",
-              sensorName: parsed.sensorName || "",
-              field: parsed.field || "",
-              items,
-            })
-          );
-        } catch (err) {
-          ws.send(
-            JSON.stringify({
-              type: "history_series_response",
-              requestId: parsed.requestId || null,
-              mac: parsed.mac || "",
-              sensorName: parsed.sensorName || "",
-              field: parsed.field || "",
-              items: [],
-              error: err.message,
-            })
-          );
-        }
-        return;
-      }
+      // History API endpoints have been moved to HTTP REST API routes
 
       const receivedAt = new Date();
 

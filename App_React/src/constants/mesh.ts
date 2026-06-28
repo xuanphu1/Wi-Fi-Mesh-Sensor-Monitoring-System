@@ -56,3 +56,12 @@ export const ERROR_CODE_DEFS: Record<string, string> = {
   '0x34': 'Network jitter warning',
   '0xA1': 'Driver transient fault',
 };
+
+export function getSensorTypeByName(name: string): number {
+  const entry = Object.entries(SENSOR_TYPE_NAMES).find(([_, n]) => n === name);
+  return entry ? Number(entry[0]) : -1;
+}
+
+export function getFieldsForSensorType(type: number): Array<{ key: string; label: string; unit: string }> {
+  return SENSOR_FIELD_META[type] || [];
+}

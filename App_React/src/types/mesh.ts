@@ -17,6 +17,17 @@ export type GatewayStatus = {
   firmware_version?: string;
 };
 
+export type ServerMetrics = {
+  type: 'server_metrics';
+  cpuLoadPercent: number;
+  ramTotalMb: number;
+  ramUsedMb: number;
+  ramUsedPercent: number;
+  chipTempC: number;
+  uptimeS: number;
+  receivedAtIso: string;
+};
+
 export type SensorReading = {
   index: number;
   key: string;
@@ -35,7 +46,7 @@ export type MeshPort = {
 export type ParsedMeshPacket = {
   schemaVersion: number;
   meshLevel: number;
-  staIpv4: string;
+  mac: string;
   rtcIso: string;
   firmwareVersion: string;
   runtimeErrors: string[];
@@ -64,13 +75,14 @@ export type ServerNetwork = {
   mac?: string;
 };
 
-export type HistoryIpRow = {
-  ip: string;
+export type HistoryMacRow = {
+  mac: string;
   lastSeen?: string;
+  sensors?: string[];
 };
 
 export type HistorySeriesItem = {
-  ip: string;
+  mac: string;
   sensorName: string;
   sensorType?: number;
   port?: number;

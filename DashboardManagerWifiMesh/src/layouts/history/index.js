@@ -23,7 +23,7 @@ import Footer from "examples/Footer";
 // Charts (re-use existing examples)
 import LineChart from "examples/Charts/LineCharts/LineChart";
 
-import { getWebSocketUrl } from "utils/wsConfig";
+import { getWebSocketUrl, getHttpUrl } from "utils/wsConfig";
 import { SENSOR_REGISTRY_FIELDS, sensorTypeToName, SensorType } from "utils/meshUdpJsonSchema";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 
@@ -242,6 +242,7 @@ function buildSensorOptions(availableSensors = null) {
 
 function History() {
   const wsUrl = getWebSocketUrl();
+  const httpUrl = getHttpUrl();
   const [nodeMac, setNodeMac] = useState("");
   const [sensor, setSensor] = useState("");
   const [field, setField] = useState("");
@@ -279,16 +280,10 @@ function History() {
   };
 
   const handleDownloadAllMacCsv = () => {
-    if (!nodeMac || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
-    setExportProgress({ current: 0, total: 1 });
-    const requestId = `export-${requestSeqRef.current++}`;
-    wsRef.current.send(JSON.stringify({
-      type: "history_export_mac_request",
-      requestId,
-      mac: nodeMac,
-      from: null,
-      to: null,
-    }));
+    if (!nodeMac) return;
+    const url = new URL("/api/history/export", httpUrl);
+    url.searchParams.append("mac", nodeMac);
+    window.location.href = url.toString();
   };
 
   const availableSensorsForMac = useMemo(() => {
@@ -332,11 +327,18 @@ function History() {
     let reconnectTimer;
     let metaTimer;
 
-    const requestMeta = () => {
-      if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
-      const requestId = `meta-${requestSeqRef.current++}`;
-      metaReqIdRef.current = requestId;
-      wsRef.current.send(JSON.stringify({ type: "history_meta_request", requestId, limit: 300 }));
+    const requestMeta = async () => {
+      try {
+        const res = await fetch(`${httpUrl}/api/history/meta?limit=300`);
+        const data = await res.json();
+        if (data.macs) {
+          const list = normalizeMacRows(data.macs);
+          setMacs(list);
+          setNodeMac((prev) => (prev ? String(prev).trim() : "") || list[0]?.mac || "");
+        }
+      } catch (err) {
+        setError(String(err.message));
+      }
     };
 
     const open = () => {
@@ -361,35 +363,6 @@ function History() {
         } catch {
           return;
         }
-        if (msg && msg.type === "history_meta_response") {
-          if (msg.requestId && metaReqIdRef.current && msg.requestId !== metaReqIdRef.current) return;
-          if (msg.error) {
-            setError(String(msg.error));
-            return;
-          }
-          const list = normalizeMacRows(msg.macs || msg.ips);
-          setMacs(list);
-          setNodeMac((prev) => (prev ? String(prev).trim() : "") || list[0]?.mac || "");
-          return;
-        }
-
-        if (msg && msg.type === "history_export_mac_response") {
-          if (msg.error) {
-            alert(`Export failed: ${msg.error}`);
-            return;
-          }
-          if (msg.csv) {
-            const blob = new Blob([msg.csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            const safeMac = (msg.mac || "unknown").replace(/:/g, "-");
-            a.download = `history_all_${safeMac}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-          }
-          return;
-        }
 
         if (msg && msg.type === "welcome" && Array.isArray(msg.nodeSnapshot)) {
           const fallbackMacs = normalizeMacRows(
@@ -400,35 +373,6 @@ function History() {
             setNodeMac((prev) => (prev ? String(prev).trim() : "") || fallbackMacs[0]?.mac || "");
           }
           return;
-        }
-        if (msg && msg.type === "history_series_response") {
-          if (msg.requestId && seriesReqIdRef.current && msg.requestId !== seriesReqIdRef.current) return;
-          if (msg.error) {
-            setError(String(msg.error));
-            setLoading(false);
-            return;
-          }
-          setSamples(Array.isArray(msg.items) ? msg.items : []);
-          setLoading(false);
-          setError("");
-        } else if (msg && msg.type === "history_export_mac_progress") {
-          setExportProgress({ current: msg.progress, total: msg.total || 1 });
-        } else if (msg && msg.type === "history_export_mac_response") {
-          setExportProgress(null);
-          if (msg.error) {
-            alert(`Export failed: ${msg.error}`);
-            return;
-          }
-          if (msg.csv) {
-            const blob = new Blob([msg.csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            const safeMac = (msg.mac || "unknown").replace(/:/g, "-");
-            a.download = `export_all_${safeMac}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-          }
         }
       };
 
@@ -465,28 +409,35 @@ function History() {
       setSamples([]);
       return;
     }
-    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-      setError("Waiting for connection...");
-      return;
-    }
+
     setLoading(true);
     setError(""); // Clear error before fetching
     const from = fromLocal ? new Date(fromLocal).toISOString() : null;
-    const requestId = `series-${requestSeqRef.current++}`;
-    seriesReqIdRef.current = requestId;
-    wsRef.current.send(
-      JSON.stringify({
-        type: "history_series_request",
-        requestId,
-        mac: nodeMac,
-        sensorName: sensor,
-        field,
-        from,
-        to: null,
-        limit: 2000,
+    
+    const url = new URL("/api/history/series", httpUrl);
+    url.searchParams.append("mac", nodeMac);
+    url.searchParams.append("sensorName", sensor);
+    url.searchParams.append("field", field);
+    if (from) url.searchParams.append("from", from);
+    url.searchParams.append("limit", "2000");
+
+    fetch(url.toString())
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setError(String(data.error));
+          setLoading(false);
+          return;
+        }
+        setSamples(Array.isArray(data.items) ? data.items : []);
+        setLoading(false);
+        setError("");
       })
-    );
-  }, [nodeMac, sensor, field, fromLocal, retryCnt]);
+      .catch((err) => {
+        setError("Failed to fetch series: " + err.message);
+        setLoading(false);
+      });
+  }, [nodeMac, sensor, field, fromLocal, retryCnt, httpUrl]);
 
   const chartPoints = useMemo(
     () =>

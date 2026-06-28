@@ -319,9 +319,14 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
     return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
   }
 
-  async function getHistoryAllForMacCsv(mac, from, to, onProgress) {
+  async function getHistoryAllForMacCsv(mac, from, to, onProgress, res) {
     const macNorm = String(mac || "").trim();
-    if (!macNorm) return "DeviceTime,ServerTime,MeshLevel,PacketLoss,Port,Sensor,Field,Value\n";
+    const header = "DeviceTime,ServerTime,MeshLevel,PacketLoss,Port,Sensor,Field,Value\n";
+    
+    if (!macNorm) {
+      if (res) { res.write(header); res.end(); return; }
+      return header;
+    }
 
     let countQuery = `SELECT COUNT(*) as c FROM Data WHERE mac = ?`;
     let query = `SELECT deviceTime, serverTime, meshLevel, packetLoss, port, sensorName, field, value FROM Data WHERE mac = ?`;
@@ -349,9 +354,16 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
 
     query += ` ORDER BY serverTime ASC`;
 
-    let csv = "DeviceTime,ServerTime,MeshLevel,PacketLoss,Port,Sensor,Field,Value\n";
+    if (res) {
+      res.write(header);
+    }
+
+    let csvAccumulator = res ? null : header;
     
-    if (total === 0) return csv;
+    if (total === 0) {
+      if (res) { res.end(); return; }
+      return csvAccumulator;
+    }
 
     const limit = 5000;
     let offset = 0;
@@ -362,17 +374,30 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
       
       if (rows.length === 0) break;
 
+      let chunkCsv = "";
       rows.forEach(r => {
         const dt = toLocalTimeStr(r.deviceTime);
         const st = toLocalTimeStr(r.serverTime);
-        csv += `${dt},${st},${r.meshLevel || ""},${r.packetLoss || 0},${r.port || 0},${r.sensorName || ""},${r.field || ""},${r.value || 0}\n`;
+        chunkCsv += `${dt},${st},${r.meshLevel || ""},${r.packetLoss || 0},${r.port || 0},${r.sensorName || ""},${r.field || ""},${r.value || 0}\n`;
       });
+
+      if (res) {
+        // Write to stream
+        res.write(chunkCsv);
+      } else {
+        // Accumulate in memory
+        csvAccumulator += chunkCsv;
+      }
 
       offset += rows.length;
       if (onProgress) onProgress(offset, total);
     }
 
-    return csv;
+    if (res) {
+      res.end();
+      return;
+    }
+    return csvAccumulator;
   }
 
   return {

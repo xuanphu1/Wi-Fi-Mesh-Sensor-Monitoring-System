@@ -25,9 +25,9 @@ export default function SelectorCard({ title, value, icon, iconColor, onPress, r
         </View>
         
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={1}>{title}</Text>
           <View style={styles.valueRow}>
-            <Text style={styles.value}>{value}</Text>
+            <Text style={styles.value} numberOfLines={1}>{value}</Text>
             {rightAction && <View style={styles.rightAction}>{rightAction}</View>}
           </View>
         </View>
@@ -44,10 +44,11 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.surface,
     borderRadius: SIZES.radius,
-    marginBottom: SIZES.medium,
     padding: SIZES.medium,
     borderWidth: 1,
     borderColor: COLORS.border,
+    height: 72,
+    justifyContent: 'center',
   },
   content: {
     flexDirection: 'row',

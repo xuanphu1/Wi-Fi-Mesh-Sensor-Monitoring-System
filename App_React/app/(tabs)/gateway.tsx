@@ -65,14 +65,28 @@ export default function GatewayScreen() {
                 <View style={[styles.iconBox, { backgroundColor: 'rgba(0, 117, 255, 0.1)' }]}>
                   <Cpu size={20} color={COLORS.primary} />
                 </View>
-                <Text style={styles.cardTitle}>CPU Load History (%)</Text>
+                <Text style={styles.cardTitle}>CPU & RAM History (%)</Text>
+              </View>
+
+              <View style={styles.chartLegend}>
+                <View style={styles.legendItem}>
+                  <View style={[styles.legendColor, { backgroundColor: COLORS.primary }]} />
+                  <Text style={styles.legendText}>CPU</Text>
+                </View>
+                <View style={styles.legendItem}>
+                  <View style={[styles.legendColor, { backgroundColor: COLORS.warning }]} />
+                  <Text style={styles.legendText}>RAM</Text>
+                </View>
               </View>
               <LineChart
                 data={gatewaySeries.length > 0 ? gatewaySeries.map(s => ({ value: s.cpu || 0 })) : [{ value: 0 }]}
+                data2={gatewaySeries.length > 0 ? gatewaySeries.map(s => ({ value: s.ram || 0 })) : [{ value: 0 }]}
                 width={Dimensions.get('window').width - (SIZES.large * 2) - 60}
                 height={120}
                 thickness={2}
+                thickness2={2}
                 color={COLORS.primary}
+                color2={COLORS.warning}
                 hideDataPoints
                 startFillColor={COLORS.primary}
                 endFillColor={COLORS.primary}
@@ -283,6 +297,26 @@ const styles = StyleSheet.create({
     color: COLORS.secondary,
     fontSize: SIZES.font,
     fontWeight: '500',
+  },
+  chartLegend: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 8,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 16,
+  },
+  legendColor: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 6,
+  },
+  legendText: {
+    fontSize: 12,
+    color: COLORS.secondary,
   },
   cardValue: {
     color: COLORS.textMain,

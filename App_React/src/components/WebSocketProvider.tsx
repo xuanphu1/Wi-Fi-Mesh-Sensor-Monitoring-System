@@ -22,15 +22,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       
       // Use Expo Constants to automatically get the PC's local LAN IP (e.g. 192.168.x.x)
       const debuggerHost = Constants.expoConfig?.hostUri;
-      let host = '127.0.0.1';
-      
-      if (debuggerHost) {
-        host = debuggerHost.split(':')[0];
-      } else if (Platform.OS === 'android') {
-        host = '10.0.2.2'; // Fallback for Android Emulator
-      }
-      
-      const wsUrl = `ws://${host}:8765`;
+      const wsUrl = `wss://systemmsems.msems.click/ws`;
       
       console.log(`Connecting to WebSocket at ${wsUrl}`);
       const ws = new WebSocket(wsUrl);
@@ -44,8 +36,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       ws.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
+          console.log('[WS RAW DATA]:', event.data);
           
-          if (data.type === 'uart_rx' && data.payload) {
+          if (data.type === 'welcome') {
+            useMeshStore.getState().applyWelcome(data);
+          } else if (data.type === 'uart_rx' && data.payload) {
             const parsed = parseUartRx(data.payload);
             if (parsed) {
               useMeshStore.getState().ingestPacket(parsed, data.len || 0);
@@ -54,7 +49,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               const thresholds = useThresholdStore.getState().thresholds;
               parsed.ports.forEach(port => {
                 port.readings.forEach(reading => {
-                  const key = `${parsed.staIpv4}_${port.sensorName}_${reading.label}`;
+                  const key = `${parsed.mac}_${port.sensorName}_${reading.label}`;
                   const th = thresholds[key];
                   
                   if (th && th.enabled && th.notify) {
@@ -73,7 +68,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                         console.log(`[Alert Display] Showing Dropdown Toast!`);
                         useToastStore.getState().showToast(
                           'Critical Threshold Exceeded',
-                          `Node: ${parsed.staIpv4}\nSensor: ${port.sensorName} - ${reading.label}\nValue: ${val}${reading.unit} is outside limits [${cMin}, ${cMax}]`,
+                          `Node: ${parsed.mac}\nSensor: ${port.sensorName} - ${reading.label}\nValue: ${val}${reading.unit} is outside limits [${cMin}, ${cMax}]`,
                           'error'
                         );
                         lastAlerted.current[key] = now;
@@ -85,6 +80,8 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             }
           } else if (data.type === 'gateway_status') {
             useMeshStore.getState().ingestGateway(data);
+          } else if (data.type === 'server_metrics') {
+            useMeshStore.getState().ingestServerMetrics(data);
           }
         } catch (e) {
           console.warn("WebSocket parse error", e);

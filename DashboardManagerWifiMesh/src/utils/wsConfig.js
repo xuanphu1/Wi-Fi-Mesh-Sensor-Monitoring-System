@@ -14,3 +14,19 @@ export function getWebSocketUrl() {
   }
   return "ws://localhost:8080";
 }
+
+/**
+ * URL HTTP backend for REST APIs.
+ */
+export function getHttpUrl() {
+  const wsUrl = getWebSocketUrl();
+  // Transform ws:// -> http:// and wss:// -> https://
+  // Also strip trailing /ws or / if it exists
+  let httpUrl = wsUrl.replace(/^ws:\/\//i, "http://").replace(/^wss:\/\//i, "https://");
+  if (httpUrl.endsWith("/ws")) {
+    httpUrl = httpUrl.slice(0, -3);
+  } else if (httpUrl.endsWith("/")) {
+    httpUrl = httpUrl.slice(0, -1);
+  }
+  return httpUrl;
+}

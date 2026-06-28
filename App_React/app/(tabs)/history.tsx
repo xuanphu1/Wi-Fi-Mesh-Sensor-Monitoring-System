@@ -1,17 +1,15 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Modal, TouchableWithoutFeedback } from 'react-native';
+import React, { useMemo, useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Modal, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ChevronLeft, Filter, Globe, Cpu, LineChart, Clock, Download, Copy, ArrowDown } from 'lucide-react-native';
-import { useRouter } from 'expo-router';
+import { ChevronLeft, Filter, Globe, Cpu, LineChart, Clock, Download, ArrowDown, HardDrive, BarChart2 } from 'lucide-react-native';
 import { useQuery } from '@tanstack/react-query';
-import * as FileSystem from 'expo-file-system/legacy';
-import * as Sharing from 'expo-sharing';
+import { LineChart as GiftedLineChart } from 'react-native-gifted-charts';
 import { COLORS, SIZES } from '../../src/constants/theme';
-import { getHistoryMeta, getHistorySensors, getHistorySeries } from '../../src/services/modules/history';
+import { getHistoryMeta, getHistorySeries } from '../../src/services/modules/history';
+import { getSensorTypeByName, getFieldsForSensorType } from '../../src/constants/mesh';
 import SelectorCard from '../../src/components/SelectorCard';
 import { useHistoryFilterStore } from '../../src/store/useHistoryFilterStore';
 
-// Helper to format date explicitly like the mockup "17/07/2025\n09:41:23"
 const formatTableTime = (timestamp: string | number) => {
   const d = new Date(timestamp);
   if (isNaN(d.getTime())) return { date: '--/--/----', time: '--:--:--' };
@@ -22,592 +20,390 @@ const formatTableTime = (timestamp: string | number) => {
   return { date, time };
 };
 
+const formatDuration = (ms: number) => {
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  if (h > 0) return `${h}h ${m}m`;
+  return `${m}m`;
+};
+
 export default function HistoryScreen() {
-  const router = useRouter();
+  const { 
+    selectedMac, selectedSensorName, selectedField, timeRange, 
+    setSelectedMac, setSelectedSensorName, setSelectedField, setTimeRange 
+  } = useHistoryFilterStore();
 
-  // State
-  const { selectedIp, selectedSensor, setSelectedIp, setSelectedSensor } = useHistoryFilterStore();
-  const [currentPage, setCurrentPage] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalType, setModalType] = useState<'ip' | 'sensor' | null>(null);
+  const [modalType, setModalType] = useState<'mac' | 'sensor' | 'field' | 'time' | null>(null);
 
-  const openModal = (type: 'ip' | 'sensor') => {
+  // Queries
+  const metaQuery = useQuery({ queryKey: ['history-meta'], queryFn: () => getHistoryMeta(200) });
+  
+  const macs = metaQuery.data || [];
+  
+  // Derived state
+  const availableSensors = useMemo(() => {
+    const selectedMacObj = macs.find(m => m.mac === selectedMac);
+    return selectedMacObj?.sensors || [];
+  }, [macs, selectedMac]);
+
+  const availableFields = useMemo(() => {
+    if (!selectedSensorName) return [];
+    const typeId = getSensorTypeByName(selectedSensorName);
+    return getFieldsForSensorType(typeId);
+  }, [selectedSensorName]);
+
+  // Auto-selection logic
+  useEffect(() => {
+    if (macs.length > 0 && !selectedMac) {
+      setSelectedMac(macs[0].mac);
+    }
+  }, [macs, selectedMac]);
+
+  useEffect(() => {
+    if (availableSensors.length > 0 && (!selectedSensorName || !availableSensors.includes(selectedSensorName))) {
+      setSelectedSensorName(availableSensors[0]);
+    }
+  }, [availableSensors, selectedSensorName]);
+
+  useEffect(() => {
+    if (availableFields.length > 0 && (!selectedField || !availableFields.find(f => f.key === selectedField))) {
+      setSelectedField(availableFields[0].key);
+    }
+  }, [availableFields, selectedField]);
+
+  // Fetch Series
+  const { from, to } = useMemo(() => {
+    const end = new Date();
+    const start = new Date();
+    if (timeRange === '1h') start.setHours(end.getHours() - 1);
+    else if (timeRange === '24h') start.setDate(end.getDate() - 1);
+    else if (timeRange === '7d') start.setDate(end.getDate() - 7);
+    return { from: start.toISOString(), to: end.toISOString() };
+  }, [timeRange]);
+
+  const seriesQuery = useQuery({
+    queryKey: ['history-series', selectedMac, selectedSensorName, selectedField, timeRange],
+    queryFn: () => getHistorySeries({ mac: selectedMac, sensorName: selectedSensorName, field: selectedField, from, to, limit: 2000 }),
+    enabled: Boolean(selectedMac && selectedSensorName && selectedField),
+  });
+
+  const items = seriesQuery.data || [];
+
+  // Compute Statistics
+  const stats = useMemo(() => {
+    if (items.length === 0) return { min: 0, max: 0, avg: 0, total: 0, spanMs: 0 };
+    
+    let min = items[0].value;
+    let max = items[0].value;
+    let sum = 0;
+    
+    let minTime = new Date(items[0].time).getTime();
+    let maxTime = minTime;
+
+    items.forEach(it => {
+      if (it.value < min) min = it.value;
+      if (it.value > max) max = it.value;
+      sum += it.value;
+      
+      const t = new Date(it.time).getTime();
+      if (t < minTime) minTime = t;
+      if (t > maxTime) maxTime = t;
+    });
+
+    return {
+      min, max, avg: sum / items.length, total: items.length, spanMs: maxTime - minTime
+    };
+  }, [items]);
+
+  const chartData = useMemo(() => {
+    if (items.length === 0) return [{ value: 0 }];
+    // Reduce points if there are too many to draw smoothly
+    const step = Math.max(1, Math.floor(items.length / 100));
+    const pts = [];
+    for (let i = 0; i < items.length; i += step) {
+      pts.push({ value: items[i].value });
+    }
+    return pts;
+  }, [items]);
+
+  const openModal = (type: 'mac' | 'sensor' | 'field' | 'time') => {
     setModalType(type);
     setModalVisible(true);
   };
 
-  const rowsPerPage = 8;
-
-  // Queries
-  const ipsQuery = useQuery({ queryKey: ['history-meta'], queryFn: () => getHistoryMeta(100) });
-  
-  // Auto-select first IP if available and none selected
-  const ips = ipsQuery.data || [];
-  if (ips.length > 0 && !selectedIp) {
-    setSelectedIp(ips[0].ip);
-  }
-
-  const sensorsQuery = useQuery({
-    queryKey: ['history-sensors', selectedIp],
-    queryFn: () => getHistorySensors(selectedIp),
-    enabled: Boolean(selectedIp),
-  });
-
-  // Auto-select first sensor if available and none selected
-  const sensors = sensorsQuery.data || [];
-  if (sensors.length > 0 && !selectedSensor) {
-    setSelectedSensor(sensors[0]);
-  }
-
-  const seriesQuery = useQuery({
-    queryKey: ['history-series', selectedIp, selectedSensor],
-    queryFn: () => getHistorySeries({ ip: selectedIp, sensor: selectedSensor, limit: 500 }),
-    enabled: Boolean(selectedIp && selectedSensor),
-  });
-
-  // Data Transformation
-  const items = seriesQuery.data || [];
-  const tableRows = useMemo(() => {
-    const map = new Map<string, any>();
-    
-    // Fallback Mock Data if API is empty just to show the UI
-    if (items.length === 0 && !seriesQuery.isLoading) {
-      const now = Date.now();
-      return Array.from({ length: 50 }).map((_, i) => ({
-        time: now - i * 60000,
-        temp: (24 + Math.random() * 2).toFixed(1),
-        hum: (55 + Math.random() * 5).toFixed(1),
-        press: (1012 + Math.random() * 2).toFixed(1),
-        alt: Math.floor(140 + Math.random() * 10),
-      }));
-    }
-
-    items.forEach((item) => {
-      const t = item.nodeTime || item.time;
-      const key = String(t);
-      if (!map.has(key)) {
-        map.set(key, { time: t, temp: '--', hum: '--', press: '--', alt: '--' });
-      }
-      const row = map.get(key);
-      const val = Number(item.value);
-      const fieldLower = item.field.toLowerCase();
-      
-      if (fieldLower.includes('temp')) row.temp = val.toFixed(1);
-      else if (fieldLower.includes('hum')) row.hum = val.toFixed(1);
-      else if (fieldLower.includes('press')) row.press = val.toFixed(1);
-      else if (fieldLower.includes('alt') || fieldLower.includes('elev')) row.alt = Math.round(val);
-    });
-
-    return Array.from(map.values()).sort((a, b) => {
-      return new Date(b.time).getTime() - new Date(a.time).getTime();
-    });
-  }, [items, seriesQuery.isLoading]);
-
-  // Pagination Logic
-  const totalPages = Math.ceil(tableRows.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentRows = tableRows.slice(startIndex, startIndex + rowsPerPage);
-  const endDisplay = Math.min(startIndex + rowsPerPage, tableRows.length);
-
-  // Export Logic
-  const handleExport = async () => {
-    if (tableRows.length === 0) return;
-    
-    let csvString = 'Date Time,Temperature (°C),Humidity (%),Pressure (hPa),Altitude (m)\n';
-    tableRows.forEach(row => {
-      const { date, time } = formatTableTime(row.time);
-      csvString += `${date} ${time},${row.temp},${row.hum},${row.press},${row.alt}\n`;
-    });
-
-    try {
-      const fileName = `Sensor_Data_${selectedIp || 'All'}_${Date.now()}.csv`;
-      const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-      
-      await FileSystem.writeAsStringAsync(fileUri, csvString);
-      
-      const isAvailable = await Sharing.isAvailableAsync();
-      if (isAvailable) {
-        await Sharing.shareAsync(fileUri, {
-          mimeType: 'text/csv',
-          dialogTitle: 'Export Sensor Data',
-        });
-      } else {
-        alert('Sharing is not available on this device');
-      }
-    } catch (e) {
-      console.error('Export error:', e);
-      alert('Failed to export data');
-    }
-  };
-
-  // Column Colors
-  const COL_COLORS = {
-    temp: '#a875ff', // Purple
-    hum: COLORS.info, // Blue
-    press: COLORS.success, // Green
-    alt: '#ff288d', // Magenta
-  };
+  const activeFieldMeta = availableFields.find(f => f.key === selectedField);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerTitleContainer}>
-          <Text style={styles.headerTitle}>History</Text>
-          <Text style={styles.headerSubtitle}>View past sensor data</Text>
+          <Text style={styles.headerTitle}>History / Charts</Text>
+          <Text style={styles.headerSubtitle}>Analyze node data over time</Text>
         </View>
-        <TouchableOpacity style={styles.filterButtonIcon}>
-          <Filter size={20} color={COLORS.secondary} />
-        </TouchableOpacity>
+        {seriesQuery.isFetching && <ActivityIndicator size="small" color={COLORS.primary} />}
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         
-        {/* Selectors */}
-        <SelectorCard
-          title="Node IP"
-          value={selectedIp || (ipsQuery.isLoading ? 'Loading...' : 'Select Node')}
-          icon={<Globe size={20} color={COLORS.info} />}
-          iconColor={COLORS.info}
-          rightAction={selectedIp ? <Copy size={14} color={COLORS.info} /> : null}
-          onPress={() => openModal('ip')}
-        />
-        
-        <SelectorCard
-          title="Sensor"
-          value={selectedSensor || (sensorsQuery.isLoading ? 'Loading...' : 'Select Sensor')}
-          icon={<Cpu size={20} color="#a875ff" />}
-          iconColor="#a875ff"
-          onPress={() => openModal('sensor')}
-        />
+        {/* Filters Grid */}
+        <View style={styles.filterGrid}>
+          <View style={styles.filterCol}>
+            <SelectorCard
+              title="Select MAC"
+              value={selectedMac || 'Select...'}
+              icon={<HardDrive size={20} color={COLORS.info} />}
+              iconColor={COLORS.info}
+              onPress={() => openModal('mac')}
+            />
+          </View>
+          <View style={styles.filterCol}>
+            <SelectorCard
+              title="Select Sensor"
+              value={selectedSensorName || 'Select...'}
+              icon={<Cpu size={20} color={COLORS.warning} />}
+              iconColor={COLORS.warning}
+              onPress={() => openModal('sensor')}
+            />
+          </View>
+          <View style={styles.filterCol}>
+            <SelectorCard
+              title="Select Field"
+              value={activeFieldMeta ? `${activeFieldMeta.label} (${activeFieldMeta.unit})` : 'Select...'}
+              icon={<BarChart2 size={20} color={COLORS.success} />}
+              iconColor={COLORS.success}
+              onPress={() => openModal('field')}
+            />
+          </View>
+          <View style={styles.filterCol}>
+            <SelectorCard
+              title="Time Range"
+              value={timeRange === '1h' ? 'Last Hour' : timeRange === '24h' ? 'Last 24 Hours' : 'Last 7 Days'}
+              icon={<Clock size={20} color={COLORS.primary} />}
+              iconColor={COLORS.primary}
+              onPress={() => openModal('time')}
+            />
+          </View>
+        </View>
 
-        <SelectorCard
-          title="Series"
-          value="All Data"
-          icon={<LineChart size={20} color={COLORS.success} />}
-          iconColor={COLORS.success}
-          onPress={() => {}}
-        />
+        {/* Chart Section */}
+        <View style={styles.chartCard}>
+          <Text style={styles.chartMetaText}>
+            MAC: {selectedMac} • Sensor: {selectedSensorName} • Field: {activeFieldMeta?.label} • Points: {stats.total}
+          </Text>
+          
+          <View style={styles.chartContainer}>
+            {items.length === 0 ? (
+              <View style={styles.chartEmpty}>
+                <Text style={styles.chartEmptyText}>No data available for this selection.</Text>
+              </View>
+            ) : (
+              <GiftedLineChart
+                data={chartData}
+                width={Dimensions.get('window').width - (SIZES.large * 2) - 60}
+                height={160}
+                thickness={2}
+                color={COLORS.info}
+                hideDataPoints
+                startFillColor={COLORS.info}
+                endFillColor={COLORS.info}
+                startOpacity={0.3}
+                endOpacity={0.0}
+                yAxisColor={COLORS.border}
+                xAxisColor={COLORS.border}
+                yAxisTextStyle={{ color: COLORS.secondary, fontSize: 10 }}
+                rulesColor={COLORS.border}
+                rulesType="dashed"
+                areaChart
+                curved
+                isAnimated
+                initialSpacing={0}
+                spacing={(Dimensions.get('window').width - (SIZES.large * 2) - 60) / Math.max(1, chartData.length - 1)}
+                yAxisLabelWidth={40}
+              />
+            )}
+          </View>
+        </View>
 
-        {/* Data Records Section */}
-        <View style={styles.recordsContainer}>
-          <View style={styles.recordsHeader}>
-            <View style={styles.recordsHeaderLeft}>
-              <View style={styles.recordsIconContainer}>
-                <Clock size={20} color={COLORS.info} />
-              </View>
-              <View>
-                <Text style={styles.recordsTitle}>Data Records</Text>
-                <Text style={styles.recordsSubtitle}>Latest {tableRows.length} records</Text>
-              </View>
+        {/* Stats Grid */}
+        <View style={styles.statsGrid}>
+          <View style={styles.statCard}>
+            <View style={[styles.statIconBox, { backgroundColor: `${COLORS.primary}20` }]}>
+              <BarChart2 size={16} color={COLORS.primary} />
             </View>
-            <TouchableOpacity style={styles.exportButton} onPress={handleExport}>
-              <Download size={14} color={COLORS.secondary} />
-              <Text style={styles.exportText}>Export</Text>
-            </TouchableOpacity>
+            <View>
+              <Text style={styles.statLabel}>Average</Text>
+              <Text style={styles.statValue}>{stats.avg.toFixed(2)} {activeFieldMeta?.unit}</Text>
+            </View>
           </View>
 
-          {/* Table */}
-          {seriesQuery.isLoading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color={COLORS.primary} />
-              <Text style={styles.loadingText}>Loading history data...</Text>
+          <View style={styles.statCard}>
+            <View style={[styles.statIconBox, { backgroundColor: `${COLORS.info}20` }]}>
+              <ArrowDown size={16} color={COLORS.info} />
             </View>
-          ) : (
-            <View style={styles.table}>
-              {/* Table Header */}
-              <View style={styles.tableHeaderRow}>
-                <View style={[styles.colHeader, { flex: 1.5 }]}>
-                  <Text style={styles.colHeaderText}>Time</Text>
-                  <ArrowDown size={12} color={COLORS.info} />
-                </View>
-                <View style={[styles.colHeader, { flex: 1 }]}>
-                  <Text style={[styles.colHeaderText, { color: COL_COLORS.temp, textAlign: 'center' }]}>Temperature</Text>
-                  <Text style={[styles.colHeaderUnit, { color: COL_COLORS.temp, textAlign: 'center' }]}>(°C)</Text>
-                </View>
-                <View style={[styles.colHeader, { flex: 1 }]}>
-                  <Text style={[styles.colHeaderText, { color: COL_COLORS.hum, textAlign: 'center' }]}>Humidity</Text>
-                  <Text style={[styles.colHeaderUnit, { color: COL_COLORS.hum, textAlign: 'center' }]}>(%)</Text>
-                </View>
-                <View style={[styles.colHeader, { flex: 1 }]}>
-                  <Text style={[styles.colHeaderText, { color: COL_COLORS.press, textAlign: 'center' }]}>Pressure</Text>
-                  <Text style={[styles.colHeaderUnit, { color: COL_COLORS.press, textAlign: 'center' }]}>(hPa)</Text>
-                </View>
-                <View style={[styles.colHeader, { flex: 0.8 }]}>
-                  <Text style={[styles.colHeaderText, { color: COL_COLORS.alt, textAlign: 'right' }]}>Altitude</Text>
-                  <Text style={[styles.colHeaderUnit, { color: COL_COLORS.alt, textAlign: 'right' }]}>(m)</Text>
-                </View>
-              </View>
-
-              {/* Table Rows */}
-              {currentRows.map((row, index) => {
-                const { date, time } = formatTableTime(row.time);
-                return (
-                  <View key={index} style={[styles.tableRow, index % 2 === 1 && styles.tableRowAlternate]}>
-                    <View style={[styles.colData, { flex: 1.5 }]}>
-                      <Text style={styles.dateText}>{date}</Text>
-                      <Text style={styles.timeText}>{time}</Text>
-                    </View>
-                    <View style={[styles.colData, { flex: 1 }]}>
-                      <Text style={[styles.valText, { color: COL_COLORS.temp, textAlign: 'center' }]}>{row.temp}</Text>
-                    </View>
-                    <View style={[styles.colData, { flex: 1 }]}>
-                      <Text style={[styles.valText, { color: COL_COLORS.hum, textAlign: 'center' }]}>{row.hum}</Text>
-                    </View>
-                    <View style={[styles.colData, { flex: 1 }]}>
-                      <Text style={[styles.valText, { color: COL_COLORS.press, textAlign: 'center' }]}>{row.press}</Text>
-                    </View>
-                    <View style={[styles.colData, { flex: 0.8 }]}>
-                      <Text style={[styles.valText, { color: COL_COLORS.alt, textAlign: 'right' }]}>{row.alt}</Text>
-                    </View>
-                  </View>
-                );
-              })}
-
-              {/* Pagination */}
-              <View style={styles.paginationRow}>
-                <Text style={styles.paginationInfo}>
-                  Showing {tableRows.length > 0 ? startIndex + 1 : 0} - {endDisplay} of {tableRows.length}
-                </Text>
-                
-                <View style={styles.paginationControls}>
-                  <TouchableOpacity 
-                    style={styles.pageButton}
-                    disabled={currentPage === 1}
-                    onPress={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                  >
-                    <ChevronLeft size={16} color={currentPage === 1 ? COLORS.border : COLORS.secondary} />
-                  </TouchableOpacity>
-                  
-                  {/* Simplistic page numbers for mockup feel */}
-                  <View style={[styles.pageNum, styles.pageNumActive]}>
-                    <Text style={styles.pageNumTextActive}>{currentPage}</Text>
-                  </View>
-                  {currentPage + 1 <= totalPages && (
-                    <TouchableOpacity style={styles.pageNum} onPress={() => setCurrentPage(currentPage + 1)}>
-                      <Text style={styles.pageNumText}>{currentPage + 1}</Text>
-                    </TouchableOpacity>
-                  )}
-                  {currentPage + 2 <= totalPages && (
-                    <TouchableOpacity style={styles.pageNum} onPress={() => setCurrentPage(currentPage + 2)}>
-                      <Text style={styles.pageNumText}>{currentPage + 2}</Text>
-                    </TouchableOpacity>
-                  )}
-                  
-                  {totalPages > 3 && currentPage + 2 < totalPages && (
-                    <>
-                      <Text style={styles.pageDots}>...</Text>
-                      <TouchableOpacity style={styles.pageNum} onPress={() => setCurrentPage(totalPages)}>
-                        <Text style={styles.pageNumText}>{totalPages}</Text>
-                      </TouchableOpacity>
-                    </>
-                  )}
-                  
-                  <TouchableOpacity 
-                    style={styles.pageButton}
-                    disabled={currentPage === totalPages || totalPages === 0}
-                    onPress={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                  >
-                    <ChevronLeft size={16} color={currentPage === totalPages ? COLORS.border : COLORS.secondary} style={{ transform: [{ rotate: '180deg' }] }} />
-                  </TouchableOpacity>
-                </View>
-              </View>
+            <View>
+              <Text style={styles.statLabel}>Min</Text>
+              <Text style={styles.statValue}>{stats.min.toFixed(2)} {activeFieldMeta?.unit}</Text>
             </View>
-          )}
+          </View>
+
+          <View style={styles.statCard}>
+            <View style={[styles.statIconBox, { backgroundColor: `${COLORS.success}20` }]}>
+              <LineChart size={16} color={COLORS.success} />
+            </View>
+            <View>
+              <Text style={styles.statLabel}>Max</Text>
+              <Text style={styles.statValue}>{stats.max.toFixed(2)} {activeFieldMeta?.unit}</Text>
+            </View>
+          </View>
+
+          <View style={styles.statCard}>
+            <View style={[styles.statIconBox, { backgroundColor: `${COLORS.warning}20` }]}>
+              <Globe size={16} color={COLORS.warning} />
+            </View>
+            <View>
+              <Text style={styles.statLabel}>Total Points</Text>
+              <Text style={styles.statValue}>{stats.total}</Text>
+            </View>
+          </View>
+
+          <View style={styles.statCard}>
+            <View style={[styles.statIconBox, { backgroundColor: `${COLORS.error}20` }]}>
+              <Clock size={16} color={COLORS.error} />
+            </View>
+            <View>
+              <Text style={styles.statLabel}>Displayed Timespan</Text>
+              <Text style={styles.statValue}>{formatDuration(stats.spanMs)}</Text>
+            </View>
+          </View>
         </View>
 
       </ScrollView>
 
-      {/* Selection Modal */}
+      {/* Modal Dropdown */}
       <Modal visible={modalVisible} transparent animationType="fade">
         <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
           <View style={styles.modalOverlay}>
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <Text style={styles.modalTitle}>
-                  Select {modalType === 'ip' ? 'Node IP' : 'Sensor'}
+                  {modalType === 'mac' && 'Select MAC Address'}
+                  {modalType === 'sensor' && 'Select Sensor'}
+                  {modalType === 'field' && 'Select Field'}
+                  {modalType === 'time' && 'Select Time Range'}
                 </Text>
-                
-                {modalType === 'ip' && ips.map((ipRow: any) => (
-                  <TouchableOpacity 
-                    key={ipRow.ip} 
-                    style={styles.modalOption}
-                    onPress={() => {
-                      if (selectedIp !== ipRow.ip) {
-                        setSelectedIp(ipRow.ip);
-                        setSelectedSensor(''); // reset sensor when IP changes
-                      }
-                      setModalVisible(false);
-                    }}
-                  >
-                    <Text style={[styles.modalOptionText, selectedIp === ipRow.ip && styles.modalOptionSelected]}>
-                      {ipRow.ip}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
 
-                {modalType === 'sensor' && sensors.map((sensorName: string) => (
-                  <TouchableOpacity 
-                    key={sensorName} 
-                    style={styles.modalOption}
-                    onPress={() => {
-                      setSelectedSensor(sensorName);
-                      setModalVisible(false);
-                    }}
-                  >
-                    <Text style={[styles.modalOptionText, selectedSensor === sensorName && styles.modalOptionSelected]}>
-                      {sensorName}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                <ScrollView style={styles.modalList} showsVerticalScrollIndicator={false}>
+                  {modalType === 'mac' && macs.map((m) => (
+                    <TouchableOpacity
+                      key={m.mac}
+                      style={[styles.modalItem, selectedMac === m.mac && styles.modalItemSelected]}
+                      onPress={() => { setSelectedMac(m.mac); setModalVisible(false); }}
+                    >
+                      <Text style={[styles.modalItemText, selectedMac === m.mac && styles.modalItemTextSelected]}>
+                        {m.mac}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+
+                  {modalType === 'sensor' && availableSensors.map((s) => (
+                    <TouchableOpacity
+                      key={s}
+                      style={[styles.modalItem, selectedSensorName === s && styles.modalItemSelected]}
+                      onPress={() => { setSelectedSensorName(s); setModalVisible(false); }}
+                    >
+                      <Text style={[styles.modalItemText, selectedSensorName === s && styles.modalItemTextSelected]}>
+                        {s}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+
+                  {modalType === 'field' && availableFields.map((f) => (
+                    <TouchableOpacity
+                      key={f.key}
+                      style={[styles.modalItem, selectedField === f.key && styles.modalItemSelected]}
+                      onPress={() => { setSelectedField(f.key); setModalVisible(false); }}
+                    >
+                      <Text style={[styles.modalItemText, selectedField === f.key && styles.modalItemTextSelected]}>
+                        {f.label} ({f.unit})
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+
+                  {modalType === 'time' && [
+                    { label: 'Last Hour', value: '1h' as const },
+                    { label: 'Last 24 Hours', value: '24h' as const },
+                    { label: 'Last 7 Days', value: '7d' as const }
+                  ].map((t) => (
+                    <TouchableOpacity
+                      key={t.value}
+                      style={[styles.modalItem, timeRange === t.value && styles.modalItemSelected]}
+                      onPress={() => { setTimeRange(t.value); setModalVisible(false); }}
+                    >
+                      <Text style={[styles.modalItemText, timeRange === t.value && styles.modalItemTextSelected]}>
+                        {t.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
               </View>
             </TouchableWithoutFeedback>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
+  container: { flex: 1, backgroundColor: COLORS.background },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: SIZES.large,
-    paddingVertical: SIZES.medium,
+    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+    paddingHorizontal: SIZES.large, paddingVertical: SIZES.medium,
+    backgroundColor: COLORS.surface, borderBottomWidth: 1, borderBottomColor: COLORS.border,
   },
-  headerButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+  headerTitleContainer: { flex: 1 },
+  headerTitle: { fontSize: 22, fontWeight: 'bold', color: COLORS.textMain },
+  headerSubtitle: { fontSize: 14, color: COLORS.secondary, marginTop: 2 },
+  scrollContent: { padding: SIZES.large, paddingBottom: 100 },
+  
+  filterGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  filterCol: { width: '48%', marginBottom: SIZES.medium },
+
+  chartCard: {
+    backgroundColor: COLORS.surface, borderRadius: SIZES.cardRadius,
+    padding: SIZES.medium, borderWidth: 1, borderColor: COLORS.border,
+    marginBottom: SIZES.large,
   },
-  headerTitleContainer: {
-    flex: 1,
+  chartMetaText: { fontSize: 12, color: COLORS.secondary, marginBottom: 16 },
+  chartContainer: { alignItems: 'center', justifyContent: 'center', minHeight: 160 },
+  chartEmpty: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  chartEmptyText: { color: COLORS.secondary, fontSize: 14 },
+
+  statsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: SIZES.small },
+  statCard: {
+    backgroundColor: COLORS.surface, borderRadius: SIZES.radius,
+    padding: SIZES.medium, borderWidth: 1, borderColor: COLORS.border,
+    flexDirection: 'row', alignItems: 'center', gap: 12,
+    flexBasis: '100%', flexGrow: 1,
   },
-  headerTitle: {
-    fontSize: SIZES.extraLarge,
-    fontWeight: 'bold',
-    color: COLORS.textMain,
-  },
-  headerSubtitle: {
-    fontSize: SIZES.small,
-    color: COLORS.secondary,
-  },
-  filterButtonIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: COLORS.surfaceLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  scrollContent: {
-    padding: SIZES.large,
-    paddingBottom: 40,
-  },
-  recordsContainer: {
-    backgroundColor: COLORS.surface,
-    borderRadius: SIZES.cardRadius,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    overflow: 'hidden',
-    marginTop: SIZES.small,
-  },
-  recordsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: SIZES.large,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  recordsHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SIZES.medium,
-  },
-  recordsIconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(56, 189, 248, 0.15)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  recordsTitle: {
-    color: COLORS.textMain,
-    fontSize: SIZES.medium,
-    fontWeight: 'bold',
-    marginBottom: 2,
-  },
-  recordsSubtitle: {
-    color: COLORS.secondary,
-    fontSize: SIZES.small,
-  },
-  exportButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    backgroundColor: COLORS.surfaceLight,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: SIZES.base,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  exportText: {
-    color: COLORS.secondary,
-    fontSize: SIZES.small,
-    fontWeight: '500',
-  },
-  table: {
-    flex: 1,
-  },
-  tableHeaderRow: {
-    flexDirection: 'row',
-    paddingHorizontal: SIZES.large,
-    paddingVertical: SIZES.medium,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  colHeader: {
-    justifyContent: 'center',
-  },
-  colHeaderText: {
-    color: COLORS.secondary,
-    fontSize: 11,
-    fontWeight: '500',
-    marginBottom: 2,
-  },
-  colHeaderUnit: {
-    fontSize: 10,
-  },
-  tableRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: SIZES.large,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.03)',
-  },
-  tableRowAlternate: {
-    backgroundColor: 'rgba(255,255,255,0.015)',
-  },
-  colData: {
-    justifyContent: 'center',
-  },
-  dateText: {
-    color: COLORS.secondary,
-    fontSize: 11,
-    marginBottom: 2,
-  },
-  timeText: {
-    color: COLORS.secondary,
-    fontSize: 11,
-  },
-  valText: {
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  paginationRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: SIZES.large,
-    paddingVertical: SIZES.medium,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-  },
-  paginationInfo: {
-    color: COLORS.secondary,
-    fontSize: SIZES.small,
-  },
-  paginationControls: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  pageButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: COLORS.surfaceLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageNum: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageNumActive: {
-    backgroundColor: COLORS.primary,
-  },
-  pageNumText: {
-    color: COLORS.secondary,
-    fontSize: SIZES.small,
-  },
-  pageNumTextActive: {
-    color: '#fff',
-    fontSize: SIZES.small,
-    fontWeight: 'bold',
-  },
-  pageDots: {
-    color: COLORS.secondary,
-    marginHorizontal: 4,
-  },
-  loadingContainer: {
-    padding: 40,
-    alignItems: 'center',
-  },
-  loadingText: {
-    color: COLORS.secondary,
-    marginTop: 10,
-  },
+  statIconBox: { width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
+  statLabel: { color: COLORS.secondary, fontSize: 12, marginBottom: 4 },
+  statValue: { color: COLORS.textMain, fontSize: 16, fontWeight: 'bold' },
+
   modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: SIZES.large,
+    flex: 1, backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: COLORS.surface,
-    width: '100%',
-    borderRadius: SIZES.cardRadius,
-    padding: SIZES.large,
-    borderWidth: 1,
-    borderColor: COLORS.border,
+    backgroundColor: COLORS.surface, borderTopLeftRadius: 24, borderTopRightRadius: 24,
+    padding: SIZES.large, maxHeight: Dimensions.get('window').height * 0.7,
   },
-  modalTitle: {
-    color: COLORS.textMain,
-    fontSize: SIZES.large,
-    fontWeight: 'bold',
-    marginBottom: SIZES.medium,
-    textAlign: 'center',
-  },
-  modalOption: {
-    paddingVertical: SIZES.medium,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.05)',
-    alignItems: 'center',
-  },
-  modalOptionText: {
-    color: COLORS.secondary,
-    fontSize: SIZES.medium,
-  },
-  modalOptionSelected: {
-    color: COLORS.primary,
-    fontWeight: 'bold',
-  }
+  modalTitle: { fontSize: 18, fontWeight: 'bold', color: COLORS.textMain, marginBottom: 16 },
+  modalList: { paddingBottom: SIZES.extraLarge },
+  modalItem: { paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: COLORS.border },
+  modalItemSelected: { backgroundColor: `${COLORS.primary}20`, borderRadius: 8, paddingHorizontal: 16, borderBottomWidth: 0 },
+  modalItemText: { fontSize: 16, color: COLORS.textMain },
+  modalItemTextSelected: { color: COLORS.primary, fontWeight: 'bold' },
 });

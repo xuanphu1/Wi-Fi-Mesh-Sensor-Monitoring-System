@@ -3,11 +3,15 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import * as SecureStore from 'expo-secure-store';
 
 interface HistoryFilterState {
-  selectedIp: string;
-  selectedSensor: string;
-  setFilters: (ip: string, sensor: string) => void;
-  setSelectedIp: (ip: string) => void;
-  setSelectedSensor: (sensor: string) => void;
+  selectedMac: string;
+  selectedSensorName: string;
+  selectedField: string;
+  timeRange: '1h' | '24h' | '7d';
+  setFilters: (mac: string, sensorName: string, field: string) => void;
+  setSelectedMac: (mac: string) => void;
+  setSelectedSensorName: (sensorName: string) => void;
+  setSelectedField: (field: string) => void;
+  setTimeRange: (range: '1h' | '24h' | '7d') => void;
 }
 
 const secureStorage = {
@@ -25,11 +29,15 @@ const secureStorage = {
 export const useHistoryFilterStore = create<HistoryFilterState>()(
   persist(
     (set) => ({
-      selectedIp: '',
-      selectedSensor: '',
-      setFilters: (ip, sensor) => set({ selectedIp: ip, selectedSensor: sensor }),
-      setSelectedIp: (ip) => set({ selectedIp: ip }),
-      setSelectedSensor: (sensor) => set({ selectedSensor: sensor }),
+      selectedMac: '',
+      selectedSensorName: '',
+      selectedField: '',
+      timeRange: '24h',
+      setFilters: (mac, sensorName, field) => set({ selectedMac: mac, selectedSensorName: sensorName, selectedField: field }),
+      setSelectedMac: (mac) => set({ selectedMac: mac }),
+      setSelectedSensorName: (sensorName) => set({ selectedSensorName: sensorName }),
+      setSelectedField: (field) => set({ selectedField: field }),
+      setTimeRange: (range) => set({ timeRange: range }),
     }),
     {
       name: 'history-filter-storage',

@@ -1,5 +1,5 @@
 import apiClient from '@/services/api';
-import type { HistoryIpRow, HistorySeriesItem } from '@/types/mesh';
+import type { HistoryMacRow, HistorySeriesItem } from '@/types/mesh';
 
 export async function getHealth() {
   const { data } = await apiClient.get<{ ok: boolean; service: string }>('/api/v1/health');
@@ -7,26 +7,21 @@ export async function getHealth() {
 }
 
 export async function getHistoryMeta(limit = 200) {
-  const { data } = await apiClient.get<{ ips: HistoryIpRow[] }>('/api/v1/history/meta', {
+  const { data } = await apiClient.get<{ macs: HistoryMacRow[] }>('/api/history/meta', {
     params: { limit },
   });
-  return data.ips;
-}
-
-export async function getHistorySensors(ip: string) {
-  const { data } = await apiClient.get<{ ip: string; sensors: string[] }>('/api/v1/history/sensors', {
-    params: { ip },
-  });
-  return data.sensors;
+  return data.macs;
 }
 
 export async function getHistorySeries(params: {
-  ip?: string;
-  sensor?: string;
+  mac?: string;
+  sensorName?: string;
   field?: string;
+  from?: string;
+  to?: string;
   limit?: number;
 }) {
-  const { data } = await apiClient.get<{ items: HistorySeriesItem[] }>('/api/v1/history/series', {
+  const { data } = await apiClient.get<{ items: HistorySeriesItem[] }>('/api/history/series', {
     params,
   });
   return data.items;

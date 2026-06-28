@@ -19,14 +19,34 @@ export default function NodesScreen() {
   const MOCK_RSSI = ['-45 dBm', '-52 dBm', '-61 dBm', '-48 dBm', '-67 dBm'];
   const CHIP_COLORS = [COLORS.success, COLORS.primary, COLORS.warning, COLORS.info, '#ff288d'];
 
+  const [statusFilter, setStatusFilter] = useState<'All' | 'Online' | 'Offline'>('All');
+
+  const handleFilterToggle = () => {
+    if (statusFilter === 'All') setStatusFilter('Online');
+    else if (statusFilter === 'Online') setStatusFilter('Offline');
+    else setStatusFilter('All');
+  };
+
   // If there are no nodes in the store yet, we provide some dummy ones so the UI looks exactly like the mockup.
-  const displayNodes = allNodes.length > 0 ? allNodes : [
+  let sourceNodes = allNodes.length > 0 ? allNodes : [
     { ip: '192.168.1.101', name: 'ESP Living Room', status: 'Online' as const },
     { ip: '192.168.1.102', name: 'ESP Bedroom', status: 'Online' as const },
     { ip: '192.168.1.103', name: 'ESP Kitchen', status: 'Online' as const },
-    { ip: '192.168.1.104', name: 'ESP Garage', status: 'Online' as const },
+    { ip: '192.168.1.104', name: 'ESP Garage', status: 'Offline' as const },
     { ip: '192.168.1.105', name: 'ESP Outdoor', status: 'Online' as const },
   ];
+
+  const displayNodes = sourceNodes.filter((node) => {
+    const q = searchQuery.toLowerCase();
+    const matchSearch = (node.name && node.name.toLowerCase().includes(q)) || 
+                        (node.ip && node.ip.toLowerCase().includes(q));
+    
+    let matchStatus = true;
+    if (statusFilter === 'Online') matchStatus = node.status === 'Online';
+    if (statusFilter === 'Offline') matchStatus = node.status === 'Offline';
+
+    return matchSearch && matchStatus;
+  });
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -52,17 +72,25 @@ export default function NodesScreen() {
               onChangeText={setSearchQuery}
             />
           </View>
-          <TouchableOpacity style={styles.filterButton}>
-            <Filter size={20} color={COLORS.secondary} />
+          <TouchableOpacity 
+            style={[
+              styles.filterButton, 
+              statusFilter !== 'All' && { backgroundColor: `${COLORS.primary}20`, borderColor: COLORS.primary }
+            ]}
+            onPress={handleFilterToggle}
+          >
+            <Filter size={20} color={statusFilter !== 'All' ? COLORS.primary : COLORS.secondary} />
           </TouchableOpacity>
         </View>
 
         {/* Section Title */}
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Connected Nodes ({displayNodes.length})</Text>
+          <Text style={styles.sectionTitle}>
+            {statusFilter === 'All' ? 'Connected Nodes' : statusFilter === 'Online' ? 'Online Nodes' : 'Offline Nodes'} ({displayNodes.length})
+          </Text>
           <View style={styles.onlineIndicator}>
-            <Text style={styles.onlineText}>Online</Text>
-            <View style={styles.onlineDot} />
+            <Text style={styles.onlineText}>{statusFilter}</Text>
+            <View style={[styles.onlineDot, statusFilter === 'Offline' && { backgroundColor: COLORS.error }]} />
           </View>
         </View>
 

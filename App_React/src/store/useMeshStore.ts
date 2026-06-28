@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 import { GATEWAY_OFFLINE_MS, NODE_OFFLINE_MS } from '@/constants/mesh';
-import type { GatewayStatus, MeshNode, ParsedMeshPacket, ServerNetwork } from '@/types/mesh';
+import type { GatewayStatus, MeshNode, ParsedMeshPacket, ServerNetwork, ServerMetrics } from '@/types/mesh';
 import { parseDeviceRtcMs } from '@/utils/format';
 
 type MeshStore = {
@@ -15,10 +15,13 @@ type MeshStore = {
   throughputSeries: Array<{ value: number }>;
   nodes: Record<string, MeshNode>;
   eventLog: Array<{ t: number; level: 'info' | 'warn'; message: string }>;
+  serverMetrics: ServerMetrics | null;
+  serverMetricsSeries: Array<{ t: number; cpu: number; ram: number }>;
   setEndpoint: (apiBaseUrl: string, wsUrl: string) => void;
   setWsStatus: (status: MeshStore['wsStatus']) => void;
   applyWelcome: (payload: unknown) => void;
   ingestGateway: (gateway: GatewayStatus) => void;
+  ingestServerMetrics: (metrics: ServerMetrics) => void;
   ingestPacket: (packet: ParsedMeshPacket, payloadBytes?: number) => void;
   onlineNodes: () => MeshNode[];
   allNodes: () => MeshNode[];
@@ -50,6 +53,8 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
   throughputSeries: Array.from({ length: 30 }, () => ({ value: 0 })),
   nodes: {},
   eventLog: [],
+  serverMetrics: null,
+  serverMetricsSeries: [],
 
   setEndpoint: (apiBaseUrl, wsUrl) => set({ apiBaseUrl, wsUrl }),
   setWsStatus: (status) => set({ wsStatus: status }),
@@ -110,6 +115,17 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
     }));
   },
 
+  ingestServerMetrics: (metrics) => {
+    const t = Date.now();
+    set((state) => ({
+      serverMetrics: metrics,
+      serverMetricsSeries: [
+        ...state.serverMetricsSeries,
+        { t, cpu: metrics.cpuLoadPercent, ram: metrics.ramUsedPercent }
+      ].slice(-30),
+    }));
+  },
+
   ingestPacket: (packet, payloadBytes = 0) => {
     const now = Date.now();
     const rtcMs = parseDeviceRtcMs(packet.rtcIso);
@@ -125,8 +141,8 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
     set((state) => ({
       nodes: {
         ...state.nodes,
-        [packet.staIpv4]: {
-          ip: packet.staIpv4,
+        [packet.mac]: {
+          ip: packet.mac,
           name: 'Mesh Node',
           status: 'Online',
           lastSeen: now,
@@ -145,7 +161,7 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
         {
           t: now,
           level: packet.runtimeErrors.length ? ('warn' as const) : ('info' as const),
-          message: `${packet.staIpv4} ${sensorEntries.length} readings, ${payloadBytes} bytes`,
+          message: `${packet.mac} ${sensorEntries.length} readings, ${payloadBytes} bytes`,
         },
         ...state.eventLog,
       ].slice(0, 20),
