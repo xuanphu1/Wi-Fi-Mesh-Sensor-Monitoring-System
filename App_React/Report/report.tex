@@ -128,52 +128,62 @@
 \setcounter{subsection}{0}
 
 \subsection{Đặt vấn đề \& Mục tiêu}
-Trong kỷ nguyên của Internet vạn vật (IoT), nhu cầu giám sát môi trường và thu thập dữ liệu tự động từ các khu vực rộng lớn ngày càng trở nên cấp thiết. Dự án "Hệ thống Giám sát Cảm biến Mạng Mesh" được đề xuất nhằm xây dựng một nền tảng toàn diện từ phần cứng đến phần mềm, hỗ trợ quản trị viên dễ dàng theo dõi và điều khiển mạng lưới thiết bị theo thời gian thực (Real-time). Mục tiêu chính là xây dựng một ứng dụng đa nền tảng kết nối với trạm trung tâm (Gateway) qua giao thức WebSocket, cho phép giám sát dữ liệu, quản lý lịch sử và cập nhật phần mềm thiết bị từ xa (FOTA).
-
+Dự án "Hệ thống Giám sát Cảm biến Mạng Mesh" được xây dựng nhằm cung cấp nền tảng giám sát môi trường toàn diện, giúp quản trị viên theo dõi mạng lưới thiết bị theo thời gian thực. Ứng dụng đa nền tảng kết nối với Gateway qua WebSocket, cho phép hiển thị số liệu, quản lý lịch sử và cập nhật phần mềm thiết bị từ xa (OTA).
 
 \subsection{Công nghệ ứng dụng}
 \textbf{Frontend (Mobile App):}
+\vspace{-0.2cm}
 \begin{itemize}
-    \item \textbf{React Native \& Expo:} Xây dựng giao diện UI mượt mà, đa nền tảng.
-    \item \textbf{Zustand:} Quản lý State toàn cục siêu nhẹ, tối ưu re-render thông qua cơ chế hợp nhất (merge) dữ liệu Live liên tục mà không bị mất mát.
-    \item \textbf{Expo FileSystem \& Sharing:} Tạo, trích xuất và chia sẻ file báo cáo dữ liệu (CSV) hoàn toàn cục bộ (offline) trên thiết bị.
-    \item TailwindCSS / Reanimated để thiết kế hiệu ứng Glassmorphism và các thông báo nổi (Toast Notification) trượt mượt mà.
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+    \item \textbf{React Native \& Expo:} Xây dựng giao diện UI đa nền tảng mượt mà.
+    \item \textbf{Zustand:} Quản lý State toàn cục, tối ưu re-render khi xử lý dữ liệu Live.
+    \item \textbf{Expo FileSystem:} Tạo và chia sẻ báo cáo dữ liệu (CSV) cục bộ.
+    \item \textbf{TailwindCSS \& Reanimated:} Thiết kế UI Glassmorphism và Toast mượt mà.
 \end{itemize}
+\vspace{-0.3cm}
 \textbf{Backend Services:}
+\vspace{-0.2cm}
 \begin{itemize}
-    \item \textbf{WebSockets:} Kết nối hai chiều (Point-to-Point) để nhận stream dữ liệu Sensor và cập nhật trạng thái thiết bị theo thời gian thực.
-    \item \textbf{HTTP API (REST):} Cơ chế truy vấn (GET) để lấy dữ liệu quá khứ từ máy chủ (Server) phục vụ chức năng lịch sử.
-    \item \textbf{Nginx Reverse Proxy:} Cấu hình định tuyến và cung cấp chứng chỉ SSL/TLS, cho phép chạy song song giao thức an toàn HTTPS và WSS trên cùng một máy chủ (Port 443).
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+    \item \textbf{WebSockets:} Truyền phát stream dữ liệu Sensor thời gian thực.
+    \item \textbf{HTTP API (REST):} Cơ chế truy vấn (GET) dữ liệu lịch sử từ máy chủ.
+    \item \textbf{Nginx Reverse Proxy:} Chạy song song HTTPS và WSS an toàn trên cùng Port 443.
 \end{itemize}
 
+\vspace{-0.2cm}
 \subsection{Bảng tổng kết chức năng và phân công công việc}
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}p{2.8cm}|X|>{\raggedright\arraybackslash}p{2.8cm}|}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \begin{tabularx}{\textwidth}{|l|l|X|l|}
         \hline
         \textbf{Menu/Phần} & \textbf{Chức năng} & \textbf{Mô tả chi tiết} & \textbf{Phụ trách} \\
         \hline
-        Dashboard & Thống kê tổng quan & Hiển thị tóm tắt tình trạng kết nối mạng Mesh và thông số nổi bật nhất của hệ thống. & H. Xuân Phú \\
+        Dashboard & Thống kê & Hiển thị tóm tắt trạng thái mạng Mesh và thông số hệ thống. & H. Xuân Phú \\
         \hline
-        Nodes & Quản lý thiết bị & Liệt kê danh sách Node, theo dõi trạng thái Online/Offline trực tiếp và cảnh báo mất kết nối. & H. Quang Quân \\
+        Nodes & Quản lý thiết bị & Liệt kê danh sách Node, theo dõi trạng thái Online/Offline. & H. Quang Quân \\
         \hline
-        Sensors & Giám sát Realtime & Biểu đồ trực quan và danh sách thông số cảm biến môi trường cập nhật theo thời gian thực. & H. Quang Quân \\
+        Sensors & Giám sát Live & Biểu đồ và thông số cảm biến môi trường theo thời gian thực. & H. Quang Quân \\
         \hline
-        Server & Monitor Backend & Giám sát tài nguyên máy chủ (CPU, RAM, Uptime) và trạng thái hệ thống WebSocket. & H. Xuân Phú \\
+        Server & Monitor Backend & Giám sát tài nguyên máy chủ (CPU, RAM) và trạng thái WebSocket. & H. Xuân Phú \\
         \hline
-        Gateway & Monitor Gateway & Giám sát tài nguyên phần cứng (CPU, RAM, Pin, Wi-Fi) và trạng thái của trạm trung tâm. & H. Quang Quân \\
+        Gateway & Monitor Gateway & Giám sát tài nguyên phần cứng (CPU, RAM, Pin, Wi-Fi) trạm trung tâm. & H. Quang Quân \\
         \hline
-        \multirow{2}{*}{History} & Truy vấn quá khứ & Lọc dữ liệu theo mốc thời gian, loại cảm biến, và vẽ biểu đồ lịch sử qua REST API. & H. Xuân Phú \\ \cline{2-4}
-        & Trích xuất CSV & Xử lý dữ liệu và tạo file báo cáo CSV cục bộ trên điện thoại để chia sẻ. & H. Xuân Phú \\
+        \multirow{2}{*}{History} & Truy vấn & Lọc dữ liệu theo thời gian, cảm biến và vẽ biểu đồ lịch sử. & H. Xuân Phú \\ \cline{2-4}
+        & Xuất CSV & Xử lý dữ liệu và tạo file báo cáo CSV cục bộ. & H. Xuân Phú \\
         \hline
-        Settings & Thiết lập Threshold & Tùy chỉnh các ngưỡng giới hạn (min/max) cảnh báo cho các thông số cảm biến. & H. Quang Quân \\
+        Settings & Cấu hình & Tùy chỉnh các ngưỡng giới hạn cảnh báo cho cảm biến. & H. Quang Quân \\
         \hline
-        About & Thông tin \& Hướng dẫn & Tích hợp hướng dẫn sử dụng chi tiết và hiển thị thông tin, tiến độ hoàn thành dự án của nhóm. & H. Quang Quân \\
+        About & Thông tin & Hướng dẫn sử dụng chi tiết và thông tin tiến độ dự án. & H. Quang Quân \\
         \hline
-        Backend & Hạ tầng \& Máy chủ & Xây dựng HTTP REST API, cấu hình luồng truyền phát WebSockets và thiết lập Nginx Reverse Proxy trên máy chủ thực tế. & H. Xuân Phú \\
+        Backend & Hạ tầng & Xây dựng REST API, WebSockets và thiết lập Nginx Reverse Proxy. & H. Xuân Phú \\
         \hline
-        Báo cáo & Tài liệu \& Slide & Soạn thảo báo cáo đồ án và slide thuyết trình tổng kết. & H. Xuân Phú, \par H. Quang Quân \\
+        Báo cáo & Tài liệu & Soạn thảo báo cáo đồ án và slide thuyết trình tổng kết. & Phú, Quân \\
         \hline
     \end{tabularx}
     \caption{Bảng phân rã chức năng hệ thống}
@@ -394,7 +404,7 @@ Bao gồm các cấu hình màu sắc, hằng số tĩnh, các định nghĩa ki
 Ứng dụng được thiết kế theo phong cách hiện đại (Glassmorphism) với giao diện Dark Mode tối ưu cho việc giám sát thời gian thực. Dưới đây là các màn hình chức năng chính của ứng dụng.
 
 \vspace{0.3cm}
-\noindent\textbf{Video Demo Hệ thống:} \href{https://youtu.be/link-video-demo-cua-ban}{\underline{Nhấn vào đây để xem video minh họa toàn bộ hoạt động thực tế}}
+\noindent\textbf{Video Demo Hệ thống:} \href{https://drive.google.com/drive/folders/1Sm_5AlTHUcPrvPvF8nTApXCBocLFyrjh?hl=vi}{\underline{Nhấn vào đây để xem video minh họa toàn bộ hoạt động thực tế}}
 \vspace{0.3cm}
 
 \begin{figure}[H]
