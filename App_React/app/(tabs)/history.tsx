@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Modal, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Modal, TouchableWithoutFeedback, Dimensions, Platform, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, Filter, Globe, Cpu, LineChart, Clock, Download, ArrowDown, HardDrive, BarChart2 } from 'lucide-react-native';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +8,10 @@ import { COLORS, SIZES } from '../../src/constants/theme';
 import { getHistoryMeta, getHistorySeries } from '../../src/services/modules/history';
 import { getSensorTypeByName, getFieldsForSensorType } from '../../src/constants/mesh';
 import SelectorCard from '../../src/components/SelectorCard';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useHistoryFilterStore } from '../../src/store/useHistoryFilterStore';
+import * as FileSystem from 'expo-file-system/legacy';
+import * as Sharing from 'expo-sharing';
 
 const formatTableTime = (timestamp: string | number) => {
   const d = new Date(timestamp);
@@ -29,12 +32,14 @@ const formatDuration = (ms: number) => {
 
 export default function HistoryScreen() {
   const { 
-    selectedMac, selectedSensorName, selectedField, timeRange, 
-    setSelectedMac, setSelectedSensorName, setSelectedField, setTimeRange 
+    selectedMac, selectedSensorName, selectedField, timeRange, customStartTime,
+    setSelectedMac, setSelectedSensorName, setSelectedField, setTimeRange, setCustomStartTime
   } = useHistoryFilterStore();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState<'mac' | 'sensor' | 'field' | 'time' | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [tempDate, setTempDate] = useState(new Date());
 
   // Queries
   const metaQuery = useQuery({ queryKey: ['history-meta'], queryFn: () => getHistoryMeta(200) });
@@ -75,15 +80,17 @@ export default function HistoryScreen() {
   // Fetch Series
   const { from, to } = useMemo(() => {
     const end = new Date();
-    const start = new Date();
+    let start = new Date();
     if (timeRange === '1h') start.setHours(end.getHours() - 1);
     else if (timeRange === '24h') start.setDate(end.getDate() - 1);
     else if (timeRange === '7d') start.setDate(end.getDate() - 7);
+    else if (timeRange === 'custom' && customStartTime) start = new Date(customStartTime);
+    else start.setDate(end.getDate() - 1); // fallback
     return { from: start.toISOString(), to: end.toISOString() };
-  }, [timeRange]);
+  }, [timeRange, customStartTime]);
 
   const seriesQuery = useQuery({
-    queryKey: ['history-series', selectedMac, selectedSensorName, selectedField, timeRange],
+    queryKey: ['history-series', selectedMac, selectedSensorName, selectedField, from, to],
     queryFn: () => getHistorySeries({ mac: selectedMac, sensorName: selectedSensorName, field: selectedField, from, to, limit: 2000 }),
     enabled: Boolean(selectedMac && selectedSensorName && selectedField),
   });
@@ -142,7 +149,38 @@ export default function HistoryScreen() {
           <Text style={styles.headerTitle}>History / Charts</Text>
           <Text style={styles.headerSubtitle}>Analyze node data over time</Text>
         </View>
-        {seriesQuery.isFetching && <ActivityIndicator size="small" color={COLORS.primary} />}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          {seriesQuery.isFetching && <ActivityIndicator size="small" color={COLORS.primary} />}
+          <TouchableOpacity 
+            style={styles.exportButton}
+            onPress={async () => {
+              if (selectedMac && items.length > 0) {
+                try {
+                  let csv = "Time,Value\n";
+                  items.forEach(it => {
+                    csv += `${it.time},${it.value}\n`;
+                  });
+                  
+                  const fileUri = FileSystem.documentDirectory + `${selectedMac.replace(/:/g, '')}_${selectedField}.csv`;
+                  await FileSystem.writeAsStringAsync(fileUri, csv, { encoding: 'utf8' });
+                  
+                  if (await Sharing.isAvailableAsync()) {
+                    await Sharing.shareAsync(fileUri);
+                  } else {
+                    Alert.alert("Lỗi", "Không thể chia sẻ file trên thiết bị này");
+                  }
+                } catch (e) {
+                  Alert.alert("Lỗi", "Đã xảy ra lỗi khi tạo file");
+                  console.error(e);
+                }
+              } else {
+                Alert.alert("Thông báo", "Không có dữ liệu để tải xuống");
+              }
+            }}
+          >
+            <Download size={20} color={COLORS.textMain} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -161,7 +199,7 @@ export default function HistoryScreen() {
           <View style={styles.filterCol}>
             <SelectorCard
               title="Select Sensor"
-              value={selectedSensorName || 'Select...'}
+              value={selectedSensorName ? selectedSensorName.replace('SENSOR_', '') : 'Select...'}
               icon={<Cpu size={20} color={COLORS.warning} />}
               iconColor={COLORS.warning}
               onPress={() => openModal('sensor')}
@@ -178,11 +216,19 @@ export default function HistoryScreen() {
           </View>
           <View style={styles.filterCol}>
             <SelectorCard
-              title="Time Range"
-              value={timeRange === '1h' ? 'Last Hour' : timeRange === '24h' ? 'Last 24 Hours' : 'Last 7 Days'}
+              title="Start Time"
+              value={customStartTime ? new Date(customStartTime).toLocaleString() : 'Select Time...'}
               icon={<Clock size={20} color={COLORS.primary} />}
               iconColor={COLORS.primary}
-              onPress={() => openModal('time')}
+              onPress={() => {
+                if (Platform.OS === 'ios') {
+                  setTempDate(customStartTime ? new Date(customStartTime) : new Date());
+                  setModalType('time');
+                  setModalVisible(true);
+                } else {
+                  setShowDatePicker(true);
+                }
+              }}
             />
           </View>
         </View>
@@ -314,7 +360,7 @@ export default function HistoryScreen() {
                       onPress={() => { setSelectedSensorName(s); setModalVisible(false); }}
                     >
                       <Text style={[styles.modalItemText, selectedSensorName === s && styles.modalItemTextSelected]}>
-                        {s}
+                        {s.replace('SENSOR_', '')}
                       </Text>
                     </TouchableOpacity>
                   ))}
@@ -330,28 +376,53 @@ export default function HistoryScreen() {
                       </Text>
                     </TouchableOpacity>
                   ))}
-
-                  {modalType === 'time' && [
-                    { label: 'Last Hour', value: '1h' as const },
-                    { label: 'Last 24 Hours', value: '24h' as const },
-                    { label: 'Last 7 Days', value: '7d' as const }
-                  ].map((t) => (
-                    <TouchableOpacity
-                      key={t.value}
-                      style={[styles.modalItem, timeRange === t.value && styles.modalItemSelected]}
-                      onPress={() => { setTimeRange(t.value); setModalVisible(false); }}
-                    >
-                      <Text style={[styles.modalItemText, timeRange === t.value && styles.modalItemTextSelected]}>
-                        {t.label}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
+                  {modalType === 'time' && Platform.OS === 'ios' && (
+                    <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+                      <DateTimePicker
+                        value={tempDate}
+                        mode="datetime"
+                        display="spinner"
+                        themeVariant="dark"
+                        textColor={COLORS.text}
+                        onChange={(event, selectedDate) => {
+                          if (selectedDate) setTempDate(selectedDate);
+                        }}
+                      />
+                      <TouchableOpacity
+                        style={{ marginTop: 20, backgroundColor: COLORS.primary, paddingHorizontal: 40, paddingVertical: 12, borderRadius: 8 }}
+                        onPress={() => {
+                          setCustomStartTime(tempDate.getTime());
+                          setTimeRange('custom');
+                          setModalVisible(false);
+                        }}
+                      >
+                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Confirm Date & Time</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
                 </ScrollView>
               </View>
             </TouchableWithoutFeedback>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
+
+      {/* Android DateTime Picker */}
+      {showDatePicker && Platform.OS === 'android' && (
+        <DateTimePicker
+          value={customStartTime ? new Date(customStartTime) : new Date()}
+          mode="datetime"
+          is24Hour={true}
+          display="default"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (event.type === 'set' && selectedDate) {
+              setCustomStartTime(selectedDate.getTime());
+              setTimeRange('custom');
+            }
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -366,6 +437,7 @@ const styles = StyleSheet.create({
   headerTitleContainer: { flex: 1 },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: COLORS.textMain },
   headerSubtitle: { fontSize: 14, color: COLORS.secondary, marginTop: 2 },
+  exportButton: { width: 40, height: 40, borderRadius: 12, backgroundColor: `${COLORS.info}20`, alignItems: 'center', justifyContent: 'center' },
   scrollContent: { padding: SIZES.large, paddingBottom: 100 },
   
   filterGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
@@ -374,10 +446,10 @@ const styles = StyleSheet.create({
   chartCard: {
     backgroundColor: COLORS.surface, borderRadius: SIZES.cardRadius,
     padding: SIZES.medium, borderWidth: 1, borderColor: COLORS.border,
-    marginBottom: SIZES.large,
+    marginBottom: SIZES.large, overflow: 'hidden'
   },
   chartMetaText: { fontSize: 12, color: COLORS.secondary, marginBottom: 16 },
-  chartContainer: { alignItems: 'center', justifyContent: 'center', minHeight: 160 },
+  chartContainer: { alignItems: 'center', justifyContent: 'center', minHeight: 160, overflow: 'hidden' },
   chartEmpty: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   chartEmptyText: { color: COLORS.secondary, fontSize: 14 },
 

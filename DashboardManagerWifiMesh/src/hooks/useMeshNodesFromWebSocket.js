@@ -68,25 +68,9 @@ function applyWsText(registry, text, uartTextCarryRef) {
     return registry;
   }
 
-  if (obj && obj.type === "welcome" && Array.isArray(obj.nodeSnapshot)) {
-    const next = new Map(registry);
-    obj.nodeSnapshot.forEach((n) => {
-      const ip = n && typeof n.ip === "string" ? n.ip : "";
-      if (!ip) return;
-      const parsedLastSeen = new Date(n.lastSeen).getTime();
-      const lastSeenMs = Number.isFinite(parsedLastSeen) ? parsedLastSeen : 0;
-      const prev = next.get(ip) || {};
-      next.set(ip, {
-        ...prev,
-        id: ip,
-        ip,
-        meshLevel: n.meshLevel != null ? Number(n.meshLevel) : prev.meshLevel,
-        schemaVersion: n.schemaVersion != null ? Number(n.schemaVersion) : prev.schemaVersion,
-        portCount: prev.portCount ?? 0,
-        lastSeenMs: lastSeenMs || prev.lastSeenMs || 0,
-      });
-    });
-    return next;
+  if (obj && obj.type === "welcome") {
+    // nodeSnapshot is no longer provided in the welcome message.
+    return registry;
   }
 
   if (obj && obj.type === "uart_rx" && typeof obj.hex === "string") {

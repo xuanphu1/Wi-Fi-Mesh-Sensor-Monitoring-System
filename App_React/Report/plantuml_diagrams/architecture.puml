@@ -1,0 +1,49 @@
+@startuml
+!theme plain
+skinparam rectangle {
+    BackgroundColor White
+    BorderColor Black
+    Rounding 5
+}
+skinparam database {
+    BackgroundColor White
+    BorderColor Black
+}
+
+title Kiến trúc triển khai tổng thể của hệ thống App React Native
+
+rectangle "Sensor Mesh\n(ESP32 / ESP8266)" as mesh
+rectangle "Gateway Node\n(Mesh Root)" as root
+
+mesh -> root : "Sensor telemetry + status"
+
+rectangle "Server Host (Python Gateway)" as server {
+    rectangle "WebSocket Server\n(asyncio/websockets)" as ws_server
+    rectangle "REST API Layer\n(aiohttp)" as rest_server
+    database "SQLite DB\n(history.db)" as sqlite
+    
+    ws_server -> sqlite : "Lưu trữ dữ liệu Live"
+    rest_server -> sqlite : "Truy vấn lịch sử / firmware"
+}
+
+root -> ws_server : "WebSocket / JSON\n(Mesh packet, status)"
+
+rectangle "Client Device (Mobile App)" as client {
+    rectangle "Realtime UI Module\n(Zustand / WS Client)" as ws_client
+    rectangle "REST UI Modules\n(History / FOTA)" as rest_client
+    
+    ws_client <-down-> ws_server : "ws://... realtime subscribe"
+    rest_client <-down-> rest_server : "HTTP/REST calls"
+}
+
+note right of server
+  **Python Gateway process:**
+  - WebSocket: realtime pipeline (Port 8765)
+  - HTTP REST: query pipeline (Port 8080)
+  
+  **Main endpoints:**
+  - /api/sensors/history
+  - /api/firmware
+end note
+
+@enduml

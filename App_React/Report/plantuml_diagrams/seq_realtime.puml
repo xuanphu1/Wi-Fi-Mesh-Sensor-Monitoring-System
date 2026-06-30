@@ -1,0 +1,21 @@
+@startuml
+participant "Backend Server" as Backend
+participant "Nginx Reverse Proxy" as Nginx
+participant "App (Realtime UI)" as App
+
+== Xử lý tại Backend ==
+[-> Backend: Nhận chuỗi JSON từ các Node
+Backend -> Backend: Giải mã (Parse) & Kiểm tra hợp lệ
+Backend -> Backend: Bóc tách MAC, Nhiệt độ, Độ ẩm, Pin
+Backend -> Backend: Lưu Time-series Data vào CSDL
+== Phân phối (Broadcast) ==
+Backend -> Nginx: Broadcast gói tin qua WebSocket (ws://)
+Nginx -> App: Chuyển tiếp tới App (wss://)
+== Hiển thị giao diện ==
+App -> App: Parse gói tin & Tính độ trễ (Latency)
+App -> App: Update Zustand Store
+App -> App: Tự động Re-render Biểu đồ & Gauge
+alt Giá trị vượt ngưỡng an toàn
+    App -> App: Kích hoạt chuông & hiển thị Toast đỏ
+end
+@enduml

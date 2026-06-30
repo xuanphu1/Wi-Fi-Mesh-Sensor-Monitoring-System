@@ -1,0 +1,26 @@
+@startuml
+participant "UI Components" as UI
+participant "Zustand Store" as Store
+participant "WebSocketProvider" as WS
+participant "Python Gateway" as Gateway
+
+== Khởi tạo kết nối ==
+WS -> Gateway: Thiết lập kết nối (ws://...)
+Gateway --> WS: Kết nối thành công (onopen)
+WS -> Store: Cập nhật trạng thái wsStatus = 'connected'
+Store --> UI: Re-render hiển thị trạng thái mạng
+
+== Nhận dữ liệu Real-time ==
+Gateway -> WS: Gửi bản tin cảm biến (JSON)
+WS -> WS: Parse JSON & Tính toán độ trễ (Latency)
+WS -> Store: Gọi hàm ingestPacket(data)
+Store -> Store: Lưu dữ liệu mới đè lên dữ liệu cũ
+Store --> UI: Tự động Re-render biểu đồ & Gauge
+
+== Cơ chế Tự phục hồi (Auto-Reconnect) ==
+Gateway -x WS: Đứt kết nối / Server sập (onclose)
+WS -> Store: Cập nhật wsStatus = 'disconnected'
+Store --> UI: Hiển thị cảnh báo mất mạng
+WS -> WS: Đợi 3 giây (setTimeout)
+WS -> Gateway: Tự động gọi hàm connect() lại...
+@enduml

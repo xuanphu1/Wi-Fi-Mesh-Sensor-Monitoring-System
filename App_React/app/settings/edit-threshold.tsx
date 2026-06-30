@@ -15,11 +15,13 @@ export default function EditThresholdScreen() {
   const ip = (params.ip as string) || '192.168.1.101';
   const sensor = (params.sensor as string) || 'BME280';
   const field = (params.field as string) || 'Temperature';
-  const key = `${ip}_${sensor}_${field}`;
+  const fieldKey = (params.fieldKey as string) || 'temp_C';
+  const unit = (params.unit as string) || '°C';
+  const key = `${ip}_${sensor}_${fieldKey}`;
 
   const { getThreshold, setThreshold } = useThresholdStore();
   const node = useMeshStore(s => s.nodes[ip]);
-  const currentReading = node?.sensorEntries?.find(s => s.sensorName === sensor && s.label === field);
+  const currentReading = node?.sensorEntries?.find(s => s.sensorName === sensor && s.key === fieldKey);
   const currentValue = currentReading ? currentReading.value.toFixed(1) : '--';
 
   const [enabled, setEnabled] = useState(false);
@@ -51,14 +53,6 @@ export default function EditThresholdScreen() {
     });
     router.back();
   };
-
-  const getUnit = () => {
-    if (field.includes('Temp')) return '°C';
-    if (field.includes('Humid')) return '%';
-    if (field.includes('Press')) return 'hPa';
-    return '';
-  };
-  const unit = getUnit();
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>

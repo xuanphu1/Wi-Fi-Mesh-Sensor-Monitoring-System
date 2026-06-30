@@ -142,6 +142,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     ESP_LOGI(WIFI_TAG, "WiFi STA link established");
   } else if (event_base == WIFI_EVENT &&
              event_id == WIFI_EVENT_STA_DISCONNECTED) {
+    wifi_event_sta_disconnected_t *disconn = (wifi_event_sta_disconnected_t *)event_data;
+    ESP_LOGW(WIFI_TAG, "WiFi STA disconnected! Reason code: %d", disconn->reason);
     xEventGroupClearBits(ctx->event_group,
                          WIFI_CONNECTED_BIT | WIFI_STA_LINKED_BIT);
     xEventGroupSetBits(ctx->event_group, WIFI_FAIL_BIT);

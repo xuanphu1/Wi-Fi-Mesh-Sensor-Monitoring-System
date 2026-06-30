@@ -1,0 +1,18 @@
+@startuml
+actor "Người dùng" as User
+participant "App (History UI)" as App
+participant "Nginx Reverse Proxy" as Nginx
+participant "Backend Server (REST)" as Backend
+database "Cơ sở dữ liệu" as DB
+
+User -> App: Mở Tab Lịch sử, chọn Node & Thời gian
+App -> Nginx: HTTP GET /api/history/series\n(params: mac, from, to)
+Nginx -> Backend: Phân giải SSL & Chuyển tiếp (Routing)
+Backend -> DB: Truy vấn dữ liệu theo thời gian (SELECT)
+DB --> Backend: Trả về tập dữ liệu
+Backend --> Nginx: JSON Response (Mảng dữ liệu HistorySeriesItem)
+Nginx --> App: Trả về kết quả cho thiết bị
+App -> App: Vẽ Line Chart lịch sử
+User -> App: Bấm "Export CSV"
+App -> App: Expo FileSystem ghi file .csv vào máy
+@enduml

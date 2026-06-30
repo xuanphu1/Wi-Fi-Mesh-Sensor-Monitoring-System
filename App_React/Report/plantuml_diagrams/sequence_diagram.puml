@@ -1,0 +1,15 @@
+@startuml
+participant "Hardware Node" as Node
+participant "Gateway (Python)" as Gateway
+participant "Frontend (App)" as App
+
+App -> Gateway: 1. Thiết lập kết nối WebSocket
+Gateway <-> App: 2. WebSocket Handshake Thành công
+
+Node -> Gateway: 3. Đẩy gói tin cảm biến (JSON)
+Gateway -> Gateway: 4. Parse JSON & Lưu vào SQLite
+Gateway -> App: 5. Broadcast (Push) qua WebSocket
+App -> App: 6. Cập nhật Zustand & Re-render UI
+
+App --> Gateway: 7. HTTP GET /api/history (Truy vấn DB)
+@enduml

@@ -1,0 +1,46 @@
+@startmindmap
+<style>
+mindmapDiagram {
+  node {
+    Padding 10
+    Margin 15
+    RoundCorner 10
+    BackgroundColor white
+    FontName sans-serif
+  }
+  .folder {
+    BorderColor #4285F4
+    BorderThickness 2
+  }
+  .file {
+    BorderColor #34A853
+    BorderThickness 2
+  }
+  .title {
+    BackgroundColor #041029
+    BorderColor #041029
+    FontColor white
+  }
+  arrow {
+    LineColor #888888
+    LineThickness 2
+  }
+}
+</style>
++ <&folder> Folder Tree - App_React <<title>>
+++ <color:#4285F4><&folder></color> App_React <<folder>>
++++ <color:#4285F4><&folder></color> PythonServer <<folder>>
+++++ <color:#34A853><&file></color> history.db <<file>>
+++++ <color:#34A853><&file></color> server.py <<file>>
+++++ <color:#4285F4><&folder></color> venv <<folder>>
++++ <color:#4285F4><&folder></color> src <<folder>>
+++++ <color:#4285F4><&folder></color> components <<folder>>
+++++ <color:#4285F4><&folder></color> constants <<folder>>
+++++ <color:#4285F4><&folder></color> services <<folder>>
+++++ <color:#4285F4><&folder></color> store <<folder>>
+++++ <color:#4285F4><&folder></color> types <<folder>>
+++++ <color:#4285F4><&folder></color> utils <<folder>>
++++ <color:#34A853><&file></color> App.tsx <<file>>
++++ <color:#34A853><&file></color> app.json <<file>>
++++ <color:#34A853><&file></color> package.json <<file>>
+@endmindmap

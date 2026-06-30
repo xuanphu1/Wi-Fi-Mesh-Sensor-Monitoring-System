@@ -1,0 +1,21 @@
+@startuml
+participant "App (Zustand/WS)" as App
+participant "Nginx Reverse Proxy" as Nginx
+participant "WebSocket Server (Backend)" as Backend
+participant "Hardware Node" as Node
+
+== Khởi tạo hệ thống ==
+Backend -> Backend: Khởi động Backend Server\n& Kết nối Cơ sở dữ liệu
+Backend -> Backend: Bắt đầu lắng nghe kết nối
+Node -> Backend: Đăng nhập vào mạng lưới
+== Thiết lập WebSocket ==
+App -> Nginx: Gửi yêu cầu kết nối an toàn (wss://) qua Port 443
+Nginx -> Backend: Phân giải SSL & Chuyển tiếp (Routing)
+Backend --> Nginx: Chấp nhận kết nối
+Nginx --> App: Chấp nhận kết nối (onopen)
+App -> App: Cập nhật UI trạng thái "Connected"
+== Auto-Reconnect ==
+Nginx -x App: Mất kết nối (Mạng chập chờn)
+App -> App: Kích hoạt Timeout (3s)
+App -> Nginx: Tự động thử kết nối lại
+@enduml

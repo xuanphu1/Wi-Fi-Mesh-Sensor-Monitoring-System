@@ -7,8 +7,10 @@ DB_TYPE=sqlite SQLITE_DB_PATH="/mnt/server-data/msems/database/mesh.sqlite" npm 
 serve -s build -l 3000
 
 
-sudo systemctl stop server-app.service
-
+sudo systemctl stop msems-backend.service
+sudo systemctl stop msems-backend.service
+sudo systemctl status msems-web.service
+sudo systemctl status msems-backend.service
 
 msems-backend.service
 msems-web.service

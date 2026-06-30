@@ -1,0 +1,36 @@
+@startmindmap
+<style>
+mindmapDiagram {
+  node {
+    Padding 10
+    Margin 15
+    RoundCorner 10
+    BackgroundColor white
+    FontName sans-serif
+  }
+  .folder {
+    BorderColor #4285F4
+    BorderThickness 2
+  }
+  .file {
+    BorderColor #34A853
+    BorderThickness 2
+  }
+  .title {
+    BackgroundColor #041029
+    BorderColor #041029
+    FontColor white
+  }
+  arrow {
+    LineColor #888888
+    LineThickness 2
+  }
+}
+</style>
++ <&folder> Folder Tree - store <<title>>
+++ <color:#4285F4><&folder></color> store <<folder>>
++++ <color:#34A853><&file></color> useHistoryFilterStore.ts <<file>>
++++ <color:#34A853><&file></color> useMeshStore.ts <<file>>
++++ <color:#34A853><&file></color> useThresholdStore.ts <<file>>
++++ <color:#34A853><&file></color> useToastStore.ts <<file>>
+@endmindmap

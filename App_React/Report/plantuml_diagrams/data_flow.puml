@@ -1,0 +1,11 @@
+@startuml
+node "Cảm biến / Mock Node" as sensor #FFEBCD
+node "Python Gateway" as gateway #E6E6FA
+database "SQLite DB" as sqlite #E0FFF0
+node "React Native App" as react #E6E6FA
+
+sensor -> gateway : Gửi dữ liệu\n(JSON)
+gateway -up-> sqlite : Ghi SQL (INSERT)
+gateway -down-> react : Push qua WebSocket
+react <-up-> sqlite : HTTP GET /api/history
+@enduml

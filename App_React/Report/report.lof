@@ -1,0 +1,21 @@
+\babel@toc {vietnamese}{}\relax 
+\babel@toc {vietnamese}{}\relax 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Sơ đồ kiến trúc và luồng dữ liệu tổng thể của ứng dụng}}{11}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Sơ đồ tuần tự Luồng khởi tạo kết nối.}}{12}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Sơ đồ tuần tự Luồng giám sát thời gian thực.}}{13}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Sơ đồ tuần tự Luồng truy vấn dữ liệu lịch sử.}}{14}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Sơ đồ tuần tự Luồng cập nhật phần mềm (FOTA).}}{16}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Cấu trúc phân bổ thư mục tổng quan}}{17}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Chi tiết các tập tin trong thư mục components}}{18}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Chi tiết các tập tin trong thư mục store}}{19}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Chi tiết các tập tin trong thư mục services}}{20}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Chi tiết các tập tin cấu hình và tiện ích}}{21}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Giao diện Dashboard tổng quan}}{22}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Giao diện Lịch sử dữ liệu \& Biểu đồ}}{22}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Quản lý danh sách Cảm biến (Nodes)}}{23}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Quản lý danh sách Gateway}}{23}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Giám sát Máy chủ (Server Health)}}{24}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Giao diện Cài đặt (Settings)}}{24}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Thiết lập ngưỡng cảnh báo}}{25}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Cập nhật thông tin Cảm biến}}{25}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Trang thông tin \& Hướng dẫn (About)}}{26}{figure.caption.22}%

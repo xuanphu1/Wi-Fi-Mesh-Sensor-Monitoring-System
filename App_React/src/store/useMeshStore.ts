@@ -26,6 +26,7 @@ type MeshStore = {
   onlineNodes: () => MeshNode[];
   allNodes: () => MeshNode[];
   isGatewayOnline: () => boolean;
+  checkTimeouts: () => void;
 };
 
 function defaultApiBaseUrl() {
@@ -130,7 +131,7 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
     const now = Date.now();
     const rtcMs = parseDeviceRtcMs(packet.rtcIso);
     const latencyMs = rtcMs != null ? Math.max(0, now - rtcMs) : null;
-    const sensorEntries = packet.ports.flatMap((port) =>
+    const incomingSensorEntries = packet.ports.flatMap((port) =>
       port.readings.map((reading) => ({
         ...reading,
         sensorName: port.sensorName,
@@ -138,34 +139,50 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
       })),
     );
 
-    set((state) => ({
-      nodes: {
-        ...state.nodes,
-        [packet.mac]: {
-          ip: packet.mac,
-          name: 'Mesh Node',
-          status: 'Online',
-          lastSeen: now,
-          schemaVersion: packet.schemaVersion,
-          firmwareVersion: packet.firmwareVersion,
-          meshLevel: packet.meshLevel,
-          validRtc: rtcMs != null,
-          latencyMs,
-          runtimeErrors: packet.runtimeErrors,
-          sensorEntries,
-          portCount: packet.ports.length,
+    set((state) => {
+      const prevNode = state.nodes[packet.mac];
+      const mergedSensorEntries = [...(prevNode?.sensorEntries || [])];
+      
+      incomingSensorEntries.forEach((newEntry) => {
+        const existingIdx = mergedSensorEntries.findIndex(
+          (e) => e.port === newEntry.port && e.key === newEntry.key
+        );
+        if (existingIdx >= 0) {
+          mergedSensorEntries[existingIdx] = newEntry;
+        } else {
+          mergedSensorEntries.push(newEntry);
+        }
+      });
+
+      return {
+        nodes: {
+          ...state.nodes,
+          [packet.mac]: {
+            ip: packet.mac,
+            name: prevNode?.name || 'Mesh Node',
+            status: 'Online',
+            lastSeen: now,
+            schemaVersion: packet.schemaVersion,
+            firmwareVersion: packet.firmwareVersion,
+            meshLevel: packet.meshLevel,
+            validRtc: rtcMs != null,
+            latencyMs,
+            runtimeErrors: packet.runtimeErrors,
+            sensorEntries: mergedSensorEntries,
+            portCount: Math.max(prevNode?.portCount || 0, packet.ports.length),
+          },
         },
-      },
-      throughputSeries: [...state.throughputSeries, { value: payloadBytes }].slice(-30),
+        throughputSeries: [...state.throughputSeries, { value: payloadBytes }].slice(-30),
       eventLog: [
         {
           t: now,
           level: packet.runtimeErrors.length ? ('warn' as const) : ('info' as const),
-          message: `${packet.mac} ${sensorEntries.length} readings, ${payloadBytes} bytes`,
+          message: `${packet.mac} ${incomingSensorEntries.length} readings, ${payloadBytes} bytes`,
         },
         ...state.eventLog,
       ].slice(0, 20),
-    }));
+      };
+    });
   },
 
   allNodes: () => Object.values(get().nodes).map((node) => ({ ...node, status: nodeStatus(node.lastSeen) })),
@@ -174,4 +191,23 @@ export const useMeshStore = create<MeshStore>((set, get) => ({
     const seenAt = get().gatewaySeenAt;
     return Boolean(seenAt && Date.now() - seenAt <= GATEWAY_OFFLINE_MS);
   },
+  checkTimeouts: () => {
+    const now = Date.now();
+    let hasChanges = false;
+    const nextNodes = { ...get().nodes };
+    
+    Object.values(nextNodes).forEach(node => {
+      if (node.status === 'Online') {
+        const age = now - (node.lastSeen || 0);
+        if (age > NODE_OFFLINE_MS) {
+          nextNodes[node.ip] = { ...node, status: 'Offline' };
+          hasChanges = true;
+        }
+      }
+    });
+
+    if (hasChanges) {
+      set({ nodes: nextNodes });
+    }
+  }
 }));

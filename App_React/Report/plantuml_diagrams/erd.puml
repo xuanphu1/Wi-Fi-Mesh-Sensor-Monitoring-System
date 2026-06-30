@@ -1,0 +1,20 @@
+@startuml
+entity "telemetry" as telemetry {
+  * id : INTEGER [PK, AI]
+  --
+  ip : TEXT
+  sensor : TEXT
+  field : TEXT
+  value : REAL
+  time : INTEGER
+}
+
+entity "firmware" as firmware {
+  * id : INTEGER [PK, AI]
+  --
+  object : TEXT
+  version : TEXT
+  size : INTEGER
+  uploadedAt : TEXT
+}
+@enduml

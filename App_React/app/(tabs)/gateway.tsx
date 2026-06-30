@@ -270,6 +270,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     marginBottom: SIZES.medium,
+    overflow: 'hidden',
   },
   card: {
     width: '47%',

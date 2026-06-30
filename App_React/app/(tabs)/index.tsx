@@ -10,6 +10,7 @@ import QuickActionButton from '../../src/components/QuickActionButton';
 import SystemChart from '../../src/components/SystemChart';
 
 import { useMeshStore } from '../../src/store/useMeshStore';
+import { useToastStore } from '../../src/store/useToastStore';
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -77,7 +78,7 @@ export default function DashboardScreen() {
         </View>
         <TouchableOpacity 
           style={styles.bellButton}
-          onPress={() => Alert.alert('Thông báo', 'Hệ thống đã hoạt động bình thường')}
+          onPress={() => useToastStore.getState().showToast('Thông báo', 'Hệ thống đã hoạt động bình thường', 'info')}
         >
           <Bell size={20} color={COLORS.textMain} />
           <View style={styles.bellBadge} />

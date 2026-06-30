@@ -5,12 +5,13 @@ import { ChevronLeft, Plus, Search, Server, Cpu, Droplet, ChevronRight } from 'l
 import { useRouter } from 'expo-router';
 import { COLORS, SIZES } from '../../src/constants/theme';
 import { useMeshStore } from '../../src/store/useMeshStore';
+import { getSensorTypeByName, getFieldsForSensorType } from '../../src/constants/mesh';
 
-// Helper to determine fields from sensor name for mockup consistency
-const getSensorFields = (name: string) => {
-  if (name.includes('BME280')) return 'Temperature, Humidity, Pressure, Altitude';
-  if (name.includes('BME680')) return 'Temperature, Humidity, Pressure, Gas';
-  return 'Temperature, Humidity';
+const getSensorFieldsText = (sensorName: string) => {
+  const type = getSensorTypeByName(sensorName);
+  const fields = getFieldsForSensorType(type);
+  if (fields.length === 0) return 'No fields available';
+  return fields.map(f => f.label).join(', ');
 };
 
 // Helper icon
@@ -102,30 +103,31 @@ export default function SensorThresholdsScreen() {
                 {/* Nested Sensors */}
                 {uniqueSensors.length > 0 ? (
                   <View style={styles.sensorsList}>
-                    {uniqueSensors.map((sensorName, sIdx) => (
-                      <TouchableOpacity 
-                        key={sIdx} 
-                        style={styles.sensorItemRow}
-                        activeOpacity={0.7}
-                        onPress={() => {
-                          // In a real implementation we might pass field as well, but for mockup we just pass sensor
-                          // We pass parameters using expo-router query params
-                          router.push({
-                            pathname: '/settings/edit-threshold',
-                            params: { ip: node.ip, sensor: sensorName, field: 'Temperature' }
-                          });
-                        }}
-                      >
-                        <View style={[styles.sensorIconContainer, { backgroundColor: getSensorIconBg(sensorName) }]}>
-                          {getSensorIcon(sensorName)}
-                        </View>
-                        <View style={styles.sensorTextContainer}>
-                          <Text style={styles.sensorTitle}>{sensorName}</Text>
-                          <Text style={styles.sensorFields}>{getSensorFields(sensorName)}</Text>
-                        </View>
-                        <ChevronRight size={18} color={COLORS.secondary} />
-                      </TouchableOpacity>
-                    ))}
+                    {uniqueSensors.flatMap((sensorName) => {
+                      const fields = getFieldsForSensorType(getSensorTypeByName(sensorName));
+                      return fields.map((field) => (
+                        <TouchableOpacity 
+                          key={`${sensorName}-${field.key}`}
+                          style={styles.sensorItemRow}
+                          activeOpacity={0.7}
+                          onPress={() => {
+                            router.push({
+                              pathname: '/settings/edit-threshold',
+                              params: { ip: node.ip, sensor: sensorName, field: field.label, fieldKey: field.key, unit: field.unit }
+                            });
+                          }}
+                        >
+                          <View style={[styles.sensorIconContainer, { backgroundColor: getSensorIconBg(sensorName) }]}>
+                            {getSensorIcon(sensorName)}
+                          </View>
+                          <View style={styles.sensorTextContainer}>
+                            <Text style={styles.sensorTitle}>{sensorName}</Text>
+                            <Text style={styles.sensorFields}>Configure {field.label}</Text>
+                          </View>
+                          <ChevronRight size={18} color={COLORS.secondary} />
+                        </TouchableOpacity>
+                      ));
+                    })}
                   </View>
                 ) : (
                   <View style={styles.noSensorsContainer}>

@@ -16,6 +16,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   useEffect(() => {
     let reconnectTimeout: NodeJS.Timeout;
+    
+    // Periodically check for node timeouts
+    const timeoutInterval = setInterval(() => {
+      useMeshStore.getState().checkTimeouts();
+    }, 2000);
 
     const connect = () => {
       setWsStatus('Connecting');
@@ -49,7 +54,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
               const thresholds = useThresholdStore.getState().thresholds;
               parsed.ports.forEach(port => {
                 port.readings.forEach(reading => {
-                  const key = `${parsed.mac}_${port.sensorName}_${reading.label}`;
+                  const key = `${parsed.mac}_${port.sensorName}_${reading.key}`;
                   const th = thresholds[key];
                   
                   if (th && th.enabled && th.notify) {
@@ -104,6 +109,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     return () => {
       clearTimeout(reconnectTimeout);
+      clearInterval(timeoutInterval);
       if (wsRef.current) {
         wsRef.current.close();
       }

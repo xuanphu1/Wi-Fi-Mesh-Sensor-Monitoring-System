@@ -307,6 +307,33 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
+ * /api/nodes:
+ *   get:
+ *     summary: Retrieve a snapshot of all active nodes
+ *     description: Fetches a summary of all active gateways and nodes, including their MAC addresses, last seen times, mesh levels, and packet loss statistics.
+ *     responses:
+ *       200:
+ *         description: An array of node snapshot objects
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       500:
+ *         description: Internal server error
+ */
+app.get("/api/nodes", async (req, res) => {
+  try {
+    const nodeSnapshot = await store.getNodeSnapshot();
+    res.json(nodeSnapshot);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
  * /api/history/meta:
  *   get:
  *     summary: Retrieve a list of all MAC addresses
@@ -494,27 +521,17 @@ function broadcast(data, except) {
 }
 
 wss.on("connection", async (ws, req) => {
+  ws.isAlive = true;
+  ws.on('pong', () => {
+    ws.isAlive = true;
+  });
+
   const ip = clientIpPretty(req.socket.remoteAddress || "");
   console.log(`[ws] client connected ${ip} (tổng ${wss.clients.size})`);
   const serverNet = getServerNetworkInfo();
   const state = { uartCarry: "" };
-  let nodeSnapshot = [];
-  try {
-    nodeSnapshot = await store.getNodeSnapshot();
-  } catch (err) {
-    console.error("[mongo] getNodeSnapshot failed:", err.message);
-  }
 
-  ws.send(
-    JSON.stringify({
-      type: "welcome",
-      t: Date.now(),
-      message: "Dashboard WS server",
-      serverNet,
-      nodeSnapshot,
-    })
-  );
-
+  // MUST attach listeners SYNCHRONOUSLY to avoid missing early messages
   ws.on("message", async (raw, isBinary) => {
     if (isBinary) {
       console.log(`[ws] RX binary from ${ip}: ${raw.length} bytes`);
@@ -559,6 +576,34 @@ wss.on("connection", async (ws, req) => {
   ws.on("close", () => {
     console.log(`[ws] client disconnected (còn ${wss.clients.size})`);
   });
+
+  // Only send welcome if socket is still open
+  if (ws.readyState === 1) {
+    ws.send(
+      JSON.stringify({
+        type: "welcome",
+        t: Date.now(),
+        message: "Dashboard WS server",
+        serverNet,
+      })
+    );
+  }
+});
+
+// --- WebSocket Heartbeat Interval ---
+const interval = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if (ws.isAlive === false) {
+      console.log("[ws] Terminating zombie connection");
+      return ws.terminate();
+    }
+    ws.isAlive = false;
+    ws.ping();
+  });
+}, 30000);
+
+wss.on('close', () => {
+  clearInterval(interval);
 });
 
 setInterval(() => {

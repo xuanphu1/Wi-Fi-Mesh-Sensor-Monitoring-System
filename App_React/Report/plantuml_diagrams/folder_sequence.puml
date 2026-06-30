@@ -1,0 +1,14 @@
+@startuml
+participant "PythonServer/" as Backend #E6E6FA
+participant "src/services/" as Parser #E0FFF0
+participant "src/store/" as Store #E0FFF0
+participant "src/components/" as UI #E0FFF0
+
+== Luồng xử lý qua các thư mục ==
+Backend -> Backend: server.py tạo/đọc dữ liệu
+Backend -> Parser: Gửi bản tin JSON qua WebSocket
+Parser -> Parser: meshParser.ts bóc tách tham số
+Parser --> Store: Truyền dữ liệu đối tượng (MeshNode)
+Store -> Store: useMeshStore.ts cập nhật State toàn cục
+Store --> UI: Kích hoạt Re-render các Component (Charts, Cards)
+@enduml

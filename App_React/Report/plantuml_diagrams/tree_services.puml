@@ -1,0 +1,36 @@
+@startmindmap
+<style>
+mindmapDiagram {
+  node {
+    Padding 10
+    Margin 15
+    RoundCorner 10
+    BackgroundColor white
+    FontName sans-serif
+  }
+  .folder {
+    BorderColor #4285F4
+    BorderThickness 2
+  }
+  .file {
+    BorderColor #34A853
+    BorderThickness 2
+  }
+  .title {
+    BackgroundColor #041029
+    BorderColor #041029
+    FontColor white
+  }
+  arrow {
+    LineColor #888888
+    LineThickness 2
+  }
+}
+</style>
++ <&folder> Folder Tree - services <<title>>
+++ <color:#4285F4><&folder></color> services <<folder>>
++++ <color:#34A853><&file></color> api.ts <<file>>
++++ <color:#34A853><&file></color> meshParser.ts <<file>>
++++ <color:#34A853><&file></color> storage.ts <<file>>
++++ <color:#4285F4><&folder></color> modules <<folder>>
+@endmindmap

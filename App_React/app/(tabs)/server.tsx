@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.large,
     borderWidth: 1,
     borderColor: COLORS.border,
+    overflow: 'hidden',
   },
   cardHeader: {
     flexDirection: 'row',

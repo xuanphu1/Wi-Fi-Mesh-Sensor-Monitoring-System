@@ -176,10 +176,16 @@ function parseMeshFromMessage(msg, uartTextCarryRef) {
 }
 
 function applyWelcomeToRegistry(registry, obj) {
-  if (!obj || obj.type !== "welcome" || !Array.isArray(obj.nodeSnapshot)) return registry;
+  // nodeSnapshot is no longer provided in the welcome message.
+  // It is now fetched via HTTP REST API.
+  return registry;
+}
+
+function applyHttpNodesToRegistry(registry, nodes) {
+  if (!Array.isArray(nodes)) return registry;
 
   const next = new Map(registry);
-  obj.nodeSnapshot.forEach((n) => {
+  nodes.forEach((n) => {
     const ip = n && typeof n.ip === "string" ? n.ip : "";
     if (!ip) return;
 
@@ -267,6 +273,25 @@ export function MeshRealtimeProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    let active = true;
+
+    // 1. Fetch initial node snapshot via HTTP
+    const fetchNodes = async () => {
+      try {
+        const httpUrl = getHttpUrl(wsUrl, "/api/nodes");
+        const res = await fetch(httpUrl);
+        if (!res.ok) throw new Error("Network response was not ok");
+        const nodes = await res.json();
+        if (active) {
+          setNodeRegistry((prev) => applyHttpNodesToRegistry(prev, nodes));
+        }
+      } catch (err) {
+        console.error("Failed to fetch node snapshot via HTTP:", err);
+      }
+    };
+    fetchNodes();
+
+    // 2. Connect WebSocket for Realtime updates
     if (!url) {
       setWsOpen(false);
       return undefined;

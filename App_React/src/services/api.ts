@@ -17,7 +17,7 @@ if (debuggerHost) {
   defaultHost = '10.0.2.2';
 }
 
-let currentApiBaseUrl = `http://${defaultHost}:8080`;
+let currentApiBaseUrl = `https://systemmsems.msems.click`;
 
 export const setGlobalApiBaseUrl = (url: string) => {
   currentApiBaseUrl = url;
@@ -40,8 +40,8 @@ apiClient.interceptors.request.use(async (config) => {
 });
 
 export async function loadSavedEndpoint() {
-  const apiBaseUrl = (await getStoredItem(API_BASE_URL_KEY)) || `http://${defaultHost}:8080`;
-  const wsUrl = (await getStoredItem(WS_URL_KEY)) || `ws://${defaultHost}:8765`;
+  const apiBaseUrl = (await getStoredItem(API_BASE_URL_KEY)) || `https://systemmsems.msems.click`;
+  const wsUrl = (await getStoredItem(WS_URL_KEY)) || `wss://systemmsems.msems.click/ws`;
   setGlobalApiBaseUrl(apiBaseUrl);
   useMeshStore.getState().setEndpoint(apiBaseUrl, wsUrl);
   return { apiBaseUrl, wsUrl };

@@ -1,0 +1,61 @@
+@startuml
+skinparam componentStyle uml2
+skinparam BackgroundColor white
+skinparam padding 2
+
+package "React Native Mobile App (Client)" {
+  
+  package "UI Layer (Expo Router)" {
+    [Dashboard]
+    [Nodes / Sensors Monitor]
+    [History & Chart]
+    [Gateway Monitor]
+    [Server Monitor]
+    [Settings]
+    [About]
+  }
+
+  package "State Management" {
+    [Zustand Store\n(useMeshStore)] as Store
+  }
+
+  package "Services & Utilities" {
+    [WebSocket Client] as WSClient
+    [HTTP Client (Axios)] as HTTPClient
+    [Expo FileSystem & Sharing] as FileSys
+  }
+}
+
+package "Backend Server" {
+  [Nginx Reverse Proxy] as Nginx
+  
+  package "Microservices" {
+    [WebSocket Server] as WSServer
+    [REST API Server] as RESTServer
+  }
+  
+  database "Time-series / SQL DB" as DB
+}
+
+' Liên kết trong App
+[Dashboard] --> Store : Đọc trạng thái tổng quan
+[Nodes / Sensors Monitor] --> Store : Đọc dữ liệu Realtime
+[Gateway Monitor] --> Store : Lấy thông số Gateway
+[Server Monitor] --> Store : Lấy thông số Server
+[Settings] --> Store : Cập nhật IP/Domain
+[History & Chart] --> HTTPClient : Truy vấn dữ liệu lịch sử
+[History & Chart] --> FileSys : Lưu & xuất file CSV
+
+WSClient --> Store : Hợp nhất (Merge) dữ liệu Realtime liên tục
+
+' Kết nối ra bên ngoài
+WSClient <--> Nginx : Kết nối WSS (wss://)
+HTTPClient <--> Nginx : Truy vấn HTTPS (https://)
+
+' Xử lý trên Backend
+Nginx <--> WSServer : Định tuyến WebSocket
+Nginx <--> RESTServer : Định tuyến API
+WSServer --> DB : Lưu trữ Telemetry
+RESTServer --> DB : Đọc dữ liệu quá khứ
+
+@enduml

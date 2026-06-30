@@ -1,0 +1,19 @@
+@startuml
+!theme plain
+actor "Người dùng" as User
+participant "App (FOTA UI)" as App
+participant "Gateway (Manager)" as Gateway
+participant "Hardware Node" as Node
+
+User -> App: Mở Tab FOTA
+App -> Gateway: HTTP GET /api/firmware
+Gateway --> App: Trả về danh sách Firmware (.bin)
+User -> App: Bấm "Update" cho thiết bị cụ thể
+App -> Gateway: HTTP POST /api/firmware/update
+Gateway -> Node: Gửi tín hiệu báo Cập nhật (WS/Mesh)
+Node --> Gateway: Sẵn sàng nhận file
+Gateway -> Node: Stream từng block file .bin (OTA)
+Node -> Node: Ghi đè Flash & Tự khởi động lại
+Node --> Gateway: Báo cáo phiên bản mới
+Gateway --> App: Push thông báo Update thành công
+@enduml
