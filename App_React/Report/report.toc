@@ -15,15 +15,14 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Luồng Khởi tạo kết nối (Init \& Connect)}{12}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Luồng Giám sát thời gian thực (Real-time telemetry)}{13}{subsubsection.2.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.3}Luồng Truy vấn dữ liệu lịch sử (History query)}{14}{subsubsection.2.2.3}%
-\contentsline {subsubsection}{\numberline {2.2.4}Luồng Cập nhật phần mềm (FOTA)}{15}{subsubsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.3}Cây thư mục chính trong mã nguồn src}{16}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Thư mục \texttt {components}}{17}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}Thư mục \texttt {store}}{19}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Thư mục \texttt {services}}{20}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}Các thư mục \texttt {constants}, \texttt {types}, \texttt {utils}}{20}{subsubsection.2.3.4}%
-\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 3. DEMO THEO KỊCH BẢN}{22}{figure.caption.17}%
-\contentsline {subsection}{\numberline {3.1}Kết quả Giao diện Ứng dụng Di động}{22}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Bảng tổng kết chức năng}{26}{subsection.3.2}%
-\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 4. TỔNG KẾT}{28}{table.caption.23}%
-\contentsline {subsection}{\numberline {4.1}Kết luận}{28}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Hướng phát triển tương lai}{28}{subsection.4.2}%
+\contentsline {subsection}{\numberline {2.3}Cây thư mục chính trong mã nguồn src}{15}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Thư mục \texttt {components}}{16}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Thư mục \texttt {store}}{18}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Thư mục \texttt {services}}{19}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Các thư mục \texttt {constants}, \texttt {types}, \texttt {utils}}{19}{subsubsection.2.3.4}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 3. DEMO THEO KỊCH BẢN}{21}{figure.caption.16}%
+\contentsline {subsection}{\numberline {3.1}Kết quả Giao diện Ứng dụng Di động}{21}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Bảng tổng kết chức năng}{25}{subsection.3.2}%
+\contentsline {section}{\hbox to\@tempdima {\hfil }CHƯƠNG 4. TỔNG KẾT}{27}{table.caption.22}%
+\contentsline {subsection}{\numberline {4.1}Kết luận}{27}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Hướng phát triển tương lai}{27}{subsection.4.2}%

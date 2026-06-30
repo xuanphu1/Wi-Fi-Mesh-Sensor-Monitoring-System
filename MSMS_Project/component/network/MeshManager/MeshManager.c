@@ -105,6 +105,53 @@ static bool mesh_get_sta_ip_info(esp_netif_ip_info_t *out) {
 /**
  * @brief Parse origin info in telemetry JSON: {"n":<level>, "i":"<ip>", ...}
  */
+#define MAX_TRACKED_NODES 32
+
+typedef struct {
+    char mac[20];
+    uint32_t last_seq;
+    uint32_t expected_seq;
+    uint32_t packets_lost;
+    uint32_t packets_received;
+} packet_loss_tracker_t;
+
+static packet_loss_tracker_t s_trackers[MAX_TRACKED_NODES];
+static portMUX_TYPE s_tracker_mux = portMUX_INITIALIZER_UNLOCKED;
+
+static void mesh_track_packet(const char* mac, uint32_t seq) {
+    if (mac == NULL || strlen(mac) == 0 || seq == 0) return;
+    
+    portENTER_CRITICAL(&s_tracker_mux);
+    int found_idx = -1;
+    int empty_idx = -1;
+    for (int i=0; i<MAX_TRACKED_NODES; i++) {
+        if (s_trackers[i].mac[0] == '\0' && empty_idx == -1) {
+             empty_idx = i;
+        } else if (strncmp(s_trackers[i].mac, mac, sizeof(s_trackers[i].mac)) == 0) {
+             found_idx = i;
+             break;
+        }
+    }
+    
+    if (found_idx >= 0) {
+        if (s_trackers[found_idx].expected_seq != 0) {
+            if (seq > s_trackers[found_idx].expected_seq) {
+                s_trackers[found_idx].packets_lost += (seq - s_trackers[found_idx].expected_seq);
+            }
+        }
+        s_trackers[found_idx].last_seq = seq;
+        s_trackers[found_idx].expected_seq = seq + 1;
+        s_trackers[found_idx].packets_received++;
+    } else if (empty_idx >= 0) {
+        strncpy(s_trackers[empty_idx].mac, mac, sizeof(s_trackers[empty_idx].mac)-1);
+        s_trackers[empty_idx].last_seq = seq;
+        s_trackers[empty_idx].expected_seq = seq + 1;
+        s_trackers[empty_idx].packets_lost = 0;
+        s_trackers[empty_idx].packets_received = 1;
+    }
+    portEXIT_CRITICAL(&s_tracker_mux);
+}
+
 static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
                                      char *origin_ip, size_t origin_ip_cap,
                                      int *origin_lvl) {
@@ -143,6 +190,30 @@ static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
   if (lvl_pos != NULL && origin_lvl != NULL) {
     lvl_pos += strlen(lvl_key);
     *origin_lvl = (int)strtol(lvl_pos, NULL, 10);
+  }
+  
+  const char *seq_key = "\"seq\":";
+  char *seq_pos = strstr(json, seq_key);
+  uint32_t seq = 0;
+  if (seq_pos != NULL) {
+    seq = (uint32_t)strtoul(seq_pos + strlen(seq_key), NULL, 10);
+  }
+
+  const char *mac_key = "\"M\":\"";
+  char *mac_pos = strstr(json, mac_key);
+  char mac_str[20] = {0};
+  if (mac_pos != NULL) {
+    mac_pos += strlen(mac_key);
+    size_t i = 0;
+    while (mac_pos[i] != '\0' && mac_pos[i] != '"' && i < sizeof(mac_str) - 1) {
+      mac_str[i] = mac_pos[i];
+      i++;
+    }
+    mac_str[i] = '\0';
+  }
+  
+  if (seq > 0 && strlen(mac_str) > 0) {
+      mesh_track_packet(mac_str, seq);
   }
 }
 
@@ -882,10 +953,32 @@ static void mesh_print_system_info_timercb(TimerHandle_t timer) {
              inet_ntoa(ip_struct));
     node = node->next;
   }
-#else
-  ESP_LOGD(TAG_MESH, "Mesh node list skipped (set "
-                     "CONFIG_MESH_LITE_NODE_INFO_REPORT=y for list)");
 #endif
+
+  for (int i=0; i<MAX_TRACKED_NODES; i++) {
+      char mac[20] = {0};
+      uint32_t lost = 0;
+      uint32_t recv = 0;
+      
+      portENTER_CRITICAL(&s_tracker_mux);
+      if (s_trackers[i].mac[0] != '\0') {
+          lost = s_trackers[i].packets_lost;
+          recv = s_trackers[i].packets_received;
+          strncpy(mac, s_trackers[i].mac, sizeof(mac));
+          
+          // Reset counters every 10s
+          s_trackers[i].packets_lost = 0;
+          s_trackers[i].packets_received = 0;
+      }
+      portEXIT_CRITICAL(&s_tracker_mux);
+      
+      if (mac[0] != '\0' && (lost + recv > 0)) {
+          float loss_pct = (float)lost / (lost + recv) * 100.0f;
+          if (loss_pct > 0.0f) {
+              ESP_LOGW(TAG_MESH, "Packet Loss MAC: %s, Loss: %.2f%% (Lost: %" PRIu32 ", Recv: %" PRIu32 ")", mac, loss_pct, lost, recv);
+          }
+      }
+  }
 }
 
 /**
@@ -1243,8 +1336,7 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t mesh_role) {
   if (!s_mesh_lite_initialized) {
     esp_mesh_lite_config_t mesh_lite_config = ESP_MESH_LITE_DEFAULT_INIT();
     mesh_lite_config.join_mesh_ignore_router_status = true;
-    mesh_lite_config.join_mesh_without_configured_wifi =
-        (mesh_role == MESH_ROLE_NODE);
+    mesh_lite_config.join_mesh_without_configured_wifi = true;
     esp_mesh_lite_init(&mesh_lite_config);
     s_mesh_lite_initialized = true;
   } else {
