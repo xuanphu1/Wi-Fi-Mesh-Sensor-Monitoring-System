@@ -374,7 +374,7 @@ static esp_err_t uart_to_node_uart_init(void) {
 
   /* RX lớn + queue sự kiện: driver tạo queue, ISR đẩy uart_event_t (UART_DATA,
    * overflow, ...) */
-  ESP_RETURN_ON_ERROR(uart_driver_install(u, 8192, 2048, 64, &s_uart_queue, ESP_INTR_FLAG_IRAM),
+  ESP_RETURN_ON_ERROR(uart_driver_install(u, 2048, 1024, 64, &s_uart_queue, ESP_INTR_FLAG_IRAM),
                       TAG, "uart_driver_install");
   ESP_RETURN_ON_ERROR(uart_param_config(u, &uart_config), TAG,
                       "uart_param_config");
@@ -462,7 +462,7 @@ static void uart_to_node_task(void *arg) {
       size_t buf_len = uart_to_node_get_buffered_len();
       if (ctx.state == UART_TO_NODE_STATE_START_ROOT) {
         uart_to_node_send_line("Start Root");
-        ESP_LOGI(TAG, "Send: Start Root | UART Buffer: %zu bytes", buf_len);
+        // ESP_LOGI(TAG, "Send: Start Root | UART Buffer: %zu bytes", buf_len);
       } else {
         uart_to_node_send_line("Connected");
         ESP_LOGI(TAG, "Send: Connected | UART Buffer: %zu bytes", buf_len);

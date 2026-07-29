@@ -128,65 +128,73 @@
 \setcounter{subsection}{0}
 
 \subsection{Đặt vấn đề \& Mục tiêu}
-Dự án "Hệ thống Giám sát Cảm biến Mạng Mesh" được xây dựng nhằm cung cấp nền tảng giám sát môi trường toàn diện, giúp quản trị viên theo dõi mạng lưới thiết bị theo thời gian thực. Ứng dụng đa nền tảng kết nối với Gateway qua WebSocket, cho phép hiển thị số liệu, quản lý lịch sử và cập nhật phần mềm thiết bị từ xa (OTA).
+Trong bối cảnh công nghiệp hóa và hiện đại hóa, việc giám sát các thông số môi trường như nhiệt độ, độ ẩm, nồng độ bụi mịn và chất lượng không khí ngày càng trở nên cấp thiết, đặc biệt là trong các khu công nghiệp, nông nghiệp công nghệ cao và các tòa nhà thông minh. Các hệ thống giám sát truyền thống thường gặp hạn chế về phạm vi phủ sóng, chi phí triển khai dây dẫn phức tạp và khó khăn trong việc mở rộng mạng lưới. 
+
+Để giải quyết vấn đề này, dự án "Hệ thống Giám sát Cảm biến Mạng Mesh" được xây dựng nhằm cung cấp một nền tảng giám sát môi trường toàn diện, không dây và có khả năng tự động định tuyến. Hệ thống ứng dụng công nghệ mạng Mesh giúp các thiết bị (Node) có thể giao tiếp với nhau để truyền tải dữ liệu về trạm trung tâm (Gateway) một cách liên tục, đảm bảo tính ổn định cao ngay cả khi có một mắt xích trong mạng gặp sự cố.
+
+Bên cạnh phần cứng mạng Mesh, dự án cũng phát triển một ứng dụng đa nền tảng (Mobile App) cho phép quản trị viên theo dõi toàn bộ mạng lưới thiết bị theo thời gian thực ở bất cứ đâu. Ứng dụng kết nối với Gateway thông qua giao thức WebSocket để cập nhật luồng dữ liệu (Data Stream) với độ trễ cực thấp. Ngoài ra, hệ thống còn hỗ trợ quản trị viên cảnh báo ngưỡng an toàn, truy xuất và phân tích dữ liệu lịch sử, xuất báo cáo CSV, và đặc biệt là khả năng cập nhật phần mềm thiết bị từ xa qua giao thức không dây (FOTA - Firmware Over-The-Air).
+
+\subsection{Đối tượng hướng đến}
+Hệ thống được thiết kế linh hoạt để phục vụ nhiều tệp người dùng và môi trường ứng dụng khác nhau:
+\begin{itemize}
+    \item \textbf{Ban quản lý khu công nghiệp, nhà máy:} Theo dõi sát sao các chỉ số môi trường (nhiệt độ, nồng độ bụi mịn) để đảm bảo an toàn lao động và vận hành máy móc.
+    \item \textbf{Nông nghiệp công nghệ cao:} Giám sát các chỉ số vi khí hậu trong nhà kính, trang trại thông minh, làm cơ sở dữ liệu để tự động hóa hệ thống tưới tiêu và thông gió.
+    \item \textbf{Quản trị viên hệ thống (System Admin):} Nắm bắt trực quan "sức khỏe" của toàn bộ mạng lưới thiết bị (Node/Gateway) cũng như tài nguyên máy chủ thông qua biểu đồ thời gian thực.
+\end{itemize}
 
 \subsection{Công nghệ ứng dụng}
-\textbf{Frontend (Mobile App):}
-\vspace{-0.2cm}
+Hệ thống phần mềm được xây dựng với kiến trúc Client-Server hiện đại, phân tách rõ ràng giữa giao diện người dùng, dịch vụ xử lý dữ liệu ngầm và cơ sở dữ liệu lưu trữ:
+
+\textbf{Frontend (Mobile Application):}
 \begin{itemize}
-    \setlength{\itemsep}{0pt}
-    \setlength{\parskip}{0pt}
-    \setlength{\parsep}{0pt}
-    \item \textbf{React Native \& Expo:} Xây dựng giao diện UI đa nền tảng mượt mà.
-    \item \textbf{Zustand:} Quản lý State toàn cục, tối ưu re-render khi xử lý dữ liệu Live.
-    \item \textbf{Expo FileSystem:} Tạo và chia sẻ báo cáo dữ liệu (CSV) cục bộ.
-    \item \textbf{TailwindCSS \& Reanimated:} Thiết kế UI Glassmorphism và Toast mượt mà.
-\end{itemize}
-\vspace{-0.3cm}
-\textbf{Backend Services:}
-\vspace{-0.2cm}
-\begin{itemize}
-    \setlength{\itemsep}{0pt}
-    \setlength{\parskip}{0pt}
-    \setlength{\parsep}{0pt}
-    \item \textbf{WebSockets:} Truyền phát stream dữ liệu Sensor thời gian thực.
-    \item \textbf{HTTP API (REST):} Cơ chế truy vấn (GET) dữ liệu lịch sử từ máy chủ.
-    \item \textbf{Nginx Reverse Proxy:} Chạy song song HTTPS và WSS an toàn trên cùng Port 443.
+    \item \textbf{React Native \& Expo:} Xây dựng khung giao diện UI đa nền tảng (iOS và Android) với hiệu năng mượt mà.
+    \item \textbf{Zustand:} Hệ thống quản lý State toàn cục siêu nhẹ, tối ưu hóa quá trình re-render khi xử lý dữ liệu cảm biến (Live Stream).
+    \item \textbf{TailwindCSS \& Reanimated:} Thiết kế giao diện Glassmorphism hiện đại và tạo chuyển động mượt mà cho đồ thị, thông báo.
 \end{itemize}
 
-\vspace{-0.2cm}
+\textbf{Backend Services \& Infrastructure:}
+\begin{itemize}
+    \item \textbf{Node.js \& WebSockets:} Triển khai luồng truyền phát dữ liệu hai chiều (Full-duplex) theo thời gian thực giữa Gateway và Mobile App.
+    \item \textbf{HTTP API (RESTful):} Cung cấp cơ chế truy vấn (GET) an toàn để trích xuất dữ liệu lịch sử từ máy chủ.
+    \item \textbf{Nginx Reverse Proxy:} Hệ thống phân giải luồng truy cập trên Cloud, chạy song song giao thức HTTPS và WSS an toàn trên cùng Port 443.
+\end{itemize}
+
+\textbf{Database \& Data Storage:}
+\begin{itemize}
+    \item \textbf{Cơ sở dữ liệu Máy chủ (SQLite):} Sử dụng hệ quản trị CSDL siêu nhẹ SQLite để đảm nhiệm việc lưu trữ cấu hình mạng lưới và hàng triệu bản ghi dữ liệu chuỗi thời gian (Time-series data) từ các node cảm biến đẩy lên liên tục.
+    \item \textbf{AsyncStorage \& Expo FileSystem:} Áp dụng ở phía Client (Mobile App) để lưu trữ vĩnh viễn các cấu hình IP, ngưỡng cảnh báo (Threshold) và xuất báo cáo dữ liệu định dạng CSV trực tiếp từ bộ nhớ điện thoại.
+\end{itemize}
 \subsection{Bảng tổng kết chức năng và phân công công việc}
 \begin{table}[H]
     \centering
-    \footnotesize
-    \renewcommand{\arraystretch}{1.0}
+    \renewcommand{\arraystretch}{1.1}
     \begin{tabularx}{\textwidth}{|l|l|X|l|}
         \hline
         \textbf{Menu/Phần} & \textbf{Chức năng} & \textbf{Mô tả chi tiết} & \textbf{Phụ trách} \\
         \hline
-        Dashboard & Thống kê & Hiển thị tóm tắt trạng thái mạng Mesh và thông số hệ thống. & H. Xuân Phú \\
+        Dashboard & Thống kê tổng quan & Hiển thị tóm tắt trạng thái mạng Mesh, số lượng Node và thông số hệ thống. & H. Xuân Phú \\
         \hline
-        Nodes & Quản lý thiết bị & Liệt kê danh sách Node, theo dõi trạng thái Online/Offline. & H. Quang Quân \\
+        Nodes & Quản lý thiết bị & Liệt kê danh sách Node, theo dõi trạng thái kết nối Online/Offline. & H. Quang Quân \\
         \hline
-        Sensors & Giám sát Live & Biểu đồ và thông số cảm biến môi trường theo thời gian thực. & H. Quang Quân \\
+        Sensors & Giám sát Live & Hiển thị biểu đồ Gauge và thông số cảm biến (Nhiệt độ, Độ ẩm, Bụi mịn). & H. Quang Quân \\
         \hline
-        Server & Monitor Backend & Giám sát tài nguyên máy chủ (CPU, RAM) và trạng thái WebSocket. & H. Xuân Phú \\
+        Server & Monitor Server & Giám sát tài nguyên máy chủ Backend (CPU, RAM) và trạng thái WebSocket. & H. Xuân Phú \\
         \hline
-        Gateway & Monitor Gateway & Giám sát tài nguyên phần cứng (CPU, RAM, Pin, Wi-Fi) trạm trung tâm. & H. Quang Quân \\
+        Gateway & Monitor Gateway & Giám sát tài nguyên phần cứng (CPU, RAM, Pin, Wi-Fi) của Gateway (ESP32). & H. Quang Quân \\
         \hline
-        \multirow{2}{*}{History} & Truy vấn & Lọc dữ liệu theo thời gian, cảm biến và vẽ biểu đồ lịch sử. & H. Xuân Phú \\ \cline{2-4}
-        & Xuất CSV & Xử lý dữ liệu và tạo file báo cáo CSV cục bộ. & H. Xuân Phú \\
+        \multirow{2}{*}{History} & Truy vấn dữ liệu & Lọc dữ liệu theo thời gian, cảm biến cụ thể và vẽ biểu đồ lịch sử kép. & H. Xuân Phú \\ \cline{2-4}
+        & Xuất báo cáo CSV & Xử lý khối lượng lớn dữ liệu phía Client để tạo file báo cáo CSV cục bộ. & H. Xuân Phú \\
         \hline
-        Settings & Cấu hình & Tùy chỉnh các ngưỡng giới hạn cảnh báo cho cảm biến. & H. Quang Quân \\
+        Settings & Cấu hình cảnh báo & Thiết lập và tùy chỉnh động các ngưỡng cảnh báo (Threshold) cho hệ thống. & H. Quang Quân \\
         \hline
-        About & Thông tin & Hướng dẫn sử dụng chi tiết và thông tin tiến độ dự án. & H. Quang Quân \\
+        About & Thông tin dự án & Tài liệu hướng dẫn sử dụng App và cập nhật tiến độ phát triển dự án. & H. Quang Quân \\
         \hline
-        Backend & Hạ tầng & Xây dựng REST API, WebSockets và thiết lập Nginx Reverse Proxy. & H. Xuân Phú \\
+        Backend & Hạ tầng mạng & Xây dựng REST API, hệ thống WebSockets và cấu hình Nginx Reverse Proxy. & H. Xuân Phú \\
         \hline
-        Báo cáo & Tài liệu & Soạn thảo báo cáo đồ án và slide thuyết trình tổng kết. & Phú, Quân \\
+        Báo cáo & Soạn thảo tài liệu & Viết báo cáo tổng kết đồ án, vẽ sơ đồ hệ thống và làm slide bảo vệ. & Phú, Quân \\
         \hline
     \end{tabularx}
-    \caption{Bảng phân rã chức năng hệ thống}
+    \caption{Bảng phân rã chức năng hệ thống và phân công nhiệm vụ}
 \end{table}
 
 \subsection{Bảng tổng kết làm được/chưa làm được}
@@ -300,6 +308,56 @@ Quá trình khởi tạo và thiết lập liên kết mạng lưới ban đầu
     \item \textbf{Xử lý tại Backend:} Hệ thống Backend đóng vai trò trung tâm tiếp nhận liên tục các chuỗi dữ liệu JSON gửi về từ các thiết bị phần cứng. Tại đây, Backend sẽ tiến hành giải mã (Parse), kiểm tra tính hợp lệ của gói tin, bóc tách các trường dữ liệu quan trọng (như MAC Address, Nhiệt độ, Độ ẩm, Trạng thái pin) và ngay lập tức lưu trữ vào hệ quản trị cơ sở dữ liệu. Quá trình lưu trữ này đảm bảo tính toàn vẹn của dữ liệu chuỗi thời gian (Time-series data), làm nền tảng cốt lõi phục vụ cho các tính năng truy vấn, xuất báo cáo và vẽ biểu đồ lịch sử sau này.
     \item \textbf{Phân phối (Broadcast):} Cùng lúc đó, Backend lập tức "đẩy" (Push) gói tin này tới Nginx để phân phối xuống tất cả các App đang kết nối qua kênh WebSocket an toàn (wss://).
     \item \textbf{Hiển thị giao diện:} App nhận gói tin và cập nhật thẳng vào bộ nhớ trạng thái trung tâm (Zustand Store). Các thành phần giao diện như Biểu đồ Sparkline, Đồng hồ đo (Gauge) sẽ tự động nhận diện và vẽ lại. Nếu giá trị cảm biến vượt ngưỡng an toàn cấu hình trước, một thông báo Toast màu đỏ kèm cảnh báo sẽ lập tức xuất hiện.
+\end{itemize}
+
+\textbf{Cấu trúc 3 loại bản tin (Packet) truyền tải trong hệ thống:}
+\begin{itemize}
+    \item \textbf{Bản tin Cảm biến (\texttt{uart\_tx/rx}):} Đóng gói toàn bộ các thông số đo lường môi trường (Nhiệt độ, Độ ẩm, Bụi mịn, v.v.) thu thập từ các Node. Bản tin bao gồm địa chỉ MAC thiết bị, phiên bản Firmware, thời gian thực (RTC) và danh sách mảng các cổng (\texttt{ports}) mang các cặp \texttt{key-value} giá trị đo lường.
+\begin{verbatim}
+{
+  "type": "uart_rx",
+  "payload": {
+    "mac": "AA:BB:CC:DD:EE:FF",
+    "rtcIso": "2026-07-01T10:20:30Z",
+    "firmwareVersion": "1.0.0",
+    "ports": [
+      {
+        "sensorName": "DHT22",
+        "readings": [
+          { "key": "temp", "label": "Temperature", "value": 25.4 },
+          { "key": "hum", "label": "Humidity", "value": 60.0 }
+        ]
+      }
+    ]
+  }
+}
+\end{verbatim}
+    \item \textbf{Bản tin Gateway (\texttt{gateway\_status}):} Mang dữ liệu chẩn đoán trạng thái phần cứng của Trạm trung tâm Gateway. Cung cấp thông số phần cứng bao gồm \% tải CPU, lượng RAM khả dụng, điện áp pin (V), \% pin còn lại, thông tin mạng Wi-Fi (SSID, IP, RSSI) và thời gian sống \texttt{uptime}.
+\begin{verbatim}
+{
+  "type": "gateway_status",
+  "cpu_load_percent": 15.5,
+  "ram_used_percent": 35.0,
+  "battery_voltage_v": 3.7,
+  "battery_percent": 80,
+  "uptime_s": 3600,
+  "wifi_ssid": "Network",
+  "wifi_rssi": -55,
+  "sta_ip": "192.168.1.100"
+}
+\end{verbatim}
+    \item \textbf{Bản tin Máy chủ (\texttt{server\_metrics}):} Cung cấp số liệu "sức khỏe" của Backend Server trên Cloud. Đo lường liên tục mức độ tiêu thụ tài nguyên của Node.js Backend bao gồm tải CPU, dung lượng RAM (Total/Used), nhiệt độ máy chủ và thời gian duy trì kết nối.
+\begin{verbatim}
+{
+  "type": "server_metrics",
+  "cpuLoadPercent": 5.2,
+  "ramTotalMb": 1024,
+  "ramUsedMb": 256,
+  "ramUsedPercent": 25.0,
+  "chipTempC": 40.5,
+  "uptimeS": 86400
+}
+\end{verbatim}
 \end{itemize}
 
 
@@ -538,6 +596,45 @@ Mặc dù hệ thống đã đáp ứng tốt các yêu cầu đặt ra ở ph�
     
     \item \textbf{Mở rộng hệ sinh thái ứng dụng:} 
     Phát triển thêm phiên bản Web Admin Dashboard dùng chung API với Mobile App để quản trị viên có không gian thao tác trên màn hình lớn, đồng thời nâng cấp hệ thống báo cáo (Report) với các biểu đồ phân tích chuyên sâu.
+\end{itemize}
+
+\newpage
+\section*{PHỤ LỤC: BÁO CÁO CÁ NHÂN}
+\addcontentsline{toc}{section}{\numberline{}PHỤ LỤC: BÁO CÁO CÁ NHÂN - HỒ XUÂN PHÚ}
+
+\subsection*{1. Thông tin cá nhân và vai trò}
+\begin{itemize}
+    \item \textbf{Họ và tên:} Hồ Xuân Phú
+    \item \textbf{Vai trò trong nhóm:}Phụ trách xây dựng kiến trúc Backend Server, cơ sở dữ liệu và phát triển các chức năng chính trên Ứng dụng di động.
+\end{itemize}
+
+\subsection*{2. Khối chức năng/Phần tích hợp chịu trách nhiệm chính}
+\begin{itemize}
+    \item \textbf{Kiến trúc Backend \& Mạng lưới:} Thiết kế và xây dựng máy chủ trung tâm (Backend Server), cấu hình hệ thống WebSockets để truyền tải dữ liệu thời gian thực và thiết lập Nginx Reverse Proxy.
+    \item \textbf{Frontend - Dashboard (Trang chủ):} Xây dựng trung tâm kiểm soát, tính toán số lượng Node, hiển thị trạng thái tổng quan.
+    \item \textbf{Frontend - Monitor Server:} Xây dựng màn hình giám sát sức khỏe của máy chủ (CPU, RAM).
+    \item \textbf{Frontend - History (Lịch sử) \& Xuất báo cáo:} Lập trình chức năng truy vấn dữ liệu theo mốc thời gian, vẽ biểu đồ lịch sử kép và thuật toán xử lý hàng ngàn bản ghi để tạo file CSV cục bộ.
+\end{itemize}
+
+\subsection*{3. Danh sách file, Component, API và Kỹ thuật trực tiếp thực hiện}
+\begin{itemize}
+    \item \textbf{Màn hình (Screens):} \path{app/(tabs)/index.tsx}, \path{app/(tabs)/server.tsx}, \path{app/(tabs)/history.tsx}.
+    \item \textbf{Dịch vụ \& API:} Xây dựng toàn bộ module \path{src/services/modules/history.ts} để giao tiếp REST API với Backend.
+    \item \textbf{Công nghệ \& Kỹ thuật:} Sử dụng Zustand State Management, WebSockets, React Native Expo, thuật toán xử lý mảng (Array processing) để bóc tách dữ liệu JSON từ Node và vẽ biểu đồ.
+\end{itemize}
+
+\subsection*{4. Mô tả vấn đề gặp phải và Cách giải quyết}
+\begin{itemize}
+    \item \textbf{Vấn đề 1 (Quá tải bộ nhớ khi xem lịch sử):} Khi truy vấn dữ liệu 7 ngày, lượng dữ liệu JSON trả về lên tới hàng ngàn bản ghi, làm ứng dụng bị treo (freeze) khi cố gắng vẽ biểu đồ. 
+    \item \textbf{Cách giải quyết:} Áp dụng Hook \texttt{useMemo} trong React để ghi nhớ kết quả tính toán, đồng thời thực hiện rút gọn mảng (downsampling) ở Client trước khi truyền vào thư viện vẽ đồ thị, giúp UI mượt mà trở lại.
+    \item \textbf{Vấn đề 2 (Đồng bộ dữ liệu Realtime):} Mất đồng bộ giữa trạng thái cảnh báo và giao diện khi gói tin WebSockets đổ về với tần số quá cao.
+    \item \textbf{Cách giải quyết:} Tập trung hóa luồng dữ liệu vào kho chứa chung (\path{useMeshStore.ts}), xử lý tối ưu để giảm tần suất Re-render giao diện dư thừa.
+\end{itemize}
+
+\subsection*{5. Tự đánh giá mức độ hoàn thành}
+\begin{itemize}
+    \item \textbf{Mức độ hoàn thành công việc:} Đạt 100\% (Hoàn thiện toàn bộ kiến trúc Backend và các màn hình Frontend được giao, App chạy cực kỳ ổn định).
+    \item \textbf{Mức độ hiểu sản phẩm chung:} Rất hiểu (Nắm vững từ kiến trúc phần cứng ESP32 truyền lên Gateway, luồng dữ liệu qua WebSockets, cho đến cách Frontend bóc tách và vẽ lên giao diện).
 \end{itemize}
 
 \end{document}

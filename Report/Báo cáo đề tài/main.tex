@@ -152,15 +152,13 @@ Trên thị trường hiện nay đã xuất hiện nhiều thiết bị cảm b
 Hệ thống vì thế không chỉ là một trạm đo đơn lẻ, mà là một \textbf{giải pháp IoT linh hoạt, toàn diện từ biên đến đám mây}, có thể tái cấu hình cho nhiều bài toán giám sát khác nhau (nhiệt độ–độ ẩm, chất lượng không khí, khí gas, chất lượng nước...) và vận hành bền bỉ trên quy mô lớn.
 
 \subsection{Mục tiêu và phạm vi của dự án}
-Mục tiêu cốt lõi của dự án là thiết kế và xây dựng một hệ thống mạng cảm biến phân tán, đảm bảo tính chuẩn hóa linh hoạt tại thiết bị biên, tính ổn định trong truyền thông Mesh và khả năng quản lý tập trung. Cụ thể:
+Cụ thể:
 \begin{itemize}
     \item Thiết kế và chuẩn hóa phần cứng/phần mềm cho các thiết bị Node cảm biến (MSMS): Hỗ trợ giao diện chọn cảm biến trực quan qua màn hình, dễ dàng thêm/bớt các loại cảm biến mới mà không cần can thiệp lại mã nguồn.
     \item Triển khai giải pháp \textbf{mạng Wi-Fi Mesh (ESP-Mesh-Lite)} không dùng Router, cho phép các Node tự động kết nối, định tuyến và truyền dữ liệu tầm xa về một điểm tập trung.
     \item Xây dựng thiết bị \textbf{Gateway} để làm cầu nối tiếp nhận dữ liệu từ mạng Mesh, xử lý và đẩy dữ liệu lên máy chủ ứng dụng qua MQTT/WebSocket.
     \item Xây dựng hệ sinh thái phần mềm bao gồm Web Dashboard để giám sát dữ liệu và công cụ Python để đo đạc tải mạng, kiểm thử tỷ lệ Packet Loss.
 \end{itemize}
-
-Phạm vi của dự án tập trung vào:
 \begin{itemize}
     \item Chế tạo hoàn thiện thiết bị Node cảm biến hỗ trợ cấu hình đa cổng và thiết bị Gateway thu thập dữ liệu mạng Mesh.
     \item Triển khai luồng dữ liệu thông suốt: Cảm biến $\rightarrow$ Node (MSMS) $\rightarrow$ Mạng Wi-Fi Mesh $\rightarrow$ Gateway $\rightarrow$ Server $\rightarrow$ Giao diện Web.
@@ -922,11 +920,12 @@ Trong thực tế, nhờ các chế độ tiết kiệm năng lượng (như đ�
     \captionsetup{font=small}
     \caption{Khối xử lý và nút bấm.}
 \end{figure}
-Khối MCU là trung tâm điều khiển của hệ thống, bao gồm:
+Khối MCU đóng vai trò là bộ não trung tâm, chịu trách nhiệm điều phối toàn bộ các hoạt động thu thập, xử lý và truyền tải dữ liệu của thiết bị. Khối này bao gồm các thành phần cốt lõi sau:
 
 \begin{itemize}
-    \item \textbf{Module ESP32 WROOM:} Vi điều khiển chính đảm nhận việc xử lý dữ liệu, giao tiếp mạng Mesh/Wi-Fi và điều khiển các ngoại vi.
-    \item \textbf{Header nạp chương trình (JP 1x4):} Cung cấp các chân giao tiếp UART cơ bản (RX0, TX0) cùng nguồn cấp (+3V3, GND) để kết nối với mạch nạp USB-to-Serial rời (như CH340C) khi cần nạp firmware hoặc debug. Thiết kế này giúp tối giản linh kiện trên bo mạch chính.
+    \item \textbf{Module ESP32-WROOM-32:} Đây là khối vi điều khiển chính (SoC) do Espressif phát triển, được trang bị bộ vi xử lý Tensilica Xtensa Dual-Core 32-bit LX6 với xung nhịp lên đến 240 MHz. Vi điều khiển này tích hợp bộ nhớ SRAM 520 KB và Flash 4 MB, cung cấp không gian tính toán rộng rãi để chạy hệ điều hành thời gian thực FreeRTOS song song với các tiến trình mạng. Điểm mạnh lớn nhất của module là khả năng hỗ trợ native kết nối Wi-Fi 802.11 b/g/n và Bluetooth BLE. Trong dự án này, ESP32 đảm nhận nhiệm vụ giao tiếp với các cảm biến ngoại vi (qua I2C, UART, OneWire), xử lý thuật toán định tuyến cấu trúc mạng ESP-Mesh-Lite, đóng gói dữ liệu JSON và giám sát trạng thái năng lượng hệ thống.
+    
+    \item \textbf{Header nạp chương trình (JP 1x4):} Thay vì tích hợp trực tiếp IC chuyển đổi USB-to-Serial (như CP2102 hay CH340) lên bo mạch giống các KIT phát triển thông thường, mạch được thiết kế tối ưu với một header 4 chân (RX0, TX0, +3V3, GND). Khi cần nạp firmware mới hoặc theo dõi Serial Monitor (debug), người dùng chỉ cần cắm một mạch nạp rời vào header này. Giải pháp thiết kế tách rời mang lại hai lợi ích lớn: thứ nhất là tiết kiệm không gian PCB và tối giản chi phí sản xuất hàng loạt; thứ hai là loại bỏ hoàn toàn dòng tiêu thụ tĩnh (quiescent current) của IC giao tiếp USB, giúp thiết bị tối ưu hóa tối đa năng lượng và kéo dài thời gian hoạt động của pin lithium trên hiện trường.
 \end{itemize}
 
 \begin{figure}[H]
@@ -950,9 +949,9 @@ Khối nguồn sử dụng module tích hợp MH-CD42 (dựa trên lõi IP5306) 
     
     \item \textbf{Mạch giám sát pin phụ (Cap\_Battery):} Dù MH-CD42 có hiển thị LED, mạch vẫn thiết kế thêm bộ chia áp bằng hai điện trở 100k$\Omega$ (R20, R21). Mạch này đưa điện áp pin về ngưỡng 0-3.3V an toàn cho ADC của ESP32, giúp vi điều khiển chủ động đo lường và gửi phần trăm pin lên hệ thống theo thời gian thực.
     
-    \item \textbf{IC ổn áp AMS1117-3.3 (U2):} Hạ điện áp từ 5V xuống 3.3V để cấp nguồn nuôi ESP32 và các IC logic. Có các tụ lọc đầu vào (C2, C3) và đầu ra (C5, C6) để đảm bảo nguồn cấp phẳng và chống nhiễu.
+    \item \textbf{IC ổn áp AMS1117-3.3 (U2):} Đây là IC ổn áp tuyến tính Drop-out thấp (LDO) được sử dụng để hạ điện áp nguồn 5V ổn định cấp ra từ module MH-CD42 xuống mức 3.3V tinh khiết, cấp nguồn trực tiếp cho vi điều khiển ESP32 và các IC logic nhạy cảm khác trên mạch. Mạch tích hợp hệ thống tụ lọc phân tầng chặt chẽ: ở đầu vào sử dụng cặp tụ C2 ($10\mu$F tụ hóa) và C3 (104 - $0.1\mu$F tụ gốm); ở đầu ra sử dụng cặp tụ C5 ($10\mu$F tụ hóa) và C6 (104 - $0.1\mu$F tụ gốm). Các tụ hóa lớn đóng vai trò tích lũy năng lượng cục bộ, bù đắp dòng điện tức thời khi ESP32 phát sóng Wi-Fi (dòng đỉnh có thể lên đến 250mA), trong khi các tụ gốm nhỏ có nhiệm vụ triệt tiêu các thành phần nhiễu cao tần từ nguồn xung và chống tự dao động cho IC ổn áp. Để đảm bảo tản nhiệt hiệu quả khi IC hoạt động ở chế độ dòng lớn, phần PCB xung quanh chân Tab của linh kiện chân dán SOT-223 đã được phủ đồng rộng làm nhiệm vụ tản nhiệt thụ động.
     
-    \item \textbf{LED báo và Công tắc nguồn:} Trang bị công tắc gạt (S1) để bật/tắt điện áp 3.3V cho hệ thống, kèm theo LED báo trạng thái cấp nguồn.
+    \item \textbf{LED báo và Công tắc nguồn:} Hệ thống sử dụng một công tắc gạt cơ học 3 chân (S1) đặt ngay trên đường nguồn 3.3V đầu ra của IC LDO. Công tắc gạt này cho phép người sử dụng bật/tắt toàn bộ mạch một cách vật lý, tránh hiện tượng rò rỉ dòng điện từ pin khi thiết bị không hoạt động trong thời gian dài. Song song với đường nguồn sau công tắc là một LED báo nguồn màu đỏ kết hợp với điện trở hạn dòng 1k$\Omega$ nối đất. LED này cung cấp chỉ báo trực quan tức thời về trạng thái hoạt động của mạch nguồn, giúp kỹ sư dễ dàng kiểm tra và chẩn đoán lỗi phần cứng mà không cần đo đạc thủ công bằng đồng hồ vạn năng.
 \end{itemize}
 
 \begin{figure}[H]
@@ -988,7 +987,7 @@ Khối này thiết kế các cổng kết nối cảm biến độc lập (IDC)
         \item \textbf{IDC2:} Chuyên dụng cho các tín hiệu số, tích hợp Actuator2 và 2 chân Pulse/GPIO (dùng cho cảm biến DHT11, HC-SR04...). Không có ngõ vào Analog.
         \item \textbf{IDC3:} Cung cấp bus SPI (MOSI, MISO, SCK, CS) cho các module giao tiếp tốc độ cao và Actuator3.
     \end{itemize}
-    \item \textbf{Hệ thống nút bấm điều khiển:} Bao gồm 3 nút nhấn (MOVE, SELECT, BACK). Mạch nút nhấn được thiết kế theo cấu hình kéo xuống (Pull-down) với điện trở 10k$\Omega$ nối GND, khi nhấn sẽ tạo tín hiệu mức CAO (+3V3). Mỗi nút đều được gắn song song với một tụ điện 104 (0.1µF) để chống dội phím phần cứng (hardware debounce), đảm bảo tín hiệu cấp vào ESP32 luôn ổn định. Chân tín hiệu của nút BACK (BUTTON3) được nối trực tiếp vào chân IO0 của ESP32, cho phép tận dụng nút này để đưa mạch vào chế độ bootloader khi cấp nguồn.
+    \item \textbf{Hệ thống nút bấm điều khiển:} Hệ thống tương tác cục bộ bao gồm 3 nút nhấn dạng Switch Tactile (được gán nhãn chức năng tương ứng là MOVE, SELECT, BACK) phục vụ đắc lực cho việc duyệt menu và cấu hình trực tiếp trên màn hình OLED. Để giảm thiểu hiện tượng nhiễu và đọc sai trạng thái, mạch nút nhấn được thiết kế theo sơ đồ kéo xuống (Pull-down) sử dụng các điện trở phân áp 10k$\Omega$ nối xuống đất (GND). Trạng thái logic mặc định khi không có tác động là mức THẤP (0V), và khi người dùng bấm nút sẽ kích hoạt dòng điện chạy từ đường nguồn +3V3 thẳng vào chân GPIO của vi điều khiển, tạo ra tín hiệu mức CAO (+3V3). Nhằm loại bỏ triệt để hiện tượng dội phím cơ học (contact bounce) – vốn xảy ra trong khoảng 5-15ms đầu tiên khi các tiếp điểm kim loại va chạm và có thể gây ra hiện tượng nhận diện sai một lần nhấn thành nhiều lần (double-click ảo), mỗi nút bấm đều được thiết kế song song với một tụ gốm 104 (dung lượng $0.1\mu$F). Bộ đôi điện trở và tụ điện này tạo thành một mạch lọc thông thấp RC phần cứng (hardware debounce), giúp làm mịn dạng sóng điện áp truyền về ESP32.
 \end{itemize}
 \subsubsection{Layout PCB}
 \begin{figure}[H]
@@ -1026,10 +1025,12 @@ Khối này thiết kế các cổng kết nối cảm biến độc lập (IDC)
 \end{figure}
 
 \subsubsection{Thiết kế phần cứng mạch Gateway}
-Mạch Gateway tập trung vào khả năng xử lý tốc độ cao, gom dữ liệu tập trung và kết nối mạng diện rộng. Khác với MSMS Node chạy bằng pin, Gateway thường hoạt động với nguồn cắm liên tục do cần hiệu suất CPU lớn để phân tích JSON và mã hoá kết nối mạng. Gateway giao tiếp với mạch MSMS Root qua UART tốc độ $\ge$ 921,600 bps. Ngoài việc đẩy dữ liệu lên đám mây, mạch Gateway còn tích hợp màn hình TFT ILI9341 (qua SPI) để trực quan hoá biểu đồ và lưu trữ log định kỳ vào thẻ nhớ SD Card (qua SPI). 
+Mạch Gateway đóng vai trò là trạm điều khiển trung tâm và là nút gốc (Root proxy) thu gom toàn bộ dữ liệu từ các Node MSMS trong mạng Mesh để đồng bộ lên máy chủ đám mây. Thiết kế phần cứng của mạch Gateway tập trung tối đa vào hiệu năng xử lý tốc độ cao, khả năng quản trị băng thông lớn và kết nối mạng diện rộng ổn định. Khác biệt hoàn toàn so với các Node cảm biến vốn chạy bằng pin và có chu kỳ ngủ sâu để tiết kiệm năng lượng, mạch Gateway luôn hoạt động trong trạng thái cắm nguồn liên tục. Yêu cầu này xuất phát từ việc vi điều khiển trên Gateway phải duy trì hiệu suất hoạt động của CPU ở mức cao nhằm liên tục tiếp nhận luồng dữ liệu thô, phân tích cú pháp cJSON phức tạp, quản lý kết nối bảo mật WebSocket lên Cloud và đồng thời vẽ giao diện đồ họa. 
+
+Để đáp ứng truyền thông thời gian thực với độ trễ cực thấp, Gateway giao tiếp với mạch MSMS Root thông qua chuẩn truyền thông nối tiếp UART với tốc độ Baudrate rất cao, đạt mức $\ge$ 921,600 bps. Tốc độ này đảm bảo không xảy ra hiện tượng nghẽn cổ chai vật lý khi có nhiều Node con đồng thời gửi dữ liệu về. Song song với việc đẩy dữ liệu lên Cloud qua Wi-Fi, phần cứng Gateway còn được tích hợp màn hình màu TFT ILI9341 giao tiếp qua bus SPI tốc độ cao (lên đến 40 MHz) kết hợp với thư viện đồ họa LVGL để trực quan hóa dữ liệu dưới dạng các biểu đồ thời gian thực trực quan cho người vận hành. Đồng thời, một khe cắm thẻ nhớ Micro SD chuyên dụng (giao tiếp qua SPI) cũng được thiết kế để thực hiện việc ghi log dữ liệu lịch sử cục bộ, đóng vai trò như một bộ nhớ đệm dự phòng chống mất mát dữ liệu khi mất kết nối Internet. 
 
 \paragraph{A. Tính toán đáp ứng công suất nguồn Gateway} \mbox{}\\
-Vì Gateway có tính chất hoạt động 24/7 và chạy các ngoại vi công suất cao (như màn hình TFT), mạch cần một nguồn nuôi adapter 5V thay vì pin. Nguồn 5V này sẽ được hạ áp xuống 3.3V thông qua IC tuyến tính AMS1117-3.3.
+Vì Gateway có đặc thù hoạt động liên tục 24/7 và phải nuôi các thành phần ngoại vi tiêu thụ công suất lớn (như đèn nền màn hình màu TFT ILI9341, IC giao tiếp dòng cao, và thẻ nhớ SD trong các phiên ghi đọc liên tục), thiết kế mạch không sử dụng pin lithium làm nguồn chính mà thay vào đó sử dụng nguồn cấp trực tiếp từ Adapter 5V thông qua cổng Type-C hoặc Header nguồn chuyên dụng. Điện áp đầu vào 5V này sẽ được phân tách thành hai nhánh nguồn: một nhánh 5V cấp trực tiếp cho các linh kiện dòng lớn và một nhánh hạ áp xuống 3.3V thông qua IC ổn áp tuyến tính AMS1117-3.3 để nuôi vi điều khiển ESP32 cùng các IC logic.
 
 \textbf{Phân tích công suất tải mạch Gateway:}
 \begin{table}[H]
@@ -1059,7 +1060,7 @@ Vì Gateway có tính chất hoạt động 24/7 và chạy các ngoại vi côn
     }
 \end{table}
 
-Từ bảng tính toán trên, dòng điện tổng tiêu thụ tại nhánh 5V của mạch Gateway là khoảng 456.2 mA (với công suất 2.281 W). Do đó, mạch Gateway yêu cầu một adapter 5V với dòng cấp tối thiểu 1A (5W) để đảm bảo không bị sụt áp khi ESP32 truyền phát Wi-Fi liên tục và màn hình TFT bật sáng tối đa.
+Từ bảng số liệu tính toán chi tiết ở trên, dòng điện tổng tiêu thụ định mức tại nhánh nguồn 5V của mạch Gateway được xác định rơi vào khoảng 456.2 mA (tương đương với tổng công suất tải thực tế là 2.281 W). Nhằm tạo ra một hệ số dự phòng an toàn (safety margin) tối thiểu từ 50\% đến 100\% để đối phó với các dòng điện đỉnh (peak current) tức thời phát sinh khi module Wi-Fi trên ESP32 liên tục truyền phát dữ liệu cường độ cao cũng như khi đèn nền của màn hình màu TFT ILI9341 được cấu hình ở mức sáng tối đa, thiết kế phần cứng của mạch Gateway yêu cầu bắt buộc phải sử dụng một bộ nguồn Adapter 5V cấp dòng tối thiểu từ 1A (tương ứng với công suất định mức 5W) trở lên. Việc lựa chọn dư tải này giúp đảm bảo duy trì điện áp luôn ổn định, ngăn chặn hoàn toàn các hiện tượng sụt áp nguồn đột ngột (brown-out) có thể gây treo mạch hoặc làm khởi động lại vi điều khiển ngoài ý muốn.
 
 \paragraph{B. Thiết kế mạch nguyên lý (Schematic) Gateway} \mbox{}\\
 
@@ -1069,12 +1070,15 @@ Từ bảng tính toán trên, dòng điện tổng tiêu thụ tại nhánh 5V 
     \captionsetup{font=small}
     \caption{Khối mạch nạp và giao tiếp USB (Type-C-Debug) của Gateway.}
 \end{figure}
-Khối Type-C-Debug cung cấp giao tiếp USB cho Gateway với các chức năng:
+Khối Type-C-Debug cung cấp giao tiếp USB cho Gateway với các chức năng chi tiết sau:
 \begin{itemize}
-    \item \textbf{Cổng USB Type-C (H1):} Nhận điện áp cấp (VIN) cho hệ thống và truyền nhận tín hiệu dữ liệu USB (USB\_D\_P, USB\_D\_N).
-    \item \textbf{IC chuyển đổi USB-to-UART (CH340C):} Tích hợp trực tiếp trên mạch, chuyển đổi tín hiệu USB sang giao tiếp UART (RX0, TX0) để nạp chương trình và debug với ESP32. Có tích hợp sẵn 2 LED báo trạng thái truyền/nhận dữ liệu.
-    \item \textbf{Mạch Auto-Program:} Sử dụng 2 transistor S8050 (Q1, Q2) kết nối với các chân DTR và RTS của CH340C để tự động điều khiển các chân EN và IO0 của ESP32, giúp nạp code tự động mà không cần phải can thiệp ấn nút vật lý.
-    \item \textbf{Nút bấm Boot/Reset:} Bố trí sẵn hai nút bấm vật lý kết nối vào đường PUE (EN) và PUB (IO0) để thao tác thủ công khi cần thiết.
+    \item \textbf{Cổng USB Type-C (H1):} Sử dụng cổng kết nối USB Type-C 16 chân hiện đại để tiếp nhận nguồn cấp 5V đầu vào (VBUS/VIN) cho toàn bộ hệ thống, đồng thời đảm nhận nhiệm vụ truyền dẫn cặp tín hiệu dữ liệu vi sai (USB\_D\_P, USB\_D\_N) đến máy tính. Thiết kế này hỗ trợ cắm đảo chiều linh hoạt và tăng độ bền cơ học so với chuẩn Micro USB cũ.
+    
+    \item \textbf{IC chuyển đổi USB-to-UART (CH340C):} Đây là IC cầu chuyển đổi USB-to-Serial chuyên dụng được tích hợp trực tiếp trên mạch, sử dụng thạch anh nội giúp tiết kiệm diện tích. Chip chuyển đổi tín hiệu USB từ cổng Type-C sang giao tiếp nối tiếp UART (RX0, TX0) phục vụ quá trình debug và nạp firmware cho ESP32. Trên các đường truyền tín hiệu TX/RX có bố trí sẵn 2 LED báo trạng thái truyền nhận (TXD/RXD) giúp lập trình viên giám sát trực quan lưu lượng dữ liệu.
+    
+    \item \textbf{Mạch tự động nạp chương trình (Auto-Program):} Sử dụng cấu trúc 2 transistor NPN S8050 (Q1, Q2) kết hợp chéo với các chân DTR (Data Terminal Ready) và RTS (Request to Send) xuất ra từ CH340C để điều khiển trạng thái các chân EN (Reset) và IO0 (Boot strap) của ESP32. Mạch này giúp phần mềm biên dịch tự động kích hoạt quá trình reset và đưa ESP32 vào chế độ Bootloader để nạp firmware một cách hoàn toàn tự động mà lập trình viên không cần thao tác bấm nút vật lý.
+    
+    \item \textbf{Nút bấm Boot/Reset:} Bố trí hai nút nhấn cơ học loại Tactile Switch siêu nhỏ kết nối song song vào đường tín hiệu EN và IO0 (strapping pin) nối tiếp với các tụ gốm 104 để chống dội phím phần cứng. Hệ thống phím bấm này cho phép lập trình viên có thể chủ động reset nóng thiết bị hoặc chuyển đổi chế độ nạp thủ công trong trường hợp mạch tự động nạp gặp sự cố.
 \end{itemize}
 
 \begin{figure}[H]
@@ -1085,9 +1089,11 @@ Khối Type-C-Debug cung cấp giao tiếp USB cho Gateway với các chức nă
 \end{figure}
 Khối MCU của Gateway được thiết kế xoay quanh ESP32:
 \begin{itemize}
-    \item \textbf{Module ESP32 WROOM:} Đảm nhận nhiệm vụ kết nối mạng Mesh/Wi-Fi, xử lý luồng dữ liệu lớn và điều khiển toàn bộ thiết bị ngoại vi của Gateway.
-    \item \textbf{Mạch lọc chống nhiễu khởi động:} Chân EN được gắn mạch RC (điện trở R17 1$\Omega$, tụ C17 10µF) giúp ổn định tín hiệu điện áp khi mạch vừa được cấp nguồn.
-    \item \textbf{Nút điều khiển ngoại vi:} Một nút nhấn đa dụng (BUTTON) kết nối vào chân IO4, sử dụng cấu hình Active-High (kéo xuống GND bằng điện trở 10k$\Omega$) kết hợp tụ 104 dội phím phần cứng.
+    \item \textbf{Module ESP32 WROOM:} Đóng vai trò là hạt nhân điều khiển chính của Gateway, chịu trách nhiệm thiết lập và duy trì mạng Wi-Fi Mesh-Lite, quản lý kênh giao tiếp UART tốc độ cao với mạch Root, xử lý phân tích cú pháp các gói dữ liệu JSON gửi về, đồng thời điều khiển các thiết bị ngoại vi như màn hình TFT, thẻ nhớ SD, và IC mở rộng I/O.
+    
+    \item \textbf{Mạch lọc chống nhiễu khởi động:} Chân Reset (EN) của vi điều khiển được thiết kế tích hợp một mạch lọc RC trễ gồm điện trở R17 1$\Omega$ kết hợp với tụ điện hóa C17 10$\mu$F. Mạch này tạo một khoảng trễ nhỏ khi cấp nguồn để điện áp ổn định hoàn toàn trước khi chip hoạt động, giúp bảo vệ ESP32 khỏi các xung nhiễu điện áp tức thời và đảm bảo quá trình khởi động (boot) diễn ra trơn tru.
+    
+    \item \textbf{Nút điều khiển ngoại vi:} Mạch tích hợp một nút nhấn Tactile đa năng (BUTTON) kết nối vào chân IO4 của ESP32. Nút nhấn sử dụng sơ đồ cấu hình Active-High (mặc định được kéo xuống GND qua điện trở 10k$\Omega$) kết hợp song song với tụ điện 104 ($0.1\mu$F) để chống dội phím phần cứng, cho phép người dùng thực hiện các thao tác tương tác như chuyển trang màn hình hiển thị hoặc reset nhanh cấu hình mạng.
 \end{itemize}
 
 \begin{figure}[H]
@@ -1110,13 +1116,13 @@ Thiết kế PCB của Gateway được bố trí mật độ cao nhằm nhồi 
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/TopLayer-GateWay.png}
         \captionsetup{font=small}
         \caption{Lớp Top (Đường tín hiệu).}
     \end{minipage}\hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/BotLayer-Gateway.png}
         \captionsetup{font=small}
@@ -1126,13 +1132,13 @@ Thiết kế PCB của Gateway được bố trí mật độ cao nhằm nhồi 
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/3DTopLayer-Gateway.png}
         \captionsetup{font=small}
         \caption{Mô hình 3D (Mặt trên).}
     \end{minipage}\hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Images/3DBotLayer-gateway.png}
         \captionsetup{font=small}
@@ -1162,9 +1168,9 @@ Sơ đồ mô tả kiến trúc firmware được tổ chức thành các tầng
     
     \item \textbf{Tầng Giao diện người dùng (UI Layer):} Chịu trách nhiệm tương tác với người dùng, bao gồm \texttt{MenuSystem} (lưu trữ cây thư mục), \texttt{ScreenManager} (hiển thị giao diện lên OLED) và \texttt{ButtonManager} (xử lý tín hiệu nút bấm vật lý).
     
-    \item \textbf{Tầng Cốt lõi (Core Layer):} Nơi chứa logic trung tâm của hệ thống. Bao gồm \texttt{DataManager} (lưu trữ trạng thái toàn cục), \texttt{FunctionManager} (điều phối cảm biến và menu), \texttt{BatteryManager} (đo pin), \texttt{PinManager}, cùng với \texttt{UartToGateWay} và \texttt{ProcessingDataMesh} (chịu trách nhiệm lọc và trung chuyển dữ liệu xuống Gateway).
+    \item \textbf{Tầng Cốt lõi (Core Layer):} Nơi tập trung toàn bộ logic xử lý và quản lý luồng dữ liệu trung tâm của toàn hệ thống nhúng. Tầng này bao gồm \texttt{DataManager} đóng vai trò là kho lưu trữ trạng thái toàn cục (global state) được thiết kế an toàn luồng (thread-safe) nhằm tránh xung đột dữ liệu giữa các task FreeRTOS; \texttt{FunctionManager} làm nhiệm vụ điều phối hành vi của hệ thống cảm biến và liên kết hành động trên menu điều hướng; \texttt{BatteryManager} chịu trách nhiệm đo đạc điện áp pin qua kênh ADC và tính toán phần trăm pin theo thời gian thực; cùng với bộ đôi \texttt{UartToGateWay} và \texttt{ProcessingDataMesh} đảm nhận việc đóng gói dữ liệu theo cấu trúc khung truyền UART, tính toán checksum và trung chuyển thông tin đã được lọc nhiễu từ mạng Mesh xuống Gateway một cách tin cậy.
     
-    \item \textbf{Tầng Mạng (Network Layer):} Đảm nhận các kết nối không dây. Gồm \texttt{InternetManager} (điều phối máy trạng thái mạng), \texttt{WifiManager} (kết nối AP/STA), \texttt{MeshManager} (định tuyến mạng Mesh) và khối \texttt{WebConfigWifi/WebSocKetHandle} (cung cấp Captive Portal).
+    \item \textbf{Tầng Mạng (Network Layer):} Đảm nhận toàn bộ các kết nối truyền thông không dây và quản lý hạ tầng mạng của thiết bị. Tầng này bao gồm bộ quản trị \texttt{InternetManager} chịu trách nhiệm điều phối máy trạng thái mạng (Network State Machine), tự động phát hiện mất kết nối để kích hoạt quy trình kết nối lại; \texttt{WifiManager} quản lý việc cấu hình chế độ Wi-Fi AP hoặc STA; \texttt{MeshManager} quản lý giao thức mạng tự tổ chức ESP-Mesh-Lite, giải quyết bài toán tự động định tuyến, tìm nút cha và phục hồi đường truyền; cùng với khối \texttt{WebConfigWifi} và \texttt{WebSocketHandle} cung cấp trang Web cấu hình (Captive Portal) cục bộ giúp người dùng dễ dàng cài đặt thông số Wi-Fi và quản lý các luồng WebSocket thời gian thực kết nối với Gateway.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{Images/websever.jpg}
@@ -1181,12 +1187,17 @@ Sơ đồ mô tả kiến trúc firmware được tổ chức thành các tầng
 
 FreeRTOS quản lý đa nhiệm với các Task tiêu biểu sau:
 \begin{itemize}
-    \item \textbf{\texttt{app\_main}:} Hàm khởi tạo gốc, cấp phát \texttt{DataManager} và lần lượt gọi hàm Init() của các module để sinh ra các Task bên dưới.
-    \item \textbf{\texttt{MenuNavigation\_Task()}:} Vòng lặp liên tục quét trạng thái từ ButtonManager và phản hồi bằng cách vẽ lại giao diện qua ScreenManager.
-    \item \textbf{\texttt{InternetManager\_Task()}:} Giám sát sự thay đổi mạng (mất kết nối, chuyển chế độ AP/STA/Mesh) để kích hoạt các callback tương ứng.
-    \item \textbf{\texttt{readDataSensorTask()}:} Được sinh ra động (dynamically spawned) bởi FunctionManager mỗi khi người dùng kích hoạt đọc cảm biến trên một Port cụ thể.
-    \item \textbf{\texttt{MeshTasks} (\texttt{mesh\_data} \& \texttt{mesh\_connection}):} Duy trì kết nối nội bộ giữa các Node MSMS, đóng gói dữ liệu đo lường thành JSON và truyền qua UDP.
-    \item \textbf{\texttt{UARTTasks} (\texttt{uart\_rx} \& \texttt{uart\_tx}):} Nhận lệnh heartbeat từ Gateway để tự động quyết định vai trò (Role Switch) và làm proxy đẩy gói tin JSON từ mạng Mesh xuống Gateway.
+    \item \textbf{\texttt{app\_main}:} Hàm khởi tạo hệ thống, chịu trách nhiệm thiết lập các luồng tài nguyên ban đầu, khởi tạo hàng đợi (queue), bộ nhớ đệm dùng chung `DataManager` và lần lượt gọi các hàm khởi tạo của các module phần cứng trước khi bàn giao quyền kiểm soát cho bộ lập lịch FreeRTOS.
+    
+    \item \textbf{\texttt{MenuNavigation\_Task()}:} Vòng lặp quản lý giao diện người dùng, sử dụng cơ chế lắng nghe sự kiện từ hàng đợi của `ButtonManager` để phát hiện thao tác nhấn nút vật lý, từ đó cập nhật máy trạng thái UI và điều khiển `ScreenManager` vẽ lại các khung hình OLED tương ứng.
+    
+    \item \textbf{\texttt{InternetManager\_Task()}:} Tác vụ giám sát trạng thái mạng, định kỳ kiểm tra liên kết vật lý và logic của Wi-Fi, xử lý các sự kiện mất kết nối đột ngột để tự động thực hiện tiến trình quét tìm lại mạng Access Point hoặc khôi phục định tuyến Mesh.
+    
+    \item \textbf{\texttt{readDataSensorTask()}:} Được sinh ra và giải phóng động dưới sự kiểm soát của `FunctionManager`. Khi có yêu cầu, tác vụ này sẽ truy vấn driver cảm biến tương ứng trên cổng phần cứng, thu thập giá trị đo đạc vật lý và đẩy kết quả về bộ đệm dữ liệu.
+    
+    \item \textbf{\texttt{MeshTasks} (\texttt{mesh\_data} \& \texttt{mesh\_connection}):} Nhóm tác vụ nền chịu trách nhiệm duy trì liên kết nội bộ giữa các Node MSMS, tự động định tuyến cấu trúc mạng Mesh, đồng thời đóng gói dữ liệu đo lường thành chuẩn JSON Telemetry và gửi qua socket UDP đến địa chỉ của Root Node.
+    
+    \item \textbf{\texttt{UARTTasks} (\texttt{uart\_rx} \& \texttt{uart\_tx}):} Đảm nhận truyền thông nối tiếp tốc độ cao với Gateway. Tác vụ này liên tục nhận và kiểm tra nhịp tim từ Gateway để quyết định vai trò hoạt động (Role Switch), đồng thời đóng vai trò làm hàng đợi đệm trung chuyển gói tin dữ liệu từ mạng Mesh xuống Gateway.
 \end{itemize}
 
 \textbf{Luồng hoạt động theo vai trò mạng (Mesh Roles)}
@@ -1199,11 +1210,15 @@ Hệ thống MSMS hỗ trợ việc linh hoạt chuyển đổi vai trò giữa 
     \captionsetup{font=small}
     \caption{Sơ đồ chuyển đổi vai trò (Role Switch) thông qua UART.}
 \end{figure}
-Sơ đồ chuyển đổi vai trò mô tả cách \texttt{uart\_gateway\_rx\_task} hoạt động để quyết định cấu hình của mạch. Nếu nhận được lệnh \texttt{"Start Root"}, nó sẽ gọi \texttt{wifi\_mesh\_join\_as\_root\_callback()} để thiết lập chế độ ROOT. Đồng thời, mạch sẽ liên tục chờ nhịp tim (\texttt{"Connected"}) từ Gateway. Nếu mất kết nối với Gateway quá 1 giây trong lúc đang làm ROOT, Watchdog sẽ nổ và tự động gọi \texttt{wifi\_mesh\_join\_as\_node\_callback()} để lùi về làm NODE, đảm bảo tính an toàn và tự phục hồi cho mạng Mesh.
+Sơ đồ chuyển đổi vai trò mô tả chi tiết cơ chế hoạt động cốt lõi của \texttt{uart\_gateway\_rx\_task} trong việc định tuyến và quyết định cấu hình mạng của mỗi mạch MSMS. Đây là một luồng (task) hoạt động liên tục nhằm lắng nghe luồng dữ liệu qua cổng UART kết nối vật lý với trạm thu thập trung tâm (Gateway). Thay vì thiết lập cứng (hardcode) vai trò của từng thiết bị ngay từ khi nạp code, hệ thống sử dụng cơ chế cấp phát động vô cùng linh hoạt. Cụ thể, khi \texttt{uart\_gateway\_rx\_task} phân tích và nhận diện được chuỗi lệnh \texttt{"Start Root"} từ Gateway, nó sẽ lập tức kích hoạt hàm \texttt{wifi\_mesh\_join\_as\_root\_callback()}. Quá trình này sẽ tạm ngắt các luồng kết nối hiện tại, tái cấu hình vi điều khiển trở thành điểm gốc (ROOT node) của toàn bộ mạng ESP-Mesh-Lite, đồng thời mở các dịch vụ mạng như UDP Server để sẵn sàng đón nhận dữ liệu từ các NODE con trỏ về.
+
+Bên cạnh quá trình thăng cấp (promotion) lên ROOT, tính ổn định và liên tục của hệ thống được bảo vệ nghiêm ngặt thông qua cơ chế giám sát nhịp tim (Heartbeat). Khi đang hoạt động ở chế độ ROOT, mạch MSMS yêu cầu Gateway phải gửi liên tục chuỗi tín hiệu \texttt{"Connected"} với tần suất cao. Mỗi khi nhận được gói tin nhịp tim này, \texttt{uart\_gateway\_rx\_task} sẽ làm mới (reset) một bộ đếm thời gian an toàn (Software Watchdog). Tuy nhiên, nếu xảy ra các sự cố ngoài ý muốn như đứt cáp truyền thông, Gateway bị mất nguồn đột ngột hoặc treo hệ điều hành, dẫn đến việc MSMS bị mất kết nối nhịp tim vượt quá ngưỡng quy định là 1 giây, Watchdog sẽ lập tức được kích hoạt (nổ). 
+
+Lúc này, hệ thống phần mềm nhận định Gateway đã mất khả năng xử lý và tiếp nhận dữ liệu. Để ngăn chặn tình trạng "nút thắt cổ chai" (bottleneck) – nơi thiết bị ROOT tiếp tục thu gom dữ liệu từ toàn bộ mạng Mesh nhưng lại không có lối thoát (có thể gây rò rỉ bộ nhớ hoặc mất trắng dữ liệu diện rộng), MSMS sẽ khởi chạy cơ chế tự bảo vệ. Hệ thống tự động gọi hàm \texttt{wifi\_mesh\_join\_as\_node\_callback()} để tước bỏ đặc quyền ROOT, giải phóng các tài nguyên mạng đang chiếm dụng, và lùi thiết bị về trạng thái làm một NODE thu thập thông thường. Ngay sau đó, thiết bị cùng với các NODE khác trong mạng sẽ khởi động tiến trình quét (scan) để tìm kiếm và kết nối vào một ROOT Node dự phòng khác đang hoạt động. Cơ chế tự phục hồi (Self-healing) và chuyển đổi dự phòng (Fail-over) linh hoạt này giúp loại bỏ nguy cơ gián đoạn do điểm lỗi cục bộ (Single Point of Failure), đảm bảo luồng dữ liệu công nghiệp luôn được duy trì an toàn và xuyên suốt.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Images/FlowNode.png}
+    \includegraphics[width=0.9\textwidth]{Images/FlowNode.png}
     \captionsetup{font=small}
     \caption{Hoạt động ở trạng thái NODE.}
 \end{figure}
@@ -1282,7 +1297,7 @@ Tương tự như Node MSMS, firmware Gateway cũng được thiết kế phân 
     \item \textbf{Task Xử lý \& Mạng (\texttt{WebSocket\_Handler}):} Thường trực đọc dữ liệu từ \texttt{uplink\_queue}. Khi có tin đến, nó dùng bộ phân tích \texttt{cJSON} để đọc các giá trị. Từng thông số (nhiệt độ, độ ẩm...) của mỗi Node sẽ được bóc tách và đổ vào \texttt{Datamanager}. Song song đó, Task này sẽ gọi module để ghi dữ liệu ra thẻ SD, đồng thời phát quảng bá (broadcast) bản tin này tới tất cả các client đang theo dõi trên Web UI thông qua WebSocket.
     \item \textbf{Task Màn hình (\texttt{SystemMonitor\_Task}):} Chịu trách nhiệm trực quan hóa dữ liệu cục bộ. Cứ mỗi 1 giây, hệ thống quét module \texttt{DS3231} để lấy giờ chuẩn xác, đo mức điện áp pin cấp cho Gateway, và gọi các API của LVGL để làm mới (refresh) giao diện hiển thị. Việc tách biệt luồng này đảm bảo màn hình luôn được thao tác mượt mà ngay cả khi đường truyền UART hoặc mạng Mesh đang tắc nghẽn.
 \end{itemize}
-\paragraph{C. Thiết kế Software (Web Dashboard \& Mobile App)} \mbox{}\\
+\subsubsection{Thiết kế Software (Web Dashboard \& Mobile App)}
 
 Bên cạnh firmware chạy trên vi điều khiển, hệ thống còn được phát triển kèm theo một hệ sinh thái phần mềm hoàn chỉnh bao gồm Server trung tâm, Web Dashboard và Mobile App nhằm mục đích giám sát, điều khiển và lưu trữ dữ liệu tập trung.
 
@@ -1401,6 +1416,11 @@ Bài test kiểm chứng toàn bộ quy trình: \textbf{Môi trường $\rightar
 
 \begin{figure}[H]
     \centering
+    \includegraphics[width=0.6\textwidth]{Images/setup0.jpg}
+    \caption*{Thiết lập ban đầu}
+    
+    \vspace{0.5cm}
+    
     \begin{minipage}[t]{0.32\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Images/setup1.jpg}
@@ -1409,12 +1429,12 @@ Bài test kiểm chứng toàn bộ quy trình: \textbf{Môi trường $\rightar
     \begin{minipage}[t]{0.32\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Images/setup2.jpg}
-        \caption*{Trạm Gateway thu thập}
+        \caption*{Trạm Gateway}
     \end{minipage}\hfill
     \begin{minipage}[t]{0.32\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Images/setup3.jpg}
-        \caption*{Kết nối toàn hệ thống}
+        \caption*{Toàn hệ thống}
     \end{minipage}
     \caption{Bố trí thiết lập môi trường kiểm thử thực tế (End-to-End).}
     \label{fig:setup}
@@ -1448,31 +1468,123 @@ Dữ liệu thu thập từ các Node MSMS và Gateway được truyền xuyên 
     \caption{Cơ sở dữ liệu lưu lại log lịch sử đo đạc từ các Node.}
 \end{figure}
 
-\subsection{Đánh giá hiệu năng mạng Mesh (Packet Loss)}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Images/Dashboard_menu.jpg}
+        \caption*{Giao diện Dashboard}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Images/Gateway_Menu.jpg}
+        \caption*{Giao diện Gateway}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Images/History_Menu.jpg}
+        \caption*{Lịch sử dữ liệu}
+    \end{minipage}
+    \caption{Giao diện trên Mobile App.}
+    \label{fig:mobile_app}
+\end{figure}
 
-Để chứng minh độ ổn định của mạng Wi-Fi Mesh-Lite dưới cường độ cao, một bài kiểm tra suy hao gói tin (Packet Loss) đã được thực hiện. Hai Node MSMS đồng thời phát liên tục các gói tin về ROOT Node để chuyển tiếp lên máy chủ, với 2 tần suất thử nghiệm:
-\begin{itemize}
-    \item \textbf{Tần suất 10Hz} (chu kỳ gửi 100ms/gói).
-    \item \textbf{Tần suất 100Hz} (chu kỳ gửi 10ms/gói).
-\end{itemize}
+\subsection{Đánh giá hiệu năng mạng Mesh và dữ liệu cảm biến}
 
-Kết quả thu được thông qua theo dõi trên máy chủ (hiển thị ở Hình~\ref{fig:pkl}) cho thấy hệ thống hoạt động vô cùng ổn định: tỷ lệ mất gói tin (Packet Loss) hoàn toàn bằng \textbf{0\%} ở cả hai tần suất lấy mẫu, chứng tỏ cấu trúc mạng và năng lực xử lý của Gateway đáp ứng rất tốt môi trường công nghiệp yêu cầu tốc độ cập nhật siêu cao.
+Bài kiểm tra được thực hiện ở tần suất lấy mẫu \textbf{1Hz} trên 3 thiết bị MSMS khác nhau để đánh giá tỷ lệ suy hao gói tin (Packet Loss) và chất lượng dữ liệu thu thập được từ cảm biến.
+
+\subsubsection{Nhận xét về tỉ lệ suy hao gói tin (Packet Loss)}
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Images/PKL_10ms.png}
-        \caption{Hiệu suất khi truyền dữ liệu 10Hz (Packet loss = 0\%).}
-    \end{minipage}\hfill
-    \begin{minipage}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Images/PKL_100hz.png}
-        \caption{Hiệu suất khi truyền dữ liệu 100Hz (Packet loss = 0\%).}
-    \end{minipage}
-    \caption{Kết quả kiểm tra suy hao gói tin mạng Wi-Fi Mesh.}
-    \label{fig:pkl}
+    \includegraphics[width=0.65\textwidth]{Images/plot_filtered_pl_3076F5A70738.png}
+    \caption*{MAC: 30:76:F5:A7:07:38}
+    
+    \vspace{0.2cm}
+    
+    \includegraphics[width=0.65\textwidth]{Images/plot_filtered_pl_9451DC34105C.png}
+    \caption*{MAC: 94:51:DC:34:10:5C}
+    
+    \vspace{0.2cm}
+    
+    \includegraphics[width=0.65\textwidth]{Images/plot_filtered_pl_B4BFE9340320.png}
+    \caption*{MAC: B4:BF:E9:34:03:20}
+    
+    \caption{Tỉ lệ Packet Loss của 3 thiết bị MSMS.}
+    \label{fig:pkl_new}
 \end{figure}
+
+\begin{enumerate}
+    \item \textbf{Thiết bị 30:76:F5:A7:07:38}
+    \begin{itemize}
+        \item Trung bình rớt gói tin: 1.04\%
+        \item Mức rớt cao nhất (Spike): Lên tới 80.00\%
+        \item Tần suất bị rớt mạng: Xảy ra 599 lần (chiếm 4.25\% tổng thời gian)
+        \item Tất cả các lần rớt gói tin đều rơi vào diện High loss ($>$5\%).
+        \item \textbf{Đánh giá:} TRUNG BÌNH. Rớt gói tin ở mức đáng lưu ý. Có thể gây giật lag.
+    \end{itemize}
+    
+    \item \textbf{Thiết bị 94:51:DC:34:10:5C}
+    \begin{itemize}
+        \item Trung bình rớt gói tin: 1.16\%
+        \item Mức rớt cao nhất (Spike): Lên tới 80.00\%
+        \item Tần suất bị rớt mạng: Xảy ra 671 lần (chiếm 4.78\% tổng thời gian)
+        \item \textbf{Đánh giá:} TRUNG BÌNH. Rớt gói tin ở mức đáng lưu ý. Có thể gây giật lag.
+    \end{itemize}
+    
+    \item \textbf{Thiết bị B4:BF:E9:34:03:20}
+    \begin{itemize}
+        \item Trung bình rớt gói tin: 0.93\% (Tốt nhất trong 3 thiết bị)
+        \item Mức rớt cao nhất (Spike): 75.00\%
+        \item Tần suất bị rớt mạng: Xảy ra 506 lần (chiếm 3.60\% tổng thời gian)
+        \item \textbf{Đánh giá:} TRUNG BÌNH.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Nhận xét sâu hơn từ dữ liệu:} Mặc dù mức trung bình (Average) của mạng có vẻ ổn (khoảng 1\%), nhưng thực tế khi xảy ra lỗi rớt mạng, tỷ lệ rớt thường nhảy vọt lên rất cao (toàn bộ các đợt lỗi đều $>$5\%, có lúc lên đến 80\%). Điều này cho thấy mạng không rớt lắt nhắt, mà cứ mỗi khi có vấn đề là thường bị đứt đoạn nghiêm trọng trong chốc lát. Hiện tượng này dễ dẫn đến cảm giác thỉnh thoảng bị đơ hoặc giật cục rồi lại bình thường.
+
+\subsubsection{Đánh giá chất lượng dữ liệu cảm biến}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Images/plot_sensors_3076F5A70738.png}
+    \caption*{Cảm biến Nút 1}
+    
+    \vspace{0.2cm}
+    
+    \includegraphics[width=0.65\textwidth]{Images/plot_sensors_9451DC34105C.png}
+    \caption*{Cảm biến Nút 2}
+    
+    \vspace{0.2cm}
+    
+    \includegraphics[width=0.65\textwidth]{Images/plot_sensors_B4BFE9340320.png}
+    \caption*{Cảm biến Nút 3}
+    
+    \caption{Dữ liệu đo đạc cảm biến từ 3 thiết bị.}
+    \label{fig:sensors_data}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Nút 1 (MAC: 30:76:F5:A7:07:38) - Cảm biến MH-Z14A (CO2)}
+    \begin{itemize}
+        \item \textbf{Nhiệt độ: [RẤT TỐT]} Giá trị dao động rất mượt từ 28$^\circ$C đến 34$^\circ$C. Biến động giữa 2 lần đọc liên tiếp (Max Jump) không quá 5$^\circ$C.
+        \item \textbf{CO2 (co2\_ppm): [CÓ VẤN ĐỀ]} Giá trị dao động từ 400 - 2000 ppm (trong dải đo). Tuy nhiên, Độ lệch chuẩn (StdDev) rất cao (394.42) và bước nhảy đột ngột lớn nhất lên tới 1036 ppm.
+        \item \textit{Nhận xét:} Nồng độ CO2 trong môi trường tự nhiên không thể thay đổi đột ngột 1000 ppm chỉ trong vài giây (trừ khi có người phà hơi thở trực tiếp vào cảm biến). Cảm biến MH-Z14A tiêu thụ dòng điện khá lớn khi sưởi tia hồng ngoại. Việc nhảy số ảo này khả năng cao do nguồn cấp không đủ dòng (sụt áp) hoặc chưa chờ đủ 3 phút (Pre-heat) khi cảm biến vừa khởi động.
+    \end{itemize}
+    
+    \item \textbf{Nút 2 (MAC: 94:51:DC:34:10:5C) - Cảm biến DHT}
+    \begin{itemize}
+        \item \textbf{Nhiệt độ: [TỐT]} Dao động mượt, không nhảy số (Max jump chỉ 1$^\circ$C). Mặc dù có lúc đạt 48$^\circ$C (có thể do để ngoài trời hoặc bị nguồn nhiệt tác động), nhưng dữ liệu trơn tru, không bị nhiễu điện.
+        \item \textbf{Độ ẩm (humidity\_RH): [CẢNH BÁO NHẸ]} Có sự xuất hiện của những bước nhảy vọt (Max jump lên đến 24\%). Trong điều kiện tự nhiên, độ ẩm hiếm khi tăng/giảm 24\% chỉ trong vài giây. Đây là "đặc sản" của các dòng DHT giá rẻ (như DHT11) vốn có độ nhạy và độ chính xác không cao, thỉnh thoảng sẽ trả về một giá trị ảo.
+    \end{itemize}
+    
+    \item \textbf{Nút 3 (MAC: B4:BF:E9:34:03:20) - Cảm biến HTU21D}
+    \begin{itemize}
+        \item \textbf{Nhiệt độ: [XUẤT SẮC]} Dải đo cực kỳ ổn định (28.4 - 34.0$^\circ$C). Bước nhảy lớn nhất chỉ 0.31$^\circ$C. Điều này phản ánh đúng chất lượng của HTU21D (độ phân giải và chính xác cao hơn hẳn DHT).
+        \item \textbf{Độ ẩm (humidity\_RH): [LỖI DỮ LIỆU]} Thuật toán ghi nhận giá trị độ ẩm lên tới 107.24\%. Về mặt vật lý, độ ẩm tương đối (RH) không thể vượt quá 100\%.
+        \item \textit{Chẩn đoán:} Có hai khả năng xảy ra: Lỗ thoát khí của cảm biến HTU21D đang bị đọng nước (condensation) do sương mù hoặc nước mưa, làm sai lệch điện dung bên trong. Hoặc sai số trong công thức chuyển đổi (phần mềm/thư viện) trên ESP chưa giới hạn (clamp) giá trị trần ở mức 100\%.
+    \end{itemize}
+\end{itemize}
 
 \subsection{Tổng hợp kết quả kiểm thử}
 

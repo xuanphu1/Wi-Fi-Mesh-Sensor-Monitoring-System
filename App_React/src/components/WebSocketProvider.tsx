@@ -16,7 +16,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   useEffect(() => {
     let reconnectTimeout: NodeJS.Timeout;
-    
+
     // Periodically check for node timeouts
     const timeoutInterval = setInterval(() => {
       useMeshStore.getState().checkTimeouts();
@@ -24,11 +24,11 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     const connect = () => {
       setWsStatus('Connecting');
-      
+
       // Use Expo Constants to automatically get the PC's local LAN IP (e.g. 192.168.x.x)
       const debuggerHost = Constants.expoConfig?.hostUri;
       const wsUrl = `wss://systemmsems.msems.click/ws`;
-      
+
       console.log(`Connecting to WebSocket at ${wsUrl}`);
       const ws = new WebSocket(wsUrl);
       wsRef.current = ws;
@@ -42,7 +42,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         try {
           const data = JSON.parse(event.data);
           console.log('[WS RAW DATA]:', event.data);
-          
+
           if (data.type === 'welcome') {
             useMeshStore.getState().applyWelcome(data);
           } else if (data.type === 'uart_rx' && data.payload) {
@@ -56,19 +56,19 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 port.readings.forEach(reading => {
                   const key = `${parsed.mac}_${port.sensorName}_${reading.key}`;
                   const th = thresholds[key];
-                  
+
                   if (th && th.enabled && th.notify) {
                     const val = reading.value;
                     const cMin = parseFloat(th.critMin);
                     const cMax = parseFloat(th.critMax);
-                    
+
                     console.log(`[Alert Check] ${key}: val=${val}, cMin=${cMin}, cMax=${cMax}`);
-                    
+
                     if (val < cMin || val > cMax) {
                       const now = Date.now();
                       const lastAlert = lastAlerted.current[key] || 0;
                       console.log(`[Alert Trigger] Out of bounds! lastAlert was ${now - lastAlert}ms ago.`);
-                      
+
                       if (now - lastAlert > 10000) { // Reduced to 10s for easier testing
                         console.log(`[Alert Display] Showing Dropdown Toast!`);
                         useToastStore.getState().showToast(

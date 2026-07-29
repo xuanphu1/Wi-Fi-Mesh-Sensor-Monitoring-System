@@ -91,9 +91,9 @@ void wifi_manager_task(void *pvParameters)
             bool is_ws_connected = (ctx->ws_state && ctx->ws_state->connected);
             bool ap_mode_active = (bits & WIFI_AP_MODE_BIT) != 0;
 
-            if (is_wifi_connected && is_ws_connected) {
+            if (is_wifi_connected) {
                 if (ap_mode_active) {
-                    ESP_LOGI(WIFI_TAG, "WiFi & WS connected, disabling AP mode");
+                    ESP_LOGI(WIFI_TAG, "WiFi connected, disabling AP mode");
                     stop_webserver();
                     esp_wifi_set_mode(WIFI_MODE_STA);
                     ctx->ap_mode_active = false;
@@ -102,7 +102,7 @@ void wifi_manager_task(void *pvParameters)
                 }
             } else {
                 if (!ap_mode_active && !ctx->connect_pending) {
-                    ESP_LOGI(WIFI_TAG, "WiFi or WS disconnected, enabling AP mode");
+                    ESP_LOGI(WIFI_TAG, "WiFi disconnected, enabling AP mode");
                     wifi_init_ap();
                     bits = xEventGroupGetBits(ctx->event_group);
                     ap_mode_active = true;

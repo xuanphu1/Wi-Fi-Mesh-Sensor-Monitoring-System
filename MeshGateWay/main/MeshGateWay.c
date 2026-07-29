@@ -8,13 +8,28 @@
 #include "WifiManager.h"
 #include "driver/gpio.h"
 #include "esp_err.h"
+#include "esp_insights.h"
 #include "esp_log.h"
+#include "esp_sntp.h"
 #include "esp_spiffs.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
 #include <stdio.h>
+
+#define ESP_INSIGHTS_AUTH_KEY                                                  \
+  "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9."                                      \
+  "eyJ1c2VyIjoiMmU5ZDIxOGMtMjQ3MS00NmVhLThmNDUtOGY0ZTNiMTdjZDU2IiwiaXNzIjoiZT" \
+  "MyMmI1OWMtNjNjYy00ZTQwLThlYTItNGU3NzY2NTQ1Y2NhIiwic3ViIjoiOTY4NmM3OTItZTFm" \
+  "Zi00MTg3LWJmN2YtMzBkZTM1MzFlZGUzIiwiZXhwIjoyMDk4NTM2NDI1LCJpYXQiOjE3ODMxNz" \
+  "Y0MjV9.LLN9cDXxgl9TmRXWoiWKSZgcWAbwYDRvsOPJkvRdzQhohFxeHYSYE_2oVAod-"       \
+  "9GT71giZ93Okf6DWmywyWEdmyJhOLhvQNoLoC9r_"                                   \
+  "ixuZg0P4KC9U515uhHJPgWqOqvR5NfhudQYdkOK2uMOov24NJqK79_"                     \
+  "nEj5HKBhHGOdkrqLhVWfjnujDLrhcXZ_PKpwXaakU9Pkl5Ohki3SVFDXZJrfktciAXUf2b_"    \
+  "S4GGcFPotCK3dIRyOzTloQDh_"                                                  \
+  "xSZIqrkMSfchXNkzUE3GVdHBObNmoq2hn8t6oifbLwb6kj4uiuY1e2hnwN4UHrtEIWA-"       \
+  "eQYVRdVL2BROjLXCHckI7iA"
 
 static const char *TAG = "app";
 
@@ -59,6 +74,41 @@ static esp_err_t app_mount_spiffs(void) {
              (unsigned)total);
   }
   return ESP_OK;
+}
+
+static void initialize_sntp(void) {
+  ESP_LOGI(TAG, "Initializing SNTP");
+
+  // Set Timezone to Vietnam (UTC+7)
+  setenv("TZ", "ICT-7", 1);
+  tzset();
+
+  esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+  esp_sntp_setservername(0, "pool.ntp.org");
+  esp_sntp_init();
+
+  // Chờ cho đến khi lấy được giờ thực tế
+  ESP_LOGI(TAG, "Waiting for system time to be set...");
+  int retry = 0;
+  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET && ++retry < 15) {
+    vTaskDelay(pdMS_TO_TICKS(2000));
+    ESP_LOGI(TAG, "Waiting... %d/15", retry);
+  }
+}
+
+static void initialize_insights(void) {
+  esp_insights_config_t config = {
+      .log_type = ESP_DIAG_LOG_TYPE_ERROR | ESP_DIAG_LOG_TYPE_WARNING |
+                  ESP_DIAG_LOG_TYPE_EVENT,
+      .auth_key = ESP_INSIGHTS_AUTH_KEY,
+  };
+  esp_err_t err = esp_insights_init(&config);
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Failed to initialize ESP Insights: %s",
+             esp_err_to_name(err));
+  } else {
+    ESP_LOGI(TAG, "ESP Insights initialized successfully");
+  }
 }
 
 void vApplicationIdleHook(void) {
@@ -121,6 +171,13 @@ void app_main(void) {
   uart_to_node_attach_ws_state(&g_ws);
   uart_to_node_attach_telemetry(&g_telemetry);
   uart_to_node_start();
+
+  initialize_sntp();
+
+  // Tách rời thời điểm bắt tay mạng để tránh nghẽn mbedTLS và băng thông
+  vTaskDelay(pdMS_TO_TICKS(10000));
+
+  initialize_insights();
 
   vTaskDelete(NULL);
 }

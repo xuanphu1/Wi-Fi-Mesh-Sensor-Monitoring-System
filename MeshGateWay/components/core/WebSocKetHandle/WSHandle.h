@@ -30,5 +30,6 @@ void WebSocket_Handler(void *pvParameter);
 /** URL chỉ trong RAM (không flash). */
 esp_err_t save_ws_url(const char *url);
 const char *get_ws_url(void);
+bool websocket_is_connected(void);
 
 #endif /* WS_HANDLE_H */

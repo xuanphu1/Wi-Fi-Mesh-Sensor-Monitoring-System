@@ -2,6 +2,7 @@
 #include "TimeManager.h"
 #include "dhcpserver/dhcpserver.h"
 #include "esp_bridge.h"
+#include "esp_random.h"
 #include "sdkconfig.h"
 #include <arpa/inet.h>
 #include <inttypes.h>
@@ -108,48 +109,52 @@ static bool mesh_get_sta_ip_info(esp_netif_ip_info_t *out) {
 #define MAX_TRACKED_NODES 32
 
 typedef struct {
-    char mac[20];
-    uint32_t last_seq;
-    uint32_t expected_seq;
-    uint32_t packets_lost;
-    uint32_t packets_received;
+  char mac[20];
+  uint32_t last_seq;
+  uint32_t expected_seq;
+  uint32_t packets_lost;
+  uint32_t packets_received;
 } packet_loss_tracker_t;
 
 static packet_loss_tracker_t s_trackers[MAX_TRACKED_NODES];
 static portMUX_TYPE s_tracker_mux = portMUX_INITIALIZER_UNLOCKED;
 
-static void mesh_track_packet(const char* mac, uint32_t seq) {
-    if (mac == NULL || strlen(mac) == 0 || seq == 0) return;
-    
-    portENTER_CRITICAL(&s_tracker_mux);
-    int found_idx = -1;
-    int empty_idx = -1;
-    for (int i=0; i<MAX_TRACKED_NODES; i++) {
-        if (s_trackers[i].mac[0] == '\0' && empty_idx == -1) {
-             empty_idx = i;
-        } else if (strncmp(s_trackers[i].mac, mac, sizeof(s_trackers[i].mac)) == 0) {
-             found_idx = i;
-             break;
-        }
+static void mesh_track_packet(const char *mac, uint32_t seq) {
+  if (mac == NULL || strlen(mac) == 0 || seq == 0)
+    return;
+
+  portENTER_CRITICAL(&s_tracker_mux);
+  int found_idx = -1;
+  int empty_idx = -1;
+  for (int i = 0; i < MAX_TRACKED_NODES; i++) {
+    if (s_trackers[i].mac[0] == '\0' && empty_idx == -1) {
+      empty_idx = i;
+    } else if (strncmp(s_trackers[i].mac, mac, sizeof(s_trackers[i].mac)) ==
+               0) {
+      found_idx = i;
+      break;
     }
-    
-    if (found_idx >= 0) {
-        if (s_trackers[found_idx].expected_seq != 0) {
-            if (seq > s_trackers[found_idx].expected_seq) {
-                s_trackers[found_idx].packets_lost += (seq - s_trackers[found_idx].expected_seq);
-            }
-        }
-        s_trackers[found_idx].last_seq = seq;
-        s_trackers[found_idx].expected_seq = seq + 1;
-        s_trackers[found_idx].packets_received++;
-    } else if (empty_idx >= 0) {
-        strncpy(s_trackers[empty_idx].mac, mac, sizeof(s_trackers[empty_idx].mac)-1);
-        s_trackers[empty_idx].last_seq = seq;
-        s_trackers[empty_idx].expected_seq = seq + 1;
-        s_trackers[empty_idx].packets_lost = 0;
-        s_trackers[empty_idx].packets_received = 1;
+  }
+
+  if (found_idx >= 0) {
+    if (s_trackers[found_idx].expected_seq != 0) {
+      if (seq > s_trackers[found_idx].expected_seq) {
+        s_trackers[found_idx].packets_lost +=
+            (seq - s_trackers[found_idx].expected_seq);
+      }
     }
-    portEXIT_CRITICAL(&s_tracker_mux);
+    s_trackers[found_idx].last_seq = seq;
+    s_trackers[found_idx].expected_seq = seq + 1;
+    s_trackers[found_idx].packets_received++;
+  } else if (empty_idx >= 0) {
+    strncpy(s_trackers[empty_idx].mac, mac,
+            sizeof(s_trackers[empty_idx].mac) - 1);
+    s_trackers[empty_idx].last_seq = seq;
+    s_trackers[empty_idx].expected_seq = seq + 1;
+    s_trackers[empty_idx].packets_lost = 0;
+    s_trackers[empty_idx].packets_received = 1;
+  }
+  portEXIT_CRITICAL(&s_tracker_mux);
 }
 
 static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
@@ -191,7 +196,7 @@ static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
     lvl_pos += strlen(lvl_key);
     *origin_lvl = (int)strtol(lvl_pos, NULL, 10);
   }
-  
+
   const char *seq_key = "\"seq\":";
   char *seq_pos = strstr(json, seq_key);
   uint32_t seq = 0;
@@ -211,9 +216,9 @@ static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
     }
     mac_str[i] = '\0';
   }
-  
+
   if (seq > 0 && strlen(mac_str) > 0) {
-      mesh_track_packet(mac_str, seq);
+    mesh_track_packet(mac_str, seq);
   }
 }
 
@@ -819,6 +824,13 @@ static void mesh_data_task(void *pvParameters) {
                CONFIG_IP_ROOT, CONFIG_UDP_PORT, MESH_UDP_JSON_SCHEMA);
       ESP_LOGI(TAG_MESH, "payload: %s", payload);
 
+      /* --- BẮT ĐẦU THÊM CƠ CHẾ JITTER CHỐNG NGHẼN --- */
+      // Lấy 1 số ngẫu nhiên từ 10ms đến 150ms để lệch pha phát sóng giữa các
+      // Node
+      uint32_t random_delay_ms = 10 + (esp_random() % 140);
+      vTaskDelay(pdMS_TO_TICKS(random_delay_ms));
+      /* --- KẾT THÚC THÊM CƠ CHẾ --- */
+
       int err = -1;
       for (int retries = 0; retries < 5; retries++) {
         err = sendto(node_tx_sock, payload, (size_t)plen, 0,
@@ -955,29 +967,32 @@ static void mesh_print_system_info_timercb(TimerHandle_t timer) {
   }
 #endif
 
-  for (int i=0; i<MAX_TRACKED_NODES; i++) {
-      char mac[20] = {0};
-      uint32_t lost = 0;
-      uint32_t recv = 0;
-      
-      portENTER_CRITICAL(&s_tracker_mux);
-      if (s_trackers[i].mac[0] != '\0') {
-          lost = s_trackers[i].packets_lost;
-          recv = s_trackers[i].packets_received;
-          strncpy(mac, s_trackers[i].mac, sizeof(mac));
-          
-          // Reset counters every 10s
-          s_trackers[i].packets_lost = 0;
-          s_trackers[i].packets_received = 0;
+  for (int i = 0; i < MAX_TRACKED_NODES; i++) {
+    char mac[20] = {0};
+    uint32_t lost = 0;
+    uint32_t recv = 0;
+
+    portENTER_CRITICAL(&s_tracker_mux);
+    if (s_trackers[i].mac[0] != '\0') {
+      lost = s_trackers[i].packets_lost;
+      recv = s_trackers[i].packets_received;
+      strncpy(mac, s_trackers[i].mac, sizeof(mac));
+
+      // Reset counters every 10s
+      s_trackers[i].packets_lost = 0;
+      s_trackers[i].packets_received = 0;
+    }
+    portEXIT_CRITICAL(&s_tracker_mux);
+
+    if (mac[0] != '\0' && (lost + recv > 0)) {
+      float loss_pct = (float)lost / (lost + recv) * 100.0f;
+      if (loss_pct > 0.0f) {
+        ESP_LOGW(TAG_MESH,
+                 "Packet Loss MAC: %s, Loss: %.2f%% (Lost: %" PRIu32
+                 ", Recv: %" PRIu32 ")",
+                 mac, loss_pct, lost, recv);
       }
-      portEXIT_CRITICAL(&s_tracker_mux);
-      
-      if (mac[0] != '\0' && (lost + recv > 0)) {
-          float loss_pct = (float)lost / (lost + recv) * 100.0f;
-          if (loss_pct > 0.0f) {
-              ESP_LOGW(TAG_MESH, "Packet Loss MAC: %s, Loss: %.2f%% (Lost: %" PRIu32 ", Recv: %" PRIu32 ")", mac, loss_pct, lost, recv);
-          }
-      }
+    }
   }
 }
 
@@ -1354,11 +1369,32 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t mesh_role) {
   }
 
   if (!s_mesh_lite_started_once) {
+    if (mesh_role == MESH_ROLE_ROOT) {
+        // Tắt tính năng tự động Scan/Reconnect của Mesh-Lite
+        // 4000000 giây = ~46 ngày (Gần giới hạn tối đa của FreeRTOS Timer để không bị tràn biến)
+        esp_mesh_lite_set_wifi_reconnect_interval(4000000, 0, 4000000);
+    }
     esp_mesh_lite_start();
     s_mesh_lite_started_once = true;
   } else {
     ESP_LOGI(TAG_MESH, "Mesh-Lite already started once, reconnecting");
-    esp_mesh_lite_connect();
+    if (mesh_role != MESH_ROLE_ROOT) {
+      esp_mesh_lite_connect();
+    }
+  }
+
+  // Bắt buộc tắt PMF một lần nữa sau khi Mesh-Lite start (vì Mesh-Lite có thể đè cấu hình)
+  wifi_config_t wifi_ap_cfg;
+  if (esp_wifi_get_config(WIFI_IF_AP, &wifi_ap_cfg) == ESP_OK) {
+      wifi_ap_cfg.ap.pmf_cfg.capable = false;
+      wifi_ap_cfg.ap.pmf_cfg.required = false;
+      esp_wifi_set_config(WIFI_IF_AP, &wifi_ap_cfg);
+  }
+  wifi_config_t wifi_sta_cfg;
+  if (esp_wifi_get_config(WIFI_IF_STA, &wifi_sta_cfg) == ESP_OK) {
+      wifi_sta_cfg.sta.pmf_cfg.capable = false;
+      wifi_sta_cfg.sta.pmf_cfg.required = false;
+      esp_wifi_set_config(WIFI_IF_STA, &wifi_sta_cfg);
   }
   if (xTaskCreate(mesh_connection_task, "mesh_link", 3072, data, 5,
                   &data->TaskHandle_Array[TASK_MESH_LINK]) != pdPASS) {

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.15)  9 JUN 2026 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.15)  16 JUL 2026 07:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1209,7 +1209,7 @@ Package hyperref Info: Link coloring OFF on input line 86.
 \openout4 = `main.out'.
 
  (Bia.tex
-<Images/logodhbk.png, id=251, 184.69pt x 275.0275pt>
+<Images/logodhbk.png, id=259, 184.69pt x 275.0275pt>
 File: Images/logodhbk.png Graphic file (type png)
 <use Images/logodhbk.png>
 Package pdftex.def Info: Images/logodhbk.png  used on input line 18.
@@ -1283,7 +1283,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 ... (Máº·t dÆ°á»›i).}}{42}{figure.caption.60}
+l.30 ... (Máº·t dÆ°á»›i).}}{41}{figure.caption.60}
                                                   % [2])
 \tf@lof=\write6
 \openout6 = `main.lof'.
@@ -1311,7 +1311,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
 (C:\Users\MrKoi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<Images/SimpleModule.jpg, id=477, 4111.36pt x 3083.52pt>
+<Images/SimpleModule.jpg, id=489, 4111.36pt x 3083.52pt>
 File: Images/SimpleModule.jpg Graphic file (type jpg)
 <use Images/SimpleModule.jpg>
 Package pdftex.def Info: Images/SimpleModule.jpg  used on input line 139.
@@ -1321,366 +1321,394 @@ Package pdftex.def Info: Images/SimpleModule.jpg  used on input line 139.
 
 
 {C:/Users/MrKoi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
-[7 <./Images/SimpleModule.jpg>] [8] [9] [10]
+[7 <./Images/SimpleModule.jpg>] [8] [9]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 2
-45.
+43.
 
 (C:\Users\MrKoi\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T5/cmtt/bx/n' in size <13> not available
-(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 246.
+(Font)              Font shape `T5/cmtt/m/n' tried instead on input line 244.
 
-[11] [12] [13] [14] [15]
-<Images/SoDoHeThong.png, id=531, 1541.76pt x 1027.84pt>
+[10] [11] [12] [13] [14]
+<Images/SoDoHeThong.png, id=539, 1541.76pt x 1027.84pt>
 File: Images/SoDoHeThong.png Graphic file (type png)
 <use Images/SoDoHeThong.png>
-Package pdftex.def Info: Images/SoDoHeThong.png  used on input line 380.
+Package pdftex.def Info: Images/SoDoHeThong.png  used on input line 378.
 (pdftex.def)             Requested size: 455.24411pt x 303.49248pt.
- [16 <./Images/SoDoHeThong.png (PNG copy)>] [17]
-<Images/ESP32WR.jpg, id=540, 1505.625pt x 1244.65pt>
+ [15 <./Images/SoDoHeThong.png (PNG copy)>] [16]
+<Images/ESP32WR.jpg, id=548, 1505.625pt x 1244.65pt>
 File: Images/ESP32WR.jpg Graphic file (type jpg)
 <use Images/ESP32WR.jpg>
-Package pdftex.def Info: Images/ESP32WR.jpg  used on input line 449.
+Package pdftex.def Info: Images/ESP32WR.jpg  used on input line 447.
 (pdftex.def)             Requested size: 182.09486pt x 150.52904pt.
 
-[18 <./Images/ESP32WR.jpg>]
-<Images/DS3231.jpg, id=547, 216.81pt x 233.87375pt>
+[17 <./Images/ESP32WR.jpg>]
+<Images/DS3231.jpg, id=555, 216.81pt x 233.87375pt>
 File: Images/DS3231.jpg Graphic file (type jpg)
 <use Images/DS3231.jpg>
-Package pdftex.def Info: Images/DS3231.jpg  used on input line 485.
+Package pdftex.def Info: Images/DS3231.jpg  used on input line 483.
 (pdftex.def)             Requested size: 227.62206pt x 245.54967pt.
- [19 <./Images/DS3231.jpg>]
-<Images/SdCard.jpg, id=554, 1003.75pt x 832.10875pt>
+ [18 <./Images/DS3231.jpg>]
+<Images/SdCard.jpg, id=562, 1003.75pt x 832.10875pt>
 File: Images/SdCard.jpg Graphic file (type jpg)
 <use Images/SdCard.jpg>
-Package pdftex.def Info: Images/SdCard.jpg  used on input line 517.
+Package pdftex.def Info: Images/SdCard.jpg  used on input line 515.
 (pdftex.def)             Requested size: 227.62206pt x 188.68922pt.
- [20 <./Images/SdCard.jpg>]
-<Images/ip5306.png, id=561, 813.0375pt x 813.0375pt>
+ [19 <./Images/SdCard.jpg>]
+<Images/ip5306.png, id=568, 813.0375pt x 813.0375pt>
 File: Images/ip5306.png Graphic file (type png)
 <use Images/ip5306.png>
-Package pdftex.def Info: Images/ip5306.png  used on input line 556.
+Package pdftex.def Info: Images/ip5306.png  used on input line 554.
 (pdftex.def)             Requested size: 227.62206pt x 227.61172pt.
- [21 <./Images/ip5306.png>]
-<Images/PinLithium.jpg, id=568, 602.25pt x 602.25pt>
+ [20 <./Images/ip5306.png>]
+<Images/PinLithium.jpg, id=576, 602.25pt x 602.25pt>
 File: Images/PinLithium.jpg Graphic file (type jpg)
 <use Images/PinLithium.jpg>
-Package pdftex.def Info: Images/PinLithium.jpg  used on input line 612.
+Package pdftex.def Info: Images/PinLithium.jpg  used on input line 610.
 (pdftex.def)             Requested size: 227.62206pt x 227.62596pt.
- [22] [23 <./Images/PinLithium.jpg>]
-<Images/SSD1306.jpg, id=578, 526.96875pt x 526.96875pt>
+ [21] [22 <./Images/PinLithium.jpg>]
+<Images/SSD1306.jpg, id=586, 526.96875pt x 526.96875pt>
 File: Images/SSD1306.jpg Graphic file (type jpg)
 <use Images/SSD1306.jpg>
-Package pdftex.def Info: Images/SSD1306.jpg  used on input line 648.
+Package pdftex.def Info: Images/SSD1306.jpg  used on input line 646.
 (pdftex.def)             Requested size: 136.57462pt x 136.57443pt.
- [24 <./Images/SSD1306.jpg>]
-<Images/AMS1117.jpg, id=584, 225.84375pt x 225.84375pt>
+ [23 <./Images/SSD1306.jpg>]
+<Images/AMS1117.jpg, id=592, 225.84375pt x 225.84375pt>
 File: Images/AMS1117.jpg Graphic file (type jpg)
 <use Images/AMS1117.jpg>
-Package pdftex.def Info: Images/AMS1117.jpg  used on input line 684.
+Package pdftex.def Info: Images/AMS1117.jpg  used on input line 682.
 (pdftex.def)             Requested size: 182.09486pt x 182.10536pt.
- [25 <./Images/AMS1117.jpg>]
-<Images/ili9341.jpg, id=590, 1003.75pt x 1003.75pt>
+ [24 <./Images/AMS1117.jpg>]
+<Images/ili9341.jpg, id=598, 1003.75pt x 1003.75pt>
 File: Images/ili9341.jpg Graphic file (type jpg)
 <use Images/ili9341.jpg>
-Package pdftex.def Info: Images/ili9341.jpg  used on input line 718.
+Package pdftex.def Info: Images/ili9341.jpg  used on input line 716.
 (pdftex.def)             Requested size: 182.09486pt x 182.09158pt.
- [26 <./Images/ili9341.jpg>]
-<Images/pcf8574.jpg, id=598, 201.75375pt x 251.94125pt>
+ [25 <./Images/ili9341.jpg>]
+<Images/pcf8574.jpg, id=605, 201.75375pt x 251.94125pt>
 File: Images/pcf8574.jpg Graphic file (type jpg)
 <use Images/pcf8574.jpg>
-Package pdftex.def Info: Images/pcf8574.jpg  used on input line 750.
+Package pdftex.def Info: Images/pcf8574.jpg  used on input line 748.
 (pdftex.def)             Requested size: 182.09486pt x 227.39471pt.
- [27 <./Images/pcf8574.jpg>]
-<Images/ao3400_1.jpg, id=604, 1003.75pt x 931.48pt>
+ [26 <./Images/pcf8574.jpg>]
+<Images/ao3400_1.jpg, id=612, 1003.75pt x 931.48pt>
 File: Images/ao3400_1.jpg Graphic file (type jpg)
 <use Images/ao3400_1.jpg>
-Package pdftex.def Info: Images/ao3400_1.jpg  used on input line 785.
+Package pdftex.def Info: Images/ao3400_1.jpg  used on input line 783.
 (pdftex.def)             Requested size: 182.09486pt x 168.98099pt.
- [28 <./Images/ao3400_1.jpg>]
-<Images/ch340c.jpg, id=611, 239.89626pt x 211.79124pt>
+ [27 <./Images/ao3400_1.jpg>]
+<Images/ch340c.jpg, id=619, 239.89626pt x 211.79124pt>
 File: Images/ch340c.jpg Graphic file (type jpg)
 <use Images/ch340c.jpg>
-Package pdftex.def Info: Images/ch340c.jpg  used on input line 816.
+Package pdftex.def Info: Images/ch340c.jpg  used on input line 814.
 (pdftex.def)             Requested size: 182.09486pt x 160.76265pt.
- [29 <./Images/ch340c.jpg>]
-<Images/bss138.jpg, id=617, 258.9675pt x 196.735pt>
+ [28 <./Images/ch340c.jpg>]
+<Images/bss138.jpg, id=625, 258.9675pt x 196.735pt>
 File: Images/bss138.jpg Graphic file (type jpg)
 <use Images/bss138.jpg>
-Package pdftex.def Info: Images/bss138.jpg  used on input line 848.
+Package pdftex.def Info: Images/bss138.jpg  used on input line 846.
 (pdftex.def)             Requested size: 182.09486pt x 138.34094pt.
 
-[30 <./Images/bss138.jpg>] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 917--918
+[29 <./Images/bss138.jpg>] [30]
+Underfull \hbox (badness 10000) in paragraph at lines 915--916
 
  []
 
-<Images/KhoiMCU.png, id=626, 378.213pt x 241.50224pt>
+<Images/KhoiMCU.png, id=634, 378.213pt x 241.50224pt>
 File: Images/KhoiMCU.png Graphic file (type png)
 <use Images/KhoiMCU.png>
-Package pdftex.def Info: Images/KhoiMCU.png  used on input line 921.
+Package pdftex.def Info: Images/KhoiMCU.png  used on input line 919.
 (pdftex.def)             Requested size: 364.19667pt x 232.56544pt.
-<Images/KhoiNguon.png, id=627, 179.4705pt x 187.29974pt>
+[31 <./Images/KhoiMCU.png>]
+<Images/KhoiNguon.png, id=640, 179.4705pt x 187.29974pt>
 File: Images/KhoiNguon.png Graphic file (type png)
 <use Images/KhoiNguon.png>
-Package pdftex.def Info: Images/KhoiNguon.png  used on input line 934.
+Package pdftex.def Info: Images/KhoiNguon.png  used on input line 933.
 (pdftex.def)             Requested size: 409.71692pt x 427.59084pt.
-[32 <./Images/KhoiMCU.png>] [33 <./Images/KhoiNguon.png>]
-<Images/KhoiPeripheral.png, id=639, 422.7795pt x 327.02174pt>
+ [32 <./Images/KhoiNguon.png>]
+<Images/KhoiPeripheral.png, id=647, 422.7795pt x 327.02174pt>
 File: Images/KhoiPeripheral.png Graphic file (type png)
 <use Images/KhoiPeripheral.png>
-Package pdftex.def Info: Images/KhoiPeripheral.png  used on input line 960.
+Package pdftex.def Info: Images/KhoiPeripheral.png  used on input line 959.
 (pdftex.def)             Requested size: 409.71692pt x 316.93625pt.
- [34 <./Images/KhoiPeripheral.png>]
-<Images/KhoiControlPeripheral.png, id=645, 320.99925pt x 354.123pt>
+ [33]
+<Images/KhoiControlPeripheral.png, id=652, 320.99925pt x 354.123pt>
 File: Images/KhoiControlPeripheral.png Graphic file (type png)
 <use Images/KhoiControlPeripheral.png>
 Package pdftex.def Info: Images/KhoiControlPeripheral.png  used on input line 9
-78.
+77.
 (pdftex.def)             Requested size: 409.71692pt x 452.03307pt.
- [35] [36 <./Images/KhoiControlPeripheral.png>]
-<Images/TopLayer.png, id=655, 353.52075pt x 405.31425pt>
+ [34 <./Images/KhoiPeripheral.png>] [35 <./Images/KhoiControlPeripheral.png>]
+<Images/TopLayer.png, id=663, 353.52075pt x 405.31425pt>
 File: Images/TopLayer.png Graphic file (type png)
 <use Images/TopLayer.png>
-Package pdftex.def Info: Images/TopLayer.png  used on input line 998.
+Package pdftex.def Info: Images/TopLayer.png  used on input line 997.
 (pdftex.def)             Requested size: 218.51521pt x 250.53152pt.
-<Images/BotLayer.png, id=656, 352.9185pt x 403.5075pt>
+<Images/BotLayer.png, id=664, 352.9185pt x 403.5075pt>
 File: Images/BotLayer.png Graphic file (type png)
 <use Images/BotLayer.png>
-Package pdftex.def Info: Images/BotLayer.png  used on input line 1005.
+Package pdftex.def Info: Images/BotLayer.png  used on input line 1004.
 (pdftex.def)             Requested size: 218.51521pt x 249.84573pt.
-<Images/3DTopLayer.png, id=657, 338.4645pt x 380.622pt>
+<Images/3DTopLayer.png, id=665, 338.4645pt x 380.622pt>
 File: Images/3DTopLayer.png Graphic file (type png)
 <use Images/3DTopLayer.png>
-Package pdftex.def Info: Images/3DTopLayer.png  used on input line 1016.
+Package pdftex.def Info: Images/3DTopLayer.png  used on input line 1015.
 (pdftex.def)             Requested size: 218.51521pt x 245.73451pt.
-<Images/3DBotLayer.png, id=658, 311.36325pt x 353.52075pt>
+<Images/3DBotLayer.png, id=666, 311.36325pt x 353.52075pt>
 File: Images/3DBotLayer.png Graphic file (type png)
 <use Images/3DBotLayer.png>
-Package pdftex.def Info: Images/3DBotLayer.png  used on input line 1022.
+Package pdftex.def Info: Images/3DBotLayer.png  used on input line 1021.
 (pdftex.def)             Requested size: 218.51521pt x 248.09935pt.
- [37 <./Images/TopLayer.png> <./Images/BotLayer.png>] [38 <./Images/3DTopLayer.
+ [36 <./Images/TopLayer.png> <./Images/BotLayer.png>] [37 <./Images/3DTopLayer.
 png> <./Images/3DBotLayer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1064--1065
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1066
 
  []
 
-<Images/KhoiTypeC_Debug-gateway.png, id=672, 548.64975pt x 242.1045pt>
+<Images/KhoiTypeC_Debug-gateway.png, id=679, 548.64975pt x 242.1045pt>
 File: Images/KhoiTypeC_Debug-gateway.png Graphic file (type png)
 <use Images/KhoiTypeC_Debug-gateway.png>
 Package pdftex.def Info: Images/KhoiTypeC_Debug-gateway.png  used on input line
- 1068.
+ 1069.
 (pdftex.def)             Requested size: 364.19667pt x 160.7167pt.
-[39 <./Images/KhoiTypeC_Debug-gateway.png>]
-<Images/KhoiControl-GateWay.png, id=678, 500.46976pt x 240.9pt>
+[38] [39 <./Images/KhoiTypeC_Debug-gateway.png>]
+<Images/KhoiControl-GateWay.png, id=690, 500.46976pt x 240.9pt>
 File: Images/KhoiControl-GateWay.png Graphic file (type png)
 <use Images/KhoiControl-GateWay.png>
 Package pdftex.def Info: Images/KhoiControl-GateWay.png  used on input line 108
-2.
+6.
 (pdftex.def)             Requested size: 409.71692pt x 197.22682pt.
-<Images/KhoiPeripheral-GateWay.png, id=679, 564.30824pt x 308.352pt>
+<Images/KhoiPeripheral-GateWay.png, id=691, 564.30824pt x 308.352pt>
 File: Images/KhoiPeripheral-GateWay.png Graphic file (type png)
 <use Images/KhoiPeripheral-GateWay.png>
 Package pdftex.def Info: Images/KhoiPeripheral-GateWay.png  used on input line 
-1095.
+1101.
 (pdftex.def)             Requested size: 409.71692pt x 223.88588pt.
  [40 <./Images/KhoiControl-GateWay.png>] [41 <./Images/KhoiPeripheral-GateWay.p
 ng>]
-<Images/TopLayer-GateWay.png, id=690, 317.988pt x 392.06474pt>
+<Images/TopLayer-GateWay.png, id=702, 317.988pt x 392.06474pt>
 File: Images/TopLayer-GateWay.png Graphic file (type png)
 <use Images/TopLayer-GateWay.png>
-Package pdftex.def Info: Images/TopLayer-GateWay.png  used on input line 1115.
-(pdftex.def)             Requested size: 218.51521pt x 269.41821pt.
-<Images/BotLayer-Gateway.png, id=691, 322.20375pt x 398.08725pt>
+Package pdftex.def Info: Images/TopLayer-GateWay.png  used on input line 1121.
+(pdftex.def)             Requested size: 182.09486pt x 224.51418pt.
+<Images/BotLayer-Gateway.png, id=703, 322.20375pt x 398.08725pt>
 File: Images/BotLayer-Gateway.png Graphic file (type png)
 <use Images/BotLayer-Gateway.png>
-Package pdftex.def Info: Images/BotLayer-Gateway.png  used on input line 1121.
-(pdftex.def)             Requested size: 218.51521pt x 269.99112pt.
-<Images/3DTopLayer-Gateway.png, id=692, 258.9675pt x 350.5095pt>
+Package pdftex.def Info: Images/BotLayer-Gateway.png  used on input line 1127.
+(pdftex.def)             Requested size: 182.09486pt x 224.98653pt.
+<Images/3DTopLayer-Gateway.png, id=704, 258.9675pt x 350.5095pt>
 File: Images/3DTopLayer-Gateway.png Graphic file (type png)
 <use Images/3DTopLayer-Gateway.png>
-Package pdftex.def Info: Images/3DTopLayer-Gateway.png  used on input line 1131
+Package pdftex.def Info: Images/3DTopLayer-Gateway.png  used on input line 1137
 .
-(pdftex.def)             Requested size: 218.51521pt x 295.7684pt.
-<Images/3DBotLayer-gateway.png, id=693, 245.11575pt x 332.442pt>
+(pdftex.def)             Requested size: 182.09486pt x 246.47278pt.
+<Images/3DBotLayer-gateway.png, id=705, 245.11575pt x 332.442pt>
 File: Images/3DBotLayer-gateway.png Graphic file (type png)
 <use Images/3DBotLayer-gateway.png>
-Package pdftex.def Info: Images/3DBotLayer-gateway.png  used on input line 1137
+Package pdftex.def Info: Images/3DBotLayer-gateway.png  used on input line 1143
 .
-(pdftex.def)             Requested size: 218.51521pt x 296.36955pt.
- [42 <./Images/TopLayer-GateWay.png> <./Images/BotLayer-Gateway.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1145--1146
+(pdftex.def)             Requested size: 182.09486pt x 246.97209pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1151--1152
 
  []
 
-<Images/MSMS_Architecture.png, id=700, 1117.17375pt x 1419.3025pt>
+[42 <./Images/TopLayer-GateWay.png> <./Images/BotLayer-Gateway.png> <./Images/3
+DTopLayer-Gateway.png> <./Images/3DBotLayer-gateway.png>]
+<Images/MSMS_Architecture.png, id=714, 1117.17375pt x 1419.3025pt>
 File: Images/MSMS_Architecture.png Graphic file (type png)
 <use Images/MSMS_Architecture.png>
-Package pdftex.def Info: Images/MSMS_Architecture.png  used on input line 1151.
+Package pdftex.def Info: Images/MSMS_Architecture.png  used on input line 1157.
 
 (pdftex.def)             Requested size: 455.24411pt x 578.36609pt.
-[43 <./Images/3DTopLayer-Gateway.png> <./Images/3DBotLayer-gateway.png>]
-[44 <./Images/MSMS_Architecture.png (PNG copy)>]
-<Images/websever.jpg, id=712, 831.105pt x 1798.72pt>
+ [43 <./Images/MSMS_Architecture.png (PNG copy)>]
+<Images/websever.jpg, id=719, 831.105pt x 1798.72pt>
 File: Images/websever.jpg Graphic file (type jpg)
 <use Images/websever.jpg>
-Package pdftex.def Info: Images/websever.jpg  used on input line 1170.
+Package pdftex.def Info: Images/websever.jpg  used on input line 1176.
 (pdftex.def)             Requested size: 227.62206pt x 492.63223pt.
-
-Underfull \hbox (badness 2409) in paragraph at lines 1167--1173
-[]\T5/ptm/b/n/13 T¦ng M¤ng (Net-work Layer): \T5/ptm/m/n/13 ^^^£m nhªn c¡c k¸t 
-nèi khæng d¥y. Gçm
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1167--1173
-\T5/cmtt/m/n/13 InternetManager \T5/ptm/m/n/13 (^^_i·u phèi m¡y tr¤ng th¡i m¤ng
-), \T5/cmtt/m/n/13 WifiManager
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1167--1173
-\T5/ptm/m/n/13 (k¸t nèi AP/STA), \T5/cmtt/m/n/13 MeshManager \T5/ptm/m/n/13 (^^
-_ành tuy¸n m¤ng Mesh) v  khèi
- []
-
-[45] [46 <./Images/websever.jpg>]
-<Images/SwitchUART.png, id=727, 1027.84pt x 1541.76pt>
+ [44] [45 <./Images/websever.jpg>]
+<Images/SwitchUART.png, id=735, 1027.84pt x 1541.76pt>
 File: Images/SwitchUART.png Graphic file (type png)
 <use Images/SwitchUART.png>
-Package pdftex.def Info: Images/SwitchUART.png  used on input line 1198.
+Package pdftex.def Info: Images/SwitchUART.png  used on input line 1209.
 (pdftex.def)             Requested size: 455.24411pt x 682.86984pt.
- [47]
-Underfull \hbox (badness 1337) in paragraph at lines 1202--1203
-\T5/cmtt/m/n/13 wifi_mesh_join_as_root_callback() \T5/ptm/m/n/13 ^^_º thi¸t lªp
- ch¸ ^^_ë ROOT. ^^^çng thíi,
+ [46]
+Underfull \hbox (badness 1688) in paragraph at lines 1213--1214
+[]\T5/ptm/m/n/13 Sì ^^_ç chuyºn ^^_êi vai trá mæ t£ chi ti¸t cì ch¸ ho¤t ^^_ëng
+ cèt lãi cõa
  []
 
-[48 <./Images/SwitchUART.png (PNG copy)>]
-<Images/FlowNode.png, id=736, 982.67125pt x 1613.02625pt>
+[47 <./Images/SwitchUART.png (PNG copy)>]
+<Images/FlowNode.png, id=744, 982.67125pt x 1613.02625pt>
 File: Images/FlowNode.png Graphic file (type png)
 <use Images/FlowNode.png>
-Package pdftex.def Info: Images/FlowNode.png  used on input line 1206.
-(pdftex.def)             Requested size: 455.24411pt x 747.26822pt.
- [49]
-Overfull \vbox (57.34084pt too high) has occurred while \output is active []
-
-
-[50 <./Images/FlowNode.png (PNG copy)>]
-<Images/FLOW_Root.png, id=746, 1538.74875pt x 1029.8475pt>
+Package pdftex.def Info: Images/FlowNode.png  used on input line 1221.
+(pdftex.def)             Requested size: 409.71692pt x 672.54385pt.
+ [48] [49 <./Images/FlowNode.png (PNG copy)>]
+<Images/FLOW_Root.png, id=753, 1538.74875pt x 1029.8475pt>
 File: Images/FLOW_Root.png Graphic file (type png)
 <use Images/FLOW_Root.png>
-Package pdftex.def Info: Images/FLOW_Root.png  used on input line 1214.
+Package pdftex.def Info: Images/FLOW_Root.png  used on input line 1229.
 (pdftex.def)             Requested size: 455.24411pt x 304.68237pt.
-<Images/mesh-routing-tables.png, id=747, 803.0pt x 401.5pt>
+<Images/mesh-routing-tables.png, id=754, 803.0pt x 401.5pt>
 File: Images/mesh-routing-tables.png Graphic file (type png)
 <use Images/mesh-routing-tables.png>
-Package pdftex.def Info: Images/mesh-routing-tables.png  used on input line 122
-4.
+Package pdftex.def Info: Images/mesh-routing-tables.png  used on input line 123
+9.
 (pdftex.def)             Requested size: 364.19667pt x 182.10077pt.
- [51 <./Images/FLOW_Root.png (PNG copy)>] [52 <./Images/mesh-routing-tables.png
+ [50 <./Images/FLOW_Root.png (PNG copy)>] [51 <./Images/mesh-routing-tables.png
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 1246--1247
+Underfull \hbox (badness 10000) in paragraph at lines 1261--1262
 
  []
 
-<Images/Gateway_Architecture.png, id=759, 1541.76pt x 1027.84pt>
+<Images/Gateway_Architecture.png, id=767, 1541.76pt x 1027.84pt>
 File: Images/Gateway_Architecture.png Graphic file (type png)
 <use Images/Gateway_Architecture.png>
 Package pdftex.def Info: Images/Gateway_Architecture.png  used on input line 12
-54.
+69.
 (pdftex.def)             Requested size: 455.24411pt x 303.49248pt.
-[53 <./Images/Gateway_Architecture.png (PNG copy)>]
-<Images/FlowGateWay.png, id=767, 1616.0375pt x 980.66376pt>
+[52 <./Images/Gateway_Architecture.png (PNG copy)>]
+<Images/FlowGateWay.png, id=775, 1616.0375pt x 980.66376pt>
 File: Images/FlowGateWay.png Graphic file (type png)
 <use Images/FlowGateWay.png>
-Package pdftex.def Info: Images/FlowGateWay.png  used on input line 1275.
+Package pdftex.def Info: Images/FlowGateWay.png  used on input line 1290.
 (pdftex.def)             Requested size: 455.24411pt x 276.24495pt.
- [54]
-Underfull \hbox (badness 1127) in paragraph at lines 1282--1283
+ [53]
+Underfull \hbox (badness 1127) in paragraph at lines 1297--1298
 []\T5/ptm/b/n/13 Task Xû lþ & M¤ng (\T5/cmtt/m/n/13 WebSocket_Handler\T5/ptm/b/
 n/13 ): \T5/ptm/m/n/13 Th÷íng trüc ^^_åc dú li»u tø
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1285--1286
-
- []
-
-[55 <./Images/FlowGateWay.png (PNG copy)>]
-<Images/Software_Architecture.png, id=782, 1541.76pt x 1027.84pt>
+[54 <./Images/FlowGateWay.png (PNG copy)>]
+<Images/Software_Architecture.png, id=790, 1541.76pt x 1027.84pt>
 File: Images/Software_Architecture.png Graphic file (type png)
 <use Images/Software_Architecture.png>
 Package pdftex.def Info: Images/Software_Architecture.png  used on input line 1
-293.
+308.
 (pdftex.def)             Requested size: 364.19667pt x 242.79712pt.
- [56 <./Images/Software_Architecture.png>] [57] [58] [59]
-<Images/setup1.jpg, id=803, 1188.44pt x 2569.6pt>
+ [55 <./Images/Software_Architecture.png>] [56] [57] [58]
+<Images/setup0.jpg, id=811, 2569.6pt x 1927.2pt>
+File: Images/setup0.jpg Graphic file (type jpg)
+<use Images/setup0.jpg>
+Package pdftex.def Info: Images/setup0.jpg  used on input line 1419.
+(pdftex.def)             Requested size: 273.14923pt x 204.84683pt.
+<Images/setup1.jpg, id=812, 1188.44pt x 2569.6pt>
 File: Images/setup1.jpg Graphic file (type jpg)
 <use Images/setup1.jpg>
-Package pdftex.def Info: Images/setup1.jpg  used on input line 1406.
+Package pdftex.def Info: Images/setup1.jpg  used on input line 1426.
 (pdftex.def)             Requested size: 145.68144pt x 314.965pt.
-<Images/setup2.jpg, id=804, 1188.44pt x 2569.6pt>
+<Images/setup2.jpg, id=813, 1188.44pt x 2569.6pt>
 File: Images/setup2.jpg Graphic file (type jpg)
 <use Images/setup2.jpg>
-Package pdftex.def Info: Images/setup2.jpg  used on input line 1411.
+Package pdftex.def Info: Images/setup2.jpg  used on input line 1431.
 (pdftex.def)             Requested size: 145.68144pt x 314.965pt.
-<Images/setup3.jpg, id=805, 1188.44pt x 2569.6pt>
+<Images/setup3.jpg, id=814, 1188.44pt x 2569.6pt>
 File: Images/setup3.jpg Graphic file (type jpg)
 <use Images/setup3.jpg>
-Package pdftex.def Info: Images/setup3.jpg  used on input line 1416.
+Package pdftex.def Info: Images/setup3.jpg  used on input line 1436.
 (pdftex.def)             Requested size: 145.68144pt x 314.965pt.
- [60]
-<Images/Main Dashboard.png, id=814, 1445.4pt x 813.0375pt>
+ [59]
+<Images/Main Dashboard.png, id=823, 1445.4pt x 813.0375pt>
 File: Images/Main Dashboard.png Graphic file (type png)
 <use Images/Main Dashboard.png>
-Package pdftex.def Info: Images/Main Dashboard.png  used on input line 1427.
+Package pdftex.def Info: Images/Main Dashboard.png  used on input line 1447.
 (pdftex.def)             Requested size: 364.19667pt x 204.85924pt.
- [61 <./Images/setup1.jpg> <./Images/setup2.jpg> <./Images/setup3.jpg>]
-<Images/Node Dashboard.png, id=819, 1445.4pt x 813.0375pt>
+ [60 <./Images/setup0.jpg> <./Images/setup1.jpg> <./Images/setup2.jpg> <./Image
+s/setup3.jpg>]
+<Images/Node Dashboard.png, id=828, 1445.4pt x 813.0375pt>
 File: Images/Node Dashboard.png Graphic file (type png)
 <use Images/Node Dashboard.png>
-Package pdftex.def Info: Images/Node Dashboard.png  used on input line 1435.
+Package pdftex.def Info: Images/Node Dashboard.png  used on input line 1455.
 (pdftex.def)             Requested size: 218.51521pt x 122.90561pt.
-<Images/NodeDetailDashboard.png, id=820, 1445.4pt x 813.0375pt>
+<Images/NodeDetailDashboard.png, id=829, 1445.4pt x 813.0375pt>
 File: Images/NodeDetailDashboard.png Graphic file (type png)
 <use Images/NodeDetailDashboard.png>
-Package pdftex.def Info: Images/NodeDetailDashboard.png  used on input line 144
+Package pdftex.def Info: Images/NodeDetailDashboard.png  used on input line 146
 0.
 (pdftex.def)             Requested size: 218.51521pt x 122.90561pt.
-<Images/logData.png, id=821, 839.38594pt x 472.76625pt>
+<Images/logData.png, id=830, 839.38594pt x 472.76625pt>
 File: Images/logData.png Graphic file (type png)
 <use Images/logData.png>
-Package pdftex.def Info: Images/logData.png  used on input line 1447.
+Package pdftex.def Info: Images/logData.png  used on input line 1467.
 (pdftex.def)             Requested size: 364.19667pt x 205.12505pt.
- [62 <./Images/Main Dashboard.png> <./Images/Node Dashboard.png> <./Images/Node
+<Images/Dashboard_menu.jpg, id=831, 831.105pt x 1798.72pt>
+File: Images/Dashboard_menu.jpg Graphic file (type jpg)
+<use Images/Dashboard_menu.jpg>
+Package pdftex.def Info: Images/Dashboard_menu.jpg  used on input line 1475.
+(pdftex.def)             Requested size: 145.68144pt x 315.27475pt.
+<Images/Gateway_Menu.jpg, id=832, 831.105pt x 1798.72pt>
+File: Images/Gateway_Menu.jpg Graphic file (type jpg)
+<use Images/Gateway_Menu.jpg>
+Package pdftex.def Info: Images/Gateway_Menu.jpg  used on input line 1480.
+(pdftex.def)             Requested size: 145.68144pt x 315.27475pt.
+<Images/History_Menu.jpg, id=833, 831.105pt x 1798.72pt>
+File: Images/History_Menu.jpg Graphic file (type jpg)
+<use Images/History_Menu.jpg>
+Package pdftex.def Info: Images/History_Menu.jpg  used on input line 1485.
+(pdftex.def)             Requested size: 145.68144pt x 315.27475pt.
+ [61 <./Images/Main Dashboard.png> <./Images/Node Dashboard.png> <./Images/Node
 DetailDashboard.png> <./Images/logData.png>]
-<Images/PKL_10ms.png, id=832, 829.59938pt x 507.39563pt>
-File: Images/PKL_10ms.png Graphic file (type png)
-<use Images/PKL_10ms.png>
-Package pdftex.def Info: Images/PKL_10ms.png  used on input line 1465.
-(pdftex.def)             Requested size: 218.51521pt x 133.64627pt.
-<Images/PKL_100hz.png, id=833, 1036.62282pt x 626.34pt>
-File: Images/PKL_100hz.png Graphic file (type png)
-<use Images/PKL_100hz.png>
-Package pdftex.def Info: Images/PKL_100hz.png  used on input line 1470.
-(pdftex.def)             Requested size: 218.51521pt x 132.02269pt.
-LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 15
-06.
+<Images/plot_filtered_pl_3076F5A70738.png, id=842, 1011.78pt x 505.89pt>
+File: Images/plot_filtered_pl_3076F5A70738.png Graphic file (type png)
+<use Images/plot_filtered_pl_3076F5A70738.png>
+Package pdftex.def Info: Images/plot_filtered_pl_3076F5A70738.png  used on inpu
+t line 1500.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+<Images/plot_filtered_pl_9451DC34105C.png, id=843, 1011.78pt x 505.89pt>
+File: Images/plot_filtered_pl_9451DC34105C.png Graphic file (type png)
+<use Images/plot_filtered_pl_9451DC34105C.png>
+Package pdftex.def Info: Images/plot_filtered_pl_9451DC34105C.png  used on inpu
+t line 1505.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+<Images/plot_filtered_pl_B4BFE9340320.png, id=844, 1011.78pt x 505.89pt>
+File: Images/plot_filtered_pl_B4BFE9340320.png Graphic file (type png)
+<use Images/plot_filtered_pl_B4BFE9340320.png>
+Package pdftex.def Info: Images/plot_filtered_pl_B4BFE9340320.png  used on inpu
+t line 1510.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+ [62 <./Images/Dashboard_menu.jpg> <./Images/Gateway_Menu.jpg> <./Images/Histor
+y_Menu.jpg>] [63 <./Images/plot_filtered_pl_3076F5A70738.png> <./Images/plot_fi
+ltered_pl_9451DC34105C.png> <./Images/plot_filtered_pl_B4BFE9340320.png>]
+<Images/plot_sensors_3076F5A70738.png, id=858, 1011.78pt x 505.89pt>
+File: Images/plot_sensors_3076F5A70738.png Graphic file (type png)
+<use Images/plot_sensors_3076F5A70738.png>
+Package pdftex.def Info: Images/plot_sensors_3076F5A70738.png  used on input li
+ne 1550.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+<Images/plot_sensors_9451DC34105C.png, id=859, 1011.78pt x 505.89pt>
+File: Images/plot_sensors_9451DC34105C.png Graphic file (type png)
+<use Images/plot_sensors_9451DC34105C.png>
+Package pdftex.def Info: Images/plot_sensors_9451DC34105C.png  used on input li
+ne 1555.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+<Images/plot_sensors_B4BFE9340320.png, id=860, 1011.78pt x 505.89pt>
+File: Images/plot_sensors_B4BFE9340320.png Graphic file (type png)
+<use Images/plot_sensors_B4BFE9340320.png>
+Package pdftex.def Info: Images/plot_sensors_B4BFE9340320.png  used on input li
+ne 1560.
+(pdftex.def)             Requested size: 295.90588pt x 147.95485pt.
+
+[64] [65 <./Images/plot_sensors_3076F5A70738.png> <./Images/plot_sensors_9451DC
+34105C.png> <./Images/plot_sensors_B4BFE9340320.png>]
+LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 16
+18.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11.86258> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1506.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1618.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.77837> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1506.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1618.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.11761> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1506.
- [63 <./Images/PKL_10ms.png> <./Images/PKL_100hz.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1521--1522
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1618.
+ [66] [67]
+Underfull \hbox (badness 10000) in paragraph at lines 1633--1634
 []\T5/ptm/b/n/13 Web Dash-board & Mo-bile App\T5/ptm/m/n/13 : X¥y düng th nh cæ
 ng m¡y chõ
  []
 
-[64] [65]
+[68] [69]
 No file main.bbl.
 (main.aux)
  ***********
@@ -1692,16 +1720,16 @@ L3 programming layer <2024-01-04>
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7B399F52F24DBC36CA1FC87601FB2CB4;15331.
+(rerunfilecheck)             Checksum: 8703E1FA336BBC9131B91D34DB7B9045;16014.
  ) 
 Here is how much of TeX's memory you used:
- 28297 strings out of 474485
- 531540 string characters out of 5743734
+ 28371 strings out of 474485
+ 534122 string characters out of 5743734
  1938542 words of memory out of 5000000
- 49830 multiletter control sequences out of 15000+600000
+ 49893 multiletter control sequences out of 15000+600000
  632141 words of font info for 129 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,15n,107p,951b,703s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,15n,107p,1477b,703s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/MrKoi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmmi10.pfb><C:/Users/MrKoi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmr10.pfb><C:/Users/MrKoi/AppData/Local/Programs/MiKTeX/fonts/type1/pu
@@ -1715,9 +1743,9 @@ nts/type1/vntex/urwvn/utmr8v.pfb><C:/Users/MrKoi/AppData/Local/Programs/MiKTeX/
 fonts/type1/urw/times/utmri8a.pfb><C:/Users/MrKoi/AppData/Local/Programs/MiKTeX
 /fonts/type1/vntex/urwvn/utmri8v.pfb><C:/Users/MrKoi/AppData/Local/Programs/MiK
 TeX/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on main.pdf (70 pages, 17103032 bytes).
+Output written on main.pdf (74 pages, 20157957 bytes).
 PDF statistics:
- 952 PDF objects out of 1000 (max. 8388607)
- 218 named destinations out of 1000 (max. 500000)
- 749 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 998 PDF objects out of 1000 (max. 8388607)
+ 229 named destinations out of 1000 (max. 500000)
+ 805 words of extra memory for PDF output out of 10000 (max. 10000000)
 

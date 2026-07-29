@@ -4,7 +4,6 @@
 
 #include "WSHandle.h"
 
-#include "ScreenManager.h"
 #include "WifiManager.h"
 #include "esp_crt_bundle.h"
 #include "esp_log.h"
@@ -170,7 +169,7 @@ static void ws_send_gateway_status(ws_handler_ctx_t *ctx) {
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str != NULL) {
-    ESP_LOGI(TAG_WEBSOCKET, "gateway_status send: %s", json_str);
+    // ESP_LOGI(TAG_WEBSOCKET, "gateway_status send: %s", json_str);
     int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
                                              pdMS_TO_TICKS(2000));
     if (ret >= 0 && ctx->telemetry) {
@@ -263,7 +262,6 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
     if (s_ws_state) {
       s_ws_state->connected = true;
     }
-    screen_manager_set_ws_status(true);
     SendSignalRegister();
     break;
 
@@ -272,7 +270,6 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
     if (s_ws_state) {
       s_ws_state->connected = false;
     }
-    screen_manager_set_ws_status(false);
     break;
 
   case WEBSOCKET_EVENT_DATA:
@@ -313,7 +310,6 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
     if (s_ws_state) {
       s_ws_state->connected = false;
     }
-    screen_manager_set_ws_status(false);
     break;
 
   default:
@@ -464,7 +460,6 @@ void WebSocket_Handler(void *pvParameter) {
         if (s_ws_state) {
           s_ws_state->connected = false;
         }
-        screen_manager_set_ws_status(false);
       }
 
       if (is_wifi_connected()) {
@@ -491,4 +486,8 @@ void WebSocket_Handler(void *pvParameter) {
       }
     }
   }
+}
+
+bool websocket_is_connected(void) {
+  return s_ws_state != NULL && s_ws_state->connected;
 }

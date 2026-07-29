@@ -2,8 +2,9 @@
 
 #include "MemoryManager.h"
 #include "PowerManager.h"
-#include "WifiManager.h"
 #include "UartToNode.h"
+#include "WSHandle.h"
+#include "WifiManager.h"
 #include "esp_err.h"
 #include "esp_timer.h"
 #include "lvgl.h"
@@ -23,7 +24,7 @@ typedef struct {
 
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t buf1[DISP_BUF_SIZE];
-static lv_color_t buf2[DISP_BUF_SIZE];
+// static lv_color_t buf2[DISP_BUF_SIZE];
 
 static void set_label_text_if_changed(lv_obj_t *label, const char *text) {
   if (label == NULL || text == NULL) {
@@ -60,13 +61,6 @@ static void set_obj_hidden_if_changed(lv_obj_t *obj, bool hidden) {
     lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
   } else if (!hidden && is_hidden) {
     lv_obj_clear_flag(obj, LV_OBJ_FLAG_HIDDEN);
-  }
-}
-
-static void ws_status_async_cb(void *user_data) {
-  bool connected = ((intptr_t)user_data != 0);
-  if (ui_LabelStatus) {
-    lv_label_set_text(ui_LabelStatus, connected ? "Connected" : "Disconnected");
   }
 }
 
@@ -169,6 +163,12 @@ static void lvgl_task(void *arg) {
       set_obj_hidden_if_changed(ui_ImageWifiNotCon, wifi_connected);
 
       set_label_text_if_changed(ui_LabelNumConn, "--");
+
+      if (ui_LabelStatus) {
+        set_label_text_if_changed(ui_LabelStatus,
+                                  websocket_is_connected() ? "Connected"
+                                                           : "Disconnected");
+      }
     }
 
     uint32_t wait_ms = lv_timer_handler();
@@ -221,7 +221,9 @@ static void lvgl_task(void *arg) {
         if (ui_LabelQueue) {
           uint32_t q_used = 0, q_total = 0;
           uart_to_node_get_queue_status(&q_used, &q_total);
-          set_label_fmt_if_changed(ui_LabelQueue, "%lu/%lu", (unsigned long)q_used, (unsigned long)q_total);
+          set_label_fmt_if_changed(ui_LabelQueue, "%lu/%lu",
+                                   (unsigned long)q_used,
+                                   (unsigned long)q_total);
         }
       }
     }
@@ -244,7 +246,7 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   lv_init();
   lvgl_driver_init();
 
-  lv_disp_draw_buf_init(&draw_buf, buf1, buf2, DISP_BUF_SIZE);
+  lv_disp_draw_buf_init(&draw_buf, buf1, NULL, DISP_BUF_SIZE);
 
   static lv_disp_drv_t disp_drv;
   lv_disp_drv_init(&disp_drv);
@@ -271,7 +273,3 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
                           NULL, core_id);
 }
 
-void screen_manager_set_ws_status(bool connected) {
-  (void)lv_async_call(ws_status_async_cb,
-                      (void *)(intptr_t)(connected ? 1 : 0));
-}

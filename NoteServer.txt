@@ -1,4 +1,4 @@
-sudo ss -ltnp | grep ':8080'
+	sudo ss -ltnp | grep ':8080'
 
 cd ~/Documents/Server_Node_js/websocket-server
 
@@ -8,24 +8,168 @@ serve -s build -l 3000
 
 
 sudo systemctl stop msems-backend.service
-sudo systemctl stop msems-backend.service
+sudo systemctl stop msems-web.service
+sudo systemctl stop homelab.service
+
 sudo systemctl status msems-web.service
 sudo systemctl status msems-backend.service
+sudo systemctl status homelab.service
+sudo systemctl status cloudflared
 
 msems-backend.service
 msems-web.service
 
 systemctl status 1339'
 
-system.slice/homelab.service
+homelab.service
 
 http://energy.local:5055/api/energy
 
 
 
 sudo systemctl stop msems-backend.service
+
 ls -lh /mnt/server-data/msems/database/
 rm /mnt/server-data/msems/database/mesh.sqlite
 rm /mnt/server-data/msems/database/mesh.sqlite*
 
-sudo systemctl start msems-backend.service
+sudo systemctl restart msems-backend.service
+sudo systemctl restart msems-web.service
+
+sudo journalctl -u msems-backend.service -f
+
+wscat -c wss://systemmsems.msems.click/ws
+https://systemmsems.msems.click/dashboard
+
+scp phu@192.168.1.92:/mnt/server-data/msems/database/mesh.sqlite D:\Python\SqLiteQuery\mesh.sqlite_2
+
+
+scp phuserver@192.168.1.79:/mnt/server-data/msems/database/mesh.sqlite D:\Python\SqLiteQuery\mesh.sqlite_
+5
+
+sqlite3 /mnt/server-data/msems/database/mesh.sqlite "DELETE FROM Data;"
+sqlite3 /mnt/server-data/msems/database/mesh.sqlite "DELETE FROM sqlite_sequence WHERE name='Data';"
+sqlite3 /mnt/server-data/msems/database/mesh.sqlite "VACUUM;"
+
+sqlite3 /mnt/server-data/msems/database/mesh.sqlite "SELECT COUNT(*) FROM Data;"
+
+
+phu@phu:~/Documents $ nano ~/Documents/HomeLab/Dockerfile
+
+
+cd ~/Documents
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+
+nano ~/Documents/docker-compose.yml
+
+docker logs -f msems-backend
+docker logs -f msems-web
+docker logs -f homelab
+
+docker-compose restart msems-backend
+docker-compose restart msems-backend
+docker-compose restart homelab
+docker-compose up -d homelab
+docker-compose up -d --build homelab
+
+ls /dev/ttyUSB*
+sudo minicom -D /dev/ttyUSB0 -b 115200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+phu@phu:~/Documents $ sudo systemctl cat cloudflared
+[sudo] password for phu:
+# /etc/systemd/system/cloudflared.service
+[Unit]
+Description=cloudflared
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+TimeoutStartSec=15
+Type=notify
+ExecStart=/usr/bin/cloudflared --no-autoupdate --config /etc/cloudflared/config.yml tunnel run
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+phu@phu:~/Documents $ sudo systemctl stop cloudflared
+phu@phu:~/Documents $ sudo systemctl disable cloudflared
+Removed '/etc/systemd/system/multi-user.target.wants/cloudflared.service'.
+phu@phu:~/Documents $ systemctl cat msems-backend.service
+# /etc/systemd/system/msems-backend.service
+[Unit]
+Description=MSEMS WebSocket Backend
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/mnt/server-data
+
+[Service]
+Type=simple
+User=phu
+WorkingDirectory=/home/phu/Documents/Server_Node_js/websocket-server
+Environment=NODE_ENV=production
+Environment=DB_TYPE=sqlite
+Environment=SQLITE_DB_PATH=/mnt/server-data/msems/database/mesh.sqlite
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+phu@phu:~/Documents $ systemctl cat msems-web.service
+# /etc/systemd/system/msems-web.service
+[Unit]
+Description=MSEMS Web Frontend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=phu
+WorkingDirectory=/home/phu/Documents/Server_Node_js
+ExecStart=/usr/bin/serve -s build -l 3000
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+phu@phu:~/Documents $
+
+
+phu@phu:~/Documents $ systemctl cat homelab.service
+# /etc/systemd/system/homelab.service
+[Unit]
+Description=Homelab Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=phu
+WorkingDirectory=/home/phu/Documents/HomeLab/dist
+Environment=NODE_ENV=production
+Environment=PORT=2022
+ExecStart=/usr/bin/node index.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+phu@phu:~/Documents $
