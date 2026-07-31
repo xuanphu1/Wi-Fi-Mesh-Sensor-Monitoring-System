@@ -9,6 +9,7 @@
 #include "esp_log.h"
 #include "esp_netif.h"
 #include "esp_wifi.h"
+#include "mdns.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
@@ -26,12 +27,64 @@ static dm_telemetry_t *s_ws_telemetry = NULL;
 static char ws_last_type[32] = {0};
 static char ws_last_version[32] = {0};
 static char ws_url[128] = {0};
+static char ws_resolved_url[128] = {0};
 static volatile bool s_ws_restart_requested = false;
 
 #define TAG_WEBSOCKET "WebSocket Handler"
 #define GATEWAY_STATUS_INTERVAL_MS 5000
 #define WS_RECONNECT_TIMEOUT_MS 15000
 #define WS_NETWORK_TIMEOUT_MS 15000
+#define WS_MDNS_QUERY_TIMEOUT_MS 3000
+
+static const char *resolve_local_ws_url(const char *url) {
+  static const char ws_prefix[] = "ws://";
+  static const char local_suffix[] = ".local";
+
+  if (url == NULL || strncmp(url, ws_prefix, sizeof(ws_prefix) - 1) != 0) {
+    return url;
+  }
+
+  const char *host_begin = url + sizeof(ws_prefix) - 1;
+  const char *suffix = strstr(host_begin, local_suffix);
+  if (suffix == NULL) {
+    return url;
+  }
+
+  const char *tail = suffix + sizeof(local_suffix) - 1;
+  if (*tail != '\0' && *tail != ':' && *tail != '/') {
+    return url;
+  }
+
+  const size_t hostname_len = (size_t)(suffix - host_begin);
+  if (hostname_len == 0 || hostname_len >= 64) {
+    ESP_LOGE(TAG_WEBSOCKET, "Invalid mDNS hostname in URL: %s", url);
+    return NULL;
+  }
+
+  char hostname[64];
+  memcpy(hostname, host_begin, hostname_len);
+  hostname[hostname_len] = '\0';
+
+  esp_ip4_addr_t address = {0};
+  esp_err_t err =
+      mdns_query_a(hostname, WS_MDNS_QUERY_TIMEOUT_MS, &address);
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG_WEBSOCKET, "mDNS lookup failed for %s.local: %s", hostname,
+             esp_err_to_name(err));
+    return NULL;
+  }
+
+  int written = snprintf(ws_resolved_url, sizeof(ws_resolved_url),
+                         "ws://" IPSTR "%s", IP2STR(&address), tail);
+  if (written < 0 || (size_t)written >= sizeof(ws_resolved_url)) {
+    ESP_LOGE(TAG_WEBSOCKET, "Resolved WebSocket URL is too long");
+    return NULL;
+  }
+
+  ESP_LOGI(TAG_WEBSOCKET, "mDNS resolved %s.local to " IPSTR, hostname,
+           IP2STR(&address));
+  return ws_resolved_url;
+}
 
 static void websocket_client_destroy_current(void) {
   if (client == NULL) {
@@ -206,10 +259,15 @@ const char *get_ws_url(void) {
   if (ws_url[0] != '\0') {
     return ws_url;
   }
-#if defined(CONFIG_WS_URL)
+#if defined(CONFIG_WS_TARGET_LOCAL) && defined(CONFIG_WS_LOCAL_URL)
+  return CONFIG_WS_LOCAL_URL;
+#elif defined(CONFIG_WS_TARGET_SERVER) && defined(CONFIG_WS_SERVER_URL)
+  return CONFIG_WS_SERVER_URL;
+#elif defined(CONFIG_WS_URL)
+  /* Backward compatibility with an existing sdkconfig. */
   return CONFIG_WS_URL;
 #else
-  return "ws://192.168.4.1:8080/ws";
+  return "wss://systemmsems.msems.click/ws";
 #endif
 }
 
@@ -318,7 +376,12 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
 }
 
 static void websocket_app_start(void) {
-  const char *url_to_use = get_ws_url();
+  const char *configured_url = get_ws_url();
+  const char *url_to_use = resolve_local_ws_url(configured_url);
+  if (url_to_use == NULL) {
+    return;
+  }
+  const bool use_tls = strncmp(url_to_use, "wss://", 6) == 0;
 
   esp_websocket_client_config_t websocket_cfg = {
       .uri = url_to_use,
@@ -327,10 +390,11 @@ static void websocket_app_start(void) {
       .task_stack = 6144,
       .buffer_size = 2048,
       .keep_alive_enable = true,
-      .crt_bundle_attach = esp_crt_bundle_attach,
+      .crt_bundle_attach = use_tls ? esp_crt_bundle_attach : NULL,
   };
 
-  ESP_LOGI(TAG_WEBSOCKET, "Starting WebSocket with URL: %s", url_to_use);
+  ESP_LOGI(TAG_WEBSOCKET, "Starting WebSocket (%s) with URL: %s",
+           use_tls ? "TLS" : "plain", url_to_use);
 
   if (s_ws_state) {
     strncpy(s_ws_state->url_cached, url_to_use,

@@ -1,0 +1,907 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage{mathptmx,amsmath}
+\usepackage{geometry,setspace,indentfirst}
+\usepackage{graphicx,xcolor,booktabs,longtable,tabularx,array}
+\usepackage{enumitem,listings,caption,float,fancyhdr,hyperref,microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,calc}
+
+\geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}
+\setstretch{1.3}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep}
+\renewcommand{\arraystretch}{1.25}
+
+\definecolor{bluec}{RGB}{24,91,166}
+\definecolor{greenc}{RGB}{28,132,84}
+\definecolor{orangec}{RGB}{210,116,24}
+\definecolor{redc}{RGB}{183,54,54}
+\definecolor{violetc}{RGB}{105,75,170}
+\definecolor{grayc}{RGB}{92,100,112}
+\definecolor{codebg}{RGB}{247,248,250}
+\hypersetup{colorlinks=true,linkcolor=bluec,urlcolor=bluec,
+  pdftitle={Báo cáo DashboardManagerWifiMesh},pdfauthor={Nhóm phát triển MSMS}}
+
+\lstdefinestyle{textstyle}{
+  backgroundcolor=\color{codebg},frame=single,rulecolor=\color{gray!35},
+  basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,
+  showstringspaces=false
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Báo cáo DashboardManagerWifiMesh}
+\fancyhead[R]{React / Node.js}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{16pt}
+
+\newcommand{\codeword}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\pathcode}[1]{\nolinkurl{#1}}
+\tikzset{
+  block/.style={draw=bluec,rounded corners=3pt,thick,align=center,
+    minimum height=9mm,fill=blue!5,font=\small},
+  service/.style={draw=violetc,rounded corners=3pt,thick,align=center,
+    minimum height=9mm,fill=violet!7,font=\small},
+  store/.style={draw=orangec,thick,align=center,fill=orange!9,
+    cylinder,shape border rotate=90,aspect=.25,font=\small},
+  decision/.style={draw=orangec,thick,diamond,aspect=2,align=center,
+    fill=orange!8,font=\small},
+  flow/.style={-{Latex[length=2.4mm]},thick,draw=bluec},
+  dataflow/.style={-{Latex[length=2.4mm]},thick,draw=greenc},
+  warnflow/.style={-{Latex[length=2.4mm]},thick,dashed,draw=redc},
+  note/.style={draw=grayc,rounded corners=2pt,fill=gray!8,align=left,font=\scriptsize}
+}
+
+\begin{document}
+\pagenumbering{Alph}
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+{\large BÁO CÁO PHÂN TÍCH MÃ NGUỒN\par}
+\vspace{1.5cm}
+{\Huge\bfseries DashboardManagerWifiMesh\par}
+\vspace{.8cm}
+{\Large Dashboard giám sát, WebSocket server và lưu trữ dữ liệu MSMS\par}
+\vspace{2cm}
+\begin{tabular}{rl}
+Frontend: & React 18, Material UI, ApexCharts\\
+Backend: & Node.js, Express, ws\\
+Lưu trữ: & SQLite hoặc MongoDB\\
+Giao tiếp: & HTTP REST, WebSocket, mDNS\\
+Phiên bản tài liệu: & 1.0\\
+\end{tabular}
+\vfill
+{\large Tài liệu được xây dựng từ trạng thái mã nguồn hiện tại\par}
+\vspace{.3cm}
+{\large Tháng 07 năm 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\section{Giới thiệu}
+
+\codeword{DashboardManagerWifiMesh} là ứng dụng giám sát gồm frontend React và
+backend Node.js chạy trong cùng repository. Backend nhận bản tin từ MeshGateWay,
+phân tách payload compact của mạng mesh, lưu từng giá trị đo vào cơ sở dữ liệu,
+rồi phát bản tin cho các trình duyệt đang mở dashboard. Frontend kết hợp snapshot
+HTTP với stream WebSocket để dựng trạng thái gateway, node, cảm biến, lịch sử và
+hiệu năng server.
+
+\subsection{Mục tiêu tài liệu}
+
+\begin{itemize}
+ \item giải thích đầy đủ đường đi của dữ liệu từ gateway tới từng màn hình;
+ \item mô tả parser hai lớp \codeword{uart_rx} và schema compact của firmware;
+ \item phân biệt dữ liệu realtime trong RAM với dữ liệu lịch sử trong database;
+ \item làm rõ cách chọn local/server/custom WebSocket;
+ \item chỉ ra chức năng đã hoạt động, chức năng giao diện mẫu và các điểm không
+ tương thích cần sửa.
+\end{itemize}
+
+\section{Kiến trúc tổng thể}
+
+\begin{figure}[H]
+\centering
+\resizebox{.96\textwidth}{!}{
+\begin{tikzpicture}[node distance=14mm and 19mm]
+ \node[block,minimum width=3.2cm,fill=green!8] (gw)
+   {\textbf{MeshGateWay}\\\codeword{uart_rx}\\\codeword{gateway_status}};
+ \node[service,right=of gw,minimum width=4.1cm,minimum height=1.7cm] (server)
+   {\textbf{Node.js server :9090}\\HTTP + WebSocket\\parser + broadcast};
+ \node[store,below=18mm of server,minimum width=3.2cm] (db)
+   {SQLite mặc định\\hoặc MongoDB};
+ \node[block,right=of server,minimum width=4.1cm,minimum height=1.7cm] (react)
+   {\textbf{React :3000}\\MeshRealtimeProvider\\routes + layouts};
+ \node[block,right=of react,minimum width=3.0cm,fill=violet!8] (user)
+   {\textbf{Trình duyệt}\\Dashboard\\History / Settings};
+
+ \draw[dataflow] (gw) -- node[above,align=center,font=\scriptsize]
+   {WebSocket\\local WS / server WSS} (server);
+ \draw[dataflow] (server) -- node[right,font=\scriptsize]{persist/query} (db);
+ \draw[dataflow] (server) -- node[above,align=center,font=\scriptsize]
+   {WS realtime\\REST history} (react);
+ \draw[flow] (react) -- (user);
+\end{tikzpicture}}
+\caption{Kiến trúc triển khai của DashboardManagerWifiMesh}
+\label{fig:architecture}
+\end{figure}
+
+Trong chế độ development, \codeword{npm run dev} dùng \codeword{concurrently}
+để chạy React và WebSocket server. Hai tiến trình không phải một server duy nhất:
+React phục vụ trang tại cổng 3000; Node.js lắng nghe HTTP và WebSocket tại cổng
+9090.
+
+\section{Tổ chức repository và công nghệ}
+
+\begin{longtable}{p{5.3cm}p{8.7cm}}
+\caption{Các thư mục và tệp quan trọng}\\
+\toprule
+\textbf{Đường dẫn} & \textbf{Trách nhiệm}\\
+\midrule\endfirsthead
+\toprule
+\textbf{Đường dẫn} & \textbf{Trách nhiệm}\\
+\midrule\endhead
+\pathcode{public/index.html} & Vỏ HTML và điểm mount \codeword{root}.\\
+\pathcode{src/index.js} & Bọc Router, UI context, realtime context và App.\\
+\pathcode{src/App.js} & Theme, sidenav và runtime routing.\\
+\pathcode{src/routes.js} & Bảng route đồng thời là nguồn tạo menu.\\
+\pathcode{src/context/meshRealtime.js} & Kết nối WS dùng chung, parser, registry và state realtime.\\
+\pathcode{src/utils/wsConfig.js} & Chọn URL local/server/custom và lưu localStorage.\\
+\pathcode{src/utils/meshUdpJsonSchema.js} & Chuẩn hóa payload compact, sensor và đơn vị.\\
+\pathcode{src/layouts/} & Các trang Dashboard, Gateway, Nodes, Sensors, History, Alerts, OTA và Settings.\\
+\pathcode{websocket-server/server.js} & HTTP REST, WS, mDNS, heartbeat, broadcast và server metrics.\\
+\pathcode{websocket-server/sqlite-store.js} & SQLite WAL, ghi dữ liệu, history và CSV.\\
+\pathcode{websocket-server/mongodb-store.js} & Adapter MongoDB cũ, chưa đồng nhất interface mới.\\
+\pathcode{execute.bat / stop.bat} & Khởi chạy và dừng cây tiến trình trên Windows.\\
+\bottomrule
+\end{longtable}
+
+\begin{table}[H]
+\centering
+\caption{Thư viện chính}
+\begin{tabularx}{\textwidth}{p{4cm}X}
+\toprule
+\textbf{Thư viện} & \textbf{Vai trò}\\
+\midrule
+React 18, React Router 5 & Cây component, state và điều hướng SPA.\\
+Material UI, Emotion & Component UI, theme, CSS-in-JS và RTL.\\
+ApexCharts & Biểu đồ realtime và history.\\
+Express, CORS & REST API và middleware HTTP.\\
+ws & WebSocket server, client registry, ping/pong.\\
+sqlite + sqlite3 & CSDL file local, chế độ WAL.\\
+mongoose & Schema và truy vấn MongoDB.\\
+systeminformation & CPU, RAM, nhiệt độ và uptime máy chạy backend.\\
+bonjour-service & Quảng bá \codeword{systemmsems.local} bằng mDNS.\\
+Swagger & Tài liệu REST tại \codeword{/api-docs}.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Khởi động và định tuyến frontend}
+
+\begin{figure}[H]
+\centering
+\resizebox{.9\textwidth}{!}{
+\begin{tikzpicture}[node distance=7mm]
+ \node[block,minimum width=8.5cm] (html) {Trình duyệt tải \codeword{public/index.html}};
+ \node[block,below=of html,minimum width=8.5cm] (index) {\codeword{src/index.js}: \codeword{createRoot()}};
+ \node[block,below=of index,minimum width=8.5cm] (providers)
+   {BrowserRouter $\rightarrow$ VisionUIControllerProvider $\rightarrow$ MeshRealtimeProvider};
+ \node[block,below=of providers,minimum width=8.5cm] (app)
+   {\codeword{App.js}: theme, sidenav, route switch};
+ \node[block,below=of app,minimum width=8.5cm] (routes)
+   {\codeword{routes.js}: chọn layout theo URL};
+ \node[block,below=of routes,minimum width=8.5cm,fill=green!8] (page)
+   {Layout đọc dữ liệu chung bằng \codeword{useMeshRealtime()}};
+ \foreach \a/\b in {html/index,index/providers,providers/app,app/routes,routes/page}
+   \draw[flow] (\a)--(\b);
+\end{tikzpicture}}
+\caption{Trình tự mount và render frontend}
+\end{figure}
+
+\subsection{Các route hiện tại}
+
+\begin{table}[H]
+\centering
+\caption{Bản đồ màn hình}
+\begin{tabularx}{\textwidth}{p{4cm}p{4.2cm}X}
+\toprule
+\textbf{Route} & \textbf{Layout} & \textbf{Mục đích}\\
+\midrule
+\codeword{/dashboard} & Dashboard & Tổng quan root, node, throughput và cảm biến mới nhất.\\
+\codeword{/gateway} & Gateway & CPU/RAM/RSSI/pin/uptime của MeshGateWay.\\
+\codeword{/nodes} & Nodes & Danh sách registry node và trạng thái online.\\
+\codeword{/nodes/:nodeId} & NodeDetail & Chi tiết một node; route ẩn khỏi menu.\\
+\codeword{/sensors} & Sensors & Các giá trị sensor realtime.\\
+\codeword{/history} & History & Chọn MAC/sensor/field, biểu đồ và export CSV.\\
+\codeword{/alerts} & Alerts & Hiển thị lỗi runtime và điều kiện cảnh báo.\\
+\codeword{/ota/overview} & OtaOverview & Tổng quan OTA.\\
+\codeword{/ota/firmware} & FirmwareManagement & Giao diện quản lý firmware.\\
+\codeword{/ota/fota} & UpdateNodes & Giao diện FOTA.\\
+\codeword{/settings/system} & SystemSettings & Chọn nguồn WS và các cấu hình UI.\\
+\codeword{/about} & About & Thông tin hệ thống.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Lựa chọn nguồn WebSocket}
+
+\subsection{Thứ tự xác định URL}
+
+\begin{figure}[H]
+\centering
+\resizebox{.88\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm]
+ \node[decision] (stored) {localStorage có\\URL hợp lệ?};
+ \node[block,right=23mm of stored,minimum width=4.5cm,fill=green!8] (useStored)
+   {Dùng \codeword{msms_websocket_url}};
+ \node[decision,below=16mm of stored] (env) {\codeword{REACT_APP_WS_URL}\\được đặt?};
+ \node[block,right=23mm of env,minimum width=4.5cm] (useEnv) {Dùng URL build environment};
+ \node[block,below=16mm of env,minimum width=4.5cm,fill=orange!8] (local)
+   {Mặc định\\\codeword{ws://<browser-host>:9090/ws}};
+ \draw[dataflow] (stored)--node[above,font=\scriptsize]{có}(useStored);
+ \draw[flow] (stored)--node[left,font=\scriptsize]{không}(env);
+ \draw[dataflow] (env)--node[above,font=\scriptsize]{có}(useEnv);
+ \draw[flow] (env)--node[left,font=\scriptsize]{không}(local);
+\end{tikzpicture}}
+\caption{Thứ tự chọn URL trong wsConfig.js}
+\end{figure}
+
+Ba lựa chọn trên giao diện Settings:
+\begin{itemize}
+ \item \textbf{Local server:} \codeword{ws://<window.location.hostname>:9090/ws}.
+ Khi mở frontend bằng \codeword{localhost:3000}, URL là
+ \codeword{ws://localhost:9090/ws}.
+ \item \textbf{Internet server:}
+ \codeword{wss://systemmsems.msems.click/ws}.
+ \item \textbf{Custom URL:} người dùng nhập URL bắt đầu bằng \codeword{ws://}
+ hoặc \codeword{wss://}.
+\end{itemize}
+
+\codeword{saveWebSocketSourceSettings()} kiểm tra URL, ghi source và URL vào
+\codeword{localStorage}, sau đó phát custom event
+\codeword{msms:websocket-config-changed}. Provider nhận event, đổi dependency
+\codeword{url}, đóng socket cũ và mở socket mới. Khác với URL trên firmware
+gateway, cấu hình frontend này bền qua refresh trình duyệt nhưng chỉ thuộc profile
+trình duyệt hiện tại.
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=10mm and 13mm]
+ \node[block,minimum width=3.1cm] (form) {Settings\\Apply};
+ \node[block,right=of form,minimum width=3.4cm] (storage) {Validate\\ghi localStorage};
+ \node[block,right=of storage,minimum width=3.4cm] (event) {Custom event\\URL changed};
+ \node[service,right=of event,minimum width=3.8cm] (provider) {MeshRealtimeProvider\\cleanup socket cũ};
+ \node[block,below=13mm of provider,minimum width=3.8cm,fill=green!8] (newws)
+   {Mở WebSocket mới\\reconnect mỗi 3 s};
+ \draw[flow] (form)--(storage);
+ \draw[flow] (storage)--(event);
+ \draw[flow] (event)--(provider);
+ \draw[dataflow] (provider)--(newws);
+\end{tikzpicture}}
+\caption{Áp dụng nguồn dữ liệu mới không cần sửa cứng mã}
+\end{figure}
+
+\section{WebSocket và HTTP backend}
+
+\subsection{Khởi tạo server}
+
+Backend dùng một \codeword{http.Server} chung cho Express và
+\codeword{WebSocketServer}. Mặc định bind \codeword{0.0.0.0:9090}. mDNS quảng bá
+\codeword{systemmsems.local}, service HTTP với TXT
+\codeword{service=websocket,path=/ws}. WebSocket server không giới hạn path trong
+constructor, vì vậy kết nối tới root hoặc \codeword{/ws} đều đi vào cùng server.
+
+\begin{figure}[H]
+\centering
+\resizebox{.9\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm]
+ \node[block,minimum width=8.4cm] (env) {Đọc HOST, PORT, DB\_TYPE, MONGO\_URI, MDNS\_HOSTNAME};
+ \node[block,below=of env,minimum width=8.4cm] (store) {Chọn SQLite store hoặc Mongo store};
+ \node[block,below=of store,minimum width=8.4cm] (http) {Tạo Express + REST + Swagger + HTTP server};
+ \node[block,below=of http,minimum width=8.4cm] (ws) {Gắn WebSocketServer lên HTTP server};
+ \node[block,below=of ws,minimum width=8.4cm] (listen) {Listen cổng 9090 và quảng bá mDNS};
+ \node[block,below=of listen,minimum width=8.4cm] (connect) {Kết nối database; log lỗi nhưng server vẫn tiếp tục};
+ \foreach \a/\b in {env/store,store/http,http/ws,ws/listen,listen/connect}\draw[flow](\a)--(\b);
+\end{tikzpicture}}
+\caption{Khởi động backend Node.js}
+\end{figure}
+
+\subsection{Xử lý một kết nối}
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 10mm]
+ \node[block,minimum width=3.1cm] (conn) {Client kết nối};
+ \node[block,right=of conn,minimum width=3.2cm] (state) {\codeword{isAlive=true}\\\codeword{uartCarry=""}};
+ \node[block,right=of state,minimum width=3.2cm] (listeners) {Gắn message, pong, close};
+ \node[block,right=of listeners,minimum width=3.3cm,fill=green!8] (welcome)
+   {Gửi \codeword{welcome}\\serverNet};
+ \node[block,below=15mm of state,minimum width=3.2cm] (heartbeat) {Mỗi 30 s\\ping/pong};
+ \node[block,right=of heartbeat,minimum width=3.2cm,fill=red!7] (zombie)
+   {Không pong\\terminate};
+ \draw[flow](conn)--(state);
+ \draw[flow](state)--(listeners);
+ \draw[dataflow](listeners)--(welcome);
+ \draw[flow](state)--(heartbeat);
+ \draw[warnflow](heartbeat)--(zombie);
+\end{tikzpicture}}
+\caption{Vòng đời kết nối WebSocket phía server}
+\end{figure}
+
+\section{Pipeline nhận và phân tách bản tin}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[node distance=7mm and 7mm]
+ \node[block,minimum width=2.3cm] (raw) {WS frame};
+ \node[decision,right=of raw] (binary) {Binary?};
+ \node[block,above=12mm of binary,minimum width=2.5cm] (bcastbin) {Broadcast nguyên bytes};
+ \node[decision,right=of binary] (json) {JSON hợp lệ?};
+ \node[block,above=12mm of json,minimum width=2.7cm] (text) {Bọc \codeword{type=text}\\rồi broadcast};
+ \node[decision,right=of json] (type) {Loại payload?};
+ \node[block,below left=15mm and 6mm of type,minimum width=2.7cm] (uart)
+   {\codeword{uart_rx}\\parse payload/hex};
+ \node[block,below=15mm of type,minimum width=2.7cm] (mesh)
+   {Mesh JSON\\trực tiếp};
+ \node[block,below right=15mm and 6mm of type,minimum width=2.8cm] (gateway)
+   {\codeword{gateway_status}};
+ \node[store,below=16mm of mesh,minimum width=2.8cm] (db) {Persist rows};
+ \node[block,right=18mm of gateway,minimum width=2.8cm,fill=green!8] (broadcast)
+   {Broadcast JSON gốc\\trừ client gửi};
+
+ \draw[flow](raw)--(binary);
+ \draw[dataflow](binary)--node[right,font=\scriptsize]{có}(bcastbin);
+ \draw[flow](binary)--node[above,font=\scriptsize]{không}(json);
+ \draw[warnflow](json)--node[right,font=\scriptsize]{không}(text);
+ \draw[flow](json)--node[above,font=\scriptsize]{có}(type);
+ \draw[dataflow](type)--(uart);
+ \draw[dataflow](type)--(mesh);
+ \draw[dataflow](type)--(gateway);
+ \draw[dataflow](uart)--(db);
+ \draw[dataflow](mesh)--(db);
+ \draw[dataflow](gateway)--(db);
+ \draw[dataflow](type)--(broadcast);
+\end{tikzpicture}}
+\caption{Phân nhánh xử lý message tại backend}
+\label{fig:serverpipeline}
+\end{figure}
+
+Lỗi parser hoặc database được bắt riêng. Một JSON hợp lệ vẫn được broadcast với
+cấu trúc ban đầu ngay cả khi persist thất bại. Đây là quyết định tốt cho realtime:
+UI không bị biến bản tin hợp lệ thành text chỉ vì database gặp lỗi.
+
+\subsection{Ba dạng mesh input được chấp nhận}
+
+\begin{enumerate}
+ \item JSON mesh trực tiếp chứa \codeword{v}, \codeword{n}, \codeword{M} hoặc
+ \codeword{i}, và mảng \codeword{p}.
+ \item \codeword{uart_rx.payload} là object hoặc chuỗi JSON.
+ \item \codeword{uart_rx.hex} là UTF-8 mã hex; server ghép phần dòng chưa hoàn
+ chỉnh trong \codeword{state.uartCarry}, giới hạn phần carry 4096 ký tự.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\resizebox{.93\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm]
+ \node[block,minimum width=7.6cm] (outer) {Parse JSON ngoài: \codeword{type=uart_rx}};
+ \node[decision,below=of outer] (payload) {\codeword{payload} có sẵn?};
+ \node[block,below left=14mm and 22mm of payload,minimum width=4cm] (pobj)
+   {Object: kiểm tra schema\\String: parse JSON hoặc từng dòng};
+ \node[decision,below right=14mm and 22mm of payload] (hex) {Có \codeword{hex}?};
+ \node[block,below=13mm of hex,minimum width=4cm] (decode)
+   {Decode UTF-8\\carry + split CR/LF};
+ \node[block,below=17mm of payload,minimum width=4cm,fill=green!8] (packets)
+   {Danh sách mesh packet hợp lệ};
+ \draw[dataflow](outer)--(payload);
+ \draw[dataflow](payload)--node[above left,font=\scriptsize]{có}(pobj);
+ \draw[flow](payload)--node[above right,font=\scriptsize]{không}(hex);
+ \draw[dataflow](hex)--node[right,font=\scriptsize]{có}(decode);
+ \draw[dataflow](pobj)--(packets);
+ \draw[dataflow](decode)--(packets);
+\end{tikzpicture}}
+\caption{Parser hai lớp của uart\_rx}
+\end{figure}
+
+\section{Schema dữ liệu mesh}
+
+\begin{lstlisting}[style=textstyle,caption={Payload compact tiêu biểu}]
+{
+  "v": 1,
+  "seq": 88,
+  "n": 2,
+  "M": "B4:BF:E9:34:0C:CC",
+  "t": "2012-01-01T00:02:02",
+  "ver": "0.0.1",
+  "err": ["0x51"],
+  "p": [[1, 6, 27.594, 42.450]]
+}
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Ý nghĩa header mesh}
+\begin{tabularx}{\textwidth}{p{2.2cm}p{3cm}X}
+\toprule
+\textbf{Trường} & \textbf{Kiểu} & \textbf{Ý nghĩa}\\
+\midrule
+\codeword{v} & number & Phiên bản schema. Parser frontend khai báo hằng số 2 nhưng không bắt buộc bằng đúng 2.\\
+\codeword{seq} & number & Số thứ tự dùng tính packet loss tại backend.\\
+\codeword{n} & number & Tầng mesh.\\
+\codeword{M} / \codeword{i} & string & Định danh node; mã hiện tại ưu tiên \codeword{M}.\\
+\codeword{t} & ISO string & RTC của node, dùng ước lượng latency.\\
+\codeword{ver} & string & Phiên bản firmware.\\
+\codeword{err} & string array & Mã lỗi dạng \codeword{0xNN}.\\
+\codeword{p} & array & Các hàng \codeword{[port,type,v0,...]}.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Ánh xạ loại cảm biến}
+
+\begin{table}[H]
+\centering
+\caption{Sensor type và thứ tự giá trị}
+\begin{tabularx}{\textwidth}{p{1.5cm}p{3.4cm}X}
+\toprule
+\textbf{ID} & \textbf{Sensor} & \textbf{Các trường theo thứ tự}\\
+\midrule
+0 & BME280 & \codeword{temp_C}, \codeword{pressure_hPa}, \codeword{humidity_RH}\\
+1 & MH-Z14A & \codeword{co2_ppm}, \codeword{temp_C}\\
+2 & PMS7003 & \codeword{pm1_0_ugm3}, \codeword{pm2_5_ugm3}, \codeword{pm10_ugm3}\\
+3 & DHT22 & \codeword{temp_C}, \codeword{humidity_RH}\\
+4 & AHT10 & \codeword{temp_C}, \codeword{humidity_RH}\\
+5 & DHT11 & \codeword{temp_C}, \codeword{humidity_RH}\\
+6 & HTU21D & \codeword{temp_C}, \codeword{humidity_RH}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Frontend giới hạn tối đa năm giá trị trên một row. \codeword{wirePort} hợp lệ từ
+1 đến 255 và \codeword{portIndex = wirePort - 1}. Mã
+\codeword{isSensorTypeWireValue()} hiện kiểm tra tối đa
+\codeword{SENSOR_AHT10} (ID 4), trong khi registry định nghĩa cả DHT11 và HTU21D;
+đây là điểm không đồng nhất cần sửa nếu hàm kiểm tra này được dùng để reject type.
+
+\section{Lưu trữ SQLite}
+
+\subsection{Mô hình dữ liệu dạng long table}
+
+Mỗi giá trị sensor trở thành một dòng. Ví dụ một row BME280 có ba giá trị sẽ tạo
+ba record cùng MAC, thời gian, port và sensorName nhưng khác \codeword{field}.
+
+\begin{figure}[H]
+\centering
+\resizebox{.92\textwidth}{!}{
+\begin{tikzpicture}[node distance=9mm]
+ \node[block,minimum width=7.5cm] (packet)
+   {Packet \codeword{p=[[1,0,27.1,1007.2,55.0]]}};
+ \node[block,below left=13mm and 25mm of packet,minimum width=3.5cm] (r1)
+   {field=temp\_C\\value=27.1};
+ \node[block,below=13mm of packet,minimum width=3.5cm] (r2)
+   {field=pressure\_hPa\\value=1007.2};
+ \node[block,below right=13mm and 25mm of packet,minimum width=3.5cm] (r3)
+   {field=humidity\_RH\\value=55.0};
+ \node[store,below=18mm of r2,minimum width=4cm] (data) {Bảng Data};
+ \draw[dataflow](packet)--(r1);
+ \draw[dataflow](packet)--(r2);
+ \draw[dataflow](packet)--(r3);
+ \draw[dataflow](r1)--(data);
+ \draw[dataflow](r2)--(data);
+ \draw[dataflow](r3)--(data);
+\end{tikzpicture}}
+\caption{Chuẩn hóa một packet thành nhiều record SQLite}
+\end{figure}
+
+\begin{longtable}{p{3.2cm}p{2.8cm}p{8cm}}
+\caption{Cột bảng Data của SQLite}\\
+\toprule
+\textbf{Cột} & \textbf{Kiểu} & \textbf{Nội dung}\\
+\midrule\endfirsthead
+\toprule
+\textbf{Cột} & \textbf{Kiểu} & \textbf{Nội dung}\\
+\midrule\endhead
+\codeword{id} & INTEGER & Khóa chính tự tăng.\\
+\codeword{mac} & TEXT & \codeword{M} hoặc \codeword{i}.\\
+\codeword{deviceTime} & TEXT & Chuỗi thời gian thiết bị.\\
+\codeword{serverTime} & TEXT & ISO time tại lúc backend nhận.\\
+\codeword{meshLevel} & INTEGER & Tầng mesh.\\
+\codeword{schemaVersion} & INTEGER & Trường \codeword{v}.\\
+\codeword{packetLoss} & REAL & Tỷ lệ mất gói nếu có.\\
+\codeword{port} & INTEGER & Port trên wire.\\
+\codeword{sensorType} & INTEGER & ID sensor.\\
+\codeword{sensorName} & TEXT & Tên đã ánh xạ.\\
+\codeword{field} & TEXT & Tên đại lượng.\\
+\codeword{value} & REAL & Giá trị số.\\
+\codeword{nodeTimeValid} & INTEGER & Hiện được ghi 0 trong adapter SQLite.\\
+\codeword{sourceIp} & TEXT & IP socket gửi tới backend.\\
+\bottomrule
+\end{longtable}
+
+SQLite bật \codeword{PRAGMA journal_mode=WAL}, tạo index theo
+\codeword{serverTime DESC} và index ghép
+\codeword{(mac,field,serverTime)}. Chế độ \codeword{execute.bat} đặt
+\codeword{DB_TYPE=sqlite}; database mặc định là
+\pathcode{websocket-server/mesh-data.sqlite}, kèm các file WAL/SHM khi đang chạy.
+
+\subsection{Lưu gateway\_status}
+
+Adapter SQLite chuyển năm metrics thành record có
+\codeword{sensorName=Gateway}: CPU load, RAM used, RSSI, battery voltage và
+uptime. MAC gateway được lấy lần lượt từ \codeword{mac},
+\codeword{sta_mac}, \codeword{sta_ip}, source IP hoặc chuỗi
+\codeword{gateway}.
+
+\section{REST API và dữ liệu lịch sử}
+
+\begin{table}[H]
+\centering
+\caption{REST endpoint}
+\begin{tabularx}{\textwidth}{p{5.1cm}X}
+\toprule
+\textbf{Endpoint} & \textbf{Kết quả}\\
+\midrule
+\codeword{GET /api/nodes} & Snapshot node theo record mới nhất.\\
+\codeword{GET /api/history/meta?limit=} & Danh sách MAC, lastSeen và sensor names.\\
+\codeword{GET /api/history/series} & Chuỗi tối đa 5000 điểm theo MAC, sensor, field và thời gian.\\
+\codeword{GET /api/history/export} & Stream CSV toàn bộ history của một MAC theo khoảng thời gian.\\
+\codeword{GET /api-docs} & Swagger UI.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\resizebox{.92\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 11mm]
+ \node[block,minimum width=3.4cm] (history) {Trang History\\chọn MAC/field/time};
+ \node[service,right=of history,minimum width=3.7cm] (api) {Express REST\\validate query};
+ \node[store,right=of api,minimum width=3.5cm] (db) {SQLite Data};
+ \node[block,below=14mm of api,minimum width=3.7cm] (response)
+   {JSON timeseries\\hoặc CSV stream};
+ \draw[flow](history)--node[above,font=\scriptsize]{HTTP GET}(api);
+ \draw[dataflow](api)--(db);
+ \draw[dataflow](db)--(response);
+ \draw[dataflow](response)-|(history);
+\end{tikzpicture}}
+\caption{Luồng truy vấn lịch sử}
+\end{figure}
+
+Export SQLite đọc theo chunk 5000 dòng và ghi trực tiếp vào HTTP response, tránh
+nạp toàn bộ file CSV vào RAM. Tuy nhiên nội dung CSV được ghép bằng template
+string mà chưa escape dấu phẩy, dấu ngoặc kép hay xuống dòng; tên sensor hiện tại
+an toàn nhưng nên dùng hàm CSV escaping chuẩn.
+
+\section{Realtime state ở frontend}
+
+\subsection{MeshRealtimeProvider}
+
+\begin{figure}[H]
+\centering
+\resizebox{.96\textwidth}{!}{
+\begin{tikzpicture}[node distance=12mm and 16mm]
+ \node[service,minimum width=4cm,minimum height=2.1cm] (provider)
+   {\textbf{MeshRealtimeProvider}\\một kết nối WS dùng chung\\một registry node};
+ \node[block,above left=of provider,minimum width=3.4cm] (http) {HTTP snapshot\\\codeword{/api/nodes}};
+ \node[block,above right=of provider,minimum width=3.4cm] (ws) {WebSocket\\realtime};
+ \node[block,below left=of provider,minimum width=3.4cm] (state1)
+   {gatewayStatus\\serverMetrics\\latestSensors};
+ \node[block,below=of provider,minimum width=3.4cm] (state2)
+   {registry / nodes\\online/offline};
+ \node[block,below right=of provider,minimum width=3.4cm] (state3)
+   {throughput\\latency / logs};
+ \node[block,right=24mm of provider,minimum width=3.4cm,fill=green!8] (layouts)
+   {Dashboard\\Gateway\\Nodes\\Sensors};
+ \draw[dataflow](http)--(provider);
+ \draw[dataflow](ws)--(provider);
+ \draw[dataflow](provider)--(state1);
+ \draw[dataflow](provider)--(state2);
+ \draw[dataflow](provider)--(state3);
+ \draw[flow](provider)--(layouts);
+\end{tikzpicture}}
+\caption{State realtime được chia sẻ cho toàn bộ layout}
+\end{figure}
+
+Provider fetch snapshot một lần khi URL thay đổi, sau đó mở WebSocket. Khi socket
+đóng, nó thử lại sau 3 giây. Cleanup hủy timer, tháo handler và đóng socket, tránh
+tạo nhiều kết nối khi người dùng đổi nguồn.
+
+\subsection{Các ngưỡng thời gian}
+
+\begin{table}[H]
+\centering
+\caption{Ngưỡng và giới hạn realtime}
+\begin{tabularx}{\textwidth}{p{5cm}p{3cm}X}
+\toprule
+\textbf{Hằng số} & \textbf{Giá trị} & \textbf{Ý nghĩa}\\
+\midrule
+\codeword{DEVICE_STALE_MS} & 15 s & Không có device message thì root status chuyển waiting/offline.\\
+\codeword{NODE_STALE_MS} & 20 s & Dùng thống kê online/offline.\\
+\codeword{STALE_MS_NODES} & theo context & Dùng field online trong danh sách node.\\
+\codeword{THROUGHPUT_WINDOW_SECONDS} & 60 s & Cửa sổ đồ thị bytes/kbps.\\
+\codeword{MAX_DEBUG_LOGS} & 120 & Giới hạn log trong RAM.\\
+Reconnect & 3 s & Thời gian mở lại frontend WS.\\
+Server heartbeat & 30 s & Ping/pong và loại zombie socket.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Có nhiều hằng stale khác nhau giữa context và hook cũ
+\codeword{useMeshNodesFromWebSocket} (7 giây). Hiện các hook ưu tiên trả dữ liệu
+từ context nếu provider tồn tại, nhưng code fallback còn giữ logic trùng lặp.
+Nên gom các timeout về một module cấu hình để tránh cùng node nhưng màn hình khác
+nhau hiển thị trạng thái khác nhau.
+
+\subsection{Tính throughput và latency}
+
+Mỗi message text được đếm số byte UTF-8 theo giây. Cứ mỗi giây, provider lấy
+bucket của giây trước, giữ 60 điểm và tính:
+\[
+  \text{kbps}=\frac{\text{bytes}\times 8}{1000}.
+\]
+Latency được tính từ thời gian browser nhận trừ RTC trong payload. Giá trị bị ép
+tối thiểu 0. Nếu node dùng thời gian mặc định năm 2012 hoặc RTC chưa đồng bộ,
+latency rất lớn và không phản ánh trễ mạng; UI cần đánh dấu time invalid thay vì
+coi đó là network latency.
+
+\section{Packet loss và server metrics}
+
+Backend giữ \codeword{seqStats} theo định danh node. Mỗi 10 giây:
+\[
+  expected=maxSeq-minSeq+1,\qquad
+  loss=\frac{expected-count}{expected}\times100\%.
+\]
+Kết quả được broadcast bằng \codeword{packetloss_update} và thử persist một
+packet hệ thống. Cách tính này giả định seq tăng đều, không xử lý trùng gói và
+reset/wrap sequence đầy đủ; ngưỡng \codeword{expected>10000} chỉ là bảo vệ sơ bộ.
+
+Mỗi 5 giây, nếu có ít nhất một WebSocket client, backend dùng
+\codeword{systeminformation} tạo \codeword{server_metrics}: CPU load, RAM,
+nhiệt độ CPU, uptime và received time. Đây là metrics của \textbf{máy chạy
+Node.js}, không phải MeshGateWay. Frontend giữ series riêng cho server và gateway.
+
+\begin{figure}[H]
+\centering
+\resizebox{.92\textwidth}{!}{
+\begin{tikzpicture}[node distance=9mm and 12mm]
+ \node[block,minimum width=3.4cm] (seq) {Mesh packets\\seq theo node};
+ \node[block,right=of seq,minimum width=3.5cm] (calc) {Cửa sổ 10 s\\tính loss};
+ \node[block,right=of calc,minimum width=3.5cm,fill=green!8] (pl)
+   {\codeword{packetloss_update}\\broadcast};
+ \node[block,below=15mm of seq,minimum width=3.4cm] (host) {systeminformation\\máy backend};
+ \node[block,right=of host,minimum width=3.5cm] (five) {Chu kỳ 5 s\\nếu có client};
+ \node[block,right=of five,minimum width=3.5cm,fill=green!8] (sm)
+   {\codeword{server_metrics}\\broadcast};
+ \draw[dataflow](seq)--(calc);
+ \draw[dataflow](calc)--(pl);
+ \draw[dataflow](host)--(five);
+ \draw[dataflow](five)--(sm);
+\end{tikzpicture}}
+\caption{Hai luồng số liệu do backend tự sinh}
+\end{figure}
+
+\section{SQLite và MongoDB: mức tương thích thực tế}
+
+\begin{table}[H]
+\centering
+\caption{So sánh adapter hiện tại}
+\begin{tabularx}{\textwidth}{p{4.3cm}p{4.4cm}X}
+\toprule
+\textbf{Khả năng} & \textbf{SQLite} & \textbf{MongoDB}\\
+\midrule
+Định danh \codeword{M} & Có, ưu tiên \codeword{M} & Không; validator và builder chỉ dùng \codeword{i}\\
+Persist mesh & Có & Có nếu payload có \codeword{i}\\
+Persist gateway status & Có & Không export hàm tương ứng\\
+Node snapshot & \codeword{mac} & \codeword{ip}\\
+History metadata & \codeword{getHistoryMacs} & \codeword{getHistoryIps}\\
+History series input & \codeword{mac,sensorName,field} & \codeword{ip,field}\\
+CSV export & Có & Không\\
+Phù hợp server.js hiện tại & Có & Chưa tương thích đầy đủ\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Kết luận:} mặc dù \codeword{DB_TYPE} mặc định trong server.js là
+\codeword{mongodb}, REST handler hiện gọi interface của SQLite. Chạy bằng
+\codeword{execute.bat} an toàn hơn vì script đặt \codeword{DB_TYPE=sqlite}.
+Muốn dùng MongoDB phải cập nhật adapter theo interface thống nhất hoặc tạo lớp
+contract chung và test cho cả hai backend.
+
+\section{Khởi chạy và dừng trên Windows}
+
+\subsection{execute.bat}
+
+\begin{figure}[H]
+\centering
+\resizebox{.86\textwidth}{!}{
+\begin{tikzpicture}[node distance=7mm]
+ \node[block,minimum width=8cm] (cd) {Chuyển tới thư mục chứa script};
+ \node[decision,below=of cd] (pid) {File \codeword{.msms-dev.pid}\\trỏ tới process sống?};
+ \node[block,right=22mm of pid,minimum width=4cm,fill=red!7] (stop)
+   {Báo đang chạy\\không tạo instance mới};
+ \node[block,below=15mm of pid,minimum width=8cm] (start)
+   {Đặt \codeword{DB_TYPE=sqlite}\\Start-Process cmd /k npm run dev};
+ \node[store,below=of start,minimum width=3.5cm] (pidfile) {Ghi PID cmd\\\codeword{.msms-dev.pid}};
+ \node[block,below=of pidfile,minimum width=8cm,fill=green!8] (running)
+   {React :3000 + Node.js :9090};
+ \draw[flow](cd)--(pid);
+ \draw[warnflow](pid)--node[above,font=\scriptsize]{có}(stop);
+ \draw[flow](pid)--node[left,font=\scriptsize]{không}(start);
+ \draw[flow](start)--(pidfile);
+ \draw[dataflow](pidfile)--(running);
+\end{tikzpicture}}
+\caption{Cơ chế execute.bat}
+\end{figure}
+
+\subsection{stop.bat}
+
+\codeword{stop.bat} yêu cầu quyền Administrator, đọc PID đã lưu và chạy
+\codeword{taskkill /PID <pid> /T /F}. Sau đó script quét local endpoint cổng
+3000 và 9090 bằng \codeword{netstat} để dọn process mồ côi. Việc dùng
+\codeword{/T} là quan trọng vì PID file là PID của \codeword{cmd.exe}, còn React
+và Node là tiến trình con.
+
+\begin{lstlisting}[style=textstyle,caption={Cách sử dụng}]
+cd /d "D:\Engineering Project\DashboardManagerWifiMesh"
+execute.bat
+
+rem Stop the program:
+stop.bat
+\end{lstlisting}
+
+\section{Những phần giao diện chưa nối hoàn chỉnh}
+
+Không phải mọi nút trong UI đều có backend tương ứng:
+\begin{itemize}
+ \item các nút Save changes, Reset to default của system setting và nhiều System
+ Actions hiện chủ yếu là giao diện, chưa gọi API;
+ \item thông tin System Uptime, Firmware/Hardware Version, Last Restart và Memory
+ Usage trong card System Information có giá trị mẫu viết cứng;
+ \item các trang OTA/FOTA có giao diện nhưng firmware gateway hiện chưa nối
+ pipeline OTA hoàn chỉnh;
+ \item notification email và các nút restart/factory reset chưa có endpoint
+ điều khiển thực tế trong server.js.
+\end{itemize}
+
+Khi viết tài liệu vận hành cần phân biệt “màn hình tồn tại” với “hành động đã
+được backend và firmware thực thi”.
+
+\section{Rủi ro và đề xuất cải tiến}
+
+\begin{enumerate}
+ \item \textbf{Chuẩn hóa Store interface:} định nghĩa contract chung
+ \codeword{connect}, \codeword{persistMeshPacket},
+ \codeword{persistGatewayStatus}, \codeword{getNodeSnapshot},
+ \codeword{getHistoryMacs}, \codeword{getHistorySeries} và export CSV.
+ \item \textbf{Thống nhất định danh M:} đổi MongoDB từ field \codeword{ip} sang
+ \codeword{mac} hoặc hỗ trợ migration/alias rõ ràng.
+ \item \textbf{Giảm parser trùng lặp:} parser UART/mesh đang có ở server,
+ context và hai hook. Tách shared package hoặc tạo bộ fixture contract.
+ \item \textbf{Bảo vệ WebSocket và REST:} hiện chưa thấy authentication,
+ authorization, rate limit hay giới hạn kích thước message ở lớp ứng dụng.
+ \item \textbf{Giới hạn log:} server log toàn bộ text nhận được; telemetry dày
+ có thể làm terminal chậm và lộ dữ liệu. Nên có log level và truncate.
+ \item \textbf{Database unavailable:} server tiếp tục chạy sau lỗi connect,
+ nhưng các lệnh store tiếp theo có thể liên tục lỗi. Nên expose health endpoint
+ và trạng thái degraded.
+ \item \textbf{CSV escaping:} dùng thư viện CSV hoặc escape đúng RFC.
+ \item \textbf{RTC validity:} nhận biết năm mặc định/RTC chưa sync trước khi
+ tính latency và lưu device time.
+ \item \textbf{Packet loss:} xử lý duplicate, reset và wrap sequence bằng
+ sliding window theo node.
+ \item \textbf{CORS và network exposure:} backend bind 0.0.0.0 và CORS mở; cần
+ cấu hình origin allowlist khi triển khai ngoài mạng lab.
+\end{enumerate}
+
+\section{Kế hoạch kiểm thử}
+
+\begin{longtable}{p{4.3cm}p{5cm}p{4.7cm}}
+\caption{Ma trận kiểm thử đề xuất}\\
+\toprule
+\textbf{Nhóm} & \textbf{Ca kiểm thử} & \textbf{Kết quả mong đợi}\\
+\midrule\endfirsthead
+\toprule
+\textbf{Nhóm} & \textbf{Ca kiểm thử} & \textbf{Kết quả mong đợi}\\
+\midrule\endhead
+Parser & Mesh trực tiếp có \codeword{M} & Parse node, sensor và persist SQLite.\\
+Parser & \codeword{uart_rx.payload} string & Parse đúng JSON lớp trong.\\
+Parser & Hex bị chia nhiều frame & Carry ghép đúng một dòng.\\
+Parser & Row có string/NaN/type lạ & Trả lỗi có kiểm soát, server không chết.\\
+Realtime & Ngắt backend & UI chuyển wsOpen false, reconnect 3 s.\\
+Realtime & Node im lặng 20 s & Thống kê offline cập nhật.\\
+Config & Local/server/custom & Socket cũ đóng, socket mới mở; refresh vẫn giữ URL.\\
+SQLite & Nhiều writer/read history & WAL cho phép truy vấn khi đang ghi.\\
+History & from/to/limit & Thứ tự tăng dần và giới hạn đúng.\\
+CSV & Hàng dữ liệu lớn & Stream theo chunk, file không thiếu dòng.\\
+WebSocket & Client không pong & Server terminate sau heartbeat.\\
+Windows & execute hai lần & Lần hai báo PID đang chạy.\\
+Windows & stop sau PID mồ côi & Dọn process theo cổng 3000/9090.\\
+MongoDB & Chạy toàn bộ API & Hiện dự kiến thất bại; dùng test để dẫn dắt sửa adapter.\\
+\bottomrule
+\end{longtable}
+
+\section{Build và triển khai}
+
+\begin{lstlisting}[style=textstyle,caption={Cài đặt và chạy development}]
+cd DashboardManagerWifiMesh
+npm install
+npm install --prefix websocket-server
+npm run dev
+\end{lstlisting}
+
+\begin{lstlisting}[style=textstyle,caption={Chạy riêng và build frontend}]
+npm run start:react
+npm run ws-server
+npm run build
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Biến môi trường quan trọng}
+\begin{tabularx}{\textwidth}{p{4.7cm}p{4.4cm}X}
+\toprule
+\textbf{Biến} & \textbf{Mặc định} & \textbf{Ý nghĩa}\\
+\midrule
+\codeword{WS_PORT} / \codeword{PORT} & 9090 & Cổng HTTP + WebSocket.\\
+\codeword{WS_HOST} & \codeword{0.0.0.0} & Interface bind.\\
+\codeword{DB_TYPE} & mongodb trong server & Adapter database; execute.bat ghi đè sqlite.\\
+\codeword{MONGO_URI} & local MeshData & URI MongoDB.\\
+\codeword{SQLITE_DB_PATH} & mesh-data.sqlite & File SQLite.\\
+\codeword{MDNS_HOSTNAME} & systemmsems & Hostname mDNS.\\
+\codeword{REACT_APP_WS_URL} & local URL & URL frontend được đóng vào build.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Kết luận}
+
+Dự án đã có kiến trúc realtime hợp lý: một provider WebSocket dùng chung, backend
+broadcast bản tin gốc, SQLite chuẩn hóa dữ liệu theo field và REST API phục vụ
+history. Local mode hiện chạy cổng 9090, lưu SQLite và quảng bá
+\codeword{systemmsems.local}. Những việc ưu tiên trước khi triển khai ổn định là
+chuẩn hóa adapter MongoDB, loại bỏ parser trùng lặp, bảo vệ API/WS, phân biệt
+chức năng UI mẫu với hành động thật và bổ sung test contract cho schema
+\codeword{M}.
+
+\appendix
+\section{Thứ tự đọc mã đề xuất}
+
+\begin{longtable}{p{6.3cm}p{7.7cm}}
+\toprule
+\textbf{Tệp} & \textbf{Nội dung nên đọc}\\
+\midrule\endfirsthead
+\toprule
+\textbf{Tệp} & \textbf{Nội dung nên đọc}\\
+\midrule\endhead
+\pathcode{package.json} & Script chạy đồng thời frontend/backend.\\
+\pathcode{src/index.js} & Cây provider.\\
+\pathcode{src/context/meshRealtime.js} & Luồng realtime trung tâm.\\
+\pathcode{src/utils/wsConfig.js} & Local/server/custom URL.\\
+\pathcode{src/utils/meshUdpJsonSchema.js} & Schema và sensor mapping.\\
+\pathcode{src/routes.js} & Route và menu.\\
+\pathcode{src/layouts/system-settings/index.js} & Giao diện đổi nguồn dữ liệu.\\
+\pathcode{websocket-server/server.js} & Toàn bộ HTTP/WS pipeline.\\
+\pathcode{websocket-server/sqlite-store.js} & Database mặc định thực tế.\\
+\pathcode{websocket-server/mongodb-store.js} & Adapter cũ cần đồng bộ.\\
+\pathcode{execute.bat} & Khởi chạy và PID file.\\
+\pathcode{stop.bat} & Dừng cây process và dọn cổng.\\
+\bottomrule
+\end{longtable}
+
+\end{document}

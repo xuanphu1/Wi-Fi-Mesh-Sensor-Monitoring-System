@@ -1,0 +1,35 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Giới thiệu}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Mục tiêu tài liệu}{1}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Kiến trúc tổng thể}{1}{section.2}%
+\contentsline {section}{\numberline {3}Tổ chức repository và công nghệ}{1}{section.3}%
+\contentsline {section}{\numberline {4}Khởi động và định tuyến frontend}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Các route hiện tại}{5}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Lựa chọn nguồn WebSocket}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Thứ tự xác định URL}{6}{subsection.5.1}%
+\contentsline {section}{\numberline {6}WebSocket và HTTP backend}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Khởi tạo server}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Xử lý một kết nối}{8}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Pipeline nhận và phân tách bản tin}{8}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Ba dạng mesh input được chấp nhận}{8}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Schema dữ liệu mesh}{9}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Ánh xạ loại cảm biến}{10}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Lưu trữ SQLite}{11}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Mô hình dữ liệu dạng long table}{11}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Lưu gateway\_status}{12}{subsection.9.2}%
+\contentsline {section}{\numberline {10}REST API và dữ liệu lịch sử}{12}{section.10}%
+\contentsline {section}{\numberline {11}Realtime state ở frontend}{13}{section.11}%
+\contentsline {subsection}{\numberline {11.1}MeshRealtimeProvider}{13}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Các ngưỡng thời gian}{14}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Tính throughput và latency}{14}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Packet loss và server metrics}{15}{section.12}%
+\contentsline {section}{\numberline {13}SQLite và MongoDB: mức tương thích thực tế}{16}{section.13}%
+\contentsline {section}{\numberline {14}Khởi chạy và dừng trên Windows}{17}{section.14}%
+\contentsline {subsection}{\numberline {14.1}execute.bat}{17}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}stop.bat}{17}{subsection.14.2}%
+\contentsline {section}{\numberline {15}Những phần giao diện chưa nối hoàn chỉnh}{18}{section.15}%
+\contentsline {section}{\numberline {16}Rủi ro và đề xuất cải tiến}{18}{section.16}%
+\contentsline {section}{\numberline {17}Kế hoạch kiểm thử}{19}{section.17}%
+\contentsline {section}{\numberline {18}Build và triển khai}{20}{section.18}%
+\contentsline {section}{\numberline {19}Kết luận}{21}{section.19}%
+\contentsline {section}{\numberline {A}Thứ tự đọc mã đề xuất}{21}{appendix.A}%

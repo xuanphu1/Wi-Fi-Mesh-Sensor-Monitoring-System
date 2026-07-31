@@ -21,6 +21,16 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 import {
+  getLocalWebSocketUrl,
+  getWebSocketSourceSettings,
+  saveWebSocketSourceSettings,
+  SERVER_WEBSOCKET_URL,
+  WS_SOURCE_CUSTOM,
+  WS_SOURCE_LOCAL,
+  WS_SOURCE_SERVER,
+} from "utils/wsConfig";
+
+import {
   IoSaveOutline,
   IoReloadOutline,
   IoTimeOutline,
@@ -100,8 +110,13 @@ const SENSOR_METRICS = {
 };
 
 function SystemSettings() {
+  const initialWsSettings = getWebSocketSourceSettings();
   const [systemTimeout, setSystemTimeout] = useState(60);
   const [refreshMs, setRefreshMs] = useState(1000);
+  const [wsSource, setWsSource] = useState(initialWsSettings.source);
+  const [wsUrl, setWsUrl] = useState(initialWsSettings.url);
+  const [wsConfigMessage, setWsConfigMessage] = useState("");
+  const [wsConfigError, setWsConfigError] = useState(false);
   
   // Sensor type state
   const [selectedSensor, setSelectedSensor] = useState(1);
@@ -115,10 +130,110 @@ function SystemSettings() {
 
   const [emailEnabled, setEmailEnabled] = useState(true);
 
+  const handleWsSourceChange = (event) => {
+    const source = event.target.value;
+    setWsSource(source);
+    setWsConfigMessage("");
+    if (source === WS_SOURCE_LOCAL) setWsUrl(getLocalWebSocketUrl());
+    if (source === WS_SOURCE_SERVER) setWsUrl(SERVER_WEBSOCKET_URL);
+  };
+
+  const handleApplyWsSource = () => {
+    const result = saveWebSocketSourceSettings(wsSource, wsUrl);
+    if (!result.valid) {
+      setWsConfigError(true);
+      setWsConfigMessage(result.error);
+      return;
+    }
+    setWsUrl(result.url);
+    setWsConfigError(false);
+    setWsConfigMessage(`Data source changed to ${result.url}`);
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
+
+        <Card sx={{
+          padding: "24px",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+          borderRadius: "16px",
+          backdropFilter: "blur(42px)",
+          mb: 3
+        }}>
+          <VuiTypography variant="h6" color="white" fontWeight="bold" mb={1}>
+            Realtime Data Source
+          </VuiTypography>
+          <VuiTypography variant="caption" color="text" display="block" mb={3}>
+            Select where this Dashboard receives realtime data. The setting is saved in this browser and reconnects immediately.
+          </VuiTypography>
+
+          <Grid container spacing={3} alignItems="flex-end">
+            <Grid item xs={12} md={4}>
+              <VuiTypography variant="caption" color="text" display="block" mb={1}>
+                Source
+              </VuiTypography>
+              <TextField
+                select
+                fullWidth
+                value={wsSource}
+                onChange={handleWsSourceChange}
+                sx={solidInputSx}
+                SelectProps={{
+                  MenuProps: {
+                    sx: { "& .MuiPaper-root": { background: "#0f1535", color: "white" } }
+                  }
+                }}
+              >
+                <MenuItem value={WS_SOURCE_LOCAL}>Local server</MenuItem>
+                <MenuItem value={WS_SOURCE_SERVER}>Internet server</MenuItem>
+                <MenuItem value={WS_SOURCE_CUSTOM}>Custom URL</MenuItem>
+              </TextField>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <VuiTypography variant="caption" color="text" display="block" mb={1}>
+                WebSocket URL
+              </VuiTypography>
+              <TextField
+                fullWidth
+                value={wsUrl}
+                onChange={(event) => {
+                  setWsSource(WS_SOURCE_CUSTOM);
+                  setWsUrl(event.target.value);
+                  setWsConfigMessage("");
+                }}
+                placeholder="ws://host:port/ws or wss://host/ws"
+                sx={solidInputSx}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleApplyWsSource}
+                sx={{ height: 44, background: "#4318ff", "&:hover": { background: "#3311cc" }, borderRadius: "8px" }}
+              >
+                <IoSaveOutline style={{ marginRight: 8 }} size="16px" /> Apply
+              </Button>
+            </Grid>
+          </Grid>
+
+          {wsConfigMessage && (
+            <VuiTypography
+              variant="caption"
+              display="block"
+              mt={2}
+              sx={{ color: wsConfigError ? "#ff285c" : "#01f7a7" }}
+            >
+              {wsConfigMessage}
+            </VuiTypography>
+          )}
+        </Card>
         
         {/* System Settings Card */}
         <Card sx={{
@@ -423,4 +538,3 @@ function SystemSettings() {
 }
 
 export default SystemSettings;
-

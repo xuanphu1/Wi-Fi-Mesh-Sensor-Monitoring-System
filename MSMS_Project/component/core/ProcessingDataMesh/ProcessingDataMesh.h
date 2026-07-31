@@ -13,12 +13,13 @@ extern "C" {
 /**
  * @brief Process a mesh telemetry JSON frame for gateway UART output.
  *
- * The input frame contains `seq`. This function calculates per-node packet
- * loss percentage in a 10-second window, then emits a compact JSON frame with
- * `packetloss` in place of `seq`.
+ * The input frame contains `M` (node MAC) and `seq`. This function calculates
+ * per-node packet loss percentage in a 10-second window, then emits a compact
+ * JSON frame with `packetloss` in place of `seq`. Frames without `M` are
+ * rejected as invalid.
  *
  * Output key order is fixed:
- *   v -> packetloss -> n -> i -> t -> ver -> err -> p
+ *   v -> packetloss -> n -> M -> t -> ver -> err -> p
  */
 system_err_t ProcessingDataMesh_ProcessFrame(const uint8_t *input,
                                              size_t input_len,

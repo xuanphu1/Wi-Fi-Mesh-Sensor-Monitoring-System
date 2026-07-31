@@ -1,0 +1,41 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Giới thiệu}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Mục đích tài liệu}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Vai trò của firmware}{1}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Nền tảng và tổ chức dự án}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Công nghệ sử dụng}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Cấu trúc thư mục}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Kiến trúc phần mềm}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Mô hình phân lớp}{2}{subsection.3.1}%
+\contentsline {paragraph}{Ý nghĩa các lớp.}{2}{section*.5}%
+\contentsline {subsection}{\numberline {3.2}Sơ đồ khối toàn hệ thống}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}DataManager là trạng thái trung tâm}{3}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Luồng khởi động}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Điểm vào app\_main}{4}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Hệ thống cảm biến}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Giao diện driver thống nhất}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Các cảm biến đã đăng ký}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Quy trình thêm cảm biến}{6}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Mạng và truyền dữ liệu}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}InternetManager}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Hai vai trò mesh}{7}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Nguồn dữ liệu và luồng telemetry}{7}{subsection.6.3}%
+\contentsline {paragraph}{Các nguồn dữ liệu phụ.}{8}{section*.9}%
+\contentsline {section}{\numberline {7}Định dạng telemetry}{8}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Gói node hiện tại}{8}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Xử lý telemetry tại gateway}{9}{subsection.7.2}%
+\contentsline {section}{\numberline {8}UI và tương tác người dùng}{10}{section.8}%
+\contentsline {section}{\numberline {9}Các dịch vụ lõi}{10}{section.9}%
+\contentsline {section}{\numberline {10}Task FreeRTOS và tài nguyên}{10}{section.10}%
+\contentsline {section}{\numberline {11}Bộ nhớ flash và lưu trữ}{11}{section.11}%
+\contentsline {section}{\numberline {12}Build, flash và theo dõi}{11}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Yêu cầu}{11}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Các lệnh cơ bản}{12}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Log cần theo dõi}{12}{subsection.12.3}%
+\contentsline {section}{\numberline {13}Chiến lược kiểm thử}{12}{section.13}%
+\contentsline {section}{\numberline {14}Đánh giá và khuyến nghị}{13}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Điểm mạnh}{13}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Rủi ro kỹ thuật}{14}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Thứ tự cải tiến đề xuất}{14}{subsection.14.3}%
+\contentsline {section}{\numberline {15}Kết luận}{14}{section.15}%
+\contentsline {section}{\numberline {A}Tệp nguồn trọng tâm}{14}{appendix.A}%

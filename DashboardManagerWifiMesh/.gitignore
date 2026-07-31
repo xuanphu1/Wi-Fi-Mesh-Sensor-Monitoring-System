@@ -10,6 +10,7 @@
 /build
 
 # misc
+.msms-dev.pid
 .DS_Store
 .env.local
 .env.development.local

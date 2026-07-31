@@ -1,0 +1,868 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
+\geometry{
+  left=3cm,
+  right=2cm,
+  top=2cm,
+  bottom=2cm
+}
+\setstretch{1.3}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep}
+\renewcommand{\arraystretch}{1.25}
+
+\definecolor{codebg}{RGB}{247,248,250}
+\definecolor{codeframe}{RGB}{210,214,220}
+\definecolor{codekeyword}{RGB}{34,87,153}
+\definecolor{codecomment}{RGB}{60,130,80}
+\definecolor{codestring}{RGB}{170,70,50}
+\definecolor{linkblue}{RGB}{20,80,160}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  citecolor=linkblue,
+  pdftitle={Báo cáo mã nguồn MSMS Project},
+  pdfauthor={Nhóm phát triển MSMS}
+}
+
+\lstdefinestyle{cstyle}{
+  language=C,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codestring},
+  numbers=left,
+  numberstyle=\scriptsize\color{gray},
+  numbersep=8pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=2,
+  columns=fullflexible,
+  keepspaces=true,
+  captionpos=b
+}
+
+\lstdefinestyle{textstyle}{
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  columns=fullflexible,
+  showstringspaces=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Báo cáo mã nguồn MSMS\_Project}
+\fancyhead[R]{ESP-IDF}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{16pt}
+
+\newcommand{\projectpath}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\codeword}[1]{\texttt{\detokenize{#1}}}
+
+\begin{document}
+\pagenumbering{Alph}
+
+\begin{titlepage}
+  \centering
+  \vspace*{1.2cm}
+  {\large BÁO CÁO PHÂN TÍCH MÃ NGUỒN\par}
+  \vspace{1.5cm}
+  {\Huge\bfseries MSMS\_Project\par}
+  \vspace{0.8cm}
+  {\Large Firmware nút cảm biến trong mạng Wi-Fi Mesh\par}
+  \vspace{2cm}
+
+  \begin{tabular}{rl}
+    Nền tảng: & ESP32 / ESP-IDF / FreeRTOS \\
+    Ngôn ngữ: & C, CMake \\
+    Kiến trúc mạng: & ESP-Mesh-Lite, Wi-Fi, UDP, UART \\
+    Phiên bản tài liệu: & 1.0 \\
+  \end{tabular}
+
+  \vfill
+  {\large Tài liệu được xây dựng từ trạng thái mã nguồn hiện tại\par}
+  \vspace{0.3cm}
+  {\large Tháng 07 năm 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\section{Giới thiệu}
+
+\subsection{Mục đích tài liệu}
+
+Tài liệu này mô tả cấu trúc, luồng thực thi và các giao diện quan trọng của
+\codeword{MSMS_Project}. Mục tiêu là giúp người phát triển:
+
+\begin{itemize}
+  \item hiểu quá trình khởi động firmware và quan hệ giữa các thành phần;
+  \item xác định nơi thêm cảm biến, giao diện hoặc phương thức truyền dữ liệu;
+  \item hiểu định dạng telemetry từ node tới gateway;
+  \item có cơ sở kiểm thử, gỡ lỗi và bảo trì hệ thống.
+\end{itemize}
+
+Phạm vi tài liệu chỉ bao gồm firmware trong thư mục
+\projectpath{MSMS_Project}. Dashboard, gateway bên ngoài và firmware của các
+vi điều khiển khác chỉ được nhắc đến tại điểm giao tiếp với dự án này.
+
+\subsection{Vai trò của firmware}
+
+\codeword{MSMS_Project} điều khiển một nút cảm biến dùng ESP32. Firmware đọc
+cảm biến tại ba cổng, hiển thị trạng thái trên OLED, quản lý pin, thời gian và
+lưu trữ, sau đó đóng gói dữ liệu thành JSON để gửi qua mạng mesh. Một thiết bị
+có thể chuyển sang vai trò root; khi đó dữ liệu UDP nhận từ các node được đưa
+vào hàng đợi và chuyển tiếp qua UART tới gateway.
+
+\section{Nền tảng và tổ chức dự án}
+
+\subsection{Công nghệ sử dụng}
+
+\begin{table}[ht]
+  \centering
+  \caption{Các công nghệ chính}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{3.5cm}X}
+    \toprule
+    Thành phần & Vai trò \\
+    \midrule
+    ESP-IDF & SDK, driver ngoại vi, Wi-Fi, NVS, SPIFFS và hệ thống build. \\
+    FreeRTOS & Task, queue, mutex, timer và điều phối thời gian thực. \\
+    ESP-Mesh-Lite & Hình thành mạng nhiều tầng và chuyển tiếp IP giữa các node. \\
+    CMake & Khai báo project và các component nội bộ. \\
+    cJSON & Phân tích và tái cấu trúc gói JSON tại root/gateway. \\
+    NVS, SPIFFS, SD card & Lưu cấu hình, tài nguyên web và dữ liệu cục bộ. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Cấu trúc thư mục}
+
+\begin{longtable}{p{5cm}p{9cm}}
+  \caption{Cấu trúc mã nguồn chính}\\
+  \toprule
+  \textbf{Đường dẫn} & \textbf{Chức năng} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Đường dẫn} & \textbf{Chức năng} \\
+  \midrule
+  \endhead
+  \projectpath{main/} & Điểm vào \codeword{app_main()}, khởi tạo toàn hệ thống. \\
+  \projectpath{component/core/} & Dữ liệu trung tâm, pin, thời gian, lưu trữ,
+  hiệu năng, xử lý mesh và UART gateway. \\
+  \projectpath{component/sensors/} & Kiểu cảm biến, registry và lớp quản lý
+  cảm biến. \\
+  \projectpath{component/drivers/} & Driver phần cứng: BME280, DHT, AHT10,
+  PMS7003, MH-Z14A, DS3231, SSD1306, PCF8574 và các driver hỗ trợ. \\
+  \projectpath{component/ui/} & Nút nhấn, màn hình và hệ thống menu. \\
+  \projectpath{component/network/} & InternetManager, Wi-Fi, MeshManager,
+  WebSocket và trang cấu hình Wi-Fi. \\
+  \projectpath{component/utils/} & Mã lỗi và các tiện ích bit. \\
+  \projectpath{openwiki/} & Tài liệu kiến trúc và hướng dẫn phát triển. \\
+  \projectpath{partitions.csv} & Bảng phân vùng flash cho NVS, OTA và SPIFFS. \\
+  \bottomrule
+\end{longtable}
+
+File CMake cấp dự án bổ sung sáu nhóm component vào
+\codeword{EXTRA_COMPONENT_DIRS}. Ảnh SPIFFS được tạo từ
+\projectpath{component/network/WebConfigWifi} và được flash cùng firmware.
+
+\section{Kiến trúc phần mềm}
+
+\subsection{Mô hình phân lớp}
+
+Hệ thống được tổ chức theo hướng component. Driver chỉ xử lý phần cứng;
+lớp sensor chuẩn hóa giao diện cảm biến; core điều phối dữ liệu dùng chung;
+network chịu trách nhiệm kết nối; UI đọc và cập nhật trạng thái thông qua
+\codeword{DataManager_t}.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[
+    layer/.style={draw=linkblue,rounded corners=3pt,minimum width=13.5cm,
+      minimum height=1.05cm,align=center,font=\small},
+    flow/.style={-{Latex[length=2.5mm]},thick,draw=linkblue}
+  ]
+    \node[layer,fill=blue!8] (app)
+      {\textbf{Lớp ứng dụng}\\
+       \codeword{app_main}, MenuSystem, hành vi vận hành thiết bị};
+    \node[layer,fill=cyan!9,below=4mm of app] (core)
+      {\textbf{Lớp lõi}\\
+       DataManager, Battery, Time, Storage, SystemPerformance,
+       ProcessingDataMesh};
+    \node[layer,fill=green!9,below=4mm of core] (service)
+      {\textbf{Lớp dịch vụ}\\
+       SensorManager và Registry \quad InternetManager, Mesh, Wi-Fi
+       \quad Button/Screen};
+    \node[layer,fill=orange!10,below=4mm of service] (driver)
+      {\textbf{Lớp driver}\\
+       I2C, UART, GPIO, OLED, RTC, SD card và driver từng cảm biến};
+    \node[layer,fill=gray!12,below=4mm of driver] (platform)
+      {\textbf{Nền tảng}\\ ESP-IDF, FreeRTOS và phần cứng ESP32};
+
+    \draw[flow] (app) -- (core);
+    \draw[flow] (core) -- (service);
+    \draw[flow] (service) -- (driver);
+    \draw[flow] (driver) -- (platform);
+  \end{tikzpicture}
+  \caption{Kiến trúc phân lớp của MSMS\_Project}
+\end{figure}
+
+\paragraph{Ý nghĩa các lớp.}
+Mũi tên đi từ trên xuống thể hiện lớp phía trên sử dụng dịch vụ của lớp phía
+dưới. Lớp ứng dụng quyết định trình tự khởi động và hành vi thiết bị nhưng
+không truy cập trực tiếp thanh ghi phần cứng. Lớp lõi giữ trạng thái và điều
+phối tác vụ. Lớp dịch vụ cung cấp các chức năng cảm biến, mạng và giao diện.
+Lớp driver chuyển yêu cầu chung thành thao tác I2C, UART, GPIO hoặc SPI. Cuối
+cùng, ESP-IDF và FreeRTOS cung cấp API hệ thống, scheduler và driver nền tảng.
+
+\subsection{Sơ đồ khối toàn hệ thống}
+
+Sơ đồ khối dưới đây mô tả ranh giới giữa phần cứng, firmware trên ESP32 và các
+thành phần bên ngoài. Khối màu xanh nằm trong firmware
+\codeword{MSMS_Project}; các khối màu vàng là thiết bị vật lý kết nối trực
+tiếp; các khối màu tím thuộc tuyến gateway và hệ thống giám sát.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[
+    hw/.style={draw=orange!80!black,fill=orange!12,rounded corners=3pt,
+      minimum width=2.6cm,minimum height=0.9cm,align=center,font=\scriptsize},
+    fw/.style={draw=linkblue,fill=blue!8,rounded corners=3pt,
+      minimum width=3.1cm,minimum height=0.95cm,align=center,font=\scriptsize},
+    ext/.style={draw=violet!75!black,fill=violet!9,rounded corners=3pt,
+      minimum width=2.7cm,minimum height=0.95cm,align=center,font=\scriptsize},
+    arrow/.style={-{Latex[length=2.2mm]},thick,draw=gray!75},
+    bus/.style={<->,thick,draw=gray!75},
+    group/.style={draw=linkblue,dashed,rounded corners=4pt,inner sep=4mm}
+  ]
+    \node[hw] (sensors) {Cảm biến môi trường\\I2C/UART/Pulse};
+    \node[hw,below=5mm of sensors] (rtc) {RTC DS3231};
+    \node[hw,below=5mm of rtc] (battery) {Pin và mạch đo ADC};
+    \node[hw,below=5mm of battery] (buttons) {Nút nhấn};
+    \node[hw,below=5mm of buttons] (oled) {OLED SSD1306};
+    \node[hw,below=5mm of oled] (sd) {SD card};
+
+    \node[fw,right=13mm of sensors] (sensorSvc)
+      {Sensor Registry\\Sensor Manager};
+    \node[fw,below=5mm of sensorSvc] (timeSvc)
+      {Time Manager\\Battery Manager};
+    \node[fw,below=5mm of timeSvc] (dm)
+      {\textbf{DataManager}\\trạng thái dùng chung};
+    \node[fw,below=5mm of dm] (ui)
+      {Menu System\\Screen/Button};
+    \node[fw,below=5mm of ui] (storage)
+      {Storage Manager\\NVS/SPIFFS/SD};
+
+    \node[fw,right=13mm of sensorSvc] (mesh)
+      {MeshManager\\InternetManager};
+    \node[fw,below=5mm of mesh] (process)
+      {ProcessingDataMesh\\packet loss theo MAC};
+    \node[fw,below=5mm of process] (uart)
+      {UartToGateWay\\RX lệnh / TX JSON};
+    \node[fw,below=5mm of uart] (perf)
+      {SystemPerformance\\ErrorCodes};
+
+    \node[ext,right=14mm of mesh] (otherNode)
+      {Các mesh node\\khác};
+    \node[ext,below=8mm of otherNode] (gateway)
+      {Gateway ngoài};
+    \node[ext,below=8mm of gateway] (backend)
+      {Backend / Dashboard};
+
+    \draw[bus] (sensors) -- node[above,font=\tiny]{driver} (sensorSvc);
+    \draw[bus] (rtc) -- (timeSvc);
+    \draw[arrow] (battery) -- (timeSvc);
+    \draw[arrow] (buttons) -- (ui);
+    \draw[arrow] (ui) -- (oled);
+    \draw[bus] (storage) -- (sd);
+
+    \draw[arrow] (sensorSvc) -- (dm);
+    \draw[arrow] (timeSvc) -- (dm);
+    \draw[bus] (ui) -- (dm);
+    \draw[bus] (storage) -- (dm);
+    \draw[arrow] (perf) -- (dm);
+    \draw[bus] (dm) -- (mesh);
+    \draw[arrow] (mesh) -- (process);
+    \draw[arrow] (process) -- (uart);
+    \draw[bus] (mesh) -- node[above,font=\tiny]{Wi-Fi Mesh/UDP} (otherNode);
+    \draw[arrow] (uart) -- node[above,font=\tiny]{UART} (gateway);
+    \draw[arrow] (gateway) -- node[right,font=\tiny]{WebSocket/API} (backend);
+
+    \node[group,fit=(sensorSvc)(storage)(mesh)(perf),
+      label={[font=\small\bfseries]above:Firmware MSMS\_Project}] {};
+  \end{tikzpicture}
+  \caption{Sơ đồ khối phần cứng và phần mềm của hệ thống}
+\end{figure}
+
+Trong chế độ node, đường dữ liệu chính đi từ cảm biến qua SensorManager,
+DataManager rồi tới MeshManager để phát UDP. Trong chế độ root, MeshManager
+nhận UDP từ các node khác, ProcessingDataMesh chuẩn hóa dữ liệu và task UART
+chuyển từng dòng JSON sang gateway. Các khối UI, lưu trữ, pin và hiệu năng hoạt
+động song song, cùng cập nhật hoặc đọc trạng thái trong DataManager.
+
+\subsection{DataManager là trạng thái trung tâm}
+
+\codeword{DataManager_t} là đối tượng dùng chung giữa các component. Cấu trúc
+này chứa:
+
+\begin{itemize}
+  \item dữ liệu cảm biến và cảm biến được gán cho từng cổng;
+  \item trạng thái nút nhấn, màn hình, Wi-Fi và mesh;
+  \item callback, thông tin phiên bản firmware và mảng mã lỗi;
+  \item handle của các task do hệ thống quản lý;
+  \item ngữ cảnh mesh gồm queue, mutex, role, socket UDP và địa chỉ đích.
+\end{itemize}
+
+Thiết kế này giúp các module trao đổi trạng thái thuận tiện, nhưng cũng tạo
+ra rủi ro truy cập đồng thời. Khi bổ sung trường được nhiều task ghi, cần dùng
+mutex, queue hoặc vùng tới hạn thay vì đọc/ghi trực tiếp không đồng bộ.
+
+\section{Luồng khởi động}
+
+\subsection{Điểm vào app\_main}
+
+Trình tự khởi động trong \projectpath{main/main.c} như sau:
+
+\begin{enumerate}
+  \item khởi tạo NVS; nếu phân vùng hết trang hoặc sai phiên bản thì xóa và
+  khởi tạo lại;
+  \item mount SPIFFS tại \projectpath{/spiffs};
+  \item khởi tạo nút nhấn và bus I2C dùng chung;
+  \item tạo driver OLED SSD1306 và khởi tạo ScreenManager;
+  \item đặt toàn bộ ba cổng về \codeword{SENSOR_NONE}, sau đó khởi tạo menu;
+  \item khởi tạo UART nối gateway;
+  \item khởi tạo BatteryManager và task đo pin;
+  \item khởi tạo SystemPerformance;
+  \item khởi tạo InternetManager ở chế độ mesh, vai trò ban đầu là node;
+  \item trên ESP32, khởi tạo RTC DS3231 và StorageManager;
+  \item tạo hai task điều hướng và render menu.
+\end{enumerate}
+
+\begin{lstlisting}[style=cstyle,caption={Phần cốt lõi của quá trình khởi động}]
+void app_main(void)
+{
+    nvs_flash_init();
+    init_spiffs();
+    ButtonManagerInit(&DataManager);
+    i2cInitDevCommon();
+
+    ScreenManagerInit(&DataManager, oled_dev);
+    MenuSystemInit(&DataManager);
+    UartToGateWay_Init(&DataManager);
+
+    BatteryManager_Init(&DataManager, ADC_UNIT_1);
+    BatteryManager_StartTask(&DataManager);
+    SystemPerformance_Init(&DataManager);
+
+    InternetManager_Init(&DataManager, INTERNET_MODE_MESH);
+}
+\end{lstlisting}
+
+Mặc định firmware không khởi động ở chế độ Wi-Fi độc lập. Muốn thay đổi cần
+gọi \codeword{InternetManager_SwitchMode()} hoặc sửa tham số trong
+\codeword{app_main()}.
+
+\section{Hệ thống cảm biến}
+
+\subsection{Giao diện driver thống nhất}
+
+Mỗi cảm biến được mô tả bởi \codeword{sensor_driver_t}, gồm tên, mô tả,
+đơn vị đo, số lượng giá trị, loại giao tiếp và ba callback
+\codeword{init/read/deinit}. Nhờ đó SensorManager và MeshManager không cần biết
+chi tiết thanh ghi hay giao thức của từng thiết bị.
+
+\begin{lstlisting}[style=cstyle,caption={Giao diện chung của driver cảm biến}]
+typedef struct {
+    const char *name;
+    char description[20];
+    char unit[20];
+    bool is_init;
+    uint8_t unit_count;
+    SensorInterface interface;
+    system_err_t (*init)(SensorPort_t *port);
+    system_err_t (*read)(SensorPort_t *port, SensorData_t *data);
+    system_err_t (*deinit)(SensorPort_t *port);
+} sensor_driver_t;
+\end{lstlisting}
+
+\subsection{Các cảm biến đã đăng ký}
+
+\begin{table}[ht]
+  \centering
+  \caption{Danh sách cảm biến trong SensorRegistry}
+  \begin{tabularx}{\textwidth}{c l l X}
+    \toprule
+    ID & Cảm biến & Giao tiếp & Dữ liệu chính \\
+    \midrule
+    0 & BME280 & I2C & Nhiệt độ, áp suất, độ ẩm \\
+    1 & MH-Z14A & UART & Nồng độ CO$_2$, nhiệt độ \\
+    2 & PMS7003 & UART & PM1.0, PM2.5, PM10 \\
+    3 & DHT22 & Pulse & Nhiệt độ, độ ẩm \\
+    4 & AHT10 & I2C & Nhiệt độ, độ ẩm \\
+    5 & DHT11 & Pulse & Nhiệt độ, độ ẩm \\
+    6 & HTU21D & I2C & Nhiệt độ, độ ẩm \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Quy trình thêm cảm biến}
+
+\begin{enumerate}
+  \item tạo hoặc hoàn thiện driver trong \projectpath{component/drivers/};
+  \item thêm giá trị vào \codeword{SensorType} mà không thay đổi ID đã phát hành;
+  \item khai báo một \codeword{sensor_driver_t} với đủ callback;
+  \item thêm driver vào bảng trong \projectpath{SensorRegistry.c};
+  \item cập nhật CMake và menu lựa chọn cảm biến nếu cần;
+  \item kiểm thử khởi tạo, đọc, mất kết nối và khởi tạo lại;
+  \item cập nhật phía gateway để hiểu ID và thứ tự các giá trị mới.
+\end{enumerate}
+
+ID cảm biến là một phần của giao thức truyền dữ liệu. Việc chèn một enum vào
+giữa danh sách có thể khiến dashboard diễn giải sai dữ liệu đã triển khai.
+
+\section{Mạng và truyền dữ liệu}
+
+\subsection{InternetManager}
+
+\codeword{InternetManager} cung cấp ba chế độ:
+\codeword{INTERNET_MODE_NONE}, \codeword{INTERNET_MODE_WIFI} và
+\codeword{INTERNET_MODE_MESH}. Khi đổi chế độ, module dừng các task mạng cũ,
+đóng hoặc tái tạo netif, reset trạng thái mesh rồi mới khởi động stack mới.
+Cờ \codeword{transitioning} ngăn hai thao tác chuyển chế độ chạy đồng thời.
+
+\subsection{Hai vai trò mesh}
+
+\begin{description}
+  \item[Node:] tham gia Mesh-Lite, đọc dữ liệu cảm biến, tạo JSON và gửi UDP
+  tới IP/port của root.
+  \item[Root:] bind socket UDP, nhận frame từ node và đẩy vào
+  \codeword{gateway_rx_queue}. Task UART lấy queue này và chuyển dữ liệu tới
+  gateway ngoài.
+\end{description}
+
+Queue nhận tại root có độ sâu 64 frame; kích thước frame được giới hạn bởi
+\codeword{MESH_ROOT_UDP_FRAME_SIZE}. Mutex bảo vệ việc công bố và vô hiệu hóa
+socket khi đổi role hoặc dọn stack mạng.
+
+\subsection{Nguồn dữ liệu và luồng telemetry}
+
+Telemetry không chỉ chứa giá trị cảm biến. Gói hoàn chỉnh được tổng hợp từ
+nhiều nguồn trong firmware: driver cảm biến cung cấp mảng \codeword{p}; bộ đếm
+MeshManager cung cấp \codeword{seq}; Mesh-Lite cung cấp level \codeword{n};
+MAC Wi-Fi STA tạo trường \codeword{M}; TimeManager cung cấp \codeword{t};
+phiên bản firmware tạo \codeword{ver}; ErrorCodes cung cấp mảng
+\codeword{err}. Sơ đồ sau chỉ rõ nguồn sinh từng nhóm trường và đường đi của
+gói dữ liệu.
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[
+    source/.style={draw=green!55!black,rounded corners=3pt,fill=green!8,
+      minimum width=3.2cm,minimum height=0.9cm,align=center,font=\scriptsize},
+    process/.style={draw=linkblue,rounded corners=3pt,fill=blue!8,
+      minimum width=3.2cm,minimum height=1.05cm,align=center,font=\scriptsize},
+    output/.style={draw=violet!70!black,rounded corners=3pt,fill=violet!8,
+      minimum width=3.1cm,minimum height=1cm,align=center,font=\scriptsize},
+    arrow/.style={-{Latex[length=2.5mm]},thick,draw=linkblue},
+    label/.style={font=\tiny,fill=white,inner sep=1.5pt}
+  ]
+    \node[source] (sensor) {Sensor Registry + driver\\
+      cổng, loại, các giá trị $\rightarrow$ \codeword{p}};
+    \node[source,below=4mm of sensor] (identity) {Wi-Fi STA + Mesh-Lite\\
+      MAC $\rightarrow$ \codeword{M}, level $\rightarrow$ \codeword{n}};
+    \node[source,below=4mm of identity] (clock) {TimeManager + firmware\\
+      thời gian $\rightarrow$ \codeword{t}, version $\rightarrow$ \codeword{ver}};
+    \node[source,below=4mm of clock] (runtime) {MeshManager + ErrorCodes\\
+      bộ đếm $\rightarrow$ \codeword{seq}, lỗi $\rightarrow$ \codeword{err}};
+
+    \node[process,right=14mm of identity] (builder)
+      {\textbf{MeshManager}\\đọc các nguồn và\\đóng gói JSON schema 1};
+    \node[output,right=14mm of builder] (packet)
+      {\textbf{Gói telemetry}\\
+       \codeword{v,seq,n,M,t,ver,err,p}};
+
+    \node[process,below=10mm of runtime] (root)
+      {\textbf{Mesh root}\\UDP RX $\rightarrow$ queue\\tối đa 64 frame};
+    \node[process,right=14mm of root] (normalize)
+      {\textbf{ProcessingDataMesh}\\kiểm tra \codeword{M}\\tính packet loss};
+    \node[output,right=14mm of normalize] (gateway)
+      {UART gateway\\JSON + \codeword{\string\n}\\
+       Backend / Dashboard};
+
+    \draw[arrow] (sensor.east) -- (builder.west);
+    \draw[arrow] (identity.east) -- (builder.west);
+    \draw[arrow] (clock.east) -- (builder.west);
+    \draw[arrow] (runtime.east) -- (builder.west);
+    \draw[arrow] (builder) -- node[label,above]{tạo frame} (packet);
+    \draw[arrow] (packet.south) |- node[label,near start,right]{UDP/Mesh}
+      (root.east);
+    \draw[arrow] (root) -- node[label,above]{frame nhận} (normalize);
+    \draw[arrow] (normalize) -- node[label,above]{thay seq bằng packetloss}
+      (gateway);
+  \end{tikzpicture}
+  \caption{Nguồn hình thành trường dữ liệu và tuyến truyền telemetry}
+\end{figure}
+
+Luồng xử lý được chia thành năm bước:
+
+\begin{enumerate}
+  \item SensorManager gọi callback \codeword{read()} của cảm biến đã gán cho
+  từng cổng. Chỉ kết quả đọc thành công mới được thêm vào mảng
+  \codeword{p}.
+  \item MeshManager lấy MAC Wi-Fi STA làm định danh ổn định của node, lấy level
+  hiện tại từ Mesh-Lite, timestamp từ TimeManager, phiên bản và danh sách lỗi.
+  \item Các giá trị được ghép thành một JSON schema 1. Node gửi frame này bằng
+  UDP tới địa chỉ root sau một khoảng jitter nhằm giảm xung đột khi nhiều node
+  phát gần đồng thời.
+  \item Root nhận UDP, giữ nguyên payload và đưa vào
+  \codeword{gateway_rx_queue}. Nếu queue đầy, frame bị loại và bộ đếm
+  \codeword{dropped_frames} tăng.
+  \item ProcessingDataMesh dùng cặp \codeword{M}/\codeword{seq} để tính tỷ lệ
+  mất gói của từng node trong cửa sổ 10 giây. Sau đó UART gửi một JSON trên mỗi
+  dòng tới gateway, từ đó dữ liệu được chuyển tới backend và dashboard.
+\end{enumerate}
+
+\paragraph{Các nguồn dữ liệu phụ.}
+BatteryManager, SystemPerformance, StorageManager và trạng thái mạng được lưu
+trong DataManager để phục vụ màn hình hoặc chức năng chẩn đoán. Chúng không tự
+động xuất hiện trong mảng \codeword{p}; muốn truyền thêm các chỉ số này phải
+bổ sung trường vào schema, tăng phiên bản \codeword{v} nếu thay đổi không tương
+thích và cập nhật parser phía gateway.
+
+Lệnh UART \codeword{Start Root} yêu cầu thiết bị chuyển sang root nếu mesh đã
+sẵn sàng. Gateway gửi heartbeat \codeword{Connected}; nếu quá một giây không
+nhận heartbeat, firmware chuyển về node. Khi root không có frame trong queue,
+firmware gửi \codeword{No node} định kỳ.
+
+\section{Định dạng telemetry}
+
+\subsection{Gói node hiện tại}
+
+MeshManager tạo JSON theo thứ tự khóa cố định:
+\codeword{v}, \codeword{seq}, \codeword{n}, \codeword{M}, \codeword{t},
+\codeword{ver}, \codeword{err}, \codeword{p}.
+
+\begin{lstlisting}[style=textstyle,caption={Ví dụ gói telemetry schema 1}]
+{
+  "v": 1,
+  "seq": 281,
+  "n": 2,
+  "M": "B4:BF:E9:34:0C:CC",
+  "t": "2012-01-01T00:06:23",
+  "ver": "0.0.1",
+  "err": ["0x51"],
+  "p": [[1, 6, 27.142, 43.030]]
+}
+\end{lstlisting}
+
+\begin{longtable}{p{1.8cm}p{3.2cm}p{9.5cm}}
+  \caption{Ý nghĩa các trường telemetry}\\
+  \toprule
+  \textbf{Khóa} & \textbf{Kiểu} & \textbf{Ý nghĩa} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Khóa} & \textbf{Kiểu} & \textbf{Ý nghĩa} \\
+  \midrule
+  \endhead
+  \codeword{v} & số nguyên & Phiên bản schema; phải tăng khi thay đổi không
+  tương thích. \\
+  \codeword{seq} & số nguyên & Bộ đếm gói, dùng phát hiện mất gói. \\
+  \codeword{n} & số nguyên & Level của node trong mạng mesh. \\
+  \codeword{M} & chuỗi & MAC Wi-Fi STA, định danh nguồn phát. \\
+  \codeword{t} & chuỗi & Thời gian ISO dạng YYYY-MM-DDTHH:MM:SS. \\
+  \codeword{ver} & chuỗi & Phiên bản firmware major.minor.patch. \\
+  \codeword{err} & mảng chuỗi & Các mã lỗi runtime dạng hexadecimal. \\
+  \codeword{p} & mảng mảng & Mỗi hàng gồm cổng, loại cảm biến và các giá trị. \\
+  \bottomrule
+\end{longtable}
+
+Một phần tử \codeword{p} có dạng
+\codeword{[port, sensor_type, value_0, value_1, ...]}. Chỉ cổng đã gán cảm
+biến và đọc thành công mới được đưa vào gói.
+
+\subsection{Xử lý telemetry tại gateway}
+
+Schema đã được thống nhất dùng khóa \codeword{M}. Hàm
+\codeword{ProcessingDataMesh_ProcessFrame()} yêu cầu trường MAC này, dùng MAC
+làm khóa riêng cho bảng trạng thái packet loss và giữ nguyên \codeword{M}
+trong frame đầu ra. Gói không có \codeword{M} được xem là không hợp lệ thay vì
+gộp nhầm vào một định danh mặc định. Bộ đệm định danh node có 18 byte, đủ chứa
+17 ký tự MAC và ký tự kết thúc chuỗi.
+
+\section{UI và tương tác người dùng}
+
+UI gồm ButtonManager, ScreenManager và MenuSystem. Hai task độc lập thực hiện
+đọc thao tác điều hướng và render màn hình. Trạng thái lựa chọn cảm biến của
+ba cổng được lưu trong DataManager, vì vậy menu cấu hình và luồng thu thập dữ
+liệu cùng sử dụng một nguồn trạng thái.
+
+Khi mở rộng UI cần tránh thực hiện I/O chậm trong callback render. Thao tác
+mạng, SD card hoặc cảm biến nên được chuyển cho task dịch vụ; UI chỉ đọc bản
+chụp trạng thái và phát lệnh.
+
+\section{Các dịch vụ lõi}
+
+\begin{longtable}{p{4.2cm}p{10cm}}
+  \caption{Vai trò các dịch vụ lõi}\\
+  \toprule
+  \textbf{Module} & \textbf{Trách nhiệm} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Module} & \textbf{Trách nhiệm} \\
+  \midrule
+  \endhead
+  BatteryManager & Đo điện áp, ước lượng mức pin và cập nhật nguồn cấp. \\
+  TimeManager & Làm việc với RTC DS3231 và tạo timestamp cho telemetry. \\
+  StorageManager & Ghi dữ liệu định kỳ; trên ESP32 được khởi tạo từ
+  \codeword{app_main()}. \\
+  SystemPerformance & Thu thập heap, tải CPU và các chỉ số runtime. \\
+  ProcessingDataMesh & Parse JSON tại gateway, tính tỷ lệ mất gói theo cửa sổ
+  10 giây và tạo frame đầu ra. \\
+  UartToGateWay & Nhận lệnh từ gateway, quản lý heartbeat và chuyển frame của
+  root ra UART. \\
+  ErrorCodes & Chuẩn hóa mã lỗi và lưu lỗi vào mảng của DataManager. \\
+  PinManager & Tập trung ánh xạ chân và cấu hình ngoại vi. \\
+  \bottomrule
+\end{longtable}
+
+\section{Task FreeRTOS và tài nguyên}
+
+\begin{table}[ht]
+  \centering
+  \caption{Một số task được tạo trực tiếp trong mã nguồn}
+  \begin{tabularx}{\textwidth}{l c c X}
+    \toprule
+    Task & Stack & Priority & Chức năng \\
+    \midrule
+    \codeword{uart_gateway_rx} & 4096 & 6 & Nhận heartbeat và lệnh UART. \\
+    \codeword{uart_gateway_tx} & 4096 & 7 & Chuyển queue mesh sang UART. \\
+    \codeword{mesh_link} & 3072 & 5 & Theo dõi kết nối và socket mesh. \\
+    \codeword{mesh_data} & 4096 & 5 & Gửi hoặc nhận telemetry UDP. \\
+    Menu navigation & 4096 & 5 & Xử lý điều hướng menu. \\
+    Menu render & 4096 & 5 & Cập nhật OLED. \\
+    Battery task & 4096 & 5 & Đọc và cập nhật thông tin pin. \\
+    Storage task & 4096 & 4 & Ghi dữ liệu định kỳ. \\
+    System performance & 2048 & 5 & Thu thập chỉ số hệ thống. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Các con số stack là số đơn vị mà API ESP-IDF nhận cho task trong bản mã hiện
+tại. Cần kiểm tra \codeword{uxTaskGetStackHighWaterMark()} trên thiết bị thật
+trước khi giảm stack. Task UART TX có priority cao hơn để tránh queue root bị
+đầy khi lưu lượng mesh tăng.
+
+\section{Bộ nhớ flash và lưu trữ}
+
+\begin{table}[ht]
+  \centering
+  \caption{Bảng phân vùng trong partitions.csv}
+  \begin{tabular}{l l l l}
+    \toprule
+    Tên & Loại & Offset & Kích thước \\
+    \midrule
+    nvs & data/nvs & 0x9000 & 0x5000 \\
+    otadata & data/ota & 0xe000 & 0x2000 \\
+    ota\_0 & app/ota\_0 & 0x10000 & 0x1C0000 \\
+    ota\_1 & app/ota\_1 & tự động & 0x1C0000 \\
+    spiffs & data/spiffs & tự động & 0x20000 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Hai phân vùng OTA cho phép cập nhật firmware theo mô hình A/B. SPIFFS có dung
+lượng 128 KiB và chứa tài nguyên cấu hình web. Khi mount SPIFFS thất bại,
+\codeword{init_spiffs()} hiện không tự format, giúp tránh mất dữ liệu ngoài ý
+muốn nhưng yêu cầu người vận hành xử lý lỗi phân vùng.
+
+\section{Build, flash và theo dõi}
+
+\subsection{Yêu cầu}
+
+\begin{itemize}
+  \item ESP-IDF tương thích với các dependency của dự án;
+  \item Python và toolchain Xtensa/RISC-V do ESP-IDF cung cấp;
+  \item board ESP32 phù hợp với cấu hình target;
+  \item cáp USB/UART và đúng cổng COM.
+\end{itemize}
+
+\subsection{Các lệnh cơ bản}
+
+\begin{lstlisting}[style=textstyle,caption={Build và nạp firmware}]
+cd MSMS_Project
+idf.py set-target esp32
+idf.py menuconfig
+idf.py build
+idf.py -p COMx flash monitor
+\end{lstlisting}
+
+Chỉ chạy \codeword{set-target} khi cần đổi chip vì thao tác này có thể tạo lại
+cấu hình build. Các giá trị cần kiểm tra trong menuconfig gồm kênh mesh, IP
+root, UDP port, baud UART gateway, Wi-Fi mesh và bảng phân vùng.
+
+\subsection{Log cần theo dõi}
+
+\begin{itemize}
+  \item lỗi mount SPIFFS hoặc khởi tạo NVS;
+  \item trạng thái layer mesh, parent RSSI và free heap;
+  \item số frame UDP nhận, frame vào queue và frame bị drop;
+  \item thống kê UART gồm frame, byte và mức sử dụng queue;
+  \item lỗi đọc cảm biến và mảng \codeword{err} trong telemetry;
+  \item reset reason, stack watermark và heap nhỏ nhất.
+\end{itemize}
+
+\section{Chiến lược kiểm thử}
+
+\begin{longtable}{p{3.8cm}p{6.2cm}p{4.2cm}}
+  \caption{Danh sách kiểm thử đề xuất}\\
+  \toprule
+  \textbf{Nhóm} & \textbf{Kịch bản} & \textbf{Kết quả mong đợi} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Nhóm} & \textbf{Kịch bản} & \textbf{Kết quả mong đợi} \\
+  \midrule
+  \endhead
+  Khởi động & Flash sạch, reset nóng, NVS lỗi phiên bản & Firmware khởi động,
+  lỗi được ghi nhận, không treo. \\
+  Cảm biến & Gắn từng loại, rút nóng, dữ liệu ngoài dải & Không crash; cổng lỗi
+  không xuất dữ liệu sai. \\
+  Mesh node & Mất parent rồi kết nối lại & Socket được phục hồi, sequence tiếp
+  tục hợp lệ. \\
+  Mesh root & Nhiều node gửi đồng thời & Queue không tràn trong tải thiết kế;
+  thống kê drop chính xác. \\
+  UART & Mất heartbeat \codeword{Connected} & Thiết bị chuyển từ root về node. \\
+  Giao thức & Gói có \codeword{M}, thiếu \codeword{M}, sequence nhảy &
+  Định danh đúng; gói thiếu MAC bị từ chối; packet loss đúng. \\
+  Bộ nhớ & Chạy liên tục 24 giờ & Không giảm heap bất thường, không watchdog. \\
+  OTA & Nâng cấp và rollback & Boot đúng partition, bảo toàn cấu hình cần thiết. \\
+  \bottomrule
+\end{longtable}
+
+\section{Đánh giá và khuyến nghị}
+
+\subsection{Điểm mạnh}
+
+\begin{itemize}
+  \item chia component rõ ràng và có registry để mở rộng cảm biến;
+  \item tách vai trò node/root, có queue và thống kê drop;
+  \item có lớp InternetManager để chuyển mode và dọn tài nguyên;
+  \item có hai phân vùng OTA, quản lý lỗi, hiệu năng và pin;
+  \item telemetry gọn, phù hợp thiết bị nhúng và băng thông thấp.
+\end{itemize}
+
+\subsection{Rủi ro kỹ thuật}
+
+\begin{enumerate}
+  \item DataManager là trạng thái toàn cục lớn; cần quy tắc rõ ràng về quyền
+  ghi và đồng bộ giữa task.
+  \item JSON được ghép bằng \codeword{snprintf}; phải kiểm thử sát giới hạn
+  buffer khi tăng số trường hoặc số cảm biến.
+  \item Một số comment nguồn có dấu hiệu sai mã hóa ký tự, gây khó bảo trì.
+  \item Timestamp có thể bắt đầu ở năm 2012 nếu RTC chưa được đồng bộ; phía
+  nhận cần đánh dấu dữ liệu thời gian chưa hợp lệ.
+\end{enumerate}
+
+\subsection{Thứ tự cải tiến đề xuất}
+
+\begin{enumerate}
+  \item thêm test tự động để khóa chặt schema telemetry dùng \codeword{M};
+  \item định nghĩa rõ ownership và mutex của từng nhóm trường DataManager;
+  \item bổ sung versioning và kiểm tra kích thước cho mọi frame;
+  \item thêm test tải queue root với nhiều node và giám sát stack watermark;
+  \item chuẩn hóa encoding toàn bộ file nguồn về UTF-8;
+  \item đồng bộ tài liệu trong \projectpath{openwiki/} với chế độ mesh mặc định.
+\end{enumerate}
+
+\section{Kết luận}
+
+\codeword{MSMS_Project} là firmware ESP-IDF theo kiến trúc component, hỗ trợ
+nhiều cảm biến và hai vai trò trong mạng Mesh-Lite. Luồng chính đã tách tương
+đối rõ giữa thu thập dữ liệu, giao diện, kết nối và chuyển tiếp gateway. Schema
+định danh node đã được thống nhất dùng khóa \codeword{M}. Điểm cần ưu tiên
+trước khi mở rộng hệ thống là bảo đảm truy cập DataManager an toàn giữa các
+task và bổ sung kiểm thử hồi quy cho giao thức. Kiến trúc hiện tại có nền tảng
+phù hợp để bổ sung cảm biến, OTA và các chức năng giám sát quy mô lớn hơn.
+
+\appendix
+\section{Tệp nguồn trọng tâm}
+
+\begin{longtable}{p{14.2cm}}
+  \toprule
+  \textbf{Tệp nguồn và nội dung nên đọc} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Tệp nguồn và nội dung nên đọc} \\
+  \midrule
+  \endhead
+
+  \path{main/main.c}\\
+  Trình tự khởi tạo hệ thống. \\[3pt]
+
+  \path{component/core/DataManager/DataManager.h}\\
+  Trạng thái trung tâm và ngữ cảnh mesh. \\[3pt]
+
+  \path{component/sensors/SensorRegistry/SensorRegistry.c}\\
+  Danh sách driver cảm biến. \\[3pt]
+
+  \path{component/network/InternetManager/InternetManager.c}\\
+  Chuyển đổi Wi-Fi/Mesh và dọn tài nguyên. \\[3pt]
+
+  \path{component/network/MeshManager/MeshManager.c}\\
+  Mesh, UDP, telemetry, queue và vai trò node/root. \\[3pt]
+
+  \path{component/core/ProcessingDataMesh/ProcessingDataMesh.c}\\
+  Parser telemetry và tính tỷ lệ packet loss theo MAC. \\[3pt]
+
+  \path{component/core/UartToGateWay/UartToGateWay.c}\\
+  Giao thức UART với gateway. \\[3pt]
+
+  \path{partitions.csv}\\
+  Bố trí flash và OTA. \\
+  \bottomrule
+\end{longtable}
+
+\end{document}

@@ -1,10 +1,30 @@
 menu "WebSocKetHandle (WebSocket client)"
 
-    config WS_URL
-        string "Default WebSocket URI (when not in NVS)"
-        default "ws://192.168.1.4:8080/ws"
+    choice WS_TARGET
+        prompt "WebSocket data destination"
+        default WS_TARGET_LOCAL
         help
-            Full URI ws://host:port/path — include port if not 80/443 (e.g. Node ws trên 8080).
-            Used when NVS key websocket/ws_url is absent.
+            Select the default destination used by the gateway.
+
+        config WS_TARGET_LOCAL
+            bool "Local server (mDNS)"
+
+        config WS_TARGET_SERVER
+            bool "Internet server"
+    endchoice
+
+    config WS_LOCAL_URL
+        string "Local WebSocket URI"
+        default "ws://systemmsems.local:9090/ws"
+        depends on WS_TARGET_LOCAL
+        help
+            Local WebSocket server advertised through mDNS as systemmsems.local.
+
+    config WS_SERVER_URL
+        string "Internet WebSocket URI"
+        default "wss://systemmsems.msems.click/ws"
+        depends on WS_TARGET_SERVER
+        help
+            Public WebSocket server URI.
 
 endmenu

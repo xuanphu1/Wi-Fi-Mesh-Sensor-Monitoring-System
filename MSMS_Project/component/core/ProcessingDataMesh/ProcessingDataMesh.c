@@ -9,7 +9,7 @@
 #include "esp_log.h"
 
 #define PROCESSING_DATA_MESH_MAX_NODES 16
-#define PROCESSING_DATA_MESH_NODE_ID_LEN 16
+#define PROCESSING_DATA_MESH_NODE_ID_LEN 18
 #define PROCESSING_DATA_MESH_PACKETLOSS_WINDOW_MS 10000ULL
 
 static const char *TAG = "ProcessingDataMesh";
@@ -139,9 +139,13 @@ system_err_t ProcessingDataMesh_ProcessFrame(const uint8_t *input,
         return MRS_ERR_CORE_INVALID_PARAM;
     }
 
-    const char *ip = json_get_string_or_default(root, "i", "0.0.0.0");
+    const char *mac = json_get_string_or_default(root, "M", NULL);
+    if (mac == NULL || mac[0] == '\0') {
+        cJSON_Delete(root);
+        return MRS_ERR_CORE_INVALID_PARAM;
+    }
     uint32_t seq = json_get_u32_or_zero(root, "seq");
-    double packetloss_percent = calculate_packetloss_percent(ip, seq);
+    double packetloss_percent = calculate_packetloss_percent(mac, seq);
 
     const cJSON *err_item = json_get_required_item(root, "err");
     const cJSON *ports_item = json_get_required_item(root, "p");
@@ -158,12 +162,12 @@ system_err_t ProcessingDataMesh_ProcessFrame(const uint8_t *input,
 
     int written = snprintf(output, output_cap,
                            "{\"v\":%d,\"packetloss\":%.2f,\"n\":%d,"
-                           "\"i\":\"%s\",\"t\":\"%s\",\"ver\":\"%s\","
+                           "\"M\":\"%s\",\"t\":\"%s\",\"ver\":\"%s\","
                            "\"err\":%s,\"p\":%s}",
                            json_get_int_or_default(root, "v", 0),
                            packetloss_percent,
                            json_get_int_or_default(root, "n", 0),
-                           ip,
+                           mac,
                            json_get_string_or_default(root, "t", "1970-01-01T00:00:00"),
                            json_get_string_or_default(root, "ver", "0.0.0"),
                            err_text,

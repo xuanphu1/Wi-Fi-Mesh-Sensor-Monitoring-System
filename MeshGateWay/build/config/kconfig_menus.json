@@ -5039,13 +5039,53 @@
     {
         "children": [
             {
-                "children": [],
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "<choice WS_TARGET>",
+                        "help": null,
+                        "id": "WS_TARGET_LOCAL",
+                        "name": "WS_TARGET_LOCAL",
+                        "range": null,
+                        "title": "Local server (mDNS)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice WS_TARGET>",
+                        "help": null,
+                        "id": "WS_TARGET_SERVER",
+                        "name": "WS_TARGET_SERVER",
+                        "range": null,
+                        "title": "Internet server",
+                        "type": "bool"
+                    }
+                ],
                 "depends_on": null,
-                "help": "Full URI ws://host:port/path \u2014 include port if not 80/443 (e.g. Node ws tr\u00ean 8080).\nUsed when NVS key websocket/ws_url is absent.",
-                "id": "WS_URL",
-                "name": "WS_URL",
+                "help": "Select the default destination used by the gateway.",
+                "id": "websockethandle-websocket-client--websocket-data-destination",
+                "name": "WS_TARGET",
+                "title": "WebSocket data destination",
+                "type": "choice"
+            },
+            {
+                "children": [],
+                "depends_on": "WS_TARGET_LOCAL",
+                "help": "Local WebSocket server advertised through mDNS as systemmsems.local.",
+                "id": "WS_LOCAL_URL",
+                "name": "WS_LOCAL_URL",
                 "range": null,
-                "title": "Default WebSocket URI (when not in NVS)",
+                "title": "Local WebSocket URI",
+                "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": "WS_TARGET_SERVER",
+                "help": "Public WebSocket server URI.",
+                "id": "WS_SERVER_URL",
+                "name": "WS_SERVER_URL",
+                "range": null,
+                "title": "Internet WebSocket URI",
                 "type": "string"
             }
         ],

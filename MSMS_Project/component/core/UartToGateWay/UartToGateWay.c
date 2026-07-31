@@ -61,10 +61,10 @@ static bool uart_gateway_mesh_stack_ready(void) {
 
 /** Parse nhanh origin info trong JSON telemetry để log theo node gốc. */
 static void gateway_extract_origin_info(const uint8_t *payload,
-                                        size_t payload_len, char *origin_ip,
-                                        size_t origin_ip_cap, int *origin_lvl) {
-  if (origin_ip != NULL && origin_ip_cap > 0) {
-    snprintf(origin_ip, origin_ip_cap, "unknown");
+                                        size_t payload_len, char *origin_mac,
+                                        size_t origin_mac_cap, int *origin_lvl) {
+  if (origin_mac != NULL && origin_mac_cap > 0) {
+    snprintf(origin_mac, origin_mac_cap, "unknown");
   }
   if (origin_lvl != NULL) {
     *origin_lvl = -1;
@@ -81,16 +81,17 @@ static void gateway_extract_origin_info(const uint8_t *payload,
   memcpy(json, payload, copy_len);
   json[copy_len] = '\0';
 
-  const char *ip_key = "\"i\":\"";
-  char *ip_pos = strstr(json, ip_key);
-  if (ip_pos != NULL && origin_ip != NULL && origin_ip_cap > 0) {
-    ip_pos += strlen(ip_key);
+  const char *mac_key = "\"M\":\"";
+  char *mac_pos = strstr(json, mac_key);
+  if (mac_pos != NULL && origin_mac != NULL && origin_mac_cap > 0) {
+    mac_pos += strlen(mac_key);
     size_t i = 0;
-    while (ip_pos[i] != '\0' && ip_pos[i] != '"' && i < (origin_ip_cap - 1)) {
-      origin_ip[i] = ip_pos[i];
+    while (mac_pos[i] != '\0' && mac_pos[i] != '"' &&
+           i < (origin_mac_cap - 1)) {
+      origin_mac[i] = mac_pos[i];
       i++;
     }
-    origin_ip[i] = '\0';
+    origin_mac[i] = '\0';
   }
 
   const char *lvl_key = "\"n\":";

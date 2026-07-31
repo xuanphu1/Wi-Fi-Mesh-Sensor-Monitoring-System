@@ -1,0 +1,26 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Mục đích và phạm vi}{1}{section.1}%
+\contentsline {section}{\numberline {2}Bối cảnh và ranh giới hệ thống}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Sơ đồ nguồn và đích dữ liệu}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Sơ đồ khối phần cứng và giao tiếp}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Tổ chức mã nguồn}{2}{section.3}%
+\contentsline {section}{\numberline {4}Kiến trúc phần mềm nội bộ}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Quan hệ giữa các task và trạng thái dùng chung}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Trình tự khởi động}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Luồng UART giữa root và gateway}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Cấu hình và giao thức bắt tay}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Đường ống xử lý dữ liệu UART}{4}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Wi-Fi, captive portal và mDNS}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Máy trạng thái kết nối Wi-Fi}{6}{subsection.6.1}%
+\contentsline {section}{\numberline {7}WebSocket local và server}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Quy tắc chọn giao thức}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Vòng đời WebSocket}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Trình tự gửi dữ liệu đầu cuối}{8}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Nguồn tạo bản tin gateway\_status}{8}{section.8}%
+\contentsline {section}{\numberline {9}Màn hình và dữ liệu cục bộ}{9}{section.9}%
+\contentsline {section}{\numberline {10}Phân vùng flash và OTA}{11}{section.10}%
+\contentsline {section}{\numberline {11}Tài nguyên FreeRTOS}{11}{section.11}%
+\contentsline {section}{\numberline {12}Rủi ro và đề xuất bảo trì}{11}{section.12}%
+\contentsline {section}{\numberline {13}Quy trình build và kiểm thử}{12}{section.13}%
+\contentsline {section}{\numberline {14}Kết luận}{13}{section.14}%
+\contentsline {section}{\numberline {A}Thứ tự đọc mã đề xuất}{13}{appendix.A}%

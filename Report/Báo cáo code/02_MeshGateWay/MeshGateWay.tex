@@ -1,0 +1,737 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,calc,backgrounds}
+
+\geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}
+\setstretch{1.3}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep}
+\renewcommand{\arraystretch}{1.25}
+
+\definecolor{bluec}{RGB}{24,91,166}
+\definecolor{cyanc}{RGB}{0,135,165}
+\definecolor{greenc}{RGB}{32,130,82}
+\definecolor{orangec}{RGB}{210,116,24}
+\definecolor{redc}{RGB}{180,55,55}
+\definecolor{violetc}{RGB}{105,75,170}
+\definecolor{grayc}{RGB}{92,100,112}
+\definecolor{codebg}{RGB}{247,248,250}
+\definecolor{codeframe}{RGB}{210,214,220}
+
+\hypersetup{
+  colorlinks=true,linkcolor=bluec,urlcolor=bluec,citecolor=bluec,
+  pdftitle={Báo cáo mã nguồn MeshGateWay},
+  pdfauthor={Nhóm phát triển MSMS}
+}
+
+\lstdefinestyle{textstyle}{
+  backgroundcolor=\color{codebg},frame=single,rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,
+  showstringspaces=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Báo cáo mã nguồn MeshGateWay}
+\fancyhead[R]{ESP-IDF}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{16pt}
+
+\newcommand{\pathcode}[1]{\nolinkurl{#1}}
+\newcommand{\codeword}[1]{\texttt{\detokenize{#1}}}
+\tikzset{
+  block/.style={draw=bluec,rounded corners=3pt,thick,align=center,
+    minimum height=9mm,fill=blue!5,font=\small},
+  task/.style={draw=violetc,rounded corners=3pt,thick,align=center,
+    minimum height=9mm,fill=violet!8,font=\small},
+  store/.style={draw=orangec,thick,align=center,fill=orange!9,
+    cylinder,shape border rotate=90,aspect=.25,font=\small},
+  decision/.style={draw=orangec,thick,diamond,aspect=2,align=center,
+    fill=orange!8,font=\small},
+  flow/.style={-{Latex[length=2.4mm]},thick,draw=bluec},
+  dataflow/.style={-{Latex[length=2.4mm]},thick,draw=greenc},
+  warnflow/.style={-{Latex[length=2.4mm]},thick,dashed,draw=redc},
+  note/.style={draw=grayc,rounded corners=2pt,fill=gray!8,
+    align=left,font=\scriptsize}
+}
+
+\begin{document}
+\pagenumbering{Alph}
+\begin{titlepage}
+  \centering
+  \vspace*{1.2cm}
+  {\large BÁO CÁO PHÂN TÍCH MÃ NGUỒN\par}
+  \vspace{1.5cm}
+  {\Huge\bfseries MeshGateWay\par}
+  \vspace{0.8cm}
+  {\Large Gateway UART -- Wi-Fi -- WebSocket của hệ thống MSMS\par}
+  \vspace{2cm}
+  \begin{tabular}{rl}
+    Nền tảng: & ESP32 / ESP-IDF / FreeRTOS \\
+    Giao tiếp: & UART, Wi-Fi, HTTP, mDNS, WebSocket \\
+    Giao diện: & LVGL, captive portal \\
+    Phiên bản tài liệu: & 1.0 \\
+  \end{tabular}
+  \vfill
+  {\large Tài liệu được xây dựng từ trạng thái mã nguồn hiện tại\par}
+  \vspace{0.3cm}
+  {\large Tháng 07 năm 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\section{Mục đích và phạm vi}
+
+\codeword{MeshGateWay} là firmware trung gian giữa nút root của mạng cảm biến và
+hệ thống máy chủ. Gateway không trực tiếp vận hành mạng mesh trong luồng chính
+hiện tại. Nó nhận chuỗi telemetry từ root qua UART, bổ sung trạng thái của chính
+gateway, rồi chuyển dữ liệu lên backend bằng WebSocket.
+
+Tài liệu tập trung vào mã đang được gọi từ \codeword{app_main()}. Những module có
+trong cây mã nhưng chưa được nối vào luồng chạy, chẳng hạn FOTA hoàn chỉnh,
+\codeword{ESP_Bus} và một số tiện ích cũ, được ghi rõ là hạ tầng dự phòng thay vì
+mô tả như chức năng đã hoạt động.
+
+\section{Bối cảnh và ranh giới hệ thống}
+
+\subsection{Sơ đồ nguồn và đích dữ liệu}
+
+Hình~\ref{fig:context} trả lời ba câu hỏi: dữ liệu sinh ra ở đâu, gateway xử lý
+gì, và dữ liệu được tiêu thụ ở đâu. Mũi tên xanh lá là luồng telemetry; mũi tên
+xanh dương là điều khiển hoặc cấu hình.
+
+\begin{figure}[H]
+\centering
+\resizebox{.96\textwidth}{!}{
+\begin{tikzpicture}[node distance=12mm and 18mm]
+  \node[block,minimum width=3.2cm,minimum height=1.5cm,fill=green!8] (sensors)
+    {\textbf{Các node cảm biến}\\BME/DHT/PM/CO$_2$\\JSON có trường \codeword{M}};
+  \node[block,right=of sensors,minimum width=3.2cm,minimum height=1.5cm] (root)
+    {\textbf{MSMS root}\\nhận dữ liệu mesh\\đẩy dòng qua UART};
+  \node[block,right=of root,minimum width=4.2cm,minimum height=1.8cm,fill=cyan!8] (gw)
+    {\textbf{MeshGateWay ESP32}\\ghép dòng và lọc UART\\tạo \codeword{uart_rx} và
+    \codeword{gateway_status}};
+  \node[block,right=of gw,minimum width=3.4cm,minimum height=1.5cm,fill=orange!8] (server)
+    {\textbf{Backend}\\WebSocket cổng 9090\\phân loại và lưu dữ liệu};
+  \node[block,below=16mm of server,minimum width=3.4cm,fill=violet!8] (web)
+    {\textbf{Dashboard}\\hiển thị gateway, node\\và dữ liệu cảm biến};
+  \node[block,below=16mm of gw,minimum width=4.2cm,fill=yellow!12] (config)
+    {\textbf{Người vận hành}\\captive portal / HTTP\\chọn Wi-Fi và URL WS};
+
+  \draw[dataflow] (sensors) -- node[above,font=\scriptsize]{mesh / UDP} (root);
+  \draw[dataflow] (root) -- node[above,align=center,font=\scriptsize]{UART\\115200} (gw);
+  \draw[dataflow] (gw) -- node[above,align=center,font=\scriptsize]{local: \codeword{ws://}\\server: \codeword{wss://}} (server);
+  \draw[dataflow] (server) -- node[right,font=\scriptsize]{API / WS} (web);
+  \draw[flow] (config) -- node[right,font=\scriptsize]{HTTP :80} (gw);
+  \draw[warnflow,bend left=18] (server) to node[below,align=center,font=\scriptsize]{lệnh / version\\(xử lý sơ bộ)} (gw);
+\end{tikzpicture}}
+\caption{Bối cảnh và đường đi đầu cuối của dữ liệu}
+\label{fig:context}
+\end{figure}
+
+Gateway có hai nguồn dữ liệu độc lập:
+\begin{itemize}
+  \item \textbf{Nguồn từ node:} chuỗi JSON đi qua UART, được giữ nguyên trong
+  trường \codeword{payload} của bản tin \codeword{uart_rx}.
+  \item \textbf{Nguồn nội tại gateway:} CPU, RAM, pin, uptime, SSID, RSSI, IP và
+  gateway mạng được đo tại gateway và gửi bằng \codeword{gateway_status}.
+\end{itemize}
+
+\subsection{Sơ đồ khối phần cứng và giao tiếp}
+
+\begin{figure}[H]
+\centering
+\resizebox{.96\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 14mm]
+  \node[block,minimum width=4cm,minimum height=5.2cm,fill=blue!6] (esp) {};
+  \node[font=\bfseries,anchor=north] at ([yshift=-3mm]esp.north) {ESP32 MeshGateWay};
+  \node[block,minimum width=2.8cm,above left=3mm and 18mm of esp] (root) {MSMS root\\UART TX/RX};
+  \node[block,minimum width=2.8cm,left=18mm of esp] (battery) {Pin / nguồn\\ADC1 CH6, GPIO34};
+  \node[block,minimum width=2.8cm,below left=3mm and 18mm of esp] (rtc) {RTC DS3231\\I$^2$C};
+  \node[block,minimum width=2.8cm,above right=3mm and 18mm of esp] (wifi) {Access Point\\Wi-Fi STA/AP};
+  \node[block,minimum width=2.8cm,right=18mm of esp] (display) {Màn hình\\LVGL};
+  \node[block,minimum width=2.8cm,below right=3mm and 18mm of esp] (sd) {Thẻ SD\\dung lượng};
+
+  \node[block,minimum width=2.8cm] at ([yshift=10mm]esp.center) (uart) {UART1\\TX17, RX16};
+  \node[block,minimum width=2.8cm,below=4mm of uart] (runtime) {FreeRTOS\\DataManager};
+  \node[block,minimum width=2.8cm,below=4mm of runtime] (net) {TCP/IP\\HTTP + WS};
+
+  \draw[flow,<->] (root) -- node[above,font=\scriptsize]{115200, 8N1} (esp.west |- root);
+  \draw[flow] (battery) -- (esp.west |- battery);
+  \draw[flow,<->] (rtc) -- (esp.west |- rtc);
+  \draw[flow,<->] (esp.east |- wifi) -- (wifi);
+  \draw[flow] (esp.east |- display) -- (display);
+  \draw[flow,<->] (esp.east |- sd) -- (sd);
+\end{tikzpicture}}
+\caption{Sơ đồ khối phần cứng quanh gateway}
+\end{figure}
+
+\section{Tổ chức mã nguồn}
+
+\begin{longtable}{p{5.3cm}p{8.7cm}}
+\caption{Các module quan trọng của MeshGateWay}\\
+\toprule
+\textbf{Đường dẫn} & \textbf{Trách nhiệm} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Đường dẫn} & \textbf{Trách nhiệm} \\
+\midrule
+\endhead
+\pathcode{main/MeshGateWay.c} & Điểm vào, khởi tạo NVS, SPIFFS, phần cứng và các task.\\
+\pathcode{components/core/Datamanager} & Các cấu trúc trạng thái dùng chung cho phần cứng, metrics, Wi-Fi, WS, UART và telemetry.\\
+\pathcode{components/core/UartToNode} & Bắt tay root, đọc UART, lọc và đẩy dữ liệu vào queue.\\
+\pathcode{components/core/WebSocKetHandle} & Chọn URL, phân giải mDNS, duy trì client WS/WSS, gửi dữ liệu.\\
+\pathcode{components/core/WifiManager} & STA/AP, captive portal, DNS, HTTP và mDNS \codeword{meshgateway.local}.\\
+\pathcode{components/core/SystemMonitor} & Thu thập metrics mỗi giây.\\
+\pathcode{components/core/ScreenManager} & LVGL, hiển thị trạng thái và biểu đồ RX/TX.\\
+\pathcode{components/core/PowerManager} & Đọc ADC và ước lượng điện áp/phần trăm pin.\\
+\pathcode{components/drivers/SD_Card} & Khởi tạo và đọc dung lượng thẻ SD.\\
+\pathcode{components/core/FOTAManager} & Mã OTA cũ/chưa được nối vào luồng chạy hiện tại.\\
+\pathcode{components/core/WebConfigWifi} & Tệp HTML được đóng gói vào SPIFFS cho captive portal.\\
+\bottomrule
+\end{longtable}
+
+\section{Kiến trúc phần mềm nội bộ}
+
+\subsection{Quan hệ giữa các task và trạng thái dùng chung}
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=17mm and 18mm]
+  \node[store,minimum width=2.8cm] (queue) {Queue UART\\8 $\times$ 512 B};
+  \node[task,below left=of queue,minimum width=3.4cm] (uart) {\textbf{uart\_to\_node}\\đọc/ghi UART};
+  \node[task,below right=of queue,minimum width=3.4cm] (ws) {\textbf{ws\_hdl}\\WebSocket};
+  \node[task,right=30mm of ws,minimum width=3.4cm] (wifi) {\textbf{wifi\_connect}\\\textbf{wifi\_mgr}};
+
+  \node[block,below=19mm of ws,minimum width=8.2cm,minimum height=1.9cm,fill=cyan!7] (dm)
+    {\textbf{DataManager -- các cấu trúc toàn cục}\\
+    \codeword{g_metrics}, \codeword{g_telemetry}, \codeword{g_wifi},
+    \codeword{g_ws}, \codeword{g_uart}, \codeword{g_hw}};
+  \node[task,below left=18mm and 5mm of dm,minimum width=3.4cm] (monitor)
+    {\textbf{system\_monitor}\\ghi metrics mỗi 1 s};
+  \node[task,below right=18mm and 5mm of dm,minimum width=3.4cm] (screen)
+    {\textbf{lvgl\_task}\\đọc snapshot, UI 250 ms};
+  \node[store,right=24mm of dm,minimum width=3.1cm,minimum height=1.2cm] (spiffs)
+    {NVS\\SPIFFS};
+
+  \draw[dataflow] (uart) -- node[left,font=\scriptsize]{ghi item} (queue);
+  \draw[dataflow] (queue) -- node[right,font=\scriptsize]{đọc item} (ws);
+  \draw[flow,<->] (uart) -- (dm);
+  \draw[flow,<->] (ws) -- (dm);
+  \draw[flow,<->] (wifi) -- (dm);
+  \draw[dataflow] (monitor) -- node[left,font=\scriptsize]{mutex} (dm);
+  \draw[dataflow] (dm) -- node[right,font=\scriptsize]{snapshot} (screen);
+  \draw[flow,<->] (wifi) -- (spiffs);
+\end{tikzpicture}}
+\caption{Task, queue và vùng trạng thái dùng chung}
+\label{fig:tasks}
+\end{figure}
+
+\codeword{g_metrics} được bảo vệ bằng mutex. Các biến đếm telemetry được nhiều
+task truy cập trực tiếp; nếu sau này tăng mức đồng thời hoặc yêu cầu số liệu tuyệt
+đối, nên chuyển các bộ đếm sang thao tác atomic hay mutex riêng.
+
+\subsection{Trình tự khởi động}
+
+\begin{figure}[p]
+\centering
+\resizebox{.88\textwidth}{!}{
+\begin{tikzpicture}[node distance=5mm]
+  \node[block,minimum width=8.5cm] (start) {\codeword{app_main()} bật nguồn màn hình};
+  \node[block,below=of start,minimum width=8.5cm] (nvs) {Khởi tạo NVS; xóa và tạo lại nếu sai phiên bản/hết trang};
+  \node[block,below=of nvs,minimum width=8.5cm] (spiffs) {Mount SPIFFS tại \codeword{/spiffs}; không tự format khi lỗi};
+  \node[block,below=of spiffs,minimum width=8.5cm] (state) {Gắn trạng thái Wi-Fi/WS; tạo queue 8 item và mutex metrics};
+  \node[block,below=of state,minimum width=8.5cm] (hw) {Khởi động LVGL, SD, RTC DS3231 và ADC pin};
+  \node[block,below=of hw,minimum width=8.5cm] (mon) {Tạo \codeword{system_monitor} -- priority 5, core 0};
+  \node[block,below=of mon,minimum width=8.5cm] (wf) {\codeword{wifi_init_sta()}: thử Wi-Fi, AP/captive portal, task nền};
+  \node[block,below=of wf,minimum width=8.5cm] (wst) {Tạo \codeword{ws_hdl}; stack yêu cầu từ app: 4096 B};
+  \node[block,below=of wst,minimum width=8.5cm] (ut) {Gắn queue/trạng thái và khởi động task UART};
+  \node[block,below=of ut,minimum width=8.5cm] (sntp) {SNTP \codeword{pool.ntp.org}, múi giờ ICT-7; chờ tối đa khoảng 28 s};
+  \node[block,below=of sntp,minimum width=8.5cm] (delay) {Chờ thêm 10 s để tách tải bắt tay mạng};
+  \node[block,below=of delay,minimum width=8.5cm] (ins) {Khởi tạo ESP Insights; sau đó xóa task \codeword{app_main}};
+  \foreach \a/\b in {start/nvs,nvs/spiffs,spiffs/state,state/hw,hw/mon,mon/wf,wf/wst,wst/ut,ut/sntp,sntp/delay,delay/ins}
+    \draw[flow] (\a) -- (\b);
+\end{tikzpicture}}
+\caption{Lưu đồ khởi động thực tế}
+\label{fig:boot}
+\end{figure}
+
+Điểm đáng chú ý là \codeword{wifi_init_sta()} thực hiện thử kết nối đồng bộ trước
+khi trả về. Vì vậy thời gian boot có thể tăng đáng kể khi nhiều SSID đều không
+khả dụng. SNTP cũng chờ trong \codeword{app_main()}, nhưng các task monitor, Wi-Fi,
+WebSocket và UART đã được tạo trước đó nên vẫn có thể chạy.
+
+\section{Luồng UART giữa root và gateway}
+
+\subsection{Cấu hình và giao thức bắt tay}
+
+UART mặc định dùng UART1, 115200 baud, 8N1, TX GPIO17, RX GPIO16, không dùng
+RTS/CTS. Driver có RX buffer 2048 B, TX buffer 1024 B và event queue 64 phần tử.
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=22mm]
+  \node[block,minimum width=4.8cm,minimum height=1.5cm,fill=orange!8] (start)
+    {\textbf{START\_ROOT}\\mỗi 500 ms gửi\\\texttt{Start Root} + CRLF};
+  \node[block,right=of start,minimum width=4.8cm,minimum height=1.5cm,fill=green!8] (conn)
+    {\textbf{CONNECTED}\\mỗi 500 ms gửi\\\texttt{Connected} + CRLF};
+  \draw[flow,bend left=18] (start) to node[above,align=center,font=\scriptsize]
+    {rolling buffer 48 B thấy đúng chuỗi\\\codeword{Switching to root mode...}} (conn);
+  \draw[warnflow,bend left=18] (conn) to node[below,align=center,font=\scriptsize]
+    {không nhận byte trong 2000 ms\\reset quy trình bắt tay} (start);
+  \draw[flow,loop left] (start) to node[left,font=\scriptsize]{chưa đủ mẫu} (start);
+  \draw[flow,loop right] (conn) to node[right,font=\scriptsize]{có dữ liệu UART} (conn);
+\end{tikzpicture}}
+\caption{Máy trạng thái bắt tay UART}
+\label{fig:uartstate}
+\end{figure}
+
+Chuỗi xác nhận phải khớp chính xác
+\texttt{Switching to root mode...} và kết thúc bằng CRLF. Rolling
+buffer cho phép nhận chuỗi qua nhiều event UART. Sau khi kết nối, nếu đường UART
+im lặng quá 2 giây, gateway quay lại \codeword{START_ROOT}.
+
+\subsection{Đường ống xử lý dữ liệu UART}
+
+\begin{figure}[p]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 8mm]
+  \node[block,minimum width=2.5cm] (wire) {Root UART\\dòng JSON};
+  \node[block,right=of wire,minimum width=2.8cm] (event) {UART event\\RX buffer 2048 B};
+  \node[decision,right=of event] (filter) {\codeword{No Node}?};
+  \node[block,above=10mm of filter,minimum width=2.4cm,fill=red!7] (drop1) {Bỏ qua\\không uplink};
+  \node[decision,right=of filter] (online) {WS đã\\connected?};
+  \node[block,above=10mm of online,minimum width=2.4cm,fill=red!7] (drop2) {Không lưu offline\\bỏ dữ liệu};
+  \node[block,right=of online,minimum width=2.8cm] (chunks) {Cắt item\\tối đa 512 B};
+  \node[store,right=of chunks,minimum width=2.6cm] (queue) {Queue\\8 item};
+
+  \node[block,below=17mm of queue,minimum width=3.0cm] (join) {Ghép đến ký tự LF\\buffer dòng 2048 B};
+  \node[block,left=of join,minimum width=3.0cm] (wrap) {Escape JSON\\bọc \codeword{uart_rx}};
+  \node[block,left=of wrap,minimum width=2.7cm,fill=green!8] (send) {Gửi WebSocket\\và tăng TX};
+
+  \draw[dataflow] (wire) -- (event);
+  \draw[dataflow] (event) -- (filter);
+  \draw[warnflow] (filter) -- node[right,font=\scriptsize]{có} (drop1);
+  \draw[dataflow] (filter) -- node[above,font=\scriptsize]{không} (online);
+  \draw[warnflow] (online) -- node[right,font=\scriptsize]{không} (drop2);
+  \draw[dataflow] (online) -- node[above,font=\scriptsize]{có} (chunks);
+  \draw[dataflow] (chunks) -- (queue);
+  \draw[dataflow] (queue) -- (join);
+  \draw[dataflow] (join) -- (wrap);
+  \draw[dataflow] (wrap) -- (send);
+\end{tikzpicture}}
+\caption{Đường ống từ byte UART tới bản tin WebSocket}
+\label{fig:uartpipe}
+\end{figure}
+
+Queue có sức chứa tải danh nghĩa tối đa $8 \times 512 = 4096$ byte, chưa tính
+metadata. Queue này chỉ giảm chênh lệch tốc độ ngắn hạn; nó không phải kho dữ
+liệu offline. Nếu WebSocket chưa kết nối, hoặc queue đầy, telemetry có thể mất.
+
+\begin{lstlisting}[style=textstyle,caption={Dạng bản tin uplink UART}]
+{
+  "type": "uart_rx",
+  "len": 127,
+  "payload": "{\"v\":1,\"seq\":88,\"n\":2,\"M\":\"B4:BF:E9:34:0C:CC\",...}"
+}
+\end{lstlisting}
+
+Trường \codeword{M} trong payload là định danh MAC của node gửi. Gateway không
+đổi \codeword{M}; backend cần parse lớp JSON bên ngoài, sau đó parse tiếp chuỗi
+\codeword{payload} để phân tách node và các điểm đo.
+
+\section{Wi-Fi, captive portal và mDNS}
+
+\subsection{Máy trạng thái kết nối Wi-Fi}
+
+\begin{figure}[H]
+\centering
+\resizebox{.82\textwidth}{!}{
+\begin{tikzpicture}[node distance=12mm and 24mm]
+  \node[block,minimum width=3.4cm] (boot) {Boot\\nạp cấu hình NVS};
+  \node[block,right=of boot,minimum width=4.0cm] (try) {Thử từng SSID\\tối đa 5 lần/SSID\\chờ tối đa 20 s/lần};
+  \node[decision,right=of try] (ok) {Có IP?};
+  \node[block,above right=16mm and 27mm of ok,minimum width=3.8cm,fill=green!8] (sta)
+    {STA connected\\mDNS hoạt động};
+  \node[block,below right=16mm and 27mm of ok,minimum width=3.8cm,fill=orange!8] (ap)
+    {AP cấu hình\\192.168.4.1\\DNS + HTTP};
+  \node[block,right=25mm of ap,minimum width=4.0cm] (form)
+    {Người dùng gửi\\SSID/password/WS URL};
+
+  \draw[flow] (boot) -- (try);
+  \draw[flow] (try) -- (ok);
+  \draw[dataflow] (ok) -- node[above left,font=\scriptsize]{có} (sta);
+  \draw[warnflow] (ok) -- node[below left,font=\scriptsize]{không} (ap);
+  \draw[flow] (ap) -- (form);
+  \draw[flow] (form) |- node[pos=.25,right,font=\scriptsize]{yêu cầu kết nối mới} (try.south);
+  \draw[warnflow] (sta.west) -| node[pos=.25,above,font=\scriptsize]{mất kết nối} (ap.west);
+  \draw[dataflow] (ap.east) -| node[pos=.25,right,align=left,font=\scriptsize]
+    {STA có IP:\\tắt AP và webserver} (sta.east);
+\end{tikzpicture}}
+\caption{Luồng STA/AP và captive portal}
+\label{fig:wifi}
+\end{figure}
+
+Khi STA lấy được IP, firmware khởi tạo mDNS với hostname
+\codeword{meshgateway.local} và công bố dịch vụ HTTP cổng 80. Đây là tên của
+\textbf{gateway và trang cấu hình}, khác với \codeword{systemmsems.local} là tên
+máy chạy backend local.
+
+Danh sách Wi-Fi boot hiện chứa cả credential được viết trực tiếp trong
+\pathcode{wifi_manager_core.c}. Đây là rủi ro bảo mật; credential nên chuyển sang
+NVS provisioning hoặc cấu hình bí mật ngoài repository.
+
+\section{WebSocket local và server}
+
+\subsection{Quy tắc chọn giao thức}
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=7mm]
+  \node[decision] (mode) {URL bắt đầu\\bằng gì?};
+  \node[block,below left=13mm and 20mm of mode,minimum width=5.1cm,fill=green!8] (local)
+    {\textbf{\codeword{ws://systemmsems.local:9090}}\\mDNS tìm IPv4 trong 3 s\\
+    đổi thành \codeword{ws://<IP>:9090}\\không gắn CA bundle};
+  \node[block,below right=13mm and 20mm of mode,minimum width=5.1cm,fill=blue!8] (server)
+    {\textbf{\codeword{wss://<server>/ws}}\\DNS thông thường\\TLS bật\\
+    gắn \codeword{esp_crt_bundle_attach}};
+  \node[block,below=18mm of local,minimum width=5.1cm] (plain) {WebSocket thường\\phù hợp LAN local};
+  \node[block,below=18mm of server,minimum width=5.1cm] (tls) {WebSocket bảo mật\\phù hợp Internet};
+  \draw[dataflow] (mode) -- node[above left,font=\scriptsize]{\codeword{ws://}} (local);
+  \draw[flow] (mode) -- node[above right,font=\scriptsize]{\codeword{wss://}} (server);
+  \draw[dataflow] (local) -- (plain);
+  \draw[flow] (server) -- (tls);
+\end{tikzpicture}}
+\caption{Phân nhánh local WS và server WSS}
+\label{fig:wsprotocol}
+\end{figure}
+
+Frontend chạy tại \codeword{localhost:3000} không buộc ESP32 dùng WSS. Giao thức
+của ESP32 phụ thuộc URL backend được cấu hình: local hiện dùng
+\codeword{ws://systemmsems.local:9090}; server Internet dùng \codeword{wss://}.
+HTTP của frontend và WebSocket của gateway là hai kết nối độc lập.
+
+\subsection{Vòng đời WebSocket}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 10mm]
+  \node[block,minimum width=2.7cm] (wait) {Chờ Wi-Fi};
+  \node[decision,right=of wait] (wifi) {STA có IP?};
+  \node[block,right=of wifi,minimum width=3.2cm] (resolve) {Lấy URL\\resolve mDNS nếu local};
+  \node[block,right=of resolve,minimum width=3.0cm] (start) {Init và start\\WS client};
+  \node[block,below=16mm of start,minimum width=3.0cm,fill=green!8] (connected)
+    {CONNECTED\\gửi \codeword{register}};
+  \node[block,left=of connected,minimum width=3.2cm] (run)
+    {Mỗi 5 s gửi status\\liên tục drain UART};
+  \node[decision,left=of run] (restart) {URL đổi / lỗi /\\Wi-Fi mất?};
+
+  \draw[flow] (wait) -- (wifi);
+  \draw[flow,loop above] (wifi) to node[above,font=\scriptsize]{không} (wifi);
+  \draw[flow] (wifi) -- node[above,font=\scriptsize]{có} (resolve);
+  \draw[flow] (resolve) -- (start);
+  \draw[dataflow] (start) -- (connected);
+  \draw[dataflow] (connected) -- (run);
+  \draw[flow] (run) -- (restart);
+  \draw[dataflow,bend left=15] (restart) to node[below,font=\scriptsize]{không} (run);
+  \draw[warnflow,bend left=16] (restart) to node[above,font=\scriptsize]{có: destroy client} (wait);
+\end{tikzpicture}}
+\caption{Máy trạng thái vòng đời WebSocket}
+\end{figure}
+
+Client dùng timeout mạng và reconnect 15 giây, buffer 2048 B và keepalive.
+\codeword{save_ws_url()} cập nhật URL và yêu cầu restart client, nhưng chỉ ghi
+vào RAM. Sau reset, URL quay lại lựa chọn trong Kconfig/sdkconfig. Vì vậy thanh
+cấu hình frontend hiện thay đổi được nguồn trong phiên chạy, chưa phải cấu hình
+bền vững.
+
+\subsection{Trình tự gửi dữ liệu đầu cuối}
+
+\begin{figure}[p]
+\centering
+\resizebox{.98\textwidth}{!}{
+\begin{tikzpicture}[x=2.75cm,y=.72cm,font=\scriptsize]
+  \foreach \x/\name in {0/Node root,1/UART task,2/WS task,3/Backend,4/Dashboard}{
+    \node[font=\bfseries] at (\x,0) {\name};
+    \draw[gray,dashed] (\x,-.4) -- (\x,-12.3);
+  }
+  \draw[dataflow] (0,-1) -- node[above]{JSON kết thúc bằng LF} (1,-1);
+  \draw[flow] (1,-2) -- node[above]{item tối đa 512 B} (2,-2);
+  \draw[dataflow] (2,-3) -- node[above]{\codeword{uart_rx}} (3,-3);
+  \draw[flow] (3,-4) -- node[above]{parse outer JSON} (3,-5);
+  \draw[flow] (3,-5.5) -- node[above]{parse \codeword{payload}, lấy \codeword{M}, \codeword{p}} (3,-6.5);
+  \draw[dataflow] (3,-7) -- node[above]{event dữ liệu node} (4,-7);
+  \draw[dataflow] (2,-8.5) -- node[above]{\codeword{gateway_status}, mỗi 5 s} (3,-8.5);
+  \draw[dataflow] (3,-9.5) -- node[above]{event trạng thái gateway} (4,-9.5);
+  \draw[flow] (4,-11) -- node[above]{subscribe WS từ browser} (3,-11);
+  \node[note,anchor=west] at (0,-12)
+    {Hai loại bản tin phải được backend phân luồng theo trường \codeword{type}.};
+\end{tikzpicture}}
+\caption{Sequence diagram từ root đến dashboard}
+\label{fig:sequence}
+\end{figure}
+
+\section{Nguồn tạo bản tin gateway\_status}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[node distance=6mm and 9mm]
+  \node[block,minimum width=3.0cm] (cpu) {FreeRTOS runtime stats\\CPU load};
+  \node[block,below=of cpu,minimum width=3.0cm] (heap) {Internal heap\\RAM used/free};
+  \node[block,below=of heap,minimum width=3.0cm] (adc) {ADC GPIO34\\pin voltage/\%};
+  \node[block,below=of adc,minimum width=3.0cm] (timer) {\codeword{esp_timer}\\uptime};
+  \node[block,below=of timer,minimum width=3.0cm] (net) {Wi-Fi driver/netif\\SSID, RSSI, IP, GW};
+
+  \node[block,right=19mm of adc,minimum width=3.4cm,minimum height=5.4cm,fill=cyan!8] (mon)
+    {\textbf{SystemMonitor}\\chu kỳ 1 s\\tạo snapshot\\\codeword{ui_metrics_t}\\
+    ghi dưới mutex};
+  \node[block,right=19mm of mon,minimum width=3.5cm,minimum height=3.1cm,fill=green!8] (json)
+    {\textbf{WSHandle}\\chu kỳ 5 s\\đọc metrics + Wi-Fi\\tạo JSON
+    \codeword{gateway_status}};
+
+  \foreach \s in {cpu,heap,adc,timer,net} \draw[dataflow] (\s) -- (mon);
+  \draw[dataflow] (mon) -- (json);
+\end{tikzpicture}}
+\caption{Nguồn dữ liệu tạo trạng thái gateway}
+\label{fig:statussource}
+\end{figure}
+
+\begin{longtable}{p{4.4cm}p{4.2cm}p{5.3cm}}
+\caption{Các trường của gateway\_status}\\
+\toprule
+\textbf{Trường} & \textbf{Nguồn} & \textbf{Ý nghĩa}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Trường} & \textbf{Nguồn} & \textbf{Ý nghĩa}\\
+\midrule
+\endhead
+\codeword{cpu_load_percent} & Runtime stats & Tải CPU trung bình, đơn vị \%.\\
+\codeword{ram_used_kb}, \codeword{ram_used_percent} & Internal heap & RAM nội bộ đã dùng.\\
+\codeword{battery_voltage_v}, \codeword{battery_percent} & ADC + PowerManager & Điện áp gói pin và mức pin ước lượng.\\
+\codeword{power_source} & Điện áp pin & Heuristic: \codeword{unknown}, \codeword{battery}, \codeword{AC_or_USB}.\\
+\codeword{chip_temp_c} & Cảm biến nội chip & Có thể là \codeword{null} nếu SoC không hỗ trợ.\\
+\codeword{uptime_s} & esp\_timer & Số giây từ lần boot/reset.\\
+\codeword{wifi_ssid}, \codeword{wifi_rssi} & Wi-Fi AP record & Mạng đang kết nối và RSSI dBm.\\
+\codeword{sta_ip}, \codeword{sta_gateway} & STA netif & IPv4 của gateway và router.\\
+\bottomrule
+\end{longtable}
+
+\section{Màn hình và dữ liệu cục bộ}
+
+LVGL đọc snapshot metrics và cập nhật UI khoảng mỗi 250 ms. Các giá trị RX/TX,
+IP, MAC rút gọn và mức sử dụng queue được cập nhật theo chu kỳ 1 giây.
+SystemMonitor đo RTC, pin, SD, heap, CPU, FPS, uptime và nhiệt độ chip mỗi giây.
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=9mm and 12mm]
+  \node[block,minimum width=3.2cm] (sources) {RTC / ADC / SD\\heap / runtime};
+  \node[task,right=of sources,minimum width=3.4cm] (monitor) {system\_monitor\\1 s};
+  \node[store,right=of monitor,minimum width=3.4cm] (metrics) {metrics snapshot\\mutex};
+  \node[task,right=of metrics,minimum width=3.4cm] (lvgl) {lvgl\_task\\UI 250 ms};
+  \node[block,below=9mm of lvgl,minimum width=3.4cm] (display) {Màn hình\\status + chart};
+  \node[task,below=9mm of metrics,minimum width=3.4cm] (ws) {ws\_hdl\\status 5 s};
+  \draw[dataflow] (sources) -- (monitor);
+  \draw[dataflow] (monitor) -- (metrics);
+  \draw[dataflow] (metrics) -- (lvgl);
+  \draw[dataflow] (lvgl) -- (display);
+  \draw[dataflow] (metrics) -- (ws);
+\end{tikzpicture}}
+\caption{Một snapshot metrics phục vụ cả màn hình và WebSocket}
+\end{figure}
+
+SPIFFS hiện lưu tài nguyên captive portal. Thẻ SD được khởi tạo và đo dung lượng,
+nhưng đường nhận UART--WebSocket hiện không ghi telemetry vào SD, SQLite hay
+MongoDB. Việc lưu dữ liệu dài hạn thuộc backend; gateway chỉ chuyển tiếp trong
+RAM.
+
+\section{Phân vùng flash và OTA}
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+  \draw[fill=orange!18] (0,0) rectangle (2.1,1.35);
+  \draw[fill=yellow!25] (2.1,0) rectangle (4.2,1.35);
+  \draw[fill=blue!18] (4.2,0) rectangle (8.2,1.35);
+  \draw[fill=cyan!18] (8.2,0) rectangle (12.2,1.35);
+  \draw[fill=green!18] (12.2,0) rectangle (14.5,1.35);
+  \node[align=center] at (1.05,.68) {\textbf{NVS}\\\codeword{0x5000}};
+  \node[align=center] at (3.15,.68) {\textbf{otadata}\\\codeword{0x2000}};
+  \node[align=center] at (6.2,.68) {\textbf{ota\_0}\\\codeword{0x1C0000}};
+  \node[align=center] at (10.2,.68) {\textbf{ota\_1}\\\codeword{0x1C0000}};
+  \node[align=center] at (13.35,.68) {\textbf{SPIFFS}\\\codeword{0x20000}};
+  \node[note,anchor=north] at (7.25,-.25)
+    {Sơ đồ ưu tiên khả năng đọc; chiều rộng NVS, otadata và SPIFFS đã được phóng đại.};
+\end{tikzpicture}}
+\caption{Các partition flash và kích thước khai báo}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\resizebox{.94\textwidth}{!}{
+\begin{tikzpicture}[node distance=8mm and 10mm]
+  \node[block,minimum width=3.1cm] (server) {Server gửi\\version/lệnh OTA};
+  \node[block,right=of server,minimum width=3.2cm] (handler) {WS handler\\chỉ đọc type/version};
+  \node[block,right=of handler,minimum width=3.2cm,fill=red!7] (gap) {Điểm nối còn thiếu\\không gọi OTA};
+  \node[block,right=of gap,minimum width=3.2cm] (fota) {FOTAManager\\mã phần lớn bị comment};
+  \node[store,below=10mm of fota,minimum width=3.2cm] (part) {ota\_0 / ota\_1};
+  \draw[flow] (server) -- (handler);
+  \draw[warnflow] (handler) -- (gap);
+  \draw[warnflow] (gap) -- (fota);
+  \draw[warnflow] (fota) -- (part);
+\end{tikzpicture}}
+\caption{Trạng thái triển khai OTA: partition có sẵn nhưng pipeline chưa nối}
+\label{fig:ota}
+\end{figure}
+
+Không nên hiểu sự tồn tại của hai partition OTA là FOTA đã hoạt động. Trong luồng
+hiện tại, WebSocket chỉ lưu/log \codeword{type} và \codeword{version}; không gọi
+hàm tải firmware. Khi hoàn thiện cần thêm xác thực manifest, kiểm tra phiên bản,
+chữ ký/hash, chính sách certificate và rollback.
+
+\section{Tài nguyên FreeRTOS}
+
+\begin{table}[ht]
+\centering
+\caption{Các task chính nhìn thấy trong mã}
+\begin{tabularx}{\textwidth}{p{3.2cm}p{2cm}p{1.5cm}X}
+\toprule
+\textbf{Task} & \textbf{Stack} & \textbf{Priority} & \textbf{Vai trò}\\
+\midrule
+\codeword{system_monitor} & 3072 B & 5 & Metrics, pin, RTC, SD, heap, CPU; pin core 0.\\
+\codeword{lvgl_task} & 4096 B & 4 & Render và cập nhật màn hình; pin core 1.\\
+\codeword{ws_hdl} & 4096 B & 5 & Quản lý client và gửi dữ liệu. Client WS nội bộ yêu cầu stack 6144 cho task của thư viện.\\
+\codeword{uart_to_node} & 4096 B mặc định & 5 & Bắt tay và đọc/ghi UART.\\
+\codeword{wifi_connect} & 4096 B & 5 & Áp dụng credential mới.\\
+\codeword{wifi_mgr} & 4096 B & 5 & Giám sát STA/AP và reconnect.\\
+\codeword{dns_server} & 2560 B & 5 & DNS captive portal khi AP hoạt động.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+SystemMonitor cấp phát mảng \codeword{TaskStatus_t} bằng \codeword{malloc()} mỗi
+giây để tính CPU load. Có thể giảm phân mảnh heap bằng buffer tái sử dụng hoặc
+chu kỳ đo dài hơn.
+
+\section{Rủi ro và đề xuất bảo trì}
+
+\begin{enumerate}
+  \item \textbf{Bí mật trong mã nguồn:} auth key ESP Insights và một số mật khẩu
+  Wi-Fi đang viết trực tiếp trong tệp C. Cần thu hồi/đổi khóa đã lộ và chuyển sang
+  provisioning, biến môi trường build hoặc kho bí mật.
+  \item \textbf{URL WebSocket không bền vững:} thay đổi qua web chỉ lưu RAM. Nên
+  lưu URL hợp lệ vào NVS và tải trước khi tạo client.
+  \item \textbf{Không có lưu trữ offline:} mất WS đồng nghĩa bỏ telemetry UART.
+  Có thể bổ sung ring buffer trong RAM hoặc journal trên SD, kèm giới hạn dung lượng.
+  \item \textbf{Tách JSON hai lớp:} backend phải parse
+  \codeword{uart_rx.payload}. Nên định nghĩa schema và test contract cho trường
+  \codeword{M}, \codeword{p}, \codeword{seq} và \codeword{err}.
+  \item \textbf{Danh sách Wi-Fi boot làm chậm khởi động:} nhiều lần chờ 20 giây
+  có thể kéo dài boot. Nên scan trước, chỉ thử SSID nhìn thấy và giới hạn ngân sách thời gian.
+  \item \textbf{FOTA chưa hoàn chỉnh:} không mở chức năng OTA cho sản phẩm trước
+  khi có xác thực, rollback và kiểm thử mất điện.
+  \item \textbf{mDNS phụ thuộc mạng LAN:} \codeword{systemmsems.local} chỉ phân
+  giải khi máy backend quảng bá mDNS và router không chặn multicast. Nên cho phép
+  nhập IP/hostname thay thế và hiển thị lỗi phân giải rõ ràng.
+\end{enumerate}
+
+\section{Quy trình build và kiểm thử}
+
+\begin{lstlisting}[style=textstyle,caption={Build và flash firmware}]
+cd MeshGateWay
+idf.py set-target esp32
+idf.py menuconfig
+idf.py build
+idf.py -p COMx flash monitor
+\end{lstlisting}
+
+Các ca kiểm thử tối thiểu:
+\begin{itemize}
+  \item boot khi có/không có Wi-Fi; kiểm tra AP, DNS captive portal và
+  \codeword{meshgateway.local};
+  \item local \codeword{ws://systemmsems.local:9090} và server
+  \codeword{wss://...}; xác minh log hiển thị \codeword{plain} hoặc \codeword{TLS};
+  \item ngắt UART quá 2 giây để kiểm tra quay lại \codeword{START_ROOT};
+  \item gửi JSON dài, chia qua nhiều chunk và xác minh backend nhận đúng một dòng;
+  \item làm đầy queue hoặc ngắt WS để đo số bản tin bị mất;
+  \item đối chiếu \codeword{gateway_status} với RSSI, IP, pin và heap thực tế;
+  \item reset sau khi đổi URL để xác nhận giới hạn lưu RAM hiện tại.
+\end{itemize}
+
+\section{Kết luận}
+
+MeshGateWay được tổ chức thành ba đường xử lý chính: UART nhận dữ liệu từ root,
+SystemMonitor tạo metrics nội tại, và WebSocket hợp nhất hai nguồn để gửi backend.
+FreeRTOS queue tách task UART khỏi task mạng; mutex tạo snapshot ổn định cho UI
+và status. Local dùng \codeword{ws://} qua mDNS, còn server dùng
+\codeword{wss://} với TLS. Các giới hạn quan trọng nhất của phiên bản hiện tại là
+không lưu telemetry offline, URL WebSocket chỉ lưu RAM, FOTA chưa nối và còn bí
+mật được viết trực tiếp trong mã nguồn.
+
+\appendix
+\section{Thứ tự đọc mã đề xuất}
+
+\begin{longtable}{p{6.1cm}p{7.9cm}}
+\toprule
+\textbf{Tệp} & \textbf{Nội dung nên đọc}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tệp} & \textbf{Nội dung nên đọc}\\
+\midrule
+\endhead
+\pathcode{main/MeshGateWay.c} & Trình tự khởi động và quan hệ tổng thể.\\
+\pathcode{components/core/Datamanager/Datamanager.h} & Toàn bộ kiểu trạng thái và kích thước queue.\\
+\pathcode{components/core/UartToNode/UartToNode.c} & Máy trạng thái bắt tay và uplink UART.\\
+\pathcode{components/core/WebSocKetHandle/WSHandle.c} & URL, mDNS, WS/WSS và schema bản tin.\\
+\pathcode{components/core/WifiManager/wifi_manager_core.c} & Event Wi-Fi, danh sách boot và mDNS.\\
+\pathcode{components/core/WifiManager/wifi_manager_tasks.c} & Reconnect và chuyển STA/AP.\\
+\pathcode{components/core/WifiManager/wifi_manager_http.c} & Endpoint cấu hình web.\\
+\pathcode{components/core/SystemMonitor/SystemMonitor.c} & Cách tạo metrics.\\
+\pathcode{components/core/ScreenManager/ScreenManager.c} & Cách metrics được đưa lên LVGL.\\
+\pathcode{partitions.csv} & Phân vùng NVS, hai OTA slot và SPIFFS.\\
+\bottomrule
+\end{longtable}
+
+\end{document}

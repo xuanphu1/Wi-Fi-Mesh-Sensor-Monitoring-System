@@ -1,6 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
-import { getWebSocketUrl } from "utils/wsConfig";
+import {
+  getHttpUrl,
+  getWebSocketUrl,
+  WS_CONFIG_CHANGED_EVENT,
+  WS_URL_STORAGE_KEY,
+} from "utils/wsConfig";
 import { parseMeshUdpSensorPayload, parseMeshUdpSensorString } from "utils/meshUdpJsonSchema";
 
 const MeshRealtimeContext = createContext(null);
@@ -215,7 +220,7 @@ function addThroughputBytes(bytesRef, text) {
 }
 
 export function MeshRealtimeProvider({ children }) {
-  const url = getWebSocketUrl();
+  const [url, setUrl] = useState(() => getWebSocketUrl());
 
   const [wsOpen, setWsOpen] = useState(false);
   const [now, setNow] = useState(Date.now());
@@ -248,6 +253,20 @@ export function MeshRealtimeProvider({ children }) {
   const [debugLogs, setDebugLogs] = useState([]);
 
   useEffect(() => {
+    const applyCurrentUrl = () => setUrl(getWebSocketUrl());
+    const onStorage = (event) => {
+      if (event.key === WS_URL_STORAGE_KEY) applyCurrentUrl();
+    };
+
+    window.addEventListener(WS_CONFIG_CHANGED_EVENT, applyCurrentUrl);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(WS_CONFIG_CHANGED_EVENT, applyCurrentUrl);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
+
+  useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
@@ -278,7 +297,7 @@ export function MeshRealtimeProvider({ children }) {
     // 1. Fetch initial node snapshot via HTTP
     const fetchNodes = async () => {
       try {
-        const httpUrl = getHttpUrl(wsUrl, "/api/nodes");
+        const httpUrl = `${getHttpUrl()}/api/nodes`;
         const res = await fetch(httpUrl);
         if (!res.ok) throw new Error("Network response was not ok");
         const nodes = await res.json();

@@ -11,7 +11,7 @@ typedef struct {
  * Bạn có thể thêm nhiều phần tử tại đây.
  */
 static const wifi_boot_credential_t s_boot_wifi_list[] = {
-    // {.ssid = CONFIG_WIFI_SSID, .password = CONFIG_WIFI_PASS},
+    {.ssid = CONFIG_WIFI_SSID, .password = CONFIG_WIFI_PASS},
     {.ssid = "Chung Cu Mini MoMo", .password = "21082021"},
     {.ssid = "Smile", .password = "hoiphongbencanh"}
     // {.ssid = "Unknown", .password = "12345789"},

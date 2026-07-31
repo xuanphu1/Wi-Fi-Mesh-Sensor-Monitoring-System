@@ -1,0 +1,15 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Bối cảnh và đường đi đầu cuối của dữ liệu}}{1}{figure.caption.4}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Sơ đồ khối phần cứng quanh gateway}}{2}{figure.caption.5}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Task, queue và vùng trạng thái dùng chung}}{3}{figure.caption.6}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Máy trạng thái bắt tay UART}}{4}{figure.caption.8}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Lưu đồ khởi động thực tế}}{5}{figure.caption.7}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Luồng STA/AP và captive portal}}{6}{figure.caption.10}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Phân nhánh local WS và server WSS}}{7}{figure.caption.11}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Máy trạng thái vòng đời WebSocket}}{7}{figure.caption.12}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Nguồn dữ liệu tạo trạng thái gateway}}{8}{figure.caption.14}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Một snapshot metrics phục vụ cả màn hình và WebSocket}}{9}{figure.caption.15}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Đường ống từ byte UART tới bản tin WebSocket}}{10}{figure.caption.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Sequence diagram từ root đến dashboard}}{10}{figure.caption.13}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Các partition flash và kích thước khai báo}}{11}{figure.caption.16}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Trạng thái triển khai OTA: partition có sẵn nhưng pipeline chưa nối}}{11}{figure.caption.17}%

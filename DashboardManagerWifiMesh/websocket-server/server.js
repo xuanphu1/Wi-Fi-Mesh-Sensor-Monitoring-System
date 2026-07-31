@@ -6,11 +6,60 @@ const cors = require("cors");
 const http = require("http");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+const { Bonjour } = require("bonjour-service");
 
 
-const PORT = Number(process.env.WS_PORT || process.env.PORT || 8080);
+const PORT = Number(process.env.WS_PORT || process.env.PORT || 9090);
 const HOST = process.env.WS_HOST || "0.0.0.0";
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/MeshData";
+const MDNS_HOSTNAME = process.env.MDNS_HOSTNAME || "systemmsems";
+let bonjour = null;
+let mdnsService = null;
+
+function startMdns(port) {
+  const preferredNetwork = getServerNetworkInfo();
+  const mdnsOptions = preferredNetwork?.ip
+    ? { interface: preferredNetwork.ip }
+    : {};
+
+  bonjour = new Bonjour(mdnsOptions);
+  mdnsService = bonjour.publish({
+    name: "System MSEMS WebSocket",
+    host: `${MDNS_HOSTNAME}.local`,
+    type: "http",
+    protocol: "tcp",
+    port,
+    disableIPv6: true,
+    txt: {
+      service: "websocket",
+      path: "/ws",
+    },
+  });
+
+  mdnsService.on("up", () => {
+    console.log(`[mDNS] Local server: ws://${MDNS_HOSTNAME}.local:${port}/ws`);
+    if (preferredNetwork?.ip) {
+      console.log(
+        `[mDNS] Advertising on ${preferredNetwork.adapter}: ${preferredNetwork.ip}`
+      );
+    }
+  });
+
+  mdnsService.on("error", (error) => {
+    console.warn(`[mDNS] Could not advertise ${MDNS_HOSTNAME}.local:`, error.message);
+  });
+}
+
+function stopMdns() {
+  if (mdnsService) {
+    mdnsService.stop();
+    mdnsService = null;
+  }
+  if (bonjour) {
+    bonjour.destroy();
+    bonjour = null;
+  }
+}
 
 function clientIpPretty(ip) {
   if (typeof ip !== "string") return ip;
@@ -510,7 +559,17 @@ const wss = new WebSocketServer({ server });
 
 server.listen(PORT, HOST, () => {
   logMachineLanHint(PORT);
+  startMdns(PORT);
 });
+
+function shutdown(signal) {
+  console.log(`[server] ${signal} received, shutting down`);
+  stopMdns();
+  server.close(() => process.exit(0));
+}
+
+process.once("SIGINT", () => shutdown("SIGINT"));
+process.once("SIGTERM", () => shutdown("SIGTERM"));
 
 function broadcast(data, except) {
   const payload = typeof data === "string" ? data : JSON.stringify(data);
@@ -540,37 +599,61 @@ wss.on("connection", async (ws, req) => {
     }
     const text = raw.toString();
     console.log(`[ws] RX text from ${ip}: ${text}`);
+
+    let parsed;
     try {
-      const parsed = JSON.parse(text);
-      const msgType = parsed && typeof parsed === "object" ? parsed.type || "unknown" : "non-object";
-      console.log(`[ws] Parsed JSON from ${ip}: type=${msgType}`);
+      parsed = JSON.parse(text);
+    } catch {
+      console.log(`[ws] Non-JSON text from ${ip}, forwarding as { type: "text" }`);
+      broadcast({ type: "text", body: text }, ws);
+      return;
+    }
 
-      // History API endpoints have been moved to HTTP REST API routes
+    const msgType =
+      parsed && typeof parsed === "object"
+        ? parsed.type || "unknown"
+        : "non-object";
+    console.log(`[ws] Parsed JSON from ${ip}: type=${msgType}`);
 
-      const receivedAt = new Date();
-
+    const receivedAt = new Date();
+    try {
       const uartPackets = parseUartFrames(parsed, state);
       uartPackets.forEach(({ idx, obj }) => {
         trackSeq(obj);
         logMeshUdpJson(ip, "uart_rx", idx, obj);
-        store.persistMeshPacket(obj, ip, receivedAt);
+        Promise.resolve(store.persistMeshPacket(obj, ip, receivedAt)).catch(
+          (error) =>
+            console.error("[db] persistMeshPacket failed:", error.message)
+        );
       });
 
       if (looksLikeMeshUdpJson(parsed)) {
         trackSeq(parsed);
         logMeshUdpJson(ip, "mesh", 0, parsed);
-        store.persistMeshPacket(parsed, ip, receivedAt);
+        Promise.resolve(store.persistMeshPacket(parsed, ip, receivedAt)).catch(
+          (error) =>
+            console.error("[db] persistMeshPacket failed:", error.message)
+        );
       }
       
-      if (parsed && parsed.type === "gateway_status") {
-        store.persistGatewayStatus(parsed, ip, receivedAt);
+      if (
+        parsed &&
+        parsed.type === "gateway_status" &&
+        typeof store.persistGatewayStatus === "function"
+      ) {
+        Promise.resolve(
+          store.persistGatewayStatus(parsed, ip, receivedAt)
+        ).catch((error) =>
+          console.error("[db] persistGatewayStatus failed:", error.message)
+        );
       }
-
-      broadcast(parsed, ws);
-    } catch {
-      console.log(`[ws] Non-JSON text from ${ip}, forwarding as { type: "text" }`);
-      broadcast({ type: "text", body: text }, ws);
+    } catch (error) {
+      console.error(`[ws] Processing JSON from ${ip} failed:`, error.message);
     }
+
+    // Database or parser failures must never change a valid JSON message into
+    // plain text. Dashboard clients always receive the original structure.
+    broadcast(parsed, ws);
   });
 
   ws.on("close", () => {

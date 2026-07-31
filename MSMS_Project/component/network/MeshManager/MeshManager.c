@@ -104,7 +104,7 @@ static bool mesh_get_sta_ip_info(esp_netif_ip_info_t *out) {
 }
 
 /**
- * @brief Parse origin info in telemetry JSON: {"n":<level>, "i":"<ip>", ...}
+ * @brief Parse origin info in telemetry JSON: {"n":<level>, "M":"<mac>", ...}
  */
 #define MAX_TRACKED_NODES 32
 
@@ -158,10 +158,10 @@ static void mesh_track_packet(const char *mac, uint32_t seq) {
 }
 
 static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
-                                     char *origin_ip, size_t origin_ip_cap,
+                                     char *origin_mac, size_t origin_mac_cap,
                                      int *origin_lvl) {
-  if (origin_ip != NULL && origin_ip_cap > 0) {
-    snprintf(origin_ip, origin_ip_cap, "unknown");
+  if (origin_mac != NULL && origin_mac_cap > 0) {
+    snprintf(origin_mac, origin_mac_cap, "unknown");
   }
   if (origin_lvl != NULL) {
     *origin_lvl = -1;
@@ -178,16 +178,17 @@ static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
   memcpy(json, payload, copy_len);
   json[copy_len] = '\0';
 
-  const char *ip_key = "\"i\":\"";
-  char *ip_pos = strstr(json, ip_key);
-  if (ip_pos != NULL && origin_ip != NULL && origin_ip_cap > 0) {
-    ip_pos += strlen(ip_key);
+  const char *mac_key = "\"M\":\"";
+  char *mac_pos = strstr(json, mac_key);
+  char *mac_value = mac_pos != NULL ? mac_pos + strlen(mac_key) : NULL;
+  if (mac_pos != NULL && origin_mac != NULL && origin_mac_cap > 0) {
     size_t i = 0;
-    while (ip_pos[i] != '\0' && ip_pos[i] != '"' && i < (origin_ip_cap - 1)) {
-      origin_ip[i] = ip_pos[i];
+    while (mac_value[i] != '\0' && mac_value[i] != '"' &&
+           i < (origin_mac_cap - 1)) {
+      origin_mac[i] = mac_value[i];
       i++;
     }
-    origin_ip[i] = '\0';
+    origin_mac[i] = '\0';
   }
 
   const char *lvl_key = "\"n\":";
@@ -204,14 +205,12 @@ static void mesh_extract_origin_info(const uint8_t *payload, size_t payload_len,
     seq = (uint32_t)strtoul(seq_pos + strlen(seq_key), NULL, 10);
   }
 
-  const char *mac_key = "\"M\":\"";
-  char *mac_pos = strstr(json, mac_key);
   char mac_str[20] = {0};
-  if (mac_pos != NULL) {
-    mac_pos += strlen(mac_key);
+  if (mac_value != NULL) {
     size_t i = 0;
-    while (mac_pos[i] != '\0' && mac_pos[i] != '"' && i < sizeof(mac_str) - 1) {
-      mac_str[i] = mac_pos[i];
+    while (mac_value[i] != '\0' && mac_value[i] != '"' &&
+           i < sizeof(mac_str) - 1) {
+      mac_str[i] = mac_value[i];
       i++;
     }
     mac_str[i] = '\0';
@@ -886,14 +885,14 @@ static void mesh_data_task(void *pvParameters) {
         }
         msg.len = (uint16_t)recv_len;
         memcpy(msg.data, rx_buf, (size_t)recv_len);
-        char origin_ip[16];
+        char origin_mac[20];
         int origin_lvl = -1;
-        mesh_extract_origin_info(msg.data, msg.len, origin_ip,
-                                 sizeof(origin_ip), &origin_lvl);
+        mesh_extract_origin_info(msg.data, msg.len, origin_mac,
+                                 sizeof(origin_mac), &origin_lvl);
         ESP_LOGD(
             TAG_MESH,
-            "Mesh UDP RX: src_hop_ip=%s, origin_ip=%s, origin_lvl=%d, %d bytes",
-            inet_ntoa(source_addr.sin_addr), origin_ip, origin_lvl, recv_len);
+            "Mesh UDP RX: src_hop_ip=%s, origin_mac=%s, origin_lvl=%d, %d bytes",
+            inet_ntoa(source_addr.sin_addr), origin_mac, origin_lvl, recv_len);
         ESP_LOGD(TAG_MESH, "payload mesh RX: %.*s", recv_len, (char *)msg.data);
         bool queued =
             xQueueSend(dm->meshIo.gateway_rx_queue, &msg, 0) == pdPASS;
