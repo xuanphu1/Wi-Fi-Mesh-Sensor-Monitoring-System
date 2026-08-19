@@ -23,7 +23,7 @@ static void mesh_root_screen_task(void *pvParameters) {
   DataManager_t *data = (DataManager_t *)pvParameters;
 
   while (data != NULL && InternetManager_GetMode() == INTERNET_MODE_MESH &&
-         data->meshIo.role == MESH_ROLE_ROOT) {
+         MeshManager_GetRole() == MESH_ROLE_ROOT) {
     data->screen.is_menu_active = false;
     data->screen.is_dashboard_active = false;
     (void)ScreenMeshRoot(data);

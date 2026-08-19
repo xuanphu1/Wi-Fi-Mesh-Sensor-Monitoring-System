@@ -172,12 +172,12 @@ void app_main(void) {
   uart_to_node_attach_telemetry(&g_telemetry);
   uart_to_node_start();
 
-  initialize_sntp();
+  // initialize_sntp();
 
   // Tách rời thời điểm bắt tay mạng để tránh nghẽn mbedTLS và băng thông
   vTaskDelay(pdMS_TO_TICKS(10000));
 
-  initialize_insights();
+  // initialize_insights();
 
   vTaskDelete(NULL);
 }

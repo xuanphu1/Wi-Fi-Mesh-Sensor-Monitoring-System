@@ -1,2 +1,2 @@
-source D:/Engineering Project/MeshGateWay/build/gdbinit/symbols
-source D:/Engineering Project/MeshGateWay/build/gdbinit/connect
+source /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/gdbinit/symbols
+source /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/gdbinit/connect

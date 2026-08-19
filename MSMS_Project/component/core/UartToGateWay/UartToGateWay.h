@@ -22,7 +22,7 @@
  * **ESP → Gateway (TX):**
  * - `UartToGateWay_Send()` gửi **raw bytes** tới UART (không thêm header/length); caller tự định nghĩa payload.
  * - Phản hồi lệnh: chuỗi ASCII có sẵn trong code (ví dụ `Mesh not ready`, `Switching to root mode...`).
- * - Khi ESP là **mesh root**, task TX chuyển tiếp telemetry từ `meshIo.gateway_rx_queue`: mỗi gói gửi **payload JSON** rồi thêm **một byte `\\n`** (một dòng một JSON).
+ * - Khi ESP là **mesh root**, task TX lấy telemetry qua API MeshManager: mỗi gói gửi **payload JSON** rồi thêm **một byte `\\n`** (một dòng một JSON).
  * - Heartbeat khi không có node: dòng ASCII `No node\\n` (8 byte + newline trong code).
  *
  * Không có frame kiểu [length][payload] hay CRC; nếu cần giao thức nặng hơn nên bọc thêm lớp trên `UartToGateWay_Send`.

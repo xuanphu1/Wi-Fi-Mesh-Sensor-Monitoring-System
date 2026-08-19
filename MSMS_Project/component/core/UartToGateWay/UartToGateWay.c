@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "FunctionManager.h"
 #include "InternetManager.h"
+#include "MeshManager.h"
 #include "PinManager.h"
 #include "ProcessingDataMesh.h"
 #include "driver/uart.h"
@@ -57,49 +58,6 @@ static bool uart_gateway_mesh_stack_ready(void) {
   InternetManagerStatus_t status = {0};
   return InternetManager_GetStatus(s_data, &status) == MRS_OK &&
          status.mesh_started;
-}
-
-/** Parse nhanh origin info trong JSON telemetry để log theo node gốc. */
-static void gateway_extract_origin_info(const uint8_t *payload,
-                                        size_t payload_len, char *origin_mac,
-                                        size_t origin_mac_cap, int *origin_lvl) {
-  if (origin_mac != NULL && origin_mac_cap > 0) {
-    snprintf(origin_mac, origin_mac_cap, "unknown");
-  }
-  if (origin_lvl != NULL) {
-    *origin_lvl = -1;
-  }
-  if (payload == NULL || payload_len == 0) {
-    return;
-  }
-
-  char json[MESH_ROOT_UDP_FRAME_SIZE + 1];
-  size_t copy_len = payload_len;
-  if (copy_len > MESH_ROOT_UDP_FRAME_SIZE) {
-    copy_len = MESH_ROOT_UDP_FRAME_SIZE;
-  }
-  memcpy(json, payload, copy_len);
-  json[copy_len] = '\0';
-
-  const char *mac_key = "\"M\":\"";
-  char *mac_pos = strstr(json, mac_key);
-  if (mac_pos != NULL && origin_mac != NULL && origin_mac_cap > 0) {
-    mac_pos += strlen(mac_key);
-    size_t i = 0;
-    while (mac_pos[i] != '\0' && mac_pos[i] != '"' &&
-           i < (origin_mac_cap - 1)) {
-      origin_mac[i] = mac_pos[i];
-      i++;
-    }
-    origin_mac[i] = '\0';
-  }
-
-  const char *lvl_key = "\"n\":";
-  char *lvl_pos = strstr(json, lvl_key);
-  if (lvl_pos != NULL && origin_lvl != NULL) {
-    lvl_pos += strlen(lvl_key);
-    *origin_lvl = (int)strtol(lvl_pos, NULL, 10);
-  }
 }
 
 static bool equals_ignore_case(const char *a, const char *b) {
@@ -227,9 +185,8 @@ static void uart_gateway_rx_task(void *pvParameter) {
   }
 }
 
-/** Gửi: mesh root lấy `gateway_rx_queue` → UART; heartbeat `No node` khi queue
- * rỗng. */
-static bool uart_gateway_send_mesh_msg(const mesh_gateway_rx_msg_t *msg) {
+/** Forward complete TCP telemetry frames to UART. */
+static bool uart_gateway_send_mesh_msg(const mesh_gateway_frame_t *msg) {
   if (msg == NULL || msg->len == 0 || msg->len > sizeof(msg->data)) {
     return false;
   }
@@ -295,7 +252,7 @@ void UartToGateWay_Resume(void) {
   s_uart_gateway_paused = false;
 }
 
-static void uart_gateway_log_tx_stats(QueueHandle_t queue) {
+static void uart_gateway_log_tx_stats(void) {
   TickType_t now = xTaskGetTickCount();
   if ((now - s_uart_gateway_last_stats_tick) <
       pdMS_TO_TICKS(UART_GATEWAY_TX_STATS_MS)) {
@@ -304,10 +261,7 @@ static void uart_gateway_log_tx_stats(QueueHandle_t queue) {
 
   UBaseType_t queue_used = 0;
   UBaseType_t queue_total = 0;
-  if (queue != NULL) {
-    queue_used = uxQueueMessagesWaiting(queue);
-    queue_total = queue_used + uxQueueSpacesAvailable(queue);
-  }
+  MeshManager_GetGatewayQueueUsage(&queue_used, &queue_total);
 
   ESP_LOGI(TAG_UART_GATEWAY,
            "UART gateway TX: frames=%" PRIu32 ", bytes=%" PRIu32
@@ -328,22 +282,20 @@ static void uart_gateway_tx_task(void *pvParameter) {
       continue;
     }
 
-    if (s_data == NULL || s_data->meshIo.role != MESH_ROLE_ROOT ||
-        s_data->meshIo.gateway_rx_queue == NULL) {
+    if (s_data == NULL || MeshManager_GetRole() != MESH_ROLE_ROOT) {
       vTaskDelay(pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS));
       continue;
     }
-    mesh_gateway_rx_msg_t msg;
-    QueueHandle_t queue = s_data->meshIo.gateway_rx_queue;
-    if (xQueueReceive(queue, &msg,
-                      pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS)) != pdTRUE) {
+    mesh_gateway_frame_t msg;
+    if (!MeshManager_ReceiveGatewayFrame(
+            &msg, pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS))) {
       TickType_t now = xTaskGetTickCount();
       if ((now - s_mesh_gateway_no_node_tick) >=
           pdMS_TO_TICKS(MESH_ROOT_UART_NO_NODE_MS)) {
         (void)UartToGateWay_Send("No node\n", 8);
         s_mesh_gateway_no_node_tick = now;
       }
-      uart_gateway_log_tx_stats(queue);
+      uart_gateway_log_tx_stats();
       continue;
     }
 
@@ -352,18 +304,16 @@ static void uart_gateway_tx_task(void *pvParameter) {
 
     for (int drained = 1; drained < UART_GATEWAY_TX_DRAIN_BATCH; drained++) {
       if (!uart_gateway_mesh_mode_active() || s_data == NULL ||
-          s_data->meshIo.role != MESH_ROLE_ROOT ||
-          s_data->meshIo.gateway_rx_queue == NULL) {
+          MeshManager_GetRole() != MESH_ROLE_ROOT) {
         break;
       }
-      queue = s_data->meshIo.gateway_rx_queue;
-      if (xQueueReceive(queue, &msg, 0) != pdTRUE) {
+      if (!MeshManager_ReceiveGatewayFrame(&msg, 0)) {
         break;
       }
       (void)uart_gateway_send_mesh_msg(&msg);
       s_mesh_gateway_no_node_tick = xTaskGetTickCount();
     }
-    uart_gateway_log_tx_stats(queue);
+    uart_gateway_log_tx_stats();
   }
 }
 

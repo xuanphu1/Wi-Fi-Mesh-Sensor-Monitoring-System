@@ -1,2 +1,0 @@
-ninja: error: remove(esp-idf\mbedtls\mbedtls\library\CMakeFiles\mbedcrypto.dir\ecdh.c.obj.d): The process cannot access the file because it is being used by another process.
-

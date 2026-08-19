@@ -1,4 +1,4 @@
-/* * Data converted from D:/Engineering Project/MeshGateWay/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

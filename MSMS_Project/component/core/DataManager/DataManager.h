@@ -180,41 +180,19 @@ typedef enum {
   MESH_ROLE_NODE,
 } mesh_role_t;
 
-/** KÃ­ch thÆ°á»›c payload UDP tá»« node (JSON telemetry, tá»‘i Ä‘a). */
-#define MESH_ROOT_UDP_FRAME_SIZE 256
-/** Má»™t queue chung root â†’ gateway (Ä‘á»™ sÃ¢u FreeRTOS). */
-#define MESH_GATEWAY_RX_QUEUE_DEPTH 64
-/** Gá»­i heartbeat "No node" khi queue rá»—ng (root, ms). */
+/** Kích thước tối đa của một frame JSON telemetry. */
+#define MESH_TELEMETRY_FRAME_SIZE 512
+/** Độ sâu queue telemetry nội bộ từ mesh root tới UART gateway. */
+#define MESH_GATEWAY_QUEUE_DEPTH 32
+/** Chu kỳ heartbeat "No node" khi queue rỗng (root, ms). */
 #define MESH_ROOT_UART_NO_NODE_MS 1000
-/** Schema JSON trong payload UDP telemetry (MeshManager). v4: thÃªm "ver" +
- * "err" (máº£ng lá»—i). */
-#define MESH_UDP_JSON_SCHEMA 1
+/** Phiên bản schema JSON telemetry do MeshManager tạo. */
+#define MESH_TELEMETRY_JSON_SCHEMA 1
 
-/** Má»™t gÃ³i Ä‘Ã£ nháº­n trÃªn root (Ä‘Æ°a vÃ o gateway_rx_queue). */
+/** Trạng thái mesh tối thiểu được chia sẻ với các component khác. */
 typedef struct {
-  uint32_t src_ip; /**< sin_addr.s_addr (network byte order). */
-  uint16_t len;
-  uint8_t data[MESH_ROOT_UDP_FRAME_SIZE];
-} mesh_gateway_rx_msg_t;
-
-/**
- * Tráº¡ng thÃ¡i mesh I/O dÃ¹ng chung: link, vai trÃ², queue gateway, socket UDP
- * (má»Ÿ bá»Ÿi mesh_link). udp_tx_* / udp_tx_sock: node gá»­i telemetry.
- * udp_rx_sock: root nháº­n UDP.
- */
-typedef struct {
-  QueueHandle_t gateway_rx_queue;
-  SemaphoreHandle_t sock_mutex;
   volatile bool link_up;
-  mesh_role_t role;
-  int udp_tx_sock;
-  int udp_rx_sock;
-  /** ÄÃ­ch gá»­i node â†’ root (network byte order, giá»‘ng
-   * sin_addr.s_addr).
-   */
-  uint32_t udp_tx_ip_be;
-  /** Cá»•ng Ä‘Ã­ch host order (sáº½ htons trong mesh_data). */
-  uint16_t udp_tx_port_host;
+  volatile mesh_role_t role;
 } mesh_io_context_t;
 
 typedef struct {

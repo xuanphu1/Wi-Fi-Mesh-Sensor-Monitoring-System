@@ -67,8 +67,6 @@ static system_err_t InternetManager_CleanCore(DataManager_t *data,
   ESP_LOGI(TAG, "Cleaning network stack, destroy_default_netifs=%d",
            destroy_default_netifs);
 
-  InternetManager_StopTask(data, TASK_MESH_LINK);
-  InternetManager_StopTask(data, TASK_MESH_DATA);
   InternetManager_StopTask(data, TASK_WIFI_CONFIG);
   InternetManager_StopTask(data, TASK_WIFI_MESH_JOIN);
 

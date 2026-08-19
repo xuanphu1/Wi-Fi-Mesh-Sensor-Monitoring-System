@@ -878,11 +878,7 @@ system_err_t ScreenMeshRoot(DataManager_t *data) {
   const uint8_t node_count = MeshManager_GetConnectedNodeCount();
   UBaseType_t queue_used = 0;
   UBaseType_t queue_total = 0;
-  if (data->meshIo.gateway_rx_queue != NULL) {
-    queue_used = uxQueueMessagesWaiting(data->meshIo.gateway_rx_queue);
-    queue_total =
-        queue_used + uxQueueSpacesAvailable(data->meshIo.gateway_rx_queue);
-  }
+  MeshManager_GetGatewayQueueUsage(&queue_used, &queue_total);
 
   char node_line[24];
   char queue_line[32];
@@ -893,7 +889,7 @@ system_err_t ScreenMeshRoot(DataManager_t *data) {
   snprintf(queue_line, sizeof(queue_line), "Queue: %u/%u", (unsigned)queue_used,
            (unsigned)queue_total);
   snprintf(stats_line, sizeof(stats_line), "RX:%u Q:%u D:%u",
-           (unsigned)gateway_stats.udp_rx_frames,
+           (unsigned)gateway_stats.rx_frames,
            (unsigned)gateway_stats.queued_frames,
            (unsigned)gateway_stats.dropped_frames);
 

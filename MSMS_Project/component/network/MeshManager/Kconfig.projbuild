@@ -1,16 +1,36 @@
-menu "Wifi Mesh config"
+menu "WiFi Mesh TCP config"
 
-    config IP_ROOT
-        string "IP Root"
+    config MESH_ROOT_FALLBACK_IP
+        string "Fallback root IP"
         default "192.168.5.1"
         help
-            IP root to connect to.
+            Used when Mesh-Lite cannot report the root IP and the STA gateway
+            is not available.
 
-    config UDP_PORT
-        int "UDP Port"
-        default 12345
+    config MESH_TCP_PORT
+        int "Root TCP server port"
+        range 1 65535
+        default 8070
         help
-            WiFi password (WPA or WPA2) for the example to use.
+            Port used for newline-delimited JSON telemetry.
+
+    config MESH_TCP_MAX_CLIENTS
+        int "Maximum simultaneous TCP nodes"
+        range 1 8
+        default 5
+        help
+            The root also consumes one listening socket. Increase
+            CONFIG_LWIP_MAX_SOCKETS before raising this value.
+
+    config MESH_TCP_SEND_INTERVAL_MS
+        int "Telemetry interval (ms)"
+        range 100 600000
+        default 1000
+
+    config MESH_TCP_CONNECT_TIMEOUT_MS
+        int "TCP connect/send timeout (ms)"
+        range 500 30000
+        default 5000
 
 
 endmenu
