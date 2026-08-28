@@ -5,6 +5,8 @@
 #include "UartToNode.h"
 
 #include "Datamanager.h"
+#include "FOTAManager.h"
+#include "LinkListData.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -330,6 +332,7 @@ static void uart_to_node_feed_rx(uart_to_node_ctx_t *ctx, const uint8_t *data,
   uart_to_node_log_rx_chunk(data, len);
 
   if (!uart_rx_is_no_node_only_life(data, len)) {
+    link_list_data_ingest_uart_chunk(data, len);
     if (s_telemetry) {
       s_telemetry->rx_packet_count++;
       s_telemetry->rx_byte_count += len;
@@ -403,6 +406,11 @@ static void uart_to_node_task(void *arg) {
   uart_port_t u = cfg_uart_num();
 
   while (1) {
+    if (fota_is_running()) {
+      vTaskDelay(pdMS_TO_TICKS(500));
+      continue;
+    }
+
     uart_event_t event;
     const TickType_t queue_wait = pdMS_TO_TICKS(40);
 

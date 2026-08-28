@@ -444,7 +444,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/FOTAManager/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/SystemMonitor/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/LinkListData/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -459,12 +469,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/ui/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/lvgl_esp32_drivers/cmake_install.cmake")
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/webSocket/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -479,17 +484,32 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/WebSocKetHandle/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/ui/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/lvgl_esp32_drivers/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/MemoryManager/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/webSocket/cmake_install.cmake")
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/soft_spi/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/WebSocKetHandle/cmake_install.cmake")
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/xpt2046_soft/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -554,17 +574,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/SNTP_Sync/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/main/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
   include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/ESP_Bus/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/FOTAManager/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

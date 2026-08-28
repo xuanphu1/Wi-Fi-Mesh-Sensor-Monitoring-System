@@ -1498,6 +1498,7 @@
     "WL_SECTOR_SIZE_512": false,
     "WS_BUFFER_SIZE": 1024,
     "WS_DYNAMIC_BUFFER": false,
+    "WS_LOCAL_URL": "ws://systemmsems.local:9090/ws",
     "WS_SERVER_URL": "wss://systemmsems.msems.click/ws",
     "WS_TARGET_LOCAL": false,
     "WS_TARGET_SERVER": true,

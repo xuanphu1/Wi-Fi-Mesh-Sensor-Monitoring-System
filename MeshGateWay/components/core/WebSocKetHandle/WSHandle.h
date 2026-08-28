@@ -18,6 +18,7 @@ typedef struct
     dm_telemetry_t *telemetry;
     dm_uart_t *uart;
     dm_metrics_t *metrics;
+    dm_hw_t *hw;
 } ws_handler_ctx_t;
 
 /** Gắn state WS để cập nhật URL cache + trạng thái kết nối. */
@@ -31,5 +32,15 @@ void WebSocket_Handler(void *pvParameter);
 esp_err_t save_ws_url(const char *url);
 const char *get_ws_url(void);
 bool websocket_is_connected(void);
+uint32_t websocket_get_reconnect_count(void);
+
+typedef enum {
+    WEBSOCKET_TARGET_CUSTOM = 0,
+    WEBSOCKET_TARGET_LOCAL,
+    WEBSOCKET_TARGET_SERVER,
+} websocket_target_t;
+
+esp_err_t websocket_select_target(websocket_target_t target);
+websocket_target_t websocket_get_selected_target(void);
 
 #endif /* WS_HANDLE_H */

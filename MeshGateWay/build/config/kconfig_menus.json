@@ -5070,7 +5070,7 @@
             },
             {
                 "children": [],
-                "depends_on": "WS_TARGET_LOCAL",
+                "depends_on": null,
                 "help": "Local WebSocket server advertised through mDNS as systemmsems.local.",
                 "id": "WS_LOCAL_URL",
                 "name": "WS_LOCAL_URL",
@@ -5080,7 +5080,7 @@
             },
             {
                 "children": [],
-                "depends_on": "WS_TARGET_SERVER",
+                "depends_on": null,
                 "help": "Public WebSocket server URI.",
                 "id": "WS_SERVER_URL",
                 "name": "WS_SERVER_URL",

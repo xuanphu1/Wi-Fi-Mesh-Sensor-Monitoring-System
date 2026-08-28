@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "PowerManager.h"
+#include "FOTAManager.h"
 #include "SD_Card.h"
 #include "SystemMonitor.h"
 #include "esp_err.h"
@@ -110,6 +111,11 @@ static void system_monitor_task(void *arg) {
 #endif
 
   while (1) {
+    if (fota_is_running()) {
+      vTaskDelay(pdMS_TO_TICKS(1000));
+      continue;
+    }
+
     ui_metrics_t m = {0};
     uint32_t bat_raw_avg = 0;
     uint32_t bat_adc_mv = 0;

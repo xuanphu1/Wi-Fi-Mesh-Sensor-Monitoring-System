@@ -410,6 +410,7 @@ CONFIG_UART_TO_NODE_TASK_PRIO=5
 #
 # CONFIG_WS_TARGET_LOCAL is not set
 CONFIG_WS_TARGET_SERVER=y
+CONFIG_WS_LOCAL_URL="ws://systemmsems.local:9090/ws"
 CONFIG_WS_SERVER_URL="wss://systemmsems.msems.click/ws"
 # end of WebSocKetHandle (WebSocket client)
 

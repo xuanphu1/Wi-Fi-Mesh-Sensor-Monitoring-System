@@ -173,3 +173,6 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 phu@phu:~/Documents $
+
+
+openwiki code --init "Create a comprehensive, production-grade technical wiki and architectural reference for this codebase in Vietnamese. Requirements: 1. High-Level Architecture: System design principles, component boundaries, and design patterns. 2. Exhaustive Per-File Walkthrough: For EVERY source and header file, provide its exact path, core responsibility, internal structure (functions, classes, structs, macros, event handlers), I/O specifications, and inbound/outbound dependencies. 3. Execution Lifecycle: Step-by-step trace from system boot/entry point, task scheduling, event dispatching, to error-handling. 4. Data Contracts & APIs: Packet structures, payload schemas, communication protocols, and API references. 5. Visual Diagrams (Mermaid format): Generate Architecture Graphs (graph TD), Dependency Maps, Execution Sequence Diagrams (sequenceDiagram), State Machines (stateDiagram-v2), and Data Flow models. 6. Build & Deployment: Prerequisites, compilation/flashing commands, environment variables, and configurations. 7. Debugging & Edge Cases: Failure modes, recovery logic, and troubleshooting guide."

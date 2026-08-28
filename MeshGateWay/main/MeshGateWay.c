@@ -7,15 +7,16 @@
 #include "WSHandle.h"
 #include "WifiManager.h"
 #include "driver/gpio.h"
+#include "ds3231.h"
 #include "esp_err.h"
 #include "esp_insights.h"
 #include "esp_log.h"
-#include "esp_sntp.h"
 #include "esp_spiffs.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
+#include "sntp_sync.h"
 #include <stdio.h>
 
 #define ESP_INSIGHTS_AUTH_KEY                                                  \
@@ -76,24 +77,36 @@ static esp_err_t app_mount_spiffs(void) {
   return ESP_OK;
 }
 
-static void initialize_sntp(void) {
-  ESP_LOGI(TAG, "Initializing SNTP");
-
-  // Set Timezone to Vietnam (UTC+7)
-  setenv("TZ", "ICT-7", 1);
-  tzset();
-
-  esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
-  esp_sntp_setservername(0, "pool.ntp.org");
-  esp_sntp_init();
-
-  // Chờ cho đến khi lấy được giờ thực tế
-  ESP_LOGI(TAG, "Waiting for system time to be set...");
-  int retry = 0;
-  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET && ++retry < 15) {
-    vTaskDelay(pdMS_TO_TICKS(2000));
-    ESP_LOGI(TAG, "Waiting... %d/15", retry);
+static void sync_sntp_before_socket(void) {
+  if (!is_wifi_connected()) {
+    ESP_LOGW(TAG, "Skip SNTP sync because WiFi STA is not connected");
+    return;
   }
+
+  struct tm time_info = {0};
+  time_t time_now = 0;
+
+  sntp_init_func();
+  esp_err_t err = sntp_setTime(&time_info, &time_now);
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "SNTP sync failed: %s", esp_err_to_name(err));
+    return;
+  }
+
+  ESP_LOGI(TAG, "SNTP sync completed before WebSocket task start");
+
+  if (!g_hw.rtc_ready) {
+    ESP_LOGW(TAG, "Skip DS3231 update because RTC is not ready");
+    return;
+  }
+
+  err = ds3231_set_time(&g_hw.rtc_dev, &time_info);
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "DS3231 update from SNTP failed: %s", esp_err_to_name(err));
+    return;
+  }
+
+  ESP_LOGI(TAG, "DS3231 updated from SNTP time");
 }
 
 static void initialize_insights(void) {
@@ -143,8 +156,7 @@ void app_main(void) {
   g_metrics.mutex = xSemaphoreCreateMutex();
   g_lvgl.loop_counter = 0;
   g_lvgl.prev_loop_counter = 0;
-
-  // Tạm dừng màn hình để test WSS
+  
   screen_manager_start(&g_metrics, &g_lvgl, &g_telemetry, &g_hw, 4, 1);
 
   esp_err_t sd_ret = initSDCard();
@@ -159,20 +171,20 @@ void app_main(void) {
   system_monitor_start(&g_hw, &g_cpu, &g_lvgl, &g_metrics, &g_telemetry, 5, 0);
 
   wifi_init_sta();
+  sync_sntp_before_socket();
 
   const uint32_t ws_stack = 4096;
   g_ws_ctx.ws = &g_ws;
   g_ws_ctx.telemetry = &g_telemetry;
   g_ws_ctx.uart = &g_uart;
   g_ws_ctx.metrics = &g_metrics;
+  g_ws_ctx.hw = &g_hw;
   xTaskCreate(WebSocket_Handler, "ws_hdl", ws_stack, &g_ws_ctx, 5, NULL);
 
   uart_to_node_attach_uplink_queue(g_uart.uplink_queue);
   uart_to_node_attach_ws_state(&g_ws);
   uart_to_node_attach_telemetry(&g_telemetry);
   uart_to_node_start();
-
-  // initialize_sntp();
 
   // Tách rời thời điểm bắt tay mạng để tránh nghẽn mbedTLS và băng thông
   vTaskDelay(pdMS_TO_TICKS(10000));

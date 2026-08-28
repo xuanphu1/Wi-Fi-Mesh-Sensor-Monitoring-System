@@ -136,7 +136,7 @@ esp_err_t ds3231_init_default(i2c_dev_t *dev)
     }
 
     printf("[RTC ] init OK: %04d-%02d-%02d %02d:%02d:%02d\n",
-           t.tm_year, t.tm_mon + 1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec);
+           t.tm_year + 1900, t.tm_mon + 1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec);
     return ESP_OK;
 }
 
@@ -156,7 +156,7 @@ esp_err_t ds3231_set_time(i2c_dev_t *dev, struct tm *time)
     data[3] = dec2bcd(time->tm_wday + 1);
     data[4] = dec2bcd(time->tm_mday);
     data[5] = dec2bcd(time->tm_mon + 1);
-    data[6] = dec2bcd(time->tm_year - 2000);
+    data[6] = dec2bcd(time->tm_year - 100);
 
     I2C_DEV_TAKE_MUTEX(dev);
     I2C_DEV_CHECK(dev, i2c_dev_write_reg(dev, DS3231_ADDR_TIME, data, 7));
@@ -450,7 +450,7 @@ esp_err_t ds3231_get_time(i2c_dev_t *dev, struct tm *time)
     time->tm_wday = bcd2dec(data[3]) - 1;
     time->tm_mday = bcd2dec(data[4]);
     time->tm_mon = bcd2dec(data[5] & DS3231_MONTH_MASK) - 1;
-    time->tm_year = bcd2dec(data[6]) + 2000;
+    time->tm_year = bcd2dec(data[6]) + 100;
     time->tm_isdst = 0;
 
     // apply a time zone (if you are not using localtime on the rtc or you want to check/apply DST)
@@ -463,7 +463,7 @@ void ds3231_get_time_str(struct tm *time, char *buf, size_t buf_size)
 {
 
     snprintf(buf, buf_size, "%04d-%02d-%02dT%02d:%02d:%02d",
-             time->tm_year + 12, time->tm_mon + 1, time->tm_mday,
+             time->tm_year + 1900, time->tm_mon + 1, time->tm_mday,
              time->tm_hour, time->tm_min, time->tm_sec);
 }
 
@@ -472,19 +472,19 @@ const char *getWeekDay(uint8_t weekDay)
     switch (weekDay)
     {
     case 0:
-        return "Mon";
-    case 1:
-        return "Tue";
-    case 2:
-        return "Wed";
-    case 3:
-        return "Thu";
-    case 4:
-        return "Fri";
-    case 5:
-        return "Sat";
-    case 6:
         return "Sun";
+    case 1:
+        return "Mon";
+    case 2:
+        return "Tue";
+    case 3:
+        return "Wed";
+    case 4:
+        return "Thu";
+    case 5:
+        return "Fri";
+    case 6:
+        return "Sat";
     default:
         return "Unknown";
     }

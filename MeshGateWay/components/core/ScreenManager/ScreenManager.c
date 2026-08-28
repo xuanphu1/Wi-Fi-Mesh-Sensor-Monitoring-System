@@ -1,6 +1,8 @@
 #include "ScreenManager.h"
 
 #include "MemoryManager.h"
+#include "LinkListData.h"
+#include "FOTAManager.h"
 #include "PowerManager.h"
 #include "UartToNode.h"
 #include "WSHandle.h"
@@ -10,6 +12,7 @@
 #include "lvgl.h"
 #include "lvgl_helpers.h"
 #include "ui.h"
+#include "xpt2046_soft.h"
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -64,6 +67,80 @@ static void set_obj_hidden_if_changed(lv_obj_t *obj, bool hidden) {
   }
 }
 
+static void render_empty_node_info(void) {
+  if (ui_SelectNode) {
+    lv_dropdown_set_options(ui_SelectNode, "NONE");
+  }
+  set_label_text_if_changed(ui_LableValueSensor, "0");
+  set_label_text_if_changed(ui_LabelPort1, "P1 :");
+  set_label_text_if_changed(ui_LabelPort2, "P2 :");
+  set_label_text_if_changed(ui_LabelPort3, "P3 :");
+  set_label_text_if_changed(ui_ValuePort1, "NONE");
+  set_label_text_if_changed(ui_ValuePort2, "NONE");
+  set_label_text_if_changed(ui_VaulePort3, "NONE");
+}
+
+static void render_selected_node_info(void) {
+  link_list_node_snapshot_t node = {0};
+  if (!link_list_data_get_selected_node(&node)) {
+    render_empty_node_info();
+    return;
+  }
+
+  set_label_fmt_if_changed(ui_LableValueSensor, "%u", node.sensor_count);
+
+  lv_obj_t *port_labels[LINK_LIST_NODE_PORT_MAX] = {
+      ui_LabelPort1, ui_LabelPort2, ui_LabelPort3};
+  lv_obj_t *value_labels[LINK_LIST_NODE_PORT_MAX] = {
+      ui_ValuePort1, ui_ValuePort2, ui_VaulePort3};
+
+  for (uint8_t i = 0; i < LINK_LIST_NODE_PORT_MAX; i++) {
+    if (i < node.sensor_count && node.ports[i].name[0] != '\0') {
+      set_label_fmt_if_changed(port_labels[i], "P%d :", node.ports[i].port);
+      set_label_text_if_changed(value_labels[i], node.ports[i].name);
+    } else {
+      set_label_fmt_if_changed(port_labels[i], "P%u :", (unsigned)(i + 1U));
+      set_label_text_if_changed(value_labels[i], "NONE");
+    }
+  }
+}
+
+static void update_des_dropdown_if_needed(void) {
+  if (ui_SelectDesData == NULL) {
+    return;
+  }
+
+  websocket_target_t target = websocket_get_selected_target();
+  uint16_t expected_index = (target == WEBSOCKET_TARGET_SERVER) ? 1 : 0;
+
+  static uint16_t last_synced_index = 0xFFFF;
+  if (last_synced_index != expected_index) {
+    last_synced_index = expected_index;
+    if (lv_dropdown_get_selected(ui_SelectDesData) != expected_index) {
+      lv_dropdown_set_selected(ui_SelectDesData, expected_index);
+    }
+  }
+}
+
+static void update_node_dropdown_if_needed(uint32_t *last_version) {
+  if (last_version == NULL || ui_SelectNode == NULL) {
+    return;
+  }
+
+  uint32_t version = link_list_data_get_version();
+  if (*last_version == version) {
+    return;
+  }
+  *last_version = version;
+
+  char options[LINK_LIST_NODE_MAX * LINK_LIST_NODE_ID_MAX];
+  if (link_list_data_build_dropdown_options(options, sizeof(options))) {
+    lv_dropdown_set_options(ui_SelectNode, options);
+  } else {
+    lv_dropdown_set_options(ui_SelectNode, "NONE");
+  }
+}
+
 static void lv_tick_task(void *arg) {
   (void)arg;
   lv_tick_inc(1);
@@ -76,8 +153,14 @@ static void lvgl_task(void *arg) {
   static const char *month_names[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
                                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
   TickType_t last_ui_update = 0;
+  uint32_t last_node_dropdown_version = UINT32_MAX;
 
   while (1) {
+    if (fota_is_running()) {
+      vTaskDelay(pdMS_TO_TICKS(250));
+      continue;
+    }
+
     if (ctx && ctx->metrics && ctx->metrics->mutex &&
         xSemaphoreTake(ctx->metrics->mutex, pdMS_TO_TICKS(5)) == pdTRUE) {
       m = ctx->metrics->value;
@@ -103,7 +186,7 @@ static void lvgl_task(void *arg) {
           set_label_text_if_changed(ui_LabelMonth,
                                     month_names[m.rtc_time.tm_mon]);
         }
-        set_label_fmt_if_changed(ui_Labelyear, "%04d", m.rtc_time.tm_year);
+        set_label_fmt_if_changed(ui_Labelyear, "%04d", m.rtc_time.tm_year + 1900);
       }
 
       // Uptime in Days (fractional)
@@ -169,6 +252,12 @@ static void lvgl_task(void *arg) {
                                   websocket_is_connected() ? "Connected"
                                                            : "Disconnected");
       }
+      set_label_fmt_if_changed(ui_ValueReconnect, "%lu",
+                               (unsigned long)websocket_get_reconnect_count());
+
+      update_node_dropdown_if_needed(&last_node_dropdown_version);
+      update_des_dropdown_if_needed();
+      render_selected_node_info();
     }
 
     uint32_t wait_ms = lv_timer_handler();
@@ -190,17 +279,6 @@ static void lvgl_task(void *arg) {
                                  (unsigned long)current_rx);
         set_label_fmt_if_changed(ui_LabelRXRate, "%lu", (unsigned long)rx_rate);
         set_label_fmt_if_changed(ui_LabelTXRate, "%lu", (unsigned long)tx_rate);
-
-        if (ui_ChartRXTX) {
-          lv_chart_series_t *series1 =
-              lv_chart_get_series_next(ui_ChartRXTX, NULL);
-          lv_chart_series_t *series2 =
-              lv_chart_get_series_next(ui_ChartRXTX, series1);
-          if (series1)
-            lv_chart_set_next_value(ui_ChartRXTX, series1, rx_rate);
-          if (series2)
-            lv_chart_set_next_value(ui_ChartRXTX, series2, tx_rate);
-        }
 
         // IP & MAC Update using WifiManager APIs
         if (ui_ipDevice) {
@@ -255,6 +333,9 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   disp_drv.hor_res = LV_HOR_RES_MAX;
   disp_drv.ver_res = LV_VER_RES_MAX;
   lv_disp_drv_register(&disp_drv);
+
+  ESP_ERROR_CHECK(xpt2046_soft_register_lvgl_indev());
+  link_list_data_init();
 
   const esp_timer_create_args_t periodic_timer_args = {
       .callback = &lv_tick_task, .name = "lv_tick"};

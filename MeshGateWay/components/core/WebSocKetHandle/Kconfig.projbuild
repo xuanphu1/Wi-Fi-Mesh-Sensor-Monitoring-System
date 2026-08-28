@@ -16,14 +16,12 @@ menu "WebSocKetHandle (WebSocket client)"
     config WS_LOCAL_URL
         string "Local WebSocket URI"
         default "ws://systemmsems.local:9090/ws"
-        depends on WS_TARGET_LOCAL
         help
             Local WebSocket server advertised through mDNS as systemmsems.local.
 
     config WS_SERVER_URL
         string "Internet WebSocket URI"
         default "wss://systemmsems.msems.click/ws"
-        depends on WS_TARGET_SERVER
         help
             Public WebSocket server URI.
 

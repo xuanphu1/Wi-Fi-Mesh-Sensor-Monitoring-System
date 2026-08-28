@@ -4,6 +4,7 @@
 
 #include "WSHandle.h"
 
+#include "FOTAManager.h"
 #include "WifiManager.h"
 #include "esp_crt_bundle.h"
 #include "esp_log.h"
@@ -13,15 +14,21 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
+#include "sdkconfig.h"
+#include <sys/time.h>
+#include <time.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "nvs_flash.h"
+#include "nvs.h"
 
 #include "cJSON.h"
 
 static esp_websocket_client_handle_t client = NULL;
 
+static ws_handler_ctx_t *s_ws_ctx = NULL;
 static dm_ws_t *s_ws_state = NULL;
 static dm_telemetry_t *s_ws_telemetry = NULL;
 static char ws_last_type[32] = {0};
@@ -29,12 +36,97 @@ static char ws_last_version[32] = {0};
 static char ws_url[128] = {0};
 static char ws_resolved_url[128] = {0};
 static volatile bool s_ws_restart_requested = false;
+static websocket_target_t s_ws_selected_target = WEBSOCKET_TARGET_CUSTOM;
+static volatile uint32_t s_ws_reconnect_count = 0;
+static volatile bool s_ws_connected_once = false;
+static volatile bool s_ws_reconnect_pending = false;
 
 #define TAG_WEBSOCKET "WebSocket Handler"
 #define GATEWAY_STATUS_INTERVAL_MS 5000
 #define WS_RECONNECT_TIMEOUT_MS 15000
 #define WS_NETWORK_TIMEOUT_MS 15000
 #define WS_MDNS_QUERY_TIMEOUT_MS 3000
+#define WS_OTA_PROGRESS_INTERVAL_MS 1000
+
+static bool ws_client_can_send(void) {
+  return client != NULL && esp_websocket_client_is_connected(client) &&
+         is_wifi_connected();
+}
+
+static void ws_count_tx(int bytes) {
+  if (bytes >= 0 && s_ws_telemetry) {
+    s_ws_telemetry->tx_packet_count++;
+    s_ws_telemetry->tx_byte_count += (uint32_t)bytes;
+  }
+}
+
+static void ws_send_ota_gateway_progress(void) {
+  if (!ws_client_can_send()) {
+    return;
+  }
+
+  cJSON *root = cJSON_CreateObject();
+  if (root == NULL) {
+    return;
+  }
+
+  uint8_t percent = fota_get_progress_percent();
+  bool running = fota_is_running();
+  esp_err_t result = fota_get_last_result();
+
+  cJSON_AddStringToObject(root, "type", "ota_gateway_progress");
+  cJSON_AddStringToObject(root, "clientType", "esp32");
+  cJSON_AddNumberToObject(root, "percent", (double)percent);
+  cJSON_AddBoolToObject(root, "running", running ? 1 : 0);
+  cJSON_AddNumberToObject(root, "result", (double)result);
+  cJSON_AddStringToObject(root, "result_name", esp_err_to_name(result));
+
+  char *json_str = cJSON_PrintUnformatted(root);
+  cJSON_Delete(root);
+  if (json_str != NULL) {
+    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
+                                             pdMS_TO_TICKS(2000));
+    ws_count_tx(ret);
+    free(json_str);
+  }
+}
+
+static bool ws_json_type_matches(const cJSON *type) {
+  if (!cJSON_IsString(type) || type->valuestring == NULL) {
+    return false;
+  }
+  return strcmp(type->valuestring, "ota") == 0 ||
+         strcmp(type->valuestring, "ota_gateway") == 0 ||
+         strcmp(type->valuestring, "gateway_ota") == 0;
+}
+
+static const char *ws_json_get_ota_url(cJSON *root) {
+  static const char *keys[] = {"url", "ota_url", "firmware_url", "line"};
+  for (size_t i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
+    cJSON *item = cJSON_GetObjectItem(root, keys[i]);
+    if (cJSON_IsString(item) && item->valuestring && item->valuestring[0]) {
+      return item->valuestring;
+    }
+  }
+  return NULL;
+}
+
+static void ws_handle_ota_command(cJSON *root) {
+  const char *url = ws_json_get_ota_url(root);
+  if (url == NULL) {
+    ESP_LOGW(TAG_WEBSOCKET, "OTA command ignored: missing URL");
+    return;
+  }
+
+  esp_err_t ret = fota_start_gateway_ota(url);
+  if (ret == ESP_OK) {
+    ESP_LOGW(TAG_WEBSOCKET, "Gateway OTA started: %s", url);
+  } else {
+    ESP_LOGE(TAG_WEBSOCKET, "Gateway OTA start failed: %s",
+             esp_err_to_name(ret));
+  }
+  ws_send_ota_gateway_progress();
+}
 
 static const char *resolve_local_ws_url(const char *url) {
   static const char ws_prefix[] = "ws://";
@@ -243,6 +335,7 @@ esp_err_t save_ws_url(const char *url) {
 
   strncpy(ws_url, url, sizeof(ws_url) - 1);
   ws_url[sizeof(ws_url) - 1] = '\0';
+  s_ws_selected_target = WEBSOCKET_TARGET_CUSTOM;
   ESP_LOGI(TAG_WEBSOCKET, "WebSocket URL (RAM): %s", ws_url);
 
   s_ws_restart_requested = true;
@@ -255,7 +348,87 @@ esp_err_t save_ws_url(const char *url) {
   return ESP_OK;
 }
 
+static void load_ws_target_from_nvs(void) {
+  static bool s_loaded = false;
+  if (s_loaded) {
+    return;
+  }
+  s_loaded = true;
+
+  nvs_handle_t nvs;
+  if (nvs_open("ws_cfg", NVS_READONLY, &nvs) == ESP_OK) {
+    uint8_t target = 0;
+    if (nvs_get_u8(nvs, "target", &target) == ESP_OK) {
+      if (target == WEBSOCKET_TARGET_LOCAL || target == WEBSOCKET_TARGET_SERVER ||
+          target == WEBSOCKET_TARGET_CUSTOM) {
+        s_ws_selected_target = (websocket_target_t)target;
+        ESP_LOGI(TAG_WEBSOCKET, "Loaded WebSocket target from NVS: %s",
+                 target == WEBSOCKET_TARGET_LOCAL
+                     ? "local"
+                     : (target == WEBSOCKET_TARGET_SERVER ? "server" : "custom"));
+      }
+    }
+    nvs_close(nvs);
+  }
+}
+
+static void save_ws_target_to_nvs(websocket_target_t target) {
+  nvs_handle_t nvs;
+  if (nvs_open("ws_cfg", NVS_READWRITE, &nvs) == ESP_OK) {
+    nvs_set_u8(nvs, "target", (uint8_t)target);
+    nvs_commit(nvs);
+    nvs_close(nvs);
+  }
+}
+
+esp_err_t websocket_select_target(websocket_target_t target) {
+  if (target != WEBSOCKET_TARGET_CUSTOM && target != WEBSOCKET_TARGET_LOCAL &&
+      target != WEBSOCKET_TARGET_SERVER) {
+    return ESP_ERR_INVALID_ARG;
+  }
+
+  s_ws_selected_target = target;
+  s_ws_restart_requested = true;
+
+  save_ws_target_to_nvs(target);
+
+  ESP_LOGI(TAG_WEBSOCKET, "WebSocket target selected and saved to NVS: %s",
+           target == WEBSOCKET_TARGET_LOCAL
+               ? "local"
+               : (target == WEBSOCKET_TARGET_SERVER ? "server" : "custom"));
+
+  if (s_ws_state) {
+    const char *url = get_ws_url();
+    strncpy(s_ws_state->url_cached, url, sizeof(s_ws_state->url_cached) - 1);
+    s_ws_state->url_cached[sizeof(s_ws_state->url_cached) - 1] = '\0';
+  }
+
+  return ESP_OK;
+}
+
+websocket_target_t websocket_get_selected_target(void) {
+  load_ws_target_from_nvs();
+  return s_ws_selected_target;
+}
+
 const char *get_ws_url(void) {
+  load_ws_target_from_nvs();
+  if (s_ws_selected_target == WEBSOCKET_TARGET_LOCAL) {
+#if defined(CONFIG_WS_LOCAL_URL)
+    return CONFIG_WS_LOCAL_URL;
+#else
+    return "ws://systemmsems.local:9090/ws";
+#endif
+  }
+
+  if (s_ws_selected_target == WEBSOCKET_TARGET_SERVER) {
+#if defined(CONFIG_WS_SERVER_URL)
+    return CONFIG_WS_SERVER_URL;
+#else
+    return "wss://systemmsems.msems.click/ws";
+#endif
+  }
+
   if (ws_url[0] != '\0') {
     return ws_url;
   }
@@ -272,20 +445,84 @@ const char *get_ws_url(void) {
 }
 
 /*
- * Hàm SendSignalRegister: Gửi bản tin đăng ký (Register) lên Server
- *
- * Cấu trúc bản tin JSON gửi đi:
- * {
- *   "type": "register",
- *   "clientType": "esp32"
- * }
- *
- * Ý nghĩa:
- * - Thông báo cho WebSocket Server biết có một thiết bị ESP32 (Gateway) vừa mới
- * kết nối thành công.
- * - Giúp Server phân loại kết nối (clientType là "esp32" thay vì là Web
- * Client/App) để phân luồng bản tin.
+ * Hàm ws_handle_sync_time: Xử lý bản tin đồng bộ thời gian từ Server
  */
+static void ws_handle_sync_time(cJSON *root) {
+  if (root == NULL) {
+    return;
+  }
+
+  time_t sec = 0;
+  bool have_time = false;
+
+  cJSON *j_ts = cJSON_GetObjectItem(root, "timestamp");
+  if (!j_ts) j_ts = cJSON_GetObjectItem(root, "timestamp_ms");
+  if (!j_ts) j_ts = cJSON_GetObjectItem(root, "time");
+  if (!j_ts) j_ts = cJSON_GetObjectItem(root, "epoch");
+  if (!j_ts) j_ts = cJSON_GetObjectItem(root, "timer");
+
+  if (cJSON_IsNumber(j_ts)) {
+    double val = j_ts->valuedouble;
+    if (val > 1e11) {
+      sec = (time_t)(val / 1000.0);
+    } else {
+      sec = (time_t)val;
+    }
+    have_time = true;
+  } else if (cJSON_IsString(j_ts) && j_ts->valuestring) {
+    sec = (time_t)atoll(j_ts->valuestring);
+    if (sec > 0) {
+      have_time = true;
+    }
+  }
+
+  cJSON *j_year = cJSON_GetObjectItem(root, "year");
+  cJSON *j_month = cJSON_GetObjectItem(root, "month");
+  cJSON *j_day = cJSON_GetObjectItem(root, "day");
+  cJSON *j_hour = cJSON_GetObjectItem(root, "hour");
+  cJSON *j_min = cJSON_GetObjectItem(root, "min");
+  cJSON *j_sec = cJSON_GetObjectItem(root, "sec");
+
+  struct tm tm_info = {0};
+
+  if (!have_time && cJSON_IsNumber(j_year) && cJSON_IsNumber(j_month) && cJSON_IsNumber(j_day)) {
+    tm_info.tm_year = j_year->valueint - 1900;
+    tm_info.tm_mon = j_month->valueint - 1;
+    tm_info.tm_mday = j_day->valueint;
+    tm_info.tm_hour = cJSON_IsNumber(j_hour) ? j_hour->valueint : 0;
+    tm_info.tm_min = cJSON_IsNumber(j_min) ? j_min->valueint : 0;
+    tm_info.tm_sec = cJSON_IsNumber(j_sec) ? j_sec->valueint : 0;
+    sec = mktime(&tm_info);
+    have_time = true;
+  }
+
+  if (!have_time || sec <= 1000000000) {
+    ESP_LOGW(TAG_WEBSOCKET, "Time sync payload received but timestamp is invalid");
+    return;
+  }
+
+  // Cập nhật System Time ESP32
+  struct timeval tv = {.tv_sec = sec, .tv_usec = 0};
+  settimeofday(&tv, NULL);
+
+  localtime_r(&sec, &tm_info);
+
+  char time_buf[64];
+  strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", &tm_info);
+  ESP_LOGI(TAG_WEBSOCKET, "System time synchronized via WebSocket: %s (timestamp: %ld)",
+           time_buf, (long)sec);
+
+  // Cập nhật chip RTC DS3231 nếu có phần cứng sẵn sàng
+  if (s_ws_ctx && s_ws_ctx->hw && s_ws_ctx->hw->rtc_ready) {
+    esp_err_t err = ds3231_set_time(&s_ws_ctx->hw->rtc_dev, &tm_info);
+    if (err == ESP_OK) {
+      ESP_LOGI(TAG_WEBSOCKET, "DS3231 RTC hardware updated from WebSocket time sync");
+    } else {
+      ESP_LOGW(TAG_WEBSOCKET, "Failed to update DS3231 RTC: %s", esp_err_to_name(err));
+    }
+  }
+}
+
 void SendSignalRegister(void) {
   if (client == NULL) {
     return;
@@ -305,6 +542,22 @@ void SendSignalRegister(void) {
     free(json_str);
   }
   cJSON_Delete(data);
+
+  // Gửi bản tin yêu cầu Server đồng bộ thời gian (Time Sync Request)
+  cJSON *time_req = cJSON_CreateObject();
+  cJSON_AddStringToObject(time_req, "type", "request_time_sync");
+  cJSON_AddStringToObject(time_req, "clientType", "esp32");
+  char *time_req_str = cJSON_PrintUnformatted(time_req);
+  if (time_req_str) {
+    int ret = esp_websocket_client_send_text(client, time_req_str, strlen(time_req_str),
+                                             pdMS_TO_TICKS(2000));
+    if (ret >= 0 && s_ws_telemetry) {
+      s_ws_telemetry->tx_packet_count++;
+      s_ws_telemetry->tx_byte_count += strlen(time_req_str);
+    }
+    free(time_req_str);
+  }
+  cJSON_Delete(time_req);
 }
 
 static void websocket_event_handler(void *arg, esp_event_base_t base,
@@ -317,6 +570,11 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
 
   case WEBSOCKET_EVENT_CONNECTED:
     ESP_LOGI(TAG_WEBSOCKET, "Connected to server");
+    if (s_ws_connected_once && s_ws_reconnect_pending) {
+      s_ws_reconnect_count++;
+    }
+    s_ws_connected_once = true;
+    s_ws_reconnect_pending = false;
     if (s_ws_state) {
       s_ws_state->connected = true;
     }
@@ -325,6 +583,9 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
 
   case WEBSOCKET_EVENT_DISCONNECTED:
     ESP_LOGW(TAG_WEBSOCKET, "Disconnected from server");
+    if (s_ws_connected_once) {
+      s_ws_reconnect_pending = true;
+    }
     if (s_ws_state) {
       s_ws_state->connected = false;
     }
@@ -343,10 +604,21 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
         if (root) {
           const cJSON *j_type = cJSON_GetObjectItem(root, "type");
           const cJSON *j_version = cJSON_GetObjectItem(root, "version");
+          if (ws_json_type_matches(j_type)) {
+            ws_handle_ota_command(root);
+          }
           if (cJSON_IsString(j_type)) {
-            strncpy(ws_last_type, j_type->valuestring,
-                    sizeof(ws_last_type) - 1);
+            const char *t_str = j_type->valuestring;
+            strncpy(ws_last_type, t_str, sizeof(ws_last_type) - 1);
             ws_last_type[sizeof(ws_last_type) - 1] = '\0';
+
+            if (strcmp(t_str, "sync_time") == 0 ||
+                strcmp(t_str, "time_sync") == 0 ||
+                strcmp(t_str, "time") == 0 ||
+                strcmp(t_str, "timer") == 0 ||
+                strcmp(t_str, "set_time") == 0) {
+              ws_handle_sync_time(root);
+            }
           }
           if (cJSON_IsString(j_version)) {
             strncpy(ws_last_version, j_version->valuestring,
@@ -365,14 +637,12 @@ static void websocket_event_handler(void *arg, esp_event_base_t base,
 
   case WEBSOCKET_EVENT_ERROR:
     ESP_LOGE(TAG_WEBSOCKET, "WebSocket error occurred");
+    if (s_ws_connected_once) {
+      s_ws_reconnect_pending = true;
+    }
     if (s_ws_state) {
       s_ws_state->connected = false;
     }
-    break;
-
-  default:
-    break;
-  }
 }
 
 static void websocket_app_start(void) {
@@ -479,12 +749,97 @@ static void ws_send_uart_rx_item(const uart_node_rx_item_t *item) {
       s_ws_uart_line_len = 0;
     }
 
+
+  if (s_ws_state) {
+    strncpy(s_ws_state->url_cached, url_to_use,
+            sizeof(s_ws_state->url_cached) - 1);
+    s_ws_state->url_cached[sizeof(s_ws_state->url_cached) - 1] = '\0';
+  }
+
+  client = esp_websocket_client_init(&websocket_cfg);
+  if (client == NULL) {
+    ESP_LOGE(TAG_WEBSOCKET, "esp_websocket_client_init failed");
+    return;
+  }
+  esp_websocket_register_events(client, WEBSOCKET_EVENT_ANY,
+                                websocket_event_handler, NULL);
+  esp_websocket_client_start(client);
+  ESP_LOGI(TAG_WEBSOCKET, "WebSocket client start issued");
+}
+
+/** Gửi một dòng UART đã ghép hoàn chỉnh lên WS. */
+static void ws_send_uart_rx_payload(const char *payload, size_t payload_len) {
+  if (!client || !payload || payload_len == 0) {
+    return;
+  }
+  if (!esp_websocket_client_is_connected(client)) {
+    return;
+  }
+
+  cJSON *root = cJSON_CreateObject();
+  cJSON_AddStringToObject(root, "type", "uart_rx");
+  cJSON_AddNumberToObject(root, "len", (double)payload_len);
+  cJSON_AddStringToObject(root, "payload", payload);
+
+  char *json_str = cJSON_PrintUnformatted(root);
+  cJSON_Delete(root);
+  if (json_str) {
+    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
+                                             pdMS_TO_TICKS(2000));
+    if (ret >= 0 && s_ws_telemetry) {
+      s_ws_telemetry->tx_packet_count++;
+      s_ws_telemetry->tx_byte_count += strlen(json_str);
+    }
+    // ESP_LOGI(TAG_WEBSOCKET, "WebSocket send UART RX item: %s", json_str);
+    free(json_str);
+  }
+}
+
+/** Nhận chunk UART từ queue, ghép theo '\n' rồi mới gửi WS để tránh cắt bản
+ * tin. */
+static void ws_send_uart_rx_item(const uart_node_rx_item_t *item) {
+  enum { WS_UART_LINE_BUF_SZ = 2048 };
+  static char s_ws_uart_line[WS_UART_LINE_BUF_SZ];
+  static size_t s_ws_uart_line_len = 0;
+
+  if (!item || item->len == 0) {
+    return;
+  }
+
+  for (size_t i = 0; i < item->len; i++) {
+    unsigned char c = item->data[i];
+
+    if (c == '\r') {
+      continue;
+    }
+
+    if (c == '\n') {
+      if (s_ws_uart_line_len > 0) {
+        s_ws_uart_line[s_ws_uart_line_len] = '\0';
+        ws_send_uart_rx_payload(s_ws_uart_line, s_ws_uart_line_len);
+        s_ws_uart_line_len = 0;
+      }
+      continue;
+    }
+
+    if (!isprint(c) && c != '\t') {
+      c = '.';
+    }
+
+    if (s_ws_uart_line_len >= (WS_UART_LINE_BUF_SZ - 1U)) {
+      s_ws_uart_line[s_ws_uart_line_len] = '\0';
+      ESP_LOGW(TAG_WEBSOCKET, "WS UART line too long, send truncated payload");
+      ws_send_uart_rx_payload(s_ws_uart_line, s_ws_uart_line_len);
+      s_ws_uart_line_len = 0;
+    }
+
     s_ws_uart_line[s_ws_uart_line_len++] = (char)c;
   }
 }
 
 void WebSocket_Handler(void *pvParameter) {
   ws_handler_ctx_t *ctx = (ws_handler_ctx_t *)pvParameter;
+  s_ws_ctx = ctx;
   if (ctx && ctx->ws) {
     s_ws_state = ctx->ws;
   }
@@ -494,11 +849,14 @@ void WebSocket_Handler(void *pvParameter) {
 
   TickType_t last_wifi_tick = xTaskGetTickCount();
   TickType_t last_gateway_tick = xTaskGetTickCount();
+  TickType_t last_ota_progress_tick = 0;
+  uint8_t last_ota_percent_sent = 255;
+  bool last_ota_running_sent = false;
 
   for (;;) {
     uart_node_rx_item_t uart_rx;
 
-    if (ctx && ctx->uart && ctx->uart->uplink_queue) {
+    if (!fota_is_running() && ctx && ctx->uart && ctx->uart->uplink_queue) {
       TickType_t qwait = pdMS_TO_TICKS(100);
       if (xQueueReceive(ctx->uart->uplink_queue, &uart_rx, qwait) == pdTRUE) {
         do {
@@ -511,6 +869,18 @@ void WebSocket_Handler(void *pvParameter) {
       vTaskDelay(pdMS_TO_TICKS(100));
     }
 
+    bool ota_running = fota_is_running();
+    uint8_t ota_percent = fota_get_progress_percent();
+    if ((ota_running || last_ota_running_sent ||
+         ota_percent != last_ota_percent_sent) &&
+        (xTaskGetTickCount() - last_ota_progress_tick) >=
+            pdMS_TO_TICKS(WS_OTA_PROGRESS_INTERVAL_MS)) {
+      last_ota_progress_tick = xTaskGetTickCount();
+      ws_send_ota_gateway_progress();
+      last_ota_percent_sent = ota_percent;
+      last_ota_running_sent = ota_running;
+    }
+
     if ((xTaskGetTickCount() - last_wifi_tick) >= pdMS_TO_TICKS(1000)) {
       last_wifi_tick = xTaskGetTickCount();
 
@@ -519,6 +889,9 @@ void WebSocket_Handler(void *pvParameter) {
         if (client != NULL) {
           ESP_LOGI(TAG_WEBSOCKET,
                    "Restarting WebSocket client to apply new URL");
+          if (s_ws_connected_once) {
+            s_ws_reconnect_pending = true;
+          }
           websocket_client_destroy_current();
         }
         if (s_ws_state) {
@@ -544,7 +917,7 @@ void WebSocket_Handler(void *pvParameter) {
     if (ctx != NULL && (xTaskGetTickCount() - last_gateway_tick) >=
                            pdMS_TO_TICKS(GATEWAY_STATUS_INTERVAL_MS)) {
       last_gateway_tick = xTaskGetTickCount();
-      if (client != NULL && esp_websocket_client_is_connected(client) &&
+      if (!fota_is_running() && client != NULL && esp_websocket_client_is_connected(client) &&
           is_wifi_connected()) {
         ws_send_gateway_status(ctx);
       }
@@ -554,4 +927,8 @@ void WebSocket_Handler(void *pvParameter) {
 
 bool websocket_is_connected(void) {
   return s_ws_state != NULL && s_ws_state->connected;
+}
+
+uint32_t websocket_get_reconnect_count(void) {
+  return s_ws_reconnect_count;
 }

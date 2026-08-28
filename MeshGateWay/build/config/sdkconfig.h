@@ -299,6 +299,7 @@
 #define CONFIG_UART_TO_NODE_TASK_STACK 3072
 #define CONFIG_UART_TO_NODE_TASK_PRIO 5
 #define CONFIG_WS_TARGET_SERVER 1
+#define CONFIG_WS_LOCAL_URL "ws://systemmsems.local:9090/ws"
 #define CONFIG_WS_SERVER_URL "wss://systemmsems.msems.click/ws"
 #define CONFIG_WIFI_SSID "MrKoi"
 #define CONFIG_WIFI_PASS "12345789"

@@ -1,3 +1,3 @@
 idf_component_register(SRCS "JsonHandle.c"
                        INCLUDE_DIRS "."
-                       REQUIRES Datamanager webSocket LogicHandle json)
+                       REQUIRES Datamanager webSocket LogicHandle json FOTAManager)
