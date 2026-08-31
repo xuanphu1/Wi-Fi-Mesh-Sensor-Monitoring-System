@@ -58,11 +58,11 @@ function Breadcrumbs({ icon, title, route, light }) {
             <VuiTypography
               component="span"
               variant="button"
-              fontWeight="regular"
+              fontWeight="medium"
               textTransform="capitalize"
               color={light ? "white" : "dark"}
-              opacity={light ? 0.8 : 0.5}
-              sx={{ lineHeight: 0 }}
+              opacity={light ? 0.85 : 0.6}
+              sx={{ lineHeight: 0, fontSize: "14.5px" }}
             >
               {el}
             </VuiTypography>
@@ -70,10 +70,10 @@ function Breadcrumbs({ icon, title, route, light }) {
         ))}
         <VuiTypography
           variant="button"
-          fontWeight="regular"
+          fontWeight="medium"
           textTransform="capitalize"
           color={light ? "white" : "dark"}
-          sx={{ lineHeight: 0 }}
+          sx={{ lineHeight: 0, fontSize: "14.5px" }}
         >
           {title.replace("-", " ")}
         </VuiTypography>
@@ -81,9 +81,10 @@ function Breadcrumbs({ icon, title, route, light }) {
       <VuiTypography
         fontWeight="bold"
         textTransform="capitalize"
-        variant="h6"
+        variant="h5"
         color={light ? "white" : "dark"}
         noWrap
+        sx={{ fontSize: "20px", mt: 0.5 }}
       >
         {title.replace("-", " ")}
       </VuiTypography>

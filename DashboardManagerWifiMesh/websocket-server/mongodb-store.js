@@ -6,7 +6,7 @@ function looksLikeMeshUdpJson(o) {
     typeof o === "object" &&
     typeof o.v === "number" &&
     typeof o.n === "number" &&
-    typeof o.i === "string" &&
+    (typeof o.i === "string" || typeof o.M === "string") &&
     Array.isArray(o.p)
   );
 }
@@ -67,7 +67,7 @@ function createMongoStore({ mongoUri, sensorValueFieldNames, sensorTypeName }) {
       packetLossRaw !== undefined && packetLossRaw !== null && packetLossRaw !== ""
         ? Number(packetLossRaw)
         : null;
-    const ip = String(pkt.i || "");
+    const ip = String(pkt.M || pkt.i || "");
     if (!ip || ip === "0.0.0.0") return [];
     const rows = [];
 

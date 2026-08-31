@@ -19,14 +19,14 @@ import Footer from "examples/Footer";
 import { useMeshNodesFromWebSocket } from "hooks/useMeshNodesFromWebSocket";
 import { resolveMrrErrorCode } from "utils/mrsErrorCodes";
 
-import { IoCube, IoPerson, IoPulse, IoLayers, IoTime, IoCode, IoBarChart, IoHardwareChip, IoServer, IoWarning, IoSpeedometer, IoChevronForward, IoAnalytics } from "react-icons/io5";
+import { IoCube, IoPerson, IoPulse, IoLayers, IoTime, IoCode, IoBarChart, IoHardwareChip, IoServer, IoWarning, IoSpeedometer, IoChevronForward, IoAnalytics, IoReload } from "react-icons/io5";
 
 const panelSx = {
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
   borderRadius: "16px",
-  backdropFilter: "blur(42px)",
+  backdropFilter: "blur(18px)",
   height: "100%",
 };
 
@@ -56,6 +56,7 @@ const iconMap = {
   "Status": <IoPulse size="14px" color="#4ade80" />,
   "Mesh level": <IoLayers size="14px" color="#b8a9ff" />,
   "Last seen": <IoTime size="14px" color="rgba(255,255,255,0.7)" />,
+  "Reconnect count": <IoReload size="14px" color="#ffb547" />,
   "Schema version": <IoCode size="14px" color="rgba(255,255,255,0.7)" />,
   "Packet loss": <IoBarChart size="14px" color="#38bdf8" />,
   "Firmware": <IoHardwareChip size="14px" color="rgba(255,255,255,0.7)" />,
@@ -173,6 +174,11 @@ function NodeDetail() {
         label: "Last seen",
         value: node.lastSeenIso ? new Date(node.lastSeenIso).toLocaleString() : "-",
       },
+      {
+        label: "Reconnect count",
+        value: `${node.reconnectCount || 0} times`,
+        valueColor: (node.reconnectCount || 0) > 0 ? "warning" : "success",
+      },
       { label: "Schema version", value: node.schemaVersion != null ? String(node.schemaVersion) : "-" },
       {
         label: "Packet loss",
@@ -224,7 +230,7 @@ function NodeDetail() {
               <Card sx={panelSx}>
                 <VuiBox p={2.5}>
                   <VuiBox display="flex" alignItems="center" mb={3}>
-                    <VuiBox width="32px" height="32px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "#111c44", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                    <VuiBox width="32px" height="32px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "rgba(184, 169, 255, 0.15)", border: "1px solid rgba(184, 169, 255, 0.35)" }}>
                       <IoCube color="#b8a9ff" size="18px" />
                     </VuiBox>
                     <VuiTypography variant="h6" color="white" fontWeight="bold">
@@ -245,10 +251,21 @@ function NodeDetail() {
                           </VuiBox>
                         );
                       } else if (row.label === "Mesh level" && row.value !== "-") {
+                        const levelNum = Number(row.value);
+                        const levelColors = {
+                          0: { color: "#01f7a7", bg: "rgba(1, 247, 167, 0.20)", border: "1px solid rgba(1, 247, 167, 0.50)" },
+                          1: { color: "#00d4ff", bg: "rgba(0, 212, 255, 0.20)", border: "1px solid rgba(0, 212, 255, 0.50)" },
+                          2: { color: "#b8a9ff", bg: "rgba(138, 44, 255, 0.20)", border: "1px solid rgba(138, 44, 255, 0.50)" },
+                          3: { color: "#38bdf8", bg: "rgba(56, 189, 248, 0.20)", border: "1px solid rgba(56, 189, 248, 0.50)" },
+                          4: { color: "#ffb547", bg: "rgba(255, 181, 71, 0.20)", border: "1px solid rgba(255, 181, 71, 0.50)" },
+                          5: { color: "#ff3b94", bg: "rgba(255, 59, 148, 0.20)", border: "1px solid rgba(255, 59, 148, 0.50)" },
+                          6: { color: "#ff6347", bg: "rgba(255, 99, 71, 0.20)", border: "1px solid rgba(255, 99, 71, 0.50)" },
+                        };
+                        const style = levelColors[levelNum] || { color: "#a3e635", bg: "rgba(163, 230, 53, 0.20)", border: "1px solid rgba(163, 230, 53, 0.50)" };
                         rightElement = (
-                          <VuiBox px={1.5} py={0.2} borderRadius="12px" sx={{ background: "rgba(97, 66, 255, 0.5)" }}>
-                            <VuiTypography color="white" variant="caption" fontWeight="bold">
-                              {row.value}
+                          <VuiBox px={1.8} py={0.3} borderRadius="8px" sx={{ background: style.bg, border: style.border, boxShadow: `0 0 8px ${style.color}22` }}>
+                            <VuiTypography variant="caption" fontWeight="bold" sx={{ color: style.color }}>
+                              Level {row.value}
                             </VuiTypography>
                           </VuiBox>
                         );
@@ -277,7 +294,7 @@ function NodeDetail() {
                           }}
                         >
                           <VuiBox display="flex" alignItems="center">
-                            <VuiBox width="28px" height="28px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "#111c44", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                            <VuiBox width="28px" height="28px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.10)" }}>
                               {iconMap[row.label]}
                             </VuiBox>
                             <VuiTypography color="text" variant="button" fontWeight="medium">
@@ -378,7 +395,7 @@ function NodeDetail() {
                 <Card sx={{ ...panelSx, height: "auto", minHeight: "250px" }}>
                   <VuiBox p={2.5}>
                     <VuiBox display="flex" alignItems="center" mb={3}>
-                      <VuiBox width="32px" height="32px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "#111c44", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                      <VuiBox width="32px" height="32px" borderRadius="8px" display="flex" justifyContent="center" alignItems="center" mr={2} sx={{ background: "rgba(56, 189, 248, 0.15)", border: "1px solid rgba(56, 189, 248, 0.35)" }}>
                         <IoAnalytics color="#38bdf8" size="18px" />
                       </VuiBox>
                       <VuiTypography variant="h6" color="white" fontWeight="bold">

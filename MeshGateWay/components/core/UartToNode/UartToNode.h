@@ -3,6 +3,8 @@
  */
 
 #pragma once
+#ifndef UART_TO_NODE_H
+#define UART_TO_NODE_H
 
 #include "esp_err.h"
 #include "Datamanager.h"
@@ -22,6 +24,17 @@ void uart_to_node_get_queue_status(uint32_t *used, uint32_t *total);
 
 esp_err_t uart_to_node_start(void);
 
+/** Gửi bản tin đồng bộ thời gian từ Gateway xuống Node Root qua UART */
+esp_err_t uart_to_node_send_sync_time(void);
+
+/** Gửi bản tin lệnh OTA (kèm SSID/Pass Wi-Fi + URL) từ Gateway xuống Root qua UART */
+esp_err_t uart_to_node_send_ota_start(const char *target, const char *target_detail,
+                                     const char *job_id, const char *url,
+                                     const char *version, uint32_t size,
+                                     const char *md5);
+
 #ifdef __cplusplus
 }
 #endif
+
+#endif // UART_TO_NODE_H

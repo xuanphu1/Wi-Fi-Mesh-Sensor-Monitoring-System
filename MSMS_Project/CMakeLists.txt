@@ -12,6 +12,7 @@ set(EXTRA_COMPONENT_DIRS
     ${CMAKE_CURRENT_LIST_DIR}/component/sensors
     ${CMAKE_CURRENT_LIST_DIR}/component/utils
 )
+set(PROJECT_VER "0.0.2")
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(MRS_Project)
 # Add SPIFFS configuration

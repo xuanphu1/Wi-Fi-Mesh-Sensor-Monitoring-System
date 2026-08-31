@@ -40,7 +40,43 @@ void MeshManager_GetGatewayQueueUsage(UBaseType_t *used, UBaseType_t *total);
 bool MeshManager_ReceiveGatewayFrame(mesh_gateway_frame_t *frame,
                                      TickType_t timeout);
 
+/** Callback for downstream frames received on Node from Root */
+typedef void (*mesh_downstream_cb_t)(DataManager_t *data, const char *json_str, size_t len);
+
+void MeshManager_RegisterDownstreamCallback(mesh_downstream_cb_t cb);
+
+/**
+ * @brief Broadcast a JSON sync_time frame from Root to all connected TCP Nodes.
+ * @param json_str JSON string payload (without trailing newline).
+ * @param len Length of the JSON string.
+ * @return ESP_OK on success.
+ */
+esp_err_t MeshManager_BroadcastSyncTime(const char *json_str, size_t len);
+
+/**
+ * @brief Broadcast a JSON OTA command (ota_start) from Root to all connected TCP Nodes.
+ * @param json_str JSON string payload.
+ * @param len Length of the JSON string.
+ * @return ESP_OK on success.
+ */
+esp_err_t MeshManager_BroadcastOtaCommand(const char *json_str, size_t len);
+
 int mesh_manager_get_throughput(void);
+
+/**
+ * @brief Pause or resume sensor telemetry transmissions over Mesh TCP.
+ *        Used during FOTA/LAN OTA to reserve 100% bandwidth and CPU for OTA transfer.
+ */
+void MeshManager_SetTelemetryPaused(bool paused);
+bool MeshManager_IsTelemetryPaused(void);
+
+/**
+ * @brief Send a raw JSON frame from a Child Node to Root over Mesh TCP.
+ * @param json_str JSON string payload.
+ * @param len Length of the JSON string.
+ * @return ESP_OK on success.
+ */
+esp_err_t MeshManager_SendFrameToRoot(const char *json_str, size_t len);
 
 #ifdef __cplusplus
 }

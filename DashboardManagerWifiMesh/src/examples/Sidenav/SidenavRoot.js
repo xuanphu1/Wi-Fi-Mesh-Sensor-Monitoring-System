@@ -76,15 +76,11 @@ export default styled(Drawer)(({ theme, ownerState }) => {
   return {
     "& .MuiDrawer-paper": {
       boxShadow: xxl,
-      border: "none",
+      border: "1px solid rgba(255, 255, 255, 0.08)",
       background: transparentSidenav
-      ? transparent.main
-      : linearGradient(
-            gradients.sidenav.main,
-            gradients.sidenav.state,
-            gradients.sidenav.deg
-          ),
-    backdropFilter: transparentSidenav ? "unset" : "blur(120px)",
+        ? transparent.main
+        : "linear-gradient(127deg, rgba(6, 11, 40, 0.35) 0%, rgba(10, 14, 35, 0.20) 100%)",
+      backdropFilter: "blur(20px)",
       ...(miniSidenav ? drawerCloseStyles() : drawerOpenStyles()),
     },
   };

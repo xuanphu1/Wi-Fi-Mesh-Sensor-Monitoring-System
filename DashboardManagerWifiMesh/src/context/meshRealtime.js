@@ -10,9 +10,10 @@ import { parseMeshUdpSensorPayload, parseMeshUdpSensorString } from "utils/meshU
 
 const MeshRealtimeContext = createContext(null);
 
-const STALE_MS_NODES = 7_000;
-const DEVICE_STALE_MS = 15_000;
-const NODE_STALE_MS = 20_000;
+const UNIFIED_STALE_MS = 8_000;
+const STALE_MS_NODES = UNIFIED_STALE_MS;
+const DEVICE_STALE_MS = UNIFIED_STALE_MS;
+const NODE_STALE_MS = UNIFIED_STALE_MS;
 
 const THROUGHPUT_WINDOW_SECONDS = 60;
 const GATEWAY_SERIES_LIMIT = 50;
@@ -23,12 +24,15 @@ const DEFAULT_RTC_ISO = "1970-01-01T00:00:00";
 function parseDeviceRtcMs(isoText) {
   if (typeof isoText !== "string") return null;
   const iso = isoText.trim();
-  if (!iso || iso === DEFAULT_RTC_ISO) return null;
+  if (!iso || iso === DEFAULT_RTC_ISO || iso.startsWith("1970") || iso.startsWith("2000")) return null;
   const parsedDirect = new Date(iso);
-  if (Number.isFinite(parsedDirect.getTime())) return parsedDirect.getTime();
-  const parsedUtc = new Date(iso.endsWith("Z") ? iso : `${iso}Z`);
-  if (Number.isFinite(parsedUtc.getTime())) return parsedUtc.getTime();
-  return null;
+  const time = Number.isFinite(parsedDirect.getTime())
+    ? parsedDirect.getTime()
+    : new Date(iso.endsWith("Z") ? iso : `${iso}Z`).getTime();
+
+  // Any RTC timestamp before 2020-01-01 is un-synchronized RTC
+  if (!Number.isFinite(time) || time < 1577836800000) return null;
+  return time;
 }
 
 function decodeHexUtf8(hex) {
@@ -120,6 +124,11 @@ function ingestParsedMesh(registry, data) {
   const next = new Map(registry);
   const prev = next.get(ip) || {};
 
+  // Track reconnects: Node was considered offline if lastSeenMs was > STALE_MS_NODES ago
+  const wasOffline = prev.lastSeenMs ? (nowMs - prev.lastSeenMs > STALE_MS_NODES) : false;
+  const currentReconnects = typeof prev.reconnectCount === "number" ? prev.reconnectCount : 0;
+  const newReconnectCount = wasOffline ? currentReconnects + 1 : currentReconnects;
+
   const deviceRtcMs = parseDeviceRtcMs(data.rtcIso);
   next.set(ip, {
     ...prev,
@@ -138,6 +147,7 @@ function ingestParsedMesh(registry, data) {
     latencyMs: deviceRtcMs != null ? Math.max(0, nowMs - deviceRtcMs) : null,
     ports: Array.isArray(data.ports) ? data.ports : [],
     rawPayload: data.raw && typeof data.raw === "object" ? data.raw : null,
+    reconnectCount: newReconnectCount,
   });
   return next;
 }
@@ -249,8 +259,31 @@ export function MeshRealtimeProvider({ children }) {
 
   const [throughputSeries, setThroughputSeries] = useState([]);
   const throughputBytesRef = useRef(new Map());
+  const wsRef = useRef(null);
 
   const [debugLogs, setDebugLogs] = useState([]);
+
+  const sendTimeSync = () => {
+    if (!wsRef.current || wsRef.current.readyState !== 1) return false;
+    const now = new Date();
+    const epochSec = Math.floor(now.getTime() / 1000);
+    const pad = (n) => String(n).padStart(2, "0");
+    const timeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    const syncPkt = {
+      type: "sync_time",
+      timestamp: epochSec,
+      timestamp_ms: now.getTime(),
+      datetime: timeStr,
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      day: now.getDate(),
+      hour: now.getHours(),
+      min: now.getMinutes(),
+      sec: now.getSeconds(),
+    };
+    wsRef.current.send(JSON.stringify(syncPkt));
+    return true;
+  };
 
   useEffect(() => {
     const applyCurrentUrl = () => setUrl(getWebSocketUrl());
@@ -325,6 +358,7 @@ export function MeshRealtimeProvider({ children }) {
 
       try {
         ws = new WebSocket(url);
+        wsRef.current = ws;
       } catch {
         setWsOpen(false);
         reconnectTimer = setTimeout(open, 3000);
@@ -377,6 +411,34 @@ export function MeshRealtimeProvider({ children }) {
             ].slice(-MAX_DEBUG_LOGS)
           );
           return;
+        }
+
+        // Auto-reply to sync_time request from ESP32 / Gateway
+        if (
+          msg &&
+          (msg.type === "request_time_sync" ||
+            (msg.type === "sync_time" && msg.action === "get_time") ||
+            (msg.type === "sync_time" && !msg.timestamp && !msg.year))
+        ) {
+          const now = new Date();
+          const epochSec = Math.floor(now.getTime() / 1000);
+          const pad = (n) => String(n).padStart(2, "0");
+          const timeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+          const syncPkt = {
+            type: "sync_time",
+            timestamp: epochSec,
+            timestamp_ms: now.getTime(),
+            datetime: timeStr,
+            year: now.getFullYear(),
+            month: now.getMonth() + 1,
+            day: now.getDate(),
+            hour: now.getHours(),
+            min: now.getMinutes(),
+            sec: now.getSeconds(),
+          };
+          if (ws && ws.readyState === 1) {
+            ws.send(JSON.stringify(syncPkt));
+          }
         }
 
         if (msg && msg.type === "packetloss_update" && msg.data) {
@@ -546,22 +608,22 @@ export function MeshRealtimeProvider({ children }) {
     };
   }, [url]);
 
-  const connected = lastDeviceAt > 0 && now - lastDeviceAt <= DEVICE_STALE_MS;
+  const connected = wsOpen && lastDeviceAt > 0 && now - lastDeviceAt <= UNIFIED_STALE_MS;
 
   const nodeStats = useMemo(() => {
     let online = 0;
     let offline = 0;
     registry.forEach((n) => {
-      if (now - (n.lastSeenMs || 0) <= NODE_STALE_MS) online += 1;
+      if (wsOpen && now - (n.lastSeenMs || 0) <= UNIFIED_STALE_MS) online += 1;
       else offline += 1;
     });
     return { online, offline, total: online + offline };
-  }, [registry, now]);
+  }, [registry, now, wsOpen]);
 
   const nodes = useMemo(() => {
     const list = Array.from(registry.values()).map((e) => {
       const age = now - e.lastSeenMs;
-      const online = age < STALE_MS_NODES;
+      const online = wsOpen && age < UNIFIED_STALE_MS;
       const ml = e.meshLevel != null ? Number(e.meshLevel) : null;
 
       return {
@@ -581,6 +643,7 @@ export function MeshRealtimeProvider({ children }) {
         latencyMs: typeof e.latencyMs === "number" ? e.latencyMs : null,
         ports: Array.isArray(e.ports) ? e.ports : [],
         rawPayload: e.rawPayload && typeof e.rawPayload === "object" ? e.rawPayload : null,
+        reconnectCount: typeof e.reconnectCount === "number" ? e.reconnectCount : 0,
         _source: "websocket",
       };
     });
@@ -631,6 +694,7 @@ export function MeshRealtimeProvider({ children }) {
       registrySize: registry.size,
       serverMetrics,
       serverMetricsSeries,
+      sendTimeSync,
     }),
     [
       wsOpen,

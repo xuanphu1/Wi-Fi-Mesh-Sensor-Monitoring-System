@@ -6,7 +6,10 @@
 #include "TimeManager.h"
 #include "WifiManager.h"
 #include "driver/i2c.h"
+#include "esp_mesh_lite.h"
+#include "esp_netif.h"
 #include "esp_timer.h"
+#include "esp_wifi.h"
 #include "freertos/semphr.h"
 #include <stdio.h>
 #include <string.h>
@@ -18,6 +21,15 @@
 
 ssd1306_handle_t oled = NULL;
 static SemaphoreHandle_t oled_mutex = NULL;
+static volatile bool s_screen_suspended = false;
+
+void ScreenManager_SetSuspended(bool suspended) {
+  s_screen_suspended = suspended;
+}
+
+bool ScreenManager_IsSuspended(void) {
+  return s_screen_suspended;
+}
 
 typedef struct {
   i2c_port_t bus;
@@ -428,7 +440,11 @@ void ScreenDashboard(DataManager_t *data) {
   my_draw_small_string(oled, 85, 20, "Active");
 
   // Version
-  my_draw_small_string(oled, 74, 33, "Ver:1.0.0");
+  char ver_str[16];
+  snprintf(ver_str, sizeof(ver_str), "Ver:%u.%u.%u",
+           (unsigned)data->version[0], (unsigned)data->version[1],
+           (unsigned)data->version[2]);
+  my_draw_small_string(oled, 74, 33, ver_str);
 
   // Vertical line 13
   ssd1306_draw_line(oled, 71, 39, 71, 52);
@@ -541,21 +557,131 @@ void ScreenPerformance(DataManager_t *data) {
   }
 }
 
+void ScreenMeshTopology(DataManager_t *data) {
+  if (oled == NULL || data == NULL)
+    return;
+  if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
+    return;
+
+  ssd1306_clear_screen(oled, 0x00);
+  my_draw_small_string(oled, 10, 0, "MESH TOPOLOGY (4/4)");
+  ssd1306_draw_line(oled, 0, 9, 127, 9);
+
+  mesh_role_t role = MeshManager_GetRole();
+  uint8_t level = esp_mesh_lite_get_level();
+  char buf[36];
+
+  if (role == MESH_ROLE_ROOT) {
+    // ROOT DISPLAY
+    snprintf(buf, sizeof(buf), "Role: ROOT (Level 1)");
+    my_draw_small_string(oled, 0, 12, buf);
+
+    uint8_t child_count = MeshManager_GetConnectedNodeCount();
+    snprintf(buf, sizeof(buf), "Nodes: %u connected", (unsigned)child_count);
+    my_draw_small_string(oled, 0, 23, buf);
+
+    esp_netif_t *ap_netif = esp_netif_get_handle_from_ifkey("WIFI_AP_DEF");
+    esp_netif_ip_info_t ap_info;
+    char ap_ip_str[16] = "192.168.4.1";
+    if (ap_netif && esp_netif_get_ip_info(ap_netif, &ap_info) == ESP_OK && ap_info.ip.addr != 0) {
+      esp_ip4addr_ntoa(&ap_info.ip, ap_ip_str, sizeof(ap_ip_str));
+    }
+    snprintf(buf, sizeof(buf), "SoftAP: %s", ap_ip_str);
+    my_draw_small_string(oled, 0, 34, buf);
+
+    uint8_t ch = 11;
+    esp_wifi_get_channel(&ch, NULL);
+    snprintf(buf, sizeof(buf), "Channel: %u", (unsigned)ch);
+    my_draw_small_string(oled, 0, 45, buf);
+
+    mesh_gateway_stats_t gw_stats = {0};
+    MeshManager_GetGatewayStats(&gw_stats);
+    snprintf(buf, sizeof(buf), "RX:%lu Q:%lu D:%lu",
+             (unsigned long)gw_stats.rx_frames,
+             (unsigned long)gw_stats.queued_frames,
+             (unsigned long)gw_stats.dropped_frames);
+    my_draw_small_string(oled, 0, 56, buf);
+  } else {
+    // NODE DISPLAY
+    if (level <= 1) {
+      my_draw_small_string(oled, 0, 12, "Role: NODE (Scanning)");
+    } else if (level == 2) {
+      snprintf(buf, sizeof(buf), "Lvl: 2 (L2->Root)");
+      my_draw_small_string(oled, 0, 12, buf);
+    } else if (level == 3) {
+      snprintf(buf, sizeof(buf), "Lvl: 3 (L3->L2->Root)");
+      my_draw_small_string(oled, 0, 12, buf);
+    } else {
+      snprintf(buf, sizeof(buf), "Lvl: %u (L%u->L%u..)", (unsigned)level, (unsigned)level, (unsigned)(level - 1));
+      my_draw_small_string(oled, 0, 12, buf);
+    }
+
+    // Parent AP info
+    wifi_ap_record_t ap_record = {0};
+    esp_err_t ap_err = esp_wifi_sta_get_ap_info(&ap_record);
+    if (ap_err == ESP_OK && level >= 2) {
+      snprintf(buf, sizeof(buf), "P:%02X:%02X:%02X:%02X:%02X:%02X",
+               ap_record.bssid[0], ap_record.bssid[1], ap_record.bssid[2],
+               ap_record.bssid[3], ap_record.bssid[4], ap_record.bssid[5]);
+      my_draw_small_string(oled, 0, 23, buf);
+
+      snprintf(buf, sizeof(buf), "RSSI: %ddBm  Ch: %u", (int)ap_record.rssi, (unsigned)ap_record.primary);
+      my_draw_small_string(oled, 0, 34, buf);
+    } else {
+      my_draw_small_string(oled, 0, 23, "Parent: Scanning...");
+      my_draw_small_string(oled, 0, 34, "RSSI: --     Ch: 11");
+    }
+
+    // Root IP
+    esp_ip_addr_t root_ip = {0};
+    char root_ip_str[16] = "0.0.0.0";
+    if (esp_mesh_lite_get_root_ip(IPADDR_TYPE_V4, &root_ip) == ESP_OK && root_ip.u_addr.ip4.addr != 0) {
+      esp_ip4addr_ntoa(&root_ip.u_addr.ip4, root_ip_str, sizeof(root_ip_str));
+    }
+    snprintf(buf, sizeof(buf), "Root IP: %s", root_ip_str);
+    my_draw_small_string(oled, 0, 45, buf);
+
+    // Self IP
+    esp_netif_t *sta_netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+    esp_netif_ip_info_t sta_info;
+    char self_ip_str[16] = "0.0.0.0";
+    if (sta_netif && esp_netif_get_ip_info(sta_netif, &sta_info) == ESP_OK && sta_info.ip.addr != 0) {
+      esp_ip4addr_ntoa(&sta_info.ip, self_ip_str, sizeof(self_ip_str));
+    }
+    snprintf(buf, sizeof(buf), "Self IP: %s", self_ip_str);
+    my_draw_small_string(oled, 0, 56, buf);
+  }
+
+  ssd1306_refresh_gram(oled);
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+}
+
 void MenuRender_Task(void *pvParameters) {
   DataManager_t *data = (DataManager_t *)pvParameters;
   ESP_LOGI(TAG_SCREEN_MANAGER, "MenuRender_Task started");
   while (1) {
-    if (data->screen.is_dashboard_active) {
+    if (s_screen_suspended) {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      continue;
+    }
+    if (data != NULL && MeshManager_IsStarted() &&
+        MeshManager_GetRole() == MESH_ROLE_ROOT) {
+      ScreenMeshRoot(data);
+    } else if (data != NULL && data->screen.is_dashboard_active) {
       if (data->screen.dashboard_page == 0) {
         ScreenDashboard(data);
       } else if (data->screen.dashboard_page == 1) {
         ScreenSensors(data);
       } else if (data->screen.dashboard_page == 2) {
         ScreenPerformance(data);
+      } else if (data->screen.dashboard_page == 3) {
+        ScreenMeshTopology(data);
       } else {
         ScreenDashboard(data);
       }
-    } else if (data->screen.is_menu_active && data->screen.current != NULL) {
+    } else if (data != NULL && data->screen.is_menu_active && data->screen.current != NULL) {
       Draw_Menu_Frame(data->screen.current, &data->screen.selected,
                       &data->objectInfo);
     }
@@ -938,4 +1064,62 @@ system_err_t SensorRender(PortId_t port, SensorData_t *data) {
   (void)port;
   (void)data;
   return MRS_OK;
+}
+
+system_err_t ScreenShowOtaProgress(const char *status, uint8_t percent,
+                                   uint32_t bytes_read, uint32_t total_bytes,
+                                   const char *version) {
+  s_screen_suspended = true;
+  if (oled == NULL) {
+    return MRS_ERR_SCREENMANAGER_NOT_INIT;
+  }
+  if (oled_mutex != NULL &&
+      xSemaphoreTake(oled_mutex, pdMS_TO_TICKS(500)) != pdTRUE) {
+    return MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
+  }
+
+  ssd1306_clear_screen(oled, 0);
+
+  // 1. Header Banner
+  ssd1306_draw_string(oled, 22, 2, (const uint8_t *)"FOTA UPGRADE", 12, 1);
+  ssd1306_draw_line(oled, 0, 15, 127, 15);
+
+  // 2. Version / Status string
+  char info_buf[32];
+  if (version != NULL && version[0] != '\0') {
+    snprintf(info_buf, sizeof(info_buf), "Ver: %s", version);
+  } else {
+    snprintf(info_buf, sizeof(info_buf), "%s", status ? status : "Updating...");
+  }
+  ssd1306_draw_string(oled, 6, 18, (const uint8_t *)info_buf, 12, 1);
+
+  // 3. Progress Bar Box (outer frame: x1=6, y1=32, x2=121, y2=44)
+  ssd1306_draw_line(oled, 6, 32, 121, 32);
+  ssd1306_draw_line(oled, 6, 44, 121, 44);
+  ssd1306_draw_line(oled, 6, 32, 6, 44);
+  ssd1306_draw_line(oled, 121, 32, 121, 44);
+
+  // Inner fill bar (width = 113px max)
+  uint8_t bar_width = (uint8_t)(((uint32_t)percent * 113U) / 100U);
+  if (bar_width > 0) {
+    ssd1306_fill_rectangle(oled, 7, 33, 7 + bar_width, 43, 1);
+  }
+
+  // 4. Progress Text below bar
+  char pct_buf[32];
+  if (total_bytes > 0) {
+    snprintf(pct_buf, sizeof(pct_buf), "%u%% (%lu/%luK)",
+             (unsigned)percent, (unsigned long)(bytes_read / 1024),
+             (unsigned long)(total_bytes / 1024));
+  } else {
+    snprintf(pct_buf, sizeof(pct_buf), "%u%% Complete", (unsigned)percent);
+  }
+  ssd1306_draw_string(oled, 6, 48, (const uint8_t *)pct_buf, 12, 1);
+
+  esp_err_t ret = ssd1306_refresh_gram(oled);
+
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+  return (ret == ESP_OK) ? MRS_OK : MRS_ERR_SCREENMANAGER_DISPLAY_FAIL;
 }

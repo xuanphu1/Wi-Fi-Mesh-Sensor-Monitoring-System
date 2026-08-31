@@ -234,6 +234,73 @@ void wifi_init_sta(void) {
   }
 }
 
+bool wifi_manager_connect_sta(const char *ssid, const char *password, uint32_t timeout_ms) {
+  if (ssid == NULL || ssid[0] == '\0') {
+    return false;
+  }
+
+  wifi_manager_ctx_t *ctx = wifi_manager_ctx();
+  ctx->stop_requested = false;
+  if (ctx->event_group == NULL) {
+    ctx->event_group = xEventGroupCreate();
+  }
+  if (ctx->mutex == NULL) {
+    ctx->mutex = xSemaphoreCreateMutex();
+  }
+
+  wifi_init_common();
+
+  wifi_config_t wifi_config = {
+      .sta =
+          {
+              .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+              .pmf_cfg = {.capable = true, .required = false},
+          },
+  };
+  strncpy((char *)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid) - 1);
+  if (password != NULL && password[0] != '\0') {
+    strncpy((char *)wifi_config.sta.password, password,
+            sizeof(wifi_config.sta.password) - 1);
+  } else {
+    wifi_config.sta.threshold.authmode = WIFI_AUTH_OPEN;
+  }
+
+  if (xSemaphoreTake(ctx->mutex, pdMS_TO_TICKS(1000)) != pdTRUE) {
+    ESP_LOGW(WIFI_TAG, "WiFi mutex busy, skip connect for SSID=%s", ssid);
+    return false;
+  }
+
+  xEventGroupClearBits(ctx->event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT |
+                                             WIFI_STA_LINKED_BIT);
+  esp_wifi_stop();
+  esp_wifi_set_mode(WIFI_MODE_STA);
+  esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
+  esp_wifi_set_ps(WIFI_PS_MIN_MODEM);
+  esp_wifi_start();
+  xSemaphoreGive(ctx->mutex);
+
+  ESP_LOGI(WIFI_TAG, "Connecting explicitly to Wi-Fi SSID='%s'...", ssid);
+  TickType_t wait_ticks = (timeout_ms > 0) ? pdMS_TO_TICKS(timeout_ms) : pdMS_TO_TICKS(15000);
+  EventBits_t bits =
+      xEventGroupWaitBits(ctx->event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
+                          pdFALSE, pdFALSE, wait_ticks);
+
+  if (bits & WIFI_CONNECTED_BIT) {
+    strncpy(ctx->configured_ssid, ssid, sizeof(ctx->configured_ssid) - 1);
+    ctx->configured_ssid[sizeof(ctx->configured_ssid) - 1] = '\0';
+    strncpy(ctx->configured_password, password ? password : "",
+            sizeof(ctx->configured_password) - 1);
+    ctx->configured_password[sizeof(ctx->configured_password) - 1] = '\0';
+    ctx->sta_configured = true;
+    ctx->user_sta_configured = true;
+    ESP_LOGI(WIFI_TAG, "Successfully connected to Wi-Fi SSID='%s'!", ssid);
+    return true;
+  }
+
+  ESP_LOGW(WIFI_TAG, "Failed to connect to Wi-Fi SSID='%s' (timeout or rejected)", ssid);
+  return false;
+}
+
 void wifi_manager_stop_tasks(void) {
   wifi_manager_ctx_t *ctx = wifi_manager_ctx();
   ctx->stop_requested = true;

@@ -18,20 +18,21 @@
 
 // Vision UI Dashboard React Base Styles
 import colors from "assets/theme/base/colors";
-import bgAdmin from "assets/images/body-background.png";
+import bgAdmin from "assets/images/Background_Galaxy_2.jpg";
 
 const { info, dark } = colors;
 export default {
   html: {
     scrollBehavior: "smooth",
-    background: dark.body,
+    background: "#000000",
     height: "100%",
   },
   body: {
     background: `url(${bgAdmin})`,
-    backgroundSize: "100% auto",
-    backgroundRepeat: "repeat-y",
-    backgroundPosition: "center top",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    backgroundAttachment: "fixed",
     minHeight: "100vh",
     height: "auto",
     scrollbarWidth: "thin",

@@ -83,6 +83,8 @@ void MeshManager_ResetState(void) {
     return;
   }
 
+  s_manager.started = false;
+
   esp_err_t result = mesh_tcp_transport_stop(&s_manager.transport,
                                               pdMS_TO_TICKS(6000));
   if (result != ESP_OK) {
@@ -91,8 +93,13 @@ void MeshManager_ResetState(void) {
   }
 
   mesh_network_stop_runtime();
-  if (s_manager.gateway_queue != NULL) {
-    vQueueDelete(s_manager.gateway_queue);
+
+  QueueHandle_t q = s_manager.gateway_queue;
+  s_manager.gateway_queue = NULL;
+  vTaskDelay(pdMS_TO_TICKS(150)); // Allow in-flight receive task to cleanly exit
+
+  if (q != NULL) {
+    vQueueDelete(q);
   }
   if (s_manager.data != NULL) {
     s_manager.data->meshIo.link_up = false;
@@ -169,11 +176,65 @@ void MeshManager_GetGatewayQueueUsage(UBaseType_t *used, UBaseType_t *total) {
 
 bool MeshManager_ReceiveGatewayFrame(mesh_gateway_frame_t *frame,
                                      TickType_t timeout) {
-  if (frame == NULL || s_manager.gateway_queue == NULL ||
+  if (frame == NULL || !s_manager.started || s_manager.gateway_queue == NULL ||
       MeshManager_GetRole() != MESH_ROLE_ROOT) {
     return false;
   }
-  return xQueueReceive(s_manager.gateway_queue, frame, timeout) == pdTRUE;
+  QueueHandle_t q = s_manager.gateway_queue;
+  if (q == NULL || !s_manager.started) {
+    return false;
+  }
+  return xQueueReceive(q, frame, timeout) == pdTRUE;
+}
+
+esp_err_t MeshManager_BroadcastSyncTime(const char *json_str, size_t len) {
+  if (json_str == NULL || len == 0) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (!s_manager.started || MeshManager_GetRole() != MESH_ROLE_ROOT) {
+    return ESP_ERR_INVALID_STATE;
+  }
+  return mesh_tcp_transport_broadcast(&s_manager.transport,
+                                      (const uint8_t *)json_str, len);
+}
+
+esp_err_t MeshManager_BroadcastOtaCommand(const char *json_str, size_t len) {
+  if (json_str == NULL || len == 0) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (!s_manager.started || MeshManager_GetRole() != MESH_ROLE_ROOT) {
+    return ESP_ERR_INVALID_STATE;
+  }
+  return mesh_tcp_transport_broadcast(&s_manager.transport,
+                                      (const uint8_t *)json_str, len);
+}
+
+void MeshManager_RegisterDownstreamCallback(mesh_downstream_cb_t cb) {
+  mesh_tcp_transport_register_downstream_cb(cb);
+}
+
+static volatile bool s_telemetry_paused = false;
+
+void MeshManager_SetTelemetryPaused(bool paused) {
+  s_telemetry_paused = paused;
+  ESP_LOGI(TAG, "Mesh telemetry paused state set to: %d", (int)paused);
+}
+
+bool MeshManager_IsTelemetryPaused(void) {
+  return s_telemetry_paused;
+}
+
+esp_err_t MeshManager_SendFrameToRoot(const char *json_str, size_t len) {
+  if (json_str == NULL || len == 0) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (!s_manager.started) {
+    return ESP_ERR_INVALID_STATE;
+  }
+  return mesh_tcp_transport_send_node_frame(&s_manager.transport,
+                                            (const uint8_t *)json_str, len);
 }
 
 int mesh_manager_get_throughput(void) { return 167; }
+
+

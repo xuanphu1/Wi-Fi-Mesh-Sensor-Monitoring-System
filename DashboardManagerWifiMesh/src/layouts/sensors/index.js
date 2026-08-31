@@ -20,35 +20,29 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
 import { useDashboardRealtime } from "hooks/useDashboardRealtime";
-import { IoPulse, IoSearch, IoThermometer, IoServer } from "react-icons/io5";
+import { IoPulse, IoSearch, IoThermometer, IoServer, IoChevronDown } from "react-icons/io5";
 
 const sensorFilterFieldSx = {
   "& .MuiOutlinedInput-root": {
-    borderRadius: "12px !important",
-    backgroundColor: "rgba(15, 18, 42, 0.95) !important",
+    borderRadius: "16px !important",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
     height: "56px",
-    border: "1px solid rgba(255, 255, 255, 0.14) !important",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
     "&.Mui-focused": {
       borderColor: "#4318ff !important",
-    },
-  },
-  "& .MuiInputLabel-root": {
-    color: "rgba(255, 255, 255, 0.45) !important",
-    "&.Mui-focused, &.MuiInputLabel-shrink": {
-      color: "#ffffff !important",
-      backgroundColor: "#0f122a",
-      padding: "0 8px !important",
-      transform: "translate(14px, -11px) scale(0.75) !important",
+      border: "1px solid #4318ff !important",
     },
   },
   "& .MuiInputBase-input": {
     color: "#ffffff !important",
     padding: "16px 14px !important",
     "&::placeholder": {
-      color: "rgba(255, 255, 255, 0.45) !important",
+      color: "rgba(255, 255, 255, 0.55) !important",
       opacity: 1,
     },
   },
@@ -56,35 +50,31 @@ const sensorFilterFieldSx = {
 
 const sensorFilterSelectSx = {
   "& .MuiOutlinedInput-root": {
-    borderRadius: "12px !important",
-    backgroundColor: "rgba(15, 18, 42, 0.95) !important",
+    borderRadius: "16px !important",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
+    display: "flex !important",
+    alignItems: "center !important",
     minHeight: "56px",
-    border: "1px solid rgba(255, 255, 255, 0.14) !important",
+    padding: "0 !important",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
-    "&.Mui-focused": { borderColor: "#4318ff !important" },
-  },
-  "& .MuiInputLabel-root": {
-    color: "rgba(255, 255, 255, 0.72) !important",
-    "&.Mui-focused, &.MuiInputLabel-shrink": {
-      color: "#ffffff !important",
-      backgroundColor: "#0f122a",
-      padding: "0 8px !important",
-      transform: "translate(14px, -11px) scale(0.75) !important",
+    "&.Mui-focused": {
+      borderColor: "#4318ff !important",
+      border: "1px solid #4318ff !important",
     },
   },
   "& .MuiSelect-select": {
     color: "#ffffff !important",
-    padding: "14px 40px 14px 14px !important",
-    minHeight: "24px !important",
     display: "flex !important",
     alignItems: "center !important",
-  },
-  "& .MuiSelect-icon": {
-    display: "block !important",
-    color: "rgba(255, 255, 255, 0.75) !important",
-    right: 8,
+    padding: "14px 40px 14px 18px !important",
+    minHeight: "24px !important",
+    lineHeight: "1.5 !important",
+    boxSizing: "border-box",
   },
 };
 
@@ -93,11 +83,13 @@ const sensorSelectMenuProps = {
     sx: {
       mt: 1,
       borderRadius: "12px",
-      background: "linear-gradient(127deg, rgba(20, 21, 55, 0.97) 0%, rgba(25, 26, 65, 0.98) 100%)",
+      background: "linear-gradient(127deg, rgba(15, 21, 55, 0.88) 0%, rgba(20, 26, 65, 0.88) 100%)",
+      backdropFilter: "blur(20px)",
       border: "1px solid rgba(255, 255, 255, 0.12)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
       "& .MuiMenuItem-root": { color: "#fff", fontSize: "0.875rem" },
       "& .MuiMenuItem-root:hover": { backgroundColor: "rgba(67, 24, 255, 0.22)" },
-      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.35)" },
+      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.20)" },
     },
   },
 };
@@ -235,19 +227,19 @@ function Sensors() {
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
-        <Grid container spacing={3} mb={3}>
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={2} mb={3} alignItems="center">
+          <Grid item xs={12} md={8} xl={9}>
             <TextField
               fullWidth
               variant="outlined"
+              placeholder="Search sensors (name/field)..."
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search sensors (name/field/node)"
               sx={sensorFilterFieldSx}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <IoSearch size="18px" color="rgba(255,255,255,0.45)" />
+                    <IoSearch size="18px" color="rgba(255,255,255,0.5)" style={{ marginLeft: "4px" }} />
                   </InputAdornment>
                 ),
               }}
@@ -255,18 +247,14 @@ function Sensors() {
           </Grid>
           <Grid item xs={12} md={4} xl={3}>
             <FormControl fullWidth variant="outlined" sx={sensorFilterSelectSx}>
-              <InputLabel id="sensor-filter-node-label" shrink>
-                Filter by node
-              </InputLabel>
               <Select
-                labelId="sensor-filter-node-label"
                 id="sensor-filter-node"
                 value={nodeId}
-                label="Filter by node"
                 onChange={(e) => setNodeId(e.target.value)}
                 MenuProps={sensorSelectMenuProps}
+                IconComponent={(props) => <IoChevronDown {...props} color="rgba(255,255,255,0.6)" size="16px" style={{ marginRight: "12px", cursor: "pointer", position: "absolute", right: 0 }} />}
               >
-                <MenuItem value="all">All nodes</MenuItem>
+                <MenuItem value="all">Tất cả node (All nodes)</MenuItem>
                 {nodes.map((n) => (
                   <MenuItem key={n.id} value={n.id}>
                     {n.name} ({n.id})
@@ -277,7 +265,14 @@ function Sensors() {
           </Grid>
         </Grid>
 
-        <Card sx={{ padding: "24px 20px" }}>
+        <Card sx={{
+          padding: "24px 20px",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
+          borderRadius: "16px",
+          backdropFilter: "blur(18px)",
+        }}>
           <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="24px">
             <VuiBox display="flex" alignItems="center" gap={1.5}>
               <VuiBox
@@ -289,6 +284,7 @@ function Sensors() {
                   placeItems: "center",
                   color: "#00d1a7",
                   background: "rgba(0, 209, 167, 0.15)",
+                  border: "1px solid rgba(0, 209, 167, 0.35)",
                 }}
               >
                 <IoPulse size="18px" />
@@ -301,7 +297,8 @@ function Sensors() {
               px={2}
               py={0.5}
               sx={{
-                background: "rgba(67, 24, 255, 0.15)",
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.10)",
                 borderRadius: "16px",
               }}
             >

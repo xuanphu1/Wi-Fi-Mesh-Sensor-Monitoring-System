@@ -1,13 +1,15 @@
 #include "ScreenManager.h"
 
-#include "MemoryManager.h"
-#include "LinkListData.h"
 #include "FOTAManager.h"
+#include "LinkListData.h"
+#include "MemoryManager.h"
 #include "PowerManager.h"
 #include "UartToNode.h"
 #include "WSHandle.h"
 #include "WifiManager.h"
+#include "esp_app_desc.h"
 #include "esp_err.h"
+#include "esp_ota_ops.h"
 #include "esp_timer.h"
 #include "lvgl.h"
 #include "lvgl_helpers.h"
@@ -52,6 +54,43 @@ static void set_label_fmt_if_changed(lv_obj_t *label, const char *fmt, ...) {
   va_end(args);
 
   set_label_text_if_changed(label, text);
+}
+
+typedef struct {
+  bool active;
+  uint8_t percent;
+  char target[32];
+  char version[32];
+  char detail[64];
+  TickType_t hide_after_tick;
+} screen_ota_state_t;
+
+static screen_ota_state_t s_screen_ota = {0};
+static portMUX_TYPE s_screen_ota_lock = portMUX_INITIALIZER_UNLOCKED;
+
+void screen_manager_set_ota_progress(bool active, uint8_t percent, const char *target, const char *version, const char *detail) {
+  portENTER_CRITICAL(&s_screen_ota_lock);
+  s_screen_ota.active = active;
+  s_screen_ota.percent = percent;
+  if (target && target[0]) {
+    strncpy(s_screen_ota.target, target, sizeof(s_screen_ota.target) - 1);
+    s_screen_ota.target[sizeof(s_screen_ota.target) - 1] = '\0';
+  }
+  if (version && version[0]) {
+    strncpy(s_screen_ota.version, version, sizeof(s_screen_ota.version) - 1);
+    s_screen_ota.version[sizeof(s_screen_ota.version) - 1] = '\0';
+  }
+  if (detail && detail[0]) {
+    strncpy(s_screen_ota.detail, detail, sizeof(s_screen_ota.detail) - 1);
+    s_screen_ota.detail[sizeof(s_screen_ota.detail) - 1] = '\0';
+  }
+  if (!active || percent >= 100 || (detail && (strstr(detail, "Success") || strstr(detail, "Failed")))) {
+    // Giữ panel mở thêm 4 giây sau khi hoàn tất hoặc thất bại để người dùng kịp quan sát
+    s_screen_ota.hide_after_tick = xTaskGetTickCount() + pdMS_TO_TICKS(4000);
+  } else {
+    s_screen_ota.hide_after_tick = 0;
+  }
+  portEXIT_CRITICAL(&s_screen_ota_lock);
 }
 
 static void set_obj_hidden_if_changed(lv_obj_t *obj, bool hidden) {
@@ -156,11 +195,6 @@ static void lvgl_task(void *arg) {
   uint32_t last_node_dropdown_version = UINT32_MAX;
 
   while (1) {
-    if (fota_is_running()) {
-      vTaskDelay(pdMS_TO_TICKS(250));
-      continue;
-    }
-
     if (ctx && ctx->metrics && ctx->metrics->mutex &&
         xSemaphoreTake(ctx->metrics->mutex, pdMS_TO_TICKS(5)) == pdTRUE) {
       m = ctx->metrics->value;
@@ -186,7 +220,8 @@ static void lvgl_task(void *arg) {
           set_label_text_if_changed(ui_LabelMonth,
                                     month_names[m.rtc_time.tm_mon]);
         }
-        set_label_fmt_if_changed(ui_Labelyear, "%04d", m.rtc_time.tm_year + 1900);
+        set_label_fmt_if_changed(ui_Labelyear, "%04d",
+                                 m.rtc_time.tm_year + 1900);
       }
 
       // Uptime in Days (fractional)
@@ -210,12 +245,16 @@ static void lvgl_task(void *arg) {
 
       // Total Memory (SD Card)
       if (ui_ValueMemory) {
-        uint32_t mb = m.sd_total_kb / 1024;
-        uint32_t gb_whole = mb / 1000;
-        uint32_t gb_frac = (mb % 1000) / 10;
-        set_label_fmt_if_changed(ui_ValueMemory, "%lu.%02lu",
-                                 (unsigned long)gb_whole,
-                                 (unsigned long)gb_frac);
+        if (m.sd_total_kb == 0) {
+          set_label_text_if_changed(ui_ValueMemory, "0.00");
+        } else {
+          uint32_t mb = m.sd_total_kb / 1024;
+          uint32_t gb_whole = mb / 1000;
+          uint32_t gb_frac = (mb % 1000) / 10;
+          set_label_fmt_if_changed(ui_ValueMemory, "%lu.%02lu",
+                                   (unsigned long)gb_whole,
+                                   (unsigned long)gb_frac);
+        }
       }
 
       // Memory Used (System RAM %)
@@ -245,12 +284,26 @@ static void lvgl_task(void *arg) {
       set_obj_hidden_if_changed(ui_ImageWifiConn, !wifi_connected);
       set_obj_hidden_if_changed(ui_ImageWifiNotCon, wifi_connected);
 
-      set_label_text_if_changed(ui_LabelNumConn, "--");
+      // Số lượng node thực tế kết nối trong mạng mesh
+      size_t node_count = link_list_data_get_count();
+      set_label_fmt_if_changed(ui_LabelNumConn, "%u", (unsigned)node_count);
+      if (ui_LabelNumWeakConn) {
+        set_label_text_if_changed(ui_LabelNumWeakConn, "0");
+      }
+      if (ui_LabelWeakBatNode) {
+        set_label_text_if_changed(ui_LabelWeakBatNode, "0");
+      }
+
+      // Version thực tế của Gateway từ firmware image
+      const esp_app_desc_t *app_desc = esp_app_get_description();
+      if (app_desc && ui_LabelVersionGateway) {
+        set_label_text_if_changed(ui_LabelVersionGateway, app_desc->version);
+      }
 
       if (ui_LabelStatus) {
-        set_label_text_if_changed(ui_LabelStatus,
-                                  websocket_is_connected() ? "Connected"
-                                                           : "Disconnected");
+        set_label_text_if_changed(ui_LabelStatus, websocket_is_connected()
+                                                      ? "Connected"
+                                                      : "Disconnected");
       }
       set_label_fmt_if_changed(ui_ValueReconnect, "%lu",
                                (unsigned long)websocket_get_reconnect_count());
@@ -258,6 +311,57 @@ static void lvgl_task(void *arg) {
       update_node_dropdown_if_needed(&last_node_dropdown_version);
       update_des_dropdown_if_needed();
       render_selected_node_info();
+
+      // Cập nhật và điều khiển hiển thị PanelOTA
+      if (ui_PanelOTA) {
+        portENTER_CRITICAL(&s_screen_ota_lock);
+        // Tự động đồng bộ nếu Gateway đang thực hiện OTA
+        if (fota_is_running()) {
+          s_screen_ota.active = true;
+          s_screen_ota.percent = fota_get_progress_percent();
+          if (s_screen_ota.target[0] == '\0') {
+            strncpy(s_screen_ota.target, "Gateway", sizeof(s_screen_ota.target) - 1);
+          }
+        }
+
+        bool show_panel = s_screen_ota.active;
+        if (s_screen_ota.hide_after_tick > 0) {
+          if (xTaskGetTickCount() >= s_screen_ota.hide_after_tick) {
+            show_panel = false;
+            s_screen_ota.active = false;
+            s_screen_ota.hide_after_tick = 0;
+          } else {
+            show_panel = true;
+          }
+        }
+        screen_ota_state_t ota_snap = s_screen_ota;
+        portEXIT_CRITICAL(&s_screen_ota_lock);
+
+        set_obj_hidden_if_changed(ui_PanelOTA, !show_panel);
+
+        if (show_panel) {
+          // 1. Biểu đồ tròn Arc1
+          if (ui_Arc1) {
+            lv_arc_set_value(ui_Arc1, ota_snap.percent);
+          }
+          // 2. Nhãn % tiến độ
+          if (ui_LabelPercentOTA) {
+            set_label_fmt_if_changed(ui_LabelPercentOTA, "%u", (unsigned)ota_snap.percent);
+          }
+          // 3. Đối tượng Target (ValueTarget)
+          if (ui_ValueTarget) {
+            set_label_text_if_changed(ui_ValueTarget, ota_snap.target[0] ? ota_snap.target : "Gateway");
+          }
+          // 4. Phiên bản Version (ValueVersion)
+          if (ui_ValueVersion) {
+            set_label_text_if_changed(ui_ValueVersion, ota_snap.version[0] ? ota_snap.version : "---");
+          }
+          // 5. Chi tiết Detail / Trạng thái (ValueVersion1)
+          if (ui_ValueVersion1) {
+            set_label_text_if_changed(ui_ValueVersion1, ota_snap.detail[0] ? ota_snap.detail : "OTA Processing");
+          }
+        }
+      }
     }
 
     uint32_t wait_ms = lv_timer_handler();
@@ -353,4 +457,3 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   xTaskCreatePinnedToCore(lvgl_task, "lvgl_task", 4096, &s_screen_ctx, priority,
                           NULL, core_id);
 }
-

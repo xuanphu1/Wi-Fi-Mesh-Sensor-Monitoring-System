@@ -2,16 +2,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "UartToNode.h"
 
 #include "Datamanager.h"
 #include "FOTAManager.h"
 #include "LinkListData.h"
+#include "WifiManager.h"
 
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <sys/time.h>
+#include <time.h>
 
 #include "cJSON.h"
 
@@ -19,14 +26,11 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 
-
 #include "esp_check.h"
 #include "esp_log.h"
 
-
 #include "driver/gpio.h"
 #include "driver/uart.h"
-
 
 static const char *TAG = "uart_to_node";
 
@@ -104,9 +108,9 @@ void uart_to_node_attach_telemetry(dm_telemetry_t *telemetry) {
 }
 
 size_t uart_to_node_get_buffered_len(void) {
-    size_t buffered = 0;
-    uart_get_buffered_data_len(cfg_uart_num(), &buffered);
-    return buffered;
+  size_t buffered = 0;
+  uart_get_buffered_data_len(cfg_uart_num(), &buffered);
+  return buffered;
 }
 
 void uart_to_node_get_queue_status(uint32_t *used, uint32_t *total) {
@@ -249,8 +253,109 @@ static void uart_to_node_send_line(const char *s) {
   if (!s) {
     return;
   }
-  uart_write_bytes(cfg_uart_num(), s, (size_t)strlen(s));
-  uart_write_bytes(cfg_uart_num(), "\r\n", 2);
+  size_t len = strlen(s);
+  char buf[512];
+  if (len + 3 <= sizeof(buf)) {
+    memcpy(buf, s, len);
+    buf[len] = '\r';
+    buf[len + 1] = '\n';
+    buf[len + 2] = '\0';
+    uart_write_bytes(cfg_uart_num(), buf, len + 2);
+  } else {
+    uart_write_bytes(cfg_uart_num(), s, len);
+    uart_write_bytes(cfg_uart_num(), "\r\n", 2);
+  }
+}
+
+esp_err_t uart_to_node_send_sync_time(void) {
+  time_t now_sec = time(NULL);
+  if (now_sec <= 1000000000) {
+    // Gateway chưa có thời gian hợp lệ
+    return ESP_ERR_INVALID_STATE;
+  }
+
+  struct tm tm_info = {0};
+  localtime_r(&now_sec, &tm_info);
+
+  cJSON *root = cJSON_CreateObject();
+  if (!root) {
+    return ESP_ERR_NO_MEM;
+  }
+
+  cJSON_AddStringToObject(root, "type", "sync_time");
+  cJSON_AddNumberToObject(root, "timestamp", (double)now_sec);
+  cJSON_AddNumberToObject(root, "year", tm_info.tm_year + 1900);
+  cJSON_AddNumberToObject(root, "month", tm_info.tm_mon + 1);
+  cJSON_AddNumberToObject(root, "day", tm_info.tm_mday);
+  cJSON_AddNumberToObject(root, "hour", tm_info.tm_hour);
+  cJSON_AddNumberToObject(root, "min", tm_info.tm_min);
+  cJSON_AddNumberToObject(root, "sec", tm_info.tm_sec);
+
+  char time_str[32];
+  strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", &tm_info);
+  cJSON_AddStringToObject(root, "time", time_str);
+
+  char *json_str = cJSON_PrintUnformatted(root);
+  cJSON_Delete(root);
+
+  if (!json_str) {
+    return ESP_ERR_NO_MEM;
+  }
+
+  uart_to_node_send_line(json_str);
+  ESP_LOGI(TAG, "Sent sync_time to Root Node: %s", json_str);
+  free(json_str);
+  return ESP_OK;
+}
+
+esp_err_t uart_to_node_send_ota_start(const char *target, const char *target_detail,
+                                     const char *job_id, const char *url,
+                                     const char *version, uint32_t size,
+                                     const char *md5) {
+  char ssid[33] = {0};
+  char password[65] = {0};
+  wifi_manager_get_sta_credentials(ssid, sizeof(ssid), password, sizeof(password));
+
+  cJSON *root = cJSON_CreateObject();
+  if (!root) {
+    return ESP_ERR_NO_MEM;
+  }
+
+  cJSON_AddStringToObject(root, "type", "ota_start");
+  cJSON_AddStringToObject(root, "target", (target && target[0]) ? target : "node");
+  cJSON_AddStringToObject(root, "targetDetail", (target_detail && target_detail[0]) ? target_detail : "all");
+  if (job_id && job_id[0]) {
+    cJSON_AddStringToObject(root, "jobId", job_id);
+  }
+  if (url && url[0]) {
+    cJSON_AddStringToObject(root, "ssid", ssid);
+    cJSON_AddStringToObject(root, "password", password);
+    cJSON_AddStringToObject(root, "url", url);
+  }
+  if (version && version[0]) {
+    cJSON_AddStringToObject(root, "ver", version);
+  }
+  if (size > 0) {
+    cJSON_AddNumberToObject(root, "size", size);
+  }
+  if (md5 && md5[0]) {
+    cJSON_AddStringToObject(root, "md5", md5);
+  }
+
+  char *json_str = cJSON_PrintUnformatted(root);
+  cJSON_Delete(root);
+
+  if (!json_str) {
+    return ESP_ERR_NO_MEM;
+  }
+
+  uart_to_node_send_line(json_str);
+  ESP_LOGI(TAG, "Sent OTA start command to Root Node via UART: target=%s, targetDetail=%s, SSID=%s, URL=%s",
+           target ? target : "node", target_detail ? target_detail : "all",
+           (url && url[0]) ? ssid : "none",
+           (url && url[0]) ? url : "none (Mesh internal)");
+  free(json_str);
+  return ESP_OK;
 }
 
 static void uart_to_node_reset_handshake(uart_to_node_ctx_t *ctx) {
@@ -263,6 +368,8 @@ static void uart_to_node_handshake_ok(uart_to_node_ctx_t *ctx) {
   ctx->hs_fill = 0;
   ESP_LOGI(TAG,
            "Handshake OK (exact wire): Switching to root mode... -> connected");
+  // Gửi sync time xuống ngay khi kết nối thành công với Root Node
+  uart_to_node_send_sync_time();
 }
 
 /** Đẩy từng byte RX; chỉ khi đang chờ handshake mới quét khớp `k_handshake`. */
@@ -305,8 +412,9 @@ static void uart_to_node_log_rx_chunk(const uint8_t *data, size_t len) {
     if (c == '\n') {
       if (s_rx_line_len > 0) {
         s_rx_line[s_rx_line_len] = '\0';
-        // Sử dụng LOGD thay vì LOGI để không in ra màn hình console ở chế độ mặc định
-        // Việc in ra console (ESP_LOGI) quá nhiều ở tốc độ baud cao sẽ làm nghẽn task và gây tràn FIFO
+        // Sử dụng LOGD thay vì LOGI để không in ra màn hình console ở chế độ
+        // mặc định Việc in ra console (ESP_LOGI) quá nhiều ở tốc độ baud cao sẽ
+        // làm nghẽn task và gây tràn FIFO
         ESP_LOGD(TAG, "RX line: %s", s_rx_line);
         s_rx_line_len = 0;
       }
@@ -377,8 +485,9 @@ static esp_err_t uart_to_node_uart_init(void) {
 
   /* RX lớn + queue sự kiện: driver tạo queue, ISR đẩy uart_event_t (UART_DATA,
    * overflow, ...) */
-  ESP_RETURN_ON_ERROR(uart_driver_install(u, 2048, 1024, 64, &s_uart_queue, ESP_INTR_FLAG_IRAM),
-                      TAG, "uart_driver_install");
+  ESP_RETURN_ON_ERROR(
+      uart_driver_install(u, 2048, 1024, 64, &s_uart_queue, ESP_INTR_FLAG_IRAM),
+      TAG, "uart_driver_install");
   ESP_RETURN_ON_ERROR(uart_param_config(u, &uart_config), TAG,
                       "uart_param_config");
   ESP_RETURN_ON_ERROR(
@@ -399,6 +508,7 @@ static void uart_to_node_task(void *arg) {
   uart_to_node_reset_handshake(&ctx);
   ctx.last_rx_tick = xTaskGetTickCount();
   ctx.next_tx_tick = xTaskGetTickCount();
+  TickType_t next_time_sync_tick = 0;
 
   const TickType_t send_period = cfg_send_period_ticks();
   const TickType_t idle_reset = cfg_idle_reset_ticks();
@@ -407,6 +517,7 @@ static void uart_to_node_task(void *arg) {
 
   while (1) {
     if (fota_is_running()) {
+      uart_flush_input(u);
       vTaskDelay(pdMS_TO_TICKS(500));
       continue;
     }
@@ -476,6 +587,18 @@ static void uart_to_node_task(void *arg) {
         ESP_LOGI(TAG, "Send: Connected | UART Buffer: %zu bytes", buf_len);
       }
       ctx.next_tx_tick = now + send_period;
+    }
+
+    /* Định kỳ gửi sync time xuống Root Node khi đang connected */
+    if (ctx.state == UART_TO_NODE_STATE_CONNECTED) {
+      if ((int32_t)(now - next_time_sync_tick) >= 0) {
+        if (uart_to_node_send_sync_time() == ESP_OK) {
+          next_time_sync_tick = now + pdMS_TO_TICKS(15000); // 15s gửi 1 lần
+        } else {
+          next_time_sync_tick =
+              now + pdMS_TO_TICKS(5000); // 5s thử lại nếu gateway chưa có time
+        }
+      }
     }
   }
 }

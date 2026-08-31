@@ -45,41 +45,46 @@ import { useDashboardRealtime } from "hooks/useDashboardRealtime";
 import { getWebSocketUrl } from "utils/wsConfig";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 
-// Glassmorphism styling from existing dashboard
 const glassCardSx = {
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.76) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(50, 105, 255, 0.35)",
-  boxShadow: "0 0 24px rgba(0, 106, 255, 0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
   borderRadius: "16px",
-  backdropFilter: "blur(42px)",
+  backdropFilter: "blur(18px)",
   height: "100%",
 };
 
 const filterSx = {
   "& .MuiOutlinedInput-root": {
-    borderRadius: "12px !important",
-    background: "rgba(10, 14, 35, 0.5) !important",
+    borderRadius: "16px !important",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
-    height: "44px",
-    border: "1px solid rgba(255, 255, 255, 0.08) !important",
+    height: "56px",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
     "&.Mui-focused": { borderColor: "#4318ff !important", border: "1px solid #4318ff !important" },
   },
   "& .MuiInputLabel-root": {
-    color: "rgba(255, 255, 255, 0.45) !important",
+    color: "rgba(255, 255, 255, 0.55) !important",
     "&.Mui-focused, &.MuiInputLabel-shrink": {
       color: "#ffffff !important",
     },
   },
   "& .MuiSelect-select": {
     color: "#ffffff !important",
-    background: "transparent !important",
+    display: "flex !important",
+    alignItems: "center !important",
+    padding: "14px 40px 14px 18px !important",
+    minHeight: "24px !important",
+    lineHeight: "1.5 !important",
+    boxSizing: "border-box",
   },
   "& .MuiInputBase-input": {
     color: "#ffffff !important",
-    paddingLeft: "14px !important",
-    background: "transparent !important",
+    padding: "14px 18px !important",
   },
   "& input[type='datetime-local']::-webkit-calendar-picker-indicator": {
     opacity: 0,
@@ -97,11 +102,13 @@ const selectMenuProps = {
     sx: {
       mt: 1,
       borderRadius: "12px",
-      background: "linear-gradient(127deg, rgba(20, 21, 55, 0.97) 0%, rgba(25, 26, 65, 0.98) 100%)",
+      background: "linear-gradient(127deg, rgba(15, 21, 55, 0.88) 0%, rgba(20, 26, 65, 0.88) 100%)",
+      backdropFilter: "blur(20px)",
       border: "1px solid rgba(255, 255, 255, 0.12)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
       "& .MuiMenuItem-root": { color: "#fff", fontSize: "0.875rem" },
       "& .MuiMenuItem-root:hover": { backgroundColor: "rgba(67, 24, 255, 0.22)" },
-      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.35)" },
+      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.20)" },
     },
   },
 };
@@ -148,14 +155,14 @@ function PerformanceCard({ title, value, detail, icon, color = "#0075ff", trend,
         </VuiBox>
         <VuiBox
           sx={{
-            width: 56,
-            height: 56,
-            borderRadius: "50%",
+            width: 46,
+            height: 46,
+            borderRadius: "12px",
             display: "grid",
             placeItems: "center",
-            color: "#fff",
-            background: `radial-gradient(circle at 30% 25%, #2ee7ff 0%, ${color} 48%, #1546ff 100%)`,
-            boxShadow: `0 0 22px ${color}99`,
+            color: color,
+            background: `${color}18`,
+            border: `1px solid ${color}35`,
           }}
         >
           {icon}
@@ -167,17 +174,17 @@ function PerformanceCard({ title, value, detail, icon, color = "#0075ff", trend,
 
 function SectionTitle({ icon, children, color = "#0075ff" }) {
   return (
-    <VuiBox display="flex" alignItems="center" gap={1.25} mb={2}>
+    <VuiBox display="flex" alignItems="center" gap={1.5} mb={2.5}>
       <VuiBox
         sx={{
-          width: 38,
-          height: 38,
-          borderRadius: "50%",
+          width: 40,
+          height: 40,
+          borderRadius: "12px",
           display: "grid",
           placeItems: "center",
-          color: "#fff",
-          background: `radial-gradient(circle, ${color} 0%, rgba(0,117,255,0.35) 100%)`,
-          boxShadow: `0 0 18px ${color}88`,
+          color: color,
+          background: `${color}18`,
+          border: `1px solid ${color}35`,
         }}
       >
         {icon}

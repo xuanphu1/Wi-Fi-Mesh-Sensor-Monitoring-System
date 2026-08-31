@@ -74,7 +74,8 @@ esp_err_t initSDCard(void)
     ret = esp_vfs_fat_sdspi_mount(MOUNT_POINT, &host, &slot_config, &mount_config, &sdcard);
     if (ret != ESP_OK)
     {
-        printf("[SD ] Failed to mount filesystem. err: 0x%x\n", ret);
+        sdcard = NULL;
+        printf("[SD ] Failed to mount filesystem (no SD card detected). err: 0x%x\n", ret);
         if (bus_initialized_by_us)
         {
             spi_bus_free(host.slot);

@@ -29,10 +29,9 @@ const { borderWidth, borderRadius } = borders;
 export default {
   styleOverrides: {
     root: {
-      display: "flex !important",
-      padding: `${pxToRem(8)} ${pxToRem(28)} ${pxToRem(8)} ${pxToRem(12)} !important`,
-      border: `${borderWidth[1]} solid ${inputColors.borderColor.main}`,
-      borderRadius: `${borderRadius.md} !important`,
+      border: `1px solid rgba(255, 255, 255, 0.10)`,
+      borderRadius: "14px !important",
+      color: "#ffffff !important",
 
       "& fieldset": {
         border: "none",
@@ -40,12 +39,11 @@ export default {
     },
 
     input: {
-      height: pxToRem(22),
-      width: "max-content !important",
-    },
-
-    inputSizeSmall: {
-      height: pxToRem(14),
+      color: "#ffffff !important",
+      "&::placeholder": {
+        color: "rgba(255, 255, 255, 0.55) !important",
+        opacity: 1,
+      },
     },
   },
 };

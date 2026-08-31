@@ -56,11 +56,11 @@ function About() {
         {/* Top Card */}
         <Card sx={{
           padding: "32px",
-          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
           borderRadius: "16px",
-          backdropFilter: "blur(42px)",
+          backdropFilter: "blur(18px)",
           mb: 3
         }}>
           <Grid container spacing={4} alignItems="center">
@@ -127,11 +127,11 @@ function About() {
         {/* Firmware Device Card */}
         <Card sx={{
           padding: "24px 32px",
-          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
           borderRadius: "16px",
-          backdropFilter: "blur(42px)",
+          backdropFilter: "blur(18px)",
           mb: 3
         }}>
           <VuiTypography variant="h6" color="white" fontWeight="bold" mb={3}>
@@ -190,11 +190,11 @@ function About() {
           <Grid item xs={12} md={6}>
             <Card sx={{
               padding: "24px 32px",
-              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.10)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
               borderRadius: "16px",
-              backdropFilter: "blur(42px)",
+              backdropFilter: "blur(18px)",
               height: "100%",
               display: "flex",
               flexDirection: "column",
@@ -225,11 +225,11 @@ function About() {
           <Grid item xs={12} md={6}>
             <Card sx={{
               padding: "24px 32px",
-              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.10)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
               borderRadius: "16px",
-              backdropFilter: "blur(42px)",
+              backdropFilter: "blur(18px)",
               height: "100%",
               display: "flex",
               flexDirection: "column",

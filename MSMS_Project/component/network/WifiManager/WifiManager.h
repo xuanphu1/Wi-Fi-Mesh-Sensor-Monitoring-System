@@ -42,6 +42,7 @@ void wifi_manager_attach_state(dm_wifi_t *wifi_state);
 
 
 void wifi_init_sta(void);
+bool wifi_manager_connect_sta(const char *ssid, const char *password, uint32_t timeout_ms);
 void wifi_connect_task(void *pvParameters);
 void wifi_manager_task(void *pvParameters);
 void wifi_manager_stop_tasks(void);

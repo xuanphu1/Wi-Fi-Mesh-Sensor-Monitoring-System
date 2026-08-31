@@ -18,11 +18,11 @@ import { useDashboardRealtime } from "hooks/useDashboardRealtime";
 import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
 
 const glassCardSx = {
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.76) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(50, 105, 255, 0.35)",
-  boxShadow: "0 0 24px rgba(0, 106, 255, 0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
   borderRadius: "16px",
-  backdropFilter: "blur(42px)",
+  backdropFilter: "blur(18px)",
   height: "100%",
 };
 
@@ -47,14 +47,14 @@ function PerformanceCard({ title, value, detail, icon, color = "#0075ff" }) {
         </VuiBox>
         <VuiBox
           sx={{
-            width: 56,
-            height: 56,
-            borderRadius: "50%",
+            width: 46,
+            height: 46,
+            borderRadius: "12px",
             display: "grid",
             placeItems: "center",
-            color: "#fff",
-            background: `radial-gradient(circle at 30% 25%, #2ee7ff 0%, ${color} 48%, #1546ff 100%)`,
-            boxShadow: `0 0 22px ${color}99`,
+            color: color,
+            background: `${color}18`,
+            border: `1px solid ${color}35`,
           }}
         >
           {icon}

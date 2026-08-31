@@ -110,7 +110,7 @@ void wifi_manager_task(void *pvParameters)
             }
 
             if (!(bits & WIFI_STA_LINKED_BIT) && !ctx->connect_pending) {
-                if (ctx->user_sta_configured) {
+                if (ctx->configured_ssid[0] != '\0') {
                     TickType_t now = xTaskGetTickCount();
                     if ((ctx->last_reconnect_attempt_tick == 0) ||
                         ((now - ctx->last_reconnect_attempt_tick) >=
@@ -118,12 +118,12 @@ void wifi_manager_task(void *pvParameters)
                         wifi_try_connect_configured_sta(ctx,
                                                         ctx->configured_ssid,
                                                         ctx->configured_password);
-                        ESP_LOGI(WIFI_TAG, "Retrying configured WiFi in %d ms cycle: SSID=%s",
-                                 WIFI_RECONNECT_INTERVAL_MS, ctx->configured_ssid);
+                        ESP_LOGI(WIFI_TAG, "Auto-reconnecting to previously connected WiFi: SSID=%s (every %d ms)",
+                                 ctx->configured_ssid, WIFI_RECONNECT_INTERVAL_MS);
                     }
                 } else {
                     if (!ap_mode_active) {
-                        ESP_LOGI(WIFI_TAG, "WiFi disconnected, starting AP mode (no user config reconnect)");
+                        ESP_LOGI(WIFI_TAG, "WiFi disconnected, starting AP mode (no previous config to reconnect)");
                         esp_wifi_stop();
                         wifi_init_ap();
                     }

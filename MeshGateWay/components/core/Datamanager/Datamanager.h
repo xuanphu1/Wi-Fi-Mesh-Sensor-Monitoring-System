@@ -183,7 +183,7 @@ typedef struct
 
 /** Payload một lần đọc UART (chia nhỏ nếu chunk > UART_NODE_RX_DATA_MAX). */
 #define UART_NODE_RX_DATA_MAX 512
-#define UART_NODE_RX_QUEUE_DEPTH 8
+#define UART_NODE_RX_QUEUE_DEPTH 32
 
 typedef struct {
     size_t len;

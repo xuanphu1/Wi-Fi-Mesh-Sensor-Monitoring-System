@@ -1,15 +1,22 @@
 /* Automatically generated file; DO NOT EDIT */
 /* Espressif IoT Development Framework Linker Script */
-/* Generated from: /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/esp-idf/esp_system/ld/sections.ld.in */
+/* Generated from: D:\Engineering Project\MeshGateWay\build\esp-idf\esp_system\ld\sections.ld.in */
 
 /*
+
  * SPDX-FileCopyrightText: 2021 Espressif Systems (Shanghai) CO LTD
+
  *
+
  * SPDX-License-Identifier: Apache-2.0
+
  */
 /*
+
  * Automatically generated file. DO NOT EDIT.
+
  * Espressif IoT Development Framework (ESP-IDF) 5.2.5 Configuration Header
+
  */
        
 /* List of deprecated options */
@@ -18,7 +25,9 @@ ENTRY(call_start_cpu0);
 SECTIONS
 {
   /* RTC fast memory holds RTC wake stub code,
+
      including from any source file named rtc_wake_stub*.c
+
   */
   .rtc.text :
   {
@@ -28,8 +37,11 @@ SECTIONS
     _rtc_text_end = ABSOLUTE(.);
   } > rtc_iram_seg
   /*
+
     This section is required to skip rtc.text area because rtc_iram_seg and
+
     rtc_data_seg are reflect the same address space on different buses.
+
   */
   .rtc.dummy :
   {
@@ -39,8 +51,11 @@ SECTIONS
     _rtc_dummy_end = ABSOLUTE(.);
   } > rtc_data_seg
   /* This section located in RTC FAST Memory area.
+
      It holds data marked with RTC_FAST_ATTR attribute.
+
      See the file "esp_attr.h" for more information.
+
   */
   .rtc.force_fast :
   {
@@ -54,11 +69,17 @@ SECTIONS
     _rtc_force_fast_end = ABSOLUTE(.);
   } > rtc_data_seg
   /* RTC data section holds RTC wake stub
+
      data/rodata, including from any source file
+
      named rtc_wake_stub*.c and the data marked with
+
      RTC_DATA_ATTR, RTC_RODATA_ATTR attributes.
+
      The memory location of the data is dependent on
+
      CONFIG_ESP32_RTCDATA_IN_FAST_MEM option.
+
   */
   .rtc.data :
   {
@@ -81,11 +102,17 @@ SECTIONS
     _rtc_bss_end = ABSOLUTE(.);
   } > rtc_data_location
   /* This section holds data that should not be initialized at power up
+
      and will be retained during deep sleep.
+
      User data marked with RTC_NOINIT_ATTR will be placed
+
      into this section. See the file "esp_attr.h" for more information.
+
 	 The memory location of the data is dependent on
+
      CONFIG_ESP32_RTCDATA_IN_FAST_MEM option.
+
   */
   .rtc_noinit (NOLOAD):
   {
@@ -96,8 +123,11 @@ SECTIONS
     _rtc_noinit_end = ABSOLUTE(.);
   } > rtc_data_location
   /* This section located in RTC SLOW Memory area.
+
      It holds data marked with RTC_SLOW_ATTR attribute.
+
      See the file "esp_attr.h" for more information.
+
   */
   .rtc.force_slow :
   {
@@ -108,15 +138,20 @@ SECTIONS
     _rtc_force_slow_end = ABSOLUTE(.);
   } > rtc_slow_seg
   /**
+
    * This section holds RTC FAST data that should have fixed addresses.
+
    * The data are not initialized at power-up and are retained during deep sleep.
+
    */
   .rtc_fast_reserved (NOLOAD):
   {
     . = ALIGN(4);
     _rtc_fast_reserved_start = ABSOLUTE(.);
     /* New data can only be added here to ensure existing data are not moved.
+
        Because data have adhered to the end of the segment and code is relied on it.
+
        >> put new data here << */
     KEEP(*(.bootloader_data_rtc_mem .bootloader_data_rtc_mem.*))
     _rtc_fast_reserved_end = ABSOLUTE(.);
@@ -125,15 +160,20 @@ SECTIONS
   ASSERT((_rtc_fast_reserved_length <= LENGTH(rtc_fast_reserved_seg)),
           "RTC FAST reserved segment data does not fit.")
   /**
+
    * This section holds RTC SLOW data that should have fixed addresses.
+
    * The data are not initialized at power-up and are retained during deep sleep.
+
    */
   .rtc_slow_reserved (NOLOAD):
   {
     . = ALIGN(4);
     _rtc_slow_reserved_start = ABSOLUTE(.);
     /* New data can only be added here to ensure existing data are not moved.
+
        Because data have adhered to the end of the segment and code is relied on it.
+
        >> put new data here << */
     *(.rtc_timer_data_in_rtc_mem .rtc_timer_data_in_rtc_mem.*)
     _rtc_slow_reserved_end = ABSOLUTE(.);
@@ -368,8 +408,11 @@ SECTIONS
     . = ALIGN(4);
   } > dram0_0_seg
   /**
+
    * This section holds data that won't be initialised when startup.
+
    * This section locates in External RAM region.
+
    */
   .ext_ram_noinit (NOLOAD) :
   {
@@ -379,9 +422,13 @@ SECTIONS
     _ext_ram_noinit_end = ABSOLUTE(.);
   } > extern_ram_seg
   /*This section holds data that should not be initialized at power up.
+
     The section located in Internal SRAM memory region. The macro _NOINIT
+
     can be used as attribute to place data into this section.
+
     See the esp_attr.h file for more information.
+
   */
   .noinit (NOLOAD):
   {
@@ -419,7 +466,9 @@ SECTIONS
     *(.rodata_desc .rodata_desc.*) /* Should be the first.  App version info.        DO NOT PUT ANYTHING BEFORE IT! */
     *(.rodata_custom_desc .rodata_custom_desc.*) /* Should be the second. Custom app version info. DO NOT PUT ANYTHING BEFORE IT! */
     /* Create an empty gap within this section. Thanks to this, the end of this
+
      * section will match .flah.rodata's begin address. Thus, both sections
+
      * will be merged when creating the final bin image. */
     . = ALIGN(ALIGNOF(.flash.rodata));
   } >default_rodata_seg
@@ -441,7 +490,10 @@ SECTIONS
     . = (. + 3) & ~ 3;
     /*  C++ constructor and destructor tables
 
+
+
         Make a point of not including anything from crtbegin.o or crtend.o, as IDF doesn't use toolchain crt
+
       */
     __init_array_start = ABSOLUTE(.);
     KEEP (*(EXCLUDE_FILE (*crtend.* *crtbegin.*) .ctors SORT(.ctors.*)))
@@ -459,6 +511,7 @@ SECTIONS
     *(.dynamic)
     *(.gnu.version_d)
     /* Addresses of memory regions reserved via
+
        SOC_RESERVE_MEMORY_REGION() */
     soc_reserved_memory_region_start = ABSOLUTE(.);
     KEEP (*(.reserved_memory_address))
@@ -485,14 +538,20 @@ SECTIONS
   } >default_rodata_seg
   _flash_rodata_align = ALIGNOF(.flash.rodata);
   /*
+
     This section is a place where we dump all the rodata which aren't used at runtime,
+
     so as to avoid binary size increase
+
   */
   .flash.rodata_noload (NOLOAD) :
   {
     /*
+
       This is a symbol marking the flash.rodata end, this can be used for mmu driver to maintain virtual address
+
       We don't need to include the noload rodata in this section
+
     */
     _rodata_reserved_end = ABSOLUTE(.);
     . = ALIGN (4);
@@ -545,17 +604,24 @@ SECTIONS
     *(.fini)
     *(.gnu.version)
     /** CPU will try to prefetch up to 16 bytes of
+
       * of instructions. This means that any configuration (e.g. MMU, PMS) must allow
+
       * safe access to up to 16 bytes after the last real instruction, add
+
       * dummy bytes to ensure this
+
       */
     . += _esp_flash_mmap_prefetch_pad_size;
     _text_end = ABSOLUTE(.);
     _instruction_reserved_end = ABSOLUTE(.); /* This is a symbol marking the flash.text end, this can be used for mmu driver to maintain virtual address */
     _etext = .;
     /* Similar to _iram_start, this symbol goes here so it is
+
        resolved by addr2line in preference to the first symbol in
+
        the flash.text segment.
+
     */
     _flash_cache_start = ABSOLUTE(0);
   } >default_code_seg
@@ -632,14 +698,23 @@ SECTIONS
   .comment 0 : { *(.comment) }
   .note.GNU-stack 0: { *(.note.GNU-stack) }
 /**
+
  * .xt.prop and .xt.lit sections will be used by the debugger and disassembler
+
  * to get more information about raw data present in the code.
+
  * Indeed, it may be required to add some padding at some points in the code
+
  * in order to align a branch/jump destination on a particular bound.
+
  * Padding these instructions will generate null bytes that shall be
+
  * interpreted as data, and not code by the debugger or disassembler.
+
  * This section will only be present in the ELF file, not in the final binary
+
  * For more details, check GCC-212
+
  */
   .xtensa.info 0: { *(.xtensa.info) }
   .xt.prop 0 : { *(.xt.prop .xt.prop.* .gnu.linkonce.prop.*) }

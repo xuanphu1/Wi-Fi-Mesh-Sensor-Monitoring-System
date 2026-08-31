@@ -1,2 +1,2 @@
-source /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/bootloader/gdbinit/symbols
-source /home/phu/Documents/Phuhx1/Thesis-Project/Wi-Fi-Mesh-Sensor-Monitoring-System/MeshGateWay/build/bootloader/gdbinit/connect
+source D:/Engineering Project/MeshGateWay/build/bootloader/gdbinit/symbols
+source D:/Engineering Project/MeshGateWay/build/bootloader/gdbinit/connect

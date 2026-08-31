@@ -54,5 +54,7 @@ bool wifi_manager_get_ip_info(char *ip_buf, size_t max_len);
 /** Get current STA MAC string. Return true if success. */
 bool wifi_manager_get_mac_info(char *mac_buf, size_t max_len);
 
+/** Get current connected STA credentials (SSID and Password). */
+bool wifi_manager_get_sta_credentials(char *ssid_buf, size_t ssid_len, char *pass_buf, size_t pass_len);
 
 #endif // __WIFI_MANAGER_H__

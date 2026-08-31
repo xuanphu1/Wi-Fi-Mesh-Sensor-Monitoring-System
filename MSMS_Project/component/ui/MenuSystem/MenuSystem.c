@@ -597,11 +597,11 @@ void MenuNavigation_Task(void *pvParameter) {
       last_interaction_time = xTaskGetTickCount();
       if (data->screen.is_dashboard_active) {
         if (btn == BTN_SEL) {
-          data->screen.dashboard_page = (data->screen.dashboard_page + 1) % 3;
+          data->screen.dashboard_page = (data->screen.dashboard_page + 1) % 4;
           btn = BTN_NONE;
         } else if (btn == BTN_BACK) {
           if (data->screen.dashboard_page == 0)
-            data->screen.dashboard_page = 2;
+            data->screen.dashboard_page = 3;
           else
             data->screen.dashboard_page--;
           btn = BTN_NONE;

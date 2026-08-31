@@ -122,8 +122,15 @@ static void system_monitor_task(void *arg) {
     uint32_t now_ms = (uint32_t)(esp_timer_get_time() / 1000ULL);
 
     if (ctx->hw->rtc_ready &&
-        ds3231_get_time(&ctx->hw->rtc_dev, &m.rtc_time) == ESP_OK)
+        ds3231_get_time(&ctx->hw->rtc_dev, &m.rtc_time) == ESP_OK) {
       m.rtc_ok = true;
+    } else {
+      time_t now_sec = time(NULL);
+      if (now_sec > 1000000000) {
+        localtime_r(&now_sec, &m.rtc_time);
+        m.rtc_ok = true;
+      }
+    }
 
     m.battery_pct =
         power_manager_battery_get_percent(ctx->hw, &bat_raw_avg, &bat_adc_mv);

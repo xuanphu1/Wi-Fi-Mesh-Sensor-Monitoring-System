@@ -7,5 +7,5 @@ idf_component_register(
         "private/mesh_telemetry.c"
     INCLUDE_DIRS "include"
     PRIV_INCLUDE_DIRS "private"
-    REQUIRES espressif__mesh_lite espressif__iot_bridge DataManager SensorRegistry TimeManager
+    REQUIRES espressif__mesh_lite espressif__iot_bridge DataManager SensorRegistry TimeManager json
 )

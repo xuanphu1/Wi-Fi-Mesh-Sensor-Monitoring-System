@@ -31,30 +31,25 @@ const { borderWidth, borderRadius } = borders;
 export default {
   styleOverrides: {
     root: {
-      display: "grid !important",
-      placeItems: "center !important",
       width: "100% !important",
       height: "auto !important",
-      padding: `${pxToRem(8)} ${pxToRem(12)}`,
       fontSize: `${size.sm} !important`,
       fontWeight: `${fontWeightRegular} !important`,
       lineHeight: "1.4 !important",
-      color: `${grey[700]} !important`,
-      backgroundColor: `${white.main} !important`,
-      backgroundClip: "padding-box !important",
-      border: `${borderWidth[1]} solid ${inputColors.borderColor.main}`,
-      appearance: "none !important",
-      borderRadius: borderRadius.md,
-      transition: "box-shadow 150ms ease, border-color 150ms ease, padding 150ms ease !important",
+      color: "#ffffff !important",
+      backgroundColor: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+      backdropFilter: "blur(18px)",
+      border: `1px solid rgba(255, 255, 255, 0.10)`,
+      borderRadius: "14px",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     },
 
     input: {
       width: "100% !important",
-      height: `${pxToRem(22)}`,
-      padding: "0 !important",
-
-      "&::-webkit-input-placeholder": {
-        color: `${dark.main} !important`,
+      color: "#ffffff !important",
+      "&::placeholder": {
+        color: "rgba(255, 255, 255, 0.55) !important",
+        opacity: 1,
       },
     },
   },

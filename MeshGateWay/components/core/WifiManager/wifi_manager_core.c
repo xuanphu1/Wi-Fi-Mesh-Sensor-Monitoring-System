@@ -63,7 +63,7 @@ static bool wifi_try_sta_once(wifi_manager_ctx_t *ctx, const char *ssid,
             sizeof(ctx->configured_password) - 1);
     ctx->configured_password[sizeof(ctx->configured_password) - 1] = '\0';
     ctx->sta_configured = true;
-    ctx->user_sta_configured = false;
+    ctx->user_sta_configured = true;
     return true;
   }
   return false;
@@ -224,10 +224,16 @@ void wifi_init_sta(void) {
   wifi_http_load_config_from_nvs();
 
   bool connected = false;
+
+  // Duyệt qua danh sách boot Wi-Fi (s_boot_wifi_list)
   for (size_t i = 0; i < sizeof(s_boot_wifi_list) / sizeof(s_boot_wifi_list[0]);
        i++) {
-    for (int attempt = 1; attempt <= 5; attempt++) {
-      ESP_LOGI(WIFI_TAG, "Startup WiFi try %d/5 for SSID=%s", attempt,
+    if (s_boot_wifi_list[i].ssid == NULL ||
+        s_boot_wifi_list[i].ssid[0] == '\0') {
+      continue;
+    }
+    for (int attempt = 1; attempt <= 3; attempt++) {
+      ESP_LOGI(WIFI_TAG, "Startup WiFi try %d/3 for SSID=%s", attempt,
                s_boot_wifi_list[i].ssid);
       if (wifi_try_sta_once(ctx, s_boot_wifi_list[i].ssid,
                             s_boot_wifi_list[i].password)) {
@@ -311,5 +317,35 @@ bool wifi_manager_get_mac_info(char *mac_buf, size_t max_len) {
     return true;
   }
   snprintf(mac_buf, max_len, "00:00:00:00:00:00");
+  return false;
+}
+
+bool wifi_manager_get_sta_credentials(char *ssid_buf, size_t ssid_len,
+                                      char *pass_buf, size_t pass_len) {
+  wifi_manager_ctx_t *ctx = wifi_manager_ctx();
+  if (ctx && ctx->configured_ssid[0] != '\0') {
+    if (ssid_buf && ssid_len > 0) {
+      strncpy(ssid_buf, ctx->configured_ssid, ssid_len - 1);
+      ssid_buf[ssid_len - 1] = '\0';
+    }
+    if (pass_buf && pass_len > 0) {
+      strncpy(pass_buf, ctx->configured_password, pass_len - 1);
+      pass_buf[pass_len - 1] = '\0';
+    }
+    return true;
+  }
+  wifi_config_t cfg;
+  if (esp_wifi_get_config(WIFI_IF_STA, &cfg) == ESP_OK &&
+      cfg.sta.ssid[0] != '\0') {
+    if (ssid_buf && ssid_len > 0) {
+      strncpy(ssid_buf, (char *)cfg.sta.ssid, ssid_len - 1);
+      ssid_buf[ssid_len - 1] = '\0';
+    }
+    if (pass_buf && pass_len > 0) {
+      strncpy(pass_buf, (char *)cfg.sta.password, pass_len - 1);
+      pass_buf[pass_len - 1] = '\0';
+    }
+    return true;
+  }
   return false;
 }

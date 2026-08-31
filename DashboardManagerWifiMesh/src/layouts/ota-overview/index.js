@@ -27,10 +27,11 @@ import {
 function OtaSummaryCard({ title, icon, valueContent, borderColor, iconBg, iconColor }) {
   return (
     <Card sx={{
-      border: borderColor ? `1px solid ${borderColor}` : "1px solid rgba(255, 255, 255, 0.05)",
-      background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
+      border: borderColor ? `1px solid ${borderColor}` : "1px solid rgba(255, 255, 255, 0.10)",
+      background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
       borderRadius: "16px",
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
+      backdropFilter: "blur(18px)",
       p: 2.5,
       height: "100%"
     }}>
@@ -62,7 +63,7 @@ function OtaRow({ nodeId, current, latest, status }) {
   const currentColor = currentIsLatest ? "success" : "info";
 
   return (
-    <VuiBox sx={{ background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", mb: 1.5, p: 2, display: "flex", alignItems: "center", transition: "all 0.3s", "&:hover": { transform: "translateY(-2px)", boxShadow: "0 8px 24px rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)" } }}>
+    <VuiBox sx={{ background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(18px)", mb: 1.5, p: 2, display: "flex", alignItems: "center", transition: "all 0.3s", "&:hover": { transform: "translateY(-2px)", boxShadow: "0 8px 24px rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.15)" } }}>
       <Grid container alignItems="center">
         <Grid item xs={3}>
           <VuiBox display="flex" alignItems="center" gap={2}>
@@ -141,11 +142,11 @@ function OtaOverview() {
 
         <Card sx={{
           padding: "24px 20px",
-          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
           borderRadius: "16px",
-          backdropFilter: "blur(42px)"
+          backdropFilter: "blur(18px)"
         }}>
           <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb={4}>
             <VuiBox display="flex" alignItems="center" gap={1.5}>

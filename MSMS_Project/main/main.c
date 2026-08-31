@@ -1,20 +1,25 @@
 #include "main.h"
 #include "BatteryManager.h"
 #include "DataManager.h"
+#include "FOTAManager.h"
 #include "InternetManager.h"
+#include "MeshManager.h"
 #include "PinManager.h"
+#include "PowerManager.h"
 #include "SD_Card.h"
 #include "StorageManager.h"
 #include "SystemPerfomance.h"
 #include "TimeManager.h"
 #include "UartToGateWay.h"
 #include "driver/uart.h"
+#include "esp_app_desc.h"
 #include "esp_spiffs.h"
 #include "nvs_flash.h"
 #include "pcf8574.h"
 #include "sdkconfig.h"
 #include <string.h>
 #include <time.h>
+
 
 /*
 static i2c_dev_t s_pcf8574;
@@ -41,13 +46,26 @@ static esp_err_t init_spiffs(void) {
 }
 
 void app_main(void) {
+  // Sync firmware version from PROJECT_VER in CMakeLists.txt
+  const esp_app_desc_t *app_desc = esp_app_get_description();
+  if (app_desc != NULL) {
+    int maj = 0, min = 0, pat = 0;
+    if (sscanf(app_desc->version, "%d.%d.%d", &maj, &min, &pat) >= 1) {
+      DataManager.version[0] = (uint8_t)maj;
+      DataManager.version[1] = (uint8_t)min;
+      DataManager.version[2] = (uint8_t)pat;
+    }
+    ESP_LOGI(TAG_MAIN, "Firmware version: %s (Parsed: %u.%u.%u)",
+             app_desc->version, DataManager.version[0],
+             DataManager.version[1], DataManager.version[2]);
+  }
 
   // Initialize NVS
   esp_err_t ret = nvs_flash_init();
   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
       ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
     ESP_ERROR_CHECK(nvs_flash_erase());
-    ret = nvs_flash_init(); 
+    ret = nvs_flash_init();
   }
   ESP_ERROR_CHECK(ret);
 
@@ -55,15 +73,19 @@ void app_main(void) {
   ESP_ERROR_CHECK(init_spiffs());
 
   ButtonManagerInit();
+  ESP_ERROR_CHECK(PowerManager_Init());
   ESP_ERROR_CHECK(i2cInitDevCommon());
   // ESP_ERROR_CHECK(init_pcf8574_outputs());
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
   MainScreen = ssd1306_create(I2C_NUM_0, SSD1306_I2C_ADDRESS);
 #pragma GCC diagnostic pop
+  PowerManager_SetState(POWER_CHANNEL_3V3, true);
+  PowerManager_SetState(POWER_CHANNEL_5V, true);
   if (MainScreen == NULL) {
     ESP_LOGE(TAG_MAIN, "Failed to create SSD1306 handle");
-    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_SSD1306_INIT_FAILED);
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY,
+                         MRS_ERR_SSD1306_INIT_FAILED);
   } else {
     ScreenManagerInit(&MainScreen);
     /* No sensor selected yet -> menu shows plain "Port 1/2/3", not "Port 1 -
@@ -74,6 +96,7 @@ void app_main(void) {
     MenuSystemInit(&DataManager);
   }
   UartToGateWay_Init(&DataManager);
+  MeshManager_RegisterDownstreamCallback(FOTAManager_MeshDownstreamHandler);
 
   // Battery Manager init
   esp_err_t battery_ret = BatteryManager_Init();
@@ -94,16 +117,17 @@ void app_main(void) {
   // Time and Storage Manager Init (Only on ESP32)
 #if defined(CONFIG_IDF_TARGET_ESP32)
   if (TimeManager_Init() != ESP_OK) {
-    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_DS3231_INIT_FAILED);
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY,
+                         MRS_ERR_DS3231_INIT_FAILED);
   }
 
   if (StorageManager_Init() == ESP_OK) {
     StorageManager_StartTask(&DataManager);
   } else {
-    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY, MRS_ERR_SDCARD_INIT_FAILED);
+    ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY,
+                         MRS_ERR_SDCARD_INIT_FAILED);
   }
 #endif
-
 
   if (MainScreen != NULL) {
     ret = xTaskCreate(MenuNavigation_Task, "MenuNavigation_Task", 4096,
@@ -124,7 +148,7 @@ void app_main(void) {
       ESP_LOGI(TAG_MAIN, "MenuRender_Task created successfully");
     }
   }
-
+  ESP_LOGI(TAG_MAIN, "OTA Update Test: ");
   // Test task: read DS3231 time and log to SD card
   // xTaskCreate(rtc_sd_log_task, "rtc_sd_log_task", 4096, NULL, 5, NULL);
   while (1) {

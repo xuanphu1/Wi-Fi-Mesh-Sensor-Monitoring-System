@@ -38,12 +38,12 @@ const baseProperties = {
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
-  fontSizeXXS: pxToRem(10.4),
-  fontSizeXS: pxToRem(12),
-  fontSizeSM: pxToRem(14),
-  fontSizeRegular: pxToRem(16),
-  fontSizeLG: pxToRem(18),
-  fontSizeXL: pxToRem(20),
+  fontSizeXXS: pxToRem(12),
+  fontSizeXS: pxToRem(13.5),
+  fontSizeSM: pxToRem(15),
+  fontSizeRegular: pxToRem(17),
+  fontSizeLG: pxToRem(19.5),
+  fontSizeXL: pxToRem(22),
 };
 
 const baseHeadingProperties = {
@@ -67,49 +67,49 @@ const typography = {
   fontWeightBold: baseProperties.fontWeightBold,
 
   h1: {
-    fontSize: pxToRem(48),
+    fontSize: pxToRem(52),
     lineHeight: 1.25,
     ...baseHeadingProperties,
   },
 
   h2: {
-    fontSize: pxToRem(36),
+    fontSize: pxToRem(40),
     lineHeight: 1.3,
     ...baseHeadingProperties,
   },
 
   h3: {
-    fontSize: pxToRem(30),
+    fontSize: pxToRem(34),
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
 
   h4: {
-    fontSize: pxToRem(24),
+    fontSize: pxToRem(28),
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
 
   h5: {
-    fontSize: pxToRem(20),
+    fontSize: pxToRem(22),
     lineHeight: 1.375,
     ...baseHeadingProperties,
   },
 
   h6: {
-    fontSize: pxToRem(16),
-    lineHeight: 1.625,
-    ...baseHeadingProperties,
-  },
-
-  lg: {
     fontSize: pxToRem(18),
     lineHeight: 1.625,
     ...baseHeadingProperties,
   },
 
+  lg: {
+    fontSize: pxToRem(20),
+    lineHeight: 1.625,
+    ...baseHeadingProperties,
+  },
+
   xxs: {
-    fontSize: pxToRem(10),
+    fontSize: pxToRem(12),
     lineHeight: 1.625,
     ...baseHeadingProperties,
   },
@@ -154,7 +154,7 @@ const typography = {
     fontFamily: baseProperties.fontFamily,
     fontSize: baseProperties.fontSizeXS,
     fontWeight: baseProperties.fontWeightRegular,
-    lineHeight: 1.25,
+    lineHeight: 1.35,
   },
 
   overline: {

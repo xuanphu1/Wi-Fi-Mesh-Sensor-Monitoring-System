@@ -46,27 +46,34 @@ import {
 const historyFilterSx = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "16px !important",
-    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
-    height: "64px",
-    border: "1px solid rgba(255, 255, 255, 0.08) !important",
+    height: "56px",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
     "&.Mui-focused": { borderColor: "#4318ff !important", border: "1px solid #4318ff !important" },
   },
   "& .MuiInputLabel-root": {
-    color: "rgba(255, 255, 255, 0.45) !important",
+    color: "rgba(255, 255, 255, 0.55) !important",
     "&.Mui-focused, &.MuiInputLabel-shrink": {
       color: "#ffffff !important",
     },
   },
   "& .MuiSelect-select": {
     color: "#ffffff !important",
-    padding: "24px 40px 8px 14px !important",
+    display: "flex !important",
+    alignItems: "center !important",
+    padding: "14px 40px 14px 18px !important",
+    minHeight: "24px !important",
+    lineHeight: "1.5 !important",
+    boxSizing: "border-box",
   },
   "& .MuiInputBase-input": {
     color: "#ffffff !important",
-    padding: "24px 40px 8px 14px !important",
+    padding: "14px 18px !important",
   },
   "& input[type='datetime-local']::-webkit-calendar-picker-indicator": {
     opacity: 0,
@@ -84,11 +91,13 @@ const historySelectMenuProps = {
     sx: {
       mt: 1,
       borderRadius: "12px",
-      background: "linear-gradient(127deg, rgba(20, 21, 55, 0.97) 0%, rgba(25, 26, 65, 0.98) 100%)",
+      background: "linear-gradient(127deg, rgba(15, 21, 55, 0.88) 0%, rgba(20, 26, 65, 0.88) 100%)",
+      backdropFilter: "blur(20px)",
       border: "1px solid rgba(255, 255, 255, 0.12)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
       "& .MuiMenuItem-root": { color: "#fff", fontSize: "0.875rem" },
       "& .MuiMenuItem-root:hover": { backgroundColor: "rgba(67, 24, 255, 0.22)" },
-      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.35)" },
+      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.20)" },
     },
   },
 };
@@ -100,9 +109,10 @@ function SummaryCard({ title, value, sub, icon, iconBg, iconColor }) {
       minWidth="180px"
       p={2}
       sx={{
-        background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
+        background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
         borderRadius: "16px",
-        border: "1px solid rgba(255,255,255,0.05)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        backdropFilter: "blur(18px)",
       }}
     >
       <VuiBox display="flex" alignItems="center" gap={2}>
@@ -508,19 +518,15 @@ function History() {
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
-        <Grid container spacing={3} mb={3}>
+        <Grid container spacing={2} mb={3} alignItems="center">
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
-              <InputLabel id="history-ip-label">
-                Select MAC
-              </InputLabel>
               <Select
-                labelId="history-ip-label"
                 id="history-ip"
                 value={nodeMac}
                 onChange={(e) => setNodeMac(String(e.target.value || "").trim())}
                 MenuProps={historySelectMenuProps}
-                label="Select MAC"
+                IconComponent={(props) => <IoChevronDown {...props} color="rgba(255,255,255,0.6)" size="16px" style={{ marginRight: "12px", cursor: "pointer", position: "absolute", right: 0 }} />}
               >
                 {macs.length === 0 ? (
                   <MenuItem value="" disabled>
@@ -540,14 +546,12 @@ function History() {
           </Grid>
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
-              <InputLabel id="history-sensor-label">
-                Select Sensor
-              </InputLabel>
               <Select
-                labelId="history-sensor-label"
+                id="history-sensor"
                 value={sensor}
                 onChange={(e) => setSensor(e.target.value)}
-                sx={{ borderRadius: "8px", background: "rgba(10, 14, 35, 0.5)", color: "white" }}
+                MenuProps={historySelectMenuProps}
+                IconComponent={(props) => <IoChevronDown {...props} color="rgba(255,255,255,0.6)" size="16px" style={{ marginRight: "12px", cursor: "pointer", position: "absolute", right: 0 }} />}
               >
                 {sensorConfig.map((s) => (
                   <MenuItem key={s.name} value={s.name}>
@@ -559,16 +563,12 @@ function History() {
           </Grid>
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined" sx={historyFilterSx}>
-              <InputLabel id="history-field-label">
-                Select Field
-              </InputLabel>
               <Select
-                labelId="history-field-label"
                 id="history-field"
                 value={field}
                 onChange={(e) => setField(e.target.value)}
                 MenuProps={historySelectMenuProps}
-                label="Select Field"
+                IconComponent={(props) => <IoChevronDown {...props} color="rgba(255,255,255,0.6)" size="16px" style={{ marginRight: "12px", cursor: "pointer", position: "absolute", right: 0 }} />}
               >
                 {currentSensorFields.map((s) => (
                   <MenuItem key={s.key} value={s.key}>
@@ -582,13 +582,11 @@ function History() {
             <TextField
               fullWidth
               type="datetime-local"
-              label="Start time"
               value={fromLocal}
               onChange={(e) => setFromLocal(e.target.value)}
               inputRef={fromInputRef}
               onClick={() => openNativeDateTimePicker(fromInputRef.current)}
               onFocus={() => openNativeDateTimePicker(fromInputRef.current)}
-              InputLabelProps={{ shrink: true }}
               inputProps={{ step: 60 }}
               sx={historyFilterSx}
               InputProps={{
@@ -605,11 +603,11 @@ function History() {
         <Card
           sx={{
             padding: "24px 20px",
-            background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+            background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.10)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
             borderRadius: "16px",
-            backdropFilter: "blur(42px)",
+            backdropFilter: "blur(18px)",
           }}
         >
           <VuiBox display="flex" justifyContent="space-between" alignItems="flex-start" mb={3}>

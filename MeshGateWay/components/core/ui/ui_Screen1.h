@@ -119,6 +119,15 @@ extern lv_obj_t * ui_ValuePort1;
 extern lv_obj_t * ui_ValuePort2;
 extern lv_obj_t * ui_VaulePort3;
 extern lv_obj_t * ui_LableValueSensor;
+extern lv_obj_t * ui_PanelOTA;
+extern lv_obj_t * ui_Arc1;
+extern lv_obj_t * ui_LabelPercentOTA;
+extern lv_obj_t * ui_LabelTarget;
+extern lv_obj_t * ui_LabelVersion;
+extern lv_obj_t * ui_LabelDetail;
+extern lv_obj_t * ui_ValueTarget;
+extern lv_obj_t * ui_ValueVersion;
+extern lv_obj_t * ui_ValueVersion1;
 // CUSTOM VARIABLES
 
 #ifdef __cplusplus

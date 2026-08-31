@@ -50,17 +50,19 @@ const recentJobs = [
 
 const fotaSelectSx = {
   "& .MuiOutlinedInput-root": {
-    borderRadius: "12px !important",
-    background: "rgba(15, 18, 42, 0.4) !important",
+    borderRadius: "16px !important",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
     height: "56px",
-    border: "1px solid rgba(255, 255, 255, 0.1) !important",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
     "&.Mui-focused": { borderColor: "#4318ff !important", border: "1px solid #4318ff !important" },
   },
   "& .MuiInputLabel-root": {
-    color: "rgba(255, 255, 255, 0.45) !important",
+    color: "rgba(255, 255, 255, 0.55) !important",
     "&.Mui-focused, &.MuiInputLabel-shrink": {
       color: "#ffffff !important",
       transform: "translate(14px, 8px) scale(0.85) !important",
@@ -68,7 +70,7 @@ const fotaSelectSx = {
   },
   "& .MuiSelect-select": {
     color: "#ffffff !important",
-    padding: "20px 40px 8px 14px !important",
+    padding: "16px 40px 16px 14px !important",
   },
 };
 
@@ -82,7 +84,7 @@ function FotaRow({ job }) {
   const StatusIcon = isCompleted ? IoCheckmarkCircle : isFailed ? IoCloseCircle : IoReload;
 
   return (
-    <VuiBox sx={{ background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", mb: 1.5, p: 2, display: "flex", alignItems: "center", transition: "all 0.3s", "&:hover": { transform: "translateY(-2px)", boxShadow: "0 8px 24px rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)" } }}>
+    <VuiBox sx={{ background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(18px)", mb: 1.5, p: 2, display: "flex", alignItems: "center", transition: "all 0.3s", "&:hover": { transform: "translateY(-2px)", boxShadow: "0 8px 24px rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.15)" } }}>
       <Grid container alignItems="center">
         <Grid item xs={2}>
           <VuiTypography variant="button" color="text" fontWeight="bold">{job.id}</VuiTypography>
@@ -132,11 +134,11 @@ function Fota() {
           <Grid item xs={12} lg={8}>
             <Card sx={{
               padding: "24px 24px",
-              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.10)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
               borderRadius: "16px",
-              backdropFilter: "blur(42px)",
+              backdropFilter: "blur(18px)",
               height: "100%"
             }}>
               <VuiBox>
@@ -237,11 +239,11 @@ function Fota() {
           <Grid item xs={12} lg={4}>
             <Card sx={{
               padding: "24px 20px",
-              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+              background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+              border: "1px solid rgba(255, 255, 255, 0.10)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
               borderRadius: "16px",
-              backdropFilter: "blur(42px)",
+              backdropFilter: "blur(18px)",
               height: "100%"
             }}>
               <VuiBox display="flex" flexDirection="column" gap={4}>
@@ -291,11 +293,11 @@ function Fota() {
 
         <Card sx={{
           padding: "24px 20px",
-          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+          background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
           borderRadius: "16px",
-          backdropFilter: "blur(42px)"
+          backdropFilter: "blur(18px)"
         }}>
           <VuiBox display="flex" alignItems="center" gap={1.5} mb={4}>
             <VuiBox sx={{ width: 36, height: 36, borderRadius: "10px", background: "rgba(0,117,255,0.2)", color: "#0075ff", display: "grid", placeItems: "center" }}>

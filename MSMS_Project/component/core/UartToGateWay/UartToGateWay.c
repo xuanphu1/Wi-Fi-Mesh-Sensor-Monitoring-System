@@ -1,12 +1,16 @@
 #include "UartToGateWay.h"
 
 #include "DataManager.h"
+#include "FOTAManager.h"
 #include "FunctionManager.h"
 #include "InternetManager.h"
 #include "MeshManager.h"
 #include "PinManager.h"
 #include "ProcessingDataMesh.h"
+#include "TimeManager.h"
+#include "cJSON.h"
 #include "driver/uart.h"
+#include "esp_app_desc.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -27,7 +31,7 @@
 #define UART_RX_BUF_SIZE 256
 #define UART_TX_BUF_SIZE 4096
 #define UART_EVENT_QUEUE_LEN 16
-#define UART_CMD_LINE_MAX 64
+#define UART_CMD_LINE_MAX 512
 #define UART_RXFIFO_FULL_THRESH 64
 #define UART_RX_TIMEOUT_THRESH 10
 #define UART_GATEWAY_TX_RECV_WAIT_MS 100
@@ -86,6 +90,10 @@ static void handle_gateway_line(char *line) {
     len--;
   }
 
+  if (len == 0) {
+    return;
+  }
+
   if (equals_ignore_case(line, "Connected")) {
     s_last_connected_tick = xTaskGetTickCount();
     return;
@@ -108,6 +116,89 @@ static void handle_gateway_line(char *line) {
     s_connected_watchdog_enabled = true;
     s_last_connected_tick = xTaskGetTickCount();
     return;
+  }
+
+  if (line[0] == '{') {
+    cJSON *root = cJSON_Parse(line);
+    if (root != NULL) {
+      cJSON *type_item = cJSON_GetObjectItem(root, "type");
+      if (type_item != NULL && cJSON_IsString(type_item) &&
+          strcmp(type_item->valuestring, "sync_time") == 0) {
+        cJSON *ts_item = cJSON_GetObjectItem(root, "timestamp");
+        cJSON *year_item = cJSON_GetObjectItem(root, "year");
+        cJSON *month_item = cJSON_GetObjectItem(root, "month");
+        cJSON *day_item = cJSON_GetObjectItem(root, "day");
+        cJSON *hour_item = cJSON_GetObjectItem(root, "hour");
+        cJSON *min_item = cJSON_GetObjectItem(root, "min");
+        cJSON *sec_item = cJSON_GetObjectItem(root, "sec");
+
+        uint32_t timestamp = (ts_item != NULL && cJSON_IsNumber(ts_item))
+                                 ? (uint32_t)ts_item->valuedouble
+                                 : 0;
+        int year = (year_item != NULL && cJSON_IsNumber(year_item))
+                       ? year_item->valueint
+                       : 0;
+        int month = (month_item != NULL && cJSON_IsNumber(month_item))
+                        ? month_item->valueint
+                        : 0;
+        int day = (day_item != NULL && cJSON_IsNumber(day_item))
+                      ? day_item->valueint
+                      : 0;
+        int hour = (hour_item != NULL && cJSON_IsNumber(hour_item))
+                       ? hour_item->valueint
+                       : 0;
+        int min = (min_item != NULL && cJSON_IsNumber(min_item))
+                      ? min_item->valueint
+                      : 0;
+        int sec = (sec_item != NULL && cJSON_IsNumber(sec_item))
+                      ? sec_item->valueint
+                      : 0;
+
+        if (year >= 2020 && month >= 1 && month <= 12 && day >= 1 &&
+            day <= 31) {
+          TimeManager_SetDateTime(year, month, day, hour, min, sec, timestamp);
+          s_last_connected_tick = xTaskGetTickCount();
+          ESP_LOGI(TAG_UART_GATEWAY,
+                   "Applied sync_time from gateway: %04d-%02d-%02d %02d:%02d:%02d (ts: %" PRIu32 ")",
+                   year, month, day, hour, min, sec, timestamp);
+          MeshManager_BroadcastSyncTime(line, len);
+        } else if (timestamp > 0) {
+          TimeManager_SetEpochTime(timestamp);
+          s_last_connected_tick = xTaskGetTickCount();
+          ESP_LOGI(TAG_UART_GATEWAY,
+                   "Applied sync_time timestamp from gateway: %" PRIu32,
+                   timestamp);
+          MeshManager_BroadcastSyncTime(line, len);
+        }
+        cJSON_Delete(root);
+        return;
+      } else if (type_item != NULL && cJSON_IsString(type_item) &&
+                 strcmp(type_item->valuestring, "ota_start") == 0) {
+        s_last_connected_tick = xTaskGetTickCount();
+        ESP_LOGI(TAG_UART_GATEWAY, "Received ota_start from Gateway: %s", line);
+
+        // Ensure "ver" is populated with Root's actual running version for LAN OTA
+        cJSON *ver_item = cJSON_GetObjectItem(root, "ver");
+        const esp_app_desc_t *app_desc = esp_app_get_description();
+        if (ver_item == NULL && app_desc != NULL) {
+          cJSON_AddStringToObject(root, "ver", app_desc->version);
+        }
+
+        char *broadcast_json = cJSON_PrintUnformatted(root);
+        if (broadcast_json != NULL) {
+          size_t b_len = strlen(broadcast_json);
+          MeshManager_BroadcastOtaCommand(broadcast_json, b_len);
+          FOTAManager_HandleOtaCommand(s_data, broadcast_json, b_len);
+          free(broadcast_json);
+        } else {
+          MeshManager_BroadcastOtaCommand(line, len);
+          FOTAManager_HandleOtaCommand(s_data, line, len);
+        }
+        cJSON_Delete(root);
+        return;
+      }
+      cJSON_Delete(root);
+    }
   }
 
   ESP_LOGW(TAG_UART_GATEWAY, "Unknown UART cmd: '%s'", line);
@@ -317,6 +408,13 @@ static void uart_gateway_tx_task(void *pvParameter) {
   }
 }
 
+static void fota_uart_progress_sender(const char *data, size_t len) {
+  if (data != NULL && len > 0) {
+    int sent = UartToGateWay_Send(data, len);
+    ESP_LOGI(TAG_UART_GATEWAY, "UART TX ota_progress: %d/%d bytes sent", sent, (int)len);
+  }
+}
+
 system_err_t UartToGateWay_Init(DataManager_t *data) {
   if (s_uart_started) {
     return MRS_OK;
@@ -327,6 +425,7 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   }
 
   s_data = data;
+  FOTAManager_Init(fota_uart_progress_sender);
   s_last_connected_tick = xTaskGetTickCount();
   s_mesh_gateway_no_node_tick = xTaskGetTickCount();
   s_uart_gateway_last_stats_tick = xTaskGetTickCount();

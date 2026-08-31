@@ -28,7 +28,7 @@ export default {
   },
 
   sidenav: {
-    button: "#1a1f37",
+    button: "rgba(255, 255, 255, 0.05)",
   },
 
   text: {
@@ -168,20 +168,20 @@ export default {
 
     cardDark: {
       deg: "126.97",
-      main: "rgba(6, 11, 40, 0.74) 28.26%",
-      state: "rgba(10, 14, 35, 0.71) 91.2%",
+      main: "rgba(6, 11, 40, 0.32) 28.26%",
+      state: "rgba(10, 14, 35, 0.20) 91.2%",
     },
 
     cardLight: {
       deg: "127.09",
-      main: "rgba(6, 11, 40, 0.94) 19.41%",
-      state: "rgba(10, 14, 35, 0.49) 76.65%",
+      main: "rgba(6, 11, 40, 0.32) 19.41%",
+      state: "rgba(10, 14, 35, 0.20) 76.65%",
     },
 
     card: {
       deg: "127.09",
-      main: "rgba(6, 11, 40, 0.94) 19.41%",
-      state: "rgba(10, 14, 35, 0.49) 76.65%",
+      main: "rgba(6, 11, 40, 0.32) 19.41%",
+      state: "rgba(10, 14, 35, 0.20) 76.65%",
     },
 
     menu: {
@@ -419,9 +419,9 @@ export default {
   },
 
   inputColors: {
-    backgroundColor: "#0f1535",
-    borderColor: { main: "rgba(226, 232, 240, 0.3)", focus: "rgba(226, 232, 240, 0.6)" },
-    boxShadow: "#628fc2",
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    borderColor: { main: "rgba(255, 255, 255, 0.12)", focus: "rgba(0, 117, 255, 0.6)" },
+    boxShadow: "rgba(0, 117, 255, 0.25)",
     error: "#fd5c70",
     success: "#66d432",
   },

@@ -129,6 +129,7 @@ esp_err_t mesh_network_set_role(mesh_role_t role) {
 
   if (role == MESH_ROLE_ROOT) {
     result = esp_mesh_lite_set_allowed_level(1);
+    esp_mesh_lite_set_wifi_reconnect_interval(4000000, 0, 4000000);
     esp_err_t disconnect_result = esp_wifi_disconnect();
     if (disconnect_result != ESP_OK &&
         disconnect_result != ESP_ERR_WIFI_NOT_CONNECT &&
@@ -137,7 +138,10 @@ esp_err_t mesh_network_set_role(mesh_role_t role) {
                esp_err_to_name(disconnect_result));
     }
   } else {
+    esp_mesh_lite_set_allowed_level(0);
     result = esp_mesh_lite_set_disallowed_level(1);
+    esp_mesh_lite_set_wifi_reconnect_interval(3, 2, 5);
+    esp_wifi_disconnect();
     if (result == ESP_OK && s_started_once) {
       esp_mesh_lite_connect();
     }

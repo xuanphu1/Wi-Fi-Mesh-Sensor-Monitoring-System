@@ -25,11 +25,11 @@ import {
 import { useDashboardRealtime } from "hooks/useDashboardRealtime";
 
 const glassCardSx = {
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.76) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(50, 105, 255, 0.35)",
-  boxShadow: "0 0 24px rgba(0, 106, 255, 0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
   borderRadius: "16px",
-  backdropFilter: "blur(42px)",
+  backdropFilter: "blur(18px)",
 };
 
 function metricText(v, unit = "") {
@@ -103,14 +103,14 @@ function IconBubble({ icon, color = "#0075ff" }) {
   return (
     <VuiBox
       sx={{
-        width: 46,
-        height: 46,
-        borderRadius: "50%",
+        width: 44,
+        height: 44,
+        borderRadius: "12px",
         display: "grid",
         placeItems: "center",
-        color: "#fff",
-        background: `radial-gradient(circle at 30% 25%, #2ee7ff 0%, ${color} 48%, #1546ff 100%)`,
-        boxShadow: `0 0 22px ${color}99`,
+        color: color,
+        background: `${color}18`,
+        border: `1px solid ${color}35`,
       }}
     >
       {icon}
@@ -121,18 +121,20 @@ function IconBubble({ icon, color = "#0075ff" }) {
 function TopMetricCard({ title, value, detail, icon, active }) {
   return (
     <Card sx={{ ...glassCardSx, height: "100%", position: "relative", overflow: "hidden" }}>
-      <VuiBox p={2} display="flex" alignItems="center" justifyContent="space-between">
+      <VuiBox p={2.5} display="flex" alignItems="center" justifyContent="space-between">
         <VuiBox>
-          <VuiTypography variant="caption" color="text" display="block" mb={0.5}>
+          <VuiTypography color="text" display="block" mb={0.75} sx={{ fontSize: "15px", fontWeight: "600", letterSpacing: "0.4px", textTransform: "uppercase" }}>
             {title}
           </VuiTypography>
-          <VuiBox display="flex" alignItems="baseline" gap={1} flexWrap="wrap">
-            <VuiTypography variant="h4" color="white" fontWeight="bold" sx={{ lineHeight: 1 }}>
+          <VuiBox display="flex" alignItems="baseline" gap={1.25} flexWrap="wrap">
+            <VuiTypography color="white" fontWeight="bold" sx={{ fontSize: "28px", lineHeight: 1.1 }}>
               {value}
             </VuiTypography>
-            <VuiTypography variant="caption" color={active ? "success" : "warning"} fontWeight="bold">
-              {detail}
-            </VuiTypography>
+            {detail ? (
+              <VuiTypography color={active ? "success" : "warning"} fontWeight="bold" sx={{ fontSize: "15px" }}>
+                {detail}
+              </VuiTypography>
+            ) : null}
           </VuiBox>
         </VuiBox>
         <IconBubble icon={icon} />
@@ -140,13 +142,12 @@ function TopMetricCard({ title, value, detail, icon, active }) {
       <VuiBox
         sx={{
           position: "absolute",
-          right: 10,
-          top: 10,
+          right: 12,
+          top: 12,
           width: 8,
           height: 8,
           borderRadius: "50%",
           background: active ? "#01f7a7" : "#ffb547",
-          boxShadow: active ? "0 0 12px #01f7a7" : "0 0 12px #ffb547",
         }}
       />
     </Card>
@@ -155,22 +156,23 @@ function TopMetricCard({ title, value, detail, icon, active }) {
 
 function SectionTitle({ icon, children, color = "#0075ff" }) {
   return (
-    <VuiBox display="flex" alignItems="center" gap={1.25} mb={2}>
+    <VuiBox display="flex" alignItems="center" gap={1.5} mb={2.5}>
       <VuiBox
         sx={{
-          width: 34,
-          height: 34,
-          borderRadius: "50%",
+          width: 40,
+          height: 40,
+          borderRadius: "12px",
           display: "grid",
           placeItems: "center",
-          color: "#fff",
-          background: `radial-gradient(circle, ${color} 0%, rgba(0,117,255,0.35) 100%)`,
-          boxShadow: `0 0 18px ${color}88`,
+          color: color,
+          background: `${color}18`,
+          border: `1px solid ${color}40`,
+          fontSize: "18px",
         }}
       >
         {icon}
       </VuiBox>
-      <VuiTypography variant="lg" color="white" fontWeight="bold">
+      <VuiTypography color="white" fontWeight="bold" sx={{ fontSize: "22px" }}>
         {children}
       </VuiTypography>
     </VuiBox>
@@ -180,26 +182,26 @@ function SectionTitle({ icon, children, color = "#0075ff" }) {
 function HealthTile({ label, value, color, data, footer, padWithZero }) {
   return (
     <VuiBox
-      px={1.5}
-      py={1.5}
+      px={2}
+      py={2}
       sx={{
         height: "100%",
-        minHeight: 104,
+        minHeight: 110,
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: "12px",
         background: "linear-gradient(127deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018))",
       }}
     >
-      <VuiTypography variant="button" color="text" display="block" mb={1} sx={{ fontSize: "14px" }}>
+      <VuiTypography variant="button" color="text" display="block" mb={1} sx={{ fontSize: "15px", fontWeight: "600" }}>
         {label}
       </VuiTypography>
       <Grid container alignItems="end" sx={{ height: "calc(100% - 28px)" }}>
         <Grid item xs={data ? 5 : 12}>
-          <VuiTypography variant="h3" color="white" fontWeight="bold" sx={{ lineHeight: 1 }}>
+          <VuiTypography color="white" fontWeight="bold" sx={{ fontSize: "26px", lineHeight: 1.1 }}>
             {value}
           </VuiTypography>
           {footer ? (
-            <VuiTypography variant="caption" color="text" display="block" mt={1} sx={{ fontSize: "13px" }}>
+            <VuiTypography variant="caption" color="text" display="block" mt={1} sx={{ fontSize: "14px" }}>
               {footer}
             </VuiTypography>
           ) : null}
@@ -219,8 +221,13 @@ function problemLabel(node) {
   if (Array.isArray(node.runtimeErrors) && node.runtimeErrors.length > 0) {
     return { text: `${node.runtimeErrors.length} runtime error(s)`, color: "warning" };
   }
-  if (typeof node.latencyMs === "number" && Number.isFinite(node.latencyMs) && node.latencyMs >= 2000) {
-    return { text: `High latency ${formatLatencyText(node.latencyMs)}`, color: "info" };
+  if (typeof node.latencyMs === "number" && Number.isFinite(node.latencyMs)) {
+    if (node.latencyMs > 86400000 || node.latencyMs < 0) {
+      return { text: "No RTC / invalid RTC", color: "warning" };
+    }
+    if (node.latencyMs >= 2000) {
+      return { text: `High latency ${formatLatencyText(node.latencyMs)}`, color: "info" };
+    }
   }
   return { text: "No RTC / invalid RTC", color: "warning" };
 }
@@ -249,23 +256,23 @@ function ProblemNodeRow({ node }) {
     >
       <Grid container spacing={1} alignItems="center">
         <Grid item xs={5}>
-          <VuiTypography variant="body2" color="white" fontWeight="bold" sx={{ fontSize: "15px" }}>
+          <VuiTypography variant="body2" color="white" fontWeight="bold" sx={{ fontSize: "17px" }}>
             {node.ip || node.id || "-"}
           </VuiTypography>
-          <VuiTypography variant="caption" color="text" display="block" sx={{ fontSize: "13px" }}>
+          <VuiTypography variant="caption" color="text" display="block" sx={{ fontSize: "15px", mt: 0.2 }}>
             {node.meshLevel != null ? `Mesh L${node.meshLevel}` : "Mesh"} | FW {node.firmwareVersion || "-"}
           </VuiTypography>
         </Grid>
         <Grid item xs={6}>
-          <VuiTypography variant="body2" color={issue.color} fontWeight="bold" sx={{ fontSize: "15px" }}>
+          <VuiTypography variant="body2" color={issue.color} fontWeight="bold" sx={{ fontSize: "17px" }}>
             {issue.text}
           </VuiTypography>
-          <VuiTypography variant="caption" color="text" display="block" sx={{ fontSize: "13px" }}>
+          <VuiTypography variant="caption" color="text" display="block" sx={{ fontSize: "15px", mt: 0.2 }}>
             Last seen: {node.lastSeenIso ? new Date(node.lastSeenIso).toLocaleString() : "-"}
           </VuiTypography>
         </Grid>
         <Grid item xs={1} textAlign="right">
-          <IoChevronForward color="#8fa7d6" />
+          <IoChevronForward color="#8fa7d6" size="18px" />
         </Grid>
       </Grid>
     </VuiBox>
@@ -277,8 +284,8 @@ function SensorRealtimeRow({ row, index, data }) {
   const color = colors[index % colors.length];
   return (
     <VuiBox
-      px={1.25}
-      py={0.9}
+      px={1.5}
+      py={1.2}
       sx={{
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: "10px",
@@ -287,10 +294,10 @@ function SensorRealtimeRow({ row, index, data }) {
     >
       <Grid container spacing={1} alignItems="center">
         <Grid item xs={12} md={5}>
-          <VuiTypography variant="caption" color="text" display="block">
+          <VuiTypography variant="caption" color="text" display="block" sx={{ fontSize: "14.5px" }}>
             L{row.meshLevel} | {row.nodeIp} | Port {row.port} | {row.sensor} | {row.label}
           </VuiTypography>
-          <VuiTypography variant="h5" color="white" fontWeight="bold">
+          <VuiTypography variant="h5" color="white" fontWeight="bold" sx={{ fontSize: "22px" }}>
             {metricText(row.value, row.unit ? ` ${row.unit}` : "")}
           </VuiTypography>
         </Grid>
@@ -298,7 +305,7 @@ function SensorRealtimeRow({ row, index, data }) {
           <Sparkline color={color} data={data} width={200} height={36} />
         </Grid>
         <Grid item xs={1} textAlign="right">
-          <IoChevronForward color="#8fa7d6" />
+          <IoChevronForward color="#8fa7d6" size="18px" />
         </Grid>
       </Grid>
     </VuiBox>
@@ -308,8 +315,8 @@ function SensorRealtimeRow({ row, index, data }) {
 function DeviceInfoRow({ icon, label, value }) {
   return (
     <VuiBox
-      px={1.25}
-      py={0.9}
+      px={1.5}
+      py={1.2}
       sx={{
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: "10px",
@@ -320,8 +327,8 @@ function DeviceInfoRow({ icon, label, value }) {
         <Grid item xs={1.5}>
           <VuiBox
             sx={{
-              width: 28,
-              height: 28,
+              width: 32,
+              height: 32,
               borderRadius: "8px",
               display: "grid",
               placeItems: "center",
@@ -333,12 +340,12 @@ function DeviceInfoRow({ icon, label, value }) {
           </VuiBox>
         </Grid>
         <Grid item xs={5.5}>
-          <VuiTypography variant="button" color="text">
+          <VuiTypography variant="button" color="text" sx={{ fontSize: "16px" }}>
             {label}
           </VuiTypography>
         </Grid>
         <Grid item xs={5}>
-          <VuiTypography variant="button" color="white" fontWeight="medium" display="block" textAlign="right">
+          <VuiTypography variant="button" color="white" fontWeight="medium" display="block" textAlign="right" sx={{ fontSize: "16px" }}>
             {value || "-"}
           </VuiTypography>
         </Grid>
@@ -406,9 +413,9 @@ function Dashboard() {
           <Grid container spacing={2.5}>
             <Grid item xs={12} md={6} xl={3}>
               <TopMetricCard
-                title="Root Status"
-                value={connected ? "Connected" : "Waiting"}
-                detail={connected ? "ESP online" : "No data"}
+                title="Gateway Status"
+                value={connected ? "Connected" : "Disconnected"}
+                detail={null}
                 active={connected}
                 icon={<IoWifi size="22px" />}
               />

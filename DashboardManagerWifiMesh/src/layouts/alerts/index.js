@@ -29,28 +29,34 @@ import {
 
 const alertsFilterWrapSx = {
   borderRadius: "16px",
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
+  backdropFilter: "blur(18px)",
 };
 
 const alertsFilterSelectSx = {
   "& .MuiOutlinedInput-root": {
-    borderRadius: "12px !important",
-    backgroundColor: "rgba(15, 18, 42, 0.95) !important",
+    borderRadius: "16px !important",
+    background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%) !important",
+    backdropFilter: "blur(18px)",
     color: "#ffffff !important",
-    minHeight: "44px",
-    border: "1px solid rgba(255, 255, 255, 0.14) !important",
+    minHeight: "56px",
+    padding: "0 !important",
+    border: "1px solid rgba(255, 255, 255, 0.10) !important",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
     "& fieldset": { borderColor: "transparent !important" },
     "&:hover fieldset": { borderColor: "transparent !important" },
-    "&.Mui-focused": { borderColor: "#4318ff !important" },
+    "&.Mui-focused": { borderColor: "#4318ff !important", border: "1px solid #4318ff !important" },
   },
   "& .MuiSelect-select": {
     color: "#ffffff !important",
-    padding: "10px 40px 10px 14px !important",
-    minHeight: "24px !important",
     display: "flex !important",
     alignItems: "center !important",
+    padding: "14px 40px 14px 18px !important",
+    minHeight: "24px !important",
+    lineHeight: "1.5 !important",
+    boxSizing: "border-box",
   },
   "& .MuiSelect-icon": {
     display: "block !important",
@@ -64,11 +70,13 @@ const alertsSelectMenuProps = {
     sx: {
       mt: 1,
       borderRadius: "12px",
-      background: "linear-gradient(127deg, rgba(20, 21, 55, 0.97) 0%, rgba(25, 26, 65, 0.98) 100%)",
+      background: "linear-gradient(127deg, rgba(15, 21, 55, 0.88) 0%, rgba(20, 26, 65, 0.88) 100%)",
+      backdropFilter: "blur(20px)",
       border: "1px solid rgba(255, 255, 255, 0.12)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
       "& .MuiMenuItem-root": { color: "#fff", fontSize: "0.875rem" },
       "& .MuiMenuItem-root:hover": { backgroundColor: "rgba(67, 24, 255, 0.22)" },
-      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.35)" },
+      "& .MuiMenuItem-root.Mui-selected": { backgroundColor: "rgba(255, 255, 255, 0.20)" },
     },
   },
 };
@@ -344,11 +352,11 @@ function Alerts() {
         <Card
           sx={{
             padding: "24px 20px",
-            background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+            background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.10)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
             borderRadius: "16px",
-            backdropFilter: "blur(42px)",
+            backdropFilter: "blur(18px)",
           }}
         >
           <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="24px">

@@ -47,12 +47,10 @@ import Sensors from "layouts/sensors";
 import History from "layouts/history";
 import Alerts from "layouts/alerts";
 import Performance from "layouts/performance";
-import OtaOverview from "layouts/ota-overview";
-import FirmwareManagement from "layouts/firmware-management";
-import UpdateNodes from "layouts/update-nodes";
+import OtaGateway from "layouts/ota-gateway";
+import OtaNodes from "layouts/ota-nodes";
 import SystemSettings from "layouts/system-settings";
 import About from "layouts/about";
-import ServerMonitor from "layouts/server-monitor";
 
 // Icons
 import { IoHome, IoHardwareChip, IoPulse, IoWarning, IoCloudDownload, IoSettings, IoInformationCircle, IoWifi, IoAnalytics, IoServer } from "react-icons/io5";
@@ -122,32 +120,23 @@ const routes = [
   //   component: Performance,
   //   noCollapse: true,
   // },
-  { type: "title", title: "OTA", key: "ota-title" },
+  { type: "title", title: "OTA / Firmware", key: "ota-title" },
   {
     type: "collapse",
-    name: "OTA Overview",
-    key: "ota-overview",
-    route: "/ota/overview",
+    name: "OTA Gateway",
+    key: "ota-gateway",
+    route: "/ota/gateway",
     icon: <IoCloudDownload size="15px" color="inherit" />,
-    component: OtaOverview,
+    component: OtaGateway,
     noCollapse: true,
   },
   {
     type: "collapse",
-    name: "Firmware Management",
-    key: "firmware",
-    route: "/ota/firmware",
-    icon: <IoCloudDownload size="15px" color="inherit" />,
-    component: FirmwareManagement,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "FOTA",
-    key: "fota",
-    route: "/ota/fota",
-    icon: <IoCloudDownload size="15px" color="inherit" />,
-    component: UpdateNodes,
+    name: "OTA Node / Root",
+    key: "ota-nodes",
+    route: "/ota/nodes",
+    icon: <IoHardwareChip size="15px" color="inherit" />,
+    component: OtaNodes,
     noCollapse: true,
   },
   { type: "title", title: "System", key: "system-title" },

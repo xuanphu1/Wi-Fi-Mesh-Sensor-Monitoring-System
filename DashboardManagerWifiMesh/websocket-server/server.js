@@ -1,4 +1,8 @@
+const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
 const os = require("os");
+const multer = require("multer");
 const { WebSocketServer } = require("ws");
 const si = require("systeminformation");
 const express = require("express");
@@ -11,7 +15,6 @@ const { Bonjour } = require("bonjour-service");
 
 const PORT = Number(process.env.WS_PORT || process.env.PORT || 9090);
 const HOST = process.env.WS_HOST || "0.0.0.0";
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/MeshData";
 const MDNS_HOSTNAME = process.env.MDNS_HOSTNAME || "systemmsems";
 let bonjour = null;
 let mdnsService = null;
@@ -307,28 +310,272 @@ function parseUartFrames(parsed, state) {
   return packets;
 }
 
-const DB_TYPE = process.env.DB_TYPE || "mongodb";
-let store;
+const { createSqliteStore } = require("./sqlite-store");
+const defaultSqlitePath = path.join(__dirname, "mesh-data.sqlite");
+const SQLITE_DB_PATH = process.env.SQLITE_DB_PATH || defaultSqlitePath;
 
-if (DB_TYPE === "sqlite") {
-  const { createSqliteStore } = require("./sqlite-store");
-  store = createSqliteStore({
-    dbPath: process.env.SQLITE_DB_PATH || "mesh-data.sqlite",
-    sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
-    sensorTypeName,
-  });
-} else {
-  const { createMongoStore } = require("./mongodb-store");
-  store = createMongoStore({
-    mongoUri: MONGO_URI,
-    sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
-    sensorTypeName,
-  });
-}
+const store = createSqliteStore({
+  dbPath: SQLITE_DB_PATH,
+  sensorValueFieldNames: SENSOR_VALUE_FIELD_NAMES,
+  sensorTypeName,
+});
+
+store.connect().then(() => {
+  console.log(`[db] SQLite connected successfully: ${SQLITE_DB_PATH}`);
+}).catch((err) => {
+  console.error(`[db] SQLite connection failed:`, err.message);
+});
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// --- Firmware Upload Configuration (In-Memory Buffer to SQLite BLOB) ---
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
+  limits: { fileSize: 30 * 1024 * 1024 }, // 30MB max
+});
+
+// --- OTA REST Endpoints ---
+
+/**
+ * @swagger
+ * /api/ota/upload:
+ *   post:
+ *     summary: Upload a firmware binary file (.bin)
+ *     description: Stores the binary file directly as a BLOB in SQLite under 'namefile_version.bin'.
+ */
+app.post("/api/ota/upload", upload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No firmware binary file uploaded" });
+    }
+
+    const targetType = (req.body.targetType || "gateway").toLowerCase().trim();
+    const version = (req.body.version || "1.0.0").trim().replace(/[^a-zA-Z0-9.-]/g, "_");
+    const rawBaseName = path.parse(req.file.originalname).name.replace(/[^a-zA-Z0-9_-]/g, "_");
+    const baseName = rawBaseName || targetType;
+    const filename = `${baseName}_${version}.bin`;
+    const channel = req.body.channel || "stable";
+    const notes = req.body.notes || "";
+    const originalName = req.file.originalname;
+    const fileSize = req.file.size;
+    const fileBuffer = req.file.buffer;
+
+    // Calculate MD5 hash directly from buffer
+    const checksum = crypto.createHash("md5").update(fileBuffer).digest("hex");
+
+    const record = await store.saveFirmware({
+      targetType,
+      version: req.body.version || "1.0.0",
+      filename,
+      originalName,
+      fileSize,
+      checksum,
+      bin: fileBuffer, // Stored directly as BLOB in SQLite!
+      channel,
+      notes,
+    });
+
+    console.log(`[ota] Firmware saved directly in SQLite: ${filename} (${(fileSize / (1024 * 1024)).toFixed(2)} MB), MD5: ${checksum}`);
+    res.json({ success: true, firmware: record });
+  } catch (err) {
+    console.error("[ota] Upload error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/firmwares:
+ *   get:
+ *     summary: Retrieve list of uploaded firmwares from SQLite
+ */
+app.get("/api/ota/firmwares", async (req, res) => {
+  try {
+    const targetType = req.query.targetType || null;
+    const list = await store.getFirmwares(targetType);
+    res.json({ firmwares: list });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/firmwares/{id}:
+ *   delete:
+ *     summary: Delete a firmware record from SQLite
+ */
+app.delete("/api/ota/firmwares/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const item = await store.deleteFirmware(id);
+    res.json({ success: true, deleted: item });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/download/{filename}:
+ *   get:
+ *     summary: Endpoint for ESP32 Gateway/Nodes to download binary firmware from SQLite BLOB
+ */
+app.get("/api/ota/download/:filename", async (req, res) => {
+  try {
+    const filename = req.params.filename;
+    const safeFilename = path.basename(filename);
+
+    // Read directly from SQLite BLOB column
+    const fw = await store.getFirmwareBinary(safeFilename);
+    if (!fw || !fw.bin) {
+      console.warn(`[ota] Download requested but firmware binary not found in SQLite: ${safeFilename}`);
+      return res.status(404).send("Firmware binary not found in SQLite database");
+    }
+
+    res.setHeader("Content-Type", "application/octet-stream");
+    res.setHeader("Content-Disposition", `attachment; filename="${safeFilename}"`);
+    res.setHeader("Content-Length", fw.fileSize || fw.bin.length);
+
+    console.log(`[ota] ESP32 streaming firmware from SQLite: ${safeFilename} (${fw.fileSize || fw.bin.length} bytes) to IP ${req.ip}`);
+    res.end(fw.bin);
+  } catch (err) {
+    console.error("[ota] Download error:", err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/trigger:
+ *   post:
+ *     summary: Trigger an OTA update command to Gateway/Mesh
+ */
+app.post("/api/ota/trigger", async (req, res) => {
+  try {
+    const { targetType = "gateway", targetDetail, targetMac, version, filename, firmwareId } = req.body;
+    const finalTargetDetail = targetDetail || targetMac || (targetType === "gateway" ? "gateway" : "all");
+    const isRootOrGateway = targetType === "gateway" || finalTargetDetail === "root";
+    
+    let fw = null;
+    if (firmwareId) {
+      fw = await store.getFirmwareById(firmwareId);
+    } else if (filename) {
+      fw = await store.getFirmwareByFilename(filename);
+    } else if (version) {
+      const allFw = await store.getFirmwares(targetType);
+      fw = allFw.find(f => f.version === version) || allFw[0];
+    } else if (isRootOrGateway) {
+      const allFw = await store.getFirmwares(targetType);
+      fw = allFw[0] || null;
+    }
+
+    if (isRootOrGateway && !fw) {
+      return res.status(404).json({ error: "Firmware binary not found in database. Please upload a firmware file first." });
+    }
+
+    // Auto-detect domain/IP and protocol (HTTP/HTTPS) from request or fallback to LAN IP
+    const hostHeader = req.get("host");
+    const isDomain = hostHeader && !hostHeader.includes("localhost") && !/^\d+\.\d+\.\d+\.\d+/.test(hostHeader);
+    const protocol = req.headers["x-forwarded-proto"] || (req.secure || isDomain ? "https" : "http");
+    
+    let baseUrl;
+    if (hostHeader && hostHeader !== "localhost" && !hostHeader.startsWith("127.0.0.1")) {
+      baseUrl = `${protocol}://${hostHeader}`;
+    } else {
+      const serverNet = getServerNetworkInfo();
+      const serverIp = serverNet?.ip || "192.168.1.100";
+      baseUrl = `http://${serverIp}:${PORT}`;
+    }
+
+    const downloadUrl = fw ? `${baseUrl}/api/ota/download/${fw.filename}` : "";
+    const jobId = `JOB-${targetType.toUpperCase()}-${Date.now()}`;
+    const fwVersion = fw ? fw.version : "root-active";
+
+    const job = await store.createOtaJob({
+      jobId,
+      targetType,
+      targetDetail: finalTargetDetail,
+      targetMac: finalTargetDetail,
+      version: fwVersion,
+      firmwareUrl: downloadUrl || "internal://root-mesh-distribution",
+      fileSize: fw?.fileSize || 0,
+      checksum: fw?.checksum || "",
+      summary: isRootOrGateway
+        ? `Target: ${targetType.toUpperCase()} (${finalTargetDetail}) | Version: ${fwVersion}`
+        : `Target: MESH NODES (${finalTargetDetail}) | Source: Root Node Internal Distribution`,
+    });
+
+    const commandPayload = {
+      type: "ota_start",
+      target: targetType,
+      targetDetail: finalTargetDetail,
+      targetMac: finalTargetDetail,
+      jobId: jobId,
+    };
+
+    // Only include download URL, size, md5, ver if target is Gateway or Root Node (requires HTTP download)
+    if (isRootOrGateway && fw) {
+      commandPayload.url = downloadUrl;
+      commandPayload.ver = fw.version;
+      commandPayload.size = fw.fileSize;
+      commandPayload.md5 = fw.checksum;
+    }
+
+    console.log(`[ota] Command sent to Gateway/Mesh:`, JSON.stringify(commandPayload));
+    broadcast(commandPayload);
+
+    res.json({ success: true, job, command: commandPayload });
+  } catch (err) {
+    console.error("[ota] Trigger error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/jobs:
+ *   get:
+ *     summary: Retrieve OTA Jobs history from SQLite
+ */
+app.get("/api/ota/jobs", async (req, res) => {
+  try {
+    const targetType = req.query.targetType || null;
+    const limit = Number(req.query.limit) || 50;
+    const jobs = await store.getOtaJobs(targetType, limit);
+    res.json({ jobs });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ota/jobs/{jobId}/status:
+ *   patch:
+ *     summary: Update an OTA Job status directly (e.g. on client timeout)
+ */
+app.patch("/api/ota/jobs/:jobId/status", async (req, res) => {
+  try {
+    const { jobId } = req.params;
+    const { status, progress, summary, errorMsg } = req.body;
+    const completedAt = (status === "Completed" || status === "Failed" || status === "Success") ? new Date().toISOString() : null;
+
+    const updated = await store.updateOtaJobProgress(jobId, {
+      status,
+      progress,
+      summary,
+      errorMsg,
+      completedAt,
+    });
+    res.json({ success: true, job: updated });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // --- Swagger Configuration ---
 const swaggerOptions = {
@@ -647,6 +894,60 @@ wss.on("connection", async (ws, req) => {
           console.error("[db] persistGatewayStatus failed:", error.message)
         );
       }
+
+      // Handle OTA status/progress reports from Gateway / Mesh Nodes
+      if (parsed && (parsed.type === "ota_progress" || parsed.type === "ota_status")) {
+        const jobId = parsed.jobId;
+        const status = parsed.status || (parsed.percent === 100 ? "Success" : "In progress");
+        const progress = Number(parsed.percent ?? parsed.progress ?? 0);
+        const bytesRead = Number(parsed.bytes_read || 0);
+        const totalBytes = Number(parsed.total_bytes || 0);
+        const runningPart = parsed.running_partition || "";
+        const targetPart = parsed.target_partition || "";
+        const message = parsed.message || parsed.msg || "";
+        const errorMsg = parsed.error || parsed.err || (status === "Failed" ? message : "");
+        
+        let summaryParts = [`Status: ${status}`];
+        if (runningPart && targetPart) {
+          summaryParts.push(`Partition: ${runningPart} -> ${targetPart}`);
+        }
+        if (totalBytes > 0) {
+          summaryParts.push(`${(bytesRead / 1024).toFixed(1)}KB / ${(totalBytes / 1024).toFixed(1)}KB (${progress}%)`);
+        } else {
+          summaryParts.push(`${progress}%`);
+        }
+        if (message) summaryParts.push(message);
+        const summary = summaryParts.join(" | ");
+
+        const completedAt = (status === "Completed" || status === "Failed" || status === "Success") ? new Date().toISOString() : null;
+
+        if (jobId) {
+          store.updateOtaJobProgress(jobId, { status, progress, summary, errorMsg, completedAt }).catch(e => console.error("[db] updateOtaJobProgress error:", e.message));
+        }
+
+        const finalTargetDetail = parsed.targetDetail || parsed.targetMac || (parsed.target === "gateway" ? "gateway" : "all");
+
+        const otaBroadcastPayload = {
+          type: "ota_progress",
+          jobId,
+          target: parsed.target || "gateway",
+          targetDetail: finalTargetDetail,
+          targetMac: finalTargetDetail,
+          status,
+          progress,
+          percent: progress,
+          bytes_read: bytesRead,
+          total_bytes: totalBytes,
+          running_partition: runningPart,
+          target_partition: targetPart,
+          message,
+          summary,
+          errorMsg,
+        };
+
+        console.log(`[ota] Progress update for ${parsed.target || "gateway"}: [${status} ${progress}%] ${runningPart ? `(${runningPart} -> ${targetPart})` : ""}`);
+        broadcast(otaBroadcastPayload);
+      }
     } catch (error) {
       console.error(`[ws] Processing JSON from ${ip} failed:`, error.message);
     }
@@ -718,29 +1019,117 @@ setInterval(() => {
   seqStats.clear();
 }, 10000);
 
+let cachedHostInfo = null;
+async function getHostInfo() {
+  if (cachedHostInfo) return cachedHostInfo;
+  try {
+    const [cpu, osInfo, sys] = await Promise.all([
+      si.cpu().catch(() => ({})),
+      si.osInfo().catch(() => ({})),
+      si.system().catch(() => ({})),
+    ]);
+    const cpuModel = cpu.brand || os.cpus()[0]?.model || "Unknown CPU";
+    const cpuManufacturer = cpu.manufacturer || "";
+    cachedHostInfo = {
+      cpuBrand: `${cpuManufacturer} ${cpuModel}`.trim(),
+      cpuCores: cpu.cores || cpu.physicalCores || os.cpus().length,
+      cpuSpeed: cpu.speed ? `${cpu.speed} GHz` : `${(os.cpus()[0]?.speed / 1000).toFixed(2)} GHz`,
+      osPlatform: osInfo.platform || os.platform(),
+      osDistro: osInfo.distro || os.type(),
+      osRelease: osInfo.release || os.release(),
+      osArch: osInfo.arch || os.arch(),
+      hostname: osInfo.hostname || os.hostname(),
+      manufacturer: sys.manufacturer || "Generic System",
+      model: sys.model || "Desktop / Server",
+      nodeVersion: process.version,
+      port: PORT,
+    };
+    return cachedHostInfo;
+  } catch (err) {
+    cachedHostInfo = {
+      cpuBrand: os.cpus()[0]?.model || "Generic CPU",
+      cpuCores: os.cpus().length,
+      cpuSpeed: `${(os.cpus()[0]?.speed / 1000).toFixed(2)} GHz`,
+      osPlatform: os.platform(),
+      osDistro: os.type(),
+      osRelease: os.release(),
+      osArch: os.arch(),
+      hostname: os.hostname(),
+      manufacturer: "Generic System",
+      model: "Desktop / Server",
+      nodeVersion: process.version,
+      port: PORT,
+    };
+    return cachedHostInfo;
+  }
+}
+
+app.get("/api/system/info", async (req, res) => {
+  try {
+    const hw = await getHostInfo();
+    const [load, mem, temp] = await Promise.all([
+      si.currentLoad().catch(() => ({ currentLoad: 0 })),
+      si.mem().catch(() => ({ total: os.totalmem(), active: os.totalmem() - os.freemem() })),
+      si.cpuTemperature().catch(() => ({ main: null })),
+    ]);
+    const time = si.time();
+
+    const totalRam = mem.total || os.totalmem();
+    const activeRam = mem.active || mem.used || (mem.total - mem.available) || (os.totalmem() - os.freemem());
+    const ramUsedPercent = (activeRam / totalRam) * 100;
+
+    res.json({
+      hardware: hw,
+      metrics: {
+        cpuLoadPercent: Number((load.currentLoad || 0).toFixed(1)),
+        ramTotalMb: totalRam / 1048576,
+        ramUsedMb: activeRam / 1048576,
+        ramUsedPercent: Number(ramUsedPercent.toFixed(1)),
+        chipTempC: temp.main || null,
+        uptimeS: time?.uptime || os.uptime(),
+        nodeUptimeS: process.uptime(),
+        connectedClients: wss.clients.size,
+        receivedAtIso: new Date().toISOString(),
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 setInterval(async () => {
   if (wss.clients.size === 0) return; // Save resources if no clients
   try {
-    const load = await si.currentLoad();
-    const mem = await si.mem();
-    const temp = await si.cpuTemperature();
-    const time = await si.time();
+    const hw = await getHostInfo();
+    const [load, mem, temp] = await Promise.all([
+      si.currentLoad().catch(() => ({ currentLoad: 0 })),
+      si.mem().catch(() => ({ total: os.totalmem(), active: os.totalmem() - os.freemem() })),
+      si.cpuTemperature().catch(() => ({ main: null })),
+    ]);
+    const time = si.time();
+
+    const totalRam = mem.total || os.totalmem();
+    const activeRam = mem.active || mem.used || (mem.total - mem.available) || (os.totalmem() - os.freemem());
+    const ramUsedPercent = (activeRam / totalRam) * 100;
 
     const metrics = {
       type: "server_metrics",
-      cpuLoadPercent: load.currentLoad,
-      ramTotalMb: mem.total / 1048576,
-      ramUsedMb: mem.active / 1048576,
-      ramUsedPercent: (mem.active / mem.total) * 100,
-      chipTempC: temp.main,
-      uptimeS: time.uptime,
+      cpuLoadPercent: Number((load.currentLoad || 0).toFixed(1)),
+      ramTotalMb: totalRam / 1048576,
+      ramUsedMb: activeRam / 1048576,
+      ramUsedPercent: Number(ramUsedPercent.toFixed(1)),
+      chipTempC: temp.main || null,
+      uptimeS: time?.uptime || os.uptime(),
+      nodeUptimeS: process.uptime(),
+      hardware: hw,
+      connectedClients: wss.clients.size,
       receivedAtIso: new Date().toISOString(),
     };
     broadcast(metrics, null);
   } catch (err) {
     console.error("[metrics] fetch failed:", err.message);
   }
-}, 5000);
+}, 3000);
 
 async function start() {
   try {

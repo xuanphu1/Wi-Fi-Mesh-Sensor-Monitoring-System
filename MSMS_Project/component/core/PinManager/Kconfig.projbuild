@@ -135,3 +135,20 @@ menu "PinManager — Pulse"
             Chân cấu hình cho Pulse 2 Peripheral.
 
 endmenu
+
+menu "PinManager — Power"
+
+    config PIN_POWER_3V3
+        int "Power 3V3 Control GPIO"
+        default 12
+        help
+            Chân điều khiển đóng cắt nguồn 3V3 cho ngoại vi (High Active).
+
+    config PIN_POWER_5V
+        int "Power 5V Control GPIO"
+        default 14
+        help
+            Chân điều khiển đóng cắt nguồn 5V cho ngoại vi (High Active).
+
+endmenu
+

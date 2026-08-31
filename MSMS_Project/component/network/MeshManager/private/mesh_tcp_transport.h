@@ -30,6 +30,7 @@ typedef struct {
   volatile bool running;
 
   int node_socket;
+  mesh_stream_parser_t node_parser;
   int listen_socket;
   mesh_tcp_client_t clients[CONFIG_MESH_TCP_MAX_CLIENTS];
 
@@ -54,5 +55,10 @@ void mesh_tcp_transport_set_role(mesh_tcp_transport_t *transport,
 uint8_t mesh_tcp_transport_client_count(const mesh_tcp_transport_t *transport);
 void mesh_tcp_transport_get_stats(const mesh_tcp_transport_t *transport,
                                   mesh_gateway_stats_t *stats);
+esp_err_t mesh_tcp_transport_broadcast(mesh_tcp_transport_t *transport,
+                                       const uint8_t *data, size_t length);
+esp_err_t mesh_tcp_transport_send_node_frame(mesh_tcp_transport_t *transport,
+                                            const uint8_t *data, size_t length);
+void mesh_tcp_transport_register_downstream_cb(mesh_downstream_cb_t cb);
 
 #endif /* MESH_TCP_TRANSPORT_H */

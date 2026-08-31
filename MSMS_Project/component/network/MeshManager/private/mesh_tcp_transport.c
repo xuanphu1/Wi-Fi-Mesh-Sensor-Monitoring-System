@@ -1,12 +1,14 @@
 #include "mesh_tcp_transport.h"
 
 #include "ErrorCodes.h"
+#include "MeshManager.h"
 #include "esp_log.h"
 #include "esp_mesh_lite.h"
 #include "esp_netif.h"
 #include "esp_random.h"
 #include "mesh_telemetry.h"
-#include "sdkconfig.h"
+#include "TimeManager.h"
+#include "cJSON.h"
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -218,6 +220,83 @@ static void schedule_reconnect(mesh_tcp_transport_t *transport) {
   transport->counters.reconnects++;
 }
 
+static mesh_downstream_cb_t s_downstream_cb = NULL;
+
+void mesh_tcp_transport_register_downstream_cb(mesh_downstream_cb_t cb) {
+  s_downstream_cb = cb;
+}
+
+static bool node_handle_incoming_frame(const uint8_t *frame, size_t length,
+                                       void *context) {
+  mesh_tcp_transport_t *transport = (mesh_tcp_transport_t *)context;
+  if (frame == NULL || length == 0) {
+    return false;
+  }
+
+  char *json_str = strndup((const char *)frame, length);
+  if (json_str == NULL) {
+    return false;
+  }
+
+  cJSON *root = cJSON_Parse(json_str);
+  if (root == NULL) {
+    free(json_str);
+    return false;
+  }
+
+  cJSON *type_item = cJSON_GetObjectItem(root, "type");
+  if (type_item != NULL && cJSON_IsString(type_item)) {
+    if (strcmp(type_item->valuestring, "sync_time") == 0) {
+      cJSON *ts_item = cJSON_GetObjectItem(root, "timestamp");
+      cJSON *year_item = cJSON_GetObjectItem(root, "year");
+      cJSON *month_item = cJSON_GetObjectItem(root, "month");
+      cJSON *day_item = cJSON_GetObjectItem(root, "day");
+      cJSON *hour_item = cJSON_GetObjectItem(root, "hour");
+      cJSON *min_item = cJSON_GetObjectItem(root, "min");
+      cJSON *sec_item = cJSON_GetObjectItem(root, "sec");
+
+      uint32_t timestamp = (ts_item != NULL && cJSON_IsNumber(ts_item))
+                               ? (uint32_t)ts_item->valuedouble
+                               : 0;
+      int year = (year_item != NULL && cJSON_IsNumber(year_item))
+                     ? year_item->valueint
+                     : 0;
+      int month = (month_item != NULL && cJSON_IsNumber(month_item))
+                      ? month_item->valueint
+                      : 0;
+      int day = (day_item != NULL && cJSON_IsNumber(day_item))
+                    ? day_item->valueint
+                    : 0;
+      int hour = (hour_item != NULL && cJSON_IsNumber(hour_item))
+                     ? hour_item->valueint
+                     : 0;
+      int min = (min_item != NULL && cJSON_IsNumber(min_item))
+                    ? min_item->valueint
+                    : 0;
+      int sec = (sec_item != NULL && cJSON_IsNumber(sec_item))
+                    ? sec_item->valueint
+                    : 0;
+
+      if (year >= 2020 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+        TimeManager_SetDateTime(year, month, day, hour, min, sec, timestamp);
+        ESP_LOGI(TAG, "Node synced time from Root: %04d-%02d-%02d %02d:%02d:%02d",
+                 year, month, day, hour, min, sec);
+      } else if (timestamp > 0) {
+        TimeManager_SetEpochTime(timestamp);
+        ESP_LOGI(TAG, "Node synced timestamp from Root: %" PRIu32, timestamp);
+      }
+    } else {
+      if (s_downstream_cb != NULL) {
+        s_downstream_cb(transport ? transport->data : NULL, json_str, length);
+      }
+    }
+  }
+
+  free(json_str);
+  cJSON_Delete(root);
+  return true;
+}
+
 static void run_node(mesh_tcp_transport_t *transport) {
   if (esp_mesh_lite_get_level() <= 1) {
     close_socket(&transport->node_socket);
@@ -237,11 +316,25 @@ static void run_node(mesh_tcp_transport_t *transport) {
       vTaskDelay(pdMS_TO_TICKS(TRANSPORT_POLL_MS));
       return;
     }
+    mesh_stream_parser_init(&transport->node_parser);
     transport->reconnect_backoff_ms = RECONNECT_MIN_MS;
     transport->next_send_tick = 0;
   }
 
-  if ((int32_t)(now - transport->next_send_tick) < 0) {
+  // Check incoming data from Root (e.g. sync_time)
+  uint8_t rx_bytes[256];
+  int received = recv(transport->node_socket, rx_bytes, sizeof(rx_bytes), MSG_DONTWAIT);
+  if (received > 0) {
+    mesh_stream_parser_push(&transport->node_parser, rx_bytes, (size_t)received,
+                            node_handle_incoming_frame, transport);
+  } else if (received == 0 || (received < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR)) {
+    ESP_LOGW(TAG, "TCP connection closed by Root: errno=%d", errno);
+    close_socket(&transport->node_socket);
+    schedule_reconnect(transport);
+    return;
+  }
+
+  if (MeshManager_IsTelemetryPaused() || (int32_t)(now - transport->next_send_tick) < 0) {
     vTaskDelay(pdMS_TO_TICKS(TRANSPORT_POLL_MS));
     return;
   }
@@ -356,6 +449,12 @@ static void deduplicate_client(mesh_tcp_transport_t *transport,
 }
 
 static bool enqueue_frame(const uint8_t *frame, size_t length, void *context) {
+  if (MeshManager_IsTelemetryPaused()) {
+    // Drop regular sensor telemetry during OTA, but allow ota_progress frames through
+    if (frame == NULL || strstr((const char *)frame, "\"ota_progress\"") == NULL) {
+      return false;
+    }
+  }
   frame_callback_context_t *callback = context;
   mesh_tcp_transport_t *transport = callback->transport;
   mesh_tcp_client_t *client = &transport->clients[callback->client_index];
@@ -583,3 +682,52 @@ void mesh_tcp_transport_get_stats(const mesh_tcp_transport_t *transport,
   }
   *stats = transport->last_stats;
 }
+
+esp_err_t mesh_tcp_transport_broadcast(mesh_tcp_transport_t *transport,
+                                       const uint8_t *data, size_t length) {
+  if (transport == NULL || data == NULL || length == 0) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (!transport->running || transport->active_role != MESH_ROLE_ROOT) {
+    return ESP_ERR_INVALID_STATE;
+  }
+
+  int sent_count = 0;
+  for (int i = 0; i < CONFIG_MESH_TCP_MAX_CLIENTS; i++) {
+    mesh_tcp_client_t *client = &transport->clients[i];
+    if (client->active && client->fd >= 0) {
+      if (send_all(client->fd, data, length) &&
+          send_all(client->fd, (const uint8_t *)"\n", 1)) {
+        sent_count++;
+      } else {
+        ESP_LOGW(TAG, "Failed to broadcast to node slot %d, closing", i);
+        close_client(client);
+      }
+    }
+  }
+  ESP_LOGI(TAG, "Broadcasted %d bytes to %d connected nodes", (int)length,
+           sent_count);
+  return ESP_OK;
+}
+
+esp_err_t mesh_tcp_transport_send_node_frame(mesh_tcp_transport_t *transport,
+                                            const uint8_t *data, size_t length) {
+  if (transport == NULL || data == NULL || length == 0) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (transport->node_socket < 0) {
+    return ESP_ERR_INVALID_STATE;
+  }
+
+  if (!send_all(transport->node_socket, data, length)) {
+    return ESP_FAIL;
+  }
+  if (data[length - 1] != '\n') {
+    if (!send_all(transport->node_socket, (const uint8_t *)"\n", 1)) {
+      return ESP_FAIL;
+    }
+  }
+  return ESP_OK;
+}
+
+

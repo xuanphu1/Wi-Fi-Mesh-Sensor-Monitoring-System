@@ -17,56 +17,25 @@
 static PortId_t PortSelected[NUM_PORTS] = {PORT_NONE, PORT_NONE, PORT_NONE};
 static const char *port_name[NUM_PORTS] = {"Port 1", "Port 2", "Port 3"};
 static TaskHandle_t readDataSensorTaskHandle[NUM_PORTS];
-static TaskHandle_t mesh_root_screen_task_handle = NULL;
-
-static void mesh_root_screen_task(void *pvParameters) {
-  DataManager_t *data = (DataManager_t *)pvParameters;
-
-  while (data != NULL && InternetManager_GetMode() == INTERNET_MODE_MESH &&
-         MeshManager_GetRole() == MESH_ROLE_ROOT) {
-    data->screen.is_menu_active = false;
-    data->screen.is_dashboard_active = false;
-    (void)ScreenMeshRoot(data);
-    vTaskDelay(pdMS_TO_TICKS(10));
-  }
-
-  mesh_root_screen_task_handle = NULL;
-  vTaskDelete(NULL);
-}
-
-static void FunctionManager_StartMeshRootScreen(DataManager_t *data) {
-  if (data == NULL || mesh_root_screen_task_handle != NULL) {
-    return;
-  }
-
-  if (xTaskCreate(mesh_root_screen_task, "mesh_root_screen", 3072, data, 4,
-                  &mesh_root_screen_task_handle) != pdPASS) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Create mesh_root_screen failed");
-    mesh_root_screen_task_handle = NULL;
-  }
-}
-
-static void FunctionManager_StopMeshRootScreen(void) {
-  if (mesh_root_screen_task_handle != NULL) {
-    vTaskDelete(mesh_root_screen_task_handle);
-    mesh_root_screen_task_handle = NULL;
-  }
-}
 
 static void FunctionManager_ReturnMainScreen(DataManager_t *data) {
-  if (data == NULL || data->screen.current == NULL) {
+  if (data == NULL) {
     return;
   }
 
-  menu_list_t *root = data->screen.current;
-  while (root->parent != NULL) {
-    root = root->parent;
+  if (data->screen.current != NULL) {
+    menu_list_t *root = data->screen.current;
+    while (root->parent != NULL) {
+      root = root->parent;
+    }
+    data->screen.current = root;
   }
 
-  data->screen.current = root;
   data->screen.selected = 0;
   data->screen.prev_selected = 0;
-  data->screen.is_menu_active = true;
+  data->screen.dashboard_page = 0;
+  data->screen.is_menu_active = false;
+  data->screen.is_dashboard_active = true;
 }
 
 static void FunctionManager_UpdateWifiInfo(DataManager_t *data) {
@@ -142,10 +111,7 @@ static void wifi_mesh_join_task(void *pvParameters) {
     ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY,
                          MRS_ERR_MESHMANAGER_INIT_FAILED);
     ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh role switch failed");
-  } else if (as_root) {
-    FunctionManager_StartMeshRootScreen(data);
   } else {
-    FunctionManager_StopMeshRootScreen();
     FunctionManager_ReturnMainScreen(data);
   }
   vTaskDelete(NULL);

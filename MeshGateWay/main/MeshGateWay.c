@@ -1,4 +1,5 @@
 #include "Datamanager.h"
+#include "FOTAManager.h"
 #include "PowerManager.h"
 #include "SD_Card.h"
 #include "ScreenManager.h"
@@ -9,28 +10,15 @@
 #include "driver/gpio.h"
 #include "ds3231.h"
 #include "esp_err.h"
-#include "esp_insights.h"
 #include "esp_log.h"
 #include "esp_spiffs.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
-#include "sntp_sync.h"
 #include <stdio.h>
-
-#define ESP_INSIGHTS_AUTH_KEY                                                  \
-  "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9."                                      \
-  "eyJ1c2VyIjoiMmU5ZDIxOGMtMjQ3MS00NmVhLThmNDUtOGY0ZTNiMTdjZDU2IiwiaXNzIjoiZT" \
-  "MyMmI1OWMtNjNjYy00ZTQwLThlYTItNGU3NzY2NTQ1Y2NhIiwic3ViIjoiOTY4NmM3OTItZTFm" \
-  "Zi00MTg3LWJmN2YtMzBkZTM1MzFlZGUzIiwiZXhwIjoyMDk4NTM2NDI1LCJpYXQiOjE3ODMxNz" \
-  "Y0MjV9.LLN9cDXxgl9TmRXWoiWKSZgcWAbwYDRvsOPJkvRdzQhohFxeHYSYE_2oVAod-"       \
-  "9GT71giZ93Okf6DWmywyWEdmyJhOLhvQNoLoC9r_"                                   \
-  "ixuZg0P4KC9U515uhHJPgWqOqvR5NfhudQYdkOK2uMOov24NJqK79_"                     \
-  "nEj5HKBhHGOdkrqLhVWfjnujDLrhcXZ_PKpwXaakU9Pkl5Ohki3SVFDXZJrfktciAXUf2b_"    \
-  "S4GGcFPotCK3dIRyOzTloQDh_"                                                  \
-  "xSZIqrkMSfchXNkzUE3GVdHBObNmoq2hn8t6oifbLwb6kj4uiuY1e2hnwN4UHrtEIWA-"       \
-  "eQYVRdVL2BROjLXCHckI7iA"
+#include <time.h>
+#include <sys/time.h>
 
 static const char *TAG = "app";
 
@@ -77,52 +65,7 @@ static esp_err_t app_mount_spiffs(void) {
   return ESP_OK;
 }
 
-static void sync_sntp_before_socket(void) {
-  if (!is_wifi_connected()) {
-    ESP_LOGW(TAG, "Skip SNTP sync because WiFi STA is not connected");
-    return;
-  }
 
-  struct tm time_info = {0};
-  time_t time_now = 0;
-
-  sntp_init_func();
-  esp_err_t err = sntp_setTime(&time_info, &time_now);
-  if (err != ESP_OK) {
-    ESP_LOGW(TAG, "SNTP sync failed: %s", esp_err_to_name(err));
-    return;
-  }
-
-  ESP_LOGI(TAG, "SNTP sync completed before WebSocket task start");
-
-  if (!g_hw.rtc_ready) {
-    ESP_LOGW(TAG, "Skip DS3231 update because RTC is not ready");
-    return;
-  }
-
-  err = ds3231_set_time(&g_hw.rtc_dev, &time_info);
-  if (err != ESP_OK) {
-    ESP_LOGW(TAG, "DS3231 update from SNTP failed: %s", esp_err_to_name(err));
-    return;
-  }
-
-  ESP_LOGI(TAG, "DS3231 updated from SNTP time");
-}
-
-static void initialize_insights(void) {
-  esp_insights_config_t config = {
-      .log_type = ESP_DIAG_LOG_TYPE_ERROR | ESP_DIAG_LOG_TYPE_WARNING |
-                  ESP_DIAG_LOG_TYPE_EVENT,
-      .auth_key = ESP_INSIGHTS_AUTH_KEY,
-  };
-  esp_err_t err = esp_insights_init(&config);
-  if (err != ESP_OK) {
-    ESP_LOGE(TAG, "Failed to initialize ESP Insights: %s",
-             esp_err_to_name(err));
-  } else {
-    ESP_LOGI(TAG, "ESP Insights initialized successfully");
-  }
-}
 
 void vApplicationIdleHook(void) {
   // Required when CONFIG_FREERTOS_USE_IDLE_HOOK=y
@@ -144,6 +87,9 @@ void app_main(void) {
              "SPIFFS không mount được — captive portal có thể 404 index.html");
   }
 
+  // Tự động xác nhận firmware hợp lệ (huỷ rollback) và kích hoạt luân chuyển ota_0 <-> ota_1
+  fota_manager_init();
+
   websocket_attach_state(&g_ws);
   wifi_manager_attach_state(&g_wifi, &g_ws);
 
@@ -164,14 +110,35 @@ void app_main(void) {
     printf("[SD ] initSDCard() failed: %s (0x%x)\n", esp_err_to_name(sd_ret),
            (unsigned)sd_ret);
 
+  // Thiết lập múi giờ Việt Nam (UTC+7)
+  setenv("TZ", "ICT-7", 1);
+  tzset();
+
   esp_err_t rtc_ret = ds3231_init_default(&g_hw.rtc_dev);
   g_hw.rtc_ready = (rtc_ret == ESP_OK);
+  if (g_hw.rtc_ready) {
+    struct tm rtc_tm = {0};
+    if (ds3231_get_time(&g_hw.rtc_dev, &rtc_tm) == ESP_OK) {
+      time_t rtc_sec = mktime(&rtc_tm);
+      if (rtc_sec > 1000000000) {
+        struct timeval tv = {.tv_sec = rtc_sec, .tv_usec = 0};
+        settimeofday(&tv, NULL);
+        ESP_LOGI(TAG,
+                 "ESP32 system time initialized from DS3231 RTC: "
+                 "%04d-%02d-%02d %02d:%02d:%02d",
+                 rtc_tm.tm_year + 1900, rtc_tm.tm_mon + 1, rtc_tm.tm_mday,
+                 rtc_tm.tm_hour, rtc_tm.tm_min, rtc_tm.tm_sec);
+      } else {
+        ESP_LOGW(TAG,
+                 "DS3231 time is not set yet, waiting for WebSocket time sync");
+      }
+    }
+  }
 
   power_manager_battery_adc_init(&g_hw);
   system_monitor_start(&g_hw, &g_cpu, &g_lvgl, &g_metrics, &g_telemetry, 5, 0);
 
   wifi_init_sta();
-  sync_sntp_before_socket();
 
   const uint32_t ws_stack = 4096;
   g_ws_ctx.ws = &g_ws;
@@ -189,7 +156,6 @@ void app_main(void) {
   // Tách rời thời điểm bắt tay mạng để tránh nghẽn mbedTLS và băng thông
   vTaskDelay(pdMS_TO_TICKS(10000));
 
-  // initialize_insights();
-
   vTaskDelete(NULL);
 }
+

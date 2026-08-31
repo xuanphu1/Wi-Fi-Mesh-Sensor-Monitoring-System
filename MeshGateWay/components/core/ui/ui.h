@@ -14,7 +14,7 @@ extern "C" {
 
 #include "ui_helpers.h"
 #include "ui_events.h"
-#include <stdio.h>
+
 
 ///////////////////// SCREENS ////////////////////
 

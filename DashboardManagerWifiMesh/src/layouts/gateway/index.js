@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
@@ -14,11 +15,11 @@ import { useMeshRealtime } from "context/meshRealtime";
 import { IoWifi, IoServer, IoCellular, IoTime, IoBatteryFull, IoHardwareChip, IoCalendar, IoChevronDown, IoExpand } from "react-icons/io5";
 
 const panelSx = {
-  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.74) 0%, rgba(10, 14, 35, 0.72) 100%)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+  background: "linear-gradient(127deg, rgba(6, 11, 40, 0.28) 0%, rgba(10, 14, 35, 0.18) 100%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.35)",
   borderRadius: "16px",
-  backdropFilter: "blur(42px)",
+  backdropFilter: "blur(18px)",
 };
 
 const iconBoxSx = {
@@ -28,8 +29,8 @@ const iconBoxSx = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "#111c44",
-  border: "1px solid rgba(255, 255, 255, 0.05)",
+  background: "rgba(255, 255, 255, 0.05)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
 };
 
 function fmtInt(value, suffix = "") {
@@ -82,7 +83,7 @@ function MetricCardLeft({ title, value, subtitle, progress, icon }) {
   return (
     <Card sx={panelSx}>
       <VuiBox p={2} display="flex" alignItems="center" gap={2}>
-        <VuiBox sx={{ ...iconBoxSx, background: "linear-gradient(127deg, #4F38DF, #6142FF)", flexShrink: 0 }}>
+        <VuiBox sx={{ ...iconBoxSx, background: "rgba(97, 66, 255, 0.18)", border: "1px solid rgba(97, 66, 255, 0.40)", color: "#b8a9ff", flexShrink: 0 }}>
           {icon}
         </VuiBox>
         <VuiBox display="flex" flexDirection="column" width="100%">
@@ -380,14 +381,66 @@ function GatewayEventLogs({ logs }) {
 }
 
 function Gateway() {
-  const { gatewayStatus, gatewaySeries, gatewayLogs, wsOpen } = useMeshRealtime();
+  const { gatewayStatus, gatewaySeries, gatewayLogs, wsOpen, sendTimeSync } = useMeshRealtime();
+  const [syncFeedback, setSyncFeedback] = React.useState(null);
   const g = gatewayStatus;
   const series = gatewaySeries || [];
+
+  const handleSyncTime = () => {
+    const ok = sendTimeSync && sendTimeSync();
+    if (ok) {
+      setSyncFeedback("Sent time sync command to Gateway!");
+      setTimeout(() => setSyncFeedback(null), 3500);
+    } else {
+      setSyncFeedback("Failed: WebSocket is disconnected.");
+      setTimeout(() => setSyncFeedback(null), 3500);
+    }
+  };
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
+        <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb={2.5} flexWrap="wrap" gap={1.5}>
+          <VuiTypography variant="h4" color="white" fontWeight="bold">
+            Gateway Monitor & Controls
+          </VuiTypography>
+          <VuiBox display="flex" alignItems="center" gap={1.5}>
+            {syncFeedback && (
+              <VuiTypography variant="caption" color={syncFeedback.startsWith("Sent") ? "success" : "warning"} fontWeight="bold">
+                {syncFeedback}
+              </VuiTypography>
+            )}
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleSyncTime}
+              disabled={!wsOpen}
+              sx={{
+                background: "linear-gradient(135deg, #0075ff 0%, #00d2ff 100%) !important",
+                color: "#fff !important",
+                fontWeight: "bold",
+                borderRadius: "10px",
+                px: 2.5,
+                py: 1,
+                textTransform: "none",
+                fontSize: "13px",
+                boxShadow: "0 0 16px rgba(0, 117, 255, 0.4)",
+                "&:hover": {
+                  background: "linear-gradient(135deg, #0056cc 0%, #00b0e6 100%) !important",
+                  boxShadow: "0 0 24px rgba(0, 117, 255, 0.6)",
+                },
+                "&.Mui-disabled": {
+                  background: "rgba(255, 255, 255, 0.12) !important",
+                  color: "rgba(255, 255, 255, 0.3) !important",
+                },
+              }}
+            >
+              <IoTime size="16px" style={{ marginRight: 6 }} /> Sync RTC Time
+            </Button>
+          </VuiBox>
+        </VuiBox>
+
         <Grid container spacing={2} mb={2}>
           <Grid item xs={12} md={3}>
             <MetricCardRight 

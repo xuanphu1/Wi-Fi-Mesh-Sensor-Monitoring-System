@@ -33,6 +33,8 @@ esp_err_t save_ws_url(const char *url);
 const char *get_ws_url(void);
 bool websocket_is_connected(void);
 uint32_t websocket_get_reconnect_count(void);
+void ws_send_time_sync_request(void);
+bool websocket_is_time_synced(void);
 
 typedef enum {
     WEBSOCKET_TARGET_CUSTOM = 0,

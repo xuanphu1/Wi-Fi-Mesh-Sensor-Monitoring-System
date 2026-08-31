@@ -35,4 +35,8 @@
 #define PIN_PULSE_1 ((gpio_num_t)CONFIG_PIN_PULSE_1)
 #define PIN_PULSE_2 ((gpio_num_t)CONFIG_PIN_PULSE_2)
 
+/* Power — menu "PinManager — Power" */
+#define PIN_POWER_3V3 ((gpio_num_t)CONFIG_PIN_POWER_3V3)
+#define PIN_POWER_5V ((gpio_num_t)CONFIG_PIN_POWER_5V)
+
 #endif /* PIN_MANAGER_H */

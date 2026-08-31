@@ -80,11 +80,22 @@ function Sidenav({ color, brandName, routes, ...rest }) {
     }
   }, []);
 
+  // Helper function to check if a route is active
+  const isRouteActive = (itemRoute, itemKey) => {
+    if (itemRoute) {
+      if (pathname === itemRoute) return true;
+      if (itemRoute !== "/" && itemRoute !== "/dashboard" && pathname.startsWith(itemRoute)) return true;
+    }
+    return itemKey === collapseName;
+  };
+
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, route, href }) => {
     let returnValue;
 
     if (type === "collapse") {
+      const active = isRouteActive(route, key);
+
       returnValue = href ? (
         <Link
           href={href}
@@ -97,7 +108,7 @@ function Sidenav({ color, brandName, routes, ...rest }) {
             color={color}
             name={name}
             icon={icon}
-            active={key === collapseName}
+            active={active}
             noCollapse={noCollapse}
           />
         </Link>
@@ -108,7 +119,7 @@ function Sidenav({ color, brandName, routes, ...rest }) {
             key={key}
             name={name}
             icon={icon}
-            active={key === collapseName}
+            active={active}
             noCollapse={noCollapse}
           />
         </NavLink>
@@ -123,9 +134,10 @@ function Sidenav({ color, brandName, routes, ...rest }) {
           fontWeight="bold"
           textTransform="uppercase"
           pl={3}
-          mt={2}
-          mb={1}
+          mt={2.5}
+          mb={1.25}
           ml={1}
+          sx={{ fontSize: "13.5px", letterSpacing: "1.2px", opacity: 0.85 }}
         >
           {title}
         </VuiTypography>
@@ -181,15 +193,15 @@ function Sidenav({ color, brandName, routes, ...rest }) {
                 })
               }
             >
-              <SimmmpleLogo size="24px" />
+              <SimmmpleLogo size="26px" />
             </VuiBox>
             <VuiTypography
               variant="button"
               textGradient={true}
               color="logo"
-              fontSize={14}
+              fontSize={16}
               letterSpacing={2}
-              fontWeight="medium"
+              fontWeight="bold"
               sx={
                 ((theme) => sidenavLogoLabel(theme, { miniSidenav, transparentSidenav }),
                 {

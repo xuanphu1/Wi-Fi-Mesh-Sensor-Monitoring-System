@@ -67,6 +67,8 @@ static system_err_t InternetManager_CleanCore(DataManager_t *data,
   ESP_LOGI(TAG, "Cleaning network stack, destroy_default_netifs=%d",
            destroy_default_netifs);
 
+  s_mode = INTERNET_MODE_NONE; // Set mode to NONE early so background tasks stop calling mesh APIs
+
   InternetManager_StopTask(data, TASK_WIFI_CONFIG);
   InternetManager_StopTask(data, TASK_WIFI_MESH_JOIN);
 
@@ -93,9 +95,6 @@ static system_err_t InternetManager_CleanCore(DataManager_t *data,
     }
   }
 
-  InternetManager_LogIgnoredEspError("esp_wifi_restore", esp_wifi_restore());
-
-  s_mode = INTERNET_MODE_NONE;
   s_last_error = MRS_OK;
   ESP_LOGI(TAG, "Network stack is clean");
   return MRS_OK;

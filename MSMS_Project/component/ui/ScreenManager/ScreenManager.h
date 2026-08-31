@@ -36,6 +36,7 @@ system_err_t ScreenManagerInit(ssd1306_handle_t *_oled);
  */
 
 void ScreenDashboard(DataManager_t *data);
+void ScreenMeshTopology(DataManager_t *data);
 void MenuRender_Task(void *pvParameters);
 
 /**
@@ -110,5 +111,23 @@ void ScreenSensorResetField(void);
 system_err_t ScreenMeshRoot(DataManager_t *data);
 
 system_err_t ScreenShowMeshInformation(DataManager_t *data);
+
+/**
+ * @brief Render OTA progress screen with progress bar and status on SSD1306 OLED.
+ */
+system_err_t ScreenShowOtaProgress(const char *status, uint8_t percent,
+                                   uint32_t bytes_read, uint32_t total_bytes,
+                                   const char *version);
+
+/**
+ * @brief Suspend or resume background menu/dashboard rendering.
+ *        Used during OTA to give full exclusive access to the display.
+ */
+void ScreenManager_SetSuspended(bool suspended);
+bool ScreenManager_IsSuspended(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
