@@ -682,7 +682,7 @@ function SystemSettings() {
                       Environment
                     </VuiTypography>
                     <VuiTypography variant="h6" color="white" fontWeight="bold" display="block" sx={{ fontSize: "16px" }}>
-                      Node {hw.nodeVersion || process.version || "v20+"}
+                      Node {hw.nodeVersion || "v20+"}
                     </VuiTypography>
                     <VuiTypography variant="caption" color="text" sx={{ fontSize: "11px", mt: 1.2, display: "block" }}>
                       Clients: {currentMetrics?.connectedClients ?? 1} connected

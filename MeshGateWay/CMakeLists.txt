@@ -9,7 +9,7 @@ set(EXTRA_COMPONENT_DIRS
 )
 
 
-
+set(PROJECT_VER "0.0.2")
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(MeshGateWay)
 spiffs_create_partition_image(spiffs components/core/WebConfigWifi FLASH_IN_PROJECT)

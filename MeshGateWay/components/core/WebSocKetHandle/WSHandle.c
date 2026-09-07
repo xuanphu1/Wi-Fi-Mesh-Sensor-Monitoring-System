@@ -39,11 +39,18 @@ static char ws_last_type[32] = {0};
 static char ws_last_version[32] = {0};
 static char ws_url[128] = {0};
 static volatile bool s_ws_restart_requested = false;
-static websocket_target_t s_ws_selected_target = WEBSOCKET_TARGET_CUSTOM;
+#if defined(CONFIG_WS_TARGET_SERVER)
+static websocket_target_t s_ws_selected_target = WEBSOCKET_TARGET_SERVER;
+#elif defined(CONFIG_WS_TARGET_LOCAL)
+static websocket_target_t s_ws_selected_target = WEBSOCKET_TARGET_LOCAL;
+#else
+static websocket_target_t s_ws_selected_target = WEBSOCKET_TARGET_LOCAL;
+#endif
 static volatile uint32_t s_ws_reconnect_count = 0;
 static volatile bool s_ws_connected_once = false;
 static volatile bool s_ws_reconnect_pending = false;
 static volatile bool s_ws_time_synced = false;
+static volatile bool s_gateway_ota_stop_ws = false;
 
 static volatile bool s_node_ota_pending = false;
 static TickType_t s_node_ota_start_tick = 0;
@@ -61,16 +68,34 @@ static char s_gateway_ota_version[32] = {0};
 #define WS_OTA_PROGRESS_INTERVAL_MS 1000
 #define WS_NODE_OTA_TIMEOUT_MS 10000
 
+static SemaphoreHandle_t s_ws_send_mutex = NULL;
+static void websocket_client_destroy_current(void);
+
+static int ws_send_text_locked(const char *text, size_t len, TickType_t timeout) {
+  if (text == NULL || len == 0 || client == NULL || !esp_websocket_client_is_connected(client) || !is_wifi_connected()) {
+    return -1;
+  }
+  if (s_ws_send_mutex == NULL) {
+    s_ws_send_mutex = xSemaphoreCreateMutex();
+  }
+  if (s_ws_send_mutex == NULL || xSemaphoreTake(s_ws_send_mutex, pdMS_TO_TICKS(1000)) != pdTRUE) {
+    return -1;
+  }
+  int ret = -1;
+  if (client != NULL && esp_websocket_client_is_connected(client) && is_wifi_connected()) {
+    ret = esp_websocket_client_send_text(client, text, (int)len, timeout);
+    if (ret >= 0 && s_ws_telemetry) {
+      s_ws_telemetry->tx_packet_count++;
+      s_ws_telemetry->tx_byte_count += (uint32_t)len;
+    }
+  }
+  xSemaphoreGive(s_ws_send_mutex);
+  return ret;
+}
+
 static bool ws_client_can_send(void) {
   return client != NULL && esp_websocket_client_is_connected(client) &&
          is_wifi_connected();
-}
-
-static void ws_count_tx(int bytes) {
-  if (bytes >= 0 && s_ws_telemetry) {
-    s_ws_telemetry->tx_packet_count++;
-    s_ws_telemetry->tx_byte_count += (uint32_t)bytes;
-  }
 }
 
 static void ws_ota_progress_callback(const char *job_id, const char *status,
@@ -79,6 +104,12 @@ static void ws_ota_progress_callback(const char *job_id, const char *status,
                                      const char *running_part,
                                      const char *target_part,
                                      const char *msg) {
+  if (screen_manager_set_ota_progress) {
+    screen_manager_set_ota_progress(true, percent, "Gateway",
+                                    s_gateway_ota_version[0] ? s_gateway_ota_version : "",
+                                    status ? status : target_part);
+  }
+
   if (!ws_client_can_send()) {
     return;
   }
@@ -107,16 +138,10 @@ static void ws_ota_progress_callback(const char *job_id, const char *status,
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str != NULL) {
-    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                             pdMS_TO_TICKS(5000));
-    ws_count_tx(ret);
+    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(1000));
     ESP_LOGI(TAG_WEBSOCKET, "Reported OTA Progress: [%s %u%%] -> %s",
              status ? status : "", (unsigned)percent, target_part ? target_part : "");
     free(json_str);
-  }
-
-  if (screen_manager_set_ota_progress) {
-    screen_manager_set_ota_progress(true, percent, "Gateway", s_gateway_ota_version[0] ? s_gateway_ota_version : "", status ? status : target_part);
   }
 }
 
@@ -144,9 +169,7 @@ static void ws_send_ota_gateway_progress(void) {
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str != NULL) {
-    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                             pdMS_TO_TICKS(5000));
-    ws_count_tx(ret);
+    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(1000));
     free(json_str);
   }
 }
@@ -358,14 +381,23 @@ static void ws_handle_ota_command(cJSON *root) {
       screen_manager_set_ota_progress(true, 0, "Gateway", version, "Starting...");
     }
 
+    // Báo cho Server biết Gateway bắt đầu OTA
+    ws_ota_progress_callback(job.job_id, "Downloading", 0, 0, job.size, "", "",
+                             "Starting Gateway OTA, freeing TLS RAM...");
+    vTaskDelay(pdMS_TO_TICKS(300));
+
+    // Yêu cầu task ws_hdl đóng WebSocket client an toàn để giải phóng RAM TLS cho OTA
+    s_gateway_ota_stop_ws = true;
+
     esp_err_t ret = fota_start_gateway_ota_with_info(&job);
     if (ret == ESP_OK) {
       ESP_LOGI(TAG_WEBSOCKET, "Gateway OTA task launched successfully!");
     } else {
       ESP_LOGE(TAG_WEBSOCKET, "Gateway OTA task launch failed: %s",
                esp_err_to_name(ret));
-      ws_ota_progress_callback(job.job_id, "Failed", 0, 0, job.size, "", "",
-                               esp_err_to_name(ret));
+      if (screen_manager_set_ota_progress) {
+        screen_manager_set_ota_progress(false, 0, "Gateway", version, "Launch Failed");
+      }
     }
     return;
   }
@@ -407,13 +439,19 @@ static void websocket_client_destroy_current(void) {
   if (client == NULL) {
     return;
   }
-
-  esp_err_t err = esp_websocket_client_destroy(client);
+  if (s_ws_send_mutex != NULL) {
+    xSemaphoreTake(s_ws_send_mutex, pdMS_TO_TICKS(500));
+  }
+  esp_websocket_client_handle_t temp_client = client;
+  client = NULL;
+  if (s_ws_send_mutex != NULL) {
+    xSemaphoreGive(s_ws_send_mutex);
+  }
+  esp_err_t err = esp_websocket_client_destroy(temp_client);
   if (err != ESP_OK) {
     ESP_LOGW(TAG_WEBSOCKET, "WebSocket destroy failed: %s",
              esp_err_to_name(err));
   }
-  client = NULL;
 }
 
 static const char *gateway_power_source_str(uint32_t pack_mv,
@@ -541,12 +579,7 @@ static void ws_send_gateway_status(ws_handler_ctx_t *ctx) {
   cJSON_Delete(root);
   if (json_str != NULL) {
     // ESP_LOGI(TAG_WEBSOCKET, "gateway_status send: %s", json_str);
-    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                             pdMS_TO_TICKS(2000));
-    if (ret >= 0 && ctx->telemetry) {
-      ctx->telemetry->tx_packet_count++;
-      ctx->telemetry->tx_byte_count += strlen(json_str);
-    }
+    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(2000));
     free(json_str);
   }
 }
@@ -783,12 +816,7 @@ void ws_send_time_sync_request(void) {
   cJSON_AddStringToObject(time_req, "action", "get_time");
   char *time_req_str = cJSON_PrintUnformatted(time_req);
   if (time_req_str) {
-    int ret = esp_websocket_client_send_text(
-        client, time_req_str, strlen(time_req_str), pdMS_TO_TICKS(2000));
-    if (ret >= 0 && s_ws_telemetry) {
-      s_ws_telemetry->tx_packet_count++;
-      s_ws_telemetry->tx_byte_count += strlen(time_req_str);
-    }
+    ws_send_text_locked(time_req_str, strlen(time_req_str), pdMS_TO_TICKS(2000));
     ESP_LOGI(TAG_WEBSOCKET, "Sent time sync request to server: %s",
              time_req_str);
     free(time_req_str);
@@ -806,12 +834,7 @@ void SendSignalRegister(void) {
 
   char *json_str = cJSON_PrintUnformatted(data);
   if (json_str) {
-    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                             portMAX_DELAY);
-    if (ret >= 0 && s_ws_telemetry) {
-      s_ws_telemetry->tx_packet_count++;
-      s_ws_telemetry->tx_byte_count += strlen(json_str);
-    }
+    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(2000));
     free(json_str);
   }
   cJSON_Delete(data);
@@ -1010,12 +1033,7 @@ static void ws_send_uart_rx_payload(const char *payload, size_t payload_len) {
       }
     }
 
-    int ret = esp_websocket_client_send_text(client, payload, payload_len,
-                                             pdMS_TO_TICKS(2000));
-    if (ret >= 0 && s_ws_telemetry) {
-      s_ws_telemetry->tx_packet_count++;
-      s_ws_telemetry->tx_byte_count += payload_len;
-    }
+    ws_send_text_locked(payload, payload_len, pdMS_TO_TICKS(2000));
     return;
   }
 
@@ -1027,12 +1045,7 @@ static void ws_send_uart_rx_payload(const char *payload, size_t payload_len) {
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str) {
-    int ret = esp_websocket_client_send_text(client, json_str, strlen(json_str),
-                                             pdMS_TO_TICKS(2000));
-    if (ret >= 0 && s_ws_telemetry) {
-      s_ws_telemetry->tx_packet_count++;
-      s_ws_telemetry->tx_byte_count += strlen(json_str);
-    }
+    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(2000));
     // ESP_LOGI(TAG_WEBSOCKET, "WebSocket send UART RX item: %s", json_str);
     free(json_str);
   }
@@ -1098,6 +1111,17 @@ void WebSocket_Handler(void *pvParameter) {
   bool last_ota_running_sent = false;
 
   for (;;) {
+    if (s_gateway_ota_stop_ws) {
+      s_gateway_ota_stop_ws = false;
+      if (client != NULL) {
+        ESP_LOGI(TAG_WEBSOCKET, "Safely stopping WebSocket client to free TLS RAM for Gateway OTA");
+        websocket_client_destroy_current();
+        if (s_ws_state) {
+          s_ws_state->connected = false;
+        }
+      }
+    }
+
     uart_node_rx_item_t uart_rx;
 
     if (!fota_is_running() && ctx && ctx->uart && ctx->uart->uplink_queue) {
@@ -1144,7 +1168,7 @@ void WebSocket_Handler(void *pvParameter) {
       }
 
       if (is_wifi_connected()) {
-        if (client == NULL) {
+        if (client == NULL && !fota_is_running()) {
           websocket_app_start();
         }
       } else {
@@ -1197,8 +1221,7 @@ void WebSocket_Handler(void *pvParameter) {
           char *json_str = cJSON_PrintUnformatted(root);
           cJSON_Delete(root);
           if (json_str != NULL) {
-            esp_websocket_client_send_text(client, json_str, strlen(json_str), pdMS_TO_TICKS(2000));
-            ws_count_tx(strlen(json_str));
+            ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(2000));
             free(json_str);
           }
         }

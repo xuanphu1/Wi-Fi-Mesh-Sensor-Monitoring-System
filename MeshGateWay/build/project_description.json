@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "MeshGateWay",
-    "project_version":    "062bf751-dirty",
+    "project_version":    "0.0.2",
     "project_path":       "D:/Engineering Project/MeshGateWay",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.2.5",
     "build_dir":          "D:/Engineering Project/MeshGateWay/build",

@@ -6,14 +6,24 @@ export const WS_SOURCE_LOCAL = "local";
 export const WS_SOURCE_SERVER = "server";
 export const WS_SOURCE_CUSTOM = "custom";
 
-export const SERVER_WEBSOCKET_URL = "wss://systemmsems.msems.click/ws";
+export const SERVER_WEBSOCKET_URL = "wss://msems.click/ws";
 
 export function getLocalWebSocketUrl() {
-  const host =
-    typeof window !== "undefined" && window.location.hostname
-      ? window.location.hostname
-      : "localhost";
-  return `ws://${host}:9090/ws`;
+  if (typeof window !== "undefined" && window.location) {
+    const isHttps = window.location.protocol === "https:";
+    const host = window.location.hostname || "localhost";
+    const port = window.location.port;
+
+    // Production environment (HTTPS / standard domain behind reverse proxy)
+    if (isHttps) {
+      return `wss://${window.location.host}/ws`;
+    }
+    if (host !== "localhost" && host !== "127.0.0.1" && (port === "" || port === "80")) {
+      return `ws://${window.location.host}/ws`;
+    }
+    return `ws://${host}:9090/ws`;
+  }
+  return "ws://localhost:9090/ws";
 }
 
 export function validateWebSocketUrl(value) {
@@ -30,60 +40,17 @@ export function validateWebSocketUrl(value) {
 }
 
 export function getWebSocketUrl() {
-  if (typeof window !== "undefined") {
-    const stored = window.localStorage.getItem(WS_URL_STORAGE_KEY);
-    const checked = validateWebSocketUrl(stored);
-    if (checked.valid) return checked.url;
-  }
-
-  const fromEnv = process.env.REACT_APP_WS_URL || process.env.REACT_APP_GATEWAY_WS_URL;
-  if (fromEnv != null && String(fromEnv).trim() !== "") {
-    return String(fromEnv).trim();
-  }
+  // Always auto-detect based on current protocol and host - completely automatic!
   return getLocalWebSocketUrl();
 }
 
 export function getWebSocketSourceSettings() {
   const url = getWebSocketUrl();
-  const storedSource =
-    typeof window !== "undefined"
-      ? window.localStorage.getItem(WS_SOURCE_STORAGE_KEY)
-      : null;
-  const source =
-    storedSource === WS_SOURCE_LOCAL ||
-    storedSource === WS_SOURCE_SERVER ||
-    storedSource === WS_SOURCE_CUSTOM
-      ? storedSource
-      : url === SERVER_WEBSOCKET_URL
-        ? WS_SOURCE_SERVER
-        : url === getLocalWebSocketUrl()
-          ? WS_SOURCE_LOCAL
-          : WS_SOURCE_CUSTOM;
-
-  return { source, url };
+  return { source: WS_SOURCE_SERVER, url };
 }
 
 export function saveWebSocketSourceSettings(source, value) {
-  const selectedUrl =
-    source === WS_SOURCE_LOCAL
-      ? getLocalWebSocketUrl()
-      : source === WS_SOURCE_SERVER
-        ? SERVER_WEBSOCKET_URL
-        : value;
-  const checked = validateWebSocketUrl(selectedUrl);
-  if (!checked.valid) return checked;
-
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(WS_SOURCE_STORAGE_KEY, source);
-    window.localStorage.setItem(WS_URL_STORAGE_KEY, checked.url);
-    window.dispatchEvent(
-      new CustomEvent(WS_CONFIG_CHANGED_EVENT, {
-        detail: { source, url: checked.url },
-      })
-    );
-  }
-
-  return { valid: true, source, url: checked.url };
+  return { valid: true, source, url: getWebSocketUrl() };
 }
 
 export function getHttpUrl() {

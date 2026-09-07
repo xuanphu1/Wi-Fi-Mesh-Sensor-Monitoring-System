@@ -402,20 +402,20 @@ function OtaGateway() {
           ...prev,
           jobId: jobId,
           status: "Dispatched",
-          message: `Command sent (${jobId}). Waiting for Gateway to respond (Timeout: 5s)...`,
+          message: `Command sent (${jobId}). Gateway is downloading & flashing firmware (approx 1-2 mins). Waiting for reboot...`,
         }));
         loadJobs();
 
-        // ⏱️ Start 5-second watchdog timer: If Gateway doesn't send progress in 5s -> FAIL
+        // ⏱️ Start 180-second watchdog timer: Gateway frees TLS RAM by pausing WS during OTA
         otaTimeoutRef.current = setTimeout(async () => {
           setIsTriggering(false);
           setLiveOta((prev) => {
-            if (prev.status === "Dispatched" || prev.status === "Initiating") {
+            if (prev.status === "Dispatched" || prev.status === "Initiating" || prev.status === "In progress") {
               return {
                 ...prev,
                 status: "Failed",
                 percent: 0,
-                message: "Timeout: No OTA response from Gateway after 5s. Gateway did not start download.",
+                message: "Timeout: Gateway did not complete OTA or reconnect within 3 minutes.",
               };
             }
             return prev;
@@ -429,13 +429,13 @@ function OtaGateway() {
               body: JSON.stringify({
                 status: "Failed",
                 progress: 0,
-                summary: "Failed: Gateway response timeout after 5s",
-                errorMsg: "Timeout: No OTA response from Gateway after 5 seconds",
+                summary: "Failed: Gateway OTA timeout after 3 minutes",
+                errorMsg: "Timeout: Gateway did not complete OTA or reconnect within 3 minutes",
               }),
             });
             loadJobs();
           } catch (e) {}
-        }, 5000);
+        }, 180000);
 
       } else {
         setIsTriggering(false);

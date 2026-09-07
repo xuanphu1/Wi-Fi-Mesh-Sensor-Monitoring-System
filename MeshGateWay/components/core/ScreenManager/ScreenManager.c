@@ -27,9 +27,10 @@ typedef struct {
   dm_hw_t *hw;
 } screen_ctx_t;
 
+#define SCREEN_DISP_BUF_SIZE (LV_HOR_RES_MAX * 20)
 static lv_disp_draw_buf_t draw_buf;
-static lv_color_t buf1[DISP_BUF_SIZE];
-// static lv_color_t buf2[DISP_BUF_SIZE];
+static lv_color_t buf1[SCREEN_DISP_BUF_SIZE];
+// static lv_color_t buf2[SCREEN_DISP_BUF_SIZE];
 
 static void set_label_text_if_changed(lv_obj_t *label, const char *text) {
   if (label == NULL || text == NULL) {
@@ -208,109 +209,111 @@ static void lvgl_task(void *arg) {
     if ((now - last_ui_update) >= pdMS_TO_TICKS(250)) {
       last_ui_update = now;
 
-      if (m.rtc_ok) {
-        set_label_fmt_if_changed(ui_LabelHour, "%02d", m.rtc_time.tm_hour);
-        set_label_fmt_if_changed(ui_LabelMinute, "%02d", m.rtc_time.tm_min);
-        set_label_fmt_if_changed(ui_LabelSecond, "%02d", m.rtc_time.tm_sec);
+      if (!fota_is_running()) {
+        if (m.rtc_ok) {
+          set_label_fmt_if_changed(ui_LabelHour, "%02d", m.rtc_time.tm_hour);
+          set_label_fmt_if_changed(ui_LabelMinute, "%02d", m.rtc_time.tm_min);
+          set_label_fmt_if_changed(ui_LabelSecond, "%02d", m.rtc_time.tm_sec);
 
-        set_label_text_if_changed(ui_LabelWeekDay,
-                                  getWeekDay((uint8_t)m.rtc_time.tm_wday));
-        set_label_fmt_if_changed(ui_LabelDay, "%02d", m.rtc_time.tm_mday);
-        if (m.rtc_time.tm_mon >= 0 && m.rtc_time.tm_mon <= 11) {
-          set_label_text_if_changed(ui_LabelMonth,
-                                    month_names[m.rtc_time.tm_mon]);
+          set_label_text_if_changed(ui_LabelWeekDay,
+                                    getWeekDay((uint8_t)m.rtc_time.tm_wday));
+          set_label_fmt_if_changed(ui_LabelDay, "%02d", m.rtc_time.tm_mday);
+          if (m.rtc_time.tm_mon >= 0 && m.rtc_time.tm_mon <= 11) {
+            set_label_text_if_changed(ui_LabelMonth,
+                                      month_names[m.rtc_time.tm_mon]);
+          }
+          set_label_fmt_if_changed(ui_Labelyear, "%04d",
+                                   m.rtc_time.tm_year + 1900);
         }
-        set_label_fmt_if_changed(ui_Labelyear, "%04d",
-                                 m.rtc_time.tm_year + 1900);
-      }
 
-      // Uptime in Days (fractional)
-      uint32_t up_s = m.uptime_s;
-      float days_f = (float)up_s / 86400.0f;
-      set_label_fmt_if_changed(ui_LabelUpTime, "%.2f", (double)days_f);
+        // Uptime in Days (fractional)
+        uint32_t up_s = m.uptime_s;
+        float days_f = (float)up_s / 86400.0f;
+        set_label_fmt_if_changed(ui_LabelUpTime, "%.2f", (double)days_f);
 
-      // Battery
-      int bat_pct = 0;
-      if (ctx && ctx->hw) {
-        bat_pct = power_manager_battery_get_percent(ctx->hw, NULL, NULL);
-      }
-      set_label_fmt_if_changed(ui_ValueBattery, "%d", bat_pct);
-
-      // Battery Bars
-      set_obj_hidden_if_changed(ui_LabeBattery1, bat_pct < 10);
-      set_obj_hidden_if_changed(ui_LabeBattery2, bat_pct < 30);
-      set_obj_hidden_if_changed(ui_LabeBattery3, bat_pct < 50);
-      set_obj_hidden_if_changed(ui_LabeBattery4, bat_pct < 70);
-      set_obj_hidden_if_changed(ui_LabeBattery5, bat_pct < 90);
-
-      // Total Memory (SD Card)
-      if (ui_ValueMemory) {
-        if (m.sd_total_kb == 0) {
-          set_label_text_if_changed(ui_ValueMemory, "0.00");
-        } else {
-          uint32_t mb = m.sd_total_kb / 1024;
-          uint32_t gb_whole = mb / 1000;
-          uint32_t gb_frac = (mb % 1000) / 10;
-          set_label_fmt_if_changed(ui_ValueMemory, "%lu.%02lu",
-                                   (unsigned long)gb_whole,
-                                   (unsigned long)gb_frac);
+        // Battery
+        int bat_pct = 0;
+        if (ctx && ctx->hw) {
+          bat_pct = power_manager_battery_get_percent(ctx->hw, NULL, NULL);
         }
+        set_label_fmt_if_changed(ui_ValueBattery, "%d", bat_pct);
+
+        // Battery Bars
+        set_obj_hidden_if_changed(ui_LabeBattery1, bat_pct < 10);
+        set_obj_hidden_if_changed(ui_LabeBattery2, bat_pct < 30);
+        set_obj_hidden_if_changed(ui_LabeBattery3, bat_pct < 50);
+        set_obj_hidden_if_changed(ui_LabeBattery4, bat_pct < 70);
+        set_obj_hidden_if_changed(ui_LabeBattery5, bat_pct < 90);
+
+        // Total Memory (SD Card)
+        if (ui_ValueMemory) {
+          if (m.sd_total_kb == 0) {
+            set_label_text_if_changed(ui_ValueMemory, "0.00");
+          } else {
+            uint32_t mb = m.sd_total_kb / 1024;
+            uint32_t gb_whole = mb / 1000;
+            uint32_t gb_frac = (mb % 1000) / 10;
+            set_label_fmt_if_changed(ui_ValueMemory, "%lu.%02lu",
+                                     (unsigned long)gb_whole,
+                                     (unsigned long)gb_frac);
+          }
+        }
+
+        // Memory Used (System RAM %)
+        uint8_t mem_pct = 0;
+        memory_manager_get_usage(NULL, NULL, &mem_pct);
+        set_label_fmt_if_changed(ui_ValueMemoryUsed, "%u", mem_pct);
+
+        // Memory Bars
+        set_obj_hidden_if_changed(ui_LabelUsedMem1, mem_pct < 10);
+        set_obj_hidden_if_changed(ui_LabelUsedMem2, mem_pct < 25);
+        set_obj_hidden_if_changed(ui_LabelUsedMem3, mem_pct < 45);
+        set_obj_hidden_if_changed(ui_LabelUsedMem4, mem_pct < 65);
+        set_obj_hidden_if_changed(ui_LabelUsedMem5, mem_pct < 85);
+        set_obj_hidden_if_changed(ui_LabelUsedMem6, mem_pct < 95);
+
+        set_label_fmt_if_changed(ui_LabelValueFPS, "%lu", (unsigned long)m.fps);
+
+        // CPU/RAM raw
+        set_label_fmt_if_changed(ui_LabelValueRestRam, "%lu.%lu",
+                                 (unsigned long)(m.ram_free_permille / 10U),
+                                 (unsigned long)(m.ram_free_permille % 10U));
+        set_label_fmt_if_changed(ui_LabelValueRestCPU, "%lu.%lu",
+                                 (unsigned long)(m.cpu_load_permille / 10U),
+                                 (unsigned long)(m.cpu_load_permille % 10U));
+
+        bool wifi_connected = is_wifi_connected();
+        set_obj_hidden_if_changed(ui_ImageWifiConn, !wifi_connected);
+        set_obj_hidden_if_changed(ui_ImageWifiNotCon, wifi_connected);
+
+        // Số lượng node thực tế kết nối trong mạng mesh
+        size_t node_count = link_list_data_get_count();
+        set_label_fmt_if_changed(ui_LabelNumConn, "%u", (unsigned)node_count);
+        if (ui_LabelNumWeakConn) {
+          set_label_text_if_changed(ui_LabelNumWeakConn, "0");
+        }
+        if (ui_LabelWeakBatNode) {
+          set_label_text_if_changed(ui_LabelWeakBatNode, "0");
+        }
+
+        // Version thực tế của Gateway từ firmware image
+        const esp_app_desc_t *app_desc = esp_app_get_description();
+        if (app_desc && ui_LabelVersionGateway) {
+          set_label_text_if_changed(ui_LabelVersionGateway, app_desc->version);
+        }
+
+        if (ui_LabelStatus) {
+          set_label_text_if_changed(ui_LabelStatus, websocket_is_connected()
+                                                        ? "Connected"
+                                                        : "Disconnected");
+        }
+        set_label_fmt_if_changed(ui_ValueReconnect, "%lu",
+                                 (unsigned long)websocket_get_reconnect_count());
+
+        update_node_dropdown_if_needed(&last_node_dropdown_version);
+        update_des_dropdown_if_needed();
+        render_selected_node_info();
       }
-
-      // Memory Used (System RAM %)
-      uint8_t mem_pct = 0;
-      memory_manager_get_usage(NULL, NULL, &mem_pct);
-      set_label_fmt_if_changed(ui_ValueMemoryUsed, "%u", mem_pct);
-
-      // Memory Bars
-      set_obj_hidden_if_changed(ui_LabelUsedMem1, mem_pct < 10);
-      set_obj_hidden_if_changed(ui_LabelUsedMem2, mem_pct < 25);
-      set_obj_hidden_if_changed(ui_LabelUsedMem3, mem_pct < 45);
-      set_obj_hidden_if_changed(ui_LabelUsedMem4, mem_pct < 65);
-      set_obj_hidden_if_changed(ui_LabelUsedMem5, mem_pct < 85);
-      set_obj_hidden_if_changed(ui_LabelUsedMem6, mem_pct < 95);
-
-      set_label_fmt_if_changed(ui_LabelValueFPS, "%lu", (unsigned long)m.fps);
-
-      // CPU/RAM raw
-      set_label_fmt_if_changed(ui_LabelValueRestRam, "%lu.%lu",
-                               (unsigned long)(m.ram_free_permille / 10U),
-                               (unsigned long)(m.ram_free_permille % 10U));
-      set_label_fmt_if_changed(ui_LabelValueRestCPU, "%lu.%lu",
-                               (unsigned long)(m.cpu_load_permille / 10U),
-                               (unsigned long)(m.cpu_load_permille % 10U));
-
-      bool wifi_connected = is_wifi_connected();
-      set_obj_hidden_if_changed(ui_ImageWifiConn, !wifi_connected);
-      set_obj_hidden_if_changed(ui_ImageWifiNotCon, wifi_connected);
-
-      // Số lượng node thực tế kết nối trong mạng mesh
-      size_t node_count = link_list_data_get_count();
-      set_label_fmt_if_changed(ui_LabelNumConn, "%u", (unsigned)node_count);
-      if (ui_LabelNumWeakConn) {
-        set_label_text_if_changed(ui_LabelNumWeakConn, "0");
-      }
-      if (ui_LabelWeakBatNode) {
-        set_label_text_if_changed(ui_LabelWeakBatNode, "0");
-      }
-
-      // Version thực tế của Gateway từ firmware image
-      const esp_app_desc_t *app_desc = esp_app_get_description();
-      if (app_desc && ui_LabelVersionGateway) {
-        set_label_text_if_changed(ui_LabelVersionGateway, app_desc->version);
-      }
-
-      if (ui_LabelStatus) {
-        set_label_text_if_changed(ui_LabelStatus, websocket_is_connected()
-                                                      ? "Connected"
-                                                      : "Disconnected");
-      }
-      set_label_fmt_if_changed(ui_ValueReconnect, "%lu",
-                               (unsigned long)websocket_get_reconnect_count());
-
-      update_node_dropdown_if_needed(&last_node_dropdown_version);
-      update_des_dropdown_if_needed();
-      render_selected_node_info();
 
       // Cập nhật và điều khiển hiển thị PanelOTA
       if (ui_PanelOTA) {
@@ -369,7 +372,7 @@ static void lvgl_task(void *arg) {
     static TickType_t last_rate_update = 0;
     static uint32_t last_rx = 0;
     static uint32_t last_tx = 0;
-    if (now - last_rate_update >= pdMS_TO_TICKS(1000)) {
+    if (!fota_is_running() && (now - last_rate_update >= pdMS_TO_TICKS(1000))) {
       last_rate_update = now;
       if (ctx && ctx->telemetry) {
         uint32_t current_rx = ctx->telemetry->rx_packet_count;
@@ -428,7 +431,7 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   lv_init();
   lvgl_driver_init();
 
-  lv_disp_draw_buf_init(&draw_buf, buf1, NULL, DISP_BUF_SIZE);
+  lv_disp_draw_buf_init(&draw_buf, buf1, NULL, SCREEN_DISP_BUF_SIZE);
 
   static lv_disp_drv_t disp_drv;
   lv_disp_drv_init(&disp_drv);
@@ -448,6 +451,12 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, 1000));
 
   ui_init();
+
+  if (ui_SelectDesData) {
+    websocket_target_t target = websocket_get_selected_target();
+    uint16_t expected_index = (target == WEBSOCKET_TARGET_SERVER) ? 1 : 0;
+    lv_dropdown_set_selected(ui_SelectDesData, expected_index);
+  }
 
   static screen_ctx_t s_screen_ctx;
   s_screen_ctx.metrics = metrics;

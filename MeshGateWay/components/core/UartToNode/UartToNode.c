@@ -584,13 +584,16 @@ static void uart_to_node_task(void *arg) {
         // ESP_LOGI(TAG, "Send: Start Root | UART Buffer: %zu bytes", buf_len);
       } else {
         uart_to_node_send_line("Connected");
-        ESP_LOGI(TAG, "Send: Connected | UART Buffer: %zu bytes", buf_len);
+        if (!fota_is_running()) {
+          ESP_LOGI(TAG, "Send: Connected | UART Buffer: %zu bytes", buf_len);
+        }
       }
-      ctx.next_tx_tick = now + send_period;
+      TickType_t period = fota_is_running() ? pdMS_TO_TICKS(2000) : send_period;
+      ctx.next_tx_tick = now + period;
     }
 
-    /* Định kỳ gửi sync time xuống Root Node khi đang connected */
-    if (ctx.state == UART_TO_NODE_STATE_CONNECTED) {
+    /* Định kỳ gửi sync time xuống Root Node khi đang connected (tạm ngưng khi OTA để tránh phân mảnh Heap) */
+    if (ctx.state == UART_TO_NODE_STATE_CONNECTED && !fota_is_running()) {
       if ((int32_t)(now - next_time_sync_tick) >= 0) {
         if (uart_to_node_send_sync_time() == ESP_OK) {
           next_time_sync_tick = now + pdMS_TO_TICKS(15000); // 15s gửi 1 lần

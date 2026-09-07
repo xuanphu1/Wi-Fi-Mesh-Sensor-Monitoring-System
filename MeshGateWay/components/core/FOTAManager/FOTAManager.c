@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "esp_crt_bundle.h"
+#include "esp_heap_caps.h"
 #include "esp_http_client.h"
 #include "esp_https_ota.h"
 #include "esp_log.h"
@@ -109,6 +110,8 @@ static esp_err_t fota_perform_download_and_flash(const fota_job_info_t *job) {
       .url = job->url,
       .timeout_ms = 60000,
       .keep_alive_enable = true,
+      .buffer_size = 2048,
+      .buffer_size_tx = 1024,
       .crt_bundle_attach = esp_crt_bundle_attach,
   };
 
@@ -125,9 +128,24 @@ static esp_err_t fota_perform_download_and_flash(const fota_job_info_t *job) {
               "Connecting to firmware server...");
 
   esp_https_ota_handle_t ota_handle = NULL;
-  esp_err_t ret = esp_https_ota_begin(&ota_config, &ota_handle);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  ESP_LOGI(TAG, "Free heap before OTA begin: %" PRIu32 " bytes (largest block: %" PRIu32 " bytes)",
+           (uint32_t)esp_get_free_heap_size(),
+           (uint32_t)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT));
+
+  esp_err_t ret = ESP_FAIL;
+  for (int attempt = 1; attempt <= 3; attempt++) {
+    ret = esp_https_ota_begin(&ota_config, &ota_handle);
+    if (ret == ESP_OK) {
+      break;
+    }
+    ESP_LOGW(TAG, "esp_https_ota_begin attempt %d/3 failed: %s, retrying in 2s...",
+             attempt, esp_err_to_name(ret));
+    vTaskDelay(pdMS_TO_TICKS(2000));
+  }
+
   if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "esp_https_ota_begin failed: %s", esp_err_to_name(ret));
+    ESP_LOGE(TAG, "esp_https_ota_begin failed after retries: %s", esp_err_to_name(ret));
     s_fota_last_result = ret;
     s_fota_running = false;
     fota_notify("Failed", 0, 0, job->size, running_label, target_label,
@@ -151,7 +169,7 @@ static esp_err_t fota_perform_download_and_flash(const fota_job_info_t *job) {
         pct = 100U;
       s_fota_progress_percent = (uint8_t)pct;
 
-      if (s_fota_progress_percent >= last_reported_percent + 1 ||
+      if (s_fota_progress_percent >= last_reported_percent + 5 ||
           s_fota_progress_percent == 100) {
         last_reported_percent = s_fota_progress_percent;
         ESP_LOGI(TAG, "OTA progress: %u%% (%d / %d bytes) -> [%s]",

@@ -262,6 +262,15 @@ export function MeshRealtimeProvider({ children }) {
   const wsRef = useRef(null);
 
   const [debugLogs, setDebugLogs] = useState([]);
+  const [nodePowerStates, setNodePowerStates] = useState({});
+  const [nodeActuatorStates, setNodeActuatorStates] = useState({});
+
+  const sendMessage = (data) => {
+    if (!wsRef.current || wsRef.current.readyState !== 1) return false;
+    const payload = typeof data === "string" ? data : JSON.stringify(data);
+    wsRef.current.send(payload);
+    return true;
+  };
 
   const sendTimeSync = () => {
     if (!wsRef.current || wsRef.current.readyState !== 1) return false;
@@ -534,7 +543,21 @@ export function MeshRealtimeProvider({ children }) {
           );
         }
 
-        if (meshPayloads.length === 0 && !isDeviceMsg && !isWelcomeMsg && !isGatewayStatus && !isServerMetrics) return;
+        if (msg && (msg.type === "node_power_status" || msg.type === "power_status")) {
+          const key = msg.mac || msg.ip || msg.target || msg.targetMac || "";
+          if (key) {
+            setNodePowerStates((prev) => ({ ...prev, [key]: msg }));
+          }
+        }
+
+        if (msg && (msg.type === "node_actuator_status" || msg.type === "actuator_status")) {
+          const key = msg.mac || msg.ip || msg.target || msg.targetMac || "";
+          if (key) {
+            setNodeActuatorStates((prev) => ({ ...prev, [key]: msg }));
+          }
+        }
+
+        if (meshPayloads.length === 0 && !isDeviceMsg && !isWelcomeMsg && !isGatewayStatus && !isServerMetrics && msg?.type !== "node_power_status" && msg?.type !== "node_actuator_status") return;
 
         const nowMs = Date.now();
 
@@ -695,6 +718,9 @@ export function MeshRealtimeProvider({ children }) {
       serverMetrics,
       serverMetricsSeries,
       sendTimeSync,
+      sendMessage,
+      nodePowerStates,
+      nodeActuatorStates,
     }),
     [
       wsOpen,
@@ -714,6 +740,8 @@ export function MeshRealtimeProvider({ children }) {
       registry,
       serverMetrics,
       serverMetricsSeries,
+      nodePowerStates,
+      nodeActuatorStates,
     ]
   );
 

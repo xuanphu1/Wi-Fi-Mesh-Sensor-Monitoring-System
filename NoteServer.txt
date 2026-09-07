@@ -44,7 +44,7 @@ https://systemmsems.msems.click/dashboard
 scp phu@192.168.1.92:/mnt/server-data/msems/database/mesh.sqlite D:\Python\SqLiteQuery\mesh.sqlite_2
 
 
-scp phuserver@192.168.1.79:/mnt/server-data/msems/database/mesh.sqlite D:\Python\SqLiteQuery\mesh.sqlite_
+scp phuserver@192.168.1.9:/mnt/server-data/msems/database/mesh.sqlite D:\Python\SqLiteQuery\mesh.sqlite_
 5
 
 sqlite3 /mnt/server-data/msems/database/mesh.sqlite "DELETE FROM Data;"
