@@ -257,6 +257,6 @@ void system_monitor_start(dm_hw_t *hw, dm_cpu_t *cpu, dm_lvgl_t *lvgl,
   s_ctx.lvgl = lvgl;
   s_ctx.metrics = metrics;
   s_ctx.telemetry = telemetry;
-  xTaskCreatePinnedToCore(system_monitor_task, "system_monitor", 3072, &s_ctx,
+  xTaskCreatePinnedToCore(system_monitor_task, "system_monitor", 4096, &s_ctx,
                           priority, NULL, core_id);
 }

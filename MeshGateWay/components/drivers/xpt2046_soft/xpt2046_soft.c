@@ -31,11 +31,12 @@
 #define XPT2046_INVERT_X 1
 #define XPT2046_INVERT_Y 0
 
+#define TOUCH_HOR_RES 240
+#define TOUCH_VER_RES 320
+
 static const char *TAG = "xpt2046_soft";
 
 static soft_spi_device_handle_t s_touch_spi = NULL;
-static lv_indev_t *s_indev = NULL;
-static lv_point_t s_last_point = {0, 0};
 static xpt2046_soft_sample_t s_last_sample = {0};
 
 static esp_err_t xpt2046_read_word(uint8_t cmd, uint16_t *value) {
@@ -59,8 +60,8 @@ static esp_err_t xpt2046_read_word(uint8_t cmd, uint16_t *value) {
   return ret;
 }
 
-static lv_coord_t map_axis(uint16_t raw, uint16_t raw_min, uint16_t raw_max,
-                           lv_coord_t out_max, bool invert) {
+static int16_t map_axis(uint16_t raw, uint16_t raw_min, uint16_t raw_max,
+                        int16_t out_max, bool invert) {
   if (raw_max <= raw_min) {
     return 0;
   }
@@ -77,7 +78,7 @@ static lv_coord_t map_axis(uint16_t raw, uint16_t raw_min, uint16_t raw_max,
   if (invert) {
     mapped = (out_max - 1) - mapped;
   }
-  return (lv_coord_t)mapped;
+  return (int16_t)mapped;
 }
 
 static bool read_raw(uint16_t *raw_x, uint16_t *raw_y, uint16_t *z1_out,
@@ -114,21 +115,11 @@ static bool read_raw(uint16_t *raw_x, uint16_t *raw_y, uint16_t *z1_out,
     return false;
   }
 
-  if (raw_x) {
-    *raw_x = x;
-  }
-  if (raw_y) {
-    *raw_y = y;
-  }
-  if (z1_out) {
-    *z1_out = z1;
-  }
-  if (z2_out) {
-    *z2_out = z2;
-  }
-  if (pressure_out) {
-    *pressure_out = pressure;
-  }
+  if (raw_x) *raw_x = x;
+  if (raw_y) *raw_y = y;
+  if (z1_out) *z1_out = z1;
+  if (z2_out) *z2_out = z2;
+  if (pressure_out) *pressure_out = pressure;
   return true;
 }
 
@@ -138,51 +129,41 @@ esp_err_t xpt2046_soft_init(void) {
   }
 
   gpio_config_t irq_config = {
-      .pin_bit_mask = 1ULL << TOUCH_IRQ_GPIO,
+      .pin_bit_mask = (1ULL << TOUCH_IRQ_GPIO),
       .mode = GPIO_MODE_INPUT,
-      .pull_up_en = GPIO_PULLUP_DISABLE,
+      .pull_up_en = GPIO_PULLUP_ENABLE,
       .pull_down_en = GPIO_PULLDOWN_DISABLE,
       .intr_type = GPIO_INTR_DISABLE,
   };
-  ESP_RETURN_ON_ERROR(gpio_config(&irq_config), TAG, "configure IRQ failed");
+  ESP_RETURN_ON_ERROR(gpio_config(&irq_config), TAG, "irq gpio_config failed");
 
-  soft_spi_bus_config_t buscfg = {
+  soft_spi_bus_config_t bus_config = {
       .mosi_io_num = TOUCH_MOSI_GPIO,
       .miso_io_num = TOUCH_MISO_GPIO,
       .sclk_io_num = TOUCH_SCK_GPIO,
       .quadwp_io_num = -1,
       .quadhd_io_num = -1,
-      .max_transfer_sz = 3,
   };
-
-  esp_err_t ret = soft_spi_bus_initialize(SOFT_SPI2_HOST, &buscfg, 0);
-  if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE) {
-    ESP_LOGE(TAG, "soft_spi_bus_initialize failed: %s", esp_err_to_name(ret));
-    return ret;
+  esp_err_t err = soft_spi_bus_initialize(SOFT_SPI2_HOST, &bus_config, 0);
+  if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
+    ESP_LOGE(TAG, "soft_spi_bus_initialize failed: %s", esp_err_to_name(err));
+    return err;
   }
 
-  soft_spi_device_interface_config_t devcfg = {
-      .mode = 0,
+  soft_spi_device_interface_config_t dev_config = {
       .clock_speed_hz = TOUCH_SOFT_SPI_CLOCK_HZ,
+      .mode = 0,
       .spics_io_num = TOUCH_CS_GPIO,
       .queue_size = 1,
   };
+  ESP_RETURN_ON_ERROR(soft_spi_bus_add_device(SOFT_SPI2_HOST, &dev_config, &s_touch_spi), TAG,
+                      "soft_spi_bus_add_device failed");
 
-  ret = soft_spi_bus_add_device(SOFT_SPI2_HOST, &devcfg, &s_touch_spi);
-  if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "soft_spi_bus_add_device failed: %s", esp_err_to_name(ret));
-    return ret;
-  }
-
-  ESP_LOGI(TAG, "initialized: SCK=%d MISO=%d MOSI=%d CS=%d IRQ=%d",
-           TOUCH_SCK_GPIO, TOUCH_MISO_GPIO, TOUCH_MOSI_GPIO, TOUCH_CS_GPIO,
-           TOUCH_IRQ_GPIO);
+  ESP_LOGI(TAG, "xpt2046_soft initialized (pure touch driver)");
   return ESP_OK;
 }
 
-void xpt2046_soft_indev_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
-  (void)drv;
-
+bool xpt2046_soft_poll(int16_t *out_x, int16_t *out_y) {
   uint16_t raw_x = 0;
   uint16_t raw_y = 0;
   uint16_t z1 = 0;
@@ -191,18 +172,16 @@ void xpt2046_soft_indev_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 
   if (read_raw(&raw_x, &raw_y, &z1, &z2, &pressure)) {
 #if XPT2046_SWAP_XY
-    uint16_t tmp = raw_x;
+    uint16_t swap = raw_x;
     raw_x = raw_y;
-    raw_y = tmp;
+    raw_y = swap;
 #endif
 
-    lv_coord_t x = map_axis(raw_x, XPT2046_RAW_X_MIN, XPT2046_RAW_X_MAX,
-                            LV_HOR_RES, XPT2046_INVERT_X);
-    lv_coord_t y = map_axis(raw_y, XPT2046_RAW_Y_MIN, XPT2046_RAW_Y_MAX,
-                            LV_VER_RES, XPT2046_INVERT_Y);
+    int16_t x = map_axis(raw_x, XPT2046_RAW_X_MIN, XPT2046_RAW_X_MAX,
+                         TOUCH_HOR_RES, XPT2046_INVERT_X);
+    int16_t y = map_axis(raw_y, XPT2046_RAW_Y_MIN, XPT2046_RAW_Y_MAX,
+                         TOUCH_VER_RES, XPT2046_INVERT_Y);
 
-    s_last_point.x = x;
-    s_last_point.y = y;
     s_last_sample = (xpt2046_soft_sample_t){
         .raw_x = raw_x,
         .raw_y = raw_y,
@@ -213,47 +192,17 @@ void xpt2046_soft_indev_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         .y = y,
         .pressed = true,
     };
-    data->point = s_last_point;
-    data->state = LV_INDEV_STATE_PR;
-
-    static TickType_t last_log = 0;
-    TickType_t now = xTaskGetTickCount();
-    if ((now - last_log) >= pdMS_TO_TICKS(250)) {
-      last_log = now;
-      ESP_LOGI(TAG, "raw=(%u,%u) z1=%u z2=%u p=%ld lv=(%d,%d)",
-               (unsigned)raw_x, (unsigned)raw_y, (unsigned)z1, (unsigned)z2,
-               (long)pressure, (int)x, (int)y);
-    }
-  } else {
-    s_last_sample.pressed = false;
-    data->point = s_last_point;
-    data->state = LV_INDEV_STATE_REL;
-  }
-}
-
-esp_err_t xpt2046_soft_register_lvgl_indev(void) {
-  esp_err_t ret = xpt2046_soft_init();
-  if (ret != ESP_OK) {
-    return ret;
+    if (out_x) *out_x = x;
+    if (out_y) *out_y = y;
+    return true;
   }
 
-  if (s_indev != NULL) {
-    return ESP_OK;
-  }
-
-  static lv_indev_drv_t indev_drv;
-  lv_indev_drv_init(&indev_drv);
-  indev_drv.type = LV_INDEV_TYPE_POINTER;
-  indev_drv.read_cb = xpt2046_soft_indev_read;
-  s_indev = lv_indev_drv_register(&indev_drv);
-  return s_indev != NULL ? ESP_OK : ESP_FAIL;
+  s_last_sample.pressed = false;
+  return false;
 }
 
 bool xpt2046_soft_get_last_sample(xpt2046_soft_sample_t *sample) {
-  if (sample == NULL) {
-    return false;
-  }
-
+  if (sample == NULL) return false;
   *sample = s_last_sample;
   return true;
 }

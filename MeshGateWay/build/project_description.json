@@ -21,12 +21,12 @@
     "monitor_toolprefix": "xtensa-esp32-elf-",
     "c_compiler":         "C:/Espressif/tools/xtensa-esp-elf/esp-13.2.0_20230928/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc.exe",
     "config_environment" : {
-        "COMPONENT_KCONFIGS" : "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_trace/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/bt/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp-tls/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_coex/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_eth/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_gdbstub/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_client/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_server/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_ota/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_server/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_lcd/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_partition/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_phy/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_pm/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_psram/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_ringbuf/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_timer/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_wifi/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/fatfs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/heap/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/ieee802154/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/log/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/lwip/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/mbedtls/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/mqtt/esp-mqtt/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_flash/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_sec_provider/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/openthread/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/protocomm/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/pthread/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/ulp/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/unity/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/usb/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/wear_levelling/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/i2cdev/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/lvgl/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers/Kconfig;D:/Engineering Project/MeshGateWay/managed_components/espressif__mdns/Kconfig",
+        "COMPONENT_KCONFIGS" : "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_trace/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/bt/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp-tls/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_coex/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_eth/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_gdbstub/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_client/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_server/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_ota/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_server/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_lcd/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_partition/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_phy/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_pm/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_psram/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_ringbuf/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_timer/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_wifi/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/fatfs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/heap/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/ieee802154/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/log/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/lwip/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/mbedtls/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/mqtt/esp-mqtt/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_flash/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_sec_provider/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/openthread/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/protocomm/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/pthread/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/ulp/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/unity/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/usb/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/wear_levelling/Kconfig;C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/i2cdev/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/lvgl/Kconfig;D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers/Kconfig;D:/Engineering Project/MeshGateWay/managed_components/espressif__cmake_utilities/Kconfig;D:/Engineering Project/MeshGateWay/managed_components/espressif__mdns/Kconfig",
         "COMPONENT_KCONFIGS_PROJBUILD" : "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_app_format/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/main/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/components/drivers/DS3231/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/components/drivers/SD_Card/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/components/core/UartToNode/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/Kconfig.projbuild;D:/Engineering Project/MeshGateWay/components/core/WifiManager/Kconfig.projbuild"
     },
     "common_component_reqs": [ "cxx", "newlib", "freertos", "esp_hw_support", "heap", "log", "soc", "hal", "esp_rom", "esp_common", "esp_system", "xtensa" ],
-    "build_components" : [ "DS3231", "Datamanager", "ESP_Bus", "FOTAManager", "JsonHandle", "LinkListData", "LogicHandle", "MemoryManager", "PowerManager", "SD_Card", "SNTP_Sync", "ScreenManager", "SystemMonitor", "UartToNode", "WebSocKetHandle", "WifiManager", "app_trace", "app_update", "bootloader", "bootloader_support", "bt", "cmock", "console", "cxx", "driver", "efuse", "esp-tls", "esp_adc", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_eth", "esp_event", "esp_gdbstub", "esp_hid", "esp_http_client", "esp_http_server", "esp_https_ota", "esp_https_server", "esp_hw_support", "esp_idf_lib_helpers", "esp_lcd", "esp_local_ctrl", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_psram", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_wifi", "espcoredump", "espressif__mdns", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "i2cdev", "idf_test", "ieee802154", "json", "log", "lvgl", "lvgl_esp32_drivers", "lwip", "main", "mbedtls", "mqtt", "newlib", "nvs_flash", "nvs_sec_provider", "openthread", "partition_table", "perfmon", "protobuf-c", "protocomm", "pthread", "sdmmc", "soc", "soft_spi", "spi_flash", "spiffs", "tcp_transport", "ui", "ulp", "unity", "usb", "vfs", "wear_levelling", "webSocket", "wifi_provisioning", "wpa_supplicant", "xpt2046_soft", "xtensa", "" ],
-    "build_component_paths" : [ "D:/Engineering Project/MeshGateWay/components/drivers/DS3231", "D:/Engineering Project/MeshGateWay/components/core/Datamanager", "D:/Engineering Project/MeshGateWay/components/core/ESP_Bus", "D:/Engineering Project/MeshGateWay/components/core/FOTAManager", "D:/Engineering Project/MeshGateWay/components/core/JsonHandle", "D:/Engineering Project/MeshGateWay/components/core/LinkListData", "D:/Engineering Project/MeshGateWay/components/core/LogicHandle", "D:/Engineering Project/MeshGateWay/components/core/MemoryManager", "D:/Engineering Project/MeshGateWay/components/core/PowerManager", "D:/Engineering Project/MeshGateWay/components/drivers/SD_Card", "D:/Engineering Project/MeshGateWay/components/drivers/SNTP_Sync", "D:/Engineering Project/MeshGateWay/components/core/ScreenManager", "D:/Engineering Project/MeshGateWay/components/core/SystemMonitor", "D:/Engineering Project/MeshGateWay/components/core/UartToNode", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle", "D:/Engineering Project/MeshGateWay/components/core/WifiManager", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_trace", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bt", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/cmock", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/console", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp-tls", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_eth", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_gdbstub", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hid", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_client", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_ota", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_server", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support", "D:/Engineering Project/MeshGateWay/components/drivers/esp_idf_lib_helpers", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_lcd", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_local_ctrl", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_psram", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_wifi", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump", "D:/Engineering Project/MeshGateWay/managed_components/espressif__mdns", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/heap", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/http_parser", "D:/Engineering Project/MeshGateWay/components/drivers/i2cdev", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/idf_test", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/ieee802154", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/json", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/log", "D:/Engineering Project/MeshGateWay/components/drivers/lvgl", "D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/lwip", "D:/Engineering Project/MeshGateWay/main", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/mqtt", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_sec_provider", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/openthread", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/perfmon", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/protobuf-c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/protocomm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/pthread", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc", "D:/Engineering Project/MeshGateWay/components/drivers/soft_spi", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport", "D:/Engineering Project/MeshGateWay/components/core/ui", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/ulp", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/unity", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/usb", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wear_levelling", "D:/Engineering Project/MeshGateWay/components/drivers/webSocket", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wpa_supplicant", "D:/Engineering Project/MeshGateWay/components/drivers/xpt2046_soft", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa", "" ],
+    "build_components" : [ "DS3231", "Datamanager", "ESP_Bus", "FOTAManager", "JsonHandle", "LinkListData", "LogicHandle", "MemoryManager", "PowerManager", "SD_Card", "SNTP_Sync", "ScreenManager", "SystemMonitor", "UartToNode", "WebSocKetHandle", "WifiManager", "app_trace", "app_update", "bootloader", "bootloader_support", "bt", "cmock", "console", "cxx", "driver", "efuse", "esp-tls", "esp_adc", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_eth", "esp_event", "esp_gdbstub", "esp_hid", "esp_http_client", "esp_http_server", "esp_https_ota", "esp_https_server", "esp_hw_support", "esp_idf_lib_helpers", "esp_lcd", "esp_local_ctrl", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_psram", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_wifi", "espcoredump", "espressif__cmake_utilities", "espressif__esp_lcd_ili9341", "espressif__mdns", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "i2cdev", "idf_test", "ieee802154", "json", "log", "lvgl", "lvgl_esp32_drivers", "lwip", "main", "mbedtls", "mqtt", "newlib", "nvs_flash", "nvs_sec_provider", "openthread", "partition_table", "perfmon", "protobuf-c", "protocomm", "pthread", "sdmmc", "soc", "soft_spi", "spi_flash", "spiffs", "tcp_transport", "ulp", "unity", "usb", "vfs", "wear_levelling", "webSocket", "wifi_provisioning", "wpa_supplicant", "xpt2046_soft", "xtensa", "" ],
+    "build_component_paths" : [ "D:/Engineering Project/MeshGateWay/components/drivers/DS3231", "D:/Engineering Project/MeshGateWay/components/core/Datamanager", "D:/Engineering Project/MeshGateWay/components/core/ESP_Bus", "D:/Engineering Project/MeshGateWay/components/core/FOTAManager", "D:/Engineering Project/MeshGateWay/components/core/JsonHandle", "D:/Engineering Project/MeshGateWay/components/core/LinkListData", "D:/Engineering Project/MeshGateWay/components/core/LogicHandle", "D:/Engineering Project/MeshGateWay/components/core/MemoryManager", "D:/Engineering Project/MeshGateWay/components/core/PowerManager", "D:/Engineering Project/MeshGateWay/components/drivers/SD_Card", "D:/Engineering Project/MeshGateWay/components/drivers/SNTP_Sync", "D:/Engineering Project/MeshGateWay/components/core/ScreenManager", "D:/Engineering Project/MeshGateWay/components/core/SystemMonitor", "D:/Engineering Project/MeshGateWay/components/core/UartToNode", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle", "D:/Engineering Project/MeshGateWay/components/core/WifiManager", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_trace", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/bt", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/cmock", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/console", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/driver", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp-tls", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_adc", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_eth", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_gdbstub", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hid", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_client", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_ota", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_https_server", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_hw_support", "D:/Engineering Project/MeshGateWay/components/drivers/esp_idf_lib_helpers", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_lcd", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_local_ctrl", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_psram", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esp_wifi", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump", "D:/Engineering Project/MeshGateWay/managed_components/espressif__cmake_utilities", "D:/Engineering Project/MeshGateWay/managed_components/espressif__esp_lcd_ili9341", "D:/Engineering Project/MeshGateWay/managed_components/espressif__mdns", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/hal", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/heap", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/http_parser", "D:/Engineering Project/MeshGateWay/components/drivers/i2cdev", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/idf_test", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/ieee802154", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/json", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/log", "D:/Engineering Project/MeshGateWay/components/drivers/lvgl", "D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/lwip", "D:/Engineering Project/MeshGateWay/main", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/mqtt", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/nvs_sec_provider", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/openthread", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/perfmon", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/protobuf-c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/protocomm", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/pthread", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/soc", "D:/Engineering Project/MeshGateWay/components/drivers/soft_spi", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/spiffs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/ulp", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/unity", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/usb", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wear_levelling", "D:/Engineering Project/MeshGateWay/components/drivers/webSocket", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wpa_supplicant", "D:/Engineering Project/MeshGateWay/components/drivers/xpt2046_soft", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/xtensa", "" ],
     "build_component_info" : {
         "DS3231": {
             "alias": "idf::DS3231",
@@ -200,10 +200,10 @@
             "dir": "D:/Engineering Project/MeshGateWay/components/core/ScreenManager",
             "type": "LIBRARY",
             "lib": "__idf_ScreenManager",
-            "reqs": [ "Datamanager", "UartToNode", "ui", "lvgl", "lvgl_esp32_drivers", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update" ],
-            "priv_reqs": [],
+            "reqs": [ "Datamanager", "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif" ],
+            "priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [],
+            "managed_priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/ScreenManager/libScreenManager.a",
             "sources": [ "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c" ],
             "include_dirs": [ "." ]
@@ -883,6 +883,36 @@
             "sources": [ "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_common.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_flash.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_uart.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_elf.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_binary.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_sha.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/core_dump_crc.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/espcoredump/src/port/xtensa/core_dump_port.c" ],
             "include_dirs": [ "include", "include/port/xtensa" ]
         },
+        "espressif__cmake_utilities": {
+            "alias": "idf::espressif__cmake_utilities",
+            "target": "___idf_espressif__cmake_utilities",
+            "prefix": "idf",
+            "dir": "D:/Engineering Project/MeshGateWay/managed_components/espressif__cmake_utilities",
+            "type": "CONFIG_ONLY",
+            "lib": "__idf_espressif__cmake_utilities",
+            "reqs": [],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "",
+            "sources": [],
+            "include_dirs": []
+        },
+        "espressif__esp_lcd_ili9341": {
+            "alias": "idf::espressif__esp_lcd_ili9341",
+            "target": "___idf_espressif__esp_lcd_ili9341",
+            "prefix": "idf",
+            "dir": "D:/Engineering Project/MeshGateWay/managed_components/espressif__esp_lcd_ili9341",
+            "type": "LIBRARY",
+            "lib": "__idf_espressif__esp_lcd_ili9341",
+            "reqs": [ "esp_lcd" ],
+            "priv_reqs": [ "driver", "espressif__cmake_utilities" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [ "espressif__cmake_utilities" ],
+            "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/espressif__esp_lcd_ili9341/libespressif__esp_lcd_ili9341.a",
+            "sources": [ "D:/Engineering Project/MeshGateWay/managed_components/espressif__esp_lcd_ili9341/esp_lcd_ili9341.c" ],
+            "include_dirs": [ "include" ]
+        },
         "espressif__mdns": {
             "alias": "idf::espressif__mdns",
             "target": "___idf_espressif__mdns",
@@ -1116,9 +1146,9 @@
             "type": "LIBRARY",
             "lib": "__idf_main",
             "reqs": [ "Datamanager", "PowerManager", "SystemMonitor", "ScreenManager", "SD_Card", "UartToNode", "nvs_flash", "spiffs", "WifiManager", "WebSocKetHandle", "DS3231", "FOTAManager" ],
-            "priv_reqs": [ "espressif__mdns" ],
+            "priv_reqs": [ "espressif__esp_lcd_ili9341", "espressif__mdns" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [ "espressif__mdns" ],
+            "managed_priv_reqs": [ "espressif__esp_lcd_ili9341", "espressif__mdns" ],
             "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/main/libmain.a",
             "sources": [ "D:/Engineering Project/MeshGateWay/main/MeshGateWay.c" ],
             "include_dirs": [ "." ]
@@ -1378,21 +1408,6 @@
             "sources": [ "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/transport.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/transport_ssl.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/transport_internal.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/transport_socks_proxy.c", "C:/Espressif/frameworks/esp-idf-v5.2.5/components/tcp_transport/transport_ws.c" ],
             "include_dirs": [ "include" ]
         },
-        "ui": {
-            "alias": "idf::ui",
-            "target": "___idf_ui",
-            "prefix": "idf",
-            "dir": "D:/Engineering Project/MeshGateWay/components/core/ui",
-            "type": "LIBRARY",
-            "lib": "__idf_ui",
-            "reqs": [ "lvgl", "LinkListData", "WebSocKetHandle" ],
-            "priv_reqs": [],
-            "managed_reqs": [],
-            "managed_priv_reqs": [],
-            "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/ui/libui.a",
-            "sources": [ "D:/Engineering Project/MeshGateWay/components/core/ui/ui_Screen1.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_comp_hook.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_helpers.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_events.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_1612021159.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_48530715.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_746023423.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_733045785.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_136761274.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_arrowdown_png.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_arrowup_png.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_throught_png.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_img_1365894730.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon10.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon12.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon14.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon16.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon20S.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon24.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon30.c", "D:/Engineering Project/MeshGateWay/components/core/ui/ui_font_Arteon40.c" ],
-            "include_dirs": [ "." ]
-        },
         "ulp": {
             "alias": "idf::ulp",
             "target": "___idf_ulp",
@@ -1520,7 +1535,7 @@
             "dir": "D:/Engineering Project/MeshGateWay/components/drivers/xpt2046_soft",
             "type": "LIBRARY",
             "lib": "__idf_xpt2046_soft",
-            "reqs": [ "driver", "esp_common", "lvgl", "soft_spi" ],
+            "reqs": [ "driver", "esp_common", "soft_spi" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
@@ -2488,9 +2503,9 @@
             "dir": "D:/Engineering Project/MeshGateWay/main",
             "lib": "__idf_main",
             "reqs": [ "Datamanager", "PowerManager", "SystemMonitor", "ScreenManager", "SD_Card", "UartToNode", "nvs_flash", "spiffs", "WifiManager", "WebSocKetHandle", "DS3231", "FOTAManager" ],
-            "priv_reqs": [ "espressif__mdns" ],
+            "priv_reqs": [ "espressif__esp_lcd_ili9341", "espressif__mdns" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [ "espressif__mdns" ],
+            "managed_priv_reqs": [ "espressif__esp_lcd_ili9341", "espressif__mdns" ],
             "include_dirs": [ "." ]
         },
         "DS3231": {
@@ -2607,7 +2622,7 @@
             "prefix": "idf",
             "dir": "D:/Engineering Project/MeshGateWay/components/drivers/xpt2046_soft",
             "lib": "__idf_xpt2046_soft",
-            "reqs": [ "driver", "esp_common", "lvgl", "soft_spi" ],
+            "reqs": [ "driver", "esp_common", "soft_spi" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
@@ -2715,10 +2730,10 @@
             "prefix": "idf",
             "dir": "D:/Engineering Project/MeshGateWay/components/core/ScreenManager",
             "lib": "__idf_ScreenManager",
-            "reqs": [ "Datamanager", "UartToNode", "ui", "lvgl", "lvgl_esp32_drivers", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update" ],
-            "priv_reqs": [],
+            "reqs": [ "Datamanager", "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif" ],
+            "priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [],
+            "managed_priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "include_dirs": [ "." ]
         },
         "SystemMonitor": {
@@ -2775,11 +2790,35 @@
             "prefix": "idf",
             "dir": "D:/Engineering Project/MeshGateWay/components/core/ui",
             "lib": "__idf_ui",
-            "reqs": [ "lvgl", "LinkListData", "WebSocKetHandle" ],
+            "reqs": [],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "include_dirs": [ "." ]
+        },
+        "espressif__cmake_utilities": {
+            "alias": "idf::espressif__cmake_utilities",
+            "target": "___idf_espressif__cmake_utilities",
+            "prefix": "idf",
+            "dir": "D:/Engineering Project/MeshGateWay/managed_components/espressif__cmake_utilities",
+            "lib": "__idf_espressif__cmake_utilities",
+            "reqs": [],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "include_dirs": []
+        },
+        "espressif__esp_lcd_ili9341": {
+            "alias": "idf::espressif__esp_lcd_ili9341",
+            "target": "___idf_espressif__esp_lcd_ili9341",
+            "prefix": "idf",
+            "dir": "D:/Engineering Project/MeshGateWay/managed_components/espressif__esp_lcd_ili9341",
+            "lib": "__idf_espressif__esp_lcd_ili9341",
+            "reqs": [ "esp_lcd" ],
+            "priv_reqs": [ "driver", "espressif__cmake_utilities" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [ "espressif__cmake_utilities" ],
+            "include_dirs": [ "include" ]
         },
         "espressif__mdns": {
             "alias": "idf::espressif__mdns",

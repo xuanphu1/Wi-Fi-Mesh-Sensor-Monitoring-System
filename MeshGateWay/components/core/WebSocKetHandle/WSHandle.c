@@ -383,11 +383,11 @@ static void ws_handle_ota_command(cJSON *root) {
 
     // Báo cho Server biết Gateway bắt đầu OTA
     ws_ota_progress_callback(job.job_id, "Downloading", 0, 0, job.size, "", "",
-                             "Starting Gateway OTA, freeing TLS RAM...");
-    vTaskDelay(pdMS_TO_TICKS(300));
+                             "Starting Gateway OTA...");
+    vTaskDelay(pdMS_TO_TICKS(100));
 
-    // Yêu cầu task ws_hdl đóng WebSocket client an toàn để giải phóng RAM TLS cho OTA
-    s_gateway_ota_stop_ws = true;
+    // Với TFT thuần, RAM trống >100KB nên giữ nguyên kết nối WebSocket để truyền tiến độ OTA liên tục về Cloud Web UI
+    s_gateway_ota_stop_ws = false;
 
     esp_err_t ret = fota_start_gateway_ota_with_info(&job);
     if (ret == ESP_OK) {
@@ -1168,7 +1168,7 @@ void WebSocket_Handler(void *pvParameter) {
       }
 
       if (is_wifi_connected()) {
-        if (client == NULL && !fota_is_running()) {
+        if (client == NULL) {
           websocket_app_start();
         }
       } else {

@@ -53,4 +53,5 @@ source "C:/Espressif/frameworks/esp-idf-v5.2.5/components/wifi_provisioning/Kcon
 source "D:/Engineering Project/MeshGateWay/components/drivers/i2cdev/Kconfig"
 source "D:/Engineering Project/MeshGateWay/components/drivers/lvgl/Kconfig"
 source "D:/Engineering Project/MeshGateWay/components/drivers/lvgl_esp32_drivers/Kconfig"
+source "D:/Engineering Project/MeshGateWay/managed_components/espressif__cmake_utilities/Kconfig"
 source "D:/Engineering Project/MeshGateWay/managed_components/espressif__mdns/Kconfig"
