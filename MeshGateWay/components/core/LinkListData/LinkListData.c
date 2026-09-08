@@ -112,12 +112,7 @@ static void parse_ports(cJSON *root, link_list_node_snapshot_t *out) {
         count++;
     }
 
-    cJSON *j_n = cJSON_GetObjectItem(root, "n");
-    if (cJSON_IsNumber(j_n) && j_n->valueint >= 0) {
-        out->sensor_count = (uint8_t)j_n->valueint;
-    } else {
-        out->sensor_count = count;
-    }
+    out->sensor_count = count;
 }
 
 static void ingest_line(const char *line) {
@@ -138,6 +133,35 @@ static void ingest_line(const char *line) {
 
     link_list_node_snapshot_t next = {0};
     snprintf(next.id, sizeof(next.id), "%s", id);
+
+    cJSON *j_n = cJSON_GetObjectItem(root, "n");
+    if (cJSON_IsNumber(j_n) && j_n->valueint > 0) {
+        next.level = (uint8_t)j_n->valueint;
+    } else {
+        next.level = 1;
+    }
+
+    cJSON *j_bat = cJSON_GetObjectItem(root, "bat");
+    if (!j_bat) j_bat = cJSON_GetObjectItem(root, "battery");
+    if (!j_bat) j_bat = cJSON_GetObjectItem(root, "b");
+    if (cJSON_IsNumber(j_bat)) {
+        next.battery_pct = (uint8_t)j_bat->valueint;
+        if (next.battery_pct > 0 && next.battery_pct <= 20) {
+            next.is_low_bat = true;
+        }
+    }
+
+    cJSON *j_err = cJSON_GetObjectItem(root, "err");
+    if (cJSON_IsArray(j_err)) {
+        cJSON *item = NULL;
+        cJSON_ArrayForEach(item, j_err) {
+            if (cJSON_IsString(item) && item->valuestring &&
+                (strstr(item->valuestring, "BAT") || strstr(item->valuestring, "bat"))) {
+                next.is_low_bat = true;
+            }
+        }
+    }
+
     parse_ports(root, &next);
     cJSON_Delete(root);
 
@@ -211,6 +235,34 @@ size_t link_list_data_get_count(void) {
     size_t count = 0;
     if (s_mutex && xSemaphoreTake(s_mutex, pdMS_TO_TICKS(20)) == pdTRUE) {
         count = s_count;
+        xSemaphoreGive(s_mutex);
+    }
+    return count;
+}
+
+uint8_t link_list_data_get_max_level(void) {
+    ensure_init();
+    uint8_t max_level = 1; // Gateway root is layer 1 in Mesh-Lite
+    if (s_mutex && xSemaphoreTake(s_mutex, pdMS_TO_TICKS(20)) == pdTRUE) {
+        for (link_node_t *node = s_head; node != NULL; node = node->next) {
+            if (node->data.level > max_level) {
+                max_level = node->data.level;
+            }
+        }
+        xSemaphoreGive(s_mutex);
+    }
+    return max_level;
+}
+
+size_t link_list_data_get_low_battery_count(void) {
+    ensure_init();
+    size_t count = 0;
+    if (s_mutex && xSemaphoreTake(s_mutex, pdMS_TO_TICKS(20)) == pdTRUE) {
+        for (link_node_t *node = s_head; node != NULL; node = node->next) {
+            if (node->data.is_low_bat) {
+                count++;
+            }
+        }
         xSemaphoreGive(s_mutex);
     }
     return count;

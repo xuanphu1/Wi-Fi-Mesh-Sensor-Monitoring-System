@@ -50,7 +50,6 @@ static volatile uint32_t s_ws_reconnect_count = 0;
 static volatile bool s_ws_connected_once = false;
 static volatile bool s_ws_reconnect_pending = false;
 static volatile bool s_ws_time_synced = false;
-static volatile bool s_gateway_ota_stop_ws = false;
 
 static volatile bool s_node_ota_pending = false;
 static TickType_t s_node_ota_start_tick = 0;
@@ -59,6 +58,7 @@ static char s_node_ota_target[32] = {0};
 static char s_node_ota_target_detail[64] = {0};
 static uint32_t s_node_ota_expected_size = 0;
 static char s_gateway_ota_version[32] = {0};
+static char s_gateway_ota_job_id[64] = {0};
 
 #define TAG_WEBSOCKET "WebSocket Handler"
 #define GATEWAY_STATUS_INTERVAL_MS 5000
@@ -122,11 +122,14 @@ static void ws_ota_progress_callback(const char *job_id, const char *status,
   cJSON_AddStringToObject(root, "type", "ota_progress");
   cJSON_AddStringToObject(root, "target", "gateway");
   cJSON_AddStringToObject(root, "targetDetail", "gateway");
-  if (job_id && job_id[0]) {
-    cJSON_AddStringToObject(root, "jobId", job_id);
+
+  const char *effective_job = (job_id && job_id[0]) ? job_id : s_gateway_ota_job_id;
+  if (effective_job && effective_job[0]) {
+    cJSON_AddStringToObject(root, "jobId", effective_job);
   }
-  cJSON_AddStringToObject(root, "status", status ? status : "");
+  cJSON_AddStringToObject(root, "status", status ? status : "In progress");
   cJSON_AddNumberToObject(root, "percent", (double)percent);
+  cJSON_AddNumberToObject(root, "progress", (double)percent);
   cJSON_AddNumberToObject(root, "bytes_read", (double)bytes_read);
   cJSON_AddNumberToObject(root, "total_bytes", (double)total_bytes);
   cJSON_AddStringToObject(root, "running_partition", running_part ? running_part : "");
@@ -138,9 +141,13 @@ static void ws_ota_progress_callback(const char *job_id, const char *status,
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
   if (json_str != NULL) {
-    ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(1000));
-    ESP_LOGI(TAG_WEBSOCKET, "Reported OTA Progress: [%s %u%%] -> %s",
-             status ? status : "", (unsigned)percent, target_part ? target_part : "");
+    int ret = ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(1500));
+    if (ret >= 0) {
+      ESP_LOGI(TAG_WEBSOCKET, ">>> [WSS OTA Progress Sent]: [%s %u%%] -> %s",
+               status ? status : "", (unsigned)percent, target_part ? target_part : "");
+    } else {
+      ESP_LOGW(TAG_WEBSOCKET, "Failed to send OTA progress packet via WebSocket");
+    }
     free(json_str);
   }
 }
@@ -159,12 +166,17 @@ static void ws_send_ota_gateway_progress(void) {
   bool running = fota_is_running();
   esp_err_t result = fota_get_last_result();
 
-  cJSON_AddStringToObject(root, "type", "ota_gateway_progress");
-  cJSON_AddStringToObject(root, "clientType", "esp32");
+  cJSON_AddStringToObject(root, "type", "ota_progress");
+  cJSON_AddStringToObject(root, "target", "gateway");
+  cJSON_AddStringToObject(root, "targetDetail", "gateway");
+  if (s_gateway_ota_job_id[0] != '\0') {
+    cJSON_AddStringToObject(root, "jobId", s_gateway_ota_job_id);
+  }
   cJSON_AddNumberToObject(root, "percent", (double)percent);
-  cJSON_AddBoolToObject(root, "running", running ? 1 : 0);
-  cJSON_AddNumberToObject(root, "result", (double)result);
-  cJSON_AddStringToObject(root, "result_name", esp_err_to_name(result));
+  cJSON_AddNumberToObject(root, "progress", (double)percent);
+  const char *st = running ? "In progress" : (result == ESP_OK ? "Success" : "Failed");
+  cJSON_AddStringToObject(root, "status", st);
+  cJSON_AddStringToObject(root, "message", running ? "Downloading and flashing..." : (result == ESP_OK ? "Flashing completed" : esp_err_to_name(result)));
 
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);
@@ -377,6 +389,9 @@ static void ws_handle_ota_command(cJSON *root) {
     strncpy(s_gateway_ota_version, version, sizeof(s_gateway_ota_version) - 1);
     s_gateway_ota_version[sizeof(s_gateway_ota_version) - 1] = '\0';
 
+    strncpy(s_gateway_ota_job_id, job_id, sizeof(s_gateway_ota_job_id) - 1);
+    s_gateway_ota_job_id[sizeof(s_gateway_ota_job_id) - 1] = '\0';
+
     if (screen_manager_set_ota_progress) {
       screen_manager_set_ota_progress(true, 0, "Gateway", version, "Starting...");
     }
@@ -385,9 +400,6 @@ static void ws_handle_ota_command(cJSON *root) {
     ws_ota_progress_callback(job.job_id, "Downloading", 0, 0, job.size, "", "",
                              "Starting Gateway OTA...");
     vTaskDelay(pdMS_TO_TICKS(100));
-
-    // Với TFT thuần, RAM trống >100KB nên giữ nguyên kết nối WebSocket để truyền tiến độ OTA liên tục về Cloud Web UI
-    s_gateway_ota_stop_ws = false;
 
     esp_err_t ret = fota_start_gateway_ota_with_info(&job);
     if (ret == ESP_OK) {
@@ -420,6 +432,30 @@ static void ws_handle_ota_command(cJSON *root) {
 
   if (screen_manager_set_ota_progress) {
     screen_manager_set_ota_progress(true, 0, target_str, version, target_detail);
+  }
+
+  // Gửi thông báo khởi tạo tiến trình (0%) cho Node OTA lên Server qua WebSocket
+  cJSON *root_prog = cJSON_CreateObject();
+  if (root_prog != NULL) {
+    cJSON_AddStringToObject(root_prog, "type", "ota_progress");
+    cJSON_AddStringToObject(root_prog, "target", target_str);
+    cJSON_AddStringToObject(root_prog, "targetDetail", target_detail);
+    if (job_id && job_id[0]) {
+      cJSON_AddStringToObject(root_prog, "jobId", job_id);
+    }
+    cJSON_AddStringToObject(root_prog, "status", "In progress");
+    cJSON_AddNumberToObject(root_prog, "percent", 0.0);
+    cJSON_AddNumberToObject(root_prog, "progress", 0.0);
+    cJSON_AddNumberToObject(root_prog, "bytes_read", 0.0);
+    cJSON_AddNumberToObject(root_prog, "total_bytes", (double)size);
+    cJSON_AddStringToObject(root_prog, "message", "Forwarding OTA command to mesh node via UART...");
+
+    char *json_str = cJSON_PrintUnformatted(root_prog);
+    cJSON_Delete(root_prog);
+    if (json_str != NULL) {
+      ws_send_text_locked(json_str, strlen(json_str), pdMS_TO_TICKS(1500));
+      free(json_str);
+    }
   }
 
   esp_err_t ret = uart_to_node_send_ota_start(target_str, target_detail, job_id,
@@ -1111,17 +1147,6 @@ void WebSocket_Handler(void *pvParameter) {
   bool last_ota_running_sent = false;
 
   for (;;) {
-    if (s_gateway_ota_stop_ws) {
-      s_gateway_ota_stop_ws = false;
-      if (client != NULL) {
-        ESP_LOGI(TAG_WEBSOCKET, "Safely stopping WebSocket client to free TLS RAM for Gateway OTA");
-        websocket_client_destroy_current();
-        if (s_ws_state) {
-          s_ws_state->connected = false;
-        }
-      }
-    }
-
     uart_node_rx_item_t uart_rx;
 
     if (!fota_is_running() && ctx && ctx->uart && ctx->uart->uplink_queue) {

@@ -117,6 +117,9 @@ static SemaphoreHandle_t s_screen_ota_mutex = NULL;
 void screen_manager_set_ota_progress(bool active, uint8_t percent,
                                      const char *target, const char *version,
                                      const char *detail) {
+  if (s_screen_ota_mutex == NULL) {
+    s_screen_ota_mutex = xSemaphoreCreateMutex();
+  }
   if (s_screen_ota_mutex && xSemaphoreTake(s_screen_ota_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {
     s_screen_ota.active = active;
     s_screen_ota.percent = percent;
@@ -208,8 +211,9 @@ static esp_err_t tft_hardware_init(void) {
   ESP_ERROR_CHECK(esp_lcd_panel_init(s_panel_handle));
 
   // 5. Cài đặt định hướng đứng dọc (Portrait Inverted 240x320)
-  // mirror_x = true, mirror_y = true: sửa triệt để lỗi chữ bị lật ngược ngang (nhìn như qua gương)
-  ESP_ERROR_CHECK(esp_lcd_panel_mirror(s_panel_handle, true, true));
+  // mirror_x = false: sửa triệt để lỗi chữ bị lật ngược ngang (soi gương)
+  // mirror_y = true: giữ hướng xoay 180 độ theo thiết kế phần cứng hộp/vỏ (MADCTL = 0x88)
+  ESP_ERROR_CHECK(esp_lcd_panel_mirror(s_panel_handle, false, true));
   ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(s_panel_handle, false));
 
   // 6. Bật hiển thị và đèn nền
@@ -393,34 +397,68 @@ static void draw_text_cached(int16_t x, int16_t y, char *cache, size_t cache_sz,
   }
 }
 
+static void tft_draw_segmented_bar(int16_t x, int16_t y, int16_t seg_w, int16_t seg_h,
+                                   int16_t seg_gap, uint8_t total_segs, uint8_t filled_segs,
+                                   uint16_t fill_color, uint16_t empty_color, uint16_t border_color) {
+  for (uint8_t i = 0; i < total_segs; i++) {
+    int16_t cur_x = x + i * (seg_w + seg_gap);
+    uint16_t color = (i < filled_segs) ? fill_color : empty_color;
+    tft_fill_rect(cur_x, y, seg_w, seg_h, color);
+    if (border_color != 0) {
+      tft_draw_rect(cur_x, y, seg_w, seg_h, border_color);
+    }
+  }
+}
+
+static void draw_target_button(websocket_target_t target) {
+  bool is_server = (target == WEBSOCKET_TARGET_SERVER);
+  uint16_t bg_col = is_server ? 0x0015 : 0x2960;       // Dark Navy Blue vs Dark Olive
+  uint16_t border_col = is_server ? TFT_CYAN : TFT_YELLOW;
+  uint16_t text_col = is_server ? TFT_CYAN : TFT_YELLOW;
+  uint16_t sub_col = is_server ? TFT_ACCENT_GOLD : TFT_WHITE;
+
+  // Nút cảm ứng Card 1: X = 142..234 (rộng 92px), Y = 47..70 (cao 24px)
+  tft_fill_rect(142, 47, 92, 24, bg_col);
+  tft_draw_rect(142, 47, 92, 24, border_col);
+  if (is_server) {
+    tft_draw_string(153, 50, "* SERVER *", text_col, bg_col, 1);
+  } else {
+    tft_draw_string(156, 50, "* LOCAL *", text_col, bg_col, 1);
+  }
+  tft_draw_string(148, 60, "[TOUCH CHG]", sub_col, bg_col, 1);
+}
+
 static void render_static_dashboard(void) {
   tft_fill_screen(TFT_BG_MAIN);
 
-  // 1. Top Header Background (0,0 to 240, 32)
-  tft_fill_rect(0, 0, TFT_WIDTH, 32, TFT_CARD_BG);
-  tft_draw_fast_h_line(0, 32, TFT_WIDTH, TFT_CARD_BORDER);
+  // 1. Top Header (0,0 to 240, 34)
+  tft_fill_rect(0, 0, TFT_WIDTH, 34, TFT_CARD_BG);
+  tft_draw_fast_h_line(0, 34, TFT_WIDTH, TFT_CARD_BORDER);
+  tft_draw_string(4, 2, "MRKOI GATEWAY", TFT_ACCENT_GOLD, TFT_CARD_BG, 1);
 
-  // 2. Gateway System Card (4, 36 to 236, 88)
-  tft_draw_rect(4, 36, 232, 52, TFT_CARD_BORDER);
-  tft_draw_string(8, 40, "[GATEWAY SYSTEM]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
+  // 2. Card 1: [GATEWAY & NETWORK] (2, 36 to 238, 92)
+  tft_draw_rect(2, 36, 236, 56, TFT_CARD_BORDER);
+  tft_draw_string(6, 38, "[GATEWAY & NETWORK]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
 
-  // 3. System Performance Card (4, 92 to 236, 148)
-  tft_draw_rect(4, 92, 232, 56, TFT_CARD_BORDER);
-  tft_draw_string(8, 96, "[SYSTEM PERFORMANCE]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
+  // 3. Card 2: [SYSTEM PERFORMANCE] (2, 94 to 238, 156)
+  tft_draw_rect(2, 94, 236, 62, TFT_CARD_BORDER);
+  tft_draw_string(6, 96, "[SYSTEM PERFORMANCE]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
 
-  // 4. Mesh Network Card (4, 152 to 236, 204)
-  tft_draw_rect(4, 152, 232, 52, TFT_CARD_BORDER);
-  tft_draw_string(8, 156, "[MESH NETWORK]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
+  // 4. Card 3: [MESH NETWORK STATUS] (2, 158 to 238, 224)
+  tft_draw_rect(2, 158, 236, 66, TFT_CARD_BORDER);
+  tft_draw_string(6, 160, "[MESH NETWORK STATUS]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
 
-  // 5. Node Sensors Card (4, 208 to 236, 270)
-  tft_draw_rect(4, 208, 232, 62, TFT_CARD_BORDER);
-  tft_draw_string(8, 212, "[NODE SENSORS (PORTS)]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
+  // 5. Card 4: [TRAFFIC & THROUGHPUT] (2, 226 to 238, 288)
+  tft_draw_rect(2, 226, 236, 62, TFT_CARD_BORDER);
+  tft_draw_string(6, 228, "[TRAFFIC & THROUGHPUT]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
 
-  // 6. Bottom Status Line (0, 274 to 240, 320)
-  tft_draw_fast_h_line(0, 274, TFT_WIDTH, TFT_CARD_BORDER);
-  tft_draw_string(8, 280, "SoftAP: ROOT_AP (Ch:11)", TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
-  tft_draw_string(8, 292, "Mesh-Lite / IP-Forward: ON", TFT_GREEN, TFT_BG_MAIN, 1);
-  tft_draw_string(8, 304, "Driver: esp_lcd_ili9341", TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+  // 6. Footer Status Line (0, 290 to 240, 320)
+  tft_draw_fast_h_line(0, 290, TFT_WIDTH, TFT_CARD_BORDER);
+  tft_draw_string(6, 292, "SYS STATUS: NORMAL ALL SERVICES OK", TFT_GREEN, TFT_BG_MAIN, 1);
+  // Ô nút cảm ứng lớn ở Footer
+  tft_fill_rect(4, 303, 232, 15, 0x18E3);
+  tft_draw_rect(4, 303, 232, 15, TFT_ACCENT_GOLD);
+  tft_draw_string(12, 307, "[TOUCH: TOGGLE SERVER <-> LOCAL]", TFT_ACCENT_GOLD, 0x18E3, 1);
 }
 
 static void tft_screen_task(void *arg) {
@@ -435,31 +473,53 @@ static void tft_screen_task(void *arg) {
 
   render_static_dashboard();
 
-  char c_time[16] = "";
-  char c_date[32] = "";
-  char c_uptime[16] = "";
-  char c_battery[16] = "";
+  // Cache buffers cho các nhãn động
   char c_wifi[16] = "";
-  char c_version[16] = "";
-  char c_ws_status[24] = "";
-  char c_ws_target[16] = "";
-  char c_ip[32] = "";
-  char c_cpu[16] = "";
-  char c_ram[24] = "";
-  char c_sd[20] = "";
+  char c_ws[16] = "";
+  char c_time[16] = "";
+  char c_date[24] = "";
+  char c_bat[16] = "";
+  char c_uptime[20] = "";
+  char c_vbat[16] = "";
+  char c_ver_gw[16] = "";
+
+  char c_ip[28] = "";
+  char c_target[20] = "";
+  char c_mac[28] = "";
+  char c_rec[16] = "";
+  char c_softap[32] = "";
+
   char c_fps[16] = "";
-  char c_nodes[16] = "";
-  char c_sel_node[32] = "";
-  char c_port1[32] = "";
-  char c_port2[32] = "";
-  char c_port3[32] = "";
+  char c_cpu[16] = "";
+  char c_rest_cpu[16] = "";
+  char c_ram[16] = "";
+  char c_rest_ram[28] = "";
+  char c_sd[36] = "";
+
+  char c_nodes[20] = "";
+  char c_weak_conn[20] = "";
+  char c_weak_bat[32] = "";
+  char c_node_ver[20] = "";
+  char c_topol[36] = "";
+  char c_root_mode[36] = "";
+
+  char c_throughput[32] = "";
+  char c_queue[24] = "";
+  char c_rx_rate[24] = "";
+  char c_tx_rate[24] = "";
+  char c_latency[20] = "";
+  char c_pipe[36] = "";
 
   bool ota_overlay_active = false;
   uint8_t last_ota_percent = 255;
-  char c_ota_status[64] = "";
+  char c_ota_status[96] = "";
 
   TickType_t last_touch_check = 0;
-  uint16_t current_selected_node_idx = 0;
+  TickType_t last_rate_tick = 0;
+  uint32_t last_rx = 0;
+  uint32_t last_tx = 0;
+  uint32_t rx_rate = 0;
+  uint32_t tx_rate = 0;
 
   while (1) {
     if (ctx && ctx->metrics && ctx->metrics->mutex &&
@@ -501,197 +561,306 @@ static void tft_screen_task(void *arg) {
         last_ota_percent = 255;
         c_ota_status[0] = '\0';
 
-        tft_fill_rect(10, 45, 220, 225, TFT_CARD_BG);
-        tft_draw_rect(10, 45, 220, 225, TFT_ORANGE);
-        tft_draw_rect(11, 46, 218, 223, TFT_YELLOW);
+        tft_fill_screen(TFT_BG_MAIN);
 
-        tft_draw_string(20, 55, "*** GATEWAY OTA UPDATE ***", TFT_YELLOW, TFT_CARD_BG, 1);
-        tft_draw_fast_h_line(15, 68, 210, TFT_CARD_BORDER);
+        // Header bar (Maroon / deep red with orange border)
+        tft_fill_rect(0, 0, TFT_WIDTH, 36, 0x4800);
+        tft_draw_fast_h_line(0, 36, TFT_WIDTH, TFT_ORANGE);
+        tft_draw_string(20, 13, "*** FIRMWARE OTA UPGRADE ***", TFT_YELLOW, 0x4800, 1);
+
+        // Center card
+        tft_fill_rect(8, 44, 224, 230, TFT_CARD_BG);
+        tft_draw_rect(8, 44, 224, 230, TFT_ORANGE);
+        tft_draw_rect(9, 45, 222, 228, TFT_CARD_BORDER);
 
         char target_str[64];
-        snprintf(target_str, sizeof(target_str), "Target: %s",
+        snprintf(target_str, sizeof(target_str), "Target  : %s",
                  ota_snap.target[0] ? ota_snap.target : "Gateway");
-        tft_draw_string(20, 75, target_str, TFT_WHITE, TFT_CARD_BG, 1);
+        tft_draw_string(18, 56, target_str, TFT_WHITE, TFT_CARD_BG, 1);
 
         char ver_str[64];
-        snprintf(ver_str, sizeof(ver_str), "Firmware: %s",
+        snprintf(ver_str, sizeof(ver_str), "Version : %s",
                  ota_snap.version[0] ? ota_snap.version : "---");
-        tft_draw_string(20, 88, ver_str, TFT_ACCENT_CYAN, TFT_CARD_BG, 1);
+        tft_draw_string(18, 72, ver_str, TFT_ACCENT_CYAN, TFT_CARD_BG, 1);
+
+        tft_draw_fast_h_line(15, 88, 210, TFT_CARD_BORDER);
+
+        tft_draw_string(18, 185, "Partition : [ota_1] Active", TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+        tft_draw_string(18, 202, "Warning   : DO NOT POWER OFF!", TFT_ORANGE, TFT_CARD_BG, 1);
+        tft_draw_string(18, 219, "Free Heap : > 100 KB OK", TFT_GREEN, TFT_CARD_BG, 1);
+        tft_draw_string(18, 238, "Network   : WiFi STA / WS Connected", TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+
+        // Footer
+        tft_draw_fast_h_line(0, 290, TFT_WIDTH, TFT_CARD_BORDER);
+        tft_draw_string(18, 298, "Gateway Firmware Over-The-Air", TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
       }
 
       if (ota_snap.percent != last_ota_percent) {
         last_ota_percent = ota_snap.percent;
         char pct_str[16];
         snprintf(pct_str, sizeof(pct_str), "%3u%%", ota_snap.percent);
-        tft_draw_string(80, 108, pct_str, TFT_GREENYELLOW, TFT_CARD_BG, 3);
-        tft_draw_progress_bar(20, 140, 200, 18, ota_snap.percent, TFT_GREEN, TFT_BAR_BG, TFT_WHITE);
+        tft_draw_string(84, 104, pct_str, TFT_GREENYELLOW, TFT_CARD_BG, 3);
+        tft_draw_progress_bar(18, 140, 204, 18, ota_snap.percent, TFT_GREEN, TFT_BAR_BG, TFT_WHITE);
       }
 
-      char new_status[64];
-      snprintf(new_status, sizeof(new_status), "%-25s",
-               ota_snap.detail[0] ? ota_snap.detail : "Downloading...");
+      char new_status[96];
+      snprintf(new_status, sizeof(new_status), "Status  : %-20.20s",
+               ota_snap.detail[0] ? ota_snap.detail : "In Progress...");
       if (strcmp(c_ota_status, new_status) != 0) {
-        tft_draw_string(20, 168, new_status, TFT_ACCENT_CYAN, TFT_CARD_BG, 1);
+        tft_draw_string(18, 166, new_status, TFT_ACCENT_CYAN, TFT_CARD_BG, 1);
         strncpy(c_ota_status, new_status, sizeof(c_ota_status) - 1);
       }
-
-      tft_draw_string(20, 195, "Partition: [ota_1] ready", TFT_WHITE, TFT_CARD_BG, 1);
-      tft_draw_string(20, 215, "Please do not power off!", TFT_ORANGE, TFT_CARD_BG, 1);
-      tft_draw_string(20, 235, "Free Heap: > 100 KB OK  ", TFT_GREEN, TFT_CARD_BG, 1);
 
       vTaskDelay(pdMS_TO_TICKS(100));
       continue;
     } else if (ota_overlay_active) {
       ota_overlay_active = false;
       render_static_dashboard();
+      c_wifi[0] = '\0';
+      c_ws[0] = '\0';
       c_time[0] = '\0';
       c_date[0] = '\0';
+      c_bat[0] = '\0';
+      c_uptime[0] = '\0';
+      c_vbat[0] = '\0';
+      c_ver_gw[0] = '\0';
+      c_ip[0] = '\0';
+      c_target[0] = '\0';
+      c_mac[0] = '\0';
+      c_rec[0] = '\0';
+      c_softap[0] = '\0';
+      c_fps[0] = '\0';
       c_cpu[0] = '\0';
+      c_rest_cpu[0] = '\0';
       c_ram[0] = '\0';
+      c_rest_ram[0] = '\0';
+      c_sd[0] = '\0';
+      c_nodes[0] = '\0';
+      c_weak_conn[0] = '\0';
+      c_weak_bat[0] = '\0';
+      c_node_ver[0] = '\0';
+      c_topol[0] = '\0';
+      c_root_mode[0] = '\0';
+      c_throughput[0] = '\0';
+      c_queue[0] = '\0';
+      c_rx_rate[0] = '\0';
+      c_tx_rate[0] = '\0';
+      c_latency[0] = '\0';
+      c_pipe[0] = '\0';
     }
 
     TickType_t now_tick = xTaskGetTickCount();
-    if ((now_tick - last_touch_check) >= pdMS_TO_TICKS(150)) {
+
+    // Tính toán TX/RX packet rate mỗi giây
+    if ((now_tick - last_rate_tick) >= pdMS_TO_TICKS(1000)) {
+      last_rate_tick = now_tick;
+      if (ctx && ctx->telemetry) {
+        uint32_t cur_rx = ctx->telemetry->rx_packet_count;
+        uint32_t cur_tx = ctx->telemetry->tx_packet_count;
+        rx_rate = cur_rx - last_rx;
+        tx_rate = cur_tx - last_tx;
+        last_rx = cur_rx;
+        last_tx = cur_tx;
+      }
+    }
+
+    // Xử lý cảm ứng chạm (Touch handler)
+    static bool s_touch_was_pressed = false;
+    static TickType_t s_last_toggle_tick = 0;
+
+    if ((now_tick - last_touch_check) >= pdMS_TO_TICKS(80)) {
       last_touch_check = now_tick;
       int16_t tx = 0, ty = 0;
-      if (xpt2046_soft_poll(&tx, &ty)) {
-        if (ty >= 40 && ty <= 70) {
-          websocket_target_t cur = websocket_get_selected_target();
-          websocket_select_target(cur == WEBSOCKET_TARGET_SERVER
-                                      ? WEBSOCKET_TARGET_LOCAL
-                                      : WEBSOCKET_TARGET_SERVER);
-        } else if (ty >= 165 && ty <= 200) {
-          size_t cnt = link_list_data_get_count();
-          if (cnt > 0) {
-            current_selected_node_idx = (current_selected_node_idx + 1) % cnt;
-            link_list_data_select_node_by_index(current_selected_node_idx);
+      bool is_touched = xpt2046_soft_poll(&tx, &ty);
+
+      if (is_touched) {
+        // Vùng nút cảm ứng:
+        // 1. Nút góc trên phải Card 1: X = 135..238, Y = 42..76
+        // 2. Thanh nút Footer: Y >= 285..320
+        bool hit_card1_btn = (tx >= 135 && tx <= 238 && ty >= 42 && ty <= 76);
+        bool hit_footer_btn = (ty >= 285 && ty <= 320);
+
+        if (hit_card1_btn || hit_footer_btn) {
+          if (!s_touch_was_pressed && (now_tick - s_last_toggle_tick) >= pdMS_TO_TICKS(400)) {
+            s_last_toggle_tick = now_tick;
+            websocket_target_t cur = websocket_get_selected_target();
+            websocket_target_t new_t = (cur == WEBSOCKET_TARGET_SERVER)
+                                           ? WEBSOCKET_TARGET_LOCAL
+                                           : WEBSOCKET_TARGET_SERVER;
+            websocket_select_target(new_t);
+            draw_target_button(new_t);
+            ESP_LOGI("ScreenTouch",
+                     ">>> [TOUCH CLICK] At (%d, %d) [%s] -> Toggled Target to %s",
+                     tx, ty, hit_card1_btn ? "Card1 Button" : "Footer Button",
+                     (new_t == WEBSOCKET_TARGET_SERVER) ? "SERVER" : "LOCAL");
           }
+        } else {
+          ESP_LOGI("ScreenTouch", "Touch at Screen(X=%d, Y=%d) - Outside toggle buttons", tx, ty);
         }
+        s_touch_was_pressed = true;
+      } else {
+        s_touch_was_pressed = false;
       }
     }
 
     char buf[64];
+
+    // ===== 1. TOP HEADER =====
+    bool wifi_ok = is_wifi_connected();
+    draw_text_cached(118, 2, c_wifi, sizeof(c_wifi), wifi_ok ? "[WIFI:OK]" : "[NO-WIFI]",
+                     wifi_ok ? TFT_GREEN : TFT_RED, TFT_CARD_BG, 1);
+
+    bool ws_ok = websocket_is_connected();
+    draw_text_cached(190, 2, c_ws, sizeof(c_ws), ws_ok ? "[WS:OK]" : "[WS:--]",
+                     ws_ok ? TFT_GREEN : TFT_RED, TFT_CARD_BG, 1);
+
     if (m.rtc_ok) {
       snprintf(buf, sizeof(buf), "%02d:%02d:%02d", m.rtc_time.tm_hour,
                m.rtc_time.tm_min, m.rtc_time.tm_sec);
-      draw_text_cached(6, 4, c_time, sizeof(c_time), buf, TFT_WHITE, TFT_CARD_BG, 2);
+      draw_text_cached(4, 13, c_time, sizeof(c_time), buf, TFT_WHITE, TFT_CARD_BG, 1);
 
       const char *mon = (m.rtc_time.tm_mon >= 0 && m.rtc_time.tm_mon <= 11)
                             ? s_month_names[m.rtc_time.tm_mon]
                             : "---";
-      snprintf(buf, sizeof(buf), "%s, %02d %s %04d",
+      snprintf(buf, sizeof(buf), "%s,%02d %s",
                get_weekday_name((uint8_t)m.rtc_time.tm_wday),
-               m.rtc_time.tm_mday, mon, m.rtc_time.tm_year + 1900);
-      draw_text_cached(6, 22, c_date, sizeof(c_date), buf, TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+               m.rtc_time.tm_mday, mon);
+      draw_text_cached(74, 13, c_date, sizeof(c_date), buf, TFT_TEXT_MUTED, TFT_CARD_BG, 1);
     } else {
-      draw_text_cached(6, 4, c_time, sizeof(c_time), "00:00:00", TFT_WHITE, TFT_CARD_BG, 2);
-      draw_text_cached(6, 22, c_date, sizeof(c_date), "Syncing RTC...", TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+      draw_text_cached(4, 13, c_time, sizeof(c_time), "00:00:00", TFT_WHITE, TFT_CARD_BG, 1);
+      draw_text_cached(74, 13, c_date, sizeof(c_date), "Syncing RTC..", TFT_TEXT_MUTED, TFT_CARD_BG, 1);
     }
-
-    bool wifi_ok = is_wifi_connected();
-    draw_text_cached(155, 6, c_wifi, sizeof(c_wifi), wifi_ok ? "[WIFI]" : "[NO-W]",
-                     wifi_ok ? TFT_GREEN : TFT_RED, TFT_CARD_BG, 1);
 
     int bat_pct = 0;
     if (ctx && ctx->hw) {
       bat_pct = power_manager_battery_get_percent(ctx->hw, NULL, NULL);
     }
-    snprintf(buf, sizeof(buf), "%3d%%", bat_pct);
-    draw_text_cached(198, 6, c_battery, sizeof(c_battery), buf,
+    snprintf(buf, sizeof(buf), "BAT:%2d%%", bat_pct);
+    draw_text_cached(152, 13, c_bat, sizeof(c_bat), buf,
                      (bat_pct > 20) ? TFT_CYAN : TFT_RED, TFT_CARD_BG, 1);
+
+    uint8_t bat_segs = (bat_pct >= 80) ? 5 : ((bat_pct >= 60) ? 4 : ((bat_pct >= 40) ? 3 : ((bat_pct >= 20) ? 2 : ((bat_pct > 0) ? 1 : 0))));
+    tft_draw_segmented_bar(210, 13, 4, 7, 1, 5, bat_segs, (bat_pct > 20) ? TFT_GREEN : TFT_RED, TFT_BAR_BG, TFT_CARD_BORDER);
 
     float days_f = (float)m.uptime_s / 86400.0f;
     snprintf(buf, sizeof(buf), "Up:%.2fd", (double)days_f);
-    draw_text_cached(170, 22, c_uptime, sizeof(c_uptime), buf, TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+    draw_text_cached(4, 23, c_uptime, sizeof(c_uptime), buf, TFT_TEXT_MUTED, TFT_CARD_BG, 1);
+
+    float vbat = (float)m.battery_pack_mv / 1000.0f;
+    snprintf(buf, sizeof(buf), "Vbat:%.2fV", (double)vbat);
+    draw_text_cached(74, 23, c_vbat, sizeof(c_vbat), buf, TFT_TEXT_MUTED, TFT_CARD_BG, 1);
 
     const esp_app_desc_t *app_desc = esp_app_get_description();
-    snprintf(buf, sizeof(buf), "v%-6s", app_desc ? app_desc->version : "0.0.1");
-    draw_text_cached(185, 40, c_version, sizeof(c_version), buf, TFT_ACCENT_GOLD, TFT_BG_MAIN, 1);
+    snprintf(buf, sizeof(buf), "v%-6s", app_desc ? app_desc->version : "0.0.2");
+    draw_text_cached(185, 23, c_ver_gw, sizeof(c_ver_gw), buf, TFT_ACCENT_GOLD, TFT_CARD_BG, 1);
 
-    bool ws_ok = websocket_is_connected();
-    snprintf(buf, sizeof(buf), "WS: %-12s", ws_ok ? "CONNECTED" : "DISCONNECTED");
-    draw_text_cached(10, 52, c_ws_status, sizeof(c_ws_status), buf,
-                     ws_ok ? TFT_GREEN : TFT_RED, TFT_BG_MAIN, 1);
+    // ===== 2. CARD 1: [GATEWAY & NETWORK] =====
+    char ip_buf[20] = "0.0.0.0";
+    wifi_manager_get_ip_info(ip_buf, sizeof(ip_buf));
+    snprintf(buf, sizeof(buf), "IP : %-15s", ip_buf);
+    draw_text_cached(6, 49, c_ip, sizeof(c_ip), buf, TFT_WHITE, TFT_BG_MAIN, 1);
 
     websocket_target_t target = websocket_get_selected_target();
-    snprintf(buf, sizeof(buf), "[%-6s]", (target == WEBSOCKET_TARGET_SERVER) ? "SERVER" : "LOCAL");
-    draw_text_cached(180, 52, c_ws_target, sizeof(c_ws_target), buf, TFT_YELLOW, TFT_BG_MAIN, 1);
-
-    char ip_buf[20] = "None";
-    esp_netif_t *sta_netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-    if (sta_netif != NULL) {
-      esp_netif_ip_info_t ipi;
-      if (esp_netif_get_ip_info(sta_netif, &ipi) == ESP_OK && ipi.ip.addr != 0) {
-        snprintf(ip_buf, sizeof(ip_buf), IPSTR, IP2STR(&ipi.ip));
-      }
+    const char *target_name = (target == WEBSOCKET_TARGET_SERVER) ? "SERVER" : "LOCAL";
+    if (strcmp(c_target, target_name) != 0) {
+      draw_target_button(target);
+      strncpy(c_target, target_name, sizeof(c_target) - 1);
+      c_target[sizeof(c_target) - 1] = '\0';
     }
-    snprintf(buf, sizeof(buf), "IP:%-15s Rec:%lu ", ip_buf,
-             (unsigned long)websocket_get_reconnect_count());
-    draw_text_cached(10, 68, c_ip, sizeof(c_ip), buf, TFT_WHITE, TFT_BG_MAIN, 1);
 
-    snprintf(buf, sizeof(buf), "FPS:%-3lu", (unsigned long)m.fps);
-    draw_text_cached(185, 96, c_fps, sizeof(c_fps), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+    char mac_buf[24] = "00:00:00:00:00:00";
+    wifi_manager_get_mac_info(mac_buf, sizeof(mac_buf));
+    snprintf(buf, sizeof(buf), "MAC: %-17s", mac_buf);
+    draw_text_cached(6, 61, c_mac, sizeof(c_mac), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+
+    snprintf(buf, sizeof(buf), "SoftAP: ROOT_AP (Ch:11)");
+    draw_text_cached(6, 75, c_softap, sizeof(c_softap), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+
+    snprintf(buf, sizeof(buf), "WS Rec:%-3lu", (unsigned long)websocket_get_reconnect_count());
+    draw_text_cached(155, 75, c_rec, sizeof(c_rec), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+
+    // ===== 3. CARD 2: [SYSTEM PERFORMANCE] =====
+    snprintf(buf, sizeof(buf), "FPS:%-2lu", (unsigned long)m.fps);
+    draw_text_cached(180, 96, c_fps, sizeof(c_fps), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
 
     uint32_t cpu_pct = m.cpu_load_permille / 10U;
-    snprintf(buf, sizeof(buf), "CPU: %2lu%% ", (unsigned long)cpu_pct);
-    draw_text_cached(10, 110, c_cpu, sizeof(c_cpu), buf, TFT_WHITE, TFT_BG_MAIN, 1);
-    tft_draw_progress_bar(75, 112, 60, 6, (uint8_t)cpu_pct, TFT_CYAN, TFT_BAR_BG, TFT_CARD_BORDER);
-
-    if (m.sd_total_kb == 0) {
-      snprintf(buf, sizeof(buf), "SD: None  ");
-    } else {
-      uint32_t mb = m.sd_total_kb / 1024;
-      snprintf(buf, sizeof(buf), "SD:%lu.%02luGB", (unsigned long)(mb / 1000),
-               (unsigned long)((mb % 1000) / 10));
-    }
-    draw_text_cached(145, 110, c_sd, sizeof(c_sd), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    uint32_t rest_cpu = 100U - (cpu_pct > 100U ? 100U : cpu_pct);
+    snprintf(buf, sizeof(buf), "CPU: %2lu%%", (unsigned long)cpu_pct);
+    draw_text_cached(6, 108, c_cpu, sizeof(c_cpu), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    tft_draw_progress_bar(70, 109, 55, 6, (uint8_t)cpu_pct, TFT_CYAN, TFT_BAR_BG, TFT_CARD_BORDER);
+    snprintf(buf, sizeof(buf), "Rest:%2lu%%", (unsigned long)rest_cpu);
+    draw_text_cached(135, 108, c_rest_cpu, sizeof(c_rest_cpu), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
 
     uint8_t mem_pct = 0;
     uint32_t free_kb = 0;
-    memory_manager_get_usage(&free_kb, NULL, &mem_pct);
-    snprintf(buf, sizeof(buf), "RAM: %2u%% ", mem_pct);
-    draw_text_cached(10, 126, c_ram, sizeof(c_ram), buf, TFT_WHITE, TFT_BG_MAIN, 1);
-    tft_draw_progress_bar(75, 128, 60, 6, mem_pct, TFT_GREEN, TFT_BAR_BG, TFT_CARD_BORDER);
+    uint32_t total_kb = 0;
+    memory_manager_get_usage(&free_kb, &total_kb, &mem_pct);
+    uint8_t rest_ram = 100U - (mem_pct > 100U ? 100U : mem_pct);
+    snprintf(buf, sizeof(buf), "RAM: %2u%%", mem_pct);
+    draw_text_cached(6, 121, c_ram, sizeof(c_ram), buf, TFT_WHITE, TFT_BG_MAIN, 1);
 
-    snprintf(buf, sizeof(buf), "Free:%lukB ", (unsigned long)free_kb);
-    tft_draw_string(145, 126, buf, TFT_GREENYELLOW, TFT_BG_MAIN, 1);
+    uint8_t ram_segs = (mem_pct >= 95) ? 6 : ((mem_pct >= 85) ? 5 : ((mem_pct >= 65) ? 4 : ((mem_pct >= 45) ? 3 : ((mem_pct >= 25) ? 2 : ((mem_pct >= 10) ? 1 : 0)))));
+    tft_draw_segmented_bar(68, 121, 4, 7, 1, 6, ram_segs, TFT_GREEN, TFT_BAR_BG, TFT_CARD_BORDER);
+
+    snprintf(buf, sizeof(buf), "R:%2u%% Free:%luk", rest_ram, (unsigned long)free_kb);
+    draw_text_cached(105, 121, c_rest_ram, sizeof(c_rest_ram), buf, TFT_GREENYELLOW, TFT_BG_MAIN, 1);
+
+    if (m.sd_total_kb == 0) {
+      snprintf(buf, sizeof(buf), "SD Card: No SD Card Mounted   ");
+    } else {
+      uint32_t mb = m.sd_total_kb / 1024;
+      uint32_t free_mb = m.sd_free_kb / 1024;
+      snprintf(buf, sizeof(buf), "SD : %lu.%02luGB (%luMB Free) ", (unsigned long)(mb / 1000),
+               (unsigned long)((mb % 1000) / 10), (unsigned long)free_mb);
+    }
+    draw_text_cached(6, 134, c_sd, sizeof(c_sd), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+
+    // ===== 4. CARD 3: [MESH NETWORK STATUS] =====
+    draw_text_cached(155, 160, c_node_ver, sizeof(c_node_ver), "Node:v0.1", TFT_ACCENT_GOLD, TFT_BG_MAIN, 1);
 
     size_t node_count = link_list_data_get_count();
-    snprintf(buf, sizeof(buf), "Nodes:%-2u", (unsigned)node_count);
-    draw_text_cached(175, 156, c_nodes, sizeof(c_nodes), buf, TFT_GREEN, TFT_BG_MAIN, 1);
+    snprintf(buf, sizeof(buf), "Connected Nodes : %-2u", (unsigned)node_count);
+    draw_text_cached(6, 172, c_nodes, sizeof(c_nodes), buf, TFT_GREEN, TFT_BG_MAIN, 1);
 
-    tft_draw_string(10, 170, "Weak Conn: 0 | Low Bat: 0    ", TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+    snprintf(buf, sizeof(buf), "Weak Conn : 0");
+    draw_text_cached(135, 172, c_weak_conn, sizeof(c_weak_conn), buf, TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
 
-    link_list_node_snapshot_t sel_node = {0};
-    if (link_list_data_get_selected_node(&sel_node)) {
-      snprintf(buf, sizeof(buf), "Selected: #%-18s", sel_node.id);
-    } else {
-      snprintf(buf, sizeof(buf), "Selected: NONE (Tap to cycle) ");
-    }
-    draw_text_cached(10, 185, c_sel_node, sizeof(c_sel_node), buf, TFT_YELLOW, TFT_BG_MAIN, 1);
+    size_t low_bat_nodes = link_list_data_get_low_battery_count();
+    snprintf(buf, sizeof(buf), "Weak Bat Nodes  : %-2u", (unsigned)low_bat_nodes);
+    draw_text_cached(6, 185, c_weak_bat, sizeof(c_weak_bat), buf,
+                     (low_bat_nodes > 0) ? TFT_RED : TFT_GREEN, TFT_BG_MAIN, 1);
 
-    if (sel_node.sensor_count > 0 && sel_node.ports[0].name[0]) {
-      snprintf(buf, sizeof(buf), "P1: %-22s", sel_node.ports[0].name);
-    } else {
-      snprintf(buf, sizeof(buf), "P1: NONE                  ");
-    }
-    draw_text_cached(10, 224, c_port1, sizeof(c_port1), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    uint8_t max_level = link_list_data_get_max_level();
+    snprintf(buf, sizeof(buf), "Max Mesh Level  : Level %-2u", (unsigned)max_level);
+    draw_text_cached(6, 198, c_topol, sizeof(c_topol), buf, TFT_CYAN, TFT_BG_MAIN, 1);
 
-    if (sel_node.sensor_count > 1 && sel_node.ports[1].name[0]) {
-      snprintf(buf, sizeof(buf), "P2: %-22s", sel_node.ports[1].name);
-    } else {
-      snprintf(buf, sizeof(buf), "P2: NONE                  ");
-    }
-    draw_text_cached(10, 238, c_port2, sizeof(c_port2), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    draw_text_cached(6, 210, c_root_mode, sizeof(c_root_mode), "Root Coordinator: ONLINE (ACTIVE)", TFT_GREEN, TFT_BG_MAIN, 1);
 
-    if (sel_node.sensor_count > 2 && sel_node.ports[2].name[0]) {
-      snprintf(buf, sizeof(buf), "P3: %-22s", sel_node.ports[2].name);
-    } else {
-      snprintf(buf, sizeof(buf), "P3: NONE                  ");
-    }
-    draw_text_cached(10, 252, c_port3, sizeof(c_port3), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    // ===== 5. CARD 4: [TRAFFIC & THROUGHPUT] =====
+    draw_text_cached(145, 228, c_latency, sizeof(c_latency), "Latency:<5ms", TFT_GREEN, TFT_BG_MAIN, 1);
 
-    vTaskDelay(pdMS_TO_TICKS(250));
+    uint32_t tot_rx = (ctx && ctx->telemetry) ? ctx->telemetry->rx_packet_count : 0;
+    snprintf(buf, sizeof(buf), "Throughput: %-6lu pkts", (unsigned long)tot_rx);
+    draw_text_cached(6, 240, c_throughput, sizeof(c_throughput), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+
+    uint32_t q_used = 0, q_total = 0;
+    uart_to_node_get_queue_status(&q_used, &q_total);
+    snprintf(buf, sizeof(buf), "Queue:%lu/%lu", (unsigned long)q_used, (unsigned long)q_total);
+    draw_text_cached(155, 240, c_queue, sizeof(c_queue), buf, (q_used > 20) ? TFT_ORANGE : TFT_YELLOW, TFT_BG_MAIN, 1);
+
+    snprintf(buf, sizeof(buf), "RX Rate   : %4lu pkt/s", (unsigned long)rx_rate);
+    draw_text_cached(6, 253, c_rx_rate, sizeof(c_rx_rate), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    uint8_t rx_bar_pct = rx_rate > 50 ? 100 : (rx_rate * 2);
+    tft_draw_progress_bar(165, 254, 55, 6, rx_bar_pct, TFT_CYAN, TFT_BAR_BG, TFT_CARD_BORDER);
+
+    snprintf(buf, sizeof(buf), "TX Rate   : %4lu pkt/s", (unsigned long)tx_rate);
+    draw_text_cached(6, 265, c_tx_rate, sizeof(c_tx_rate), buf, TFT_WHITE, TFT_BG_MAIN, 1);
+    uint8_t tx_bar_pct = tx_rate > 50 ? 100 : (tx_rate * 2);
+    tft_draw_progress_bar(165, 266, 55, 6, tx_bar_pct, TFT_GREENYELLOW, TFT_BAR_BG, TFT_CARD_BORDER);
+
+    draw_text_cached(6, 277, c_pipe, sizeof(c_pipe), "Pipe: UART2 (115200) <-> WS Cloud", TFT_TEXT_MUTED, TFT_BG_MAIN, 1);
+
+    vTaskDelay(pdMS_TO_TICKS(200));
   }
 }
 

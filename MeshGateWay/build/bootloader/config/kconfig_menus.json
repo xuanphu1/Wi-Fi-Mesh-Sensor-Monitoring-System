@@ -1463,6 +1463,16 @@
         "children": [],
         "depends_on": null,
         "help": null,
+        "id": "SOC_RTC_CNTL_NEEDS_ATOMIC_ACCESS",
+        "name": "SOC_RTC_CNTL_NEEDS_ATOMIC_ACCESS",
+        "range": null,
+        "title": null,
+        "type": "bool"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
         "id": "SOC_SDM_GROUPS",
         "name": "SOC_SDM_GROUPS",
         "range": null,
@@ -1658,6 +1668,26 @@
         "range": null,
         "title": null,
         "type": "bool"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
+        "id": "SOC_LP_TIMER_BIT_WIDTH_LO",
+        "name": "SOC_LP_TIMER_BIT_WIDTH_LO",
+        "range": null,
+        "title": null,
+        "type": "int"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
+        "id": "SOC_LP_TIMER_BIT_WIDTH_HI",
+        "name": "SOC_LP_TIMER_BIT_WIDTH_HI",
+        "range": null,
+        "title": null,
+        "type": "int"
     },
     {
         "children": [],
@@ -2255,6 +2285,16 @@
         "help": null,
         "id": "SOC_BLUFI_SUPPORTED",
         "name": "SOC_BLUFI_SUPPORTED",
+        "range": null,
+        "title": null,
+        "type": "bool"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
+        "id": "SOC_BLE_MULTI_CONN_OPTIMIZATION",
+        "name": "SOC_BLE_MULTI_CONN_OPTIMIZATION",
         "range": null,
         "title": null,
         "type": "bool"
@@ -3297,6 +3337,16 @@
             },
             {
                 "children": [],
+                "depends_on": null,
+                "help": null,
+                "id": "SECURE_BOOT_V2_ECDSA_INSECURE",
+                "name": "SECURE_BOOT_V2_ECDSA_INSECURE",
+                "range": null,
+                "title": null,
+                "type": "bool"
+            },
+            {
+                "children": [],
                 "depends_on": "SOC_SECURE_BOOT_V1",
                 "help": null,
                 "id": "SECURE_BOOT_V1_SUPPORTED",
@@ -3379,7 +3429,7 @@
                     },
                     {
                         "children": [],
-                        "depends_on": "SECURE_BOOT_V2_ECC_SUPPORTED && (SECURE_SIGNED_APPS_NO_SECURE_BOOT || SECURE_BOOT_V2_ENABLED) && <choice SECURE_SIGNED_APPS_SCHEME>",
+                        "depends_on": "SECURE_BOOT_V2_ECC_SUPPORTED && (SECURE_SIGNED_APPS_NO_SECURE_BOOT || SECURE_BOOT_V2_ENABLED) && (!SECURE_BOOT_V2_ENABLED || !SECURE_BOOT_V2_ECDSA_INSECURE || SECURE_BOOT_V2_FORCE_ENABLE_ECDSA) && <choice SECURE_SIGNED_APPS_SCHEME>",
                         "help": "For Secure boot V2 (e.g., ESP32-C2 SoC), appends ECDSA based signature block to the application.\nRefer to documentation before enabling.",
                         "id": "SECURE_SIGNED_APPS_ECDSA_V2_SCHEME",
                         "name": "SECURE_SIGNED_APPS_ECDSA_V2_SCHEME",
@@ -3424,6 +3474,26 @@
                 "name": "SECURE_BOOT_ECDSA_KEY_LEN_SIZE",
                 "title": "ECDSA key size",
                 "type": "choice"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Length in bytes of the application image digest used by Secure Boot V2.\nKept in sync with ESP_SECURE_BOOT_DIGEST_LEN in esp_secure_boot.h, and\nusable from linker scripts and from components that cannot depend on\nbootloader_support.",
+                "id": "SECURE_BOOT_IMAGE_DIGEST_LEN",
+                "name": "SECURE_BOOT_IMAGE_DIGEST_LEN",
+                "range": null,
+                "title": null,
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Number of bytes that must be left untouched at the end of RTC/LP RAM for\nthe ROM secure boot fast wake up feature, which stores the digest of the\nverified application image there and re-checks it on deep sleep wake up.\nZero when the feature is not applicable, so that consumers can subtract\nthis value unconditionally.",
+                "id": "SECURE_BOOT_ROM_FAST_WAKE_RESERVE_SIZE",
+                "name": "SECURE_BOOT_ROM_FAST_WAKE_RESERVE_SIZE",
+                "range": null,
+                "title": null,
+                "type": "int"
             },
             {
                 "children": [],
@@ -3555,6 +3625,16 @@
                 "name": "SECURE_BOOT_ENABLE_AGGRESSIVE_KEY_REVOKE",
                 "range": null,
                 "title": "Enable Aggressive key revoke strategy",
+                "type": "bool"
+            },
+            {
+                "children": [],
+                "depends_on": "SECURE_BOOT_V2_ENABLED",
+                "help": "If not set (default, recommended), on first boot the bootloader will burn the WR_DIS_RD_DIS\nefuse when Secure Boot is enabled. This prevents any more efuses from being read protected.\n\nIf this option is set, it will remain possible to write the EFUSE_RD_DIS efuse field after Secure\nBoot is enabled. This may allow an attacker to read-protect the BLK2 efuse (for ESP32) and\nBLOCK4-BLOCK10 (i.e. BLOCK_KEY0-BLOCK_KEY5)(for other chips) holding the secure boot public key digest,\ncausing an immediate denial of service and possibly allowing an additional fault injection attack to\nbypass the signature protection.\n\nThe option must be set when you need to program any read-protected key type into the efuses,\ne.g., HMAC, ECDSA etc. after secure boot has already been enabled on the device.\nPlease refer to secure boot V2 documentation guide for more details.\n\nNOTE: Once a BLOCK is read-protected, the application will read all zeros from that block\n\nNOTE: If \"UART ROM download mode (Permanently disabled (recommended))\" or\n\"UART ROM download mode (Permanently switch to Secure mode (recommended))\" is set,\nthen it is __NOT__ possible to read/write efuses using espefuse.py utility.\nHowever, efuse can be read/written from the application\n\nPlease refer to the Secure Boot V2 documentation guide for more information.",
+                "id": "SECURE_BOOT_V2_ALLOW_EFUSE_RD_DIS",
+                "name": "SECURE_BOOT_V2_ALLOW_EFUSE_RD_DIS",
+                "range": null,
+                "title": "Do not disable the ability to further read protect eFuses",
                 "type": "bool"
             },
             {
@@ -3702,6 +3782,16 @@
                 "children": [
                     {
                         "children": [],
+                        "depends_on": "SECURE_BOOT_INSECURE && SECURE_BOOT_V2_ECDSA_INSECURE",
+                        "help": "ECDSA based Secure Boot V2 is not functional for certain input vectors on this SoC\nand is therefore not offered by default. Refer to the hardware errata document for\ndetails.\n\nSetting this option re-enables the ECDSA based Secure Boot V2 signing scheme despite\nthe known vulnerability. Only set this option if you fully understand the risk. RSA\nbased Secure Boot V2 is the recommended scheme on SoCs that support it.",
+                        "id": "SECURE_BOOT_V2_FORCE_ENABLE_ECDSA",
+                        "name": "SECURE_BOOT_V2_FORCE_ENABLE_ECDSA",
+                        "range": null,
+                        "title": "Force enable ECDSA based Secure Boot V2",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
                         "depends_on": "(SECURE_BOOT_INSECURE || SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT) && IDF_TARGET_ESP32",
                         "help": "By default, the BASIC ROM Console starts on reset if no valid bootloader is\nread from the flash.\n\nWhen either flash encryption or secure boot are enabled, the default is to\ndisable this BASIC fallback mode permanently via eFuse.\n\nIf this option is set, this eFuse is not burned and the BASIC ROM Console may\nremain accessible.  Only set this option in testing environments.",
                         "id": "SECURE_BOOT_ALLOW_ROM_BASIC",
@@ -3728,16 +3818,6 @@
                         "name": "SECURE_BOOT_ALLOW_SHORT_APP_PARTITION",
                         "range": null,
                         "title": "Allow app partition length not 64KB aligned",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "SECURE_BOOT_INSECURE && SECURE_BOOT_V2_ENABLED",
-                        "help": "If not set (default, recommended), on first boot the bootloader will burn the WR_DIS_RD_DIS\nefuse when Secure Boot is enabled. This prevents any more efuses from being read protected.\n\nIf this option is set, it will remain possible to write the EFUSE_RD_DIS efuse field after Secure\nBoot is enabled. This may allow an attacker to read-protect the BLK2 efuse (for ESP32) and\nBLOCK4-BLOCK10 (i.e. BLOCK_KEY0-BLOCK_KEY5)(for other chips) holding the public key digest, causing an\nimmediate denial of service and possibly allowing an additional fault injection attack to\nbypass the signature protection.\n\nNOTE: Once a BLOCK is read-protected, the application will read all zeros from that block\n\nNOTE: If \"UART ROM download mode (Permanently disabled (recommended))\" or\n\"UART ROM download mode (Permanently switch to Secure mode (recommended))\" is set,\nthen it is __NOT__ possible to read/write efuses using espefuse.py utility.\nHowever, efuse can be read/written from the application",
-                        "id": "SECURE_BOOT_V2_ALLOW_EFUSE_RD_DIS",
-                        "name": "SECURE_BOOT_V2_ALLOW_EFUSE_RD_DIS",
-                        "range": null,
-                        "title": "Allow additional read protecting of efuses",
                         "type": "bool"
                     },
                     {
@@ -3869,7 +3949,7 @@
                         "type": "choice"
                     }
                 ],
-                "depends_on": "SECURE_FLASH_ENCRYPTION_MODE_RELEASE && SOC_FLASH_ENCRYPTION_XTS_AES_SUPPORT_PSEUDO_ROUND",
+                "depends_on": "SECURE_FLASH_ENC_ENABLED && SOC_FLASH_ENCRYPTION_XTS_AES_SUPPORT_PSEUDO_ROUND",
                 "help": "If set (default), the bootloader will permanently enable the XTS-AES peripheral's pseudo rounds function.\nNote: Enabling this config would burn an efuse.",
                 "id": "SECURE_FLASH_PSEUDO_ROUND_FUNC",
                 "name": "SECURE_FLASH_PSEUDO_ROUND_FUNC",
@@ -3912,7 +3992,7 @@
                     {
                         "children": [],
                         "depends_on": "SOC_SUPPORTS_SECURE_DL_MODE && <choice SECURE_UART_ROM_DL_MODE>",
-                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to update SPI config,\nchanging baud rate, basic flash write and a command to return a summary of currently\nenabled security features (`get_security_info`).\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32 (includes revisions till ECO3).",
+                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to update SPI config,\nchanging baud rate, basic flash write and a command to return a summary of currently\nenabled security features (`get_security_info`).\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32.",
                         "id": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "name": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "range": null,
@@ -5683,7 +5763,7 @@
                             {
                                 "children": [],
                                 "depends_on": null,
-                                "help": "esp32c2, esp32c3, esp32s3, esp32c6 and esp32h2 will reset at wake-up if GPIO is received\na small electrostatic pulse during light sleep, with specific condition\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
+                                "help": "All existing chips except esp32 and esp32s2 will reset on wake-up if a GPIO receives\na small electrostatic pulse during light sleep, with specific conditions.\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
                                 "id": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "name": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "range": null,
@@ -6109,6 +6189,26 @@
                         "name": "ESP_BRINGUP_BYPASS_CPU_CLK_SETTING",
                         "range": null,
                         "title": null,
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_ECDSA_P192_CURVE_DEFAULT_DISABLED",
+                        "help": "By default, only the 256-bit curve operations are allowed. If this configuration is enabled,\nit will set the eFuse to allow ECDSA operations using both the 192-bit and 256-bit curves",
+                        "id": "ESP_ECDSA_ENABLE_P192_CURVE",
+                        "name": "ESP_ECDSA_ENABLE_P192_CURVE",
+                        "range": null,
+                        "title": "Enable ECDSA 192-curve operations",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "SOC_PMU_PVT_SUPPORTED",
+                        "help": "If enabled, hp & lp voltage can be auto adjust by PVT characteristic.\nOtherwise, internal voltage will be set to fix dbias.\nThis is a must for stable mass production. Disable for debugging only.",
+                        "id": "ESP_ENABLE_PVT",
+                        "name": "ESP_ENABLE_PVT",
+                        "range": null,
+                        "title": "Auto adjust hp & lp voltage using pvt function (MUST ENABLE FOR MP)",
                         "type": "bool"
                     }
                 ],
@@ -8646,6 +8746,16 @@
                                 "range": null,
                                 "title": "Enable XMC-C series flash chip suspend feature anyway",
                                 "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
+                                "help": "Flash suspend has defect on ESP32C6 until v0.2 and ESP32H2 until v1.2. If you already use suspend\nfeature for massive protection, you can enable this for bypassing check after knowing the risk.\nBut if you are new users, or developing new applications, or producing a new batch,\nplease DO NOT enable this config option.\n\nFor more information, please refer to errata or connect to Espressif business support team.",
+                                "id": "SPI_FLASH_FORCE_ENABLE_C6_H2_SUSPEND",
+                                "name": "SPI_FLASH_FORCE_ENABLE_C6_H2_SUSPEND",
+                                "range": null,
+                                "title": "Enable chip suspend feature on c6 or h2 anyway (DO NOT ENABLE FOR NEW USERS OR APPLICATIONS)",
+                                "type": "bool"
                             }
                         ],
                         "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
@@ -8685,7 +8795,7 @@
                             }
                         ],
                         "depends_on": "!SPI_FLASH_ROM_IMPL && !APP_BUILD_TYPE_PURE_RAM_APP",
-                        "help": "If this option is enabled, any time SPI flash is written then the data will be read\nback and verified. This can catch hardware problems with SPI flash, or flash which\nwas not erased before verification.",
+                        "help": "If this option is enabled, any time SPI flash is written then the data will be read\nback and verified. This can catch hardware problems with SPI flash, or flash which\nwas not erased before verification.\n\nThis will slightly influence the write performance.",
                         "id": "SPI_FLASH_VERIFY_WRITE",
                         "name": "SPI_FLASH_VERIFY_WRITE",
                         "range": null,
@@ -9009,7 +9119,7 @@
     {
         "children": [],
         "depends_on": null,
-        "help": "By enabling this option, ESP-IDF experimental feature options will be visible.\n\nNote you should still enable a certain experimental feature option to use it, and you\nshould read the corresponding risk warning and known issue list carefully.\n\nCurrent experimental feature list:\n\n- CONFIG_ESPTOOLPY_FLASHFREQ_120M && CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_DTR\n- CONFIG_SPIRAM_SPEED_120M && CONFIG_SPIRAM_MODE_OCT\n- CONFIG_BOOTLOADER_CACHE_32BIT_ADDR_QUAD_FLASH\n- CONFIG_USB_HOST_EXT_PORT_SUPPORT_LS\n- CONFIG_USB_HOST_EXT_PORT_RESET_ATTEMPTS",
+        "help": "By enabling this option, ESP-IDF experimental feature options will be visible.\n\nNote you should still enable a certain experimental feature option to use it, and you\nshould read the corresponding risk warning and known issue list carefully.\n\nCurrent experimental feature list:\n\n- CONFIG_ESPTOOLPY_FLASHFREQ_120M && CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_DTR\n- CONFIG_SPIRAM_SPEED_120M && CONFIG_SPIRAM_MODE_OCT\n- CONFIG_BOOTLOADER_CACHE_32BIT_ADDR_QUAD_FLASH\n- CONFIG_USB_HOST_EXT_PORT_RESET_ATTEMPTS",
         "id": "IDF_EXPERIMENTAL_FEATURES",
         "name": "IDF_EXPERIMENTAL_FEATURES",
         "range": null,

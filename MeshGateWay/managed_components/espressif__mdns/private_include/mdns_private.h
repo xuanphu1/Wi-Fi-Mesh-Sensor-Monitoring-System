@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2015-2025 Espressif Systems (Shanghai) CO LTD
+ * SPDX-FileCopyrightText: 2015-2026 Espressif Systems (Shanghai) CO LTD
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -156,7 +156,7 @@ typedef enum {
     ACTION_SEARCH_ADD,
     ACTION_SEARCH_SEND,
     ACTION_SEARCH_END,
-    ACTION_BROWSE_ADD,
+    ACTION_BROWSE_START,
     ACTION_BROWSE_SYNC,
     ACTION_BROWSE_END,
     ACTION_TX_HANDLE,
@@ -165,6 +165,7 @@ typedef enum {
     ACTION_DELEGATE_HOSTNAME_ADD,
     ACTION_DELEGATE_HOSTNAME_REMOVE,
     ACTION_DELEGATE_HOSTNAME_SET_ADDR,
+    ACTION_BROWSE_SEND_BY_IP_PROTOCOL,
     ACTION_MAX
 } mdns_action_type_t;
 
@@ -402,5 +403,9 @@ typedef struct {
         struct {
             mdns_browse_sync_t *browse_sync;
         } browse_sync;
+        struct {
+            mdns_if_t interface;
+            mdns_ip_protocol_t ip_protocol;
+        } browse_send;
     } data;
 } mdns_action_t;
