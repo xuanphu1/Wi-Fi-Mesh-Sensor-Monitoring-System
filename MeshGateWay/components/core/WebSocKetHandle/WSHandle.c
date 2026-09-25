@@ -594,8 +594,19 @@ esp_err_t save_ws_url(const char *url) {
 
   strncpy(ws_url, url, sizeof(ws_url) - 1);
   ws_url[sizeof(ws_url) - 1] = '\0';
-  s_ws_selected_target = WEBSOCKET_TARGET_CUSTOM;
-  ESP_LOGI(TAG_WEBSOCKET, "WebSocket URL (RAM): %s", ws_url);
+
+  if (strstr(url, "msems.click") != NULL || strncmp(url, "wss://", 6) == 0) {
+    s_ws_selected_target = WEBSOCKET_TARGET_SERVER;
+  } else if (strstr(url, "systemmsems.local") != NULL) {
+    s_ws_selected_target = WEBSOCKET_TARGET_LOCAL;
+  } else {
+    s_ws_selected_target = WEBSOCKET_TARGET_CUSTOM;
+  }
+
+  ESP_LOGI(TAG_WEBSOCKET, "WebSocket URL (RAM): %s (target: %s)", ws_url,
+           s_ws_selected_target == WEBSOCKET_TARGET_LOCAL
+               ? "local"
+               : (s_ws_selected_target == WEBSOCKET_TARGET_SERVER ? "server" : "custom"));
 
   s_ws_restart_requested = true;
 

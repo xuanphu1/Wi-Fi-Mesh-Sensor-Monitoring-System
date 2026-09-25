@@ -222,12 +222,27 @@ function NodeDetail() {
 
   // Sync with incoming telemetry if available
   useEffect(() => {
+    // Check if new telemetry fields b & c exist directly on the node or inside rawPayload
+    if (node) {
+      const b = node.b !== undefined ? node.b : node.rawPayload?.b;
+      const c = node.c !== undefined ? node.c : node.rawPayload?.c;
+
+      if (typeof b === "number") {
+        setBatteryPercent(b);
+        // Estimate voltage based on 0-100% mapped to 3.0V - 4.2V for display purposes since voltage is not in payload
+        setBatteryVoltage(3.0 + (b / 100) * 1.2); 
+      }
+      if (typeof c === "number") {
+        setIsCharging(c === 1);
+      }
+    }
+
     const pState = nodePowerStates[nodeKey];
     if (pState) {
       if (pState.battery) {
-        if (typeof pState.battery.percent === "number") setBatteryPercent(pState.battery.percent);
-        if (typeof pState.battery.voltage_v === "number") setBatteryVoltage(pState.battery.voltage_v);
-        if (typeof pState.battery.is_charging === "boolean") setIsCharging(pState.battery.is_charging);
+        if (typeof pState.battery.percent === "number" && node?.b === undefined && node?.rawPayload?.b === undefined) setBatteryPercent(pState.battery.percent);
+        if (typeof pState.battery.voltage_v === "number" && node?.b === undefined && node?.rawPayload?.b === undefined) setBatteryVoltage(pState.battery.voltage_v);
+        if (typeof pState.battery.is_charging === "boolean" && node?.c === undefined && node?.rawPayload?.c === undefined) setIsCharging(pState.battery.is_charging);
       }
       if (pState.rails) {
         if (typeof pState.rails.rail_5v === "boolean") setRail5v(pState.rails.rail_5v);
@@ -239,7 +254,7 @@ function NodeDetail() {
         if (pState.ip5306.key_off_mode) setIp5306KeyMode(pState.ip5306.key_off_mode);
       }
     }
-  }, [nodePowerStates, nodeKey]);
+  }, [nodePowerStates, nodeKey, node]);
 
   // --- ACTUATOR STATE (3 Channels) ---
   const [actuators, setActuators] = useState([

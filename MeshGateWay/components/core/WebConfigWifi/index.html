@@ -242,7 +242,9 @@
                         document.getElementById('ssid').value = currentSsid;
                     }
                     if (data.ws_url) {
-                        document.getElementById('ws_url').value = data.ws_url;
+                        const wsInput = document.getElementById('ws_url');
+                        wsInput.value = data.ws_url;
+                        wsInput.dataset.loaded = data.ws_url;
                     }
                     if (data.http_ip) {
                         const httpIpInput = document.getElementById('http_ip');
@@ -277,7 +279,9 @@
                 data.ssid = ssid;
                 data.password = password;
             }
-            if (ws_input && ws_input.trim() !== '') {
+            const wsInput = document.getElementById('ws_url');
+            if (ws_input && ws_input.trim() !== '' &&
+                ws_input.trim() !== (wsInput ? (wsInput.dataset.loaded || '') : '')) {
                 let final_ws = ws_input.trim();
                 if (!final_ws.startsWith('ws://') && !final_ws.startsWith('wss://')) {
                     if (final_ws.includes(':')) {

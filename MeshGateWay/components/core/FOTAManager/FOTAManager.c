@@ -110,13 +110,14 @@ static esp_err_t fota_perform_download_and_flash(const fota_job_info_t *job) {
       .url = job->url,
       .timeout_ms = 60000,
       .keep_alive_enable = true,
-      .buffer_size = 2048,
-      .buffer_size_tx = 1024,
+      .buffer_size = 8192,
+      .buffer_size_tx = 2048,
       .crt_bundle_attach = esp_crt_bundle_attach,
   };
 
   esp_https_ota_config_t ota_config = {
       .http_config = &http_config,
+      .bulk_flash_erase = true,
   };
 
   s_fota_running = true;
@@ -184,7 +185,9 @@ static esp_err_t fota_perform_download_and_flash(const fota_job_info_t *job) {
   } while (ret == ESP_ERR_HTTPS_OTA_IN_PROGRESS);
 
   if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "esp_https_ota_perform failed: %s", esp_err_to_name(ret));
+    ESP_LOGE(TAG, "esp_https_ota_perform failed: %s (Free heap: %" PRIu32 " bytes, Min heap: %" PRIu32 " bytes)",
+             esp_err_to_name(ret), (uint32_t)esp_get_free_heap_size(),
+             (uint32_t)esp_get_minimum_free_heap_size());
     esp_https_ota_abort(ota_handle);
     s_fota_last_result = ret;
     s_fota_running = false;

@@ -1,3 +1,47 @@
+/**
+ * @file mesh_telemetry.c
+ * @brief Định dạng và đóng gói bản tin Telemetry (Mesh Telemetry Frame) gửi từ Node lên Root qua TCP.
+ *
+ * =========================================================================================
+ * BẢN TIN TELEMETRY ĐỊNH KỲ (JSON FRAME):
+ * Mỗi Node con định kỳ (CONFIG_MESH_TCP_SEND_INTERVAL_MS) sẽ đọc dữ liệu từ các cổng cảm biến,
+ * dung lượng pin, trạng thái sạc nguồn và đóng gói thành chuỗi JSON kết thúc bằng '\n'.
+ *
+ * CÁC TRƯỜNG DỮ LIỆU RÚT GỌN (Tối ưu băng thông mạng Mesh):
+ *   - "v"   : (int)     Phiên bản JSON schema (MESH_TELEMETRY_JSON_SCHEMA, mặc định = 1)
+ *   - "seq" : (uint32)  Sequence number tăng dần của bản tin
+ *   - "n"   : (int)     Cấp độ node trong Mesh (esp_mesh_lite_get_level(): 1=Root, 2=Level 2, ...)
+ *   - "M"   : (string)  Địa chỉ MAC Wi-Fi STA của node gửi ("XX:XX:XX:XX:XX:XX")
+ *   - "t"   : (string)  Thời gian lấy mẫu ISO-8601 ("YYYY-MM-DDTHH:MM:SS")
+ *   - "ver" : (string)  Phiên bản firmware hiện hành của node ("X.Y.Z")
+ *   - "b"   : (uint8)   Phần trăm pin còn lại (Battery Percent: 0 - 100%)
+ *   - "c"   : (int)     Trạng thái sạc (Charging Status: 1 = Đang cắm sạc/nguồn ngoài, 0 = Dùng pin)
+ *   - "err" : (array)   Mảng mã lỗi hex nếu có (ví dụ: ["0x0000"] hoặc rỗng [])
+ *   - "p"   : (array)   Mảng dữ liệu các cổng cảm biến:
+ *                       [ [port_id, sensor_type, val_1, val_2, ...], ... ]
+ *                       + port_id: 1..4 (tương ứng PORT_1..PORT_4)
+ *                       + sensor_type: ID của cảm biến (SensorType_t)
+ *                       + val_1..val_n: Các giá trị float đo được (3 chữ số thập phân)
+ *
+ * VÍ DỤ BẢN TIN THỰC TẾ GỬI QUA TCP:
+ * {
+ *   "v": 1,
+ *   "seq": 142,
+ *   "n": 2,
+ *   "M": "30:76:F5:A7:07:38",
+ *   "t": "2026-09-23T23:22:29",
+ *   "ver": "0.0.1",
+ *   "b": 95,
+ *   "c": 1,
+ *   "err": ["0x0000"],
+ *   "p": [
+ *     [1, 2, 28.500, 65.200],
+ *     [2, 1, 1013.250]
+ *   ]
+ * }
+ * =========================================================================================
+ */
+
 #include "mesh_telemetry.h"
 
 #include "ErrorCodes.h"
@@ -63,15 +107,23 @@ int mesh_telemetry_build(char *buffer, size_t capacity, DataManager_t *data,
   }
   get_timestamp(timestamp);
 
+  uint8_t bat_percent = data->objectInfo.batteryInfo.levelPercent;
+  if (bat_percent > 100) {
+    bat_percent = 100;
+  }
+  int is_charging = data->objectInfo.batteryInfo.is_charging ? 1 : 0;
+
   size_t offset = 0;
   if (!append_format(buffer, capacity, &offset,
                      "{\"v\":%d,\"seq\":%" PRIu32
                      ",\"n\":%d,\"M\":\"%s\",\"t\":\"%s\","
-                     "\"ver\":\"%u.%u.%u\",\"err\":[",
+                     "\"ver\":\"%u.%u.%u\","
+                     "\"b\":%u,\"c\":%d,\"err\":[",
                      MESH_TELEMETRY_JSON_SCHEMA, sequence,
                      esp_mesh_lite_get_level(), mac_string, timestamp,
                      (unsigned)data->version[0], (unsigned)data->version[1],
-                     (unsigned)data->version[2])) {
+                     (unsigned)data->version[2],
+                     (unsigned)bat_percent, is_charging)) {
     return -1;
   }
 
