@@ -119,6 +119,15 @@ export function useMeshNodesFromWebSocket() {
   return {
     connected: ctx.wsOpen,
     nodes: ctx.nodes,
+    filteredNodes: ctx.filteredNodes || ctx.nodes,
+    gateways: ctx.gateways || [],
+    selectedGatewayId: ctx.selectedGatewayId || "all",
+    setSelectedGatewayId: ctx.setSelectedGatewayId,
+    deleteNodes: ctx.deleteNodes,
+    deleteGateway: ctx.deleteGateway,
+    deleteGateways: ctx.deleteGateways,
+    updateGatewayMeta: ctx.updateGatewayMeta,
+    updateNodeMeta: ctx.updateNodeMeta,
     registrySize: ctx.registrySize,
   };
   /*

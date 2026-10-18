@@ -3,8 +3,6 @@
 #include "DataManager.h"
 #include "MenuSystem.h"
 #include "ScreenManager.h"
-#include "WifiManager.h"
-#include "bme280.h"
 #include "driver/i2c.h"
 #include "esp_log.h"
 #include "i2cdev.h"

@@ -1,5 +1,5 @@
 idf_component_register(
     SRCS "FunctionManager.c"
     INCLUDE_DIRS "."
-    REQUIRES "UartToGateWay" "ScreenManager" "DataManager" "BitManager" "SensorConfig" "SensorRegistry" "ErrorCodes" "BatteryManager" "MeshManager" "InternetManager"
+    REQUIRES UartToGateWay DataManager ErrorCodes BatteryManager MeshManager InternetManager WifiManager SensorManager SensorRegistry SensorScanner driver
 )

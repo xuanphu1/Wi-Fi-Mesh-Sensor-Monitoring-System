@@ -360,6 +360,20 @@ void ssd1306_delete(ssd1306_handle_t dev) {
 
 esp_err_t ssd1306_refresh_gram(ssd1306_handle_t dev) {
   ssd1306_dev_t *device = (ssd1306_dev_t *)dev;
+  if (device == NULL) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  static const uint8_t reset_pos_cmds[] = {
+      0x20, 0x01,   // Ensure vertical addressing mode
+      0x21, 0, 127, // Set column address 0 to 127 (counter -> 0)
+      0x22, 0, 7,   // Set page address 0 to 7 (counter -> 0)
+      0x40,         // Reset display RAM start line to 0
+      0xD3, 0x00    // Reset vertical offset to 0
+  };
+  esp_err_t ret = ssd1306_write_cmd(dev, reset_pos_cmds, sizeof(reset_pos_cmds));
+  if (ret != ESP_OK) {
+    return ret;
+  }
   return ssd1306_write_data(dev, &device->s_chDisplayBuffer[0][0],
                             sizeof(device->s_chDisplayBuffer));
 }

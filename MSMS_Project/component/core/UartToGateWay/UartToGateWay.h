@@ -36,6 +36,14 @@
  */
 system_err_t UartToGateWay_Init(DataManager_t *data);
 
+/** Application-level role request hook. Keeps UART command parsing independent
+ * from FunctionManager while allowing both UART and UI to use the same use
+ * case implementation. */
+typedef system_err_t (*uart_gateway_role_request_fn)(mesh_role_t role,
+                                                     void *context);
+void UartToGateWay_SetRoleRequestHandler(
+    uart_gateway_role_request_fn handler, void *context);
+
 /**
  * @brief Tạm dừng các task liên quan đến UART gateway.
  */

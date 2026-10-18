@@ -2,6 +2,7 @@
 #include "BatteryManager.h"
 #include "DataManager.h"
 #include "FOTAManager.h"
+#include "FunctionManager.h"
 #include "InternetManager.h"
 #include "MeshManager.h"
 #include "PinManager.h"
@@ -10,13 +11,12 @@
 #include "StorageManager.h"
 #include "SystemPerfomance.h"
 #include "TimeManager.h"
-#include "UartToGateWay.h"
-#include "driver/uart.h"
 #include "esp_app_desc.h"
 #include "esp_spiffs.h"
 #include "nvs_flash.h"
 #include "pcf8574.h"
 #include "sdkconfig.h"
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 
@@ -43,6 +43,21 @@ static esp_err_t init_spiffs(void) {
     return ret;
   }
   return ESP_OK;
+}
+
+static bool app_sensor_bus_lock(uint32_t timeout_ms, void *context) {
+  (void)context;
+  if (MainScreen == NULL) {
+    return true;
+  }
+  return ScreenManager_Lock(pdMS_TO_TICKS(timeout_ms));
+}
+
+static void app_sensor_bus_unlock(void *context) {
+  (void)context;
+  if (MainScreen != NULL) {
+    ScreenManager_Unlock();
+  }
 }
 
 void app_main(void) {
@@ -87,15 +102,14 @@ void app_main(void) {
     ErrorCodes_PushError(DataManager.error_code, DATA_MANAGER_ERROR_CAPACITY,
                          MRS_ERR_SSD1306_INIT_FAILED);
   } else {
-    ScreenManagerInit(&MainScreen);
-    /* No sensor selected yet -> menu shows plain "Port 1/2/3", not "Port 1 -
-     * BME280" from zero-init */
-    for (int i = 0; i < NUM_PORTS; i++) {
-      DataManager.selectedSensor[i] = SENSOR_NONE;
-    }
+    (void)ScreenManagerInit(&MainScreen);
+  }
+  ESP_ERROR_CHECK(FunctionManager_Init(&DataManager));
+  FunctionManager_SetSensorBusGuard(app_sensor_bus_lock,
+                                    app_sensor_bus_unlock, NULL);
+  if (MainScreen != NULL) {
     MenuSystemInit(&DataManager);
   }
-  UartToGateWay_Init(&DataManager);
   MeshManager_RegisterDownstreamCallback(FOTAManager_MeshDownstreamHandler);
 
   // Battery Manager init

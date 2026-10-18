@@ -45,9 +45,9 @@
 #include "mesh_telemetry.h"
 
 #include "ErrorCodes.h"
+#include "SensorManager.h"
 #include "SensorRegistry.h"
 #include "TimeManager.h"
-#include "esp_log.h"
 #include "esp_mac.h"
 #include "esp_mesh_lite.h"
 #include <inttypes.h>
@@ -56,8 +56,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-static const char *TAG = "MeshTelemetry";
 
 static bool append_format(char *buffer, size_t capacity, size_t *offset,
                           const char *format, ...) {
@@ -146,28 +144,18 @@ int mesh_telemetry_build(char *buffer, size_t capacity, DataManager_t *data,
 
   bool first_port = true;
   for (PortId_t port = PORT_1; port < NUM_PORTS; port++) {
-    SensorType_t type = data->selectedSensor[port];
-    if (type == SENSOR_NONE) {
-      continue;
-    }
-
-    sensor_driver_t *driver = sensor_registry_get_driver(type);
-    if (driver == NULL || driver->read == NULL) {
-      ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY,
-                           MRS_ERR_CORE_INVALID_PARAM);
-      continue;
-    }
-
+    SensorType_t type = SENSOR_NONE;
     SensorData_t sensor_data = {0};
-    system_err_t result = driver->read(&sensor_data);
+    system_err_t result =
+        SensorManager_GetSnapshot(port, &type, &sensor_data);
     if (result != MRS_OK) {
-      ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY,
-                           result);
-      ESP_LOGW(TAG, "Port %d read failed: %s", (int)port,
-               system_err_to_name(result));
       continue;
     }
-    data->port_data[port] = sensor_data;
+
+    sensor_descriptor_t descriptor = {0};
+    if (!sensor_registry_get_descriptor(type, &descriptor)) {
+      continue;
+    }
 
     if (!append_format(buffer, capacity, &offset, "%s[%d,%d",
                        first_port ? "" : ",", (int)port + 1, (int)type)) {
@@ -175,7 +163,8 @@ int mesh_telemetry_build(char *buffer, size_t capacity, DataManager_t *data,
     }
     first_port = false;
 
-    uint8_t field_count = driver->unit_count > 5 ? 5 : driver->unit_count;
+    uint8_t field_count =
+        descriptor.unit_count > 5 ? 5 : descriptor.unit_count;
     for (uint8_t field = 0; field < field_count; field++) {
       if (!append_format(buffer, capacity, &offset, ",%.3f",
                          sensor_data.data_fl[field])) {

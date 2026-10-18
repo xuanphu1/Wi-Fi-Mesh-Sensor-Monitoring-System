@@ -74,11 +74,10 @@ MRS_Project/
     │   │   ├── DataManager.h    # Định nghĩa DataManager_t, ScreenState_t, ObjectInfo_t
     │   │   └── DataManager.c    # Khởi tạo và quản lý trạng thái ứng dụng
     │   │
-    │   └── FunctionManager/     # Xử lý callback và logic nghiệp vụ
+    │   └── FunctionManager/     # Facade chức năng của application
     │       ├── CMakeLists.txt
-    │       ├── FunctionManager.h # Khai báo các callback functions
-    │       └── FunctionManager.c # Implement: select_sensor_cb, reset_all_ports_callback,
-    │                              #           tạo task đọc cảm biến, xử lý menu actions
+    │       ├── FunctionManager.h # API sensor/network/actuator/battery cho UI
+    │       └── FunctionManager.c # Điều phối manager; không chứa code render UI
     │
     ├── ui/                      # ═══════════════════════════════════════
     │   │                        # LỚP UI: Giao diện người dùng và điều hướng
@@ -119,12 +118,9 @@ MRS_Project/
     │   │   └── SensorConfig.c   # Implement wrapper functions, gọi driver thực tế
     │   │                         # Đồng bộ cấu hình trong lớp sensor
     │   │
-    │   └── SensorRegistry/       # Đăng ký và quản lý danh sách cảm biến
-    │       ├── CMakeLists.txt
-    │       ├── SensorRegistry.h # API: sensor_registry_get_count, sensor_registry_get_drivers
-    │       │                      #       sensor_registry_get_driver, sensor_type_to_name
-    │       └── SensorRegistry.c # Mảng sensor_drivers[] chứa tất cả cảm biến đã đăng ký
-    │                             # Hàm helper: sensor_type_to_name, get_driver, get_count
+    │   ├── SensorRegistry/       # Registry driver và metadata không callback
+    │   ├── SensorManager/        # Chủ sở hữu lifecycle/read/snapshot của driver
+    │   └── SensorScanner/        # Probe và tự gán sensor qua SensorManager
     │
     ├── drivers/                 # ═══════════════════════════════════════
     │   │                        # LỚP DRIVER: Driver phần cứng và wrapper
@@ -214,11 +210,12 @@ MRS_Project/
 **1. Lớp Core (`component/core/`)**
 - **Mục đích**: Chứa logic nghiệp vụ và quản lý dữ liệu toàn cục
 - **DataManager**: Lưu trữ trạng thái ứng dụng (selected sensors, screen state, object info)
-- **FunctionManager**: Xử lý các callback từ menu, tạo tasks đọc cảm biến, reset ports
+- **FunctionManager**: Facade duy nhất cho UI/application; điều phối sensor, network,
+  actuator, battery và UART gateway
 
 **2. Lớp UI (`component/ui/`)**
 - **Mục đích**: Giao diện người dùng và điều hướng
-- **MenuSystem**: Hệ thống menu phân cấp, tự động tạo menu từ SensorRegistry, hỗ trợ pagination
+- **MenuSystem**: Hệ thống menu phân cấp, lấy descriptor và gọi hành động qua FunctionManager
   - Task: `MenuNavigation_Task` - xử lý điều hướng menu và button events
 - **ScreenManager**: Render UI lên OLED (text, icons, dữ liệu cảm biến)
   - Tất cả hàm trả về `system_err_t` với error handling
@@ -228,7 +225,10 @@ MRS_Project/
 - **Mục đích**: Định nghĩa và quản lý danh sách cảm biến
 - **SensorTypes**: Định nghĩa enum và struct cơ bản (PortId_t, SensorType_t, SensorData_t, sensor_driver_t)
 - **SensorConfig**: Wrapper functions cho các sensor driver cụ thể (sensor_bme280_init/read/deinit), đồng bộ cấu hình
-- **SensorRegistry**: Đăng ký tất cả cảm biến, cung cấp API truy cập danh sách (get_count, get_drivers, get_driver)
+- **SensorRegistry**: Đăng ký driver và xuất metadata không có callback
+- **SensorManager**: Thành phần duy nhất gọi `init/read/deinit`, khóa lifecycle,
+  lấy mẫu nền và cung cấp snapshot
+- **SensorScanner**: Probe/tự gán sensor nhưng không sở hữu driver
 
 **4. Lớp Drivers (`component/drivers/`)**
 - **Mục đích**: Driver phần cứng trực tiếp giao tiếp với thiết bị
@@ -416,7 +416,8 @@ Chạy `idf.py menuconfig` để điều chỉnh các cấu hình này.
 
 ### 5) Quy ước mã nguồn
 - Phân lớp rõ ràng: `ui` (hiển thị/điều hướng), `sensors` (điều phối đọc), `drivers` (driver thiết bị), `core` (dữ liệu/chức năng), `network` (Wi‑Fi/Web), `utils` (tiện ích).
-- Callback UI tập trung ở `FunctionManager` (core); `MenuSystem` chỉ gán callback và context.
+- Callback render/navigation nằm trong `MenuSystem`; mọi hành động nghiệp vụ được
+  chuyển qua API typed của `FunctionManager`.
 - Tránh overflow/ghi vượt mảng; luôn kiểm tra giới hạn chỉ số trước khi truy cập.
 - Khởi tạo idempotent cho mọi hạ tầng (I2C, Wi‑Fi, …) để gọi lặp an toàn.
 - **Error Handling**: Sử dụng `system_err_t` thay vì `esp_err_t` cho các hàm trong dự án
@@ -531,64 +532,66 @@ Cảm biến này sẽ xuất hiện trong menu nhưng chưa thể sử dụng c
 #### 7.1) Lấy danh sách cảm biến
 
 ```c
-#include "SensorRegistry.h"
+#include "FunctionManager.h"
 
-// Lấy số lượng cảm biến đã đăng ký
-size_t count = sensor_registry_get_count();
-
-// Lấy mảng các driver
-sensor_driver_t *drivers = sensor_registry_get_drivers();
-
-// Lấy driver cụ thể theo loại
-sensor_driver_t *driver = sensor_registry_get_driver(SENSOR_BME280);
-if (driver != NULL) {
-    // Sử dụng driver
+size_t count =
+    FunctionManager_GetSensorCountByInterface(COMMUNICATION_I2C);
+for (size_t index = 0; index < count; index++) {
+    sensor_descriptor_t sensor;
+    if (FunctionManager_GetSensorDescriptorAtInterface(
+            COMMUNICATION_I2C, index, &sensor) == MRS_OK) {
+        printf("%s\n", sensor.name);
+    }
 }
 ```
+
+Application/UI chỉ nhận `sensor_descriptor_t` (metadata không có callback
+driver). Chỉ `SensorManager` được quyền gọi `init/read/deinit` trong registry.
 
 #### 7.2) Chọn cảm biến cho Port
 
 Hệ thống tự động tạo menu cho việc chọn cảm biến:
 1. Vào menu "Sensors" → "Port Config"
 2. Chọn Port (Port 1, Port 2, Port 3)
-3. Chọn cảm biến từ danh sách (tự động từ SensorRegistry)
+3. Chọn cảm biến từ danh sách (metadata lấy qua FunctionManager)
 4. Hệ thống sẽ tự động khởi tạo cảm biến nếu chưa được init
+
+Code ngoài UI cũng gán sensor qua facade:
+
+```c
+system_err_t result =
+    FunctionManager_AssignSensor(PORT_1, SENSOR_BME280);
+```
 
 #### 7.3) Đọc dữ liệu cảm biến
 
 ```c
-#include "SensorConfig.h"
-#include "SensorTypes.h"
+#include "FunctionManager.h"
 
-SensorData_t data;
-sensor_driver_t *driver = sensor_registry_get_driver(SENSOR_BME280);
+SensorType_t type = SENSOR_NONE;
+SensorData_t snapshot = {0};
 
-if (driver != NULL && driver->read != NULL) {
-    driver->read(&data);
-    // Dữ liệu được lưu trong:
-    // - data.data_fl[] cho số thực (float)
-    // - data.data_uint32[] cho số nguyên 32-bit
-    // - data.data_uint16[] cho số nguyên 16-bit
-    // - data.data_uint8[] cho số nguyên 8-bit
+if (FunctionManager_GetSensorSnapshot(PORT_1, &type, &snapshot) == MRS_OK) {
+    // SensorManager đã lấy mẫu nền; caller không gọi driver trực tiếp.
+    float first_value = snapshot.data_fl[0];
 }
 ```
 
 #### 7.4) Hiển thị dữ liệu trên màn hình
 
 ```c
+#include "FunctionManager.h"
 #include "ScreenManager.h"
 
-sensor_driver_t *driver = sensor_registry_get_driver(SENSOR_BME280);
-SensorData_t data;
-driver->read(&data);
+SensorType_t type = SENSOR_NONE;
+SensorData_t snapshot = {0};
+sensor_descriptor_t descriptor = {0};
 
-// Hiển thị với tên trường, giá trị, và đơn vị
-ScreenShowDataSensor(
-    driver->description,  // Tên các trường
-    data.data_fl,         // Mảng giá trị (float)
-    driver->unit,         // Đơn vị
-    driver->unit_count    // Số lượng trường
-);
+if (FunctionManager_GetSensorSnapshot(PORT_1, &type, &snapshot) == MRS_OK &&
+    FunctionManager_GetSensorDescriptor(type, &descriptor) == MRS_OK) {
+    ScreenShowDataSensor(descriptor.description, snapshot.data_fl,
+                         descriptor.unit, descriptor.unit_count);
+}
 ```
 
 #### 7.5) Pagination trong Menu

@@ -49,12 +49,17 @@ import {
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
 
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+
 // Vision UI Dashboard React context
 import {
   useVisionUIController,
   setTransparentNavbar,
   setMiniSidenav,
 } from "context";
+import { useMeshRealtime } from "context/meshRealtime";
 
 // Images
 import team2 from "assets/images/team-2.jpg";
@@ -66,6 +71,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const { gateways = [], selectedGatewayId = "all", setSelectedGatewayId } = useMeshRealtime() || {};
 
   useEffect(() => {
     // Setting the navbar type
@@ -147,7 +153,88 @@ function DashboardNavbar({ absolute, light, isMini }) {
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
         </VuiBox>
         {isMini ? null : (
-          <VuiBox sx={(theme) => navbarRow(theme, { isMini })}>
+          <VuiBox sx={(theme) => navbarRow(theme, { isMini })} display="flex" alignItems="center">
+            {/* Global Multi-Gateway / Mesh Selector */}
+            {setSelectedGatewayId && (
+              <VuiBox pr={{ xs: 1, md: 2 }}>
+                <FormControl size="small" sx={{ minWidth: { xs: 150, sm: 240, md: 280 } }}>
+                  <Select
+                    value={selectedGatewayId}
+                    onChange={(e) => setSelectedGatewayId(e.target.value)}
+                    displayEmpty
+                    sx={{
+                      height: "38px",
+                      color: "#ffffff !important",
+                      background: "linear-gradient(127deg, rgba(6, 11, 40, 0.6) 0%, rgba(10, 14, 35, 0.45) 100%)",
+                      border: "1px solid rgba(0, 212, 255, 0.35) !important",
+                      borderRadius: "12px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      "& .MuiSvgIcon-root": { color: "#00d4ff" },
+                      "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          background: "rgba(10, 14, 35, 0.95)",
+                          backdropFilter: "blur(20px)",
+                          border: "1px solid rgba(255, 255, 255, 0.15)",
+                          borderRadius: "14px",
+                          color: "#fff",
+                          mt: 1,
+                          boxShadow: "0 12px 36px rgba(0,0,0,0.6)",
+                          "& .MuiMenuItem-root": {
+                            fontSize: "12px",
+                            "&:hover": { background: "rgba(0, 117, 255, 0.25)" },
+                            "&.Mui-selected": { background: "rgba(0, 212, 255, 0.25)" },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="all">
+                      <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span>🌐</span>
+                        <span style={{ fontWeight: "bold" }}>Tất cả Gateway (Toàn hệ thống)</span>
+                      </span>
+                    </MenuItem>
+                    {gateways.map((gw) => (
+                      <MenuItem key={gw.gw_id} value={gw.gw_id}>
+                        <span style={{ display: "flex", alignItems: "center", gap: "8px", width: "100%" }}>
+                          <span
+                            style={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: "50%",
+                              backgroundColor: gw.status === "online" ? "#01f7a7" : "#ff5252",
+                              boxShadow: gw.status === "online" ? "0 0 6px #01f7a7" : "none",
+                              flexShrink: 0,
+                            }}
+                          />
+                          <span style={{ fontWeight: "bold" }}>{gw.name || gw.gw_id}</span>
+                          {gw.location && (
+                            <span style={{ opacity: 0.6, fontSize: "11px" }}>({gw.location})</span>
+                          )}
+                          <span
+                            style={{
+                              marginLeft: "auto",
+                              fontSize: "10px",
+                              padding: "2px 6px",
+                              borderRadius: "6px",
+                              background: "rgba(0, 212, 255, 0.15)",
+                              color: "#00d4ff",
+                            }}
+                          >
+                            {gw.node_count || 0} nodes
+                          </span>
+                        </span>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </VuiBox>
+            )}
+
             <VuiBox pr={1}>
               <VuiInput
                 placeholder="Type here..."

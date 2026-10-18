@@ -1,15 +1,20 @@
 #include "MenuSystem.h"
-#include "BitManager.h"
+#include "ButtonManager.h"
 #include "DataManager.h"
-#include "InternetManager.h"
-#include "SensorRegistry.h"
+#include "FunctionManager.h"
+#include "ScreenManager.h"
 #include "SensorTypes.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "sdkconfig.h"
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/_types.h>
-#include <time.h>
+#include <sys/param.h>
+
+#define TAG_MENU_SYSTEM "MENU_SYSTEM"
 
 /**
  * @file MenuSystem.c
@@ -31,6 +36,34 @@ DataManager_t *Data;
 static const char *port[NUM_PORTS] = {"Port 1", "Port 2", "Port 3"};
 static char wifi_manager_label[20] = "Wifi Manager";
 static char mesh_manager_label[20] = "Mesh Manager";
+static char auto_scan_menu_label[24] = "Auto Scan";
+static char auto_scan_on_label[20] = "Turn ON";
+static char auto_scan_off_label[20] = "Turn OFF";
+
+static void menu_auto_scan_enable_cb(void *ctx);
+static void menu_auto_scan_disable_cb(void *ctx);
+static void menu_wifi_config_callback(void *ctx);
+static void menu_mesh_node_callback(void *ctx);
+static void menu_information_callback(void *ctx);
+static void menu_battery_status_callback(void *ctx);
+static void menu_actuator_on_callback(void *ctx);
+static void menu_actuator_off_callback(void *ctx);
+static void menu_select_sensor_callback(void *ctx);
+static void menu_reset_all_ports_callback(void *ctx);
+static void menu_show_data_sensor_callback(void *ctx);
+
+menu_item_t Auto_Scan_Items[] = {
+    {auto_scan_on_label, MENU_ACTION, menu_auto_scan_enable_cb, NULL, NULL},
+    {auto_scan_off_label, MENU_ACTION, menu_auto_scan_disable_cb, NULL, NULL},
+};
+
+menu_list_t Auto_Scan_Menu = {
+    .items = Auto_Scan_Items,
+    .count = ARRAY_SIZE(Auto_Scan_Items),
+    .object = OBJECT_NONE,
+    .parent = NULL,
+    .port_index = -1,
+};
 
 /* -------------------- Dynamic arrays (per port + interface)
  * -------------------- */
@@ -39,6 +72,7 @@ static SelectionParam_t *SensorSelectionByIface[NUM_PORTS][NUM_INTERFACES] = {
 static menu_item_t *SensorItemsByIface[NUM_PORTS][NUM_INTERFACES] = {{NULL}};
 static char port_display_name[NUM_PORTS][PORT_DISPLAY_NAME_LEN];
 ShowDataSensorParam_t ShowDataSensorSelection[NUM_PORTS];
+static TaskHandle_t s_sensor_display_tasks[NUM_PORTS];
 
 /* -------------------- Menu: Sensors → Port 1/2 → UART/I2C/SPI/PULSE →
  * sensor list -------------------- */
@@ -51,19 +85,19 @@ menu_list_t PortMenus[NUM_PORTS];           /* Port 1, 2, 3 menu */
 
 menu_item_t Show_Data_Sensor[] = {{NULL,
                                    MENU_ACTION,
-                                   show_data_sensor_cb,
+                                   menu_show_data_sensor_callback,
                                    &ShowDataSensorSelection[PORT_1],
                                    NULL,
                                    {0}},
                                   {NULL,
                                    MENU_ACTION,
-                                   show_data_sensor_cb,
+                                   menu_show_data_sensor_callback,
                                    &ShowDataSensorSelection[PORT_2],
                                    NULL,
                                    {0}},
                                   {NULL,
                                    MENU_ACTION,
-                                   show_data_sensor_cb,
+                                   menu_show_data_sensor_callback,
                                    &ShowDataSensorSelection[PORT_3],
                                    NULL,
                                    {0}}};
@@ -75,12 +109,12 @@ menu_list_t Show_Data_Sensor_Menu = {
     .port_index = -1,
 };
 
-/* Sensor_Menu_Items: 5 entries = Port 1–3, Show data sensor, Reset All Ports
+/* Sensor_Menu_Items: 6 entries = Port 1–3, Auto Scan, Show data sensor, Reset All Ports
  * (filled in init) */
-static menu_item_t Sensor_Menu_Items[5];
+static menu_item_t Sensor_Menu_Items[6];
 menu_list_t Sensor_Menu = {
     .items = Sensor_Menu_Items,
-    .count = 5,
+    .count = 6,
     .parent = NULL,
     .port_index = -1,
 };
@@ -88,7 +122,7 @@ const image_t imageNULL = {0};
 
 // Submenu "WiFi Config" (standard STA Wi‑Fi)
 menu_item_t WiFi_Config_Items[] = {
-    {"OK", MENU_ACTION, wifi_config_callback, NULL, NULL},
+    {"OK", MENU_ACTION, menu_wifi_config_callback, NULL, NULL},
 };
 
 const image_t WiFi_Config_Image = {.image = imageManager,
@@ -124,7 +158,7 @@ const image_t WiFi_Mesh_Config_Image = {.image = imageManager,
                                         .img_index = MESH_PREVIEW_IMAGE};
 
 menu_item_t WiFi_MeshConfig_Items[] = {
-    {"OK", MENU_ACTION, wifi_mesh_join_as_node_callback, NULL, NULL},
+    {"OK", MENU_ACTION, menu_mesh_node_callback, NULL, NULL},
 };
 
 menu_list_t WiFi_Mesh_Config_Menu = {
@@ -183,21 +217,21 @@ menu_list_t Battery_Status_Menu = {
  * -------------------- */
 
 menu_item_t Actuator_IO1_Port1_Items[] = {
-    {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1,
+    {"ON", MENU_ACTION, menu_actuator_on_callback, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1,
      NULL},
-    {"OFF", MENU_ACTION, actuator_off_cb,
+    {"OFF", MENU_ACTION, menu_actuator_off_callback,
      (void *)(uintptr_t)PIN_ACTUATOR_IO1_P1, NULL},
 };
 menu_item_t Actuator_IO3_Port2_Items[] = {
-    {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2,
+    {"ON", MENU_ACTION, menu_actuator_on_callback, (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2,
      NULL},
-    {"OFF", MENU_ACTION, actuator_off_cb,
+    {"OFF", MENU_ACTION, menu_actuator_off_callback,
      (void *)(uintptr_t)PIN_ACTUATOR_IO3_P2, NULL},
 };
 menu_item_t Actuator_IO1_Port3_Items[] = {
-    {"ON", MENU_ACTION, actuator_on_cb, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3,
+    {"ON", MENU_ACTION, menu_actuator_on_callback, (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3,
      NULL},
-    {"OFF", MENU_ACTION, actuator_off_cb,
+    {"OFF", MENU_ACTION, menu_actuator_off_callback,
      (void *)(uintptr_t)PIN_ACTUATOR_IO1_P3, NULL},
 };
 
@@ -304,7 +338,8 @@ menu_item_t Root_Items[] = {
      Application_Image},
     {"Actuators", MENU_SUBMENU, NULL, NULL, &Actuators_Menu, Actuators},
     {"Battery", MENU_SUBMENU, NULL, NULL, &Battery_Status_Menu, Battery},
-    {"Information", MENU_ACTION, information_callback, NULL, NULL, Information},
+    {"Information", MENU_ACTION, menu_information_callback, NULL, NULL,
+     Information},
 };
 
 menu_list_t Root_Menu = {
@@ -330,6 +365,7 @@ __attribute__((constructor)) static void link_menus(void) {
   Actuator_IO3_Port2_Menu.parent = &Actuators_Menu;
   Actuator_IO1_Port3_Menu.parent = &Actuators_Menu;
   Show_Data_Sensor_Menu.parent = &Sensor_Menu;
+  Auto_Scan_Menu.parent = &Sensor_Menu;
   for (int p = 0; p < NUM_PORTS; p++) {
     PortMenus[p].parent = &Sensor_Menu;
     for (int i = 0; i < NUM_INTERFACES; i++) {
@@ -347,7 +383,7 @@ static void init_sensor_interface_port_menu_items(DataManager_t *data) {
   for (PortId_t port = PORT_1; port < NUM_PORTS; port++) {
     for (int i = 0; i < NUM_INTERFACES; i++) {
       TypeCommunication_t iface = MENU_INTERFACE_ORDER[i];
-      size_t count = sensor_registry_get_count_by_interface(iface);
+      size_t count = FunctionManager_GetSensorCountByInterface(iface);
 
       if (SensorSelectionByIface[port][i]) {
         free(SensorSelectionByIface[port][i]);
@@ -373,25 +409,30 @@ static void init_sensor_interface_port_menu_items(DataManager_t *data) {
       if (!SensorSelectionByIface[port][i] || !SensorItemsByIface[port][i]) {
         ESP_LOGE(TAG_MENU_SYSTEM, "Failed to allocate for port %d interface %d",
                  (int)port, i);
+        free(SensorSelectionByIface[port][i]);
+        free(SensorItemsByIface[port][i]);
+        SensorSelectionByIface[port][i] = NULL;
+        SensorItemsByIface[port][i] = NULL;
+        PortInterfaceMenus[port][i].items = NULL;
+        PortInterfaceMenus[port][i].count = 0;
         continue;
       }
 
       for (size_t k = 0; k < count; k++) {
-        SensorType_t sensor_type;
-        sensor_driver_t *driver =
-            sensor_registry_get_driver_at_interface(iface, k, &sensor_type);
-        if (!driver) {
+        sensor_descriptor_t descriptor = {0};
+        if (FunctionManager_GetSensorDescriptorAtInterface(
+                iface, k, &descriptor) != MRS_OK) {
           continue;
         }
         SensorSelectionByIface[port][i][k] = (SelectionParam_t){
             .data = data,
             .port = port,
-            .sensor = sensor_type,
+            .sensor = descriptor.type,
         };
         SensorItemsByIface[port][i][k] = (menu_item_t){
-            .name = driver->name,
+            .name = descriptor.name,
             .type = MENU_ACTION,
-            .callback = select_sensor_cb,
+            .callback = menu_select_sensor_callback,
             .ctx = &SensorSelectionByIface[port][i][k],
             .children = NULL,
         };
@@ -441,16 +482,23 @@ static void init_sensor_interface_port_menu_items(DataManager_t *data) {
       .children = &PortMenus[PORT_3],
   };
   Sensor_Menu_Items[3] = (menu_item_t){
+      .name = auto_scan_menu_label,
+      .type = MENU_SUBMENU,
+      .callback = NULL,
+      .ctx = NULL,
+      .children = &Auto_Scan_Menu,
+  };
+  Sensor_Menu_Items[4] = (menu_item_t){
       .name = "Show Data",
       .type = MENU_SUBMENU,
       .callback = NULL,
       .ctx = NULL,
       .children = &Show_Data_Sensor_Menu,
   };
-  Sensor_Menu_Items[4] = (menu_item_t){
+  Sensor_Menu_Items[5] = (menu_item_t){
       .name = "RS All Ports",
       .type = MENU_ACTION,
-      .callback = reset_all_ports_callback,
+      .callback = menu_reset_all_ports_callback,
       .ctx = NULL, /* Data assigned in MenuSystemInit */
       .children = NULL,
   };
@@ -475,7 +523,7 @@ static void update_port_names(DataManager_t *data) {
     } else {
       snprintf(port_display_name[i], PORT_DISPLAY_NAME_LEN, "Port %d - %s",
                i + 1,
-               sensor_type_to_name((SensorType_t)data->selectedSensor[i]));
+               FunctionManager_GetSensorName(data->selectedSensor[i]));
     }
     Sensor_Menu_Items[i].name = port_display_name[i];
   }
@@ -508,9 +556,12 @@ static void menu_on_ports_reset(DataManager_t *data) {
 }
 
 static void update_network_menu_names(void) {
-  internet_mode_t mode = InternetManager_GetMode();
-  bool wifi_active = mode == INTERNET_MODE_WIFI;
-  bool mesh_active = mode == INTERNET_MODE_MESH;
+  InternetManagerStatus_t status = {0};
+  system_err_t result = FunctionManager_GetNetworkStatus(&status);
+  bool wifi_active =
+      result == MRS_OK && status.mode == INTERNET_MODE_WIFI;
+  bool mesh_active =
+      result == MRS_OK && status.mode == INTERNET_MODE_MESH;
 
   snprintf(wifi_manager_label, sizeof(wifi_manager_label), "Wifi %s",
            wifi_active ? "(v)" : "");
@@ -518,6 +569,200 @@ static void update_network_menu_names(void) {
            mesh_active ? "(v)" : "");
   WiFi_Mode_Items[0].name = wifi_manager_label;
   WiFi_Mode_Items[1].name = mesh_manager_label;
+}
+
+static void update_auto_scan_menu_names(void) {
+  bool enabled = FunctionManager_IsAutoScanEnabled();
+  snprintf(auto_scan_menu_label, sizeof(auto_scan_menu_label), "Auto Scan %s",
+           enabled ? "(v)" : "");
+  snprintf(auto_scan_on_label, sizeof(auto_scan_on_label), "Turn ON %s",
+           enabled ? "(v)" : "");
+  snprintf(auto_scan_off_label, sizeof(auto_scan_off_label), "Turn OFF %s",
+           !enabled ? "(v)" : "");
+  Sensor_Menu_Items[3].name = auto_scan_menu_label;
+  Auto_Scan_Items[0].name = auto_scan_on_label;
+  Auto_Scan_Items[1].name = auto_scan_off_label;
+}
+
+static void show_operation_error(system_err_t error) {
+  if (error == MRS_OK) {
+    return;
+  }
+  ESP_LOGW(TAG_MENU_SYSTEM, "Operation failed: %s",
+           system_err_to_name(error));
+  (void)ScreenShowMessage(MESSAGE_SENSOR_NOT_INITIALIZED);
+}
+
+static void menu_wifi_config_callback(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) {
+    return;
+  }
+  system_err_t result = FunctionManager_RequestWifiConfiguration();
+  if (result != MRS_OK) {
+    show_operation_error(result);
+    return;
+  }
+  data->screen.is_menu_active = false;
+}
+
+static void menu_mesh_node_callback(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) {
+    return;
+  }
+  system_err_t result =
+      FunctionManager_RequestMeshRole(MESH_ROLE_NODE);
+  if (result != MRS_OK) {
+    show_operation_error(result);
+    return;
+  }
+  data->screen.is_menu_active = false;
+  data->screen.is_dashboard_active = true;
+}
+
+static void menu_information_callback(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) {
+    return;
+  }
+  static const char *lines[] = {
+      "MSMS Project",
+      "Multi-sensor module",
+      "Multi-interface sensors",
+      "Author: MrKoi",
+  };
+  data->screen.is_menu_active = false;
+  (void)ScreenShowInformation(lines, ARRAY_SIZE(lines));
+  vTaskDelay(pdMS_TO_TICKS(4000));
+  data->screen.is_menu_active = true;
+}
+
+static void menu_battery_status_callback(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) {
+    return;
+  }
+  show_operation_error(FunctionManager_RefreshBatteryInfo());
+  data->screen.is_menu_active = true;
+}
+
+static void menu_actuator_set(void *ctx, bool enabled) {
+  int gpio_num = (int)(uintptr_t)ctx;
+  show_operation_error(
+      FunctionManager_SetActuator(gpio_num, enabled));
+}
+
+static void menu_actuator_on_callback(void *ctx) {
+  menu_actuator_set(ctx, true);
+}
+
+static void menu_actuator_off_callback(void *ctx) {
+  menu_actuator_set(ctx, false);
+}
+
+static void menu_select_sensor_callback(void *ctx) {
+  SelectionParam_t *parameter = (SelectionParam_t *)ctx;
+  if (parameter == NULL || parameter->data == NULL) {
+    return;
+  }
+  system_err_t result = FunctionManager_AssignSensor(parameter->port,
+                                                     parameter->sensor);
+  if (result != MRS_OK) {
+    parameter->data->screen.is_menu_active = false;
+    show_operation_error(result);
+    vTaskDelay(pdMS_TO_TICKS(1000));
+    parameter->data->screen.is_menu_active = true;
+  }
+}
+
+static void menu_reset_all_ports_callback(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) {
+    return;
+  }
+  for (PortId_t port_id = PORT_1; port_id < NUM_PORTS; port_id++) {
+    ShowDataSensorSelection[port_id].ShowDataScreen = false;
+  }
+  show_operation_error(FunctionManager_ResetAllSensorPorts());
+  update_port_names(data);
+  data->screen.is_menu_active = true;
+}
+
+static void menu_sensor_display_task(void *parameter) {
+  ShowDataSensorParam_t *selection = (ShowDataSensorParam_t *)parameter;
+  PortId_t port_id = selection->port;
+
+  while (selection->ShowDataScreen) {
+    SensorType_t type = SENSOR_NONE;
+    SensorData_t snapshot = {0};
+    system_err_t result = FunctionManager_GetSensorSnapshot(
+        port_id, &type, &snapshot);
+    sensor_descriptor_t descriptor = {0};
+    if (result == MRS_OK &&
+        FunctionManager_GetSensorDescriptor(type, &descriptor) == MRS_OK) {
+      selection->data->screen.is_menu_active = false;
+      (void)ScreenShowDataSensor(descriptor.description, snapshot.data_fl,
+                                 descriptor.unit, descriptor.unit_count);
+    }
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+
+  s_sensor_display_tasks[port_id] = NULL;
+  vTaskDelete(NULL);
+}
+
+static void menu_show_data_sensor_callback(void *ctx) {
+  ShowDataSensorParam_t *selection = (ShowDataSensorParam_t *)ctx;
+  if (selection == NULL || selection->data == NULL ||
+      selection->port < PORT_1 || selection->port >= NUM_PORTS) {
+    return;
+  }
+  selection->ShowDataScreen = true;
+  if (s_sensor_display_tasks[selection->port] == NULL) {
+    if (xTaskCreate(menu_sensor_display_task, "sensor_display", 4096,
+                    selection, 5,
+                    &s_sensor_display_tasks[selection->port]) != pdPASS) {
+      selection->ShowDataScreen = false;
+      show_operation_error(MRS_ERR_FUNCTIONMANAGER_TASK_FAILED);
+    }
+  }
+}
+
+static void menu_auto_scan_enable_cb(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) return;
+
+  if (!FunctionManager_IsSensorScanAllowed()) {
+    const char *root_lines[] = {
+        "   AUTO SCAN    ",
+        "----------------",
+        "   ROOT NODE    ",
+        " Scan Disabled! ",
+    };
+    ScreenManager_SetSuspended(true);
+    ScreenShowInformation(root_lines, 4);
+    vTaskDelay(pdMS_TO_TICKS(1800));
+    ScreenManager_SetSuspended(false);
+    data->screen.is_menu_active = true;
+    return;
+  }
+
+  FunctionManager_SetAutoScanEnabled(true);
+  FunctionManager_TriggerSensorScan();
+  data->objectInfo.auto_scan_enabled = true;
+  update_auto_scan_menu_names();
+  data->screen.is_menu_active = true;
+}
+
+static void menu_auto_scan_disable_cb(void *ctx) {
+  DataManager_t *data = (DataManager_t *)ctx;
+  if (data == NULL) return;
+
+  FunctionManager_SetAutoScanEnabled(false);
+  data->objectInfo.auto_scan_enabled = false;
+  update_auto_scan_menu_names();
+  data->screen.is_menu_active = true;
 }
 
 /**
@@ -534,11 +779,6 @@ void MenuSystemInit(DataManager_t *data) {
   Data->MenuReturn[0] = &WiFi_Config_Menu;
   Data->MenuReturn[1] = &Battery_Status_Menu;
   Data->MenuReturn[2] = &WiFi_Mesh_Config_Menu;
-  // Init selectedSensor
-  for (int i = 0; i < NUM_PORTS; ++i) {
-    Data->selectedSensor[i] = SENSOR_NONE;
-  }
-
   init_sensor_interface_port_menu_items(Data);
   init_show_data_sensor_selection(Data);
 
@@ -550,16 +790,19 @@ void MenuSystemInit(DataManager_t *data) {
   WiFi_MeshConfig_Items[0].ctx = Data; /* Join as Root */
   WiFi_Mode_Items[1].ctx = Data;       /* Join WiFi Mesh submenu */
   Battery_Status_Items[0].ctx = Data;
-  Sensor_Menu_Items[3].ctx = Data; /* Show data sensor */
-  Sensor_Menu_Items[4].ctx = Data; /* Reset All Ports */
+  Auto_Scan_Items[0].ctx = Data;
+  Auto_Scan_Items[1].ctx = Data;
+  Sensor_Menu_Items[4].ctx = Data; /* Show data sensor */
+  Sensor_Menu_Items[5].ctx = Data; /* Reset All Ports */
 
   update_port_names(Data); /* default "Port 1", "Port 2", "Port 3" */
   update_network_menu_names();
+  update_auto_scan_menu_names();
   Data->on_sensor_selected = menu_on_sensor_selected;
   Data->on_ports_reset = menu_on_ports_reset;
 
   // Battery Status item callback in root menu (now index 4)
-  Root_Items[4].callback = battery_status_callback;
+  Root_Items[4].callback = menu_battery_status_callback;
   Root_Items[4].ctx = Data;
   // Information callback needs Data to redraw menu after info screen (now index
   // 5)
@@ -578,7 +821,7 @@ void MenuNavigation_Task(void *pvParameter) {
   data->screen.prev_selected = 0;
   for (int p = 0; p < NUM_PORTS; p++) {
     data->objectInfo.selectedSensorName[p] =
-        sensor_type_to_name(data->selectedSensor[p]);
+        FunctionManager_GetSensorName(data->selectedSensor[p]);
   }
   data->screen.is_menu_active = true;
 
@@ -586,9 +829,12 @@ void MenuNavigation_Task(void *pvParameter) {
 
   while (1) {
     update_network_menu_names();
+    update_auto_scan_menu_names();
+    data->objectInfo.auto_scan_enabled =
+        FunctionManager_IsAutoScanEnabled();
     for (int p = 0; p < NUM_PORTS; p++) {
       data->objectInfo.selectedSensorName[p] =
-          sensor_type_to_name(data->selectedSensor[p]);
+          FunctionManager_GetSensorName(data->selectedSensor[p]);
     }
 
     button_type_t btn = ReadButtonStatus();
@@ -620,6 +866,9 @@ void MenuNavigation_Task(void *pvParameter) {
         data->screen.selected = 0;
         data->screen.is_menu_active = false;
         data->screen.is_dashboard_active = true;
+        for (int port_id = 0; port_id < NUM_PORTS; port_id++) {
+          ShowDataSensorSelection[port_id].ShowDataScreen = false;
+        }
       }
     }
 
@@ -709,6 +958,9 @@ void MenuNavigation_Task(void *pvParameter) {
           // At root menu, return to dashboard
           data->screen.is_menu_active = false;
           data->screen.is_dashboard_active = true;
+          for (int port_id = 0; port_id < NUM_PORTS; port_id++) {
+            ShowDataSensorSelection[port_id].ShowDataScreen = false;
+          }
         }
       }
       break;

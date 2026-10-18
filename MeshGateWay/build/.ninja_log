@@ -2864,3 +2864,50 @@
 74877	74981	8118826350023617	D:/Engineering Project/MeshGateWay/build/esp-idf/esptool_py/CMakeFiles/app_check_size	5bcdde238f9d72cb
 74981	97796	8118826351057708	CMakeFiles/flash	26cdc0e04ab35882
 74981	97796	8118826351057708	D:/Engineering Project/MeshGateWay/build/CMakeFiles/flash	26cdc0e04ab35882
+272	417	8138627650460097	CMakeFiles/spiffs_spiffs_bin	340229c4d0366199
+272	417	8138627650460097	D:/Engineering Project/MeshGateWay/build/CMakeFiles/spiffs_spiffs_bin	340229c4d0366199
+256	530	8138627650300211	bootloader-prefix/src/bootloader-stamp/bootloader-build	556b138522bca71e
+256	530	8138627650300211	bootloader/bootloader.elf	556b138522bca71e
+256	530	8138627650300211	bootloader/bootloader.bin	556b138522bca71e
+256	530	8138627650300211	bootloader/bootloader.map	556b138522bca71e
+256	530	8138627650300211	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	556b138522bca71e
+256	530	8138627650300211	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.elf	556b138522bca71e
+256	530	8138627650300211	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin	556b138522bca71e
+256	530	8138627650300211	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.map	556b138522bca71e
+532	588	8138627653059956	bootloader-prefix/src/bootloader-stamp/bootloader-install	b8b4f806a669686d
+532	588	8138627653059956	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-install	b8b4f806a669686d
+588	684	8138627654519131	CMakeFiles/bootloader-complete	ac1aa60f70681486
+588	684	8138627654519131	bootloader-prefix/src/bootloader-stamp/bootloader-done	ac1aa60f70681486
+588	684	8138627654519131	D:/Engineering Project/MeshGateWay/build/CMakeFiles/bootloader-complete	ac1aa60f70681486
+588	684	8138627654519131	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-done	ac1aa60f70681486
+224	1782	8138627650000369	esp-idf/WifiManager/CMakeFiles/__idf_WifiManager.dir/wifi_manager_core.c.obj	945db7cd1bfeb5e9
+1782	1958	8138627665557625	esp-idf/WifiManager/libWifiManager.a	d986b81694d70fd4
+246	2489	8138627650200448	esp-idf/ScreenManager/CMakeFiles/__idf_ScreenManager.dir/ScreenManager.c.obj	f5d3037535c787af
+236	2739	8138627650100464	esp-idf/WebSocKetHandle/CMakeFiles/__idf_WebSocKetHandle.dir/WSHandle.c.obj	9905cd73ade19ab0
+182	441	8138627733654273	esp-idf/WebSocKetHandle/libWebSocKetHandle.a	dd86ac42feb6a248
+210	464	8138627733937544	CMakeFiles/spiffs_spiffs_bin	340229c4d0366199
+210	464	8138627733937544	D:/Engineering Project/MeshGateWay/build/CMakeFiles/spiffs_spiffs_bin	340229c4d0366199
+198	537	8138627733807631	bootloader-prefix/src/bootloader-stamp/bootloader-build	556b138522bca71e
+198	537	8138627733807631	bootloader/bootloader.elf	556b138522bca71e
+198	537	8138627733807631	bootloader/bootloader.bin	556b138522bca71e
+198	537	8138627733807631	bootloader/bootloader.map	556b138522bca71e
+198	537	8138627733807631	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-build	556b138522bca71e
+198	537	8138627733807631	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.elf	556b138522bca71e
+198	537	8138627733807631	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.bin	556b138522bca71e
+198	537	8138627733807631	D:/Engineering Project/MeshGateWay/build/bootloader/bootloader.map	556b138522bca71e
+441	557	8138627736240373	esp-idf/ScreenManager/libScreenManager.a	44bc359bac787852
+538	587	8138627737210697	bootloader-prefix/src/bootloader-stamp/bootloader-install	b8b4f806a669686d
+538	587	8138627737210697	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-install	b8b4f806a669686d
+587	686	8138627738594239	CMakeFiles/bootloader-complete	ac1aa60f70681486
+587	686	8138627738594239	bootloader-prefix/src/bootloader-stamp/bootloader-done	ac1aa60f70681486
+587	686	8138627738594239	D:/Engineering Project/MeshGateWay/build/CMakeFiles/bootloader-complete	ac1aa60f70681486
+587	686	8138627738594239	D:/Engineering Project/MeshGateWay/build/bootloader-prefix/src/bootloader-stamp/bootloader-done	ac1aa60f70681486
+558	19559	8138627926835387	esp-idf/esp_system/ld/sections.ld	c800a986784be34c
+558	19559	8138627926835387	D:/Engineering Project/MeshGateWay/build/esp-idf/esp_system/ld/sections.ld	c800a986784be34c
+19559	29347	8138627927428339	MeshGateWay.elf	bae9fb4f5d1b343e
+29347	29828	8138628030039967	.bin_timestamp	667ffbe07ed3e7f5
+29347	29828	8138628030039967	D:/Engineering Project/MeshGateWay/build/.bin_timestamp	667ffbe07ed3e7f5
+29828	29935	8138628030118823	esp-idf/esptool_py/CMakeFiles/app_check_size	5bcdde238f9d72cb
+29828	29935	8138628030118823	D:/Engineering Project/MeshGateWay/build/esp-idf/esptool_py/CMakeFiles/app_check_size	5bcdde238f9d72cb
+29935	52759	8138628031187211	CMakeFiles/flash	26cdc0e04ab35882
+29935	52759	8138628031187211	D:/Engineering Project/MeshGateWay/build/CMakeFiles/flash	26cdc0e04ab35882

@@ -621,11 +621,166 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 app.get("/api/nodes", async (req, res) => {
   try {
-    const nodeSnapshot = await store.getNodeSnapshot();
+    const nodeSnapshot = await store.getNodeSnapshot(req.query.gw_id);
     res.json(nodeSnapshot);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+/**
+ * @swagger
+ * /api/nodes:
+ *   delete:
+ *     summary: Delete one or multiple nodes by MAC/IP
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               macs:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ */
+app.delete("/api/nodes", async (req, res) => {
+  try {
+    const macs = Array.isArray(req.body.macs) ? req.body.macs : (req.body.mac ? [req.body.mac] : []);
+    if (macs.length === 0) {
+      return res.status(400).json({ error: "macs array or mac string required" });
+    }
+    const count = await store.deleteNodes(macs);
+    broadcast({ type: "nodes_deleted", macs });
+    res.json({ success: true, deleted: count, macs });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/nodes/meta", async (req, res) => {
+  try {
+    const list = typeof store.getNodesMeta === "function" ? await store.getNodesMeta() : [];
+    res.json({ nodesMeta: list });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put("/api/nodes/:mac/meta", async (req, res) => {
+  try {
+    const { mac } = req.params;
+    const { name, location, latitude, longitude, notes } = req.body;
+    if (typeof store.updateNodeMeta !== "function") {
+      return res.status(500).json({ error: "Store does not support updateNodeMeta" });
+    }
+    const updated = await store.updateNodeMeta(mac, { name, location, latitude, longitude, notes });
+    broadcast({ type: "node_meta_updated", mac, meta: updated });
+    res.json({ success: true, node: updated });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/api/nodes/:mac/meta", async (req, res) => {
+  try {
+    const { mac } = req.params;
+    const { name, location, latitude, longitude, notes } = req.body;
+    if (typeof store.updateNodeMeta !== "function") {
+      return res.status(500).json({ error: "Store does not support updateNodeMeta" });
+    }
+    const updated = await store.updateNodeMeta(mac, { name, location, latitude, longitude, notes });
+    broadcast({ type: "node_meta_updated", mac, meta: updated });
+    res.json({ success: true, node: updated });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+/**
+ * @swagger
+ * /api/gateways:
+ *   get:
+ *     summary: Retrieve list of all registered Gateways and their status
+ *     description: Returns all gateways, locations, assigned mesh networks, and active node counts.
+ *     responses:
+ *       200:
+ *         description: List of gateways
+ *   put:
+ *     summary: Update Gateway metadata (name, location, notes)
+ */
+app.get("/api/gateways", async (req, res) => {
+  try {
+    const gateways = await store.getGateways();
+    res.json({ gateways });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put("/api/gateways/:gwId", async (req, res) => {
+  try {
+    const updated = await store.updateGatewayMeta(req.params.gwId, req.body || {});
+    const gateways = await store.getGateways();
+    broadcast({ type: "gateways_update", gateways });
+    res.json({ success: true, gateway: updated, gateways });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/gateways:
+ *   delete:
+ *     summary: Delete one or multiple gateways by gw_id
+ */
+app.delete("/api/gateways", async (req, res) => {
+  try {
+    const gwIds = Array.isArray(req.body.gw_ids) ? req.body.gw_ids : (req.body.gw_id ? [req.body.gw_id] : []);
+    if (gwIds.length === 0) {
+      return res.status(400).json({ error: "gw_ids array or gw_id required" });
+    }
+    const count = await store.deleteGateways(gwIds);
+    broadcast({ type: "gateways_deleted", gw_ids: gwIds });
+    res.json({ success: true, deleted: count, gw_ids: gwIds });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete("/api/gateways/:gwId", async (req, res) => {
+  try {
+    const gwId = req.params.gwId;
+    const count = await store.deleteGateway(gwId);
+    broadcast({ type: "gateways_deleted", gw_ids: [gwId] });
+    res.json({ success: true, deleted: count, gw_id: gwId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Mesh Simulator Endpoints ---
+const {
+  startEmbeddedSimulator,
+  stopEmbeddedSimulator,
+  getSimulatorStatus,
+} = require("./mesh-simulator");
+
+app.get("/api/simulator/status", (req, res) => {
+  res.json(getSimulatorStatus());
+});
+
+app.post("/api/simulator/start", (req, res) => {
+  const started = startEmbeddedSimulator(store, broadcast);
+  res.json({ success: true, started, status: getSimulatorStatus() });
+});
+
+app.post("/api/simulator/stop", (req, res) => {
+  const stopped = stopEmbeddedSimulator();
+  res.json({ success: true, stopped, status: getSimulatorStatus() });
 });
 
 /**
@@ -963,12 +1118,18 @@ wss.on("connection", async (ws, req) => {
 
   // Only send welcome if socket is still open
   if (ws.readyState === 1) {
+    let gateways = [];
+    try {
+      gateways = await store.getGateways();
+    } catch (e) {}
+
     ws.send(
       JSON.stringify({
         type: "welcome",
         t: Date.now(),
         message: "Dashboard WS server",
         serverNet,
+        gateways,
       })
     );
   }

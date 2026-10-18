@@ -2,9 +2,6 @@
 #define __SENSOR_CONFIG_H__
 
 #include "SensorTypes.h"
-#include "bme280.h"
-#include "esp_log.h"
-#include "pms7003.h"
 #include "ErrorCodes.h"
 
 /* -------------------- Sensor Config Functions -------------------- */

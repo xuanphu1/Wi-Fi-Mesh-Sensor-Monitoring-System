@@ -12,8 +12,8 @@ sudo systemctl stop msems-web.service
 sudo systemctl stop homelab.service
 
 sudo systemctl status msems-web.service
-sudo systemctl status msems-backend.service
-sudo systemctl status homelab.service
+sudo systemctl status msms-frontend.service
+sudo systemctl status msms-backend.service
 sudo systemctl status cloudflared
 
 msems-backend.service

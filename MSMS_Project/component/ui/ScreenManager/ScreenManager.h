@@ -87,8 +87,9 @@ system_err_t ScreenShowInformation(const char **lines, size_t n_lines);
  *
  * @return MRS_OK or display error.
  */
-system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
-                                  const char **units, size_t count);
+system_err_t ScreenShowDataSensor(const char *const *field_names,
+                                  const float *values,
+                                  const char *const *units, size_t count);
 
 /**
  * @brief Move to the next data field when displaying sensor data.
@@ -125,6 +126,8 @@ system_err_t ScreenShowOtaProgress(const char *status, uint8_t percent,
  */
 void ScreenManager_SetSuspended(bool suspended);
 bool ScreenManager_IsSuspended(void);
+bool ScreenManager_Lock(TickType_t timeout_ticks);
+void ScreenManager_Unlock(void);
 
 #ifdef __cplusplus
 }

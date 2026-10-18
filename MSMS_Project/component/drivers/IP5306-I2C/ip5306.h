@@ -6,6 +6,7 @@
 #include "esp_err.h"
 #include "driver/gpio.h"
 #include "i2cdev.h"
+#include "PinManager.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,7 +19,7 @@ extern "C" {
 #define IP5306_DEFAULT_SDA_PIN      GPIO_NUM_21
 #define IP5306_DEFAULT_SCL_PIN      GPIO_NUM_22
 #define IP5306_DEFAULT_I2C_PORT     I2C_NUM_0
-#define IP5306_DEFAULT_I2C_FREQ_HZ  100000
+#define IP5306_DEFAULT_I2C_FREQ_HZ  PIN_I2C_CLK_HZ
 
 // Registers
 #define IP5306_REG_SYS_CTL0         0x00

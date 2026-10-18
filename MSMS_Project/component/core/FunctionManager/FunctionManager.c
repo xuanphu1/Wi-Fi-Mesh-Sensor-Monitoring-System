@@ -1,446 +1,318 @@
 #include "FunctionManager.h"
+
 #include "BatteryManager.h"
-#include "DataManager.h"
-#include "InternetManager.h"
 #include "MeshManager.h"
-#include "ScreenManager.h"
-#include "SensorConfig.h"
+#include "SensorManager.h"
 #include "SensorRegistry.h"
-#include "WifiManager.h"
+#include "SensorScanner.h"
 #include "UartToGateWay.h"
+#include "WifiManager.h"
 #include "driver/gpio.h"
-#include "freertos/idf_additions.h"
-#include <stdbool.h>
-#include <stdint.h>
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include <stdlib.h>
 
-static PortId_t PortSelected[NUM_PORTS] = {PORT_NONE, PORT_NONE, PORT_NONE};
-static const char *port_name[NUM_PORTS] = {"Port 1", "Port 2", "Port 3"};
-static TaskHandle_t readDataSensorTaskHandle[NUM_PORTS];
+#define TAG "FunctionManager"
 
-static void FunctionManager_ReturnMainScreen(DataManager_t *data) {
-  if (data == NULL) {
-    return;
+typedef struct {
+  mesh_role_t role;
+} mesh_role_task_arg_t;
+
+static DataManager_t *s_data;
+static bool s_initialized;
+
+static void push_error(system_err_t error) {
+  if (s_data != NULL && error != MRS_OK) {
+    ErrorCodes_PushError(s_data->error_code, DATA_MANAGER_ERROR_CAPACITY,
+                         error);
   }
-
-  if (data->screen.current != NULL) {
-    menu_list_t *root = data->screen.current;
-    while (root->parent != NULL) {
-      root = root->parent;
-    }
-    data->screen.current = root;
-  }
-
-  data->screen.selected = 0;
-  data->screen.prev_selected = 0;
-  data->screen.dashboard_page = 0;
-  data->screen.is_menu_active = false;
-  data->screen.is_dashboard_active = true;
 }
 
-static void FunctionManager_UpdateWifiInfo(DataManager_t *data) {
-  if (data == NULL) {
+static void update_wifi_status(void) {
+  if (s_data == NULL) {
     return;
   }
+  s_data->objectInfo.wifiInfo.wifiStatus =
+      is_wifi_connected() ? CONNECTED : DISCONNECTED;
+}
 
-  if (is_wifi_connected()) {
-    data->objectInfo.wifiInfo.wifiStatus = CONNECTED;
-  } else if (is_wifi_connecting()) {
-    data->objectInfo.wifiInfo.wifiStatus = DISCONNECTED;
+static void wifi_configuration_task(void *parameter) {
+  (void)parameter;
+  system_err_t result =
+      InternetManager_SwitchMode(s_data, INTERNET_MODE_WIFI);
+  if (result != MRS_OK) {
+    push_error(result);
+    ESP_LOGE(TAG, "Wi-Fi mode switch failed: %s",
+             system_err_to_name(result));
   } else {
-    data->objectInfo.wifiInfo.wifiStatus = DISCONNECTED;
-  }
-}
-
-void wifi_config_task(void *pvParameters) {
-  DataManager_t *data = (DataManager_t *)pvParameters;
-  system_err_t ret = InternetManager_Init(data, INTERNET_MODE_WIFI);
-  if (ret != MRS_OK) {
-    ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY, ret);
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Failed to initialize WiFi AP: %s",
-             system_err_to_name(ret));
-  }
-
-  if (data->objectInfo.wifiInfo.wifiStatus == CONNECTED) {
-    data->objectInfo.wifiInfo.wifiStatus = DISCONNECTED;
-    ESP_LOGI(TAG_FUNCTION_MANAGER, "WiFi Config callback triggered");
-  }
-
-  data->screen.is_menu_active = false;
-  while (1) {
-    ScreenWifiConnecting(data);
-    FunctionManager_UpdateWifiInfo(data);
-
-    if (data->objectInfo.wifiInfo.wifiStatus == CONNECTED) {
-      data->screen.is_menu_active = true;
-      vTaskDelete(NULL);
+    for (;;) {
+      update_wifi_status();
+      if (s_data->objectInfo.wifiInfo.wifiStatus == CONNECTED) {
+        break;
+      }
+      vTaskDelay(pdMS_TO_TICKS(1000));
     }
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-}
-
-void wifi_config_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "WiFi Config callback triggered");
-  xTaskCreate(wifi_config_task, "wifi_connect_task", 4096, data, 5, NULL);
-}
-
-/**
- * @brief FreeRTOS task: clean network state, start mesh (root or child), poll
- * until connected.
- *
- * @param pvParameters Heap-allocated MeshJoinTaskArg_t (freed before task
- * self-delete).
- */
-static void wifi_mesh_join_task(void *pvParameters) {
-  MeshJoinTaskArg_t *arg = (MeshJoinTaskArg_t *)pvParameters;
-  DataManager_t *data = arg->data;
-  bool as_root = arg->as_root;
-  free(arg);
-
-  system_err_t ret = InternetManager_SwitchMode(data, INTERNET_MODE_MESH);
-  if (ret != MRS_OK) {
-    ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY, ret);
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh mode switch failed: %s",
-             system_err_to_name(ret));
-    vTaskDelete(NULL);
-    return;
   }
 
-  if (!MeshManager_SwitchRole(as_root ? MESH_ROLE_ROOT : MESH_ROLE_NODE)) {
-    ErrorCodes_PushError(data->error_code, DATA_MANAGER_ERROR_CAPACITY,
-                         MRS_ERR_MESHMANAGER_INIT_FAILED);
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh role switch failed");
-  } else {
-    FunctionManager_ReturnMainScreen(data);
-  }
+  s_data->TaskHandle_Array[TASK_WIFI_CONFIG] = NULL;
   vTaskDelete(NULL);
 }
 
-void wifi_mesh_join_as_root_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  if (data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "Mesh join: Data is NULL");
-    return;
+static void mesh_role_task(void *parameter) {
+  mesh_role_task_arg_t *argument = (mesh_role_task_arg_t *)parameter;
+  mesh_role_t role = argument->role;
+  free(argument);
+
+  system_err_t result =
+      InternetManager_SwitchMode(s_data, INTERNET_MODE_MESH);
+  if (result == MRS_OK && !MeshManager_SwitchRole(role)) {
+    result = MRS_ERR_MESHMANAGER_INIT_FAILED;
   }
-  MeshJoinTaskArg_t *arg = (MeshJoinTaskArg_t *)malloc(sizeof(*arg));
-  if (arg == NULL) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh join: malloc failed");
-    return;
+  if (result != MRS_OK) {
+    push_error(result);
+    ESP_LOGE(TAG, "Mesh role request failed: %s",
+             system_err_to_name(result));
   }
-  arg->data = data;
-  arg->as_root = true;
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Join WiFi Mesh (root)");
-  if (xTaskCreate(wifi_mesh_join_task, "wifi_mesh_join_task", 4096, arg, 5,
-                  NULL) != pdPASS) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh join: xTaskCreate failed");
-    free(arg);
-  }
+
+  s_data->TaskHandle_Array[TASK_WIFI_MESH_JOIN] = NULL;
+  vTaskDelete(NULL);
 }
 
-void wifi_mesh_join_as_node_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  if (data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "Mesh join: Data is NULL");
-    return;
-  }
-  MeshJoinTaskArg_t *arg = (MeshJoinTaskArg_t *)malloc(sizeof(*arg));
-  if (arg == NULL) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh join: malloc failed");
-    return;
-  }
-  arg->data = data;
-  arg->as_root = false;
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Join WiFi Mesh (node)");
-  if (xTaskCreate(wifi_mesh_join_task, "wifi_mesh_join_task", 4096, arg, 5,
-                  NULL) != pdPASS) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Mesh join: xTaskCreate failed");
-    free(arg);
-  }
+static system_err_t uart_role_request(mesh_role_t role, void *context) {
+  (void)context;
+  return FunctionManager_RequestMeshRole(role);
 }
 
-/* -------------------- Actuators (GPIO output) -------------------- */
+system_err_t FunctionManager_Init(DataManager_t *data) {
+  if (data == NULL) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  if (s_data != NULL) {
+    if (s_data != data) {
+      return MRS_ERR_CORE_ALREADY_INIT;
+    }
+    return s_initialized ? MRS_OK : MRS_ERR_CORE_INVALID_STATE;
+  }
+  s_data = data;
 
-/**
- * @brief Configure GPIO as output and set level (actuator menu items).
- *
- * @param ctx GPIO number as (void *)(uintptr_t).
- * @param level 0 = off, non‑zero = on.
- */
-static void actuator_set_level(void *ctx, int level) {
-  int gpio_num = (int)(uintptr_t)ctx;
-  gpio_config_t io = {
-      .pin_bit_mask = (1ULL << gpio_num),
+  UartToGateWay_SetRoleRequestHandler(uart_role_request, NULL);
+  system_err_t result = UartToGateWay_Init(data);
+  if (result != MRS_OK) {
+    s_data = NULL;
+    return result;
+  }
+
+  result = SensorManager_Init(data);
+  if (result != MRS_OK) {
+    s_data = NULL;
+    return result;
+  }
+  SensorManager_SetUartHooks(UartToGateWay_Pause, UartToGateWay_Resume);
+
+  result = SensorManager_Start();
+  if (result != MRS_OK) {
+    push_error(result);
+    return result;
+  }
+
+  esp_err_t scanner_result = SensorScanner_Init(data);
+  if (scanner_result != ESP_OK) {
+    result = (system_err_t)scanner_result;
+    push_error(result);
+    return result;
+  }
+  scanner_result = SensorScanner_StartTask(data);
+  if (scanner_result != ESP_OK) {
+    result = MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    push_error(result);
+    return result;
+  }
+  s_initialized = true;
+  return MRS_OK;
+}
+
+void FunctionManager_SetSensorBusGuard(
+    function_manager_bus_lock_fn lock_fn,
+    function_manager_bus_unlock_fn unlock_fn, void *context) {
+  SensorManager_SetBusGuard(lock_fn, unlock_fn, context);
+}
+
+system_err_t FunctionManager_AssignSensor(PortId_t port,
+                                          SensorType_t sensor_type) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
+  }
+  system_err_t result = SensorManager_AssignSensor(port, sensor_type);
+  if (result != MRS_OK) {
+    push_error(result);
+    return result;
+  }
+  if (s_data->on_sensor_selected != NULL) {
+    s_data->on_sensor_selected(s_data, port);
+  }
+  return MRS_OK;
+}
+
+system_err_t FunctionManager_ResetAllSensorPorts(void) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
+  }
+  system_err_t result = SensorManager_ResetAll();
+  if (result != MRS_OK) {
+    push_error(result);
+    return result;
+  }
+  if (s_data->on_ports_reset != NULL) {
+    s_data->on_ports_reset(s_data);
+  }
+  return MRS_OK;
+}
+
+system_err_t FunctionManager_GetSensorSnapshot(PortId_t port,
+                                               SensorType_t *out_sensor_type,
+                                               SensorData_t *out_data) {
+  return SensorManager_GetSnapshot(port, out_sensor_type, out_data);
+}
+
+system_err_t FunctionManager_GetSensorDescriptor(
+    SensorType_t sensor_type, sensor_descriptor_t *out_descriptor) {
+  if (out_descriptor == NULL) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  return sensor_registry_get_descriptor(sensor_type, out_descriptor)
+             ? MRS_OK
+             : MRS_ERR_SENSORS_NOT_FOUND;
+}
+
+const char *FunctionManager_GetSensorName(SensorType_t sensor_type) {
+  return sensor_type_to_name(sensor_type);
+}
+
+size_t FunctionManager_GetSensorCountByInterface(
+    TypeCommunication_t interface) {
+  return sensor_registry_get_count_by_interface(interface);
+}
+
+system_err_t FunctionManager_GetSensorDescriptorAtInterface(
+    TypeCommunication_t interface, size_t index,
+    sensor_descriptor_t *out_descriptor) {
+  if (out_descriptor == NULL) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  return sensor_registry_get_descriptor_at_interface(interface, index,
+                                                     out_descriptor)
+             ? MRS_OK
+             : MRS_ERR_SENSORS_NOT_FOUND;
+}
+
+system_err_t FunctionManager_ScanAndAssignSensors(
+    function_sensor_scan_result_t *out_result) {
+  if (s_data == NULL || out_result == NULL) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  out_result->detected_count = 0;
+  out_result->assigned_count = 0;
+  if (!SensorScanner_IsAllowed()) {
+    return MRS_ERR_CORE_INVALID_STATE;
+  }
+
+  int detected = SensorScanner_Scan(s_data, out_result->detected, NUM_PORTS);
+  if (detected < 0) {
+    return MRS_FAIL;
+  }
+  out_result->detected_count = (size_t)detected;
+  out_result->assigned_count = (size_t)SensorScanner_AutoAssign(
+      s_data, out_result->detected, out_result->detected_count);
+  return MRS_OK;
+}
+
+bool FunctionManager_IsSensorScanAllowed(void) {
+  return SensorScanner_IsAllowed();
+}
+
+void FunctionManager_SetAutoScanEnabled(bool enable) {
+  SensorScanner_SetAutoScanEnabled(enable);
+}
+
+bool FunctionManager_IsAutoScanEnabled(void) {
+  return SensorScanner_IsAutoScanEnabled();
+}
+
+void FunctionManager_TriggerSensorScan(void) {
+  SensorScanner_TriggerScan();
+}
+
+system_err_t FunctionManager_RequestWifiConfiguration(void) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
+  }
+  if (s_data->TaskHandle_Array[TASK_WIFI_CONFIG] != NULL) {
+    return MRS_ERR_CORE_INVALID_STATE;
+  }
+  if (xTaskCreate(wifi_configuration_task, "wifi_config", 4096, NULL, 5,
+                  &s_data->TaskHandle_Array[TASK_WIFI_CONFIG]) != pdPASS) {
+    return MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+  }
+  return MRS_OK;
+}
+
+system_err_t FunctionManager_RequestMeshRole(mesh_role_t role) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
+  }
+  if (role != MESH_ROLE_ROOT && role != MESH_ROLE_NODE) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  if (s_data->TaskHandle_Array[TASK_WIFI_MESH_JOIN] != NULL) {
+    return MRS_ERR_CORE_INVALID_STATE;
+  }
+
+  mesh_role_task_arg_t *argument = malloc(sizeof(*argument));
+  if (argument == NULL) {
+    return MRS_ERR_CORE_OUT_OF_MEMORY;
+  }
+  argument->role = role;
+  if (xTaskCreate(mesh_role_task, "mesh_role", 4096, argument, 5,
+                  &s_data->TaskHandle_Array[TASK_WIFI_MESH_JOIN]) != pdPASS) {
+    free(argument);
+    return MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+  }
+  return MRS_OK;
+}
+
+system_err_t FunctionManager_GetNetworkStatus(InternetManagerStatus_t *out) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
+  }
+  return InternetManager_GetStatus(s_data, out);
+}
+
+system_err_t FunctionManager_SetActuator(int gpio_num, bool enabled) {
+  if (gpio_num < 0 || gpio_num >= GPIO_NUM_MAX) {
+    return MRS_ERR_CORE_INVALID_PARAM;
+  }
+  gpio_config_t config = {
+      .pin_bit_mask = 1ULL << gpio_num,
       .mode = GPIO_MODE_OUTPUT,
       .pull_up_en = GPIO_PULLUP_DISABLE,
       .pull_down_en = GPIO_PULLDOWN_DISABLE,
       .intr_type = GPIO_INTR_DISABLE,
   };
-  if (gpio_config(&io) != ESP_OK) {
-    ESP_LOGE(TAG_FUNCTION_MANAGER, "Actuator GPIO %d config failed", gpio_num);
-    return;
+  esp_err_t result = gpio_config(&config);
+  if (result == ESP_OK) {
+    result = gpio_set_level((gpio_num_t)gpio_num, enabled ? 1 : 0);
   }
-  gpio_set_level((gpio_num_t)gpio_num, level);
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Actuator GPIO %d -> %s", gpio_num,
-           level ? "ON" : "OFF");
+  if (result != ESP_OK) {
+    push_error(result);
+  }
+  return result;
 }
 
-void actuator_on_cb(void *ctx) { actuator_set_level(ctx, 1); }
-
-void actuator_off_cb(void *ctx) { actuator_set_level(ctx, 0); }
-
-void information_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  if (data == NULL) {
-    return;
+system_err_t FunctionManager_RefreshBatteryInfo(void) {
+  if (s_data == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
   }
-  static const char *info_lines[] = {
-      "MSMS Project",
-      "Multi-sensor module",
-      "Multi-interface sensors",
-      "Author: MrKoi",
-  };
-  data->screen.is_menu_active = false;
-  ScreenShowInformation(info_lines, sizeof(info_lines) / sizeof(info_lines[0]));
-  vTaskDelay(pdMS_TO_TICKS(4000));
-  /* Redraw menu after info screen */
-  data->screen.is_menu_active = true;
-}
-
-void read_temperature_cb(void *ctx) {}
-
-void read_humidity_cb(void *ctx) {}
-
-void read_pressure_cb(void *ctx) {}
-
-void read_dht22_cb(void *ctx) {}
-
-void battery_status_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  if (data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "battery_status_callback: data is NULL");
-    return;
-  }
-
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Battery Status callback triggered");
-
-  // Refresh battery fields from BatteryManager
-  BatteryManager_UpdateInfo(&(data->objectInfo.batteryInfo));
-
-  // Show Battery Status screen
-  if (data->MenuReturn[1] != NULL) {
-    data->screen.is_menu_active = true;
-  }
-}
-
-// Shared buffers for port row labels after reset
-static char g_port_label_buf[NUM_PORTS][24];
-
-void reset_all_ports_callback(void *ctx) {
-  DataManager_t *data = (DataManager_t *)ctx;
-  for (PortId_t i = 0; i < NUM_PORTS; i++) {
-    data->selectedSensor[i] = SENSOR_NONE;
-    PortSelected[i] = PORT_NONE;
-    snprintf(g_port_label_buf[i], sizeof(g_port_label_buf[i]), "%s",
-             (const char *)port_name[i]);
-  }
-  sensor_driver_t *drivers = sensor_registry_get_drivers();
-  size_t driver_count = sensor_registry_get_count();
-  bool uart_sensor_cleared = false;
-  for (size_t i = 0; i < driver_count; i++) {
-    if (drivers[i].is_init) {
-      if (drivers[i].interface == COMMUNICATION_UART) {
-        uart_sensor_cleared = true;
-      }
-      if (drivers[i].deinit != NULL) {
-        drivers[i].deinit();
-      }
-      drivers[i].is_init = false;
-    }
-  }
-
-  if (uart_sensor_cleared) {
-    UartToGateWay_Resume();
-  }
-
-  if (data->on_ports_reset) {
-    data->on_ports_reset(data);
-  }
-  /* Refresh current menu item names (e.g. Show data sensor rows) */
-  for (PortId_t i = 0; i < NUM_PORTS; i++) {
-    data->screen.current->items[i].name = g_port_label_buf[i];
-  }
-
-  // Stop any running per-port read tasks
-  for (PortId_t i = 0; i < NUM_PORTS; i++) {
-    if (readDataSensorTaskHandle[i] != NULL) {
-      vTaskDelete(readDataSensorTaskHandle[i]);
-      readDataSensorTaskHandle[i] = NULL;
-    }
-  }
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Reset all ports");
-  data->screen.is_menu_active = true;
-}
-
-void select_sensor_cb(void *ctx) {
-  SelectionParam_t *param = (SelectionParam_t *)ctx;
-
-  // Debug: log as soon as callback runs
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "select_sensor_cb called: param=%p", param);
-  if (param != NULL) {
-    ESP_LOGI(TAG_FUNCTION_MANAGER, "  param->port=%d, param->sensor=%d",
-             param->port, param->sensor);
-    ESP_LOGI(TAG_FUNCTION_MANAGER, "  param->data=%p", param->data);
-  }
-
-  // 1. Validate parameters
-  if (param == NULL || param->data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "select_sensor_cb: invalid ctx");
-    return;
-  }
-  if (param->port < 0 || param->port >= NUM_PORTS) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "select_sensor_cb: invalid port %d",
-             param->port);
-    return;
-  }
-
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Selected sensor %d (%s) for port %d",
-           param->sensor, sensor_type_to_name(param->sensor), param->port);
-
-  // 2. Resolve driver; set selectedSensor only after successful or prior init
-  sensor_driver_t *driver = sensor_registry_get_driver(param->sensor);
-  if (driver == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "select_sensor_cb: invalid sensor type %d",
-             param->sensor);
-    return;
-  }
-  Message_t message_type = MESSAGE_NONE;
-  bool allow_set_sensor = false; // only commit selectedSensor[port] when true
-
-  if (driver->init != NULL) {
-    if (PortSelected[param->port] == param->port) {
-      message_type = MESSAGE_PORT_SELECTED;
-      ESP_LOGI(TAG_FUNCTION_MANAGER, "Port %d was selected", param->port);
-      allow_set_sensor = true;
-    } else if (!driver->is_init) {
-      if (driver->interface == COMMUNICATION_UART) {
-        UartToGateWay_Pause();
-      }
-      system_err_t init_ret = driver->init();
-      if (init_ret != MRS_OK) {
-        if (driver->interface == COMMUNICATION_UART) {
-          UartToGateWay_Resume();
-        }
-        ErrorCodes_PushError(param->data->error_code,
-                             DATA_MANAGER_ERROR_CAPACITY, init_ret);
-        ESP_LOGE(TAG_FUNCTION_MANAGER,
-                 "select_sensor_cb: init failed for sensor %d: %s",
-                 param->sensor, system_err_to_name(init_ret));
-        message_type = MESSAGE_SENSOR_NOT_INITIALIZED;
-        /* Do not set selectedSensor — keep plain "Port X" */
-      } else {
-        driver->is_init = true;
-        PortSelected[param->port] = param->port;
-        allow_set_sensor = true;
-      }
-    } else {
-      PortSelected[param->port] = param->port;
-      ESP_LOGI(TAG_FUNCTION_MANAGER,
-               "select_sensor_cb: sensor %d is already initialized",
-               param->sensor);
-      message_type = MESSAGE_SENSOR_USED_OTHER_PORT;
-      allow_set_sensor = true;
-    }
-  } else {
-    ESP_LOGW(TAG_FUNCTION_MANAGER,
-             "select_sensor_cb: init is NULL for sensor %d", param->sensor);
-    message_type = MESSAGE_SENSOR_NOT_INITIALIZED;
-    /* No init hook — treat as not selected, keep "Port X" */
-  }
-
-  if (allow_set_sensor) {
-    param->data->selectedSensor[param->port] = (int8_t)param->sensor;
-  } else {
-    param->data->selectedSensor[param->port] = (int8_t)SENSOR_NONE;
-  }
-
-  if (message_type != MESSAGE_NONE) {
-    param->data->screen.is_menu_active = false;
-    ScreenShowMessage(message_type);
-    vTaskDelay(pdMS_TO_TICKS(1000));
-    param->data->screen.is_menu_active = true;
-  }
-
-  // 5. MenuSystem updates port labels and returns via on_sensor_selected
-  if (param->data->on_sensor_selected) {
-    param->data->on_sensor_selected(param->data, param->port);
-  }
-}
-
-/**
- * @brief Periodic read loop for one port: driver read, optional live graph.
- *
- * @param pvParameters ShowDataSensorParam_t * as void *.
- */
-void readDataSensorTask(void *pvParameters) {
-  ShowDataSensorParam_t *param = (ShowDataSensorParam_t *)pvParameters;
-  if (param == NULL || param->data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "readDataSensorTask: data is NULL");
-    return;
-  }
-  while (1) {
-    SensorData_t data;
-    sensor_driver_t *driver =
-        sensor_registry_get_driver(param->data->selectedSensor[param->port]);
-    if (driver == NULL || driver->read == NULL) {
-      ESP_LOGW(TAG_FUNCTION_MANAGER, "readDataSensorTask: invalid driver");
-      param->data->screen.is_menu_active = false;
-      ScreenShowMessage(MESSAGE_SENSOR_NOT_INITIALIZED);
-      vTaskDelay(pdMS_TO_TICKS(1000));
-      param->data->screen.is_menu_active = true;
-      readDataSensorTaskHandle[param->port] = NULL;
-      vTaskDelete(readDataSensorTaskHandle[param->port]);
-      vTaskDelete(NULL);
-      return;
-    }
-
-    system_err_t read_ret = driver->read(&data);
-    if (read_ret != MRS_OK) {
-      ErrorCodes_PushError(param->data->error_code, DATA_MANAGER_ERROR_CAPACITY,
-                           read_ret);
-      ESP_LOGW(TAG_FUNCTION_MANAGER, "readDataSensorTask: read failed: %s",
-               system_err_to_name(read_ret));
-      // Retry on next iteration
-      vTaskDelay(pdMS_TO_TICKS(1000));
-      continue;
-    }
-    
-    // Save to global data
-    param->data->port_data[param->port] = data;
-
-    const char **field_names = driver->description;
-    const char **units = driver->unit;
-    size_t count = driver->unit_count;
-    if (param->ShowDataScreen) {
-      param->data->screen.is_menu_active = false;
-      ScreenShowDataSensor(field_names, data.data_fl, units, count);
-    }
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-}
-
-void show_data_sensor_cb(void *ctx) {
-  ShowDataSensorParam_t *param = (ShowDataSensorParam_t *)ctx;
-  param->ShowDataScreen = true;
-  if (param == NULL || param->data == NULL) {
-    ESP_LOGW(TAG_FUNCTION_MANAGER, "show_data_sensor_cb: data is NULL");
-    return;
-  }
-  ESP_LOGI(TAG_FUNCTION_MANAGER, "Port %d read sensor %s", param->port,
-           sensor_type_to_name(param->data->selectedSensor[param->port]));
-  if (readDataSensorTaskHandle[param->port] == NULL) {
-    ESP_LOGI(TAG_FUNCTION_MANAGER, "Task is running");
-    xTaskCreate(readDataSensorTask, "readDataSensorTask", 4096, param, 5,
-                &readDataSensorTaskHandle[param->port]);
-  }
+  BatteryManager_UpdateInfo(&s_data->objectInfo.batteryInfo);
+  return MRS_OK;
 }

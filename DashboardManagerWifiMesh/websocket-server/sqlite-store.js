@@ -86,6 +86,41 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
           completedAt TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_otajobs_time ON OtaJobs(startedAt DESC);
+
+        CREATE TABLE IF NOT EXISTS Gateways (
+          gw_id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          location TEXT DEFAULT '',
+          latitude REAL DEFAULT NULL,
+          longitude REAL DEFAULT NULL,
+          root_mac TEXT DEFAULT '',
+          mesh_id TEXT DEFAULT '',
+          ip TEXT DEFAULT '',
+          status TEXT DEFAULT 'online',
+          last_seen TEXT NOT NULL,
+          node_count INTEGER DEFAULT 0,
+          notes TEXT DEFAULT ''
+        );
+        CREATE INDEX IF NOT EXISTS idx_gateways_status ON Gateways(status, last_seen DESC);
+
+        CREATE TABLE IF NOT EXISTS MeshNetworks (
+          mesh_id TEXT PRIMARY KEY,
+          gw_id TEXT NOT NULL,
+          name TEXT NOT NULL,
+          channel INTEGER DEFAULT 1,
+          node_count INTEGER DEFAULT 0,
+          created_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS NodesMeta (
+          mac TEXT PRIMARY KEY,
+          name TEXT DEFAULT '',
+          location TEXT DEFAULT '',
+          latitude REAL DEFAULT NULL,
+          longitude REAL DEFAULT NULL,
+          notes TEXT DEFAULT '',
+          updated_at TEXT NOT NULL
+        );
       `);
 
       // Auto-migrate tables if created with older schema versions
@@ -103,6 +138,35 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
           await database.run("ALTER TABLE OtaJobs ADD COLUMN targetDetail TEXT");
           await database.run("UPDATE OtaJobs SET targetDetail = targetMac WHERE targetDetail IS NULL");
           console.log("[db] Auto-migrated: Added 'targetDetail' column to OtaJobs table in SQLite");
+        }
+
+        // Migrate Gateways table for latitude and longitude
+        const gwTableInfo = await database.all("PRAGMA table_info(Gateways)");
+        const hasLat = gwTableInfo.some((col) => col.name === "latitude");
+        if (!hasLat && gwTableInfo.length > 0) {
+          await database.run("ALTER TABLE Gateways ADD COLUMN latitude REAL DEFAULT NULL");
+          await database.run("ALTER TABLE Gateways ADD COLUMN longitude REAL DEFAULT NULL");
+          console.log("[db] Auto-migrated: Added 'latitude' and 'longitude' columns to Gateways table");
+        }
+
+        // Migrate Data table for Multi-Gateway support (gw_id, mesh_id)
+        const dataTableInfo = await database.all("PRAGMA table_info(Data)");
+        const hasGwId = dataTableInfo.some((col) => col.name === "gw_id");
+        if (!hasGwId && dataTableInfo.length > 0) {
+          await database.run("ALTER TABLE Data ADD COLUMN gw_id TEXT DEFAULT 'gw-default'");
+          await database.run("ALTER TABLE Data ADD COLUMN mesh_id TEXT DEFAULT 'mesh-default'");
+          await database.run("CREATE INDEX IF NOT EXISTS idx_data_gw_mesh ON Data(gw_id, mesh_id, serverTime DESC)");
+          console.log("[db] Auto-migrated: Added 'gw_id' and 'mesh_id' columns to Data table");
+        }
+
+        // Purge legacy gateway status rows from Data table so they are not treated as mesh nodes
+        try {
+          const purgeRes = await database.run("DELETE FROM Data WHERE meshLevel < 0 OR sensorName = 'Gateway'");
+          if (purgeRes && purgeRes.changes > 0) {
+            console.log(`[db] Auto-cleaned: Purged ${purgeRes.changes} legacy gateway status rows from Data table`);
+          }
+        } catch (e) {
+          console.warn("[db] Clean legacy gateway status rows warning:", e.message);
         }
       } catch (e) {
         console.warn("[db] Migration check warning:", e.message);
@@ -139,6 +203,11 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
         : null;
     const mac = String(pkt.M || pkt.i || "");
     if (!mac || mac === "0.0.0.0") return [];
+
+    const gwObj = pkt.gateway || {};
+    const gw_id = String(pkt.gw_id || pkt.gwId || gwObj.gw_id || gwObj.id || "gw-default");
+    const mesh_id = String(pkt.mesh_id || pkt.meshId || gwObj.mesh_id || "mesh-default");
+
     const rows = [];
 
     pkt.p.forEach((row) => {
@@ -154,6 +223,8 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
         const field = labels[idx] || `v${idx}`;
         rows.push({
           mac,
+          gw_id,
+          mesh_id,
           deviceTime,
           serverTime,
           meshLevel,
@@ -173,6 +244,8 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
     if (Number.isFinite(packetLoss)) {
       rows.push({
         mac,
+        gw_id,
+        mesh_id,
         deviceTime,
         serverTime,
         meshLevel,
@@ -196,11 +269,13 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
     const rows = buildMeshRows(pkt, sourceIp, receivedAt);
     if (!rows.length) return 0;
 
-    const placeholders = rows.map(() => "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").join(", ");
+    const placeholders = rows.map(() => "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").join(", ");
     const values = [];
     rows.forEach((r) => {
       values.push(
         r.mac,
+        r.gw_id,
+        r.mesh_id,
         r.deviceTime,
         r.serverTime,
         r.meshLevel,
@@ -218,7 +293,7 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
 
     const query = `
       INSERT INTO Data (
-        mac, deviceTime, serverTime, meshLevel, 
+        mac, gw_id, mesh_id, deviceTime, serverTime, meshLevel, 
         schemaVersion, packetLoss, port, sensorType, sensorName, 
         field, value, nodeTimeValid, sourceIp
       ) VALUES ${placeholders}
@@ -226,6 +301,30 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
 
     try {
       await activeDb.run(query, values);
+
+      // Auto-register / update Gateway in Gateways table
+      try {
+        const gwObj = pkt.gateway || {};
+        const gwId = String(pkt.gw_id || pkt.gwId || gwObj.gw_id || gwObj.id || "gw-default");
+        const gwName = String(pkt.gw_name || gwObj.name || gwObj.gw_name || (gwId === "gw-default" ? "Trạm Gateway Chính" : gwId));
+        const location = String(pkt.location || gwObj.location || (gwId === "gw-default" ? "Khu Vực Trung Tâm" : ""));
+        const rootMac = String(pkt.root_mac || gwObj.root_mac || (Number(pkt.n) === 0 ? pkt.M || pkt.i : ""));
+        const meshId = String(pkt.mesh_id || pkt.meshId || gwObj.mesh_id || "mesh-default");
+
+        await upsertGateway({
+          gw_id: gwId,
+          name: gwName,
+          location,
+          root_mac: rootMac,
+          mesh_id: meshId,
+          ip: sourceIp,
+          status: "online",
+          last_seen: receivedAt.toISOString(),
+        });
+      } catch (e) {
+        // Non-blocking
+      }
+
       return rows.length;
     } catch (err) {
       console.error("[sqlite] insert failed:", err.message);
@@ -235,89 +334,213 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
 
   async function persistGatewayStatus(pkt, sourceIp, receivedAt = new Date()) {
     if (!pkt || pkt.type !== "gateway_status") return 0;
-    const mac = pkt.mac || pkt.sta_mac || pkt.sta_ip || sourceIp || "gateway";
     const serverTime = receivedAt.toISOString();
-    
-    const metrics = {
-      cpu_load: pkt.cpu_load_percent,
-      ram_used: pkt.ram_used_percent,
-      wifi_rssi: pkt.wifi_rssi,
-      battery_v: pkt.battery_voltage_v,
-      uptime_s: pkt.uptime_s
-    };
-
-    const rows = [];
-    for (const [field, val] of Object.entries(metrics)) {
-      const num = Number(val);
-      if (Number.isFinite(num)) {
-        rows.push({
-          mac,
-          deviceTime: null,
-          serverTime,
-          meshLevel: -1,
-          schemaVersion: -1,
-          packetLoss: null,
-          port: -1,
-          sensorType: -1,
-          sensorName: "Gateway",
-          field,
-          value: num,
-          nodeTimeValid: 0,
-          sourceIp
-        });
-      }
-    }
-
-    if (!rows.length) return 0;
-
-    const placeholders = rows.map(() => "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").join(", ");
-    const values = [];
-    rows.forEach((r) => {
-      values.push(
-        r.mac, r.deviceTime, r.serverTime, r.meshLevel, r.schemaVersion,
-        r.packetLoss, r.port, r.sensorType, r.sensorName, r.field,
-        r.value, r.nodeTimeValid, r.sourceIp
-      );
-    });
-
-    const query = `
-      INSERT INTO Data (
-        mac, deviceTime, serverTime, meshLevel, 
-        schemaVersion, packetLoss, port, sensorType, 
-        sensorName, field, value, nodeTimeValid, sourceIp
-      )
-      VALUES ${placeholders}
-    `;
+    const gw_id = String(pkt.gw_id || pkt.gwId || "gw-default");
+    const mesh_id = String(pkt.mesh_id || pkt.meshId || "mesh-default");
+    const gwName = String(pkt.name || pkt.gw_name || (gw_id === "gw-default" ? "Gateway 1 - Trạm Trung Tâm" : gw_id));
+    const location = String(pkt.location || (gw_id === "gw-default" ? "Khu Vực Quản Lý Chính" : ""));
+    const rootMac = String(pkt.mac || pkt.sta_mac || "");
+    const staIp = String(pkt.sta_ip || sourceIp || "");
 
     try {
-      const activeDb = await ensureConnected();
-      await activeDb.run(query, values);
-      return rows.length;
+      await upsertGateway({
+        gw_id,
+        name: gwName,
+        location,
+        root_mac: rootMac,
+        mesh_id,
+        ip: staIp,
+        status: "online",
+        last_seen: serverTime,
+      });
+      return 1;
     } catch (err) {
       console.error("[sqlite] persistGatewayStatus failed:", err.message);
       return 0;
     }
   }
 
-  async function getNodeSnapshot() {
+  async function upsertGateway({ gw_id, name, location, latitude = null, longitude = null, root_mac, mesh_id, ip, status = "online", last_seen = new Date().toISOString(), notes = "" }) {
     const activeDb = await ensureConnected();
-    const rows = await activeDb.all(`
-      SELECT 
-        mac as id,
-        mac,
-        MAX(serverTime) as lastSeen,
-        meshLevel,
-        schemaVersion,
-        packetLoss
-      FROM Data
-      GROUP BY mac
-      ORDER BY mac ASC
-    `);
+    const id = String(gw_id || "gw-default").trim();
+    const existing = await activeDb.get("SELECT * FROM Gateways WHERE gw_id = ?", [id]);
+    const validIp = (ip && ip !== "127.0.0.1" && ip !== "0.0.0.0") ? ip : (existing?.ip || ip || "");
+    const validMac = (root_mac && root_mac !== "gateway") ? root_mac : (existing?.root_mac || root_mac || "");
+    if (existing) {
+      await activeDb.run(
+        `UPDATE Gateways SET 
+          status = ?, 
+          last_seen = ?, 
+          ip = ?,
+          root_mac = ?,
+          mesh_id = COALESCE(NULLIF(?, ''), mesh_id)
+        WHERE gw_id = ?`,
+        [status, last_seen, validIp, validMac, mesh_id || "", id]
+      );
+    } else {
+      await activeDb.run(
+        `INSERT INTO Gateways (gw_id, name, location, latitude, longitude, root_mac, mesh_id, ip, status, last_seen, notes)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [id, name || id, location || "", latitude, longitude, validMac, mesh_id || "", validIp, status, last_seen, notes || ""]
+      );
+    }
+  }
 
-    // SQLite returns ISO strings, we should try to match MongoDB output format if possible, 
-    // but the frontend parses standard ISO dates anyway.
+  async function getGateways() {
+    const activeDb = await ensureConnected();
+    const gws = await activeDb.all("SELECT * FROM Gateways ORDER BY last_seen DESC");
+    
+    for (const gw of gws) {
+      gw.mac = gw.root_mac || "";
+      const countRes = await activeDb.get(
+        "SELECT COUNT(DISTINCT mac) as cnt FROM Data WHERE gw_id = ? AND meshLevel >= 0",
+        [gw.gw_id]
+      );
+      gw.node_count = countRes ? countRes.cnt : 0;
+      
+      const lastSeenMs = new Date(gw.last_seen).getTime();
+      if (Date.now() - lastSeenMs > 60000) {
+        gw.status = "offline";
+      }
+    }
+    
+    if (gws.length === 0) {
+      const defaultGw = {
+        gw_id: "gw-default",
+        name: "Gateway 1 - Trạm Trung Tâm",
+        location: "Khu Vực Quản Lý Chính",
+        latitude: null,
+        longitude: null,
+        root_mac: "",
+        mesh_id: "mesh-default",
+        ip: "127.0.0.1",
+        status: "online",
+        last_seen: new Date().toISOString(),
+        node_count: 0,
+        notes: "Cổng Gateway mặc định của hệ thống"
+      };
+      await upsertGateway(defaultGw);
+      return [defaultGw];
+    }
+    
+    return gws;
+  }
+
+  async function deleteGateway(gwId) {
+    const activeDb = await ensureConnected();
+    const id = String(gwId || "").trim();
+    if (!id) return 0;
+    await activeDb.run("DELETE FROM Gateways WHERE gw_id = ?", [id]);
+    await activeDb.run("DELETE FROM Data WHERE gw_id = ?", [id]);
+    return 1;
+  }
+
+  async function deleteGateways(gwIds = []) {
+    const activeDb = await ensureConnected();
+    if (!Array.isArray(gwIds) || gwIds.length === 0) return 0;
+    const placeholders = gwIds.map(() => "?").join(",");
+    await activeDb.run(`DELETE FROM Gateways WHERE gw_id IN (${placeholders})`, gwIds);
+    await activeDb.run(`DELETE FROM Data WHERE gw_id IN (${placeholders})`, gwIds);
+    return gwIds.length;
+  }
+
+  async function deleteNodes(macs = []) {
+    const activeDb = await ensureConnected();
+    if (!Array.isArray(macs) || macs.length === 0) return 0;
+    const placeholders = macs.map(() => "?").join(",");
+    const res = await activeDb.run(
+      `DELETE FROM Data WHERE mac IN (${placeholders}) OR sourceIp IN (${placeholders})`,
+      [...macs, ...macs]
+    );
+    console.log(`[db] deleteNodes: deleted ${res?.changes || 0} rows for ${macs.length} nodes:`, macs);
+    return res?.changes || macs.length;
+  }
+
+  async function updateGatewayMeta(gw_id, { name, location, latitude, longitude, notes }) {
+    const activeDb = await ensureConnected();
+    const id = String(gw_id || "").trim();
+    const updates = [];
+    const params = [];
+    if (name !== undefined) { updates.push("name = ?"); params.push(name); }
+    if (location !== undefined) { updates.push("location = ?"); params.push(location); }
+    if (latitude !== undefined) { updates.push("latitude = ?"); params.push(latitude !== null && latitude !== "" ? Number(latitude) : null); }
+    if (longitude !== undefined) { updates.push("longitude = ?"); params.push(longitude !== null && longitude !== "" ? Number(longitude) : null); }
+    if (notes !== undefined) { updates.push("notes = ?"); params.push(notes); }
+    if (!updates.length) return null;
+    params.push(id);
+    await activeDb.run(`UPDATE Gateways SET ${updates.join(", ")} WHERE gw_id = ?`, params);
+    return await activeDb.get("SELECT * FROM Gateways WHERE gw_id = ?", [id]);
+  }
+
+  async function updateNodeMeta(mac, { name, location, latitude, longitude, notes }) {
+    const activeDb = await ensureConnected();
+    const id = String(mac || "").trim();
+    if (!id) return null;
+    const nowIso = new Date().toISOString();
+    const existing = await activeDb.get("SELECT * FROM NodesMeta WHERE mac = ?", [id]);
+    const latVal = latitude !== undefined && latitude !== null && latitude !== "" ? Number(latitude) : null;
+    const lonVal = longitude !== undefined && longitude !== null && longitude !== "" ? Number(longitude) : null;
+
+    if (existing) {
+      const updates = ["updated_at = ?"];
+      const params = [nowIso];
+      if (name !== undefined) { updates.push("name = ?"); params.push(name); }
+      if (location !== undefined) { updates.push("location = ?"); params.push(location); }
+      if (latitude !== undefined) { updates.push("latitude = ?"); params.push(latVal); }
+      if (longitude !== undefined) { updates.push("longitude = ?"); params.push(lonVal); }
+      if (notes !== undefined) { updates.push("notes = ?"); params.push(notes); }
+      params.push(id);
+      await activeDb.run(`UPDATE NodesMeta SET ${updates.join(", ")} WHERE mac = ?`, params);
+    } else {
+      await activeDb.run(
+        `INSERT INTO NodesMeta (mac, name, location, latitude, longitude, notes, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [id, name || id, location || "", latVal, lonVal, notes || "", nowIso]
+      );
+    }
+    return await activeDb.get("SELECT * FROM NodesMeta WHERE mac = ?", [id]);
+  }
+
+  async function getNodesMeta() {
+    const activeDb = await ensureConnected();
+    return await activeDb.all("SELECT * FROM NodesMeta");
+  }
+
+  async function getNodeSnapshot(gw_id = null) {
+    const activeDb = await ensureConnected();
+    let query = `
+      SELECT 
+        d.mac as id,
+        d.mac,
+        d.gw_id,
+        d.mesh_id,
+        MAX(d.serverTime) as lastSeen,
+        d.meshLevel,
+        d.schemaVersion,
+        d.packetLoss,
+        nm.name as node_name,
+        nm.location as node_location,
+        nm.latitude,
+        nm.longitude,
+        nm.notes as node_notes
+      FROM Data d
+      LEFT JOIN NodesMeta nm ON d.mac = nm.mac
+      WHERE (d.meshLevel >= 0 OR d.meshLevel IS NULL) AND (d.sensorName != 'Gateway' OR d.sensorName IS NULL)
+    `;
+    const params = [];
+    if (gw_id && gw_id !== "all") {
+      query += ` AND d.gw_id = ? `;
+      params.push(gw_id);
+    }
+    query += `
+      GROUP BY d.mac
+      ORDER BY d.mac ASC
+    `;
+    const rows = await activeDb.all(query, params);
+
     return rows.map(r => ({
       ...r,
+      gw_id: r.gw_id || "gw-default",
+      mesh_id: r.mesh_id || "mesh-default",
       lastSeen: new Date(r.lastSeen)
     }));
   }
@@ -328,6 +551,7 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
     const rows = await activeDb.all(`
       SELECT mac, MAX(serverTime) as lastSeen, GROUP_CONCAT(DISTINCT sensorName) as sensors
       FROM Data
+      WHERE (meshLevel >= 0 OR meshLevel IS NULL) AND (sensorName != 'Gateway' OR sensorName IS NULL)
       GROUP BY mac
       ORDER BY lastSeen DESC
       LIMIT ?
@@ -630,6 +854,14 @@ function createSqliteStore({ dbPath, sensorValueFieldNames, sensorTypeName }) {
     getHistorySeries,
     getHistoryAllForMacCsv,
     isMeshPayload: looksLikeMeshUdpJson,
+    getGateways,
+    upsertGateway,
+    updateGatewayMeta,
+    deleteGateway,
+    deleteGateways,
+    deleteNodes,
+    updateNodeMeta,
+    getNodesMeta,
     saveFirmware,
     getFirmwares,
     getFirmwareById,

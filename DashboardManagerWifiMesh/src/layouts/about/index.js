@@ -23,6 +23,8 @@ import {
   IoGlobeOutline
 } from "react-icons/io5";
 
+import { useHistory } from "react-router-dom";
+
 // Simmmple logo like "S"
 const LogoIcon = () => (
   <VuiTypography color="white" fontWeight="bold" sx={{ fontSize: "52px", lineHeight: 1, letterSpacing: "-2px" }}>
@@ -30,9 +32,9 @@ const LogoIcon = () => (
   </VuiTypography>
 );
 
-function QuickLink({ icon, title, subtitle, color, bg }) {
+function QuickLink({ icon, title, subtitle, color, bg, onClick }) {
   return (
-    <VuiBox display="flex" alignItems="center" justifyContent="space-between" mb={2.5} sx={{ cursor: "pointer", "&:hover": { opacity: 0.8 } }}>
+    <VuiBox onClick={onClick} display="flex" alignItems="center" justifyContent="space-between" mb={2.5} sx={{ cursor: "pointer", "&:hover": { opacity: 0.8 } }}>
       <VuiBox display="flex" alignItems="center" gap={2}>
         <VuiBox sx={{ width: 40, height: 40, borderRadius: "10px", background: bg, color: color, display: "grid", placeItems: "center" }}>
           {icon}
@@ -48,6 +50,7 @@ function QuickLink({ icon, title, subtitle, color, bg }) {
 }
 
 function About() {
+  const history = useHistory();
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -100,6 +103,12 @@ function About() {
             <Grid item xs={12} md={4} sx={{ pl: { md: 4 } }}>
               <VuiTypography variant="button" color="white" fontWeight="bold" display="block" mb={3}>Quick Links</VuiTypography>
               
+              <QuickLink 
+                icon={<IoHardwareChip size="20px" />} 
+                title="Hardware Pinout Encyclopedia" subtitle="Tra cứu sơ đồ 3 Port IDC & chân mạch" 
+                color="#00d4ff" bg="rgba(0,212,255,0.18)" 
+                onClick={() => history.push("/hardware-pinout")}
+              />
               <QuickLink 
                 icon={<IoShareSocialOutline size="20px" />} 
                 title="System Diagram" subtitle="View architecture diagram" 

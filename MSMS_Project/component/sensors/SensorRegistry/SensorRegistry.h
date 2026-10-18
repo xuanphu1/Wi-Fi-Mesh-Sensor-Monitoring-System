@@ -14,27 +14,22 @@
 const char *sensor_type_to_name(SensorType_t t);
 
 /**
- * @brief Pointer to the registered sensor driver table
- *
- * @return sensor_driver_t* driver array
- * @note Length from sensor_registry_get_count()
- */
-sensor_driver_t *sensor_registry_get_drivers(void);
-
-/**
  * @brief Number of registered sensor drivers
  *
  * @return Entry count
  */
 size_t sensor_registry_get_count(void);
 
-/**
- * @brief Lookup driver by sensor type
- *
- * @param sensor_type SensorType_t
- * @return Driver pointer, or NULL if unknown
- */
-sensor_driver_t *sensor_registry_get_driver(SensorType_t sensor_type);
+bool sensor_registry_get_descriptor(SensorType_t sensor_type,
+                                    sensor_descriptor_t *out_descriptor);
+bool sensor_registry_get_descriptor_at(size_t index,
+                                       sensor_descriptor_t *out_descriptor);
+
+/** Internal lifecycle access for SensorManager. Application/UI code must use
+ * the callback-free descriptor APIs above. */
+sensor_driver_t *sensor_registry_get_driver_mutable(SensorType_t sensor_type);
+sensor_driver_t *sensor_registry_get_driver_mutable_at(
+    size_t index, SensorType_t *out_sensor_type);
 
 /**
  * @brief Count sensors for one interface (UART, I2C, SPI, PULSE)
@@ -42,15 +37,15 @@ sensor_driver_t *sensor_registry_get_driver(SensorType_t sensor_type);
 size_t sensor_registry_get_count_by_interface(TypeCommunication_t iface);
 
 /**
- * @brief Driver and type at index within an interface group (menu builder)
+ * @brief Descriptor at index within an interface group
  * @param iface COMMUNICATION_UART, COMMUNICATION_I2C, ...
  * @param index Index in group (0 .. count_by_interface - 1)
- * @param out_sensor_type If non-NULL, receives SensorType_t
- * @return Driver pointer, or NULL if index invalid
+ * @param out_descriptor Receives callback-free sensor metadata
+ * @return true when the descriptor exists
  */
-sensor_driver_t *sensor_registry_get_driver_at_interface(TypeCommunication_t iface,
-                                                          size_t index,
-                                                          SensorType_t *out_sensor_type);
+bool sensor_registry_get_descriptor_at_interface(
+    TypeCommunication_t iface, size_t index,
+    sensor_descriptor_t *out_descriptor);
 
 #endif /* __SENSOR_REGISTRY_H__ */
 

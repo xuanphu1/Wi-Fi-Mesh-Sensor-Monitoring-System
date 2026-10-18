@@ -31,6 +31,17 @@ bool ScreenManager_IsSuspended(void) {
   return s_screen_suspended;
 }
 
+bool ScreenManager_Lock(TickType_t timeout_ticks) {
+  if (oled_mutex == NULL) return false;
+  return (xSemaphoreTake(oled_mutex, timeout_ticks) == pdTRUE);
+}
+
+void ScreenManager_Unlock(void) {
+  if (oled_mutex != NULL) {
+    xSemaphoreGive(oled_mutex);
+  }
+}
+
 typedef struct {
   i2c_port_t bus;
   uint16_t dev_addr;
@@ -484,16 +495,16 @@ void ScreenSensors(DataManager_t *data) {
     my_draw_small_string(oled, 0, y_offset, buf);
 
     if (data->selectedSensor[i] != SENSOR_NONE) {
-      sensor_driver_t *driver =
-          sensor_registry_get_driver(data->selectedSensor[i]);
-      if (driver != NULL) {
+      sensor_descriptor_t descriptor = {0};
+      if (sensor_registry_get_descriptor(data->selectedSensor[i],
+                                         &descriptor)) {
         // Print sensor name
-        my_draw_small_string(oled, 22, y_offset, driver->name);
+        my_draw_small_string(oled, 22, y_offset, descriptor.name);
 
         // Print first value and unit
-        if (driver->unit_count > 0) {
+        if (descriptor.unit_count > 0) {
           snprintf(buf, sizeof(buf), "%.1f %s", data->port_data[i].data_fl[0],
-                   driver->unit[0] ? driver->unit[0] : "");
+                   descriptor.unit[0] ? descriptor.unit[0] : "");
           my_draw_small_string(oled, 70, y_offset, buf);
         }
       }
@@ -893,8 +904,9 @@ void ScreenSensorResetField(void) {
   current_index = 0;
 }
 
-system_err_t ScreenShowDataSensor(const char **field_names, const float *values,
-                                  const char **units, size_t count) {
+system_err_t ScreenShowDataSensor(const char *const *field_names,
+                                  const float *values,
+                                  const char *const *units, size_t count) {
   if (oled == NULL) {
     ESP_LOGE(TAG_SCREEN_MANAGER,
              "ScreenShowDataSensor: oled is not initialized");

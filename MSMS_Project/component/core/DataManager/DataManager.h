@@ -78,6 +78,7 @@ typedef enum {
   OBJECT_SENSOR,
   OBJECT_INFORMATION,
   OBJECT_WIFI_MESH,
+  OBJECT_AUTO_SCAN,
   OBJECT_NONE,
 } object_type_t;
 
@@ -209,6 +210,7 @@ typedef struct {
   wifiInfo_t wifiInfo;
   meshInfo_t meshInfo;
   const char *selectedSensorName[NUM_PORTS];
+  bool auto_scan_enabled;
 } objectInfoManager_t;
 
 struct DataManager_t;
@@ -247,11 +249,5 @@ typedef struct {
   PortId_t port;
   bool ShowDataScreen;
 } ShowDataSensorParam_t;
-
-/** Tham sá»‘ heap cho wifi_mesh_join_task (FunctionManager). */
-typedef struct {
-  DataManager_t *data;
-  bool as_root;
-} MeshJoinTaskArg_t;
 
 #endif /* DATA_MANAGER_H */

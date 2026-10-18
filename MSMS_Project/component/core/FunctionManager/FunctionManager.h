@@ -1,30 +1,64 @@
-#ifndef __FUNCTION_MANAGER_H__
-#define __FUNCTION_MANAGER_H__
+#ifndef FUNCTION_MANAGER_H
+#define FUNCTION_MANAGER_H
 
 #include "DataManager.h"
 #include "ErrorCodes.h"
-#include "MeshManager.h"
-#include "ScreenManager.h"
-#include "SensorConfig.h"
-#include "esp_log.h"
-#include "string.h"
+#include "InternetManager.h"
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
-#define TAG_FUNCTION_MANAGER "FUNCTION_MANAGER"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-void wifi_config_callback(void *ctx);
-void wifi_mesh_join_as_root_callback(void *ctx);
-void wifi_mesh_join_as_node_callback(void *ctx);
-void information_callback(void *ctx);
-void read_temperature_cb(void *ctx);
-void read_humidity_cb(void *ctx);
-void read_pressure_cb(void *ctx);
-void read_dht22_cb(void *ctx);
-void battery_status_callback(void *ctx);
-void reset_all_ports_callback(void *ctx);
-void actuator_on_cb(void *ctx);
-void actuator_off_cb(void *ctx);
-void select_sensor_cb(void *ctx);
-void show_data_sensor_cb(void *ctx);
+typedef struct {
+  SensorType_t detected[NUM_PORTS];
+  size_t detected_count;
+  size_t assigned_count;
+} function_sensor_scan_result_t;
 
-#endif /* __FUNCTION_MANAGER_H__ */
+typedef bool (*function_manager_bus_lock_fn)(uint32_t timeout_ms,
+                                             void *context);
+typedef void (*function_manager_bus_unlock_fn)(void *context);
+
+system_err_t FunctionManager_Init(DataManager_t *data);
+
+void FunctionManager_SetSensorBusGuard(
+    function_manager_bus_lock_fn lock_fn,
+    function_manager_bus_unlock_fn unlock_fn, void *context);
+
+system_err_t FunctionManager_AssignSensor(PortId_t port,
+                                          SensorType_t sensor_type);
+system_err_t FunctionManager_ResetAllSensorPorts(void);
+system_err_t FunctionManager_GetSensorSnapshot(PortId_t port,
+                                               SensorType_t *out_sensor_type,
+                                               SensorData_t *out_data);
+system_err_t FunctionManager_GetSensorDescriptor(
+    SensorType_t sensor_type, sensor_descriptor_t *out_descriptor);
+const char *FunctionManager_GetSensorName(SensorType_t sensor_type);
+size_t FunctionManager_GetSensorCountByInterface(
+    TypeCommunication_t interface);
+system_err_t FunctionManager_GetSensorDescriptorAtInterface(
+    TypeCommunication_t interface, size_t index,
+    sensor_descriptor_t *out_descriptor);
+system_err_t FunctionManager_ScanAndAssignSensors(
+    function_sensor_scan_result_t *out_result);
+
+bool FunctionManager_IsSensorScanAllowed(void);
+void FunctionManager_SetAutoScanEnabled(bool enable);
+bool FunctionManager_IsAutoScanEnabled(void);
+void FunctionManager_TriggerSensorScan(void);
+
+system_err_t FunctionManager_RequestWifiConfiguration(void);
+system_err_t FunctionManager_RequestMeshRole(mesh_role_t role);
+system_err_t FunctionManager_GetNetworkStatus(InternetManagerStatus_t *out);
+
+system_err_t FunctionManager_SetActuator(int gpio_num, bool enabled);
+system_err_t FunctionManager_RefreshBatteryInfo(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* FUNCTION_MANAGER_H */

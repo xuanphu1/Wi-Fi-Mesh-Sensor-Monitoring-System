@@ -8,28 +8,43 @@ esp_err_t bme280_init(bme280 *bme280_device, bmp280_params_t *bme280_params,
                       uint8_t address, i2c_port_t i2c_port,
                       gpio_num_t sda_gpio, gpio_num_t scl_gpio)
 {
+    if (bme280_device == NULL || bme280_params == NULL) {
+        return ESP_ERR_INVALID_ARG;
+    }
     memset(bme280_device, 0, sizeof(bme280));
-    ESP_ERROR_CHECK_WITHOUT_ABORT(bmp280_init_default_params(bme280_params));
-    ESP_ERROR_CHECK_WITHOUT_ABORT(bmp280_init_desc(bme280_device, address, i2c_port, sda_gpio, scl_gpio));
-    ESP_ERROR_CHECK_WITHOUT_ABORT(bmp280_init(bme280_device, bme280_params));
 
-    esp_err_t error_t;
+    // First, quickly probe if a device acknowledges this address on the I2C bus
     i2c_cmd_handle_t i2c_command = i2c_cmd_link_create();
     i2c_master_start(i2c_command);
-    i2c_master_write_byte(i2c_command, address << 1 | WRITE_BIT, ACK_CHECK_EN);
+    i2c_master_write_byte(i2c_command, (address << 1) | WRITE_BIT, ACK_CHECK_EN);
     i2c_master_stop(i2c_command);
-    error_t = i2c_master_cmd_begin(i2c_port, i2c_command, (max_timeout / portTICK_PERIOD_MS));
+    esp_err_t error_t = i2c_master_cmd_begin(i2c_port, i2c_command, pdMS_TO_TICKS(50));
     i2c_cmd_link_delete(i2c_command);
 
     if (error_t != ESP_OK)
     {
-        ESP_LOGW(__func__, "%s: No ack, sensor not connected...skip...", esp_err_to_name(error_t));
+        return ESP_ERR_NOT_FOUND;
+    }
+
+    esp_err_t ret = bmp280_init_default_params(bme280_params);
+    if (ret != ESP_OK) {
+        return ret;
+    }
+
+    ret = bmp280_init_desc(bme280_device, address, i2c_port, sda_gpio, scl_gpio);
+    if (ret != ESP_OK) {
+        return ret;
+    }
+
+    ret = bmp280_init(bme280_device, bme280_params);
+    if (ret != ESP_OK) {
+        (void)bmp280_free_desc(bme280_device);
         ESP_LOGE(__func__, "I2C port(Wire%d) for BME280 sensor initialize failed.", i2c_port);
         return ESP_ERROR_BME_INIT_FAILED;
     }
 
-    ESP_LOGI(__func__, "BME280 sensor initialze successful.");
-    return error_t;
+    ESP_LOGI(__func__, "BME280 sensor initialize successful.");
+    return ESP_OK;
 }
 
 esp_err_t bme280_readSensorData(bme280 *bme280_device, float *temperature,

@@ -1,30 +1,13 @@
 #include "SensorRegistry.h"
 #include "SensorConfig.h"
-#include "esp_log.h"
 #include <stddef.h>
 #include <stdint.h>
-
-#define TAG_SENSOR_REGISTRY "SENSOR_REGISTRY"
-
-/* -------------------- Test Functions (temporary) -------------------- */
-static system_err_t TestInit(void) {
-  ESP_LOGI(TAG_SENSOR_REGISTRY, "TestInit");
-  return MRS_OK;
-}
-
-static system_err_t TestRead(SensorData_t *data) {
-  if (data == NULL) {
-    ESP_LOGW(TAG_SENSOR_REGISTRY, "TestRead: data is NULL");
-    return MRS_ERR_CORE_INVALID_PARAM;
-  }
-  ESP_LOGI(TAG_SENSOR_REGISTRY, "TestRead");
-  return MRS_OK;
-}
 
 /* -------------------- Sensor Drivers Registry -------------------- */
 // Table of all registered sensor drivers
 static sensor_driver_t sensor_drivers[] = {
     {
+        .type = SENSOR_BME280,
         .name = "BME280",
         .init = bme280Initialize,
         .read = bme280ReadData,
@@ -36,6 +19,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_I2C,
     },
     {
+        .type = SENSOR_MHZ14A,
         .name = "MH-Z14A",
         .init = mhz14aInitialize,
         .read = mhz14aReadData,
@@ -47,6 +31,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_UART,
     },
     {
+        .type = SENSOR_PMS7003,
         .name = "PMS7003",
         .init = pms7003Initialize,
         .read = pms7003ReadData,
@@ -58,6 +43,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_UART,
     },
     {
+        .type = SENSOR_DHT22,
         .name = "DHT22",
         .init = dht22Initialize,
         .read = dht22ReadData,
@@ -69,6 +55,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_PULSE,
     },
     {
+        .type = SENSOR_AHT10,
         .name = "AHT10",
         .init = aht10Initialize,
         .read = aht10ReadData,
@@ -80,6 +67,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_I2C,
     },
     {
+        .type = SENSOR_DHT11,
         .name = "DHT11",
         .init = dht11Initialize,
         .read = dht11ReadData,
@@ -91,6 +79,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_PULSE,
     },
     {
+        .type = SENSOR_HTU21D,
         .name = "HTU21D",
         .init = htu21dInitialize,
         .read = htu21dReadData,
@@ -128,20 +117,61 @@ const char *sensor_type_to_name(SensorType_t t) {
   }
 }
 
-sensor_driver_t *sensor_registry_get_drivers(void) {
-  return sensor_drivers;
-}
-
 size_t sensor_registry_get_count(void) {
   return sizeof(sensor_drivers) / sizeof(sensor_drivers[0]);
 }
 
-sensor_driver_t *sensor_registry_get_driver(SensorType_t sensor_type) {
+static void fill_descriptor(const sensor_driver_t *driver,
+                            sensor_descriptor_t *out_descriptor) {
+  out_descriptor->type = driver->type;
+  out_descriptor->name = driver->name;
+  out_descriptor->description = driver->description;
+  out_descriptor->unit = driver->unit;
+  out_descriptor->unit_count = driver->unit_count;
+  out_descriptor->interface = driver->interface;
+}
+
+bool sensor_registry_get_descriptor(SensorType_t sensor_type,
+                                    sensor_descriptor_t *out_descriptor) {
+  if (out_descriptor == NULL) {
+    return false;
+  }
+  sensor_driver_t *driver = sensor_registry_get_driver_mutable(sensor_type);
+  if (driver == NULL) {
+    return false;
+  }
+  fill_descriptor(driver, out_descriptor);
+  return true;
+}
+
+bool sensor_registry_get_descriptor_at(size_t index,
+                                       sensor_descriptor_t *out_descriptor) {
+  if (out_descriptor == NULL || index >= sensor_registry_get_count()) {
+    return false;
+  }
+  fill_descriptor(&sensor_drivers[index], out_descriptor);
+  return true;
+}
+
+sensor_driver_t *sensor_registry_get_driver_mutable(SensorType_t sensor_type) {
   size_t count = sensor_registry_get_count();
-  if (sensor_type < 0 || (size_t)sensor_type >= count) {
+  for (size_t i = 0; i < count; i++) {
+    if (sensor_drivers[i].type == sensor_type) {
+      return &sensor_drivers[i];
+    }
+  }
+  return NULL;
+}
+
+sensor_driver_t *sensor_registry_get_driver_mutable_at(
+    size_t index, SensorType_t *out_sensor_type) {
+  if (index >= sensor_registry_get_count()) {
     return NULL;
   }
-  return &sensor_drivers[sensor_type];
+  if (out_sensor_type != NULL) {
+    *out_sensor_type = sensor_drivers[index].type;
+  }
+  return &sensor_drivers[index];
 }
 
 size_t sensor_registry_get_count_by_interface(TypeCommunication_t iface) {
@@ -155,9 +185,12 @@ size_t sensor_registry_get_count_by_interface(TypeCommunication_t iface) {
   return n;
 }
 
-sensor_driver_t *sensor_registry_get_driver_at_interface(TypeCommunication_t iface,
-                                                         size_t index,
-                                                         SensorType_t *out_sensor_type) {
+bool sensor_registry_get_descriptor_at_interface(
+    TypeCommunication_t iface, size_t index,
+    sensor_descriptor_t *out_descriptor) {
+  if (out_descriptor == NULL) {
+    return false;
+  }
   size_t total = sensor_registry_get_count();
   size_t k = 0;
   for (size_t i = 0; i < total; i++) {
@@ -165,13 +198,11 @@ sensor_driver_t *sensor_registry_get_driver_at_interface(TypeCommunication_t ifa
       continue;
     }
     if (k == index) {
-      if (out_sensor_type) {
-        *out_sensor_type = (SensorType_t)i;
-      }
-      return &sensor_drivers[i];
+      fill_descriptor(&sensor_drivers[i], out_descriptor);
+      return true;
     }
     k++;
   }
-  return NULL;
+  return false;
 }
 

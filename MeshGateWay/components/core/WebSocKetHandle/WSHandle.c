@@ -509,10 +509,11 @@ static void ws_send_gateway_status(ws_handler_ctx_t *ctx) {
    * esp_timer).
    *
    *   "wifi_ssid":          string, SSID AP đang bám; rỗng nếu không đọc được.
-   *   "wifi_rssi":          number, RSSI dBm (âm), từ esp_wifi_sta_get_ap_info;
-   * 0 nếu không có AP. "sta_ip":             string, IPv4 STA "x.x.x.x"; rỗng
-   * nếu chưa có. "sta_gateway":        string, gateway IPv4 STA; rỗng nếu không
-   * đọc được.
+   *   "wifi_rssi":          number, RSSI dBm (âm), từ esp_wifi_sta_get_ap_info; 0 nếu không có AP.
+   *   "sta_ip":             string, IPv4 STA "x.x.x.x"; rỗng nếu chưa có.
+   *   "sta_gateway":        string, gateway IPv4 STA; rỗng nếu không đọc được.
+   *   "mac":                string, địa chỉ MAC chuẩn STA "XX:XX:XX:XX:XX:XX".
+   *   "sta_mac":            string, alias MAC STA (đồng bộ với backend/simulator).
    * }
    */
   cJSON *root = cJSON_CreateObject();
@@ -574,6 +575,11 @@ static void ws_send_gateway_status(ws_handler_ctx_t *ctx) {
   }
   cJSON_AddStringToObject(root, "sta_ip", ip_buf);
   cJSON_AddStringToObject(root, "sta_gateway", gw_buf);
+
+  char mac_buf[20] = "";
+  wifi_manager_get_mac_info(mac_buf, sizeof(mac_buf));
+  cJSON_AddStringToObject(root, "mac", mac_buf);
+  cJSON_AddStringToObject(root, "sta_mac", mac_buf);
 
   char *json_str = cJSON_PrintUnformatted(root);
   cJSON_Delete(root);

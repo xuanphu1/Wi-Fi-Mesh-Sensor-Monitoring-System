@@ -313,7 +313,8 @@ bool wifi_manager_get_mac_info(char *mac_buf, size_t max_len) {
     return false;
   uint8_t mac[6] = {0};
   if (esp_wifi_get_mac(WIFI_IF_STA, mac) == ESP_OK) {
-    snprintf(mac_buf, max_len, "...%02X:%02X:%02X", mac[3], mac[4], mac[5]);
+    snprintf(mac_buf, max_len, "%02X:%02X:%02X:%02X:%02X:%02X",
+             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     return true;
   }
   snprintf(mac_buf, max_len, "00:00:00:00:00:00");

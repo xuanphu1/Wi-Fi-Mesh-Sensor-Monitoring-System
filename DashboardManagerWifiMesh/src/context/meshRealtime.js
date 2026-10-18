@@ -85,7 +85,15 @@ function normalizeGatewayStatus(msg) {
     return Number.isFinite(n) ? n : null;
   };
 
+  const gwId = String(msg.gw_id || msg.gwId || "gw-default").trim() || "gw-default";
+  const meshId = String(msg.mesh_id || msg.meshId || "mesh-default").trim() || "mesh-default";
+
   return {
+    gw_id: gwId,
+    mesh_id: meshId,
+    name: msg.name || msg.gw_name ? String(msg.name || msg.gw_name) : (gwId === "gw-default" ? "Gateway 1 - Trạm Trung Tâm" : gwId),
+    location: msg.location ? String(msg.location) : (gwId === "gw-default" ? "Khu Vực Quản Lý Chính" : ""),
+    mac: msg.mac || msg.sta_mac ? String(msg.mac || msg.sta_mac) : "",
     clientType: msg.clientType ? String(msg.clientType) : "",
     cpuLoadPercent: numberOrNull(msg.cpu_load_percent),
     ramUsedKb: numberOrNull(msg.ram_used_kb),
@@ -119,6 +127,7 @@ function fmtGatewayUptime(seconds) {
 function ingestParsedMesh(registry, data) {
   const ip = data.staIpv4;
   if (!ip || ip === "0.0.0.0") return registry;
+  if (data.meshLevel != null && Number(data.meshLevel) < 0) return registry;
 
   const nowMs = Date.now();
   const next = new Map(registry);
@@ -130,10 +139,16 @@ function ingestParsedMesh(registry, data) {
   const newReconnectCount = wasOffline ? currentReconnects + 1 : currentReconnects;
 
   const deviceRtcMs = parseDeviceRtcMs(data.rtcIso);
+  const rawObj = data.raw && typeof data.raw === "object" ? data.raw : {};
+  const gwId = rawObj.gw_id || rawObj.gwId || (rawObj.gateway && (rawObj.gateway.gw_id || rawObj.gateway.id)) || prev.gw_id || "gw-default";
+  const meshId = rawObj.mesh_id || rawObj.meshId || (rawObj.gateway && rawObj.gateway.mesh_id) || prev.mesh_id || "mesh-default";
+
   next.set(ip, {
     ...prev,
     id: ip,
     ip,
+    gw_id: gwId,
+    mesh_id: meshId,
     meshLevel: data.meshLevel,
     schemaVersion: data.schemaVersion,
     packetLoss: typeof data.packetLoss === "number" && Number.isFinite(data.packetLoss)
@@ -196,13 +211,27 @@ function applyWelcomeToRegistry(registry, obj) {
   return registry;
 }
 
-function applyHttpNodesToRegistry(registry, nodes) {
+function applyHttpNodesToRegistry(registry, nodes, knownGateways = []) {
   if (!Array.isArray(nodes)) return registry;
+
+  const gwIdentifiers = new Set();
+  if (Array.isArray(knownGateways)) {
+    knownGateways.forEach((g) => {
+      if (g.gw_id) gwIdentifiers.add(String(g.gw_id).trim().toLowerCase());
+      if (g.mac) gwIdentifiers.add(String(g.mac).trim().toLowerCase());
+      if (g.root_mac) gwIdentifiers.add(String(g.root_mac).trim().toLowerCase());
+      if (g.ip) gwIdentifiers.add(String(g.ip).trim().toLowerCase());
+    });
+  }
 
   const next = new Map(registry);
   nodes.forEach((n) => {
-    const ip = n && typeof n.ip === "string" ? n.ip : "";
+    const ip = n && typeof n.ip === "string" && n.ip ? n.ip : (n && typeof n.mac === "string" ? n.mac : "");
     if (!ip) return;
+    const ipLower = ip.trim().toLowerCase();
+    if (gwIdentifiers.has(ipLower)) return;
+    if (n.meshLevel != null && Number(n.meshLevel) < 0) return;
+    if (n.sensorName === "Gateway") return;
 
     const parsedLastSeen = new Date(n.lastSeen).getTime();
     const lastSeenMs = Number.isFinite(parsedLastSeen) ? parsedLastSeen : 0;
@@ -212,10 +241,17 @@ function applyHttpNodesToRegistry(registry, nodes) {
       ...prev,
       id: ip,
       ip,
-        meshLevel: n.meshLevel != null ? Number(n.meshLevel) : prev.meshLevel,
-        schemaVersion: n.schemaVersion != null ? Number(n.schemaVersion) : prev.schemaVersion,
-        packetLoss: n.packetLoss != null ? Number(n.packetLoss) : prev.packetLoss ?? null,
-        portCount: prev.portCount ?? 0,
+      name: n.node_name || n.name || prev.name || "",
+      location: n.node_location || n.location || prev.location || "",
+      latitude: n.latitude !== undefined && n.latitude !== null ? Number(n.latitude) : (prev.latitude ?? null),
+      longitude: n.longitude !== undefined && n.longitude !== null ? Number(n.longitude) : (prev.longitude ?? null),
+      notes: n.node_notes || n.notes || prev.notes || "",
+      gw_id: n.gw_id || prev.gw_id || "gw-default",
+      mesh_id: n.mesh_id || prev.mesh_id || "mesh-default",
+      meshLevel: n.meshLevel != null ? Number(n.meshLevel) : prev.meshLevel,
+      schemaVersion: n.schemaVersion != null ? Number(n.schemaVersion) : prev.schemaVersion,
+      packetLoss: n.packetLoss != null ? Number(n.packetLoss) : prev.packetLoss ?? null,
+      portCount: prev.portCount ?? 0,
       lastSeenMs: lastSeenMs || prev.lastSeenMs || 0,
     });
   });
@@ -253,6 +289,9 @@ export function MeshRealtimeProvider({ children }) {
   const [gatewayStatus, setGatewayStatus] = useState(null);
   const [gatewaySeries, setGatewaySeries] = useState([]);
   const [gatewayLogs, setGatewayLogs] = useState([]);
+  const [gatewayStatusByGw, setGatewayStatusByGw] = useState({});
+  const [gatewaySeriesByGw, setGatewaySeriesByGw] = useState({});
+  const [gatewayLogsByGw, setGatewayLogsByGw] = useState({});
 
   const [serverMetrics, setServerMetrics] = useState(null);
   const [serverMetricsSeries, setServerMetricsSeries] = useState([]);
@@ -264,6 +303,9 @@ export function MeshRealtimeProvider({ children }) {
   const [debugLogs, setDebugLogs] = useState([]);
   const [nodePowerStates, setNodePowerStates] = useState({});
   const [nodeActuatorStates, setNodeActuatorStates] = useState({});
+
+  const [gateways, setGateways] = useState([]);
+  const [selectedGatewayId, setSelectedGatewayId] = useState("all");
 
   const sendMessage = (data) => {
     if (!wsRef.current || wsRef.current.readyState !== 1) return false;
@@ -336,21 +378,35 @@ export function MeshRealtimeProvider({ children }) {
   useEffect(() => {
     let active = true;
 
-    // 1. Fetch initial node snapshot via HTTP
-    const fetchNodes = async () => {
+    // 1. Fetch Gateways and Nodes via HTTP
+    const initData = async () => {
+      let currentGateways = [];
       try {
-        const httpUrl = `${getHttpUrl()}/api/nodes`;
-        const res = await fetch(httpUrl);
-        if (!res.ok) throw new Error("Network response was not ok");
-        const nodes = await res.json();
-        if (active) {
-          setNodeRegistry((prev) => applyHttpNodesToRegistry(prev, nodes));
+        const gwRes = await fetch(`${getHttpUrl()}/api/gateways`);
+        if (gwRes.ok) {
+          const gwData = await gwRes.json();
+          if (active && Array.isArray(gwData.gateways)) {
+            currentGateways = gwData.gateways;
+            setGateways(gwData.gateways);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch gateways via HTTP:", err);
+      }
+
+      try {
+        const nodeRes = await fetch(`${getHttpUrl()}/api/nodes`);
+        if (nodeRes.ok) {
+          const nodes = await nodeRes.json();
+          if (active) {
+            setRegistry((prev) => applyHttpNodesToRegistry(prev, nodes, currentGateways));
+          }
         }
       } catch (err) {
         console.error("Failed to fetch node snapshot via HTTP:", err);
       }
     };
-    fetchNodes();
+    initData();
 
     // 2. Connect WebSocket for Realtime updates
     if (!url) {
@@ -473,6 +529,36 @@ export function MeshRealtimeProvider({ children }) {
         if (isWelcomeMsg) {
           setRegistry((prev) => applyWelcomeToRegistry(prev, msg));
           setDeviceInfo((prev) => extractDeviceInfo(msg, prev, ""));
+          if (Array.isArray(msg.gateways)) {
+            setGateways(msg.gateways);
+          }
+        }
+
+        if (msg && msg.type === "gateways_update" && Array.isArray(msg.gateways)) {
+          setGateways(msg.gateways);
+        }
+
+        if (msg && msg.type === "nodes_deleted" && Array.isArray(msg.macs)) {
+          const deletedSet = new Set(msg.macs);
+          setRegistry((prev) => {
+            const next = new Map(prev);
+            deletedSet.forEach((m) => next.delete(m));
+            return next;
+          });
+        }
+
+        if (msg && msg.type === "gateways_deleted" && Array.isArray(msg.gw_ids)) {
+          const deletedGwSet = new Set(msg.gw_ids);
+          setGateways((prev) => prev.filter((g) => !deletedGwSet.has(g.gw_id)));
+          setRegistry((prev) => {
+            const next = new Map(prev);
+            for (const [key, node] of next.entries()) {
+              if (deletedGwSet.has(node.gw_id)) {
+                next.delete(key);
+              }
+            }
+            return next;
+          });
         }
 
         const meshPayloads = parseMeshFromMessage(msg, uartTextCarryRef);
@@ -502,29 +588,71 @@ export function MeshRealtimeProvider({ children }) {
         if (isGatewayStatus) {
           const nextGatewayStatus = normalizeGatewayStatus(msg);
           if (nextGatewayStatus) {
+            const gwKey = nextGatewayStatus.gw_id || "gw-default";
             setGatewayStatus(nextGatewayStatus);
-            setGatewaySeries((prev) =>
-              [
+            setGatewayStatusByGw((prev) => ({ ...prev, [gwKey]: nextGatewayStatus }));
+
+            const newPoint = {
+              t: Date.now(),
+              cpu: nextGatewayStatus.cpuLoadPercent,
+              ram: nextGatewayStatus.ramUsedPercent,
+              rssi: nextGatewayStatus.wifiRssi === 0 ? null : nextGatewayStatus.wifiRssi,
+            };
+            setGatewaySeries((prev) => [...prev, newPoint].slice(-GATEWAY_SERIES_LIMIT));
+            setGatewaySeriesByGw((prev) => ({
+              ...prev,
+              [gwKey]: [...(prev[gwKey] || []), newPoint].slice(-GATEWAY_SERIES_LIMIT),
+            }));
+
+            const newLog = {
+              id: `${Date.now()}-${gwKey}-gateway`,
+              timeIso: nextGatewayStatus.receivedAtIso,
+              level: "Info",
+              message: `[${gwKey}] CPU ${Math.round(nextGatewayStatus.cpuLoadPercent ?? 0)}% - RAM ${Math.round(nextGatewayStatus.ramUsedPercent ?? 0)}% - up ${fmtGatewayUptime(nextGatewayStatus.uptimeS)} - RSSI ${nextGatewayStatus.wifiRssi == null || nextGatewayStatus.wifiRssi === 0 ? "N/A" : `${Math.round(nextGatewayStatus.wifiRssi)} dBm`}`,
+            };
+            setGatewayLogs((prev) => [newLog, ...prev].slice(0, GATEWAY_LOG_LIMIT));
+            setGatewayLogsByGw((prev) => ({
+              ...prev,
+              [gwKey]: [newLog, ...(prev[gwKey] || [])].slice(0, GATEWAY_LOG_LIMIT),
+            }));
+
+            // Dynamically upsert gateway into gateways state
+            setGateways((prev) => {
+              const exists = prev.some((g) => g.gw_id === gwKey);
+              if (exists) {
+                return prev.map((g) =>
+                  g.gw_id === gwKey
+                    ? {
+                        ...g,
+                        name: g.name || nextGatewayStatus.name || gwKey,
+                        location: g.location || nextGatewayStatus.location || "",
+                        mesh_id: nextGatewayStatus.mesh_id || g.mesh_id || "mesh-default",
+                        root_mac: nextGatewayStatus.mac || g.root_mac || "",
+                        mac: nextGatewayStatus.mac || g.mac || g.root_mac || "",
+                        ip: nextGatewayStatus.staIp || g.ip || "",
+                        status: "online",
+                        last_seen: nextGatewayStatus.receivedAtIso,
+                      }
+                    : g
+                );
+              }
+              return [
                 ...prev,
                 {
-                  t: Date.now(),
-                  cpu: nextGatewayStatus.cpuLoadPercent,
-                  ram: nextGatewayStatus.ramUsedPercent,
-                  rssi: nextGatewayStatus.wifiRssi === 0 ? null : nextGatewayStatus.wifiRssi,
+                  gw_id: gwKey,
+                  name: nextGatewayStatus.name || gwKey,
+                  location: nextGatewayStatus.location || "",
+                  mesh_id: nextGatewayStatus.mesh_id || "mesh-default",
+                  root_mac: nextGatewayStatus.mac || "",
+                  mac: nextGatewayStatus.mac || "",
+                  ip: nextGatewayStatus.staIp || "",
+                  status: "online",
+                  last_seen: nextGatewayStatus.receivedAtIso,
+                  node_count: 0,
+                  notes: "",
                 },
-              ].slice(-GATEWAY_SERIES_LIMIT)
-            );
-            setGatewayLogs((prev) =>
-              [
-                {
-                  id: `${Date.now()}-gateway`,
-                  timeIso: nextGatewayStatus.receivedAtIso,
-                  level: "Info",
-                  message: `CPU ${Math.round(nextGatewayStatus.cpuLoadPercent ?? 0)}% - RAM ${Math.round(nextGatewayStatus.ramUsedPercent ?? 0)}% - up ${fmtGatewayUptime(nextGatewayStatus.uptimeS)} - RSSI ${nextGatewayStatus.wifiRssi == null || nextGatewayStatus.wifiRssi === 0 ? "N/A" : `${Math.round(nextGatewayStatus.wifiRssi)} dBm`}`,
-                },
-                ...prev,
-              ].slice(0, GATEWAY_LOG_LIMIT)
-            );
+              ];
+            });
           }
         }
 
@@ -582,6 +710,58 @@ export function MeshRealtimeProvider({ children }) {
             return next;
           });
 
+          // Dynamically upsert gateways from mesh packets
+          setGateways((prev) => {
+            let nextList = [...prev];
+            let changed = false;
+
+            meshPayloads.forEach((mesh) => {
+              const rawObj = mesh.raw && typeof mesh.raw === "object" ? mesh.raw : {};
+              const gwObj = rawObj.gateway && typeof rawObj.gateway === "object" ? rawObj.gateway : {};
+              const gwKey = String(rawObj.gw_id || rawObj.gwId || gwObj.gw_id || gwObj.id || "gw-default").trim() || "gw-default";
+              const gwName = String(rawObj.gw_name || gwObj.name || gwObj.gw_name || (gwKey === "gw-default" ? "Gateway 1 - Trạm Trung Tâm" : gwKey));
+              const location = String(rawObj.location || gwObj.location || (gwKey === "gw-default" ? "Khu Vực Quản Lý Chính" : ""));
+              const meshId = String(rawObj.mesh_id || rawObj.meshId || gwObj.mesh_id || "mesh-default");
+              const rootMac = String(rawObj.root_mac || gwObj.root_mac || (Number(mesh.meshLevel) === 0 ? mesh.staIpv4 : ""));
+              const gwIp = String(gwObj.ip || "");
+              const nowIso = new Date(nowMs).toISOString();
+
+              const idx = nextList.findIndex((g) => g.gw_id === gwKey);
+              if (idx >= 0) {
+                const existing = nextList[idx];
+                if (existing.status !== "online" || (!existing.location && location) || (!existing.name && gwName)) {
+                  nextList[idx] = {
+                    ...existing,
+                    name: existing.name || gwName,
+                    location: existing.location || location,
+                    mesh_id: meshId || existing.mesh_id,
+                    root_mac: rootMac || existing.root_mac,
+                    ip: gwIp || existing.ip,
+                    status: "online",
+                    last_seen: nowIso,
+                  };
+                  changed = true;
+                }
+              } else {
+                nextList.push({
+                  gw_id: gwKey,
+                  name: gwName,
+                  location,
+                  mesh_id: meshId,
+                  root_mac: rootMac,
+                  ip: gwIp,
+                  status: "online",
+                  last_seen: nowIso,
+                  node_count: 1,
+                  notes: "",
+                });
+                changed = true;
+              }
+            });
+
+            return changed ? nextList : prev;
+          });
+
           meshPayloads.forEach((mesh) => {
             if (typeof mesh.rtcIso === "string" && mesh.rtcIso.trim()) {
               setLastDeviceRtcIso(mesh.rtcIso.trim());
@@ -631,45 +811,82 @@ export function MeshRealtimeProvider({ children }) {
     };
   }, [url]);
 
+  // Periodically refresh gateways from HTTP API every 10s so DB node counts and statuses stay in sync
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`${getHttpUrl()}/api/gateways`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data.gateways) && data.gateways.length > 0) {
+          setGateways((prev) => {
+            const merged = new Map();
+            prev.forEach((g) => merged.set(g.gw_id, g));
+            data.gateways.forEach((g) => {
+              const existing = merged.get(g.gw_id);
+              merged.set(g.gw_id, existing ? { ...existing, ...g, status: existing.status === "online" ? "online" : g.status } : g);
+            });
+            return Array.from(merged.values());
+          });
+        }
+      } catch (e) {}
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
+
   const connected = wsOpen && lastDeviceAt > 0 && now - lastDeviceAt <= UNIFIED_STALE_MS;
 
-  const nodeStats = useMemo(() => {
-    let online = 0;
-    let offline = 0;
-    registry.forEach((n) => {
-      if (wsOpen && now - (n.lastSeenMs || 0) <= UNIFIED_STALE_MS) online += 1;
-      else offline += 1;
-    });
-    return { online, offline, total: online + offline };
-  }, [registry, now, wsOpen]);
-
   const nodes = useMemo(() => {
-    const list = Array.from(registry.values()).map((e) => {
-      const age = now - e.lastSeenMs;
-      const online = wsOpen && age < UNIFIED_STALE_MS;
-      const ml = e.meshLevel != null ? Number(e.meshLevel) : null;
-
-      return {
-        id: e.id,
-        name: "Mesh Node",
-        location: `${e.ip} · ${e.portCount ?? 0} sensors · schema v${e.schemaVersion ?? "?"}`,
-        type: ml != null && Number.isFinite(ml) ? `MESH L${ml}` : "MESH",
-        meshLevel: ml,
-        schemaVersion: e.schemaVersion ?? null,
-        packetLoss: typeof e.packetLoss === "number" && Number.isFinite(e.packetLoss) ? e.packetLoss : null,
-        firmwareVersion: e.firmwareVersion || "0.0.0",
-        runtimeErrors: Array.isArray(e.runtimeErrors) ? e.runtimeErrors : [],
-        portCount: e.portCount ?? 0,
-        online,
-        rssi: null,
-        lastSeenIso: new Date(e.lastSeenMs).toISOString(),
-        latencyMs: typeof e.latencyMs === "number" ? e.latencyMs : null,
-        ports: Array.isArray(e.ports) ? e.ports : [],
-        rawPayload: e.rawPayload && typeof e.rawPayload === "object" ? e.rawPayload : null,
-        reconnectCount: typeof e.reconnectCount === "number" ? e.reconnectCount : 0,
-        _source: "websocket",
-      };
+    const gwIdentifiers = new Set();
+    gateways.forEach((g) => {
+      if (g.gw_id) gwIdentifiers.add(String(g.gw_id).trim().toLowerCase());
+      if (g.mac) gwIdentifiers.add(String(g.mac).trim().toLowerCase());
+      if (g.root_mac) gwIdentifiers.add(String(g.root_mac).trim().toLowerCase());
+      if (g.ip) gwIdentifiers.add(String(g.ip).trim().toLowerCase());
     });
+
+    const list = Array.from(registry.values())
+      .filter((e) => {
+        if (e.meshLevel != null && Number(e.meshLevel) < 0) return false;
+        if (e.schemaVersion != null && Number(e.schemaVersion) < 0) return false;
+        const idLower = String(e.id || e.ip || "").trim().toLowerCase();
+        if (gwIdentifiers.has(idLower)) return false;
+        return true;
+      })
+      .map((e) => {
+        const age = now - e.lastSeenMs;
+        const online = wsOpen && age < UNIFIED_STALE_MS;
+        const ml = e.meshLevel != null ? Number(e.meshLevel) : null;
+
+        return {
+          id: e.id,
+          mac: e.ip || e.id,
+          name: e.name || "Mesh Node",
+          nodeName: e.name || "",
+          location: e.location ? e.location : `${e.ip} · ${e.portCount ?? 0} sensors · schema v${e.schemaVersion ?? "?"}`,
+          nodeLocation: e.location || "",
+          latitude: e.latitude != null ? Number(e.latitude) : null,
+          longitude: e.longitude != null ? Number(e.longitude) : null,
+          notes: e.notes || "",
+          type: ml != null && Number.isFinite(ml) ? `MESH L${ml}` : "MESH",
+          gw_id: e.gw_id || "gw-default",
+          mesh_id: e.mesh_id || "mesh-default",
+          meshLevel: ml,
+          schemaVersion: e.schemaVersion ?? null,
+          packetLoss: typeof e.packetLoss === "number" && Number.isFinite(e.packetLoss) ? e.packetLoss : null,
+          firmwareVersion: e.firmwareVersion || "0.0.0",
+          runtimeErrors: Array.isArray(e.runtimeErrors) ? e.runtimeErrors : [],
+          portCount: e.portCount ?? 0,
+          online,
+          rssi: null,
+          lastSeenIso: new Date(e.lastSeenMs).toISOString(),
+          latencyMs: typeof e.latencyMs === "number" ? e.latencyMs : null,
+          ports: Array.isArray(e.ports) ? e.ports : [],
+          rawPayload: e.rawPayload && typeof e.rawPayload === "object" ? e.rawPayload : null,
+          reconnectCount: typeof e.reconnectCount === "number" ? e.reconnectCount : 0,
+          _source: "websocket",
+        };
+      });
 
     list.sort((a, b) => {
       const la = a.meshLevel != null ? a.meshLevel : 999;
@@ -679,7 +896,161 @@ export function MeshRealtimeProvider({ children }) {
     });
 
     return list;
-  }, [registry, now]);
+  }, [registry, now, wsOpen, gateways]);
+
+  const filteredNodes = useMemo(() => {
+    if (!selectedGatewayId || selectedGatewayId === "all") return nodes;
+    return nodes.filter((n) => (n.gw_id || "gw-default") === selectedGatewayId);
+  }, [nodes, selectedGatewayId]);
+
+  const activeGatewayStatus = useMemo(() => {
+    if (!selectedGatewayId || selectedGatewayId === "all") return gatewayStatus;
+    return gatewayStatusByGw[selectedGatewayId] || gatewayStatus;
+  }, [selectedGatewayId, gatewayStatus, gatewayStatusByGw]);
+
+  const activeGatewaySeries = useMemo(() => {
+    if (!selectedGatewayId || selectedGatewayId === "all") return gatewaySeries;
+    return gatewaySeriesByGw[selectedGatewayId] || gatewaySeries;
+  }, [selectedGatewayId, gatewaySeries, gatewaySeriesByGw]);
+
+  const activeGatewayLogs = useMemo(() => {
+    if (!selectedGatewayId || selectedGatewayId === "all") return gatewayLogs;
+    return gatewayLogsByGw[selectedGatewayId] || gatewayLogs;
+  }, [selectedGatewayId, gatewayLogs, gatewayLogsByGw]);
+
+  const nodeStats = useMemo(() => {
+    let online = 0;
+    let offline = 0;
+    filteredNodes.forEach((n) => {
+      if (n.online) online += 1;
+      else offline += 1;
+    });
+    return { online, offline, total: online + offline };
+  }, [filteredNodes]);
+
+  const updateGatewayMeta = async (gwId, meta) => {
+    try {
+      const res = await fetch(`${getHttpUrl()}/api/gateways/${encodeURIComponent(gwId)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(meta),
+      });
+      if (res.ok) {
+        setGateways((prev) =>
+          prev.map((g) => (g.gw_id === gwId ? { ...g, ...meta } : g))
+        );
+        return true;
+      }
+    } catch (e) {
+      console.error("updateGatewayMeta failed:", e);
+    }
+    return false;
+  };
+
+  const updateNodeMeta = async (mac, meta) => {
+    try {
+      const res = await fetch(`${getHttpUrl()}/api/nodes/${encodeURIComponent(mac)}/meta`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(meta),
+      });
+      if (res.ok) {
+        setRegistry((prev) => {
+          const next = new Map(prev);
+          const existing = next.get(mac);
+          if (existing) {
+            next.set(mac, {
+              ...existing,
+              name: meta.name !== undefined ? meta.name : existing.name,
+              location: meta.location !== undefined ? meta.location : existing.location,
+              latitude: meta.latitude !== undefined && meta.latitude !== null && meta.latitude !== "" ? Number(meta.latitude) : existing.latitude,
+              longitude: meta.longitude !== undefined && meta.longitude !== null && meta.longitude !== "" ? Number(meta.longitude) : existing.longitude,
+              notes: meta.notes !== undefined ? meta.notes : existing.notes,
+            });
+          }
+          return next;
+        });
+        return true;
+      }
+    } catch (e) {
+      console.error("updateNodeMeta failed:", e);
+    }
+    return false;
+  };
+
+  const deleteNodes = async (macs = []) => {
+    try {
+      const list = Array.isArray(macs) ? macs : [macs];
+      if (list.length === 0) return false;
+
+      // Optimistically remove from local registry
+      const set = new Set(list);
+      setRegistry((prev) => {
+        const next = new Map(prev);
+        set.forEach((m) => next.delete(m));
+        return next;
+      });
+
+      const res = await fetch(`${getHttpUrl()}/api/nodes`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ macs: list }),
+      });
+      return res.ok;
+    } catch (e) {
+      console.error("deleteNodes failed:", e);
+      return false;
+    }
+  };
+
+  const deleteGateway = async (gwId) => {
+    try {
+      if (!gwId) return false;
+      // Optimistically remove
+      setGateways((prev) => prev.filter((g) => g.gw_id !== gwId));
+      setRegistry((prev) => {
+        const next = new Map(prev);
+        for (const [key, node] of next.entries()) {
+          if (node.gw_id === gwId) next.delete(key);
+        }
+        return next;
+      });
+
+      const res = await fetch(`${getHttpUrl()}/api/gateways/${encodeURIComponent(gwId)}`, {
+        method: "DELETE",
+      });
+      return res.ok;
+    } catch (e) {
+      console.error("deleteGateway failed:", e);
+      return false;
+    }
+  };
+
+  const deleteGateways = async (gwIds = []) => {
+    try {
+      const list = Array.isArray(gwIds) ? gwIds : [gwIds];
+      if (list.length === 0) return false;
+      const set = new Set(list);
+      setGateways((prev) => prev.filter((g) => !set.has(g.gw_id)));
+      setRegistry((prev) => {
+        const next = new Map(prev);
+        for (const [key, node] of next.entries()) {
+          if (set.has(node.gw_id)) next.delete(key);
+        }
+        return next;
+      });
+
+      const res = await fetch(`${getHttpUrl()}/api/gateways`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ gw_ids: list }),
+      });
+      return res.ok;
+    } catch (e) {
+      console.error("deleteGateways failed:", e);
+      return false;
+    }
+  };
 
   const throughput = useMemo(() => {
     const labels = throughputSeries.map((p) =>
@@ -703,9 +1074,10 @@ export function MeshRealtimeProvider({ children }) {
       wsOpen,
       connected,
       nodeStats,
-      gatewayStatus,
-      gatewaySeries,
-      gatewayLogs,
+      gatewayStatus: activeGatewayStatus,
+      gatewaySeries: activeGatewaySeries,
+      gatewayLogs: activeGatewayLogs,
+      gatewayStatusByGw,
       deviceInfo,
       latestSensors,
       throughput,
@@ -714,6 +1086,16 @@ export function MeshRealtimeProvider({ children }) {
       lastDataLatencyMs,
       debugLogs,
       nodes,
+      filteredNodes,
+      gateways,
+      setGateways,
+      selectedGatewayId,
+      setSelectedGatewayId,
+      updateGatewayMeta,
+      updateNodeMeta,
+      deleteNodes,
+      deleteGateway,
+      deleteGateways,
       registrySize: registry.size,
       serverMetrics,
       serverMetricsSeries,
@@ -726,9 +1108,10 @@ export function MeshRealtimeProvider({ children }) {
       wsOpen,
       connected,
       nodeStats,
-      gatewayStatus,
-      gatewaySeries,
-      gatewayLogs,
+      activeGatewayStatus,
+      activeGatewaySeries,
+      activeGatewayLogs,
+      gatewayStatusByGw,
       deviceInfo,
       latestSensors,
       throughput,
@@ -737,6 +1120,9 @@ export function MeshRealtimeProvider({ children }) {
       lastDataLatencyMs,
       debugLogs,
       nodes,
+      filteredNodes,
+      gateways,
+      selectedGatewayId,
       registry,
       serverMetrics,
       serverMetricsSeries,

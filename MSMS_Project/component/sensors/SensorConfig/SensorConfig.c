@@ -1,10 +1,14 @@
 #include "SensorConfig.h"
 #include "PinManager.h"
 #include "aht.h"
+#include "bme280.h"
 #include "dht.h"
+#include "esp_log.h"
 #include "mhz14a.h"
+#include "pms7003.h"
 #include "sdkconfig.h"
 #include "si7021.h"
+#include "i2cdev.h"
 
 /*
  * ============================================================================
@@ -50,8 +54,10 @@ system_err_t bme280Initialize(void) {
   esp_err_t ret = bme280_init(&bme280_device, &bme280_params, BME280_ADDRESS,
                               PIN_I2C_PORT_NUM, PIN_I2C_SDA, PIN_I2C_SCL);
   if (ret != ESP_OK) {
-    ESP_LOGE("sensor_bme280_init", "bme280_init failed: %s",
-             esp_err_to_name(ret));
+    if (ret != ESP_ERR_NOT_FOUND) {
+      ESP_LOGE("sensor_bme280_init", "bme280_init failed: %s",
+               esp_err_to_name(ret));
+    }
     return MRS_ERR_SENSOR_BME280_INIT_FAILED;
   }
 
@@ -102,9 +108,13 @@ system_err_t aht10Initialize(void) {
   esp_err_t ret = aht_init_desc(&aht10_device, AHT_I2C_ADDRESS_GND,
                                 PIN_I2C_PORT_NUM, PIN_I2C_SDA, PIN_I2C_SCL);
   if (ret != ESP_OK) {
-    ESP_LOGE("sensor_aht10_init", "aht_init_desc failed: %s",
-             esp_err_to_name(ret));
     return MRS_ERR_I2CDEV_INIT_FAILED;
+  }
+
+  // Quick probe before doing full sensor init
+  if (i2c_dev_probe(&aht10_device.i2c_dev, I2C_DEV_WRITE) != ESP_OK) {
+    (void)aht_free_desc(&aht10_device);
+    return MRS_ERR_SENSORS_NOT_FOUND;
   }
 
   aht10_device.type = AHT_TYPE_AHT1x;
@@ -112,6 +122,7 @@ system_err_t aht10Initialize(void) {
 
   ret = aht_init(&aht10_device);
   if (ret != ESP_OK) {
+    (void)aht_free_desc(&aht10_device);
     ESP_LOGE("sensor_aht10_init", "aht_init failed: %s", esp_err_to_name(ret));
     return MRS_ERR_DRIVERS_INIT_FAILED;
   }
@@ -182,7 +193,6 @@ system_err_t pms7003Initialize(void) {
 
 system_err_t pms7003ReadData(SensorData_t *data) {
   if (data == NULL) {
-    ESP_LOGE("sensor_pms7003_read", "data pointer is NULL");
     return MRS_ERR_CORE_INVALID_PARAM;
   }
 
@@ -191,8 +201,6 @@ system_err_t pms7003ReadData(SensorData_t *data) {
   uint32_t pm10 = 0;
   esp_err_t ret = pms7003_readData(outdoor, &pm1_0, &pm2_5, &pm10);
   if (ret != ESP_OK) {
-    ESP_LOGE("sensor_pms7003_read", "pms7003_readData failed: %s",
-             esp_err_to_name(ret));
     return MRS_ERR_SENSORS_READ_FAILED;
   }
 
@@ -276,12 +284,11 @@ static system_err_t dht_read_common(dht_sensor_type_t type,
   float temp = 0.0f, hum = 0.0f;
   gpio_num_t pin = PIN_PULSE_1;
   esp_err_t ret = dht_read_float_data(type, pin, &hum, &temp);
-  ESP_LOGI("sensor_dht_read_data", "Humid %f, Temp %f", hum, temp);
   if (ret != ESP_OK) {
-    ESP_LOGE("sensor_dht_read", "read failed: %s", esp_err_to_name(ret));
     return MRS_ERR_SENSORS_READ_FAILED;
   }
   
+  ESP_LOGI("sensor_dht_read_data", "Humid %f, Temp %f", hum, temp);
   cached_dht_temp = temp;
   cached_dht_hum = hum;
   last_dht_read_time = current_time;
@@ -313,10 +320,14 @@ system_err_t htu21dInitialize(void) {
   esp_err_t ret = si7021_init_desc(&htu21d_device, PIN_I2C_PORT_NUM,
                                    PIN_I2C_SDA, PIN_I2C_SCL);
   if (ret != ESP_OK) {
-    ESP_LOGE("sensor_htu21d_init", "init_desc failed: %s",
-             esp_err_to_name(ret));
     return MRS_ERR_I2CDEV_INIT_FAILED;
   }
+
+  if (i2c_dev_probe(&htu21d_device, I2C_DEV_WRITE) != ESP_OK) {
+    (void)si7021_free_desc(&htu21d_device);
+    return MRS_ERR_SENSORS_NOT_FOUND;
+  }
+
   htu21d_initialized = true;
   return MRS_OK;
 }

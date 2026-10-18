@@ -51,9 +51,11 @@ import OtaGateway from "layouts/ota-gateway";
 import OtaNodes from "layouts/ota-nodes";
 import SystemSettings from "layouts/system-settings";
 import About from "layouts/about";
+import HardwarePinout from "layouts/hardware-pinout";
+import MeshMap from "layouts/map";
 
 // Icons
-import { IoHome, IoHardwareChip, IoPulse, IoWarning, IoCloudDownload, IoSettings, IoInformationCircle, IoWifi, IoAnalytics, IoServer } from "react-icons/io5";
+import { IoHome, IoHardwareChip, IoPulse, IoWarning, IoCloudDownload, IoSettings, IoInformationCircle, IoWifi, IoAnalytics, IoServer, IoFlash, IoMap } from "react-icons/io5";
 import { IoList } from "react-icons/io5";
 
 const routes = [
@@ -82,6 +84,15 @@ const routes = [
     route: "/nodes",
     icon: <IoList size="15px" color="inherit" />,
     component: Nodes,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Bản Đồ Mesh",
+    key: "map",
+    route: "/map",
+    icon: <IoMap size="15px" color="inherit" />,
+    component: MeshMap,
     noCollapse: true,
   },
   {
@@ -150,6 +161,15 @@ const routes = [
     noCollapse: true,
   },
 
+  {
+    type: "collapse",
+    name: "Hardware Pinout",
+    key: "hardware-pinout",
+    route: "/hardware-pinout",
+    icon: <IoFlash size="15px" color="inherit" />,
+    component: HardwarePinout,
+    noCollapse: true,
+  },
   {
     type: "collapse",
     name: "About",

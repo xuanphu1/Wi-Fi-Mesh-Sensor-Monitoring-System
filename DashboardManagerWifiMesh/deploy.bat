@@ -4,20 +4,22 @@ setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 echo ======================================================================
-echo             MSMS DASHBOARD - DEPLOY TO UBUNTU SERVER
+echo          MSMS SYSTEM - FULL DEPLOY (FRONTEND + BACKEND)
 echo ======================================================================
 echo Target Host:   phuserver@100.124.89.115
-echo Remote Path:   /home/phuserver/Documents/DashboardManagerWifiMesh/build/
+echo Remote Dir:    /home/phuserver/Documents/DashboardManagerWifiMesh/
 echo Public Domain: https://systemmsems.msems.click
 echo ======================================================================
 echo.
 
 set "SERVER_USER=phuserver"
 set "SERVER_IP=100.124.89.115"
-set "REMOTE_BUILD_DIR=/home/phuserver/Documents/DashboardManagerWifiMesh/build"
+set "REMOTE_ROOT=/home/phuserver/Documents/DashboardManagerWifiMesh"
+set "REMOTE_BUILD_DIR=%REMOTE_ROOT%/build"
+set "REMOTE_WS_DIR=%REMOTE_ROOT%/websocket-server"
 
 rem --- STEP 1: BUILD FRONTEND ---
-echo [1/3] Building production bundle (npm run build)...
+echo [1/4] Building production bundle (npm run build)...
 call npm.cmd run build
 if errorlevel 1 (
     echo.
@@ -28,31 +30,44 @@ if errorlevel 1 (
 echo [OK] Build completed successfully.
 echo.
 
-rem --- STEP 2: SCP UPLOAD ---
-echo [2/3] Uploading build bundle to server (%SERVER_IP%)...
+rem --- STEP 2: UPLOAD FRONTEND (build/) ---
+echo [2/4] Uploading Frontend build to server (%SERVER_IP%)...
 scp -r ".\build\*" "%SERVER_USER%@%SERVER_IP%:%REMOTE_BUILD_DIR%/"
 if errorlevel 1 (
     echo.
     echo [WARNING] Upload via %SERVER_IP% failed, trying LAN IP 192.168.1.9...
-    scp -r ".\build\*" "%SERVER_USER%@192.168.1.9:%REMOTE_BUILD_DIR%/"
+    set "SERVER_IP=192.168.1.9"
+    scp -r ".\build\*" "%SERVER_USER%@!SERVER_IP!:%REMOTE_BUILD_DIR%/"
 )
-echo [OK] Files uploaded successfully.
+echo [OK] Frontend uploaded successfully.
 echo.
 
-rem --- STEP 3: RESTART SERVICE ON SERVER ---
-echo [3/3] Restarting msms-frontend service on server...
-ssh -o ConnectTimeout=10 "%SERVER_USER%@%SERVER_IP%" "sudo systemctl restart msms-frontend.service"
+rem --- STEP 3: UPLOAD BACKEND (websocket-server code only) ---
+echo [3/4] Uploading Backend scripts (server.js, sqlite-store.js, mesh-simulator.js)...
+scp ".\websocket-server\server.js" ".\websocket-server\sqlite-store.js" ".\websocket-server\mesh-simulator.js" ".\websocket-server\package.json" "%SERVER_USER%@%SERVER_IP%:%REMOTE_WS_DIR%/"
+if errorlevel 1 (
+    echo [WARNING] Could not upload backend files.
+) else (
+    echo [OK] Backend files uploaded successfully.
+)
+echo.
+
+rem --- STEP 4: RESTART SERVICES ON SERVER ---
+echo [4/4] Restarting msms-frontend and msms-backend services on server...
+ssh -t -o ConnectTimeout=10 "%SERVER_USER%@%SERVER_IP%" "sudo systemctl restart msms-frontend.service msms-backend.service"
 if errorlevel 1 (
     echo [NOTE] Could not execute remote restart command automatically.
-    echo Please run on server: sudo systemctl restart msms-frontend.service
+    echo Please run on server: sudo systemctl restart msms-frontend.service msms-backend.service
 ) else (
-    echo [OK] Service msms-frontend restarted successfully!
+    echo [OK] Both msms-frontend and msms-backend restarted successfully!
 )
 
 echo.
 echo ======================================================================
-echo [SUCCESS] Deploy completed!
-echo Open your browser at: https://systemmsems.msems.click
+echo [SUCCESS] Full deployment completed!
+echo - Frontend: Updated and restarted
+echo - Backend:  Updated and restarted (Database mesh-data.sqlite preserved)
+echo - Web URL:  https://systemmsems.msems.click
 echo ======================================================================
 echo.
 

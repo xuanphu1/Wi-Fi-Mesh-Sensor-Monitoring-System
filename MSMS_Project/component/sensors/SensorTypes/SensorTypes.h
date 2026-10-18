@@ -60,9 +60,20 @@ typedef struct {
   uint8_t data_uint8[5];
 } SensorData_t;
 
+/* Read-only sensor metadata exposed outside the driver lifecycle layer. */
+typedef struct {
+  SensorType_t type;
+  const char *name;
+  const char *const *description;
+  const char *const *unit;
+  uint8_t unit_count;
+  TypeCommunication_t interface;
+} sensor_descriptor_t;
+
 /* -------------------- Sensor Driver Structure -------------------- */
 // One registered sensor driver
 typedef struct {
+  SensorType_t type;                    // Stable sensor identifier
   const char *name;                    // e.g. "BME280"
   const char *description[20];         // Field labels
   const char *unit[20];                // Units

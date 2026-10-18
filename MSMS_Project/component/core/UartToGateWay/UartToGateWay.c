@@ -2,7 +2,6 @@
 
 #include "DataManager.h"
 #include "FOTAManager.h"
-#include "FunctionManager.h"
 #include "InternetManager.h"
 #include "MeshManager.h"
 #include "PinManager.h"
@@ -43,6 +42,7 @@ static DataManager_t *s_data = NULL;
 static bool s_uart_started = false;
 static bool s_uart_gateway_paused = false;
 static uart_port_t s_uart_num = UART_NUM_1;
+static SemaphoreHandle_t s_uart_pause_ack = NULL;
 
 /* Gateway heartbeat: when in ROOT mode, gateway must periodically send
  * "Connected". */
@@ -53,6 +53,8 @@ static TickType_t s_mesh_gateway_no_node_tick = 0;
 static TickType_t s_uart_gateway_last_stats_tick = 0;
 static uint32_t s_uart_gateway_sent_frames = 0;
 static uint32_t s_uart_gateway_sent_bytes = 0;
+static uart_gateway_role_request_fn s_role_request_handler = NULL;
+static void *s_role_request_context = NULL;
 
 static bool uart_gateway_mesh_mode_active(void) {
   return InternetManager_GetMode() == INTERNET_MODE_MESH;
@@ -112,7 +114,14 @@ static void handle_gateway_line(char *line) {
     ESP_LOGI(TAG_UART_GATEWAY,
              "UART cmd: Start Root -> switch mesh root (TX %d/%d bytes)", nw,
              (int)sizeof("Switching to root mode...\r\n"));
-    wifi_mesh_join_as_root_callback(s_data);
+    if (s_role_request_handler == NULL ||
+        s_role_request_handler(MESH_ROLE_ROOT, s_role_request_context) !=
+            MRS_OK) {
+      (void)UartToGateWay_Send("Role switch failed\r\n",
+                               sizeof("Role switch failed\r\n") - 1);
+      ESP_LOGE(TAG_UART_GATEWAY, "No application role handler available");
+      return;
+    }
     s_connected_watchdog_enabled = true;
     s_last_connected_tick = xTaskGetTickCount();
     return;
@@ -214,29 +223,47 @@ static void uart_gateway_rx_task(void *pvParameter) {
   size_t line_len = 0;
 
   while (1) {
-    if (!uart_gateway_mesh_mode_active() || s_uart_gateway_paused) {
+    if (s_uart_gateway_paused || s_uart_event_queue == NULL) {
       line_len = 0;
       s_connected_watchdog_enabled = false;
-      if (s_uart_event_queue != NULL) {
-        uart_flush_input(s_uart_num);
-        xQueueReset(s_uart_event_queue);
+      if (s_uart_pause_ack != NULL) {
+        xSemaphoreGive(s_uart_pause_ack);
       }
+      while (s_uart_gateway_paused || s_uart_event_queue == NULL) {
+        vTaskDelay(pdMS_TO_TICKS(50));
+      }
+      continue;
+    }
+
+    if (!uart_gateway_mesh_mode_active()) {
+      line_len = 0;
+      s_connected_watchdog_enabled = false;
+      uart_flush_input(s_uart_num);
+      xQueueReset(s_uart_event_queue);
       vTaskDelay(pdMS_TO_TICKS(500));
       continue;
     }
 
-    if (xQueueReceive(s_uart_event_queue, &event, pdMS_TO_TICKS(500)) !=
-        pdTRUE) {
+    QueueHandle_t queue = s_uart_event_queue;
+    if (queue == NULL ||
+        xQueueReceive(queue, &event, pdMS_TO_TICKS(500)) != pdTRUE) {
       TickType_t now = xTaskGetTickCount();
       if (s_connected_watchdog_enabled) {
         if ((now - s_last_connected_tick) > pdMS_TO_TICKS(1000)) {
           ESP_LOGW(TAG_UART_GATEWAY, "No 'Connected' heartbeat from gateway "
                                      "for >1s -> switch to node");
-          wifi_mesh_join_as_node_callback(s_data);
+          if (s_role_request_handler != NULL) {
+            (void)s_role_request_handler(MESH_ROLE_NODE,
+                                         s_role_request_context);
+          }
           s_connected_watchdog_enabled = false;
           s_last_connected_tick = now;
         }
       }
+      continue;
+    }
+
+    if (s_uart_gateway_paused || s_uart_event_queue == NULL) {
       continue;
     }
 
@@ -268,7 +295,9 @@ static void uart_gateway_rx_task(void *pvParameter) {
     case UART_BUFFER_FULL:
       ESP_LOGW(TAG_UART_GATEWAY, "UART RX overflow, flush input");
       uart_flush_input(s_uart_num);
-      xQueueReset(s_uart_event_queue);
+      if (s_uart_event_queue != NULL) {
+        xQueueReset(s_uart_event_queue);
+      }
       break;
     default:
       break;
@@ -308,12 +337,20 @@ void UartToGateWay_Pause(void) {
   if (!s_uart_started || s_uart_gateway_paused) return;
   s_uart_gateway_paused = true;
   
-  // Wait to ensure rx_task exits xQueueReceive
-  vTaskDelay(pdMS_TO_TICKS(600)); 
+  if (s_uart_event_queue != NULL) {
+    uart_event_t dummy = { .type = UART_EVENT_MAX };
+    (void)xQueueSend(s_uart_event_queue, &dummy, 0);
+  }
 
+  if (s_uart_pause_ack != NULL) {
+    (void)xSemaphoreTake(s_uart_pause_ack, pdMS_TO_TICKS(1000));
+  } else {
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+
+  s_uart_event_queue = NULL;
   if (uart_is_driver_installed(s_uart_num)) {
     uart_driver_delete(s_uart_num);
-    s_uart_event_queue = NULL;
   }
 }
 
@@ -333,14 +370,24 @@ void UartToGateWay_Resume(void) {
       .source_clk = UART_SCLK_DEFAULT,
   };
 
+  QueueHandle_t new_queue = NULL;
   if (uart_driver_install(s_uart_num, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE,
-                          UART_EVENT_QUEUE_LEN, &s_uart_event_queue,
+                          UART_EVENT_QUEUE_LEN, &new_queue,
                           0) == ESP_OK) {
     uart_param_config(s_uart_num, &uart_config);
     uart_set_pin(s_uart_num, PIN_UART_TX, PIN_UART_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    const uart_intr_config_t uart_intr = {
+        .intr_enable_mask =
+            UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
+        .rxfifo_full_thresh = UART_RXFIFO_FULL_THRESH,
+        .rx_timeout_thresh = UART_RX_TIMEOUT_THRESH,
+        .txfifo_empty_intr_thresh = 0,
+    };
+    uart_intr_config(s_uart_num, &uart_intr);
+    uart_enable_rx_intr(s_uart_num);
+    s_uart_event_queue = new_queue;
+    s_uart_gateway_paused = false;
   }
-  
-  s_uart_gateway_paused = false;
 }
 
 static void uart_gateway_log_tx_stats(void) {
@@ -425,6 +472,9 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   }
 
   s_data = data;
+  if (s_uart_pause_ack == NULL) {
+    s_uart_pause_ack = xSemaphoreCreateBinary();
+  }
   FOTAManager_Init(fota_uart_progress_sender);
   s_last_connected_tick = xTaskGetTickCount();
   s_mesh_gateway_no_node_tick = xTaskGetTickCount();
@@ -511,6 +561,12 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
       CONFIG_UART_GATEWAY_BAUD_RATE, UART_RXFIFO_FULL_THRESH,
       UART_RX_TIMEOUT_THRESH);
   return MRS_OK;
+}
+
+void UartToGateWay_SetRoleRequestHandler(
+    uart_gateway_role_request_fn handler, void *context) {
+  s_role_request_handler = handler;
+  s_role_request_context = context;
 }
 
 int UartToGateWay_Send(const void *data, size_t len) {
