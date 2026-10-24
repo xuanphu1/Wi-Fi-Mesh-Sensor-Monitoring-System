@@ -7,7 +7,9 @@
 #define UART_TO_NODE_H
 
 #include "esp_err.h"
-#include "Datamanager.h"
+#include "app_state.h"
+#include "telemetry_types.h"
+#include "uart_protocol.h"
 
 #ifdef __cplusplus
 extern "C" {

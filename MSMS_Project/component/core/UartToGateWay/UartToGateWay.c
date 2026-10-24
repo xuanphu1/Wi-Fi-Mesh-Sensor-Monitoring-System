@@ -1,17 +1,18 @@
 #include "UartToGateWay.h"
 
 #include "DataManager.h"
-#include "FOTAManager.h"
 #include "InternetManager.h"
 #include "MeshManager.h"
 #include "PinManager.h"
 #include "ProcessingDataMesh.h"
 #include "TimeManager.h"
+#include "UartResourceManager.h"
 #include "cJSON.h"
 #include "driver/uart.h"
 #include "esp_app_desc.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/event_groups.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
 #include "soc/uart_reg.h"
@@ -20,7 +21,6 @@
 #include <inttypes.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 #ifndef CONFIG_UART_GATEWAY_BAUD_RATE
 #define CONFIG_UART_GATEWAY_BAUD_RATE 115200
@@ -33,19 +33,44 @@
 #define UART_CMD_LINE_MAX 512
 #define UART_RXFIFO_FULL_THRESH 64
 #define UART_RX_TIMEOUT_THRESH 10
-#define UART_GATEWAY_TX_RECV_WAIT_MS 100
+#define UART_GATEWAY_TX_RECV_WAIT_MS 50
 #define UART_GATEWAY_TX_DRAIN_BATCH 64
 #define UART_GATEWAY_TX_STATS_MS 1000
 
+/* Event Group Bits for Quiesce / Resume / Stop Handshake */
+#define UART_EVT_PAUSE_REQ    BIT0
+#define UART_EVT_RX_QUIESCED  BIT1
+#define UART_EVT_TX_QUIESCED  BIT2
+#define UART_EVT_RESUME_REQ   BIT3
+#define UART_EVT_STOP_REQ     BIT4
+#define UART_EVT_RX_EXITED    BIT5
+#define UART_EVT_TX_EXITED    BIT6
+
 static QueueHandle_t s_uart_event_queue = NULL;
 static DataManager_t *s_data = NULL;
+static volatile uart_state_t s_uart_state = UART_STATE_UNINITIALIZED;
 static bool s_uart_started = false;
-static bool s_uart_gateway_paused = false;
 static uart_port_t s_uart_num = UART_NUM_1;
-static SemaphoreHandle_t s_uart_pause_ack = NULL;
 
-/* Gateway heartbeat: when in ROOT mode, gateway must periodically send
- * "Connected". */
+static EventGroupHandle_t s_uart_event_group = NULL;
+static SemaphoreHandle_t s_rx_exit_sem = NULL;
+static SemaphoreHandle_t s_tx_exit_sem = NULL;
+static TaskHandle_t s_rx_task_handle = NULL;
+static TaskHandle_t s_tx_task_handle = NULL;
+static uart_lease_t s_gateway_lease = {0};
+
+uart_state_t UartToGateWay_GetState(void) {
+  return s_uart_state;
+}
+
+#if CONFIG_MSMS_ENABLE_TESTS
+static int s_uart_init_fault_stage = 0;
+void UartToGateWay_TestInjectInitFault(int stage) {
+  s_uart_init_fault_stage = stage;
+}
+#endif
+
+/* Gateway heartbeat: when in ROOT mode, gateway must periodically send "Connected". */
 static TickType_t s_last_connected_tick = 0;
 static bool s_connected_watchdog_enabled = false;
 /** Root: lần cuối gửi heartbeat "No node" khi queue mesh rỗng. */
@@ -55,15 +80,11 @@ static uint32_t s_uart_gateway_sent_frames = 0;
 static uint32_t s_uart_gateway_sent_bytes = 0;
 static uart_gateway_role_request_fn s_role_request_handler = NULL;
 static void *s_role_request_context = NULL;
+static uart_gateway_ota_handler_fn s_ota_handler = NULL;
+static void *s_ota_context = NULL;
 
 static bool uart_gateway_mesh_mode_active(void) {
   return InternetManager_GetMode() == INTERNET_MODE_MESH;
-}
-
-static bool uart_gateway_mesh_stack_ready(void) {
-  InternetManagerStatus_t status = {0};
-  return InternetManager_GetStatus(s_data, &status) == MRS_OK &&
-         status.mesh_started;
 }
 
 static bool equals_ignore_case(const char *a, const char *b) {
@@ -78,52 +99,37 @@ static bool equals_ignore_case(const char *a, const char *b) {
 }
 
 static void handle_gateway_line(char *line) {
-  if (line == NULL || s_data == NULL) {
-    return;
-  }
-
-  while (*line != '\0' && isspace((unsigned char)*line)) {
-    line++;
-  }
-
+  while (*line == ' ' || *line == '\t') line++;
   size_t len = strlen(line);
-  while (len > 0 && isspace((unsigned char)line[len - 1])) {
-    line[len - 1] = '\0';
-    len--;
+  while (len > 0 && (line[len - 1] == ' ' || line[len - 1] == '\t' ||
+                     line[len - 1] == '\r' || line[len - 1] == '\n')) {
+    line[--len] = '\0';
   }
-
-  if (len == 0) {
-    return;
-  }
+  if (len == 0) return;
 
   if (equals_ignore_case(line, "Connected")) {
     s_last_connected_tick = xTaskGetTickCount();
+    s_connected_watchdog_enabled = true;
+    ESP_LOGD(TAG_UART_GATEWAY, "Received Connected heartbeat from Gateway");
     return;
   }
 
   if (equals_ignore_case(line, "Start Root")) {
-    if (!uart_gateway_mesh_stack_ready()) {
-      int nw = UartToGateWay_Send("Mesh not ready\r\n", 16);
-      ESP_LOGW(TAG_UART_GATEWAY,
-               "Start Root ignored: mesh-lite init not finished yet (TX %d/16)",
-               nw);
-      return;
-    }
-    int nw = UartToGateWay_Send("Switching to root mode...\r\n",
-                                sizeof("Switching to root mode...\r\n"));
-    ESP_LOGI(TAG_UART_GATEWAY,
-             "UART cmd: Start Root -> switch mesh root (TX %d/%d bytes)", nw,
-             (int)sizeof("Switching to root mode...\r\n"));
-    if (s_role_request_handler == NULL ||
-        s_role_request_handler(MESH_ROLE_ROOT, s_role_request_context) !=
-            MRS_OK) {
-      (void)UartToGateWay_Send("Role switch failed\r\n",
-                               sizeof("Role switch failed\r\n") - 1);
-      ESP_LOGE(TAG_UART_GATEWAY, "No application role handler available");
-      return;
-    }
-    s_connected_watchdog_enabled = true;
     s_last_connected_tick = xTaskGetTickCount();
+    s_connected_watchdog_enabled = true;
+    if (s_role_request_handler != NULL) {
+      system_err_t err = s_role_request_handler(MESH_ROLE_ROOT, s_role_request_context);
+      if (err != MRS_OK) {
+        (void)UartToGateWay_Send("Role request rejected\r\n", 23);
+        return;
+      }
+    } else {
+      if (!MeshManager_SwitchRole(MESH_ROLE_ROOT)) {
+        (void)UartToGateWay_Send("Mesh not ready\r\n", 16);
+        return;
+      }
+    }
+    (void)UartToGateWay_Send("Switching to root mode...\r\n", 27);
     return;
   }
 
@@ -132,51 +138,17 @@ static void handle_gateway_line(char *line) {
     if (root != NULL) {
       cJSON *type_item = cJSON_GetObjectItem(root, "type");
       if (type_item != NULL && cJSON_IsString(type_item) &&
-          strcmp(type_item->valuestring, "sync_time") == 0) {
-        cJSON *ts_item = cJSON_GetObjectItem(root, "timestamp");
-        cJSON *year_item = cJSON_GetObjectItem(root, "year");
-        cJSON *month_item = cJSON_GetObjectItem(root, "month");
-        cJSON *day_item = cJSON_GetObjectItem(root, "day");
-        cJSON *hour_item = cJSON_GetObjectItem(root, "hour");
-        cJSON *min_item = cJSON_GetObjectItem(root, "min");
-        cJSON *sec_item = cJSON_GetObjectItem(root, "sec");
-
-        uint32_t timestamp = (ts_item != NULL && cJSON_IsNumber(ts_item))
-                                 ? (uint32_t)ts_item->valuedouble
-                                 : 0;
-        int year = (year_item != NULL && cJSON_IsNumber(year_item))
-                       ? year_item->valueint
-                       : 0;
-        int month = (month_item != NULL && cJSON_IsNumber(month_item))
-                        ? month_item->valueint
-                        : 0;
-        int day = (day_item != NULL && cJSON_IsNumber(day_item))
-                      ? day_item->valueint
-                      : 0;
-        int hour = (hour_item != NULL && cJSON_IsNumber(hour_item))
-                       ? hour_item->valueint
-                       : 0;
-        int min = (min_item != NULL && cJSON_IsNumber(min_item))
-                      ? min_item->valueint
-                      : 0;
-        int sec = (sec_item != NULL && cJSON_IsNumber(sec_item))
-                      ? sec_item->valueint
-                      : 0;
-
-        if (year >= 2020 && month >= 1 && month <= 12 && day >= 1 &&
-            day <= 31) {
-          TimeManager_SetDateTime(year, month, day, hour, min, sec, timestamp);
-          s_last_connected_tick = xTaskGetTickCount();
-          ESP_LOGI(TAG_UART_GATEWAY,
-                   "Applied sync_time from gateway: %04d-%02d-%02d %02d:%02d:%02d (ts: %" PRIu32 ")",
-                   year, month, day, hour, min, sec, timestamp);
-          MeshManager_BroadcastSyncTime(line, len);
-        } else if (timestamp > 0) {
-          TimeManager_SetEpochTime(timestamp);
-          s_last_connected_tick = xTaskGetTickCount();
-          ESP_LOGI(TAG_UART_GATEWAY,
-                   "Applied sync_time timestamp from gateway: %" PRIu32,
-                   timestamp);
+          strcmp(type_item->valuestring, "time_sync") == 0) {
+        s_last_connected_tick = xTaskGetTickCount();
+        cJSON *time_item = cJSON_GetObjectItem(root, "time");
+        if (time_item != NULL && cJSON_IsString(time_item)) {
+          int year = 0, month = 0, day = 0, hour = 0, minute = 0, second = 0;
+          if (sscanf(time_item->valuestring, "%d-%d-%d %d:%d:%d", &year, &month,
+                     &day, &hour, &minute, &second) == 6) {
+            TimeManager_SetDateTime(year, month, day, hour, minute, second, 0);
+            ESP_LOGI(TAG_UART_GATEWAY, "System time synced from Gateway: %s",
+                     time_item->valuestring);
+          }
           MeshManager_BroadcastSyncTime(line, len);
         }
         cJSON_Delete(root);
@@ -186,7 +158,6 @@ static void handle_gateway_line(char *line) {
         s_last_connected_tick = xTaskGetTickCount();
         ESP_LOGI(TAG_UART_GATEWAY, "Received ota_start from Gateway: %s", line);
 
-        // Ensure "ver" is populated with Root's actual running version for LAN OTA
         cJSON *ver_item = cJSON_GetObjectItem(root, "ver");
         const esp_app_desc_t *app_desc = esp_app_get_description();
         if (ver_item == NULL && app_desc != NULL) {
@@ -197,11 +168,15 @@ static void handle_gateway_line(char *line) {
         if (broadcast_json != NULL) {
           size_t b_len = strlen(broadcast_json);
           MeshManager_BroadcastOtaCommand(broadcast_json, b_len);
-          FOTAManager_HandleOtaCommand(s_data, broadcast_json, b_len);
+          if (s_ota_handler != NULL) {
+            s_ota_handler(s_data, broadcast_json, b_len, s_ota_context);
+          }
           free(broadcast_json);
         } else {
           MeshManager_BroadcastOtaCommand(line, len);
-          FOTAManager_HandleOtaCommand(s_data, line, len);
+          if (s_ota_handler != NULL) {
+            s_ota_handler(s_data, line, len, s_ota_context);
+          }
         }
         cJSON_Delete(root);
         return;
@@ -213,6 +188,54 @@ static void handle_gateway_line(char *line) {
   ESP_LOGW(TAG_UART_GATEWAY, "Unknown UART cmd: '%s'", line);
 }
 
+static bool uart_gateway_send_mesh_msg(const mesh_gateway_frame_t *msg) {
+  if (msg == NULL || msg->len == 0 || msg->len > sizeof(msg->data)) {
+    return false;
+  }
+
+  char tx_buffer[1450];
+  int sent = 0;
+  ESP_LOGD(TAG_UART_GATEWAY, "UART TX payload: %.*s", (int)msg->len, msg->data);
+
+  if (msg->len + 1U <= sizeof(tx_buffer)) {
+    memcpy(tx_buffer, msg->data, msg->len);
+    tx_buffer[msg->len] = '\n';
+    sent = UartToGateWay_Send(tx_buffer, msg->len + 1U);
+  } else {
+    sent = UartToGateWay_Send(msg->data, msg->len);
+    int newline_sent = UartToGateWay_Send("\n", 1);
+    if (newline_sent > 0) {
+      sent += newline_sent;
+    }
+  }
+  if (sent > 0) {
+    s_uart_gateway_sent_frames++;
+    s_uart_gateway_sent_bytes += (uint32_t)sent;
+  }
+  return true;
+}
+
+static void uart_gateway_log_tx_stats(void) {
+  TickType_t now = xTaskGetTickCount();
+  if ((now - s_uart_gateway_last_stats_tick) <
+      pdMS_TO_TICKS(UART_GATEWAY_TX_STATS_MS)) {
+    return;
+  }
+
+  UBaseType_t queue_used = 0;
+  UBaseType_t queue_total = 0;
+  MeshManager_GetGatewayQueueUsage(&queue_used, &queue_total);
+
+  ESP_LOGI(TAG_UART_GATEWAY,
+           "UART gateway TX: frames=%" PRIu32 ", bytes=%" PRIu32
+           ", queue=%u/%u",
+           s_uart_gateway_sent_frames, s_uart_gateway_sent_bytes,
+           (unsigned)queue_used, (unsigned)queue_total);
+  s_uart_gateway_sent_frames = 0;
+  s_uart_gateway_sent_bytes = 0;
+  s_uart_gateway_last_stats_tick = now;
+}
+
 /** Nhận: queue sự kiện UART, đọc byte, ghép dòng lệnh gateway → ESP. */
 static void uart_gateway_rx_task(void *pvParameter) {
   (void)pvParameter;
@@ -222,39 +245,47 @@ static void uart_gateway_rx_task(void *pvParameter) {
   char line_buf[UART_CMD_LINE_MAX];
   size_t line_len = 0;
 
-  while (1) {
-    if (s_uart_gateway_paused || s_uart_event_queue == NULL) {
+  for (;;) {
+    EventBits_t bits = xEventGroupGetBits(s_uart_event_group);
+    if (bits & UART_EVT_STOP_REQ) {
+      break;
+    }
+
+    if (bits & UART_EVT_PAUSE_REQ) {
       line_len = 0;
       s_connected_watchdog_enabled = false;
-      if (s_uart_pause_ack != NULL) {
-        xSemaphoreGive(s_uart_pause_ack);
+      xEventGroupSetBits(s_uart_event_group, UART_EVT_RX_QUIESCED);
+
+      EventBits_t wait_bits = xEventGroupWaitBits(
+          s_uart_event_group,
+          UART_EVT_RESUME_REQ | UART_EVT_STOP_REQ,
+          pdFALSE,
+          pdFALSE,
+          portMAX_DELAY);
+
+      if (wait_bits & UART_EVT_STOP_REQ) {
+        break;
       }
-      while (s_uart_gateway_paused || s_uart_event_queue == NULL) {
-        vTaskDelay(pdMS_TO_TICKS(50));
-      }
+      xEventGroupClearBits(s_uart_event_group, UART_EVT_RX_QUIESCED);
       continue;
     }
 
     if (!uart_gateway_mesh_mode_active()) {
       line_len = 0;
       s_connected_watchdog_enabled = false;
-      uart_flush_input(s_uart_num);
-      xQueueReset(s_uart_event_queue);
-      vTaskDelay(pdMS_TO_TICKS(500));
+      vTaskDelay(pdMS_TO_TICKS(100));
       continue;
     }
 
     QueueHandle_t queue = s_uart_event_queue;
     if (queue == NULL ||
-        xQueueReceive(queue, &event, pdMS_TO_TICKS(500)) != pdTRUE) {
+        xQueueReceive(queue, &event, pdMS_TO_TICKS(50)) != pdTRUE) {
       TickType_t now = xTaskGetTickCount();
       if (s_connected_watchdog_enabled) {
         if ((now - s_last_connected_tick) > pdMS_TO_TICKS(1000)) {
-          ESP_LOGW(TAG_UART_GATEWAY, "No 'Connected' heartbeat from gateway "
-                                     "for >1s -> switch to node");
+          ESP_LOGW(TAG_UART_GATEWAY, "No 'Connected' heartbeat from gateway for >1s -> switch to node");
           if (s_role_request_handler != NULL) {
-            (void)s_role_request_handler(MESH_ROLE_NODE,
-                                         s_role_request_context);
+            (void)s_role_request_handler(MESH_ROLE_NODE, s_role_request_context);
           }
           s_connected_watchdog_enabled = false;
           s_last_connected_tick = now;
@@ -263,7 +294,8 @@ static void uart_gateway_rx_task(void *pvParameter) {
       continue;
     }
 
-    if (s_uart_gateway_paused || s_uart_event_queue == NULL) {
+    bits = xEventGroupGetBits(s_uart_event_group);
+    if (bits & (UART_EVT_PAUSE_REQ | UART_EVT_STOP_REQ)) {
       continue;
     }
 
@@ -303,119 +335,42 @@ static void uart_gateway_rx_task(void *pvParameter) {
       break;
     }
   }
-}
 
-/** Forward complete TCP telemetry frames to UART. */
-static bool uart_gateway_send_mesh_msg(const mesh_gateway_frame_t *msg) {
-  if (msg == NULL || msg->len == 0 || msg->len > sizeof(msg->data)) {
-    return false;
+  xEventGroupSetBits(s_uart_event_group, UART_EVT_RX_EXITED);
+  SemaphoreHandle_t rx_sem = s_rx_exit_sem;
+  if (rx_sem != NULL) {
+    xSemaphoreGive(rx_sem);
   }
-
-  char tx_buffer[1450];
-  int sent = 0;
-  ESP_LOGD(TAG_UART_GATEWAY, "UART TX payload: %.*s", (int)msg->len, msg->data);
-
-  if (msg->len + 1U <= sizeof(tx_buffer)) {
-    memcpy(tx_buffer, msg->data, msg->len);
-    tx_buffer[msg->len] = '\n';
-    sent = UartToGateWay_Send(tx_buffer, msg->len + 1U);
-  } else {
-    sent = UartToGateWay_Send(msg->data, msg->len);
-    int newline_sent = UartToGateWay_Send("\n", 1);
-    if (newline_sent > 0) {
-      sent += newline_sent;
-    }
-  }
-  if (sent > 0) {
-    s_uart_gateway_sent_frames++;
-    s_uart_gateway_sent_bytes += (uint32_t)sent;
-  }
-  return true;
-}
-
-void UartToGateWay_Pause(void) {
-  if (!s_uart_started || s_uart_gateway_paused) return;
-  s_uart_gateway_paused = true;
-  
-  if (s_uart_event_queue != NULL) {
-    uart_event_t dummy = { .type = UART_EVENT_MAX };
-    (void)xQueueSend(s_uart_event_queue, &dummy, 0);
-  }
-
-  if (s_uart_pause_ack != NULL) {
-    (void)xSemaphoreTake(s_uart_pause_ack, pdMS_TO_TICKS(1000));
-  } else {
-    vTaskDelay(pdMS_TO_TICKS(100));
-  }
-
-  s_uart_event_queue = NULL;
-  if (uart_is_driver_installed(s_uart_num)) {
-    uart_driver_delete(s_uart_num);
-  }
-}
-
-void UartToGateWay_Resume(void) {
-  if (!s_uart_started || !s_uart_gateway_paused) return;
-
-  if (uart_is_driver_installed(s_uart_num)) {
-    uart_driver_delete(s_uart_num);
-  }
-
-  const uart_config_t uart_config = {
-      .baud_rate = CONFIG_UART_GATEWAY_BAUD_RATE,
-      .data_bits = UART_DATA_8_BITS,
-      .parity = UART_PARITY_DISABLE,
-      .stop_bits = UART_STOP_BITS_1,
-      .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-      .source_clk = UART_SCLK_DEFAULT,
-  };
-
-  QueueHandle_t new_queue = NULL;
-  if (uart_driver_install(s_uart_num, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE,
-                          UART_EVENT_QUEUE_LEN, &new_queue,
-                          0) == ESP_OK) {
-    uart_param_config(s_uart_num, &uart_config);
-    uart_set_pin(s_uart_num, PIN_UART_TX, PIN_UART_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
-    const uart_intr_config_t uart_intr = {
-        .intr_enable_mask =
-            UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
-        .rxfifo_full_thresh = UART_RXFIFO_FULL_THRESH,
-        .rx_timeout_thresh = UART_RX_TIMEOUT_THRESH,
-        .txfifo_empty_intr_thresh = 0,
-    };
-    uart_intr_config(s_uart_num, &uart_intr);
-    uart_enable_rx_intr(s_uart_num);
-    s_uart_event_queue = new_queue;
-    s_uart_gateway_paused = false;
-  }
-}
-
-static void uart_gateway_log_tx_stats(void) {
-  TickType_t now = xTaskGetTickCount();
-  if ((now - s_uart_gateway_last_stats_tick) <
-      pdMS_TO_TICKS(UART_GATEWAY_TX_STATS_MS)) {
-    return;
-  }
-
-  UBaseType_t queue_used = 0;
-  UBaseType_t queue_total = 0;
-  MeshManager_GetGatewayQueueUsage(&queue_used, &queue_total);
-
-  ESP_LOGI(TAG_UART_GATEWAY,
-           "UART gateway TX: frames=%" PRIu32 ", bytes=%" PRIu32
-           ", queue=%u/%u",
-           s_uart_gateway_sent_frames, s_uart_gateway_sent_bytes,
-           (unsigned)queue_used, (unsigned)queue_total);
-  s_uart_gateway_sent_frames = 0;
-  s_uart_gateway_sent_bytes = 0;
-  s_uart_gateway_last_stats_tick = now;
+  vTaskDelete(NULL);
 }
 
 static void uart_gateway_tx_task(void *pvParameter) {
   (void)pvParameter;
 
   for (;;) {
-    if (!uart_gateway_mesh_mode_active() || s_uart_gateway_paused) {
+    EventBits_t bits = xEventGroupGetBits(s_uart_event_group);
+    if (bits & UART_EVT_STOP_REQ) {
+      break;
+    }
+
+    if (bits & UART_EVT_PAUSE_REQ) {
+      xEventGroupSetBits(s_uart_event_group, UART_EVT_TX_QUIESCED);
+
+      EventBits_t wait_bits = xEventGroupWaitBits(
+          s_uart_event_group,
+          UART_EVT_RESUME_REQ | UART_EVT_STOP_REQ,
+          pdFALSE,
+          pdFALSE,
+          portMAX_DELAY);
+
+      if (wait_bits & UART_EVT_STOP_REQ) {
+        break;
+      }
+      xEventGroupClearBits(s_uart_event_group, UART_EVT_TX_QUIESCED);
+      continue;
+    }
+
+    if (!uart_gateway_mesh_mode_active()) {
       vTaskDelay(pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS));
       continue;
     }
@@ -424,16 +379,14 @@ static void uart_gateway_tx_task(void *pvParameter) {
       vTaskDelay(pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS));
       continue;
     }
+
     mesh_gateway_frame_t msg;
-    if (!MeshManager_ReceiveGatewayFrame(
-            &msg, pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS))) {
+    if (!MeshManager_ReceiveGatewayFrame(&msg, pdMS_TO_TICKS(UART_GATEWAY_TX_RECV_WAIT_MS))) {
       TickType_t now = xTaskGetTickCount();
-      if ((now - s_mesh_gateway_no_node_tick) >=
-          pdMS_TO_TICKS(MESH_ROOT_UART_NO_NODE_MS)) {
-        (void)UartToGateWay_Send("No node\n", 8);
+      if ((now - s_mesh_gateway_no_node_tick) >= pdMS_TO_TICKS(MESH_ROOT_UART_NO_NODE_MS)) {
         s_mesh_gateway_no_node_tick = now;
+        (void)UartToGateWay_Send("No node\n", 8);
       }
-      uart_gateway_log_tx_stats();
       continue;
     }
 
@@ -453,29 +406,204 @@ static void uart_gateway_tx_task(void *pvParameter) {
     }
     uart_gateway_log_tx_stats();
   }
+
+  xEventGroupSetBits(s_uart_event_group, UART_EVT_TX_EXITED);
+  SemaphoreHandle_t tx_sem = s_tx_exit_sem;
+  if (tx_sem != NULL) {
+    xSemaphoreGive(tx_sem);
+  }
+  vTaskDelete(NULL);
 }
 
-static void fota_uart_progress_sender(const char *data, size_t len) {
-  if (data != NULL && len > 0) {
-    int sent = UartToGateWay_Send(data, len);
-    ESP_LOGI(TAG_UART_GATEWAY, "UART TX ota_progress: %d/%d bytes sent", sent, (int)len);
+static system_err_t gateway_quiesce_cb(void *context, TickType_t timeout_ticks) {
+  (void)context;
+  if (s_uart_event_group == NULL) {
+    return MRS_ERR_CORE_NOT_INITIALIZED;
   }
+
+  xEventGroupClearBits(s_uart_event_group, UART_EVT_RX_QUIESCED | UART_EVT_TX_QUIESCED | UART_EVT_RESUME_REQ);
+  xEventGroupSetBits(s_uart_event_group, UART_EVT_PAUSE_REQ);
+
+  // Wake up RX task if blocked in xQueueReceive
+  if (s_uart_event_queue != NULL) {
+    uart_event_t dummy = { .type = UART_EVENT_MAX };
+    (void)xQueueSend(s_uart_event_queue, &dummy, 0);
+  }
+
+  EventBits_t ack_bits = xEventGroupWaitBits(
+      s_uart_event_group,
+      UART_EVT_RX_QUIESCED | UART_EVT_TX_QUIESCED,
+      pdFALSE,
+      pdTRUE,
+      timeout_ticks);
+
+  if ((ack_bits & (UART_EVT_RX_QUIESCED | UART_EVT_TX_QUIESCED)) !=
+      (UART_EVT_RX_QUIESCED | UART_EVT_TX_QUIESCED)) {
+    ESP_LOGE(TAG_UART_GATEWAY,
+             "Gateway quiesce timeout! ack_bits=0x%lx (RX_QUIESCED=%d, TX_QUIESCED=%d)",
+             (unsigned long)ack_bits,
+             (ack_bits & UART_EVT_RX_QUIESCED) ? 1 : 0,
+             (ack_bits & UART_EVT_TX_QUIESCED) ? 1 : 0);
+
+    if (s_rx_task_handle != NULL) {
+      ESP_LOGE(TAG_UART_GATEWAY, "RX task state=%d, stack_watermark=%u",
+               (int)eTaskGetState(s_rx_task_handle),
+               (unsigned)uxTaskGetStackHighWaterMark(s_rx_task_handle));
+    }
+    if (s_tx_task_handle != NULL) {
+      ESP_LOGE(TAG_UART_GATEWAY, "TX task state=%d, stack_watermark=%u",
+               (int)eTaskGetState(s_tx_task_handle),
+               (unsigned)uxTaskGetStackHighWaterMark(s_tx_task_handle));
+    }
+
+    xEventGroupClearBits(s_uart_event_group, UART_EVT_PAUSE_REQ);
+    xEventGroupSetBits(s_uart_event_group, UART_EVT_RESUME_REQ);
+    return MRS_ERR_CORE_TIMEOUT;
+  }
+
+  s_uart_event_queue = NULL;
+  s_uart_state = UART_STATE_PAUSED;
+  return MRS_OK;
+}
+
+static system_err_t gateway_resume_cb(void *context, uart_port_t port, QueueHandle_t queue) {
+  (void)context;
+  (void)port;
+
+  s_uart_event_queue = queue;
+
+  xEventGroupClearBits(s_uart_event_group, UART_EVT_PAUSE_REQ | UART_EVT_RX_QUIESCED | UART_EVT_TX_QUIESCED);
+  xEventGroupSetBits(s_uart_event_group, UART_EVT_RESUME_REQ);
+
+  s_uart_state = UART_STATE_RUNNING;
+  ESP_LOGI(TAG_UART_GATEWAY, "Gateway tasks resumed with new queue");
+  return MRS_OK;
+}
+
+static system_err_t uart_gateway_stop_tasks(TickType_t timeout_ticks) {
+  if (s_uart_event_group != NULL) {
+    xEventGroupSetBits(s_uart_event_group, UART_EVT_STOP_REQ);
+  }
+
+  if (s_uart_event_queue != NULL) {
+    uart_event_t dummy = { .type = UART_EVENT_MAX };
+    (void)xQueueSend(s_uart_event_queue, &dummy, 0);
+  }
+
+  bool all_stopped = true;
+
+  if (s_rx_task_handle != NULL) {
+    if (s_rx_exit_sem != NULL && xSemaphoreTake(s_rx_exit_sem, timeout_ticks) == pdTRUE) {
+      s_rx_task_handle = NULL;
+    } else {
+      ESP_LOGE(TAG_UART_GATEWAY, "RX task stop timeout; preserving task handle");
+      all_stopped = false;
+    }
+  }
+
+  if (s_tx_task_handle != NULL) {
+    if (s_tx_exit_sem != NULL && xSemaphoreTake(s_tx_exit_sem, timeout_ticks) == pdTRUE) {
+      s_tx_task_handle = NULL;
+    } else {
+      ESP_LOGE(TAG_UART_GATEWAY, "TX task stop timeout; preserving task handle");
+      all_stopped = false;
+    }
+  }
+
+  if (!all_stopped) {
+    return MRS_ERR_CORE_TIMEOUT;
+  }
+  return MRS_OK;
+}
+
+system_err_t UartToGateWay_Deinit(void) {
+  if (s_uart_state == UART_STATE_UNINITIALIZED) {
+    return MRS_OK;
+  }
+  uart_state_t prev_state = s_uart_state;
+  s_uart_state = UART_STATE_STOPPING;
+
+  system_err_t stop_err = uart_gateway_stop_tasks(pdMS_TO_TICKS(1500));
+  if (stop_err != MRS_OK) {
+    ESP_LOGE(TAG_UART_GATEWAY, "UartToGateWay_Deinit: stop tasks failed: %s; preserving resources for retry",
+             system_err_to_name(stop_err));
+    s_uart_state = prev_state;
+    return stop_err;
+  }
+
+  s_uart_event_queue = NULL;
+  if (UartResource_IsLeaseValid(&s_gateway_lease)) {
+    (void)UartResource_Release(&s_gateway_lease);
+  }
+
+  if (s_uart_event_group != NULL) {
+    EventGroupHandle_t eg = s_uart_event_group;
+    s_uart_event_group = NULL;
+    vEventGroupDelete(eg);
+  }
+  if (s_rx_exit_sem != NULL) {
+    SemaphoreHandle_t sem = s_rx_exit_sem;
+    s_rx_exit_sem = NULL;
+    vSemaphoreDelete(sem);
+  }
+  if (s_tx_exit_sem != NULL) {
+    SemaphoreHandle_t sem = s_tx_exit_sem;
+    s_tx_exit_sem = NULL;
+    vSemaphoreDelete(sem);
+  }
+
+  s_data = NULL;
+  s_role_request_handler = NULL;
+  s_role_request_context = NULL;
+  s_ota_handler = NULL;
+  s_ota_context = NULL;
+  s_uart_state = UART_STATE_UNINITIALIZED;
+  s_uart_started = false;
+  memset(&s_gateway_lease, 0, sizeof(s_gateway_lease));
+  return MRS_OK;
 }
 
 system_err_t UartToGateWay_Init(DataManager_t *data) {
-  if (s_uart_started) {
+  if (s_uart_state == UART_STATE_RUNNING) {
     return MRS_OK;
   }
   if (data == NULL) {
     ESP_LOGE(TAG_UART_GATEWAY, "Init failed: DataManager is NULL");
     return MRS_ERR_CORE_INVALID_PARAM;
   }
+  if (s_uart_state == UART_STATE_STOPPING) {
+    return MRS_ERR_CORE_INVALID_STATE;
+  }
+
+  s_uart_state = UART_STATE_INITIALIZING;
+  system_err_t failure_reason = MRS_OK;
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_uart_init_fault_stage == 1) {
+    s_uart_init_fault_stage = 0;
+    failure_reason = MRS_ERR_CORE_OUT_OF_MEMORY;
+    goto fail_cleanup_semaphores;
+  }
+#endif
+
+  if (s_uart_event_group == NULL) {
+    s_uart_event_group = xEventGroupCreate();
+  }
+  if (s_rx_exit_sem == NULL) {
+    s_rx_exit_sem = xSemaphoreCreateBinary();
+  }
+  if (s_tx_exit_sem == NULL) {
+    s_tx_exit_sem = xSemaphoreCreateBinary();
+  }
+  if (s_uart_event_group == NULL || s_rx_exit_sem == NULL || s_tx_exit_sem == NULL) {
+    ESP_LOGE(TAG_UART_GATEWAY, "Failed to create FreeRTOS sync primitives");
+    failure_reason = MRS_ERR_CORE_OUT_OF_MEMORY;
+    goto fail_cleanup_semaphores;
+  }
 
   s_data = data;
-  if (s_uart_pause_ack == NULL) {
-    s_uart_pause_ack = xSemaphoreCreateBinary();
-  }
-  FOTAManager_Init(fota_uart_progress_sender);
+  xEventGroupClearBits(s_uart_event_group, 0x00FFFFFF);
+
   s_last_connected_tick = xTaskGetTickCount();
   s_mesh_gateway_no_node_tick = xTaskGetTickCount();
   s_uart_gateway_last_stats_tick = xTaskGetTickCount();
@@ -484,83 +612,144 @@ system_err_t UartToGateWay_Init(DataManager_t *data) {
   s_connected_watchdog_enabled = false;
   s_uart_num = PIN_UART_NUM;
   if (s_uart_num >= UART_NUM_MAX) {
-    ESP_LOGW(TAG_UART_GATEWAY,
-             "Configured UART%d is invalid on this target; fallback UART1",
-             (int)s_uart_num);
     s_uart_num = UART_NUM_1;
     if (s_uart_num >= UART_NUM_MAX) {
       s_uart_num = UART_NUM_0;
     }
   }
 
-  const uart_config_t uart_config = {
-      .baud_rate = CONFIG_UART_GATEWAY_BAUD_RATE,
-      .data_bits = UART_DATA_8_BITS,
-      .parity = UART_PARITY_DISABLE,
-      .stop_bits = UART_STOP_BITS_1,
-      .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-      .source_clk = UART_SCLK_DEFAULT,
+  system_err_t res_init_err = UartResource_Init(s_uart_num, PIN_UART_TX, PIN_UART_RX);
+  if (res_init_err != MRS_OK) {
+    ESP_LOGE(TAG_UART_GATEWAY, "UartResource_Init failed: %s", system_err_to_name(res_init_err));
+    failure_reason = res_init_err;
+    goto fail_cleanup_semaphores;
+  }
+
+  system_err_t reg_err = UartResource_RegisterGatewayCallbacks(gateway_quiesce_cb, gateway_resume_cb, NULL);
+  if (reg_err != MRS_OK) {
+    ESP_LOGE(TAG_UART_GATEWAY, "UartResource_RegisterGatewayCallbacks failed: %s", system_err_to_name(reg_err));
+    failure_reason = reg_err;
+    goto fail_cleanup_semaphores;
+  }
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_uart_init_fault_stage == 2) {
+    s_uart_init_fault_stage = 0;
+    failure_reason = MRS_ERR_DRIVERS_INIT_FAILED;
+    goto fail_cleanup_semaphores;
+  }
+#endif
+
+  uart_resource_config_t gw_cfg = {
+      .uart_config = {
+          .baud_rate = CONFIG_UART_GATEWAY_BAUD_RATE,
+          .data_bits = UART_DATA_8_BITS,
+          .parity = UART_PARITY_DISABLE,
+          .stop_bits = UART_STOP_BITS_1,
+          .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+          .source_clk = UART_SCLK_DEFAULT,
+      },
+      .rx_buffer_size = UART_RX_BUF_SIZE,
+      .tx_buffer_size = UART_TX_BUF_SIZE,
+      .queue_size = UART_EVENT_QUEUE_LEN,
+      .out_queue = &s_uart_event_queue,
+      .intr_alloc_flags = 0,
+      .enable_intr = true,
+      .intr_config = {
+          .intr_enable_mask = UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
+          .rxfifo_full_thresh = UART_RXFIFO_FULL_THRESH,
+          .rx_timeout_thresh = UART_RX_TIMEOUT_THRESH,
+          .txfifo_empty_intr_thresh = 0,
+      },
   };
 
-  if (uart_driver_install(s_uart_num, UART_RX_BUF_SIZE, UART_TX_BUF_SIZE,
-                          UART_EVENT_QUEUE_LEN, &s_uart_event_queue,
-                          0) != ESP_OK) {
-    ESP_LOGE(TAG_UART_GATEWAY, "uart_driver_install failed");
-    return MRS_ERR_DRIVERS_INIT_FAILED;
-  }
-  if (uart_param_config(s_uart_num, &uart_config) != ESP_OK) {
-    ESP_LOGE(TAG_UART_GATEWAY, "uart_param_config failed");
-    return MRS_ERR_DRIVERS_INIT_FAILED;
-  }
-  if (uart_set_pin(s_uart_num, PIN_UART_TX, PIN_UART_RX, UART_PIN_NO_CHANGE,
-                   UART_PIN_NO_CHANGE) != ESP_OK) {
-    ESP_LOGE(TAG_UART_GATEWAY, "uart_set_pin failed");
-    return MRS_ERR_DRIVERS_INIT_FAILED;
+  system_err_t acq_err = UartResource_Acquire(UART_OWNER_GATEWAY, &gw_cfg, pdMS_TO_TICKS(1000), &s_gateway_lease);
+  if (acq_err != MRS_OK) {
+    ESP_LOGE(TAG_UART_GATEWAY, "UartResource_Acquire for GATEWAY failed: %s", system_err_to_name(acq_err));
+    failure_reason = acq_err;
+    goto fail_rollback_driver;
   }
 
-  const uart_intr_config_t uart_intr = {
-      .intr_enable_mask =
-          UART_RXFIFO_FULL_INT_ENA_M | UART_RXFIFO_TOUT_INT_ENA_M,
-      .rxfifo_full_thresh = UART_RXFIFO_FULL_THRESH,
-      .rx_timeout_thresh = UART_RX_TIMEOUT_THRESH,
-      .txfifo_empty_intr_thresh = 0,
-  };
-  if (uart_intr_config(s_uart_num, &uart_intr) != ESP_OK) {
-    ESP_LOGE(TAG_UART_GATEWAY, "uart_intr_config failed");
-    return MRS_ERR_DRIVERS_INIT_FAILED;
-  }
-  if (uart_enable_rx_intr(s_uart_num) != ESP_OK) {
-    ESP_LOGE(TAG_UART_GATEWAY, "uart_enable_rx_intr failed");
-    return MRS_ERR_DRIVERS_INIT_FAILED;
+  // Defensive guard (Requirement 6)
+  if (!uart_is_driver_installed(s_uart_num)) {
+    ESP_LOGE(TAG_UART_GATEWAY, "UART driver not installed after acquire!");
+    (void)UartResource_Release(&s_gateway_lease);
+    failure_reason = MRS_ERR_DRIVERS_INIT_FAILED;
+    goto fail_rollback_driver;
   }
 
-  TaskHandle_t rx_handle = NULL;
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_uart_init_fault_stage == 3) {
+    s_uart_init_fault_stage = 0;
+    failure_reason = MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    goto fail_rollback_driver;
+  }
+#endif
+
   if (xTaskCreate(uart_gateway_rx_task, "uart_gateway_rx", 4096, NULL, 6,
-                  &rx_handle) != pdPASS) {
+                  &s_rx_task_handle) != pdPASS) {
     ESP_LOGE(TAG_UART_GATEWAY, "Create uart_gateway_rx failed");
-    uart_driver_delete(s_uart_num);
-    s_uart_event_queue = NULL;
-    return MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    failure_reason = MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    goto fail_rollback_driver;
   }
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_uart_init_fault_stage == 4) {
+    s_uart_init_fault_stage = 0;
+    failure_reason = MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    goto fail_rollback_rx_task;
+  }
+#endif
+
   if (xTaskCreate(uart_gateway_tx_task, "uart_gateway_tx", 4096, NULL, 7,
-                  NULL) != pdPASS) {
+                  &s_tx_task_handle) != pdPASS) {
     ESP_LOGE(TAG_UART_GATEWAY, "Create uart_gateway_tx failed");
-    if (rx_handle != NULL) {
-      vTaskDelete(rx_handle);
-    }
-    uart_driver_delete(s_uart_num);
-    s_uart_event_queue = NULL;
-    return MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    failure_reason = MRS_ERR_FUNCTIONMANAGER_TASK_FAILED;
+    goto fail_rollback_rx_task;
   }
 
   s_uart_started = true;
+  s_uart_state = UART_STATE_RUNNING;
   ESP_LOGI(
       TAG_UART_GATEWAY,
-      "UART gateway RX+TX on UART%d TX=%d RX=%d baud=%d (rxfifo=%d timeout=%d)",
+      "UART gateway RX+TX started on UART%d TX=%d RX=%d baud=%d",
       (int)s_uart_num, (int)PIN_UART_TX, (int)PIN_UART_RX,
-      CONFIG_UART_GATEWAY_BAUD_RATE, UART_RXFIFO_FULL_THRESH,
-      UART_RX_TIMEOUT_THRESH);
+      CONFIG_UART_GATEWAY_BAUD_RATE);
   return MRS_OK;
+
+fail_rollback_rx_task: {
+  system_err_t stop_res = uart_gateway_stop_tasks(pdMS_TO_TICKS(1000));
+  if (stop_res != MRS_OK) {
+    ESP_LOGE(TAG_UART_GATEWAY, "RX task stop timeout during init rollback! Preserving resources.");
+    s_uart_state = UART_STATE_STOPPING;
+    return MRS_ERR_CORE_TIMEOUT;
+  }
+}
+
+fail_rollback_driver:
+  s_uart_event_queue = NULL;
+  if (UartResource_IsLeaseValid(&s_gateway_lease)) {
+    (void)UartResource_Release(&s_gateway_lease);
+  }
+
+fail_cleanup_semaphores:
+  if (s_uart_event_group != NULL) {
+    vEventGroupDelete(s_uart_event_group);
+    s_uart_event_group = NULL;
+  }
+  if (s_rx_exit_sem != NULL) {
+    vSemaphoreDelete(s_rx_exit_sem);
+    s_rx_exit_sem = NULL;
+  }
+  if (s_tx_exit_sem != NULL) {
+    vSemaphoreDelete(s_tx_exit_sem);
+    s_tx_exit_sem = NULL;
+  }
+  s_data = NULL;
+  s_uart_started = false;
+  s_uart_state = UART_STATE_UNINITIALIZED;
+  memset(&s_gateway_lease, 0, sizeof(s_gateway_lease));
+  return failure_reason;
 }
 
 void UartToGateWay_SetRoleRequestHandler(
@@ -569,8 +758,15 @@ void UartToGateWay_SetRoleRequestHandler(
   s_role_request_context = context;
 }
 
+void UartToGateWay_SetOtaHandler(uart_gateway_ota_handler_fn handler,
+                                void *context) {
+  s_ota_handler = handler;
+  s_ota_context = context;
+}
+
 int UartToGateWay_Send(const void *data, size_t len) {
-  if (data == NULL || len == 0) {
+  if (data == NULL || len == 0 || s_uart_state != UART_STATE_RUNNING ||
+      !s_uart_started) {
     return 0;
   }
   return uart_write_bytes(s_uart_num, data, len);

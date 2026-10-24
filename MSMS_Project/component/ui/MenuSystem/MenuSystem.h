@@ -29,4 +29,9 @@ void MenuNavigation_Task(void *pvParameter);
  */
 void ReadSensor_Task(void *pvParameter);
 
+#include "FunctionManager.h"
+#define UI_EVENT_PORT_LABELS_CHANGED FM_EVENT_PORT_LABELS_CHANGED
+
+void MenuSystem_NotifyEvent(uint32_t event_bits);
+
 #endif

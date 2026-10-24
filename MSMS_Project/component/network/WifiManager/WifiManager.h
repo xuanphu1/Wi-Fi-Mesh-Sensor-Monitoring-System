@@ -45,7 +45,7 @@ void wifi_init_sta(void);
 bool wifi_manager_connect_sta(const char *ssid, const char *password, uint32_t timeout_ms);
 void wifi_connect_task(void *pvParameters);
 void wifi_manager_task(void *pvParameters);
-void wifi_manager_stop_tasks(void);
+bool wifi_manager_stop_tasks(void);
 bool is_wifi_connected(void);
 bool is_wifi_connecting(void);
 void wifi_manager_get_mac(uint8_t mac[6]);

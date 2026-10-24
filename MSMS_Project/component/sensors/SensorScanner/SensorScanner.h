@@ -12,6 +12,10 @@
 extern "C" {
 #endif
 
+typedef bool (*sensor_scanner_permission_fn)(void);
+typedef void (*sensor_scanner_assignment_cb_t)(void *context, PortId_t port,
+                                               SensorType_t type);
+
 /**
  * @brief Initialize sensor scanner subsystem.
  * @param data Pointer to global DataManager.
@@ -20,15 +24,38 @@ extern "C" {
 esp_err_t SensorScanner_Init(DataManager_t *data);
 
 /**
- * @brief Start background auto-scan task (runs only on leaf nodes, only for unassigned ports).
+ * @brief Deinitialize sensor scanner subsystem.
+ * @return ESP_OK on success.
+ */
+esp_err_t SensorScanner_Deinit(void);
+
+/**
+ * @brief Start background auto-scan task (runs only when permitted by policy).
  * @param data Pointer to global DataManager.
  * @return ESP_OK on success.
  */
 esp_err_t SensorScanner_StartTask(DataManager_t *data);
 
 /**
+ * @brief Stop background auto-scan task.
+ * @return ESP_OK on success.
+ */
+esp_err_t SensorScanner_StopTask(void);
+
+/**
+ * @brief Inject policy callback to determine if local scanning is permitted.
+ */
+void SensorScanner_SetPermissionPolicy(sensor_scanner_permission_fn policy_fn);
+
+/**
+ * @brief Inject assignment callback triggered when a sensor is automatically assigned.
+ */
+void SensorScanner_SetAssignmentCallback(sensor_scanner_assignment_cb_t callback,
+                                         void *context);
+
+/**
  * @brief Run a one-time probe across all supported sensors.
- *        Does NOT run if device is ROOT node.
+ *        Does NOT run if device is ROOT node or policy disallows.
  * @param data Pointer to global DataManager.
  * @param found_sensors Output array to store detected sensor types.
  * @param max_sensors Maximum capacity of found_sensors.
@@ -46,7 +73,7 @@ int SensorScanner_Scan(DataManager_t *data, SensorType_t *found_sensors, size_t 
  */
 int SensorScanner_AutoAssign(DataManager_t *data, const SensorType_t *found_sensors, size_t count);
 
-/** Return whether current mesh role permits local sensor scanning. */
+/** Return whether current policy permits local sensor scanning. */
 bool SensorScanner_IsAllowed(void);
 
 /**

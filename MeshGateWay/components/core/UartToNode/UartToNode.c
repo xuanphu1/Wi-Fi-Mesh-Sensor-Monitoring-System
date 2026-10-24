@@ -8,7 +8,9 @@
 
 #include "UartToNode.h"
 
-#include "Datamanager.h"
+#include "app_state.h"
+#include "telemetry_types.h"
+#include "uart_protocol.h"
 #include "FOTAManager.h"
 #include "LinkListData.h"
 #include "WifiManager.h"

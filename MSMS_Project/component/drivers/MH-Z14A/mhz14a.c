@@ -62,19 +62,14 @@ static esp_err_t mhz14a_send_command(const uint32_t uart_command, bool on_off_fu
 
 esp_err_t mhz14a_init_uart(uart_port_t uart_num, int tx_pin, int rx_pin, const uart_config_t *uart_config)
 {
-    esp_err_t err;
-    
-    if (uart_is_driver_installed(uart_num)) {
-        uart_driver_delete(uart_num);
+    (void)tx_pin;
+    (void)rx_pin;
+    (void)uart_config;
+
+    if (!uart_is_driver_installed(uart_num)) {
+        ESP_LOGE(TAG, "UART port %d driver not installed by UartResourceManager", (int)uart_num);
+        return ESP_ERR_INVALID_STATE;
     }
-    err = uart_driver_install(uart_num, MHZ14A_UART_RX_BUFFER_SIZE, 0, 0, NULL, 0);
-    if (err != ESP_OK) return err;
-
-    err = uart_param_config(uart_num, uart_config);
-    if (err != ESP_OK) return err;
-
-    err = uart_set_pin(uart_num, tx_pin, rx_pin, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
-    if (err != ESP_OK) return err;
 
     mhz14a_uart_num = uart_num;
 
@@ -82,11 +77,22 @@ esp_err_t mhz14a_init_uart(uart_port_t uart_num, int tx_pin, int rx_pin, const u
         mhz14a_uart_mutex = xSemaphoreCreateMutex();
         if (mhz14a_uart_mutex == NULL) {
             ESP_LOGE(TAG, "Mutex creation failed");
-            return ESP_FAIL;
+            return ESP_ERR_NO_MEM;
         }
     }
 
-    ESP_LOGI(TAG, "MHZ14A UART port initialized successfully");
+    ESP_LOGI(TAG, "MHZ14A UART port bound successfully");
+    return ESP_OK;
+}
+
+esp_err_t mhz14a_deinit_uart(void)
+{
+    if (mhz14a_uart_mutex != NULL) {
+        SemaphoreHandle_t mutex = mhz14a_uart_mutex;
+        mhz14a_uart_mutex = NULL;
+        vSemaphoreDelete(mutex);
+    }
+    mhz14a_uart_num = UART_NUM_MAX;
     return ESP_OK;
 }
 

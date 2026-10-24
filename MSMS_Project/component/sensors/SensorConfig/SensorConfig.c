@@ -214,7 +214,10 @@ system_err_t pms7003ReadData(SensorData_t *data) {
   return MRS_OK;
 }
 
-system_err_t pms7003Deinitialize(void) { return MRS_OK; }
+system_err_t pms7003Deinitialize(void) {
+  esp_err_t err = pms7003_deinitUart();
+  return (err == ESP_OK) ? MRS_OK : MRS_ERR_DRIVERS_COMM_FAILED;
+}
 
 /* -------------------- MH-Z14A Driver Wrapper Functions -------------------- */
 system_err_t mhz14aInitialize(void) {
@@ -260,7 +263,14 @@ system_err_t mhz14aReadData(SensorData_t *data) {
   return MRS_OK;
 }
 
-system_err_t mhz14aDeinitialize(void) { return MRS_OK; }
+system_err_t mhz14aDeinitialize(void) {
+#ifdef CONFIG_MHZ14A_UART
+  esp_err_t err = mhz14a_deinit_uart();
+  return (err == ESP_OK) ? MRS_OK : MRS_ERR_DRIVERS_COMM_FAILED;
+#else
+  return MRS_OK;
+#endif
+}
 
 /* -------------------- DHT11 / DHT22 Driver Wrapper Functions
  * -------------------- */

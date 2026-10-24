@@ -200,12 +200,12 @@
             "dir": "D:/Engineering Project/MeshGateWay/components/core/ScreenManager",
             "type": "LIBRARY",
             "lib": "__idf_ScreenManager",
-            "reqs": [ "Datamanager", "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif" ],
-            "priv_reqs": [ "espressif__esp_lcd_ili9341" ],
+            "reqs": [ "Datamanager" ],
+            "priv_reqs": [ "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif", "espressif__esp_lcd_ili9341" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/ScreenManager/libScreenManager.a",
-            "sources": [ "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c" ],
+            "sources": [ "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/ScreenManager.c", "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/screen_driver.c", "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/screen_renderer.c", "D:/Engineering Project/MeshGateWay/components/core/ScreenManager/screen_dashboard.c" ],
             "include_dirs": [ "." ]
         },
         "SystemMonitor": {
@@ -245,12 +245,12 @@
             "dir": "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle",
             "type": "LIBRARY",
             "lib": "__idf_WebSocKetHandle",
-            "reqs": [ "webSocket", "Datamanager", "WifiManager", "json", "espressif__mdns", "FOTAManager", "UartToNode" ],
-            "priv_reqs": [],
+            "reqs": [ "webSocket", "Datamanager" ],
+            "priv_reqs": [ "WifiManager", "json", "espressif__mdns", "FOTAManager", "UartToNode", "DS3231", "esp_netif", "esp_wifi" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "D:/Engineering Project/MeshGateWay/build/esp-idf/WebSocKetHandle/libWebSocKetHandle.a",
-            "sources": [ "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c" ],
+            "sources": [ "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/WSHandle.c", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/ws_transport.c", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/ws_protocol.c", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/ws_time_sync.c", "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle/ws_ota.c" ],
             "include_dirs": [ "." ]
         },
         "WifiManager": {
@@ -2730,8 +2730,8 @@
             "prefix": "idf",
             "dir": "D:/Engineering Project/MeshGateWay/components/core/ScreenManager",
             "lib": "__idf_ScreenManager",
-            "reqs": [ "Datamanager", "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif" ],
-            "priv_reqs": [ "espressif__esp_lcd_ili9341" ],
+            "reqs": [ "Datamanager" ],
+            "priv_reqs": [ "UartToNode", "esp_lcd", "esp_timer", "WifiManager", "PowerManager", "MemoryManager", "WebSocKetHandle", "xpt2046_soft", "LinkListData", "FOTAManager", "app_update", "esp_netif", "espressif__esp_lcd_ili9341" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp_lcd_ili9341" ],
             "include_dirs": [ "." ]
@@ -2766,8 +2766,8 @@
             "prefix": "idf",
             "dir": "D:/Engineering Project/MeshGateWay/components/core/WebSocKetHandle",
             "lib": "__idf_WebSocKetHandle",
-            "reqs": [ "webSocket", "Datamanager", "WifiManager", "json", "espressif__mdns", "FOTAManager", "UartToNode" ],
-            "priv_reqs": [],
+            "reqs": [ "webSocket", "Datamanager" ],
+            "priv_reqs": [ "WifiManager", "json", "espressif__mdns", "FOTAManager", "UartToNode", "DS3231", "esp_netif", "esp_wifi" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "include_dirs": [ "." ]

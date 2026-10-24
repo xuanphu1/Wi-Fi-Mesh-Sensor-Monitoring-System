@@ -1,7 +1,9 @@
 #ifndef SCREEN_MANAGER_H
 #define SCREEN_MANAGER_H
 
-#include "Datamanager.h"
+#include "hardware_state.h"
+#include "system_metrics.h"
+#include "telemetry_types.h"
 #include <stdbool.h>
 #include <stdint.h>
 

@@ -29,6 +29,10 @@ system_err_t InternetManager_Init(DataManager_t *data, internet_mode_t mode);
 system_err_t InternetManager_SwitchMode(DataManager_t *data, internet_mode_t mode);
 system_err_t InternetManager_Clean(DataManager_t *data, bool destroy_default_netifs);
 system_err_t InternetManager_GetStatus(DataManager_t *data, InternetManagerStatus_t *out);
+system_err_t InternetManager_StopTask(DataManager_t *data, int task_id, TickType_t timeout_ticks);
+
+system_err_t InternetManager_RequestWifiConfiguration(DataManager_t *data);
+system_err_t InternetManager_RequestMeshRole(DataManager_t *data, mesh_role_t role);
 
 internet_mode_t InternetManager_GetMode(void);
 bool InternetManager_IsTransitioning(void);

@@ -70,20 +70,15 @@ typedef struct {
   TypeCommunication_t interface;
 } sensor_descriptor_t;
 
-/* -------------------- Sensor Driver Structure -------------------- */
-// One registered sensor driver
+/* -------------------- Sensor Port Snapshot Structure -------------------- */
+// Immutable snapshot of sensor state for a logical port
 typedef struct {
-  SensorType_t type;                    // Stable sensor identifier
-  const char *name;                    // e.g. "BME280"
-  const char *description[20];         // Field labels
-  const char *unit[20];                // Units
-  bool is_init;                        // Init completed
-  uint8_t unit_count;                  // Number of fields
-  TypeCommunication_t interface;       // UART, I2C, SPI, PULSE
-  system_err_t (*init)(void);          // init()
-  system_err_t (*read)(SensorData_t *); // read into SensorData_t
-  system_err_t (*deinit)(void);        // optional deinit
-} sensor_driver_t;
+  PortId_t port;
+  SensorType_t type;
+  SensorData_t data;
+  bool assigned;
+  bool data_valid;
+} SensorPortSnapshot_t;
 
 #endif /* __SENSOR_TYPES_H__ */
 

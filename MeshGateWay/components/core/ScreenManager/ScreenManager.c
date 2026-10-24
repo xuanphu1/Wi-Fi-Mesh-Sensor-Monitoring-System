@@ -1,13 +1,8 @@
 #include "ScreenManager.h"
-#include "font8x8.h"
-
-// Driver chính hãng Espressif esp_lcd và esp_lcd_ili9341
-#include "driver/gpio.h"
-#include "driver/spi_master.h"
-#include "esp_lcd_ili9341.h"
-#include "esp_lcd_panel_io.h"
-#include "esp_lcd_panel_ops.h"
-#include "esp_lcd_panel_vendor.h"
+#include "screen_internal.h"
+#include "screen_driver.h"
+#include "screen_renderer.h"
+#include "screen_dashboard.h"
 
 #include "FOTAManager.h"
 #include "LinkListData.h"
@@ -33,592 +28,39 @@
 #include <stdio.h>
 #include <string.h>
 
-static const char *TAG = "ScreenManager";
-
-// Cấu hình chân phần cứng kết nối màn hình ILI9341
-#define LCD_HOST SPI3_HOST
-#define LCD_PIN_NUM_SCLK 25
-#define LCD_PIN_NUM_MOSI 26
-#define LCD_PIN_NUM_MISO -1
-#define LCD_PIN_NUM_LCD_DC 27
-#define LCD_PIN_NUM_LCD_RST 14
-#define LCD_PIN_NUM_LCD_CS 12
-#define LCD_PIN_NUM_BK_LIGHT 33
-
-#define TFT_WIDTH 240
-#define TFT_HEIGHT 320
-
-// Bảng màu RGB565 tiêu chuẩn
-#define TFT_BLACK 0x0000
-#define TFT_NAVY 0x000F
-#define TFT_DARKGREEN 0x03E0
-#define TFT_DARKCYAN 0x03EF
-#define TFT_MAROON 0x7800
-#define TFT_PURPLE 0x780F
-#define TFT_OLIVE 0x7BE0
-#define TFT_LIGHTGREY 0xC618
-#define TFT_DARKGREY 0x7BEF
-#define TFT_BLUE 0x001F
-#define TFT_GREEN 0x07E0
-#define TFT_CYAN 0x07FF
-#define TFT_RED 0xF800
-#define TFT_MAGENTA 0xF81F
-#define TFT_YELLOW 0xFFE0
-#define TFT_WHITE 0xFFFF
-#define TFT_ORANGE 0xFD20
-#define TFT_GREENYELLOW 0xB7E0
-
-#define TFT_BG_MAIN 0x0000
-#define TFT_CARD_BG 0x0862
-#define TFT_CARD_BORDER 0x2125
-#define TFT_TEXT_MUTED 0x8410
-#define TFT_ACCENT_CYAN 0x07FF
-#define TFT_ACCENT_GOLD 0xFDE0
-#define TFT_BAR_BG 0x18C3
-
-#define TFT_DMA_BUF_LINES 16
-#define TFT_DMA_BUF_PIXELS                                                     \
-  (TFT_WIDTH * TFT_DMA_BUF_LINES) // 240 * 16 = 3840 pixels
-#define TFT_DMA_BUF_SIZE (TFT_DMA_BUF_PIXELS * sizeof(uint16_t)) // 7680 bytes
-
-static esp_lcd_panel_handle_t s_panel_handle = NULL;
-static SemaphoreHandle_t s_refresh_done_sem = NULL;
-static uint16_t *s_dma_buf = NULL;
-
-static bool IRAM_ATTR
-tft_on_color_trans_done(esp_lcd_panel_io_handle_t panel_io,
-                        esp_lcd_panel_io_event_data_t *edata, void *user_ctx) {
-  BaseType_t high_task_awoken = pdFALSE;
-  if (s_refresh_done_sem) {
-    xSemaphoreGiveFromISR(s_refresh_done_sem, &high_task_awoken);
-  }
-  return high_task_awoken == pdTRUE;
-}
-
-typedef struct {
-  dm_metrics_t *metrics;
-  dm_lvgl_t *lvgl;
-  dm_telemetry_t *telemetry;
-  dm_hw_t *hw;
-} screen_ctx_t;
 
 static screen_ctx_t s_screen_ctx = {0};
 
-typedef struct {
-  bool active;
-  uint8_t percent;
-  char target[32];
-  char version[32];
-  char detail[64];
-  TickType_t hide_after_tick;
-} screen_ota_state_t;
-
-static screen_ota_state_t s_screen_ota = {0};
-static SemaphoreHandle_t s_screen_ota_mutex = NULL;
+screen_ota_state_t screen_internal_ota_state = {0};
+SemaphoreHandle_t screen_internal_ota_mutex = NULL;
 
 void screen_manager_set_ota_progress(bool active, uint8_t percent,
                                      const char *target, const char *version,
                                      const char *detail) {
-  if (s_screen_ota_mutex &&
-      xSemaphoreTake(s_screen_ota_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {
-    s_screen_ota.active = active;
-    s_screen_ota.percent = percent;
+  if (screen_internal_ota_mutex &&
+      xSemaphoreTake(screen_internal_ota_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+    screen_internal_ota_state.active = active;
+    screen_internal_ota_state.percent = percent;
     if (target && target[0]) {
-      strncpy(s_screen_ota.target, target, sizeof(s_screen_ota.target) - 1);
-      s_screen_ota.target[sizeof(s_screen_ota.target) - 1] = '\0';
+      strncpy(screen_internal_ota_state.target, target, sizeof(screen_internal_ota_state.target) - 1);
+      screen_internal_ota_state.target[sizeof(screen_internal_ota_state.target) - 1] = '\0';
     }
     if (version && version[0]) {
-      strncpy(s_screen_ota.version, version, sizeof(s_screen_ota.version) - 1);
-      s_screen_ota.version[sizeof(s_screen_ota.version) - 1] = '\0';
+      strncpy(screen_internal_ota_state.version, version, sizeof(screen_internal_ota_state.version) - 1);
+      screen_internal_ota_state.version[sizeof(screen_internal_ota_state.version) - 1] = '\0';
     }
     if (detail && detail[0]) {
-      strncpy(s_screen_ota.detail, detail, sizeof(s_screen_ota.detail) - 1);
-      s_screen_ota.detail[sizeof(s_screen_ota.detail) - 1] = '\0';
+      strncpy(screen_internal_ota_state.detail, detail, sizeof(screen_internal_ota_state.detail) - 1);
+      screen_internal_ota_state.detail[sizeof(screen_internal_ota_state.detail) - 1] = '\0';
     }
     if (!active || percent >= 100 ||
         (detail && (strstr(detail, "Success") || strstr(detail, "Failed")))) {
-      s_screen_ota.hide_after_tick = xTaskGetTickCount() + pdMS_TO_TICKS(4000);
+      screen_internal_ota_state.hide_after_tick = xTaskGetTickCount() + pdMS_TO_TICKS(4000);
     } else {
-      s_screen_ota.hide_after_tick = 0;
+      screen_internal_ota_state.hide_after_tick = 0;
     }
-    xSemaphoreGive(s_screen_ota_mutex);
+    xSemaphoreGive(screen_internal_ota_mutex);
   }
-}
-
-static inline uint16_t swap16(uint16_t v) { return (v >> 8) | (v << 8); }
-
-static esp_err_t tft_hardware_init(void) {
-  if (s_refresh_done_sem == NULL) {
-    s_refresh_done_sem = xSemaphoreCreateBinary();
-  }
-
-  if (s_dma_buf == NULL) {
-    s_dma_buf = (uint16_t *)heap_caps_malloc(TFT_DMA_BUF_SIZE, MALLOC_CAP_DMA);
-    if (!s_dma_buf) {
-      ESP_LOGE(TAG, "Failed to allocate TFT DMA buffer!");
-      return ESP_ERR_NO_MEM;
-    }
-  }
-
-  // 1. Cấu hình đèn nền (GPIO 33)
-  gpio_config_t bk_gpio_config = {
-      .mode = GPIO_MODE_OUTPUT,
-      .pin_bit_mask = 1ULL << LCD_PIN_NUM_BK_LIGHT,
-  };
-  gpio_config(&bk_gpio_config);
-  gpio_set_level(LCD_PIN_NUM_BK_LIGHT, 0);
-
-  // 2. Cấu hình SPI Bus
-  spi_bus_config_t buscfg = {
-      .sclk_io_num = LCD_PIN_NUM_SCLK,
-      .mosi_io_num = LCD_PIN_NUM_MOSI,
-      .miso_io_num = LCD_PIN_NUM_MISO,
-      .quadwp_io_num = -1,
-      .quadhd_io_num = -1,
-      .max_transfer_sz = TFT_DMA_BUF_SIZE,
-  };
-  esp_err_t ret = spi_bus_initialize(LCD_HOST, &buscfg, SPI_DMA_CH_AUTO);
-  if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE) {
-    ESP_LOGE(TAG, "spi_bus_initialize failed: %s", esp_err_to_name(ret));
-    return ret;
-  }
-
-  // 3. Cấu hình Panel IO SPI
-  esp_lcd_panel_io_handle_t io_handle = NULL;
-  esp_lcd_panel_io_spi_config_t io_config = {
-      .dc_gpio_num = LCD_PIN_NUM_LCD_DC,
-      .cs_gpio_num = LCD_PIN_NUM_LCD_CS,
-      .pclk_hz = 26 * 1000 * 1000, // 26 MHz
-      .lcd_cmd_bits = 8,
-      .lcd_param_bits = 8,
-      .spi_mode = 0,
-      .trans_queue_depth = 10,
-      .on_color_trans_done = tft_on_color_trans_done,
-      .user_ctx = NULL,
-  };
-  ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi((esp_lcd_spi_bus_handle_t)LCD_HOST,
-                                           &io_config, &io_handle));
-
-  // 4. Khởi tạo driver ILI9341 chính thức
-  esp_lcd_panel_dev_config_t panel_config = {
-      .reset_gpio_num = LCD_PIN_NUM_LCD_RST,
-      .rgb_endian = LCD_RGB_ENDIAN_BGR,
-      .bits_per_pixel = 16,
-  };
-  ESP_ERROR_CHECK(
-      esp_lcd_new_panel_ili9341(io_handle, &panel_config, &s_panel_handle));
-  ESP_ERROR_CHECK(esp_lcd_panel_reset(s_panel_handle));
-  ESP_ERROR_CHECK(esp_lcd_panel_init(s_panel_handle));
-
-  // 5. Cài đặt định hướng đứng dọc (Portrait Inverted 240x320)
-  // mirror_x = false (chữ đọc xuôi bình thường, không soi gương), mirror_y =
-  // true (Portrait Inverted)
-  ESP_ERROR_CHECK(esp_lcd_panel_mirror(s_panel_handle, false, true));
-  ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(s_panel_handle, false));
-
-  // 6. Bật hiển thị và đèn nền
-  ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(s_panel_handle, true));
-  gpio_set_level(LCD_PIN_NUM_BK_LIGHT, 1);
-
-  ESP_LOGI(TAG,
-           "Official esp_lcd_ili9341 initialized (Portrait Inverted 240x320)");
-  return ESP_OK;
-}
-
-static void tft_draw_bitmap_wait(int16_t x_start, int16_t y_start,
-                                 int16_t x_end, int16_t y_end,
-                                 const void *color_data) {
-  if (!s_panel_handle || x_start >= x_end || y_start >= y_end || !color_data)
-    return;
-  if (s_refresh_done_sem) {
-    xSemaphoreTake(s_refresh_done_sem, 0);
-  }
-  esp_lcd_panel_draw_bitmap(s_panel_handle, x_start, y_start, x_end, y_end,
-                            color_data);
-  if (s_refresh_done_sem) {
-    xSemaphoreTake(s_refresh_done_sem, pdMS_TO_TICKS(50));
-  }
-}
-
-static void tft_fill_rect(int16_t x, int16_t y, int16_t w, int16_t h,
-                          uint16_t color) {
-  if (w <= 0 || h <= 0 || x >= TFT_WIDTH || y >= TFT_HEIGHT ||
-      s_panel_handle == NULL || s_dma_buf == NULL)
-    return;
-  if (x < 0) {
-    w += x;
-    x = 0;
-  }
-  if (y < 0) {
-    h += y;
-    y = 0;
-  }
-  if (x + w > TFT_WIDTH)
-    w = TFT_WIDTH - x;
-  if (y + h > TFT_HEIGHT)
-    h = TFT_HEIGHT - y;
-  if (w <= 0 || h <= 0)
-    return;
-
-  uint16_t swapped = swap16(color);
-  int16_t max_lines = TFT_DMA_BUF_PIXELS / w;
-  if (max_lines > h)
-    max_lines = h;
-  if (max_lines < 1)
-    max_lines = 1;
-
-  int total_pixels = w * max_lines;
-  for (int i = 0; i < total_pixels; i++) {
-    s_dma_buf[i] = swapped;
-  }
-
-  int16_t cur_y = y;
-  while (cur_y < y + h) {
-    int16_t lines = y + h - cur_y;
-    if (lines > max_lines)
-      lines = max_lines;
-    tft_draw_bitmap_wait(x, cur_y, x + w, cur_y + lines, s_dma_buf);
-    cur_y += lines;
-  }
-}
-
-static void tft_fill_screen(uint16_t color) {
-  tft_fill_rect(0, 0, TFT_WIDTH, TFT_HEIGHT, color);
-}
-
-static void tft_draw_fast_h_line(int16_t x, int16_t y, int16_t w,
-                                 uint16_t color) {
-  tft_fill_rect(x, y, w, 1, color);
-}
-
-static void tft_draw_fast_v_line(int16_t x, int16_t y, int16_t h,
-                                 uint16_t color) {
-  tft_fill_rect(x, y, 1, h, color);
-}
-
-static void tft_draw_rect(int16_t x, int16_t y, int16_t w, int16_t h,
-                          uint16_t color) {
-  tft_draw_fast_h_line(x, y, w, color);
-  tft_draw_fast_h_line(x, y + h - 1, w, color);
-  tft_draw_fast_v_line(x, y, h, color);
-  tft_draw_fast_v_line(x + w - 1, y, h, color);
-}
-
-static void tft_draw_string(int16_t x, int16_t y, const char *str, uint16_t fg,
-                            uint16_t bg, uint8_t size) {
-  if (!str || !s_dma_buf || s_panel_handle == NULL)
-    return;
-  if (size < 1)
-    size = 1;
-
-  int16_t char_w = 8 * size;
-  int16_t char_h = 8 * size;
-  int max_chars_in_buf = TFT_DMA_BUF_PIXELS / (char_w * char_h);
-  if (max_chars_in_buf < 1)
-    max_chars_in_buf = 1;
-
-  uint16_t fg_sw = swap16(fg);
-  uint16_t bg_sw = swap16(bg);
-
-  int16_t cur_x = x;
-  int16_t cur_y = y;
-
-  while (*str) {
-    if (*str == '\n') {
-      cur_x = x;
-      cur_y += char_h + 2;
-      str++;
-      continue;
-    }
-
-    if (cur_x >= TFT_WIDTH)
-      break;
-
-    int chunk_chars = 0;
-    const char *p = str;
-    while (*p && *p != '\n' && chunk_chars < max_chars_in_buf) {
-      if (cur_x + (chunk_chars + 1) * char_w > TFT_WIDTH) {
-        break;
-      }
-      chunk_chars++;
-      p++;
-    }
-
-    if (chunk_chars == 0)
-      break;
-
-    int16_t chunk_w = chunk_chars * char_w;
-    int16_t chunk_h = char_h;
-
-    for (int c_idx = 0; c_idx < chunk_chars; c_idx++) {
-      char c = str[c_idx];
-      if (c < 32 || c > 127)
-        c = ' ';
-      const uint8_t *glyph = font8x8[(uint8_t)(c - 32)];
-
-      for (uint8_t row = 0; row < 8; row++) {
-        uint8_t line = glyph[row];
-        for (uint8_t col = 0; col < 8; col++) {
-          uint16_t pixel = (line & (1 << (7 - col))) ? fg_sw : bg_sw;
-          for (uint8_t sy = 0; sy < size; sy++) {
-            int py = row * size + sy;
-            for (uint8_t sx = 0; sx < size; sx++) {
-              int px = c_idx * char_w + col * size + sx;
-              s_dma_buf[py * chunk_w + px] = pixel;
-            }
-          }
-        }
-      }
-    }
-
-    if (cur_x < TFT_WIDTH && cur_y < TFT_HEIGHT && cur_x + chunk_w > 0 &&
-        cur_y + chunk_h > 0) {
-      tft_draw_bitmap_wait(cur_x, cur_y, cur_x + chunk_w, cur_y + chunk_h,
-                           s_dma_buf);
-    }
-
-    cur_x += chunk_w;
-    str += chunk_chars;
-  }
-}
-
-static void tft_draw_progress_bar(int16_t x, int16_t y, int16_t w, int16_t h,
-                                  uint8_t percent, uint16_t fg_color,
-                                  uint16_t bg_color, uint16_t border_color) {
-  if (percent > 100)
-    percent = 100;
-  tft_draw_rect(x, y, w, h, border_color);
-
-  int16_t inner_x = x + 2;
-  int16_t inner_y = y + 2;
-  int16_t inner_w = w - 4;
-  int16_t inner_h = h - 4;
-  if (inner_w <= 0 || inner_h <= 0)
-    return;
-
-  int16_t fill_w = (inner_w * percent) / 100;
-  if (fill_w > 0) {
-    tft_fill_rect(inner_x, inner_y, fill_w, inner_h, fg_color);
-  }
-  if (fill_w < inner_w) {
-    tft_fill_rect(inner_x + fill_w, inner_y, inner_w - fill_w, inner_h,
-                  bg_color);
-  }
-}
-
-static const char *get_weekday_name(uint8_t wday) {
-  switch (wday) {
-  case 0:
-    return "Sun";
-  case 1:
-    return "Mon";
-  case 2:
-    return "Tue";
-  case 3:
-    return "Wed";
-  case 4:
-    return "Thu";
-  case 5:
-    return "Fri";
-  case 6:
-    return "Sat";
-  default:
-    return "---";
-  }
-}
-
-static const char *s_month_names[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-
-static void tft_draw_text_box(int16_t x, int16_t y, int16_t w, int16_t h,
-                              const char *text, uint16_t fg, uint16_t bg,
-                              uint8_t size) {
-  if (w <= 0 || h <= 0)
-    return;
-  tft_fill_rect(x, y, w, h, bg);
-  if (text && text[0] != '\0') {
-    tft_draw_string(x, y, text, fg, bg, size);
-  }
-}
-
-static void draw_text_cached_box(int16_t x, int16_t y, int16_t w, int16_t h,
-                                 char *cache, size_t cache_sz,
-                                 const char *new_text, uint16_t fg, uint16_t bg,
-                                 uint8_t size) {
-  if (strcmp(cache, new_text) != 0) {
-    tft_draw_text_box(x, y, w, h, new_text, fg, bg, size);
-    strncpy(cache, new_text, cache_sz - 1);
-    cache[cache_sz - 1] = '\0';
-  }
-}
-
-static void tft_draw_segmented_bar(int16_t x, int16_t y, int16_t w, int16_t h,
-                                   uint8_t percent, uint16_t active_color,
-                                   uint16_t inactive_color) {
-  if (w <= 0 || h <= 0 || !s_dma_buf || s_panel_handle == NULL)
-    return;
-  if (percent > 100)
-    percent = 100;
-
-  const int seg_w = 2;
-  const int seg_gap = 1;
-  const int pitch = seg_w + seg_gap; // 3 px pitch for |||||||||| style
-  int total_segs = w / pitch;
-  if (total_segs < 1)
-    return;
-  int active_segs = (total_segs * percent) / 100;
-  if (percent > 0 && active_segs == 0)
-    active_segs = 1;
-
-  uint16_t act_sw = swap16(active_color);
-  uint16_t inact_sw = swap16(inactive_color);
-  uint16_t bg_sw = swap16(TFT_BG_MAIN);
-
-  for (int row = 0; row < h; row++) {
-    int row_offset = row * w;
-    for (int s = 0; s < total_segs; s++) {
-      uint16_t seg_col = (s < active_segs) ? act_sw : inact_sw;
-      int base_x = s * pitch;
-      for (int i = 0; i < seg_w; i++) {
-        s_dma_buf[row_offset + base_x + i] = seg_col;
-      }
-      for (int g = 0; g < seg_gap; g++) {
-        s_dma_buf[row_offset + base_x + seg_w + g] = bg_sw;
-      }
-    }
-    int filled_w = total_segs * pitch;
-    for (int rem = filled_w; rem < w; rem++) {
-      s_dma_buf[row_offset + rem] = bg_sw;
-    }
-  }
-
-  tft_draw_bitmap_wait(x, y, x + w, y + h, s_dma_buf);
-}
-
-static void draw_segmented_bar_cached(int16_t x, int16_t y, int16_t w,
-                                      int16_t h, uint8_t *cached_pct,
-                                      uint8_t new_pct, uint16_t active_color,
-                                      uint16_t inactive_color) {
-  if (*cached_pct != new_pct) {
-    *cached_pct = new_pct;
-    tft_draw_segmented_bar(x, y, w, h, new_pct, active_color, inactive_color);
-  }
-}
-
-static void draw_progress_bar_cached(int16_t x, int16_t y, int16_t w, int16_t h,
-                                     uint8_t *cached_pct, uint8_t new_pct,
-                                     uint16_t fg_color, uint16_t bg_color,
-                                     uint16_t border_color) {
-  if (*cached_pct != new_pct) {
-    *cached_pct = new_pct;
-    tft_draw_progress_bar(x, y, w, h, new_pct, fg_color, bg_color,
-                          border_color);
-  }
-}
-
-static const char *get_reset_reason_name(void) {
-  switch (esp_reset_reason()) {
-  case ESP_RST_POWERON:
-    return "POWERON";
-  case ESP_RST_SW:
-    return "SW_RST";
-  case ESP_RST_PANIC:
-    return "PANIC";
-  case ESP_RST_INT_WDT:
-  case ESP_RST_TASK_WDT:
-  case ESP_RST_WDT:
-    return "WDT_RST";
-  case ESP_RST_DEEPSLEEP:
-    return "DEEPSLP";
-  case ESP_RST_BROWNOUT:
-    return "BROWNOUT";
-  case ESP_RST_SDIO:
-    return "SDIO";
-  default:
-    return "NORMAL";
-  }
-}
-
-static void draw_battery_glyph(int16_t x, int16_t y, int bat_pct) {
-  tft_fill_rect(x, y, 24, 8, TFT_CARD_BG);
-  tft_draw_rect(x, y, 20, 8, TFT_CYAN);
-  tft_draw_fast_v_line(x + 20, y + 2, 4, TFT_CYAN);
-
-  uint16_t col = (bat_pct > 20) ? TFT_GREEN : TFT_RED;
-  int segs = 0;
-  if (bat_pct >= 75)
-    segs = 3;
-  else if (bat_pct >= 40)
-    segs = 2;
-  else if (bat_pct >= 15)
-    segs = 1;
-
-  for (int i = 0; i < 3; i++) {
-    uint16_t c = (i < segs) ? col : TFT_CARD_BG;
-    tft_fill_rect(x + 2 + i * 6, y + 2, 4, 4, c);
-  }
-}
-
-static void render_target_button(websocket_target_t target) {
-  const int16_t bx = 148, by = 43, bw = 84, bh = 42;
-  const char *cur_url = get_ws_url();
-  bool is_server = (target == WEBSOCKET_TARGET_SERVER);
-  if (target == WEBSOCKET_TARGET_CUSTOM && cur_url) {
-    if (strncmp(cur_url, "wss://", 6) == 0 || strstr(cur_url, "msems.click") != NULL) {
-      is_server = true;
-    }
-  }
-
-  if (is_server) {
-    tft_fill_rect(bx, by, bw, bh, 0x0151); // Dark Navy Blue
-    tft_draw_rect(bx, by, bw, bh, TFT_CYAN);
-    tft_draw_rect(bx + 1, by + 1, bw - 2, bh - 2, TFT_CYAN);
-    tft_draw_string(bx + 10, by + 8, "[SERVER]", TFT_WHITE, 0x0151, 1);
-    tft_draw_string(bx + 6, by + 24, "[TAP CHG]", TFT_YELLOW, 0x0151, 1);
-  } else if (target == WEBSOCKET_TARGET_LOCAL) {
-    tft_fill_rect(bx, by, bw, bh, 0x02C0); // Dark Forest Green
-    tft_draw_rect(bx, by, bw, bh, TFT_GREEN);
-    tft_draw_rect(bx + 1, by + 1, bw - 2, bh - 2, TFT_GREEN);
-    tft_draw_string(bx + 14, by + 8, "[LOCAL]", TFT_WHITE, 0x02C0, 1);
-    tft_draw_string(bx + 6, by + 24, "[TAP CHG]", TFT_YELLOW, 0x02C0, 1);
-  } else {
-    // Custom IP
-    tft_fill_rect(bx, by, bw, bh, 0x2190); // Muted Teal
-    tft_draw_rect(bx, by, bw, bh, TFT_CYAN);
-    tft_draw_rect(bx + 1, by + 1, bw - 2, bh - 2, TFT_CYAN);
-    tft_draw_string(bx + 10, by + 8, "[CUSTOM]", TFT_WHITE, 0x2190, 1);
-    tft_draw_string(bx + 6, by + 24, "[TAP CHG]", TFT_YELLOW, 0x2190, 1);
-  }
-}
-
-static void render_static_dashboard(void) {
-  tft_fill_screen(TFT_BG_MAIN);
-
-  // 1. Top Header Background (0,0 to 240, 34)
-  tft_fill_rect(0, 0, TFT_WIDTH, 34, TFT_CARD_BG);
-  tft_draw_fast_h_line(0, 34, TFT_WIDTH, TFT_CARD_BORDER);
-
-  // 2. Card 1: Gateway & Network (4, 36 to 236, 90)
-  tft_draw_rect(4, 36, 232, 54, TFT_CARD_BORDER);
-  tft_draw_string(8, 39, "[NETWORK]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
-
-  // 3. Card 2: System Performance (4, 93 to 236, 147)
-  tft_draw_rect(4, 93, 232, 54, TFT_CARD_BORDER);
-  tft_draw_string(8, 96, "[SYSTEM PERFORMANCE]", TFT_ACCENT_CYAN, TFT_BG_MAIN,
-                  1);
-
-  // 4. Card 3: Mesh Network Status (4, 150 to 236, 206)
-  tft_draw_rect(4, 150, 232, 56, TFT_CARD_BORDER);
-  tft_draw_string(8, 153, "[MESH NETWORK]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
-
-  // 5. Card 4: Traffic & Flow (4, 209 to 236, 265)
-  tft_draw_rect(4, 209, 232, 56, TFT_CARD_BORDER);
-  tft_draw_string(8, 212, "[TRAFFIC & FLOW]", TFT_ACCENT_CYAN, TFT_BG_MAIN, 1);
-
-  // 6. Card 5: System Health & Diagnostics (4, 268 to 236, 317)
-  tft_draw_rect(4, 268, 232, 49, TFT_CARD_BORDER);
-  tft_draw_string(8, 271, "[SYS HEALTH & DIAGNOSTICS]", TFT_ACCENT_CYAN,
-                  TFT_BG_MAIN, 1);
 }
 
 static void tft_screen_task(void *arg) {
@@ -631,7 +73,7 @@ static void tft_screen_task(void *arg) {
   // Khởi tạo cảm ứng soft SPI touch xpt2046
   xpt2046_soft_init();
 
-  render_static_dashboard();
+  screen_dashboard_render_static();
 
   char c_hdr_title[24] = "";
   char c_wifi[32] = "";
@@ -707,28 +149,28 @@ static void tft_screen_task(void *arg) {
 
     screen_ota_state_t ota_snap = {0};
     bool show_ota = false;
-    if (s_screen_ota_mutex &&
-        xSemaphoreTake(s_screen_ota_mutex, pdMS_TO_TICKS(10)) == pdTRUE) {
+    if (screen_internal_ota_mutex &&
+        xSemaphoreTake(screen_internal_ota_mutex, pdMS_TO_TICKS(10)) == pdTRUE) {
       if (fota_is_running()) {
-        s_screen_ota.active = true;
-        s_screen_ota.percent = fota_get_progress_percent();
-        if (s_screen_ota.target[0] == '\0') {
-          strncpy(s_screen_ota.target, "Gateway",
-                  sizeof(s_screen_ota.target) - 1);
+        screen_internal_ota_state.active = true;
+        screen_internal_ota_state.percent = fota_get_progress_percent();
+        if (screen_internal_ota_state.target[0] == '\0') {
+          strncpy(screen_internal_ota_state.target, "Gateway",
+                  sizeof(screen_internal_ota_state.target) - 1);
         }
       }
-      show_ota = s_screen_ota.active;
-      if (s_screen_ota.hide_after_tick > 0) {
-        if (xTaskGetTickCount() >= s_screen_ota.hide_after_tick) {
+      show_ota = screen_internal_ota_state.active;
+      if (screen_internal_ota_state.hide_after_tick > 0) {
+        if (xTaskGetTickCount() >= screen_internal_ota_state.hide_after_tick) {
           show_ota = false;
-          s_screen_ota.active = false;
-          s_screen_ota.hide_after_tick = 0;
+          screen_internal_ota_state.active = false;
+          screen_internal_ota_state.hide_after_tick = 0;
         } else {
           show_ota = true;
         }
       }
-      ota_snap = s_screen_ota;
-      xSemaphoreGive(s_screen_ota_mutex);
+      ota_snap = screen_internal_ota_state;
+      xSemaphoreGive(screen_internal_ota_mutex);
     }
 
     if (show_ota) {
@@ -784,7 +226,7 @@ static void tft_screen_task(void *arg) {
       continue;
     } else if (ota_overlay_active) {
       ota_overlay_active = false;
-      render_static_dashboard();
+      screen_dashboard_render_static();
       c_hdr_title[0] = '\0';
       c_wifi[0] = '\0';
       c_ws_badge[0] = '\0';
@@ -955,8 +397,7 @@ static void tft_screen_task(void *arg) {
                          ws_ok ? "[WS:OK]" : "[WS:--]",
                          ws_ok ? TFT_GREEN : TFT_RED, TFT_CARD_BG, 1);
 
-    // Dòng 1 (Y: 13): Giờ RTC + Ngày Tháng (RTC DS3231) + Pin BAT% + Icon Pin
-    // đồ họa
+    // Dòng 1 (Y: 13): Giờ RTC + Ngày Tháng (RTC DS3231) + Pin BAT% + Icon Pin đồ họa
     if (m.rtc_ok) {
       snprintf(buf, sizeof(buf), "%02d:%02d:%02d", m.rtc_time.tm_hour,
                m.rtc_time.tm_min, m.rtc_time.tm_sec);
@@ -964,10 +405,10 @@ static void tft_screen_task(void *arg) {
                            TFT_CARD_BG, 1);
 
       const char *mon = (m.rtc_time.tm_mon >= 0 && m.rtc_time.tm_mon <= 11)
-                            ? s_month_names[m.rtc_time.tm_mon]
+                            ? screen_dashboard_month_names[m.rtc_time.tm_mon]
                             : "---";
       snprintf(buf, sizeof(buf), "%s, %02d %s",
-               get_weekday_name((uint8_t)m.rtc_time.tm_wday),
+               screen_dashboard_get_weekday_name((uint8_t)m.rtc_time.tm_wday),
                m.rtc_time.tm_mday, mon);
       draw_text_cached_box(76, 13, 90, 8, c_date, sizeof(c_date), buf,
                            TFT_TEXT_MUTED, TFT_CARD_BG, 1);
@@ -1041,7 +482,7 @@ static void tft_screen_task(void *arg) {
     websocket_target_t cur_target = websocket_get_selected_target();
     if (cur_target != last_target) {
       last_target = cur_target;
-      render_target_button(cur_target);
+      screen_dashboard_render_target_button(cur_target);
     }
 
     // --- 3. CARD 2: SYSTEM PERFORMANCE (Y: 93..147) ---
@@ -1164,7 +605,7 @@ static void tft_screen_task(void *arg) {
                          TFT_GREENYELLOW, TFT_BG_MAIN, 1);
 
     snprintf(buf, sizeof(buf), "Reset: %-7s | RTC: %-6s",
-             get_reset_reason_name(),
+             screen_dashboard_get_reset_reason_name(),
              websocket_is_time_synced() ? "SYNCED"
                                         : (m.rtc_ok ? "READY" : "SYNC.."));
     draw_text_cached_box(8, 293, 224, 8, c_diag_rst_rtc, sizeof(c_diag_rst_rtc),
@@ -1186,8 +627,8 @@ void screen_manager_start(dm_metrics_t *metrics, dm_lvgl_t *lvgl,
   s_screen_ctx.telemetry = telemetry;
   s_screen_ctx.hw = hw;
 
-  if (s_screen_ota_mutex == NULL) {
-    s_screen_ota_mutex = xSemaphoreCreateMutex();
+  if (screen_internal_ota_mutex == NULL) {
+    screen_internal_ota_mutex = xSemaphoreCreateMutex();
   }
 
   xTaskCreatePinnedToCore(tft_screen_task, "tft_screen", 8192, &s_screen_ctx,

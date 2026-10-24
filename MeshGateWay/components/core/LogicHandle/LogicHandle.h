@@ -2,7 +2,7 @@
 #define _LOGIC_HANDLE_
 #include <stdint.h>
 #include <stdbool.h>
-#include "Datamanager.h"
+#include "telemetry_types.h"
 #include <ctype.h>
 
 

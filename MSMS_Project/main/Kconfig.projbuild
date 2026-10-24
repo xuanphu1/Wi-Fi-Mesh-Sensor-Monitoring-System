@@ -1,0 +1,10 @@
+menu "MSMS Configuration"
+
+    config MSMS_ENABLE_TESTS
+        bool "Enable MSMS Architectural Test Suite"
+        default n
+        help
+            Enables compilation of the MSMS architectural regression test suite.
+            Disabled by default for production firmware.
+
+endmenu

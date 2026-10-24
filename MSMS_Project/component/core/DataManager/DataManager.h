@@ -22,7 +22,7 @@
 
 #if defined(CONFIG_IDF_TARGET_ESP32)
 #define PIN_ACTUATOR_IO1_P1 32
-#define PIN_ACTUATOR_IO3_P2 35
+#define PIN_ACTUATOR_IO3_P2 27
 #define PIN_ACTUATOR_IO1_P3 33
 #else
 #define PIN_ACTUATOR_IO1_P1 -1
@@ -215,7 +215,6 @@ typedef struct {
 
 struct DataManager_t;
 typedef void (*on_sensor_selected_fn)(struct DataManager_t *data, int port);
-typedef void (*on_ports_reset_fn)(struct DataManager_t *data);
 
 typedef struct DataManager_t {
   SensorData_t sensor;
@@ -226,7 +225,6 @@ typedef struct DataManager_t {
   SensorType_t selectedSensor[NUM_PORTS];
   SensorData_t port_data[NUM_PORTS];
   on_sensor_selected_fn on_sensor_selected;
-  on_ports_reset_fn on_ports_reset;
 
   mesh_io_context_t meshIo;
 

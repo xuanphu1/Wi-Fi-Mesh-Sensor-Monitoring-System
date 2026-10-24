@@ -4,9 +4,8 @@
 #include "BitManager.h"
 #include "DataManager.h"
 #include "ErrorCodes.h"
-#include "WifiManager.h"
 #include "esp_log.h"
-#include "ssd1306.h"
+typedef void *ssd1306_handle_t;
 #include "string.h"
 
 #define TAG_SCREEN_MANAGER "SCREEN_MANAGER"
@@ -23,6 +22,17 @@
  *
  * @return MRS_OK or MRS_ERR_SCREENMANAGER_* .
  */
+typedef enum {
+  SCREEN_STATE_UNINITIALIZED = 0,
+  SCREEN_STATE_INITIALIZING,
+  SCREEN_STATE_READY,
+  SCREEN_STATE_STOPPING
+} screen_lifecycle_state_t;
+
+screen_lifecycle_state_t ScreenManager_GetState(void);
+system_err_t ScreenManager_Init(void);
+system_err_t ScreenManager_Deinit(void);
+bool ScreenManager_IsReady(void);
 system_err_t ScreenManagerInit(ssd1306_handle_t *_oled);
 
 /**

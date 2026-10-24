@@ -10,7 +10,11 @@
 #include <stdbool.h>
 #include "esp_err.h"
 #include "esp_websocket_client.h"
-#include "Datamanager.h"
+#include "app_state.h"
+#include "telemetry_types.h"
+#include "uart_protocol.h"
+#include "system_metrics.h"
+#include "hardware_state.h"
 
 typedef struct
 {
@@ -25,6 +29,7 @@ typedef struct
 void websocket_attach_state(dm_ws_t *ws_state);
 
 void SendSignalRegister(void);
+/* Legacy declaration: currently unused and intentionally not implemented. */
 void DataToSever(dm_telemetry_t *telemetry);
 void WebSocket_Handler(void *pvParameter);
 

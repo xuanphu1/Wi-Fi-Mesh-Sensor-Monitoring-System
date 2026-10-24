@@ -1,8 +1,12 @@
 #include "SensorRegistry.h"
+#include "SensorRegistry_internal.h"
 #include "SensorConfig.h"
+#include "sdkconfig.h"
 #include <stddef.h>
 #include <stdint.h>
 
+
+#define SENSOR_DRIVERS_COUNT (sizeof(sensor_drivers) / sizeof(sensor_drivers[0]))
 /* -------------------- Sensor Drivers Registry -------------------- */
 // Table of all registered sensor drivers
 static sensor_driver_t sensor_drivers[] = {
@@ -91,9 +95,7 @@ static sensor_driver_t sensor_drivers[] = {
         .interface = COMMUNICATION_I2C,
     },
 };
-
 /* -------------------- Sensor Registry Functions -------------------- */
-
 const char *sensor_type_to_name(SensorType_t t) {
   switch (t) {
   case SENSOR_BME280:
@@ -118,7 +120,7 @@ const char *sensor_type_to_name(SensorType_t t) {
 }
 
 size_t sensor_registry_get_count(void) {
-  return sizeof(sensor_drivers) / sizeof(sensor_drivers[0]);
+  return SENSOR_DRIVERS_COUNT;
 }
 
 static void fill_descriptor(const sensor_driver_t *driver,
@@ -144,12 +146,45 @@ bool sensor_registry_get_descriptor(SensorType_t sensor_type,
   return true;
 }
 
+#if CONFIG_MSMS_ENABLE_TESTS
+static sensor_driver_t s_driver_overrides[SENSOR_DRIVERS_COUNT];
+static bool s_has_override[SENSOR_DRIVERS_COUNT] = {false};
+
+void sensor_registry_set_driver_override(SensorType_t type,
+                                         const sensor_driver_t *override_driver) {
+  size_t count = sensor_registry_get_count();
+  for (size_t i = 0; i < count; i++) {
+    if (sensor_drivers[i].type == type) {
+      if (override_driver != NULL) {
+        s_driver_overrides[i] = *override_driver;
+        s_has_override[i] = true;
+      } else {
+        s_has_override[i] = false;
+      }
+      return;
+    }
+  }
+}
+
+void sensor_registry_reset_driver_overrides(void) {
+  for (size_t i = 0; i < SENSOR_DRIVERS_COUNT; i++) {
+    s_has_override[i] = false;
+  }
+}
+#endif
+
 bool sensor_registry_get_descriptor_at(size_t index,
                                        sensor_descriptor_t *out_descriptor) {
   if (out_descriptor == NULL || index >= sensor_registry_get_count()) {
     return false;
   }
-  fill_descriptor(&sensor_drivers[index], out_descriptor);
+#if CONFIG_MSMS_ENABLE_TESTS
+  const sensor_driver_t *driver =
+      s_has_override[index] ? &s_driver_overrides[index] : &sensor_drivers[index];
+#else
+  const sensor_driver_t *driver = &sensor_drivers[index];
+#endif
+  fill_descriptor(driver, out_descriptor);
   return true;
 }
 
@@ -157,7 +192,11 @@ sensor_driver_t *sensor_registry_get_driver_mutable(SensorType_t sensor_type) {
   size_t count = sensor_registry_get_count();
   for (size_t i = 0; i < count; i++) {
     if (sensor_drivers[i].type == sensor_type) {
+#if CONFIG_MSMS_ENABLE_TESTS
+      return s_has_override[i] ? &s_driver_overrides[i] : &sensor_drivers[i];
+#else
       return &sensor_drivers[i];
+#endif
     }
   }
   return NULL;
@@ -171,7 +210,11 @@ sensor_driver_t *sensor_registry_get_driver_mutable_at(
   if (out_sensor_type != NULL) {
     *out_sensor_type = sensor_drivers[index].type;
   }
+#if CONFIG_MSMS_ENABLE_TESTS
+  return s_has_override[index] ? &s_driver_overrides[index] : &sensor_drivers[index];
+#else
   return &sensor_drivers[index];
+#endif
 }
 
 size_t sensor_registry_get_count_by_interface(TypeCommunication_t iface) {
@@ -205,4 +248,3 @@ bool sensor_registry_get_descriptor_at_interface(
   }
   return false;
 }
-

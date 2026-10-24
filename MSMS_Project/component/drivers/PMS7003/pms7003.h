@@ -46,6 +46,12 @@ enum {
  */
 esp_err_t pms7003_initUart(uart_port_t uart_num, int tx_pin, int rx_pin);
 
+/**
+ * @brief Deinitialize PMS7003 UART state and mutex.
+ * @return ESP_OK on success.
+ */
+esp_err_t pms7003_deinitUart(void);
+
 //static esp_err_t pms7003_checkCRC(uint8_t data[32]);
 
 /**

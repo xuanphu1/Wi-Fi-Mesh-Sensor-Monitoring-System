@@ -2,8 +2,14 @@
 #define __SENSOR_REGISTRY_H__
 
 #include "SensorTypes.h"
+#include <stdbool.h>
+#include <stddef.h>
 
-/* -------------------- Sensor Registry Functions -------------------- */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* -------------------- Sensor Registry Public APIs -------------------- */
 
 /**
  * @brief Map SensorType_t to a display name string
@@ -20,16 +26,25 @@ const char *sensor_type_to_name(SensorType_t t);
  */
 size_t sensor_registry_get_count(void);
 
+/**
+ * @brief Get read-only descriptor for a specific sensor type
+ *
+ * @param sensor_type Sensor type enum
+ * @param out_descriptor Output descriptor structure
+ * @return true if found, false otherwise
+ */
 bool sensor_registry_get_descriptor(SensorType_t sensor_type,
                                     sensor_descriptor_t *out_descriptor);
+
+/**
+ * @brief Get read-only descriptor at global registry index
+ *
+ * @param index Index in registry (0 .. count - 1)
+ * @param out_descriptor Output descriptor structure
+ * @return true if found, false otherwise
+ */
 bool sensor_registry_get_descriptor_at(size_t index,
                                        sensor_descriptor_t *out_descriptor);
-
-/** Internal lifecycle access for SensorManager. Application/UI code must use
- * the callback-free descriptor APIs above. */
-sensor_driver_t *sensor_registry_get_driver_mutable(SensorType_t sensor_type);
-sensor_driver_t *sensor_registry_get_driver_mutable_at(
-    size_t index, SensorType_t *out_sensor_type);
 
 /**
  * @brief Count sensors for one interface (UART, I2C, SPI, PULSE)
@@ -47,5 +62,8 @@ bool sensor_registry_get_descriptor_at_interface(
     TypeCommunication_t iface, size_t index,
     sensor_descriptor_t *out_descriptor);
 
-#endif /* __SENSOR_REGISTRY_H__ */
+#ifdef __cplusplus
+}
+#endif
 
+#endif /* __SENSOR_REGISTRY_H__ */

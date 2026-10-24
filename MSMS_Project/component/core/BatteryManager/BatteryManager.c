@@ -1,16 +1,9 @@
 #include "BatteryManager.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include <string.h>
-
-/*
- * Legacy ADC battery block below is not compiled (#if 0).
- * Reason: legacy driver/adc.h + ADC1_CHANNEL_6/GPIO34 map to classic ESP32
- * only; ESP32-C6/C3 need esp_adc / adc_oneshot and per-chip channel mapping.
- * Re-enable: change #if 0 to #if 1, migrate to esp_adc for your chip, remove
- * #else stub.
- */
+#include "freertos/semphr.h"
 #include "driver/adc.h"
+#include <string.h>
 
 #define BATTERY_ADC_CHANNEL ADC1_CHANNEL_0 // GPIO 36
 #define BATTERY_ADC_WIDTH ADC_WIDTH_BIT_12
@@ -24,6 +17,20 @@
 #define BATTERY_READ_INTERVAL_MS 5000
 
 static bool adc_initialized = false;
+static bool s_battery_initialized = false;
+static volatile bool s_battery_stop_requested = false;
+static TaskHandle_t s_battery_task_handle = NULL;
+static SemaphoreHandle_t s_battery_stopped_sem = NULL;
+
+typedef enum {
+  BATTERY_TASK_STATE_STOPPED = 0,
+  BATTERY_TASK_STATE_STARTING,
+  BATTERY_TASK_STATE_RUNNING,
+  BATTERY_TASK_STATE_STOPPING,
+} battery_task_state_t;
+
+static volatile battery_task_state_t s_battery_task_state = BATTERY_TASK_STATE_STOPPED;
+
 static float current_voltage_legacy = 0.0f;
 static uint8_t current_level_legacy = 0;
 static uint8_t current_level_index_legacy = 0;
@@ -129,7 +136,7 @@ static uint8_t battery_map_level_to_index(uint8_t level) {
 static void battery_read_task(void *pvParameters) {
   DataManager_t *data = (DataManager_t *)pvParameters;
   ESP_LOGI(TAG_BATTERY_MANAGER, "Battery read task started");
-  while (1) {
+  while (!s_battery_stop_requested) {
     float voltage = battery_read_voltage();
     uint8_t level = battery_calculate_level(voltage);
     uint8_t level_index = battery_map_level_to_index(level);
@@ -152,22 +159,104 @@ static void battery_read_task(void *pvParameters) {
       data->objectInfo.batteryInfo.batteryName = battery_text_legacy;
       data->objectInfo.batteryInfo.is_charging = is_charging;
     }
-    vTaskDelay(pdMS_TO_TICKS(BATTERY_READ_INTERVAL_MS));
+
+    for (int elapsed = 0; elapsed < BATTERY_READ_INTERVAL_MS && !s_battery_stop_requested; elapsed += 100) {
+      vTaskDelay(pdMS_TO_TICKS(100));
+    }
   }
+
+  s_battery_task_state = BATTERY_TASK_STATE_STOPPING;
+  SemaphoreHandle_t sem = s_battery_stopped_sem;
+  if (sem != NULL) {
+    xSemaphoreGive(sem);
+  }
+  ESP_LOGI(TAG_BATTERY_MANAGER, "Battery read task exited cleanly");
+  vTaskDelete(NULL);
 }
 
 esp_err_t BatteryManager_Init(void) {
+  if (s_battery_initialized) {
+    return ESP_OK;
+  }
   esp_err_t ret = battery_adc_init();
   if (ret != ESP_OK) {
     return ret;
   }
+  if (s_battery_stopped_sem == NULL) {
+    s_battery_stopped_sem = xSemaphoreCreateBinary();
+    if (s_battery_stopped_sem == NULL) {
+      adc_initialized = false;
+      return ESP_ERR_NO_MEM;
+    }
+  }
+  s_battery_initialized = true;
+  s_battery_stop_requested = false;
   ESP_LOGI(TAG_BATTERY_MANAGER, "BatteryManager initialized");
   return ESP_OK;
 }
 
-void BatteryManager_StartTask(DataManager_t *data) {
-  xTaskCreate(battery_read_task, "battery_read_task", 4096, data, 5, NULL);
+esp_err_t BatteryManager_StartTask(DataManager_t *data) {
+  if (!s_battery_initialized) {
+    return ESP_ERR_INVALID_STATE;
+  }
+  if (s_battery_task_handle != NULL) {
+    return ESP_OK; // already running
+  }
+  s_battery_stop_requested = false;
+  if (s_battery_stopped_sem != NULL) {
+    (void)xSemaphoreTake(s_battery_stopped_sem, 0);
+  }
+  s_battery_task_state = BATTERY_TASK_STATE_STARTING;
+  BaseType_t ret = xTaskCreate(battery_read_task, "battery_read_task", 4096, data, 5, &s_battery_task_handle);
+  if (ret != pdPASS) {
+    s_battery_task_handle = NULL;
+    s_battery_task_state = BATTERY_TASK_STATE_STOPPED;
+    ESP_LOGE(TAG_BATTERY_MANAGER, "Failed to create battery read task");
+    return ESP_FAIL;
+  }
+  s_battery_task_state = BATTERY_TASK_STATE_RUNNING;
   ESP_LOGI(TAG_BATTERY_MANAGER, "Battery read task created");
+  return ESP_OK;
+}
+
+esp_err_t BatteryManager_StopTask(TickType_t timeout_ticks) {
+  if (s_battery_task_state == BATTERY_TASK_STATE_STOPPED && s_battery_task_handle == NULL) {
+    return ESP_OK;
+  }
+  s_battery_stop_requested = true;
+  if (s_battery_stopped_sem == NULL ||
+      xSemaphoreTake(s_battery_stopped_sem, timeout_ticks) != pdTRUE) {
+    ESP_LOGE(TAG_BATTERY_MANAGER, "Timeout waiting for battery read task to exit");
+    return ESP_ERR_TIMEOUT;
+  }
+  s_battery_stop_requested = false;
+  s_battery_task_handle = NULL;
+  s_battery_task_state = BATTERY_TASK_STATE_STOPPED;
+  return ESP_OK;
+}
+
+esp_err_t BatteryManager_Deinit(void) {
+  if (!s_battery_initialized && s_battery_task_handle == NULL) {
+    return ESP_OK;
+  }
+  esp_err_t err = BatteryManager_StopTask(pdMS_TO_TICKS(2000));
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG_BATTERY_MANAGER, "BatteryManager_Deinit: StopTask failed: %s; preserving resources", esp_err_to_name(err));
+    return err;
+  }
+  if (s_battery_stopped_sem != NULL) {
+    SemaphoreHandle_t sem = s_battery_stopped_sem;
+    s_battery_stopped_sem = NULL;
+    vSemaphoreDelete(sem);
+  }
+  adc_initialized = false;
+  s_battery_initialized = false;
+  s_battery_stop_requested = false;
+  return ESP_OK;
+}
+
+bool BatteryManager_IsRunning(void) {
+  return s_battery_task_handle != NULL;
 }
 
 float BatteryManager_GetVoltage(void) { return current_voltage_legacy; }

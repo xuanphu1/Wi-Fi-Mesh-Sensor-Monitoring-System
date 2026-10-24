@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "Datamanager.h"
+
 #include "FOTAManager.h"
 #include "LogicHandle.h"
 

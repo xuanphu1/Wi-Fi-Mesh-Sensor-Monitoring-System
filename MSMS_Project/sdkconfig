@@ -372,6 +372,12 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# MSMS Configuration
+#
+# CONFIG_MSMS_ENABLE_TESTS is not set
+# end of MSMS Configuration
+
+#
 # PinManager — UART
 #
 CONFIG_PIN_UART_TX=16

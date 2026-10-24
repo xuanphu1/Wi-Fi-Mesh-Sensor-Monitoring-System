@@ -11,15 +11,22 @@
 extern "C" {
 #endif
 
-typedef void (*sensor_manager_resource_hook_t)(void);
+typedef enum {
+  SENSOR_MANAGER_STATE_UNINITIALIZED = 0,
+  SENSOR_MANAGER_STATE_INITIALIZED,
+  SENSOR_MANAGER_STATE_RUNNING,
+  SENSOR_MANAGER_STATE_STOPPING
+} sensor_manager_state_t;
+
 typedef bool (*sensor_manager_bus_lock_fn)(uint32_t timeout_ms, void *context);
 typedef void (*sensor_manager_bus_unlock_fn)(void *context);
 
+sensor_manager_state_t SensorManager_GetState(void);
 system_err_t SensorManager_Init(DataManager_t *data);
 system_err_t SensorManager_Start(void);
+system_err_t SensorManager_Stop(void);
+system_err_t SensorManager_Deinit(void);
 
-void SensorManager_SetUartHooks(sensor_manager_resource_hook_t pause_hook,
-                                sensor_manager_resource_hook_t resume_hook);
 void SensorManager_SetBusGuard(sensor_manager_bus_lock_fn lock_fn,
                                sensor_manager_bus_unlock_fn unlock_fn,
                                void *context);
@@ -30,6 +37,16 @@ system_err_t SensorManager_AssignFirstAvailable(SensorType_t sensor_type,
                                                 PortId_t *out_port);
 system_err_t SensorManager_ResetAll(void);
 
+/* Immutable thread-safe snapshot APIs */
+system_err_t SensorManager_GetPortSnapshot(PortId_t port,
+                                           SensorPortSnapshot_t *out_snapshot);
+system_err_t SensorManager_GetAllPortSnapshots(
+    SensorPortSnapshot_t *out_snapshots, size_t max_snapshots,
+    size_t *out_count);
+system_err_t SensorManager_GetAssignedSensor(PortId_t port,
+                                             SensorType_t *out_sensor_type);
+
+/* Backward compatible snapshot query */
 system_err_t SensorManager_GetSnapshot(PortId_t port,
                                        SensorType_t *out_sensor_type,
                                        SensorData_t *out_data);
@@ -46,6 +63,11 @@ size_t SensorManager_GetAvailablePortCount(void);
 
 #ifdef __cplusplus
 }
+#endif
+
+#if CONFIG_MSMS_ENABLE_TESTS
+void SensorManager_TestInjectRestoreFault(int enable);
+void SensorManager_TestInjectUartResumeFault(int enable);
 #endif
 
 #endif /* SENSOR_MANAGER_H */

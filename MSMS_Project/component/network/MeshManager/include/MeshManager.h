@@ -19,6 +19,24 @@ typedef struct {
 } mesh_gateway_frame_t;
 
 typedef struct {
+  PortId_t port;
+  SensorType_t type;
+  bool valid;
+  uint8_t field_count;
+  float values[5];
+} mesh_telemetry_port_entry_t;
+
+typedef bool (*mesh_telemetry_provider_fn)(mesh_telemetry_port_entry_t *out_entries,
+                                           size_t max_entries,
+                                           size_t *out_count,
+                                           void *context);
+
+esp_err_t MeshManager_SetTelemetryProvider(mesh_telemetry_provider_fn provider, void *context);
+bool MeshManager_GetTelemetryEntries(mesh_telemetry_port_entry_t *out_entries,
+                                     size_t max_entries,
+                                     size_t *out_count);
+
+typedef struct {
   uint32_t rx_frames;
   uint32_t queued_frames;
   uint32_t dropped_frames;
@@ -26,12 +44,13 @@ typedef struct {
   uint32_t reconnects;
 } mesh_gateway_stats_t;
 
-void MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role);
-void MeshManager_ResetState(void);
+esp_err_t MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role);
+esp_err_t MeshManager_ResetState(void);
 bool MeshManager_SwitchRole(mesh_role_t role);
 
 bool MeshManager_IsStarted(void);
 bool MeshManager_IsConnected(void);
+bool MeshManager_IsRoot(void);
 mesh_role_t MeshManager_GetRole(void);
 uint8_t MeshManager_GetConnectedNodeCount(void);
 
@@ -77,6 +96,10 @@ bool MeshManager_IsTelemetryPaused(void);
  * @return ESP_OK on success.
  */
 esp_err_t MeshManager_SendFrameToRoot(const char *json_str, size_t len);
+
+#if CONFIG_MSMS_ENABLE_TESTS
+void MeshManager_TestInjectStartFault(int fault_type);
+#endif
 
 #ifdef __cplusplus
 }

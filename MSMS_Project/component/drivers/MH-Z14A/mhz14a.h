@@ -100,6 +100,12 @@ typedef struct {
 esp_err_t mhz14a_init_uart(uart_port_t uart_num, int tx_pin, int rx_pin, const uart_config_t *uart_config);
 
 /**
+ * @brief Deinitialize the MH-Z14A UART state and mutex.
+ * @return ESP_OK on success.
+ */
+esp_err_t mhz14a_deinit_uart(void);
+
+/**
  * @brief Read the CO2 concentration and temperature from the sensor via UART.
  * 
  * @param[out] data Pointer to the structure to hold the sensor data.

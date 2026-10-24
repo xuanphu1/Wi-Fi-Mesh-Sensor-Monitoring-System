@@ -1,116 +1,131 @@
 #include "pms7003.h"
 #include <inttypes.h>
+#include <string.h>
 #include "PinManager.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
 
 __attribute__((unused)) static const char *TAG = "PMS7003";
 
 static uart_port_t s_pms_uart_num = UART_NUM_MAX;
+static SemaphoreHandle_t s_pms_mutex = NULL;
 
 esp_err_t pms7003_initUart(uart_port_t uart_num, int tx_pin, int rx_pin) {
-  uart_config_t uart_config = {
-      .baud_rate = PIN_UART_PERIPHERAL_BAUD_RATE,
-      .data_bits = UART_DATA_8_BITS,
-      .parity = UART_PARITY_DISABLE,
-      .stop_bits = UART_STOP_BITS_1,
-      .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-      .source_clk = UART_SCLK_APB,
-  };
-
-  /**
-   * @note: 3rd parameter of uart_driver_install() function - rx_buffer_size
-   * never less than 128 byte. if rx_buffer_size <= 128, program print error
-   * code "uart rx buffer length error".
-   */
+  if (uart_num >= UART_NUM_MAX) {
+    return ESP_ERR_INVALID_ARG;
+  }
   s_pms_uart_num = uart_num;
-  if (uart_is_driver_installed(uart_num)) {
-      uart_driver_delete(uart_num);
-  }
-  esp_err_t error_1 = uart_driver_install(uart_num,
-                                          (RX_BUFFER_SIZE * 2), 0, 0, NULL, 0);
-  ESP_ERROR_CHECK_WITHOUT_ABORT(error_1);
-  esp_err_t error_2 = uart_param_config(uart_num, &uart_config);
-  ESP_ERROR_CHECK_WITHOUT_ABORT(error_2);
-  esp_err_t error_3 =
-      uart_set_pin(uart_num, tx_pin, rx_pin,
-                   UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
-  ESP_ERROR_CHECK_WITHOUT_ABORT(error_3);
 
-  if (error_1 == ESP_OK && error_2 == ESP_OK && error_3 == ESP_OK) {
-    ESP_LOGI(__func__, "PMS7003 UART port initialize successful.");
-    return ESP_OK;
-  } else {
-    ESP_LOGE(__func__, "PMS7003 UART port initialize failed.");
-    return ESP_ERROR_PMS7003_INIT_UART_FAILED;
+  if (s_pms_mutex == NULL) {
+    s_pms_mutex = xSemaphoreCreateMutex();
+    if (s_pms_mutex == NULL) {
+      return ESP_ERR_NO_MEM;
+    }
   }
+
+  if (!uart_is_driver_installed(uart_num)) {
+    ESP_LOGE(__func__, "UART port %d driver not installed by UartResourceManager", (int)uart_num);
+    return ESP_ERR_INVALID_STATE;
+  }
+  (void)tx_pin;
+  (void)rx_pin;
+
+  ESP_LOGI(__func__, "PMS7003 UART port %d bound successfully.", (int)uart_num);
+  return ESP_OK;
 }
 
-// static esp_err_t pms7003_checkCRC(uint8_t data[32]);
+esp_err_t pms7003_deinitUart(void) {
+  if (s_pms_mutex != NULL) {
+    SemaphoreHandle_t mutex = s_pms_mutex;
+    s_pms_mutex = NULL;
+    vSemaphoreDelete(mutex);
+  }
+  s_pms_uart_num = UART_NUM_MAX;
+  return ESP_OK;
+}
 
 esp_err_t pms7003_activeMode(void) {
-  if (s_pms_uart_num == UART_NUM_MAX) return ESP_ERROR_PMS7003_SET_ACTIVE_MODE_FAILED;
-  esp_err_t errorReturn =
-      uart_write_bytes(s_pms_uart_num, pms7003_commandActiveMode,
-                       sizeof(pms7003_commandActiveMode));
-  if (errorReturn == -1) {
+  if (s_pms_uart_num == UART_NUM_MAX) {
+    return ESP_ERROR_PMS7003_SET_ACTIVE_MODE_FAILED;
+  }
+  int len = uart_write_bytes(s_pms_uart_num, pms7003_commandActiveMode,
+                             sizeof(pms7003_commandActiveMode));
+  if (len < 0) {
     ESP_LOGE(__func__, "Set active mode failed.");
     return ESP_ERROR_PMS7003_SET_ACTIVE_MODE_FAILED;
-  } else {
-    ESP_LOGI(__func__, "Set active mode successfuly.");
-    return ESP_OK;
   }
+  ESP_LOGI(__func__, "Set active mode successfully.");
+  return ESP_OK;
 }
 
 esp_err_t pms7003_readData(const int pms_modeAmbience, uint32_t *pm1_0,
                            uint32_t *pm2_5, uint32_t *pm10) {
-  uint8_t rawData[128];
-  bool check = false;
-  SemaphoreHandle_t print_muxtex = NULL;
-  print_muxtex = xSemaphoreCreateMutex();
+  if (pm1_0 == NULL || pm2_5 == NULL || pm10 == NULL) {
+    return ESP_ERR_INVALID_ARG;
+  }
+  if (s_pms_uart_num == UART_NUM_MAX || s_pms_mutex == NULL) {
+    return ESP_ERROR_PMS7003_READ_DATA_FAILED;
+  }
 
-  if (s_pms_uart_num == UART_NUM_MAX) return ESP_ERROR_PMS7003_READ_DATA_FAILED;
+  if (xSemaphoreTake(s_pms_mutex, pdMS_TO_TICKS(1000)) != pdTRUE) {
+    ESP_LOGE(__func__, "Mutex take timeout");
+    return ESP_ERROR_PMS7003_READ_DATA_FAILED;
+  }
 
-  // Read raw data array
-  uart_read_bytes(s_pms_uart_num, rawData, RX_BUFFER_SIZE,
-                  100 / portTICK_PERIOD_MS);
-  xSemaphoreTake(print_muxtex, portMAX_DELAY);
+  uint8_t rawData[128] = {0};
+  int read_len = uart_read_bytes(s_pms_uart_num, rawData, sizeof(rawData), pdMS_TO_TICKS(200));
+  if (read_len < 32) {
+    ESP_LOGD(__func__, "Insufficient bytes read: %d", read_len);
+    xSemaphoreGive(s_pms_mutex);
+    *pm1_0 = PMS_ERROR_INVALID_VALUE;
+    *pm2_5 = PMS_ERROR_INVALID_VALUE;
+    *pm10 = PMS_ERROR_INVALID_VALUE;
+    return ESP_ERROR_PMS7003_READ_DATA_FAILED;
+  }
 
-  for (size_t i = 0; i < 104; i++) {
-    if (rawData[i] ==
-            START_CHARACTER_1 && // Check first start byte in raw data array.
-        rawData[i + 1] ==
-            START_CHARACTER_2) // Check second start byte in raw data array.
-    {
-      uint8_t startByte;
-      startByte = i;
-      startByte += (pms_modeAmbience == indoor)
-                       ? 4
-                       : 10; // atmospheric from 10th byte, standard from 4th in
-                             // raw data array.
+  bool valid_frame = false;
+  size_t max_search = (read_len >= 32) ? (size_t)(read_len - 32) : 0;
 
-      *pm1_0 = ((rawData[startByte] << 8) + rawData[startByte + 1]);
-      *pm2_5 = ((rawData[startByte + 2] << 8) + rawData[startByte + 3]);
-      *pm10 = ((rawData[startByte + 4] << 8) + rawData[startByte + 5]);
+  for (size_t i = 0; i <= max_search; i++) {
+    if (rawData[i] == START_CHARACTER_1 && rawData[i + 1] == START_CHARACTER_2) {
+      uint16_t frame_len = ((uint16_t)rawData[i + 2] << 8) | rawData[i + 3];
+      if (frame_len < 28) {
+        continue;
+      }
 
-      ESP_LOGI(__func__, "PMS7003 sensor read data successful.");
-      ESP_LOGI(__func__,
-               "PM1.0: %" PRIu32 "ug/m3\tPM2.5: %" PRIu32
-               "ug/m3\tPM10: %" PRIu32 "ug/m3.\r",
+      // Checksum validation: sum bytes i through i+29
+      uint16_t checksum = 0;
+      for (size_t k = 0; k < 30; k++) {
+        checksum += rawData[i + k];
+      }
+      uint16_t expected_checksum = ((uint16_t)rawData[i + 30] << 8) | rawData[i + 31];
+
+      if (checksum != expected_checksum) {
+        ESP_LOGD(__func__, "Checksum mismatch: calc=0x%04x, exp=0x%04x", checksum, expected_checksum);
+        continue;
+      }
+
+      size_t startByte = i + ((pms_modeAmbience == indoor) ? 4 : 10);
+      *pm1_0 = ((uint32_t)rawData[startByte] << 8) | rawData[startByte + 1];
+      *pm2_5 = ((uint32_t)rawData[startByte + 2] << 8) | rawData[startByte + 3];
+      *pm10  = ((uint32_t)rawData[startByte + 4] << 8) | rawData[startByte + 5];
+
+      ESP_LOGI(__func__, "PMS7003 read success: PM1.0=%" PRIu32 ", PM2.5=%" PRIu32 ", PM10=%" PRIu32,
                *pm1_0, *pm2_5, *pm10);
-      xSemaphoreGive(print_muxtex);
-      vSemaphoreDelete(print_muxtex);
-      check = true;
+      valid_frame = true;
       break;
     }
   }
 
-  if (check == false) {
-    *pm1_0 = PMS_ERROR_INVALID_VALUE; // Return invalid value of sensor.
-    *pm2_5 = PMS_ERROR_INVALID_VALUE; // Return invalid value of sensor.
-    *pm10 = PMS_ERROR_INVALID_VALUE;  // Return invalid value of sensor.
-    ESP_LOGE(__func__, "PMS7003 sensor read data failed.");
-    xSemaphoreGive(print_muxtex);
-    vSemaphoreDelete(print_muxtex);
+  xSemaphoreGive(s_pms_mutex);
+
+  if (!valid_frame) {
+    *pm1_0 = PMS_ERROR_INVALID_VALUE;
+    *pm2_5 = PMS_ERROR_INVALID_VALUE;
+    *pm10  = PMS_ERROR_INVALID_VALUE;
+    ESP_LOGD(__func__, "PMS7003 sensor read data failed: no valid frame found");
     return ESP_ERROR_PMS7003_READ_DATA_FAILED;
   }
+
   return ESP_OK;
 }

@@ -1,7 +1,8 @@
 #include "ScreenManager.h"
+#include "ssd1306.h"
+#include "FunctionManager.h"
 #include "DataManager.h"
 #include "MeshManager.h"
-#include "SensorRegistry.h"
 #include "SystemPerfomance.h"
 #include "TimeManager.h"
 #include "WifiManager.h"
@@ -22,6 +23,12 @@
 ssd1306_handle_t oled = NULL;
 static SemaphoreHandle_t oled_mutex = NULL;
 static volatile bool s_screen_suspended = false;
+static volatile screen_lifecycle_state_t s_screen_state = SCREEN_STATE_UNINITIALIZED;
+static volatile int s_active_screen_users = 0;
+
+screen_lifecycle_state_t ScreenManager_GetState(void) {
+  return s_screen_state;
+}
 
 void ScreenManager_SetSuspended(bool suspended) {
   s_screen_suspended = suspended;
@@ -32,12 +39,21 @@ bool ScreenManager_IsSuspended(void) {
 }
 
 bool ScreenManager_Lock(TickType_t timeout_ticks) {
-  if (oled_mutex == NULL) return false;
-  return (xSemaphoreTake(oled_mutex, timeout_ticks) == pdTRUE);
+  if (s_screen_suspended || s_screen_state != SCREEN_STATE_READY || oled == NULL || oled_mutex == NULL) {
+    return false;
+  }
+  if (xSemaphoreTake(oled_mutex, timeout_ticks) == pdTRUE) {
+    s_active_screen_users++;
+    return true;
+  }
+  return false;
 }
 
 void ScreenManager_Unlock(void) {
   if (oled_mutex != NULL) {
+    if (s_active_screen_users > 0) {
+      s_active_screen_users--;
+    }
     xSemaphoreGive(oled_mutex);
   }
 }
@@ -130,26 +146,89 @@ invert_round_rect(ssd1306_handle_t dev, int x, int y, int w, int h) {
 
 static void initUIState(void);
 
-/**
- * @brief Take ownership of the SSD1306 handle, create OLED mutex, show splash.
- */
-system_err_t ScreenManagerInit(ssd1306_handle_t *_oled) {
-  if (_oled == NULL || *_oled == NULL) {
-    ESP_LOGE(TAG_SCREEN_MANAGER, "ScreenManagerInit: oled handle is NULL");
-    return MRS_ERR_SCREENMANAGER_NOT_INIT;
+system_err_t ScreenManager_Init(void) {
+  if (oled != NULL && s_screen_state == SCREEN_STATE_READY) {
+    return MRS_OK;
   }
-  oled = *_oled;
+  s_screen_state = SCREEN_STATE_INITIALIZING;
+  s_screen_suspended = false;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+  oled = ssd1306_create(I2C_NUM_0, SSD1306_I2C_ADDRESS);
+#pragma GCC diagnostic pop
+  if (oled == NULL) {
+    ESP_LOGE(TAG_SCREEN_MANAGER, "ScreenManager_Init: failed to create SSD1306 handle");
+    s_screen_state = SCREEN_STATE_UNINITIALIZED;
+    return MRS_ERR_SSD1306_INIT_FAILED;
+  }
   if (oled_mutex == NULL) {
     oled_mutex = xSemaphoreCreateMutex();
     if (oled_mutex == NULL) {
+      ssd1306_delete(oled);
+      oled = NULL;
       ESP_LOGE(TAG_SCREEN_MANAGER,
-               "ScreenManagerInit: failed to create oled mutex");
+               "ScreenManager_Init: failed to create oled mutex");
+      s_screen_state = SCREEN_STATE_UNINITIALIZED;
       return MRS_ERR_SCREENMANAGER_NOT_INIT;
     }
   }
+  s_screen_state = SCREEN_STATE_READY;
   initUIState();
   vTaskDelay(2000 / portTICK_PERIOD_MS);
   return MRS_OK;
+}
+
+system_err_t ScreenManager_Deinit(void) {
+  if (s_screen_state == SCREEN_STATE_UNINITIALIZED) {
+    return MRS_OK;
+  }
+  s_screen_state = SCREEN_STATE_STOPPING;
+  s_screen_suspended = true;
+  vTaskDelay(pdMS_TO_TICKS(50));
+  if (oled_mutex != NULL) {
+    if (xSemaphoreTake(oled_mutex, pdMS_TO_TICKS(2000)) != pdTRUE) {
+      ESP_LOGE(TAG_SCREEN_MANAGER, "ScreenManager_Deinit: timeout taking oled_mutex");
+      s_screen_state = SCREEN_STATE_READY;
+      s_screen_suspended = false;
+      return MRS_ERR_CORE_TIMEOUT;
+    }
+  }
+  if (oled != NULL) {
+    ssd1306_delete(oled);
+    oled = NULL;
+  }
+  if (oled_mutex != NULL) {
+    SemaphoreHandle_t m = oled_mutex;
+    oled_mutex = NULL;
+    xSemaphoreGive(m);
+    vSemaphoreDelete(m);
+  }
+  s_screen_state = SCREEN_STATE_UNINITIALIZED;
+  return MRS_OK;
+}
+
+bool ScreenManager_IsReady(void) {
+  return s_screen_state == SCREEN_STATE_READY && oled != NULL;
+}
+
+system_err_t ScreenManagerInit(ssd1306_handle_t *_oled) {
+  if (_oled != NULL && *_oled != NULL) {
+    oled = *_oled;
+    if (oled_mutex == NULL) {
+      oled_mutex = xSemaphoreCreateMutex();
+      if (oled_mutex == NULL) {
+        oled = NULL;
+        s_screen_state = SCREEN_STATE_UNINITIALIZED;
+        return MRS_ERR_SCREENMANAGER_NOT_INIT;
+      }
+    }
+    s_screen_suspended = false;
+    s_screen_state = SCREEN_STATE_READY;
+    initUIState();
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
+    return MRS_OK;
+  }
+  return ScreenManager_Init();
 }
 
 /**
@@ -169,8 +248,7 @@ bool g_menu_is_animating = false;
 
 static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
                                     objectInfoManager_t *objectInfo) {
-  if (oled == NULL) {
-    ESP_LOGE(TAG_SCREEN_MANAGER, "MenuRender: oled is not initialized");
+  if (s_screen_state != SCREEN_STATE_READY || s_screen_suspended || oled == NULL) {
     return MRS_ERR_SCREENMANAGER_NOT_INIT;
   }
   if (menu == NULL || selected == NULL) {
@@ -374,7 +452,7 @@ static system_err_t Draw_Menu_Frame(menu_list_t *menu, int8_t *selected,
 }
 
 void ScreenDashboard(DataManager_t *data) {
-  if (oled == NULL || data == NULL)
+  if (s_screen_state != SCREEN_STATE_READY || s_screen_suspended || oled == NULL || data == NULL)
     return;
   if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
     return;
@@ -494,16 +572,17 @@ void ScreenSensors(DataManager_t *data) {
     snprintf(buf, sizeof(buf), "P%d:", i + 1);
     my_draw_small_string(oled, 0, y_offset, buf);
 
-    if (data->selectedSensor[i] != SENSOR_NONE) {
+    SensorPortSnapshot_t snapshot = {0};
+    if (FunctionManager_GetPortSnapshot((PortId_t)i, &snapshot) == MRS_OK &&
+        snapshot.assigned) {
       sensor_descriptor_t descriptor = {0};
-      if (sensor_registry_get_descriptor(data->selectedSensor[i],
-                                         &descriptor)) {
+      if (FunctionManager_GetSensorDescriptor(snapshot.type, &descriptor) == MRS_OK) {
         // Print sensor name
         my_draw_small_string(oled, 22, y_offset, descriptor.name);
 
         // Print first value and unit
-        if (descriptor.unit_count > 0) {
-          snprintf(buf, sizeof(buf), "%.1f %s", data->port_data[i].data_fl[0],
+        if (descriptor.unit_count > 0 && snapshot.data_valid) {
+          snprintf(buf, sizeof(buf), "%.1f %s", snapshot.data.data_fl[0],
                    descriptor.unit[0] ? descriptor.unit[0] : "");
           my_draw_small_string(oled, 70, y_offset, buf);
         }
@@ -569,7 +648,7 @@ void ScreenPerformance(DataManager_t *data) {
 }
 
 void ScreenMeshTopology(DataManager_t *data) {
-  if (oled == NULL || data == NULL)
+  if (s_screen_state != SCREEN_STATE_READY || s_screen_suspended || oled == NULL || data == NULL)
     return;
   if (oled_mutex != NULL && xSemaphoreTake(oled_mutex, portMAX_DELAY) != pdTRUE)
     return;
@@ -673,7 +752,7 @@ void MenuRender_Task(void *pvParameters) {
   DataManager_t *data = (DataManager_t *)pvParameters;
   ESP_LOGI(TAG_SCREEN_MANAGER, "MenuRender_Task started");
   while (1) {
-    if (s_screen_suspended) {
+    if (s_screen_suspended || oled == NULL || oled_mutex == NULL) {
       vTaskDelay(pdMS_TO_TICKS(100));
       continue;
     }

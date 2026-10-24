@@ -16,6 +16,14 @@
 
 #define TAG_MENU_SYSTEM "MENU_SYSTEM"
 
+static TaskHandle_t s_menu_nav_task_handle = NULL;
+
+void MenuSystem_NotifyEvent(uint32_t event_bits) {
+  if (s_menu_nav_task_handle != NULL) {
+    xTaskNotify(s_menu_nav_task_handle, event_bits, eSetBits);
+  }
+}
+
 /**
  * @file MenuSystem.c
  * @brief Static menu trees, dynamic sensor submenus, and navigation task.
@@ -518,12 +526,16 @@ static void update_port_names(DataManager_t *data) {
     return;
   }
   for (int i = 0; i < NUM_PORTS; i++) {
-    if (data->selectedSensor[i] == SENSOR_NONE || data->selectedSensor[i] < 0) {
+    SensorType_t assigned = SENSOR_NONE;
+    if (FunctionManager_GetAssignedSensor((PortId_t)i, &assigned) != MRS_OK) {
+      assigned = SENSOR_NONE;
+    }
+    if (assigned == SENSOR_NONE || assigned < 0) {
       snprintf(port_display_name[i], PORT_DISPLAY_NAME_LEN, "Port %d", i + 1);
     } else {
       snprintf(port_display_name[i], PORT_DISPLAY_NAME_LEN, "Port %d - %s",
                i + 1,
-               FunctionManager_GetSensorName(data->selectedSensor[i]));
+               FunctionManager_GetSensorName(assigned));
     }
     Sensor_Menu_Items[i].name = port_display_name[i];
   }
@@ -551,9 +563,7 @@ static void menu_on_sensor_selected(DataManager_t *data, int port) {
   go_to_sensor_menu(data, (int8_t)port);
 }
 
-static void menu_on_ports_reset(DataManager_t *data) {
-  update_port_names(data);
-}
+
 
 static void update_network_menu_names(void) {
   InternetManagerStatus_t status = {0};
@@ -770,6 +780,7 @@ static void menu_auto_scan_disable_cb(void *ctx) {
  * DataManager.
  */
 void MenuSystemInit(DataManager_t *data) {
+  FunctionManager_SetUiNotifier(MenuSystem_NotifyEvent);
   Data = data;
   Data->screen.current = &Root_Menu;
   Data->screen.selected = 3;
@@ -799,7 +810,7 @@ void MenuSystemInit(DataManager_t *data) {
   update_network_menu_names();
   update_auto_scan_menu_names();
   Data->on_sensor_selected = menu_on_sensor_selected;
-  Data->on_ports_reset = menu_on_ports_reset;
+
 
   // Battery Status item callback in root menu (now index 4)
   Root_Items[4].callback = menu_battery_status_callback;
@@ -814,27 +825,42 @@ void MenuSystemInit(DataManager_t *data) {
  * @brief Poll ADC keys, update selection, invoke menu callbacks, redraw OLED.
  */
 void MenuNavigation_Task(void *pvParameter) {
+  s_menu_nav_task_handle = xTaskGetCurrentTaskHandle();
   DataManager_t *data = (DataManager_t *)pvParameter;
 
   data->screen.current = &Root_Menu;
   data->screen.selected = 0;
   data->screen.prev_selected = 0;
   for (int p = 0; p < NUM_PORTS; p++) {
+    SensorType_t assigned = SENSOR_NONE;
+    if (FunctionManager_GetAssignedSensor((PortId_t)p, &assigned) != MRS_OK) {
+      assigned = SENSOR_NONE;
+    }
     data->objectInfo.selectedSensorName[p] =
-        FunctionManager_GetSensorName(data->selectedSensor[p]);
+        FunctionManager_GetSensorName(assigned);
   }
   data->screen.is_menu_active = true;
 
   uint32_t last_interaction_time = xTaskGetTickCount();
 
   while (1) {
+    uint32_t notified_events = 0;
+    if (xTaskNotifyWait(0, ULONG_MAX, &notified_events, 0) == pdTRUE) {
+      if (notified_events & UI_EVENT_PORT_LABELS_CHANGED) {
+        update_port_names(data);
+      }
+    }
     update_network_menu_names();
     update_auto_scan_menu_names();
     data->objectInfo.auto_scan_enabled =
         FunctionManager_IsAutoScanEnabled();
     for (int p = 0; p < NUM_PORTS; p++) {
+      SensorType_t assigned = SENSOR_NONE;
+      if (FunctionManager_GetAssignedSensor((PortId_t)p, &assigned) != MRS_OK) {
+        assigned = SENSOR_NONE;
+      }
       data->objectInfo.selectedSensorName[p] =
-          FunctionManager_GetSensorName(data->selectedSensor[p]);
+          FunctionManager_GetSensorName(assigned);
     }
 
     button_type_t btn = ReadButtonStatus();

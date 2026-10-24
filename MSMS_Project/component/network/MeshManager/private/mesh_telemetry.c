@@ -45,8 +45,7 @@
 #include "mesh_telemetry.h"
 
 #include "ErrorCodes.h"
-#include "SensorManager.h"
-#include "SensorRegistry.h"
+#include "MeshManager.h"
 #include "TimeManager.h"
 #include "esp_mac.h"
 #include "esp_mesh_lite.h"
@@ -142,37 +141,30 @@ int mesh_telemetry_build(char *buffer, size_t capacity, DataManager_t *data,
     return -1;
   }
 
+  mesh_telemetry_port_entry_t entries[NUM_PORTS];
+  size_t entry_count = 0;
   bool first_port = true;
-  for (PortId_t port = PORT_1; port < NUM_PORTS; port++) {
-    SensorType_t type = SENSOR_NONE;
-    SensorData_t sensor_data = {0};
-    system_err_t result =
-        SensorManager_GetSnapshot(port, &type, &sensor_data);
-    if (result != MRS_OK) {
-      continue;
-    }
-
-    sensor_descriptor_t descriptor = {0};
-    if (!sensor_registry_get_descriptor(type, &descriptor)) {
-      continue;
-    }
-
-    if (!append_format(buffer, capacity, &offset, "%s[%d,%d",
-                       first_port ? "" : ",", (int)port + 1, (int)type)) {
-      return -1;
-    }
-    first_port = false;
-
-    uint8_t field_count =
-        descriptor.unit_count > 5 ? 5 : descriptor.unit_count;
-    for (uint8_t field = 0; field < field_count; field++) {
-      if (!append_format(buffer, capacity, &offset, ",%.3f",
-                         sensor_data.data_fl[field])) {
+  if (MeshManager_GetTelemetryEntries(entries, NUM_PORTS, &entry_count)) {
+    for (size_t i = 0; i < entry_count; i++) {
+      if (!entries[i].valid) {
+        continue;
+      }
+      if (!append_format(buffer, capacity, &offset, "%s[%d,%d",
+                         first_port ? "" : ",", (int)entries[i].port + 1, (int)entries[i].type)) {
         return -1;
       }
-    }
-    if (!append_format(buffer, capacity, &offset, "]")) {
-      return -1;
+      first_port = false;
+
+      uint8_t field_count = entries[i].field_count > 5 ? 5 : entries[i].field_count;
+      for (uint8_t field = 0; field < field_count; field++) {
+        if (!append_format(buffer, capacity, &offset, ",%.3f",
+                           entries[i].values[field])) {
+          return -1;
+        }
+      }
+      if (!append_format(buffer, capacity, &offset, "]")) {
+        return -1;
+      }
     }
   }
 

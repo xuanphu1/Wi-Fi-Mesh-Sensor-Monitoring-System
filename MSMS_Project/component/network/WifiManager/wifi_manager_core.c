@@ -301,7 +301,7 @@ bool wifi_manager_connect_sta(const char *ssid, const char *password, uint32_t t
   return false;
 }
 
-void wifi_manager_stop_tasks(void) {
+bool wifi_manager_stop_tasks(void) {
   wifi_manager_ctx_t *ctx = wifi_manager_ctx();
   ctx->stop_requested = true;
   ctx->connect_pending = false;
@@ -319,22 +319,29 @@ void wifi_manager_stop_tasks(void) {
   }
 
   if (ctx->event_group != NULL) {
-    xEventGroupClearBits(ctx->event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT |
-                                               WIFI_STA_LINKED_BIT);
-    xEventGroupSetBits(ctx->event_group, WIFI_AP_MODE_BIT);
+    xEventGroupClearBits(ctx->event_group, WIFI_CONNECTED_BIT | WIFI_STA_LINKED_BIT);
+    xEventGroupSetBits(ctx->event_group, WIFI_FAIL_BIT | WIFI_AP_MODE_BIT);
   }
 
-  for (int i = 0; i < 30; i++) {
+  bool tasks_stopped = false;
+  for (int i = 0; i < 40; i++) {
     if (ctx->connect_task_handle == NULL && ctx->manager_task_handle == NULL) {
+      tasks_stopped = true;
       break;
     }
     vTaskDelay(pdMS_TO_TICKS(100));
+  }
+
+  if (!tasks_stopped) {
+    ESP_LOGE(WIFI_TAG, "wifi_manager_stop_tasks: timeout waiting for worker tasks to exit");
+    return false;
   }
 
   ctx->initialized = false;
   ctx->ap_mode_active = false;
   ctx->sta_netif = NULL;
   ctx->ap_netif = NULL;
+  return true;
 }
 
 bool is_wifi_connected(void) {

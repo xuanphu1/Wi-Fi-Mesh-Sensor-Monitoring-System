@@ -14,6 +14,72 @@
 
 static const char *TAG = "MeshManager";
 
+static portMUX_TYPE s_telemetry_spinlock = portMUX_INITIALIZER_UNLOCKED;
+static mesh_telemetry_provider_fn s_telemetry_provider = NULL;
+static void *s_telemetry_context = NULL;
+static volatile int s_telemetry_active_callers = 0;
+
+#if CONFIG_MSMS_ENABLE_TESTS
+static int s_mesh_start_fault = 0;
+void MeshManager_TestInjectStartFault(int fault_type) {
+  s_mesh_start_fault = fault_type;
+}
+#endif
+
+esp_err_t MeshManager_SetTelemetryProvider(mesh_telemetry_provider_fn provider, void *context) {
+  if (provider == NULL) {
+    taskENTER_CRITICAL(&s_telemetry_spinlock);
+    s_telemetry_provider = NULL;
+    s_telemetry_context = NULL;
+    taskEXIT_CRITICAL(&s_telemetry_spinlock);
+
+    int wait_cycles = 0;
+    while (s_telemetry_active_callers > 0 && wait_cycles < 30) {
+      vTaskDelay(pdMS_TO_TICKS(10));
+      wait_cycles++;
+    }
+    if (s_telemetry_active_callers > 0) {
+      ESP_LOGE(TAG, "Timeout unregistering telemetry provider; %d active caller(s)", s_telemetry_active_callers);
+      return ESP_ERR_TIMEOUT;
+    }
+    return ESP_OK;
+  }
+
+  taskENTER_CRITICAL(&s_telemetry_spinlock);
+  s_telemetry_provider = provider;
+  s_telemetry_context = context;
+  taskEXIT_CRITICAL(&s_telemetry_spinlock);
+  return ESP_OK;
+}
+
+bool MeshManager_GetTelemetryEntries(mesh_telemetry_port_entry_t *out_entries,
+                                     size_t max_entries,
+                                     size_t *out_count) {
+  taskENTER_CRITICAL(&s_telemetry_spinlock);
+  mesh_telemetry_provider_fn provider = s_telemetry_provider;
+  void *context = s_telemetry_context;
+  if (provider != NULL) {
+    s_telemetry_active_callers++;
+  }
+  taskEXIT_CRITICAL(&s_telemetry_spinlock);
+
+  if (provider == NULL) {
+    if (out_count != NULL) {
+      *out_count = 0;
+    }
+    return false;
+  }
+
+  bool ok = provider(out_entries, max_entries, out_count, context);
+
+  taskENTER_CRITICAL(&s_telemetry_spinlock);
+  if (s_telemetry_active_callers > 0) {
+    s_telemetry_active_callers--;
+  }
+  taskEXIT_CRITICAL(&s_telemetry_spinlock);
+  return ok;
+}
+
 typedef struct {
   DataManager_t *data;
   QueueHandle_t gateway_queue;
@@ -29,14 +95,22 @@ static void push_error(DataManager_t *data, system_err_t error) {
   }
 }
 
-void MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role) {
+esp_err_t MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role) {
   if (data == NULL) {
-    return;
+    return ESP_ERR_INVALID_ARG;
   }
   if (s_manager.started) {
     ESP_LOGI(TAG, "Mesh already started");
-    return;
+    return ESP_OK;
   }
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_mesh_start_fault == 1) {
+    s_mesh_start_fault = 0;
+    push_error(data, MRS_ERR_CORE_OUT_OF_MEMORY);
+    return ESP_ERR_NO_MEM;
+  }
+#endif
 
   memset(&s_manager, 0, sizeof(s_manager));
   s_manager.data = data;
@@ -49,8 +123,18 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role) {
   if (s_manager.gateway_queue == NULL) {
     push_error(data, MRS_ERR_CORE_OUT_OF_MEMORY);
     ESP_LOGE(TAG, "Create gateway queue failed");
-    return;
+    return ESP_ERR_NO_MEM;
   }
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_mesh_start_fault == 2) {
+    s_mesh_start_fault = 0;
+    vQueueDelete(s_manager.gateway_queue);
+    memset(&s_manager, 0, sizeof(s_manager));
+    push_error(data, ESP_FAIL);
+    return ESP_FAIL;
+  }
+#endif
 
   esp_err_t result = mesh_network_start(initial_role);
   if (result != ESP_OK) {
@@ -59,8 +143,19 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role) {
              esp_err_to_name(result));
     vQueueDelete(s_manager.gateway_queue);
     memset(&s_manager, 0, sizeof(s_manager));
-    return;
+    return result;
   }
+
+#if CONFIG_MSMS_ENABLE_TESTS
+  if (s_mesh_start_fault == 3) {
+    s_mesh_start_fault = 0;
+    mesh_network_stop_runtime();
+    vQueueDelete(s_manager.gateway_queue);
+    memset(&s_manager, 0, sizeof(s_manager));
+    push_error(data, ESP_FAIL);
+    return ESP_FAIL;
+  }
+#endif
 
   result = mesh_tcp_transport_start(&s_manager.transport, data,
                                     s_manager.gateway_queue, initial_role);
@@ -70,33 +165,31 @@ void MeshManager_StartMesh(DataManager_t *data, mesh_role_t initial_role) {
     mesh_network_stop_runtime();
     vQueueDelete(s_manager.gateway_queue);
     memset(&s_manager, 0, sizeof(s_manager));
-    return;
+    return result;
   }
 
   s_manager.started = true;
   ESP_LOGI(TAG, "Mesh TCP started as %s",
            initial_role == MESH_ROLE_ROOT ? "root" : "node");
+  return ESP_OK;
 }
 
-void MeshManager_ResetState(void) {
+esp_err_t MeshManager_ResetState(void) {
   if (!s_manager.started) {
-    return;
+    return ESP_OK;
   }
-
-  s_manager.started = false;
 
   esp_err_t result = mesh_tcp_transport_stop(&s_manager.transport,
                                               pdMS_TO_TICKS(6000));
   if (result != ESP_OK) {
     ESP_LOGE(TAG, "TCP transport stop timed out; preserving its resources");
-    return;
+    return result;
   }
 
   mesh_network_stop_runtime();
 
   QueueHandle_t q = s_manager.gateway_queue;
   s_manager.gateway_queue = NULL;
-  vTaskDelay(pdMS_TO_TICKS(150)); // Allow in-flight receive task to cleanly exit
 
   if (q != NULL) {
     vQueueDelete(q);
@@ -104,8 +197,10 @@ void MeshManager_ResetState(void) {
   if (s_manager.data != NULL) {
     s_manager.data->meshIo.link_up = false;
   }
+  s_manager.started = false;
   memset(&s_manager, 0, sizeof(s_manager));
   ESP_LOGI(TAG, "Mesh runtime stopped");
+  return ESP_OK;
 }
 
 bool MeshManager_SwitchRole(mesh_role_t role) {
@@ -138,6 +233,16 @@ bool MeshManager_IsStarted(void) { return s_manager.started; }
 
 bool MeshManager_IsConnected(void) {
   return s_manager.started && esp_mesh_lite_get_level() > 0;
+}
+
+bool MeshManager_IsRoot(void) {
+  if (MeshManager_GetRole() == MESH_ROLE_ROOT) {
+    return true;
+  }
+  if (s_manager.started && esp_mesh_lite_get_level() == 1) {
+    return true;
+  }
+  return false;
 }
 
 mesh_role_t MeshManager_GetRole(void) {

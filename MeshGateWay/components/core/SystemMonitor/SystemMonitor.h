@@ -1,7 +1,9 @@
 #ifndef SYSTEM_MONITOR_H
 #define SYSTEM_MONITOR_H
 
-#include "Datamanager.h"
+#include "hardware_state.h"
+#include "system_metrics.h"
+#include "telemetry_types.h"
 
 void system_monitor_start(dm_hw_t *hw,
                           dm_cpu_t *cpu,
